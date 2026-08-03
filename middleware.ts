@@ -2,13 +2,15 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { jwtVerify } from 'jose';
 
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required');
-}
-
-const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET);
+const JWT_SECRET = process.env.JWT_SECRET;
+const SECRET_KEY = new TextEncoder().encode(JWT_SECRET || 'fallback-key-for-build');
 
 export async function middleware(req: NextRequest) {
+  if (!JWT_SECRET) {
+    console.error('JWT_SECRET environment variable is not set');
+    return NextResponse.redirect(new URL('/login', req.url));
+  }
+
   const token = req.cookies.get('port_session')?.value;
   const isAuthPage = req.nextUrl.pathname.startsWith('/login');
 

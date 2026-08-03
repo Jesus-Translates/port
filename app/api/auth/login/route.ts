@@ -3,13 +3,14 @@ import { SignJWT } from 'jose';
 
 const VALID_USERS = (process.env.VALID_USERS || 'Kelly,Jenni,Robert').split(',').map(u => u.trim());
 const VALID_PASSWORD = process.env.VALID_PASSWORD || 'SantaCruz';
-const SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET || '');
-
-if (!process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET environment variable is required');
-}
+const JWT_SECRET = process.env.JWT_SECRET;
+const SECRET_KEY = new TextEncoder().encode(JWT_SECRET || 'fallback-key-for-build');
 
 export async function POST(req: Request) {
+  if (!JWT_SECRET) {
+    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
+  }
+
   const { username, password } = await req.json();
   const matchedUser = VALID_USERS.find((u) => u.toLowerCase() === username.trim().toLowerCase());
 
