@@ -20,7 +20,7 @@ export function Chat({
   initialInput?: string;
 }) {
   const [input, setInput] = useState(initialInput);
-  const { messages, sendMessage, status } = useChat({
+  const { messages, sendMessage, status, error, regenerate } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
       body: { context },
@@ -109,6 +109,19 @@ export function Chat({
             <div className="rounded-2xl border border-sand bg-white/80 px-4 py-2.5 text-sm text-ink-faint">
               A Luna está a escrever…
             </div>
+          </div>
+        ) : null}
+        {error ? (
+          <div className="flex items-center gap-2 rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
+            <span>
+              A Luna não conseguiu responder (a ligação ou o limite do modelo).
+            </span>
+            <button
+              onClick={() => regenerate()}
+              className="font-semibold underline underline-offset-2"
+            >
+              Tentar outra vez
+            </button>
           </div>
         ) : null}
         <div ref={bottomRef} />

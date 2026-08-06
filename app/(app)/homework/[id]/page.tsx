@@ -11,7 +11,9 @@ export default async function HomeworkDetail(
 ) {
   const session = await requireSession();
   const { id } = await props.params;
-  const hw = await getHomeworkItem(Number(id));
+  const hwId = Number(id);
+  if (!Number.isInteger(hwId)) notFound();
+  const hw = await getHomeworkItem(hwId);
   if (!hw) notFound();
 
   const isOwner = hw.username === session.username;

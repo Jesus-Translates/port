@@ -5,10 +5,12 @@ import {
   toUIMessageStream,
   type UIMessage,
 } from "ai";
-import { NextResponse, type NextRequest } from "next/server";
+import { after, NextResponse, type NextRequest } from "next/server";
 import { getModel, tutorInstructions } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
+
+export const maxDuration = 120;
 
 export async function POST(request: NextRequest) {
   const session = await getSession();
@@ -16,8 +18,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const { messages, context }: { messages: UIMessage[]; context?: string } =
-    await request.json();
+  let body: { messages: UIMessage[]; context?: string };
+  try {
+    body = await request.json();
+    if (!Array.isArray(body.messages)) throw new Error();
+  } catch {
+    return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+  }
+  const { messages, context } = body;
 
   let instructions = tutorInstructions(session.displayName);
   if (context) {
@@ -25,9 +33,12 @@ export async function POST(request: NextRequest) {
   }
 
   // First message of a conversation → count it as study activity.
+  // after() keeps the write alive past the end of the streamed response.
   if (messages.filter((m) => m.role === "user").length === 1) {
-    logActivity(session.username, "tutor", "Talked with Luna", 5).catch(
-      () => {}
+    after(
+      logActivity(session.username, "tutor", "Talked with Luna", 5).catch(
+        () => {}
+      )
     );
   }
 

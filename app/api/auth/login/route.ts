@@ -7,7 +7,37 @@ import {
 } from "@/lib/auth";
 import { verifyTurnstile } from "@/lib/turnstile";
 
+// Per-instance sliding-window limiter: 10 attempts / 5 min / IP. Plenty for a
+// three-person family, hostile to password guessing.
+const WINDOW_MS = 5 * 60 * 1000;
+const MAX_ATTEMPTS = 10;
+const attempts = new Map<string, number[]>();
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const recent = (attempts.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
+  recent.push(now);
+  attempts.set(ip, recent);
+  if (attempts.size > 1000) {
+    for (const [key, times] of attempts) {
+      if (times.every((t) => now - t >= WINDOW_MS)) attempts.delete(key);
+    }
+  }
+  return recent.length > MAX_ATTEMPTS;
+}
+
 export async function POST(request: NextRequest) {
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    request.headers.get("x-real-ip") ??
+    "unknown";
+  if (rateLimited(ip)) {
+    return NextResponse.json(
+      { error: "Demasiadas tentativas. Espera uns minutos." },
+      { status: 429 }
+    );
+  }
+
   let body: { username?: string; password?: string; turnstileToken?: string };
   try {
     body = await request.json();

@@ -5,13 +5,22 @@ import { getModel, PT_STYLE, refSuggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { categories, getDb, refEntries } from "@/lib/db";
 
+export const maxDuration = 120;
+
 export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const { categoryId }: { categoryId: number } = await request.json();
+  let categoryId: number;
+  try {
+    const body = await request.json();
+    categoryId = Number(body.categoryId);
+    if (!Number.isInteger(categoryId)) throw new Error();
+  } catch {
+    return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+  }
   const db = getDb();
   const [category] = await db
     .select()
@@ -40,5 +49,17 @@ Existing entries (pt · section): ${existing.map((e) => `${e.pt} · ${e.section}
 Suggest 8-12 new entries.`,
   });
 
-  return NextResponse.json({ entries: output.entries });
+  const KINDS = ["term", "verb", "phrase", "task"];
+  const entries = output.entries
+    .filter((e) => e.pt?.trim() && e.en?.trim())
+    .map((e) => ({
+      kind: KINDS.includes(e.kind?.toLowerCase()) ? e.kind.toLowerCase() : "term",
+      section: e.section,
+      pt: e.pt,
+      en: e.en,
+      replyPt: e.replyPt ?? undefined,
+      replyEn: e.replyEn ?? undefined,
+      note: e.note ?? undefined,
+    }));
+  return NextResponse.json({ entries });
 }

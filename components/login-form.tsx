@@ -41,7 +41,8 @@ function LoginFormInner({
         return;
       }
       const next = searchParams.get("next");
-      router.push(next && next.startsWith("/") ? next : "/");
+      // Same-origin paths only ("//host" would leave the site).
+      router.push(next && /^\/(?!\/)/.test(next) ? next : "/");
       router.refresh();
     } catch {
       setError("Sem ligação. Tenta outra vez. (Connection problem.)");

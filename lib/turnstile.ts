@@ -7,8 +7,9 @@ const VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
  */
 export async function verifyTurnstile(token: string | undefined | null): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
-  // Turnstile not configured -> don't lock everyone out; password still gates.
-  if (!secret) return true;
+  // Not configured: allow only outside production (dev convenience); in
+  // production a missing secret must fail closed, not open the door to bots.
+  if (!secret) return process.env.NODE_ENV !== "production";
   if (!token) return false;
   try {
     const res = await fetch(VERIFY_URL, {

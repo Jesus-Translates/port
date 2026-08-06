@@ -1,6 +1,6 @@
 "use server";
 
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireSession } from "@/lib/auth";
@@ -20,11 +20,12 @@ export async function createNote(formData: FormData) {
   redirect(`/notes/${row.id}`);
 }
 
+// Notes are family-shared: any logged-in user can edit or delete any note.
 export async function updateNote(
   id: number,
   data: { title: string; body: string; tags: string }
 ) {
-  const session = await requireSession();
+  await requireSession();
   const db = getDb();
   await db
     .update(notes)
@@ -34,17 +35,15 @@ export async function updateNote(
       tags: data.tags,
       updatedAt: new Date(),
     })
-    .where(and(eq(notes.id, id), eq(notes.username, session.username)));
+    .where(eq(notes.id, id));
   revalidatePath("/notes");
   revalidatePath(`/notes/${id}`);
 }
 
 export async function deleteNote(id: number) {
-  const session = await requireSession();
+  await requireSession();
   const db = getDb();
-  await db
-    .delete(notes)
-    .where(and(eq(notes.id, id), eq(notes.username, session.username)));
+  await db.delete(notes).where(eq(notes.id, id));
   revalidatePath("/notes");
   redirect("/notes");
 }

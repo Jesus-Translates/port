@@ -43,21 +43,19 @@ export async function getCategoryBySlug(slug: string) {
   return { category, entries };
 }
 
-export async function getNotesFor(username: string) {
+// The whole hub is shared family space: notes and quizzes are visible to all
+// three users; `username` records who created a thing, not who may see it.
+export async function getNotesAll() {
   const db = getDb();
-  return db
-    .select()
-    .from(notes)
-    .where(eq(notes.username, username))
-    .orderBy(desc(notes.updatedAt));
+  return db.select().from(notes).orderBy(desc(notes.updatedAt));
 }
 
-export async function getNote(id: number, username: string) {
+export async function getNote(id: number) {
   const db = getDb();
   const [note] = await db
     .select()
     .from(notes)
-    .where(and(eq(notes.id, id), eq(notes.username, username)))
+    .where(eq(notes.id, id))
     .limit(1);
   return note ?? null;
 }
@@ -92,13 +90,9 @@ export async function getHomeworkItem(id: number) {
   return hw ?? null;
 }
 
-export async function getQuizzesFor(username: string) {
+export async function getQuizzesAll() {
   const db = getDb();
-  return db
-    .select()
-    .from(quizzes)
-    .where(eq(quizzes.username, username))
-    .orderBy(desc(quizzes.createdAt));
+  return db.select().from(quizzes).orderBy(desc(quizzes.createdAt));
 }
 
 export async function getQuiz(id: number) {
@@ -137,14 +131,19 @@ export async function getStats(username: string): Promise<Stats> {
     .from(activity)
     .where(eq(activity.username, username));
 
-  const days = new Set(rows.map((r) => r.createdAt.toISOString().slice(0, 10)));
+  // Bucket days in the family's timezone, not UTC — a 00:30 study session in
+  // Portugal should count as its own local day.
+  const dayKey = (d: Date) =>
+    d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
+
+  const days = new Set(rows.map((r) => dayKey(r.createdAt)));
   let streak = 0;
   const cursor = new Date();
   // Streak counts today (if active) or is anchored on yesterday.
-  if (!days.has(cursor.toISOString().slice(0, 10))) {
+  if (!days.has(dayKey(cursor))) {
     cursor.setDate(cursor.getDate() - 1);
   }
-  while (days.has(cursor.toISOString().slice(0, 10))) {
+  while (days.has(dayKey(cursor))) {
     streak += 1;
     cursor.setDate(cursor.getDate() - 1);
   }
@@ -152,9 +151,7 @@ export async function getStats(username: string): Promise<Stats> {
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
   const activeThisWeek = new Set(
-    rows
-      .filter((r) => r.createdAt >= weekAgo)
-      .map((r) => r.createdAt.toISOString().slice(0, 10))
+    rows.filter((r) => r.createdAt >= weekAgo).map((r) => dayKey(r.createdAt))
   ).size;
 
   const recent = await db

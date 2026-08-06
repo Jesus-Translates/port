@@ -1,22 +1,24 @@
 import Link from "next/link";
 import { createNote } from "@/lib/actions/notes";
 import { requireSession } from "@/lib/auth";
-import { getNotesFor } from "@/lib/data";
+import { getNotesAll } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Notas" };
 
 export default async function NotesPage() {
-  const session = await requireSession();
-  const notes = await getNotesFor(session.username);
+  await requireSession();
+  const notes = await getNotesAll();
 
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold tracking-tight">📝 As tuas notas</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">
+          📝 Notas da família
+        </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Write down what you&apos;re learning — Luna can explain, correct and
-          expand any note.
+          Shared study notes — everyone can read, add and improve them. Luna can
+          explain, correct and expand any note.
         </p>
       </header>
 
@@ -40,7 +42,7 @@ export default async function NotesPage() {
 
       {notes.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">
-          Ainda não tens notas. Cria a primeira! ↑
+          Ainda não há notas. Cria a primeira! ↑
         </p>
       ) : (
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -57,12 +59,13 @@ export default async function NotesPage() {
                 {n.body || "…"}
               </p>
               <div className="mt-3 flex items-center gap-2">
+                <span className="chip capitalize">{n.username}</span>
                 {n.tags
                   ? n.tags
                       .split(",")
                       .map((t) => t.trim())
                       .filter(Boolean)
-                      .slice(0, 3)
+                      .slice(0, 2)
                       .map((t) => (
                         <span key={t} className="chip">
                           {t}

@@ -69,12 +69,12 @@ export function SuggestPanel() {
           {suggestions.map((s, i) => (
             <Link
               key={i}
-              href={KIND_META[s.kind].href(s.param)}
+              href={(KIND_META[s.kind] ?? KIND_META.tutor).href(s.param)}
               className="group rounded-xl border border-sand bg-white/70 p-4 transition-all hover:border-sage hover:shadow-sm"
             >
               <div className="flex items-start gap-3">
                 <span className="text-2xl" aria-hidden>
-                  {KIND_META[s.kind].emoji}
+                  {(KIND_META[s.kind] ?? KIND_META.tutor).emoji}
                 </span>
                 <div>
                   <div className="font-semibold group-hover:text-olive">

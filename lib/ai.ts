@@ -40,21 +40,31 @@ How you work:
 - Never switch to Brazilian Portuguese forms; if the learner uses one, point out the pt-PT equivalent kindly.`;
 }
 
+// Lenient on purpose: smaller models drift from exact field names/enums, so we
+// accept aliases here and normalize with normalizeQuiz() before storing.
+// Absent-able fields are .nullable() (not .optional()) — OpenAI strict
+// structured outputs require every key present, with null for "no value".
 export const quizGenSchema = z.object({
-  title: z.string().describe("Short quiz title in English"),
+  title: z.string().nullable().describe("Short quiz title in English"),
   questions: z
     .array(
       z.object({
-        type: z.enum(["multiple", "translate"]),
+        type: z
+          .string()
+          .describe(`"multiple" (multiple choice) or "translate"`),
         promptPt: z
           .string()
-          .optional()
+          .nullable()
           .describe("Portuguese text the question is about, when relevant"),
-        promptEn: z.string().describe("The question, in English"),
+        promptEn: z.string().nullable().describe("The question, in English"),
+        question: z
+          .string()
+          .nullable()
+          .describe("Alias for promptEn — prefer promptEn, else null"),
         options: z
           .array(z.string())
-          .optional()
-          .describe("Exactly 4 options for type=multiple"),
+          .nullable()
+          .describe("Exactly 4 options for type=multiple, else null"),
         answer: z
           .string()
           .describe(
@@ -62,13 +72,61 @@ export const quizGenSchema = z.object({
           ),
         explanation: z
           .string()
+          .nullable()
           .describe("One-line English explanation of the answer"),
       })
     )
-    .min(4)
-    .max(12),
+    .min(3)
+    .max(14),
 });
-export type QuizQuestions = z.infer<typeof quizGenSchema>;
+
+export type QuizQuestion = {
+  type: "multiple" | "translate";
+  promptPt?: string;
+  promptEn: string;
+  options?: string[];
+  answer: string;
+  explanation: string;
+};
+/** Shape stored in quizzes.questions */
+export type QuizQuestions = { title?: string; questions: QuizQuestion[] };
+
+export function normalizeQuiz(
+  raw: z.infer<typeof quizGenSchema>
+): QuizQuestions {
+  const questions: QuizQuestion[] = [];
+  for (const q of raw.questions) {
+    const promptEn = (q.promptEn ?? q.question ?? q.promptPt ?? "").trim();
+    const answer = (q.answer ?? "").trim();
+    if (!promptEn || !answer) continue;
+    const isMultiple =
+      q.type.toLowerCase().includes("mult") &&
+      Array.isArray(q.options) &&
+      q.options.length >= 2;
+    if (isMultiple) {
+      const options = q.options!.slice(0, 5);
+      // Keep the answer answerable even if the model didn't repeat it verbatim.
+      if (!options.includes(answer)) options[options.length - 1] = answer;
+      questions.push({
+        type: "multiple",
+        promptPt: q.promptPt ?? undefined,
+        promptEn,
+        options,
+        answer,
+        explanation: q.explanation ?? "",
+      });
+    } else {
+      questions.push({
+        type: "translate",
+        promptPt: q.promptPt ?? undefined,
+        promptEn,
+        answer,
+        explanation: q.explanation ?? "",
+      });
+    }
+  }
+  return { title: raw.title ?? undefined, questions };
+}
 
 export const gradeSchema = z.object({
   results: z.array(
@@ -94,33 +152,29 @@ export const homeworkGenSchema = z.object({
 });
 
 export const lessonBlockSchema = z.object({
-  type: z.enum([
-    "intro",
-    "prompts",
-    "vocab",
-    "reading",
-    "writing",
-    "speaking",
-    "game",
-  ]),
-  md: z.string().optional(),
-  titlePt: z.string().optional(),
-  titleEn: z.string().optional(),
+  type: z
+    .string()
+    .describe(
+      "One of: intro, prompts, vocab, reading, writing, speaking, game"
+    ),
+  md: z.string().nullable(),
+  titlePt: z.string().nullable(),
+  titleEn: z.string().nullable(),
   items: z
     .array(
       z.object({
-        user: z.string().optional(),
+        user: z.string().nullable(),
         pt: z.string(),
-        en: z.string().optional(),
+        en: z.string().nullable(),
       })
     )
-    .optional(),
-  textPt: z.string().optional(),
+    .nullable(),
+  textPt: z.string().nullable(),
   questions: z
-    .array(z.object({ pt: z.string(), en: z.string().optional() }))
-    .optional(),
-  promptPt: z.string().optional(),
-  promptEn: z.string().optional(),
+    .array(z.object({ pt: z.string(), en: z.string().nullable() }))
+    .nullable(),
+  promptPt: z.string().nullable(),
+  promptEn: z.string().nullable(),
 });
 
 export const lessonGenSchema = z.object({
@@ -134,13 +188,13 @@ export const refSuggestSchema = z.object({
   entries: z
     .array(
       z.object({
-        kind: z.enum(["term", "verb", "phrase", "task"]),
+        kind: z.string().describe("One of: term, verb, phrase, task"),
         section: z.string(),
         pt: z.string(),
         en: z.string(),
-        replyPt: z.string().optional(),
-        replyEn: z.string().optional(),
-        note: z.string().optional(),
+        replyPt: z.string().nullable(),
+        replyEn: z.string().nullable(),
+        note: z.string().nullable(),
       })
     )
     .min(5)
@@ -156,7 +210,9 @@ export const suggestSchema = z.object({
       z.object({
         title: z.string().describe("Short action title in English"),
         reason: z.string().describe("One line on why this, based on their activity"),
-        kind: z.enum(["quiz", "lesson", "reference", "tutor", "homework"]),
+        kind: z
+          .string()
+          .describe("One of: quiz, lesson, reference, tutor, homework"),
         param: z
           .string()
           .describe(

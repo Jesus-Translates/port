@@ -1,14 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
+import { useRef, useState, useTransition } from "react";
 import { Chat } from "@/components/chat";
 import { deleteNote, updateNote } from "@/lib/actions/notes";
 
 export function NoteEditor({
   note,
 }: {
-  note: { id: number; title: string; body: string; tags: string };
+  note: {
+    id: number;
+    title: string;
+    body: string;
+    tags: string;
+    author: string;
+  };
 }) {
   const [title, setTitle] = useState(note.title);
   const [body, setBody] = useState(note.body);
@@ -16,11 +22,14 @@ export function NoteEditor({
   const [saved, setSaved] = useState(true);
   const [pending, startTransition] = useTransition();
   const [lunaOpen, setLunaOpen] = useState(false);
+  // Edits made while a save is in flight must not be marked as saved.
+  const editCounter = useRef(0);
 
   function save() {
+    const sentAt = editCounter.current;
     startTransition(async () => {
       await updateNote(note.id, { title, body, tags });
-      setSaved(true);
+      if (editCounter.current === sentAt) setSaved(true);
     });
   }
 
@@ -30,6 +39,7 @@ export function NoteEditor({
         <Link href="/notes" className="text-xs text-ink-faint hover:text-olive">
           ← Notas
         </Link>
+        <span className="chip capitalize">por {note.author}</span>
         <div className="flex-1" />
         <span className="text-xs text-ink-faint">
           {pending ? "A guardar…" : saved ? "Guardado ✓" : "Por guardar"}
@@ -53,6 +63,7 @@ export function NoteEditor({
         value={title}
         onChange={(e) => {
           setTitle(e.target.value);
+          editCounter.current += 1;
           setSaved(false);
         }}
         className="input font-display !text-2xl font-semibold"
@@ -62,6 +73,7 @@ export function NoteEditor({
         value={body}
         onChange={(e) => {
           setBody(e.target.value);
+          editCounter.current += 1;
           setSaved(false);
         }}
         rows={14}
@@ -72,6 +84,7 @@ export function NoteEditor({
         value={tags}
         onChange={(e) => {
           setTags(e.target.value);
+          editCounter.current += 1;
           setSaved(false);
         }}
         className="input"

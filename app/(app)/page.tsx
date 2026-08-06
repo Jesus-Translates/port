@@ -31,6 +31,7 @@ export default async function Dashboard() {
     weekday: "long",
     day: "numeric",
     month: "long",
+    timeZone: "Europe/Lisbon",
   });
 
   return (

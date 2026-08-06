@@ -1,19 +1,23 @@
 import Link from "next/link";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { QuizPlayer } from "@/components/quiz-player";
 import type { QuizQuestions } from "@/lib/ai";
+import { cloneQuiz } from "@/lib/actions/quiz";
+import type { GradedResult } from "@/lib/actions/quiz";
 import { requireSession } from "@/lib/auth";
 import { getQuiz } from "@/lib/data";
-import type { GradedResult } from "@/lib/actions/quiz";
 
 export default async function QuizPage(props: PageProps<"/practice/[id]">) {
   const session = await requireSession();
   const { id } = await props.params;
-  const quiz = await getQuiz(Number(id));
-  if (!quiz || Number.isNaN(Number(id))) notFound();
-  if (quiz.username !== session.username) redirect("/practice");
+  const quizId = Number(id);
+  if (!Number.isInteger(quizId)) notFound();
+  const quiz = await getQuiz(quizId);
+  if (!quiz) notFound();
 
+  const isOwner = quiz.username === session.username;
   const { questions } = quiz.questions as QuizQuestions;
+  const cloneThis = cloneQuiz.bind(null, quiz.id);
 
   return (
     <div className="space-y-5">
@@ -21,23 +25,35 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
         <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
           ← Praticar
         </Link>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-          🎯 {quiz.topic}
-        </h1>
+        <div className="mt-1 flex flex-wrap items-center gap-2">
+          <h1 className="text-2xl font-semibold tracking-tight">
+            🎯 {quiz.topic}
+          </h1>
+          <span className="chip capitalize">{quiz.username}</span>
+        </div>
         <p className="text-sm text-ink-soft">
           {quiz.level} · {questions.length} perguntas
         </p>
       </header>
 
       {quiz.status === "completed" ? (
-        <CompletedView
-          questions={questions}
-          answers={(quiz.answers as string[]) ?? []}
-          results={(quiz.feedback as GradedResult[]) ?? []}
-          score={quiz.score ?? 0}
-          total={quiz.total ?? questions.length}
-        />
-      ) : (
+        <>
+          <CompletedView
+            questions={questions}
+            answers={(quiz.answers as string[]) ?? []}
+            results={(quiz.feedback as GradedResult[]) ?? []}
+            score={quiz.score ?? 0}
+            total={quiz.total ?? questions.length}
+            ownerName={quiz.username}
+            isOwner={isOwner}
+          />
+          <form action={cloneThis}>
+            <button type="submit" className="btn-ghost">
+              🔁 Fazer este teste também
+            </button>
+          </form>
+        </>
+      ) : isOwner ? (
         <QuizPlayer
           quizId={quiz.id}
           questions={questions.map((q) => ({
@@ -47,6 +63,20 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
             options: q.options,
           }))}
         />
+      ) : (
+        <div className="card space-y-3 p-6 text-center">
+          <p className="text-sm text-ink-soft">
+            Este teste é de{" "}
+            <span className="font-semibold capitalize">{quiz.username}</span> e
+            ainda está por fazer — as perguntas ficam escondidas até ser
+            entregue.
+          </p>
+          <form action={cloneThis}>
+            <button type="submit" className="btn-terra">
+              🔁 Fazer uma cópia para mim
+            </button>
+          </form>
+        </div>
       )}
     </div>
   );
@@ -58,12 +88,16 @@ function CompletedView({
   results,
   score,
   total,
+  ownerName,
+  isOwner,
 }: {
   questions: QuizQuestions["questions"];
   answers: string[];
   results: GradedResult[];
   score: number;
   total: number;
+  ownerName: string;
+  isOwner: boolean;
 }) {
   return (
     <div className="space-y-4">
@@ -76,11 +110,13 @@ function CompletedView({
             {score}/{total}
           </div>
           <div className="text-sm text-ink-soft">
-            {score / total >= 0.8
-              ? "Fantástico! Estás em chamas."
-              : score / total >= 0.5
-                ? "Bom trabalho — continua!"
-                : "Tudo bem — errar faz parte de aprender."}
+            {isOwner
+              ? score / total >= 0.8
+                ? "Fantástico! Estás em chamas."
+                : score / total >= 0.5
+                  ? "Bom trabalho — continua!"
+                  : "Tudo bem — errar faz parte de aprender."
+              : `Resultado de ${ownerName.charAt(0).toUpperCase()}${ownerName.slice(1)}.`}
           </div>
         </div>
       </div>
@@ -99,7 +135,7 @@ function CompletedView({
                     <p className="text-sm text-ink-soft">{q.promptPt}</p>
                   ) : null}
                   <p className="mt-1.5 text-sm">
-                    <span className="text-ink-faint">Your answer: </span>
+                    <span className="text-ink-faint">Answer given: </span>
                     {answers[i] || <em className="text-ink-faint">blank</em>}
                   </p>
                   {r?.comment ? (
@@ -113,9 +149,6 @@ function CompletedView({
           );
         })}
       </ol>
-      <Link href="/practice" className="btn-primary">
-        Outro teste →
-      </Link>
     </div>
   );
 }

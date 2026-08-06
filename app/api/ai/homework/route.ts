@@ -5,16 +5,21 @@ import { getSession, getValidUsers } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 
+export const maxDuration = 120;
+
 export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const {
-    topic = "everyday life in Portugal",
-    forEveryone = false,
-  }: { topic?: string; forEveryone?: boolean } = await request.json();
+  let body: { topic?: string; forEveryone?: boolean };
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+  }
+  const { topic = "everyday life in Portugal", forEveryone = false } = body;
 
   const { output } = await generateText({
     model: getModel(),

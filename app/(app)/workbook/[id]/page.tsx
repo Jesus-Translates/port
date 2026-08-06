@@ -21,7 +21,9 @@ type Block = {
 export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
   const session = await requireSession();
   const { id } = await props.params;
-  const lesson = await getLesson(Number(id));
+  const lessonId = Number(id);
+  if (!Number.isInteger(lessonId)) notFound();
+  const lesson = await getLesson(lessonId);
   if (!lesson) notFound();
 
   const blocks = lesson.blocks as Block[];

@@ -5,6 +5,7 @@ import { Markdown } from "@/components/markdown";
 import {
   deleteHomework,
   enhanceHomework,
+  requestFeedback,
   submitHomework,
 } from "@/lib/actions/homework";
 
@@ -118,10 +119,20 @@ export function HomeworkWork({
               <Markdown>{homework.feedback}</Markdown>
             </section>
           ) : (
-            <p className="card p-5 text-sm text-ink-soft">
-              Entregue — à espera da correção da Luna. Recarrega a página daqui
-              a pouco.
-            </p>
+            <div className="card space-y-3 p-5">
+              <p className="text-sm text-ink-soft">
+                Entregue — a correção da Luna ainda não chegou.
+              </p>
+              {isOwner ? (
+                <button
+                  className="btn-terra"
+                  disabled={pending}
+                  onClick={() => startTransition(() => requestFeedback(homework.id))}
+                >
+                  {pending ? "A Luna está a corrigir…" : "🌙 Pedir a correção"}
+                </button>
+              ) : null}
+            </div>
           )}
         </>
       )}

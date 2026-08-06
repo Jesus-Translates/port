@@ -5,14 +5,21 @@ import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, lessons } from "@/lib/db";
 
+export const maxDuration = 120;
+
 export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const { topic = "daily routines", level = "A2" }: { topic?: string; level?: string } =
-    await request.json();
+  let body: { topic?: string; level?: string };
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+  }
+  const { topic = "daily routines", level = "A2" } = body;
 
   const { output } = await generateText({
     model: getModel(),

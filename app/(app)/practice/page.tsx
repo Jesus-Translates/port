@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { QuizNewForm } from "@/components/quiz-new-form";
 import { requireSession } from "@/lib/auth";
-import { getQuizzesFor } from "@/lib/data";
+import { getQuizzesAll } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Praticar" };
@@ -9,15 +9,15 @@ export const metadata = { title: "Praticar" };
 export default async function PracticePage(props: PageProps<"/practice">) {
   const session = await requireSession();
   const { topic } = await props.searchParams;
-  const quizzes = await getQuizzesFor(session.username);
+  const quizzes = await getQuizzesAll();
 
   return (
     <div className="space-y-6">
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">🎯 Praticar</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Luna writes a fresh quiz on any topic — multiple choice + a little
-          translating. Instant feedback.
+          Luna writes a fresh quiz on any topic. Everyone sees everyone&apos;s
+          results — take the same quiz and compare!
         </p>
       </header>
 
@@ -25,7 +25,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
 
       {quizzes.length > 0 ? (
         <section>
-          <h2 className="mb-3 text-lg font-semibold">Os teus testes</h2>
+          <h2 className="mb-3 text-lg font-semibold">Testes da família</h2>
           <div className="card divide-y divide-sand/70">
             {quizzes.map((q) => (
               <Link
@@ -42,12 +42,15 @@ export default async function PracticePage(props: PageProps<"/practice">) {
                     {q.level} · {formatDate(q.createdAt)}
                   </div>
                 </div>
+                <span className="chip capitalize">{q.username}</span>
                 {q.status === "completed" && q.score != null ? (
                   <span className="chip">
                     {q.score}/{q.total}
                   </span>
-                ) : (
+                ) : q.username === session.username ? (
                   <span className="text-xs text-terra">por fazer →</span>
+                ) : (
+                  <span className="text-xs text-ink-faint">por fazer</span>
                 )}
               </Link>
             ))}

@@ -4,6 +4,8 @@ import { getModel, PT_STYLE, suggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { getCategoriesWithCounts, getStats } from "@/lib/data";
 
+export const maxDuration = 120;
+
 export async function POST() {
   const session = await getSession();
   if (!session) {
@@ -31,5 +33,12 @@ Recent activity (newest first): ${stats.recent.map((r) => `[${r.username}] ${r.s
 Category slugs: ${cats.map((c) => `${c.slug} (${c.entryCount} entries)`).join(", ")}.`,
   });
 
-  return NextResponse.json(output);
+  const KINDS = ["quiz", "lesson", "reference", "tutor", "homework"];
+  return NextResponse.json({
+    greetingPt: output.greetingPt,
+    suggestions: output.suggestions.map((s) => ({
+      ...s,
+      kind: KINDS.includes(s.kind?.toLowerCase()) ? s.kind.toLowerCase() : "tutor",
+    })),
+  });
 }
