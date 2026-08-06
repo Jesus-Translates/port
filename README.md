@@ -57,6 +57,17 @@ npm run db:seed   # seed users + content/*.json (idempotent, keeps user edits)
 ## AI model note
 
 The app is built for **GPT 5.6 Luna** (`openai/gpt-5.6-luna`). The Vercel AI
-Gateway free tier doesn't include it, so until credits are topped up
-(Vercel dashboard → AI → top up) the app runs on `openai/gpt-oss-120b`.
-Switching back is a one-line env change — no code involved.
+Gateway free tier doesn't include it, so out of the box it runs on
+`openai/gpt-oss-120b`. Two ways to switch, both env-only:
+
+```bash
+# Option A (recommended) — use your own OpenAI account, bypassing the gateway:
+printf '%s' 'sk-YOUR-KEY' | npx vercel env add OPENAI_API_KEY production
+npx vercel env rm AI_MODEL production -y
+printf '%s' 'openai/gpt-5.6-luna' | npx vercel env add AI_MODEL production
+npx vercel deploy --prod --yes
+```
+
+Option B: top up AI Gateway credits (Vercel dashboard → AI → top up), then set
+`AI_MODEL=openai/gpt-5.6-luna` and redeploy. `getModel()` in `lib/ai.ts` picks
+the direct-OpenAI path automatically whenever `OPENAI_API_KEY` starts with `sk-`.
