@@ -11,16 +11,18 @@ port.robertjeremiah.com.
 - [x] Digest example PDFs (lesson format + "Espaços da Casa" reference book → seed ideas)
 - [x] Storage decision: Neon Postgres (Vercel Marketplace) + Drizzle ORM
 - [x] AI decision: AI SDK v6 + gateway model `openai/gpt-5.6-luna`
-- [ ] Next.js 16.2.12 docs brief (researcher subagent — running)
-- [ ] Provision Neon via `vercel integration add neon`, pull env
-- [ ] Scaffold: package.json, tsconfig, tailwind v4, next config
-- [ ] Core: auth (login + Turnstile + JWT cookie + middleware/proxy), db schema, AI client
-- [ ] Features: dashboard, tutor chat, reference book, notes, practice (quizzes), homework
-- [ ] Seed content: EN/pt-PT reference packs (delegated content agents)
-- [ ] Local verification: build, lint, browser walk-through of every page
-- [ ] Fresh-eyes reviewer subagent on the full diff; fix findings
-- [ ] Deploy to Vercel (Opus deployment agent), env vars, domain port.robertjeremiah.com
-- [ ] Final report: what shipped, Turnstile real-key swap steps, ideas backlog
+- [x] Next.js 16.2.12 docs brief (researcher subagent)
+- [x] Provision Neon via `vercel integration add neon`, pull env
+- [x] Scaffold: package.json, tsconfig, tailwind v4, next config
+- [x] Core: auth (login + Turnstile + JWT cookie + proxy.ts), db schema, AI client
+- [x] Features: dashboard, tutor chat, reference book, notes, practice (quizzes), homework, workbook
+- [x] Seed content: 434 pt-PT entries in 16 categories + 6 lessons (content agents)
+- [x] Local verification: build, lint, browser walk-through, live AI quiz 4/4
+- [x] Fresh-eyes reviewer (opus) — 14 findings, all fixed or already-fixed
+- [x] Mid-build user request: everything shared across users (notes, quizzes + clone)
+- [x] Deploy to Vercel prod (Opus agent), env vars, domain attached
+- [ ] USER: add Cloudflare CNAME `port` → `3703d602696e5bf1.vercel-dns-016.com.` (proxy OFF)
+- [ ] USER: AI Gateway credits (or OPENAI_API_KEY) to unlock gpt-5.6-luna; real Turnstile keys
 
 ## Delegations
 
@@ -31,4 +33,13 @@ port.robertjeremiah.com.
 
 ## Review
 
-(to be filled at the end)
+Shipped 2026-08-06. Deployment READY on Vercel (project port.robertjeremiah.com,
+team hossola); domain attached, waiting only on the Cloudflare CNAME. Reviewer
+verdict was "fix-first" — all five blockers fixed before deploy (Turnstile
+fail-closed + rate limit, stranded homework retry, NaN params, enhanceHomework
+guard, open redirect) plus the follow-up findings (nullable schemas for strict
+structured outputs, chat error UX, Lisbon-timezone streaks, grading dedup,
+maxDuration, after(), note-editor save race). Live-tested end to end locally:
+login API, dashboard, reference, lesson, notes, streaming tutor, quiz 4/4 with
+AI grading. AI runs on gpt-oss-120b until gateway credits unlock gpt-5.6-luna
+(env-only switch).
