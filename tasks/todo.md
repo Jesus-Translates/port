@@ -21,8 +21,10 @@ port.robertjeremiah.com.
 - [x] Fresh-eyes reviewer (opus) — 14 findings, all fixed or already-fixed
 - [x] Mid-build user request: everything shared across users (notes, quizzes + clone)
 - [x] Deploy to Vercel prod (Opus agent), env vars, domain attached
-- [ ] USER: add Cloudflare CNAME `port` → `3703d602696e5bf1.vercel-dns-016.com.` (proxy OFF)
-- [ ] USER: AI Gateway credits (or OPENAI_API_KEY) to unlock gpt-5.6-luna; real Turnstile keys
+- [x] Cloudflare CNAME `port` → vercel-dns (DNS only) — LIVE at https://port.robertjeremiah.com
+- [x] Real Turnstile widget "Portuguese Hub" created (port.robertjeremiah.com + localhost),
+      keys swapped in Vercel prod/preview and .env.local, redeployed, enforcement verified
+- [ ] USER: add OPENAI_API_KEY + set AI_MODEL=openai/gpt-5.6-luna (see README) to unlock Luna
 
 ## Delegations
 
