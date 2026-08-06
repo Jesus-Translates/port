@@ -1,0 +1,44 @@
+{
+  "name": "portuguese-hub",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "db:push": "dotenv -e .env.local -- drizzle-kit push",
+    "db:seed": "dotenv -e .env.local -- tsx scripts/seed.ts"
+  },
+  "dependencies": {
+    "@ai-sdk/openai": "^4.0.32",
+    "@ai-sdk/react": "^4.0.58",
+    "@marsidev/react-turnstile": "^1.5.5",
+    "@neondatabase/serverless": "^1.1.0",
+    "ai": "^7.0.55",
+    "clsx": "^2.1.1",
+    "drizzle-orm": "^0.45.2",
+    "jose": "^6.2.8",
+    "lucide-react": "^1.28.0",
+    "next": "16.2.12",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "tailwind-merge": "^3.6.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "dotenv-cli": "^11.0.0",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.2.12",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.8",
+    "typescript": "^6.0.3"
+  }
+}

@@ -1,0 +1,473 @@
+{
+  "lessons": [
+    {
+      "title": "Como foi a tua manhã?",
+      "level": "A2",
+      "descriptionEn": "Talk about your morning routine in the past tense, review everyday mishap vocabulary, and finish with a family game of truth or lie.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson is about describing your morning using the **pretérito perfeito**. You'll practice sequencing words like *depois*, *entretanto*, and *finalmente*, review verbs for everyday little disasters (losing keys, spilling coffee, things breaking), and read a short story about a hectic morning. Finish by playing *Verdade ou mentira* as a family."
+        },
+        {
+          "type": "prompts",
+          "titlePt": "Fala sobre a tua manhã",
+          "titleEn": "Talk about your morning",
+          "items": [
+            {"pt": "Hoje acordei às...", "en": "Today I woke up at..."},
+            {"pt": "Depois...", "en": "Then..."},
+            {"pt": "Entretanto...", "en": "Meanwhile..."},
+            {"pt": "Finalmente...", "en": "Finally..."},
+            {"pt": "Fizeste o pequeno-almoço? Quem fez? O que? Quem limpou?", "en": "Did you make breakfast? Who made it? What was it? Who cleaned up?"},
+            {"pt": "O que correu melhor hoje?", "en": "What went best today?"},
+            {"pt": "Houve algum problema?", "en": "Was there any problem?"},
+            {"pt": "O que precisamos de fazer de tarefas esta tarde?", "en": "What chores do we need to do this afternoon?"}
+          ]
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Vocabulário",
+          "titleEn": "Vocabulary",
+          "items": [
+            {"pt": "reclamar", "en": "to complain"},
+            {"pt": "esquecer", "en": "to forget"},
+            {"pt": "reparar", "en": "to notice"},
+            {"pt": "dar", "en": "to give"},
+            {"pt": "encontrar", "en": "to find"},
+            {"pt": "devolver", "en": "to return (an object)"},
+            {"pt": "voltar", "en": "to return / to come back"},
+            {"pt": "precisar", "en": "to need"},
+            {"pt": "perder", "en": "to lose"},
+            {"pt": "pedir", "en": "to ask for"},
+            {"pt": "partir", "en": "to break / to leave"},
+            {"pt": "derramar", "en": "to spill"},
+            {"pt": "avariar", "en": "to stop working (an object)"},
+            {"pt": "funcionar", "en": "to work / to function"},
+            {"pt": "resolver", "en": "to resolve"},
+            {"pt": "procurar", "en": "to look for"},
+            {"pt": "combinar", "en": "to arrange / to agree on"},
+            {"pt": "esperar", "en": "to wait / to hope"}
+          ]
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Expressões",
+          "titleEn": "Expressions",
+          "items": [
+            {"pt": "Que chatice!", "en": "What a pain!"},
+            {"pt": "Fogo!", "en": "Ugh! / Come on!"},
+            {"pt": "Ainda bem.", "en": "Good thing. / Thank goodness."},
+            {"pt": "Por acaso...", "en": "As it happens... / Actually..."},
+            {"pt": "Sem querer.", "en": "Without meaning to. / By accident."},
+            {"pt": "No fim.", "en": "In the end."},
+            {"pt": "Afinal.", "en": "As it turns out."},
+            {"pt": "De repente.", "en": "Suddenly."},
+            {"pt": "Ainda não.", "en": "Not yet."}
+          ]
+        },
+        {
+          "type": "reading",
+          "titlePt": "A manhã da Ana",
+          "titleEn": "Ana's morning",
+          "textPt": "A Ana saiu de casa cedo porque tinha uma reunião importante. Quando chegou ao carro, percebeu que tinha deixado as chaves dentro de casa. Voltou para trás e encontrou o filho a fazer o pequeno-almoço. Enquanto procurava as chaves, derrubou uma chávena no chão. Mais tarde conseguiu sair, mas apanhou muito trânsito. Pensou que ia chegar atrasada, mas afinal a reunião começou meia hora depois. No final do dia, apesar dos problemas, ficou contente porque tudo correu bem.",
+          "questions": [
+            {"pt": "Porque voltou a casa?", "en": "Why did she go back home?"},
+            {"pt": "O que aconteceu na cozinha?", "en": "What happened in the kitchen?"},
+            {"pt": "Porque pensava que ia chegar atrasada?", "en": "Why did she think she was going to be late?"},
+            {"pt": "Afinal, chegou a horas?", "en": "In the end, did she arrive on time?"},
+            {"pt": "Como terminou o dia?", "en": "How did the day end?"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "Perguntas pessoais",
+          "titleEn": "Personal questions",
+          "items": [
+            {"pt": "Qual foi o último objeto que perdeste?", "en": "What was the last object you lost?"},
+            {"pt": "Já partiste alguma coisa sem querer?", "en": "Have you ever broken something by accident?"},
+            {"pt": "Costumas esquecer as chaves?", "en": "Do you usually forget your keys?"},
+            {"pt": "Qual foi o maior imprevisto desta semana?", "en": "What was the biggest unexpected event this week?"},
+            {"pt": "Preferes planear tudo ou improvisar?", "en": "Do you prefer to plan everything or improvise?"}
+          ]
+        },
+        {
+          "type": "speaking",
+          "titlePt": "Fala",
+          "titleEn": "Speak",
+          "items": [
+            {"user": "Kelly", "pt": "Conta-nos uma manhã em que tudo correu mal desde o início.", "en": "Tell us about a morning when everything went wrong from the start."},
+            {"user": "Jenni", "pt": "Descreve a tua manhã perfeita, do princípio ao fim.", "en": "Describe your perfect morning, from start to finish."},
+            {"user": "Robert", "pt": "Conta-nos uma história verdadeira que começou por correr mal e acabou bem.", "en": "Tell us a true story that started off badly and ended well."}
+          ]
+        },
+        {
+          "type": "game",
+          "titlePt": "Verdade ou mentira",
+          "titleEn": "Truth or lie",
+          "md": "Each person says three sentences about their morning — two true, one false. For example: *Hoje encontrei dinheiro. / Ontem cozinhei pizza. / Nunca me atraso.* The others take turns asking follow-up questions in Portuguese to try to catch the lie. Play until everyone has had a turn."
+        }
+      ]
+    },
+    {
+      "title": "No mercado",
+      "level": "A2",
+      "descriptionEn": "Learn to ask about prices and quantities at a Portuguese market, then read about a Saturday trip to the mercado in Torres Vedras.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson covers vocabulary for shopping at a local **mercado**: stalls, quantities, and prices. You'll learn to ask *quanto custa?* and use measures like *meio quilo* and *uma dúzia*, then read about a family's Saturday morning at the market before practicing your own role-play."
+        },
+        {
+          "type": "vocab",
+          "titlePt": "No mercado",
+          "titleEn": "At the market",
+          "items": [
+            {"pt": "a banca", "en": "the stall"},
+            {"pt": "o vendedor / a vendedora", "en": "the vendor"},
+            {"pt": "a fruta", "en": "fruit"},
+            {"pt": "os legumes", "en": "vegetables"},
+            {"pt": "o peixe", "en": "fish"},
+            {"pt": "o queijo", "en": "cheese"},
+            {"pt": "o fiambre", "en": "ham"},
+            {"pt": "o pão", "en": "bread"},
+            {"pt": "o preço", "en": "the price"},
+            {"pt": "fresco", "en": "fresh"},
+            {"pt": "barato", "en": "cheap"},
+            {"pt": "caro", "en": "expensive"},
+            {"pt": "meio quilo", "en": "half a kilo"},
+            {"pt": "um quilo", "en": "a kilo"},
+            {"pt": "uma dúzia", "en": "a dozen"},
+            {"pt": "um saco", "en": "a bag"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "Perguntas no mercado",
+          "titleEn": "Questions at the market",
+          "items": [
+            {"pt": "Quanto custa isto?", "en": "How much does this cost?"},
+            {"pt": "Pode dar-me meio quilo de tomate, por favor?", "en": "Can you give me half a kilo of tomatoes, please?"},
+            {"pt": "Tem ovos frescos hoje?", "en": "Do you have fresh eggs today?"},
+            {"pt": "Quanto é uma dúzia de laranjas?", "en": "How much is a dozen oranges?"},
+            {"pt": "Aceita cartão ou só dinheiro?", "en": "Do you accept card or only cash?"},
+            {"pt": "Pode ser um bocadinho mais barato?", "en": "Could it be a little cheaper?"}
+          ]
+        },
+        {
+          "type": "reading",
+          "titlePt": "Um sábado no mercado",
+          "titleEn": "A Saturday at the market",
+          "textPt": "Todos os sábados, a família vai ao mercado de Torres Vedras logo de manhã, antes de estar muita gente. Primeiro, param numa banca de fruta e compram um quilo de maçãs e meio quilo de morangos. Depois, vão à banca do queijo, onde o vendedor lhes dá a provar um bocadinho de queijo da Serra. Kelly pergunta o preço dos tomates e acaba por comprar dois quilos, porque estão muito baratos esta semana. Entretanto, Jenni encontra uma vizinha e ficam a conversar durante uns minutos. No fim, compram uma dúzia de ovos frescos e um bom pão caseiro. Voltam para casa com os sacos cheios e já a pensar no almoço.",
+          "questions": [
+            {"pt": "Que dia da semana vão ao mercado?", "en": "What day of the week do they go to the market?"},
+            {"pt": "O que compram na banca da fruta?", "en": "What do they buy at the fruit stall?"},
+            {"pt": "Quem prova o queijo?", "en": "Who tastes the cheese?"},
+            {"pt": "Porque compra Kelly dois quilos de tomate?", "en": "Why does Kelly buy two kilos of tomatoes?"},
+            {"pt": "Quem encontram no mercado?", "en": "Who do they meet at the market?"}
+          ]
+        },
+        {
+          "type": "writing",
+          "titlePt": "Escreve a tua lista",
+          "titleEn": "Write your list",
+          "promptPt": "Escreve uma lista de compras para o mercado desta semana. Usa pelo menos cinco quantidades diferentes (ex: meio quilo, uma dúzia, um saco).",
+          "promptEn": "Write a shopping list for the market this week. Use at least five different quantities (e.g., half a kilo, a dozen, a bag)."
+        },
+        {
+          "type": "speaking",
+          "titlePt": "Representa",
+          "titleEn": "Role-play",
+          "items": [
+            {"pt": "Um de vocês é o vendedor e o outro é o cliente. Pratiquem uma conversa completa: cumprimentar, perguntar o preço, pedir uma quantidade e pagar.", "en": "One of you is the vendor and the other is the customer. Practice a full conversation: greeting, asking the price, requesting a quantity, and paying."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A nossa cozinha",
+      "level": "A1-A2",
+      "descriptionEn": "Learn kitchen vocabulary and cooking verbs, read a simple soup recipe, and write your own shopping list for dinner.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson covers everyday kitchen objects and cooking verbs. You'll practice deciding what to make for dinner, read a simple recipe for **sopa de legumes**, and write your own shopping list."
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Objetos da cozinha",
+          "titleEn": "Kitchen objects",
+          "items": [
+            {"pt": "a panela", "en": "the pot"},
+            {"pt": "a frigideira", "en": "the frying pan"},
+            {"pt": "a faca", "en": "the knife"},
+            {"pt": "a tábua de cortar", "en": "the cutting board"},
+            {"pt": "a colher de pau", "en": "the wooden spoon"},
+            {"pt": "o forno", "en": "the oven"},
+            {"pt": "o fogão", "en": "the stove"},
+            {"pt": "o frigorífico", "en": "the fridge"},
+            {"pt": "o tacho", "en": "the saucepan"},
+            {"pt": "os talheres", "en": "the cutlery"}
+          ]
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Verbos de cozinhar",
+          "titleEn": "Cooking verbs",
+          "items": [
+            {"pt": "cozinhar", "en": "to cook"},
+            {"pt": "cortar", "en": "to cut"},
+            {"pt": "descascar", "en": "to peel"},
+            {"pt": "mexer", "en": "to stir"},
+            {"pt": "temperar", "en": "to season"},
+            {"pt": "ferver", "en": "to boil"},
+            {"pt": "fritar", "en": "to fry"},
+            {"pt": "assar", "en": "to roast / to bake"},
+            {"pt": "lavar", "en": "to wash"},
+            {"pt": "provar", "en": "to taste"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "O que vamos fazer para o jantar?",
+          "titleEn": "What are we making for dinner?",
+          "items": [
+            {"pt": "O que vamos fazer para o jantar?", "en": "What are we making for dinner?"},
+            {"pt": "Quem vai cozinhar hoje?", "en": "Who is going to cook today?"},
+            {"pt": "Precisamos de ir às compras?", "en": "Do we need to go shopping?"},
+            {"pt": "Gostas mais de comida assada ou frita?", "en": "Do you prefer roasted or fried food?"}
+          ]
+        },
+        {
+          "type": "reading",
+          "titlePt": "Sopa de legumes",
+          "titleEn": "Vegetable soup",
+          "textPt": "Primeiro, descasca-se a cebola, a cenoura e a batata. Depois, corta-se tudo em pedaços pequenos. Numa panela grande, aquece-se um pouco de azeite e refoga-se a cebola durante alguns minutos. De seguida, junta-se a cenoura, a batata e água quase até cobrir os legumes. Deixa-se ferver durante vinte minutos, até os legumes estarem macios. No fim, tempera-se com sal, pimenta e um fio de azeite, e serve-se bem quente.",
+          "questions": [
+            {"pt": "Quais são os primeiros legumes a descascar?", "en": "What are the first vegetables to peel?"},
+            {"pt": "O que se faz depois de cortar os legumes?", "en": "What do you do after cutting the vegetables?"},
+            {"pt": "Quanto tempo ferve a sopa?", "en": "How long does the soup boil?"},
+            {"pt": "Como se tempera a sopa no fim?", "en": "How is the soup seasoned at the end?"}
+          ]
+        },
+        {
+          "type": "writing",
+          "titlePt": "Lista de compras",
+          "titleEn": "Shopping list",
+          "promptPt": "Escreve uma lista de compras com os ingredientes de que precisas para fazer o jantar desta semana.",
+          "promptEn": "Write a shopping list with the ingredients you need to make dinner this week."
+        }
+      ]
+    },
+    {
+      "title": "O tempo lá fora",
+      "level": "A2",
+      "descriptionEn": "Talk about Atlantic coast weather and seasons, read about a windy day at the beach in Santa Cruz, and practice small talk.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson focuses on describing the weather and seasons along the Atlantic coast. You'll practice deciding what to wear, read about a windy day at the beach in **Santa Cruz**, and practice the kind of small talk Portuguese neighbors make about the weather."
+        },
+        {
+          "type": "vocab",
+          "titlePt": "O tempo",
+          "titleEn": "The weather",
+          "items": [
+            {"pt": "sol", "en": "sun"},
+            {"pt": "chuva", "en": "rain"},
+            {"pt": "vento", "en": "wind"},
+            {"pt": "nublado", "en": "cloudy"},
+            {"pt": "quente", "en": "hot"},
+            {"pt": "fresco", "en": "cool"},
+            {"pt": "frio", "en": "cold"},
+            {"pt": "nevoeiro", "en": "fog"},
+            {"pt": "trovoada", "en": "thunderstorm"},
+            {"pt": "céu limpo", "en": "clear sky"}
+          ]
+        },
+        {
+          "type": "vocab",
+          "titlePt": "As estações",
+          "titleEn": "The seasons",
+          "items": [
+            {"pt": "a primavera", "en": "spring"},
+            {"pt": "o verão", "en": "summer"},
+            {"pt": "o outono", "en": "autumn / fall"},
+            {"pt": "o inverno", "en": "winter"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "O que vais vestir hoje?",
+          "titleEn": "What are you going to wear today?",
+          "items": [
+            {"pt": "Como está o tempo hoje?", "en": "How's the weather today?"},
+            {"pt": "O que vais vestir hoje?", "en": "What are you going to wear today?"},
+            {"pt": "Precisas de um casaco ou de um chapéu de sol?", "en": "Do you need a coat or a sun hat?"},
+            {"pt": "Qual é a tua estação preferida em Portugal?", "en": "What's your favorite season in Portugal?"}
+          ]
+        },
+        {
+          "type": "reading",
+          "titlePt": "Um dia de vento na praia",
+          "titleEn": "A windy day at the beach",
+          "textPt": "No sábado, a família decidiu ir à praia de Santa Cruz, apesar de o céu estar um pouco nublado. Quando chegaram, perceberam que estava muito vento e a areia voava por todo o lado. Tentaram armar o guarda-sol, mas ele quase voou até ao mar! Jenni riu-se tanto que se esqueceu de segurar o chapéu, que também voou. Como estava fresco, vestiram uma sweatshirt e sentaram-se atrás de umas rochas para se proteger do vento. Mais tarde, o vento acalmou um pouco e conseguiram dar um bom passeio à beira-mar antes de o sol se pôr.",
+          "questions": [
+            {"pt": "Onde foi a família no sábado?", "en": "Where did the family go on Saturday?"},
+            {"pt": "Como estava o tempo quando chegaram?", "en": "What was the weather like when they arrived?"},
+            {"pt": "O que aconteceu ao guarda-sol?", "en": "What happened to the beach umbrella?"},
+            {"pt": "O que perdeu Jenni?", "en": "What did Jenni lose?"},
+            {"pt": "Como terminou o passeio?", "en": "How did the outing end?"}
+          ]
+        },
+        {
+          "type": "speaking",
+          "titlePt": "Conversa de circunstância",
+          "titleEn": "Small talk",
+          "items": [
+            {"pt": "Pratica uma conversa curta sobre o tempo, como se estivesses à conversa com um vizinho.", "en": "Practice a short conversation about the weather, as if you were chatting with a neighbor."}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Planos para a semana",
+      "level": "A2-B1",
+      "descriptionEn": "Practice the near future (ir + infinitive), make plans with combinar, and talk about your weekend.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson focuses on the near future with **ir + infinitivo** (e.g., *vou trabalhar*, *vamos combinar*). You'll learn vocabulary for making and confirming plans, write a weekly schedule, and talk about your weekend."
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Dias e expressões de tempo",
+          "titleEn": "Days and time expressions",
+          "items": [
+            {"pt": "segunda-feira", "en": "Monday"},
+            {"pt": "terça-feira", "en": "Tuesday"},
+            {"pt": "quarta-feira", "en": "Wednesday"},
+            {"pt": "quinta-feira", "en": "Thursday"},
+            {"pt": "sexta-feira", "en": "Friday"},
+            {"pt": "sábado", "en": "Saturday"},
+            {"pt": "domingo", "en": "Sunday"},
+            {"pt": "esta semana", "en": "this week"},
+            {"pt": "o fim de semana", "en": "the weekend"},
+            {"pt": "de manhã", "en": "in the morning"},
+            {"pt": "à tarde", "en": "in the afternoon"},
+            {"pt": "à noite", "en": "at night"}
+          ]
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Fazer planos",
+          "titleEn": "Making plans",
+          "items": [
+            {"pt": "combinar", "en": "to arrange / to agree on"},
+            {"pt": "marcar", "en": "to schedule / to book"},
+            {"pt": "convidar", "en": "to invite"},
+            {"pt": "confirmar", "en": "to confirm"},
+            {"pt": "cancelar", "en": "to cancel"},
+            {"pt": "adiar", "en": "to postpone"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "O que vais fazer esta semana?",
+          "titleEn": "What are you going to do this week?",
+          "items": [
+            {"pt": "O que vais fazer amanhã?", "en": "What are you going to do tomorrow?"},
+            {"pt": "Vamos combinar alguma coisa para o fim de semana?", "en": "Shall we arrange something for the weekend?"},
+            {"pt": "A que horas vais sair de casa na quinta-feira?", "en": "What time are you leaving the house on Thursday?"},
+            {"pt": "Já marcaste alguma coisa para esta semana?", "en": "Have you already booked anything for this week?"}
+          ]
+        },
+        {
+          "type": "writing",
+          "titlePt": "O meu plano semanal",
+          "titleEn": "My weekly plan",
+          "promptPt": "Escreve o teu plano para a semana, dia a dia, usando 'ir + infinitivo' (ex: 'Na segunda-feira vou trabalhar...').",
+          "promptEn": "Write your plan for the week, day by day, using 'ir + infinitive' (e.g., 'On Monday I am going to work...')."
+        },
+        {
+          "type": "speaking",
+          "titlePt": "Fala sobre o fim de semana",
+          "titleEn": "Talk about the weekend",
+          "items": [
+            {"user": "Kelly", "pt": "O que gostas mais de fazer ao fim de semana em Torres Vedras?", "en": "What do you like to do most on weekends in Torres Vedras?"},
+            {"user": "Jenni", "pt": "Combina um plano com alguém da família para este fim de semana.", "en": "Arrange a plan with a family member for this weekend."},
+            {"user": "Robert", "pt": "Que planos tens para o próximo fim de semana?", "en": "What plans do you have for next weekend?"}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Uma história de família",
+      "level": "B1",
+      "descriptionEn": "Practice the contrast between pretérito perfeito and imperfeito while telling family stories from childhood.",
+      "blocks": [
+        {
+          "type": "intro",
+          "md": "This lesson practices the contrast between the **pretérito perfeito** (completed actions) and the **imperfeito** (background, habits, descriptions) through storytelling. You'll learn connectors like *primeiro*, *entretanto*, and *afinal*, read a short family anecdote, and each tell a story from your own childhood."
+        },
+        {
+          "type": "vocab",
+          "titlePt": "Conectores",
+          "titleEn": "Connectors",
+          "items": [
+            {"pt": "primeiro", "en": "first"},
+            {"pt": "depois", "en": "then / after"},
+            {"pt": "entretanto", "en": "meanwhile"},
+            {"pt": "enquanto", "en": "while"},
+            {"pt": "de repente", "en": "suddenly"},
+            {"pt": "no fim", "en": "in the end"},
+            {"pt": "afinal", "en": "as it turns out"},
+            {"pt": "por fim", "en": "finally"},
+            {"pt": "naquela altura", "en": "at that time"},
+            {"pt": "quando eu era pequeno/a", "en": "when I was little"}
+          ]
+        },
+        {
+          "type": "prompts",
+          "titlePt": "Pretérito perfeito ou imperfeito?",
+          "titleEn": "Preterite or imperfect?",
+          "items": [
+            {"pt": "Quando eras criança, onde morava a tua família?", "en": "When you were a child, where did your family live?"},
+            {"pt": "O que costumavas fazer no verão?", "en": "What did you use to do in summer?"},
+            {"pt": "Lembras-te de um dia em particular que mudou tudo?", "en": "Do you remember a particular day that changed everything?"},
+            {"pt": "O que aconteceu nesse dia?", "en": "What happened that day?"}
+          ]
+        },
+        {
+          "type": "reading",
+          "titlePt": "A mudança de casa",
+          "titleEn": "The house move",
+          "textPt": "Quando o Robert era pequeno, a família vivia numa casa pequena perto da escola. Um dia, os pais anunciaram que iam mudar de casa. Primeiro, ninguém queria sair daquele bairro, porque todos os amigos moravam perto. Entretanto, começaram a fazer as malas e a embrulhar os pratos em jornal velho. No dia da mudança, chovia imenso e a carrinha quase não conseguia subir a rua. De repente, começaram todos a rir porque o cão fugiu com uma almofada na boca. No fim, a casa nova acabou por ser muito melhor, com um jardim enorme onde brincavam todas as tardes. Afinal, a mudança que ninguém queria tornou-se a melhor decisão da família.",
+          "questions": [
+            {"pt": "Onde vivia a família quando o Robert era pequeno?", "en": "Where did the family live when Robert was little?"},
+            {"pt": "Porque é que ninguém queria mudar de casa?", "en": "Why didn't anyone want to move house?"},
+            {"pt": "O que aconteceu no dia da mudança?", "en": "What happened on moving day?"},
+            {"pt": "Como era a casa nova?", "en": "What was the new house like?"},
+            {"pt": "Qual foi a conclusão da história?", "en": "What was the conclusion of the story?"}
+          ]
+        },
+        {
+          "type": "writing",
+          "titlePt": "Escreve a tua história",
+          "titleEn": "Write your story",
+          "promptPt": "Escreve uma pequena história de infância, usando o pretérito perfeito e o imperfeito e pelo menos três conectores (ex: primeiro, entretanto, no fim).",
+          "promptEn": "Write a short childhood story, using the preterite and imperfect tenses and at least three connectors (e.g., primeiro, entretanto, no fim)."
+        },
+        {
+          "type": "speaking",
+          "titlePt": "Conta a tua história",
+          "titleEn": "Tell your story",
+          "items": [
+            {"user": "Kelly", "pt": "Conta-nos uma história da tua infância que os outros ainda não conhecem.", "en": "Tell us a story from your childhood that the others don't already know."},
+            {"user": "Jenni", "pt": "Qual é a memória mais engraçada que tens de quando eras criança?", "en": "What's the funniest memory you have from when you were a child?"},
+            {"user": "Robert", "pt": "Descreve um dia de infância que mudou alguma coisa na tua vida.", "en": "Describe a day from your childhood that changed something in your life."}
+          ]
+        }
+      ]
+    }
+  ]
+}

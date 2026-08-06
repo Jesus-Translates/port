@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  /* Paper & ink — the book */
+  --color-paper: #faf7f0;
+  --color-cream: #f2ecdf;
+  --color-sand: #e6dcc6;
+  --color-ink: #2b271f;
+  --color-ink-soft: #6f6858;
+  --color-ink-faint: #a39b88;
+
+  /* Sage & olive — their Canva book's sidebar */
+  --color-sage: #97a08b;
+  --color-sage-light: #c7ccbc;
+  --color-sage-pale: #eef0e9;
+  --color-olive: #5d6650;
+
+  /* Terracotta — Portuguese rooftops */
+  --color-terra: #c2622e;
+  --color-terra-dark: #9e4c1f;
+  --color-terra-pale: #f7e6d9;
+
+  /* Azulejo blue */
+  --color-azul: #33589b;
+  --color-azul-pale: #e3eaf6;
+
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-terra-pale text-terra-dark;
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-sand bg-white/70 shadow-[0_1px_3px_rgba(43,39,31,0.06)];
+  }
+  .btn-primary,
+  .btn-terra,
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-olive text-paper hover:bg-ink;
+  }
+  .btn-terra {
+    @apply bg-terra text-paper hover:bg-terra-dark;
+  }
+  .btn-ghost {
+    @apply border border-sand bg-white/60 text-ink hover:border-sage hover:bg-sage-pale;
+  }
+  .input {
+    @apply w-full rounded-xl border border-sand bg-white/80 px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-faint focus:border-sage focus:ring-2 focus:ring-sage-light focus:outline-none;
+  }
+  .label {
+    @apply mb-1.5 block text-xs font-semibold tracking-wide text-ink-soft uppercase;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1 rounded-full bg-sage-pale px-2.5 py-0.5 text-xs font-medium text-olive;
+  }
+  .prose-basic {
+    @apply text-[15px] leading-relaxed [&_a]:text-azul [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-sage [&_blockquote]:pl-3 [&_blockquote]:text-ink-soft [&_code]:rounded [&_code]:bg-cream [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px] [&_h1]:mt-4 [&_h1]:mb-2 [&_h1]:text-xl [&_h2]:mt-4 [&_h2]:mb-2 [&_h2]:text-lg [&_h3]:mt-3 [&_h3]:mb-1.5 [&_h3]:text-base [&_h3]:font-semibold [&_li]:my-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5;
+  }
+}
