@@ -2,7 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { familyList, getModel, lessonGenSchema, PT_STYLE } from "@/lib/ai";
 import { getSession, getValidUsers } from "@/lib/auth";
-import { modelId, recordUsage } from "@/lib/usage";
+import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
 import { getDb, lessons } from "@/lib/db";
 
@@ -14,13 +14,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
+  if (await aiRateLimited(session.username)) {
+    return NextResponse.json(
+      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { status: 429 }
+    );
+  }
+
   let body: { topic?: string; level?: string };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
   }
-  const { topic = "daily routines", level = "A2" } = body;
+  const { topic: topicRaw = "daily routines", level = "A2" } = body;
+  const topic = String(topicRaw).slice(0, 300);
 
   const { output, usage } = await generateText({
     model: getModel(),

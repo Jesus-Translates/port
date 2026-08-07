@@ -71,33 +71,52 @@ export type SpendSummary = {
   calls: number;
 };
 
+/** First instant of the current month in the family's timezone (±1h at the
+ *  DST boundary — fine for a spend display, and it keeps the month label on
+ *  /gastos and the totals in agreement). */
+function lisbonMonthStart(): Date {
+  const day = new Date().toLocaleDateString("en-CA", {
+    timeZone: "Europe/Lisbon",
+  });
+  return new Date(`${day.slice(0, 7)}-01T00:00:00Z`);
+}
+
+/** One round-trip: month + all-time via FILTER. This runs in the layout on
+ *  every page render, so it must stay a single query. */
 export async function getSpend(username: string): Promise<SpendSummary> {
   const db = getDb();
-  const monthStart = new Date();
-  monthStart.setDate(1);
-  monthStart.setHours(0, 0, 0, 0);
+  const monthStart = lisbonMonthStart();
 
-  const [month] = await db
+  const [row] = await db
     .select({
-      micro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint`,
-      calls: sql<number>`count(*)::int`,
+      monthMicro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}) filter (where ${aiUsage.createdAt} >= ${monthStart}), 0)::bigint`,
+      allMicro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint`,
+      calls: sql<number>`count(*) filter (where ${aiUsage.createdAt} >= ${monthStart})::int`,
     })
-    .from(aiUsage)
-    .where(
-      and(eq(aiUsage.username, username), gte(aiUsage.createdAt, monthStart))
-    );
-
-  const [all] = await db
-    .select({ micro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint` })
     .from(aiUsage)
     .where(eq(aiUsage.username, username));
 
   const rate = usdToEur();
   return {
-    monthEur: (Number(month?.micro ?? 0) / 1_000_000) * rate,
-    allTimeEur: (Number(all?.micro ?? 0) / 1_000_000) * rate,
-    calls: Number(month?.calls ?? 0),
+    monthEur: (Number(row?.monthMicro ?? 0) / 1_000_000) * rate,
+    allTimeEur: (Number(row?.allMicro ?? 0) / 1_000_000) * rate,
+    calls: Number(row?.calls ?? 0),
   };
+}
+
+/** True when this user has made too many AI calls recently. Uses the ai_usage
+ *  table we already write, so a scripted loop can't burn tokens unbounded. */
+export async function aiRateLimited(username: string): Promise<boolean> {
+  try {
+    const since = new Date(Date.now() - 5 * 60 * 1000);
+    const [row] = await getDb()
+      .select({ count: sql<number>`count(*)::int` })
+      .from(aiUsage)
+      .where(and(eq(aiUsage.username, username), gte(aiUsage.createdAt, since)));
+    return Number(row?.count ?? 0) >= 30;
+  } catch {
+    return false; // never block learning on a telemetry failure
+  }
 }
 
 /** Per-person spend this month, for the family breakdown. */
@@ -105,9 +124,7 @@ export async function getSpendByUser(): Promise<
   { username: string; monthEur: number; calls: number }[]
 > {
   const db = getDb();
-  const monthStart = new Date();
-  monthStart.setDate(1);
-  monthStart.setHours(0, 0, 0, 0);
+  const monthStart = lisbonMonthStart();
   const rows = await db
     .select({
       username: aiUsage.username,

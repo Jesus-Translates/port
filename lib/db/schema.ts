@@ -108,7 +108,6 @@ export const kudos = pgTable("kudos", {
   toUser: text("to_user").notNull(),
   kind: text("kind").notNull().default("note"),
   message: text("message").notNull().default(""),
-  seen: integer("seen").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

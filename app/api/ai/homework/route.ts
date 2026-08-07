@@ -7,7 +7,7 @@ import {
   PT_STYLE,
 } from "@/lib/ai";
 import { getSession, getValidUsers } from "@/lib/auth";
-import { modelId, recordUsage } from "@/lib/usage";
+import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 import {
@@ -24,13 +24,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
+  if (await aiRateLimited(session.username)) {
+    return NextResponse.json(
+      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { status: 429 }
+    );
+  }
+
   let body: { topic?: string; forEveryone?: boolean };
   try {
     body = await request.json();
   } catch {
     return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
   }
-  const { topic = "everyday life in Portugal", forEveryone = false } = body;
+  const { topic: topicRaw = "everyday life in Portugal", forEveryone = false } = body;
+  const topic = String(topicRaw).slice(0, 300);
 
   const SHARED = `You are Luna, a European Portuguese tutor writing homework for adult learners (around A2). ${PT_STYLE}
 The whole assignment should take 15-25 minutes. Each exercise is answered on its own in a single input box and graded

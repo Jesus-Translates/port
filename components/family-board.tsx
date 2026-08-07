@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { giveStar, sendNote } from "@/lib/actions/kudos";
+import { deleteKudo, giveStar, sendNote } from "@/lib/actions/kudos";
 import type { FamilyMember } from "@/lib/data";
 import { avatarFor, titleCase } from "@/lib/people";
 import { cn } from "@/lib/utils";
@@ -30,6 +30,7 @@ export function FamilyBoard({
     user: string;
     kind: "star" | "note";
   } | null>(null);
+  const [, startTransition] = useTransition();
 
   const myRank = board.findIndex((m) => m.username === me) + 1;
   const leader = board[0];
@@ -159,6 +160,20 @@ export function FamilyBoard({
                     </p>
                   ) : null}
                 </div>
+                {k.fromUser === me || k.toUser === me ? (
+                  <button
+                    title="Apagar"
+                    aria-label="Apagar elogio"
+                    className="shrink-0 p-1 text-ink-faint hover:text-terra"
+                    onClick={() => {
+                      if (confirm("Apagar este elogio?")) {
+                        startTransition(() => deleteKudo(k.id));
+                      }
+                    }}
+                  >
+                    ✕
+                  </button>
+                ) : null}
               </li>
             ))}
           </ul>

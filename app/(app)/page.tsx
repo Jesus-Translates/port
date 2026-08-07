@@ -21,12 +21,13 @@ const KIND_EMOJI: Record<string, string> = {
 
 export default async function Dashboard() {
   const session = await requireSession();
+  // Social widgets must never take down the whole dashboard.
   const [stats, allHomework, cats, board, myKudos] = await Promise.all([
     getStats(session.username),
     getHomeworkAll(),
     getCategoriesWithCounts(),
-    getFamilyBoard(getValidUsers()),
-    getKudosFor(session.username, 5),
+    getFamilyBoard(getValidUsers()).catch(() => []),
+    getKudosFor(session.username, 5).catch(() => []),
   ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];

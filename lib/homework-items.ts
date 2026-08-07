@@ -69,6 +69,15 @@ export function parseItemsFromMarkdown(md: string): HomeworkItem[] {
     const clean = stripMd(text);
     // Skip list lines that are just vocabulary glosses or headers, not tasks.
     if (clean.length < 4) continue;
+    // Vocab-list sections are reference material, not exercises.
+    if (section && /vocabul|expressõ|expressions?/i.test(section) && bulleted) {
+      continue;
+    }
+    // "o frigorífico — the fridge" style glosses: dash/em-dash separator and
+    // no sentence-ending punctuation means it's a word pair, not a task.
+    if (bulleted && /[—–]|\s-\s/.test(clean) && !/[?.!…]$/.test(clean)) {
+      continue;
+    }
     items.push(blankItem(items.length + 1, clean, section));
   }
 
@@ -86,8 +95,29 @@ function stripMd(s: string): string {
 export function itemProgress(items: HomeworkItem[]): {
   done: number;
   total: number;
+  /** Answered but the grading call failed — needs a re-grade, not a red X. */
+  ungraded: number;
+  correct: number;
   allDone: boolean;
 } {
-  const done = items.filter((i) => i.answer !== null).length;
-  return { done, total: items.length, allDone: done === items.length };
+  const answered = items.filter((i) => i.answer !== null);
+  const ungraded = answered.filter((i) => i.correct === null).length;
+  const correct = answered.filter((i) => i.correct === true).length;
+  return {
+    done: answered.length,
+    total: items.length,
+    ungraded,
+    correct,
+    // "Done" requires every item answered AND graded — a failed grading call
+    // must never complete the assignment.
+    allDone: answered.length === items.length && ungraded === 0,
+  };
+}
+
+/** The prose before the first list item — the intro, without the exercises. */
+export function introBefore(md: string): string {
+  return md
+    .replace(/^#\s+.+$/m, "")
+    .split(/\n\s*(?:\d+[.)]|[-*])\s+/)[0]
+    .trim();
 }

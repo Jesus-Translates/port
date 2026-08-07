@@ -2,7 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse } from "next/server";
 import { getModel, PT_STYLE, suggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
-import { modelId, recordUsage } from "@/lib/usage";
+import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { getCategoriesWithCounts, getStats } from "@/lib/data";
 
 export const maxDuration = 120;
@@ -11,6 +11,13 @@ export async function POST() {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
+  if (await aiRateLimited(session.username)) {
+    return NextResponse.json(
+      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { status: 429 }
+    );
   }
 
   const [stats, cats] = await Promise.all([

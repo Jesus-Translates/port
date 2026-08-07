@@ -5,6 +5,7 @@ import { Markdown } from "@/components/markdown";
 import {
   deleteHomework,
   enhanceHomework,
+  regradeHomeworkItem,
   requestFeedback,
   retryHomeworkItem,
   splitIntoItems,
@@ -62,13 +63,12 @@ function ItemisedHomework({
   isOwner: boolean;
   ownerName: string;
 }) {
-  const { done, total, allDone } = itemProgress(items);
-  const correct = items.filter((i) => i.correct === true).length;
-  const answered = items.filter((i) => i.answer !== null).length;
+  const { done, total, ungraded, correct, allDone } = itemProgress(items);
 
   return (
     <div className="space-y-4">
-      <div className="card sticky top-[4.25rem] z-30 flex items-center gap-3 p-3">
+      {/* top-14 on phones: the mobile header has no pill row, so it's shorter */}
+      <div className="card sticky top-14 z-30 flex items-center gap-3 p-3 sm:top-[4.25rem]">
         <div className="flex flex-1 items-center gap-1">
           {items.map((i) => (
             <span
@@ -78,16 +78,19 @@ function ItemisedHomework({
                 "h-1.5 flex-1 rounded-full",
                 i.answer === null
                   ? "bg-sand"
-                  : i.correct
-                    ? "bg-olive"
-                    : "bg-terra"
+                  : i.correct === null
+                    ? "bg-azul" // answered, grading pending — not wrong
+                    : i.correct
+                      ? "bg-olive"
+                      : "bg-terra"
               )}
             />
           ))}
         </div>
         <span className="shrink-0 text-xs font-medium text-ink-soft">
           {done}/{total}
-          {answered > 0 ? ` · ${correct} ✓` : ""}
+          {done > 0 ? ` · ${correct} ✓` : ""}
+          {ungraded > 0 ? ` · ${ungraded} ⏳` : ""}
         </span>
       </div>
 
@@ -106,6 +109,10 @@ function ItemisedHomework({
                 : "TPC entregue — revê as correções da Luna abaixo."}
             </p>
           </div>
+        </div>
+      ) : done === total && ungraded > 0 ? (
+        <div className="card border-azul/30 bg-azul-pale/50 p-4 text-sm text-azul">
+          ⏳ Tudo respondido — {ungraded === 1 ? "falta 1 correção" : `faltam ${ungraded} correções`} da Luna. Pede a correção nas perguntas marcadas.
         </div>
       ) : null}
 
@@ -136,6 +143,7 @@ function ItemCard({
   const [answer, setAnswer] = useState(item.answer ?? "");
   const [pending, startTransition] = useTransition();
   const answered = item.answer !== null;
+  const ungraded = answered && item.correct === null;
 
   function submit() {
     if (!answer.trim()) return;
@@ -149,21 +157,29 @@ function ItemCard({
       className={cn(
         "card overflow-hidden",
         answered && item.correct === true && "border-sage",
-        answered && item.correct === false && "border-terra/50"
+        answered && item.correct === false && "border-terra/50",
+        ungraded && "border-azul/40"
       )}
     >
       <div className="flex items-start gap-3 p-4 pb-3">
         <span
           className={cn(
             "mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-sm font-bold",
-            answered
-              ? item.correct
-                ? "bg-olive text-paper"
-                : "bg-terra text-paper"
-              : "bg-sand text-ink-soft"
+            !answered && "bg-sand text-ink-soft",
+            ungraded && "bg-azul text-paper",
+            answered && item.correct === true && "bg-olive text-paper",
+            answered && item.correct === false && "bg-terra text-paper"
           )}
         >
-          {answered ? (item.correct ? (item.verdict === "quase" ? "~" : "✓") : "!") : item.n}
+          {!answered
+            ? item.n
+            : ungraded
+              ? "⏳"
+              : item.correct
+                ? item.verdict === "quase"
+                  ? "~"
+                  : "✓"
+                : "!"}
         </span>
         <div className="min-w-0 flex-1">
           {item.section ? (
@@ -216,6 +232,28 @@ function ItemCard({
               </div>
               <p className="text-[15px] whitespace-pre-wrap">{item.answer}</p>
             </div>
+
+            {ungraded ? (
+              <div className="space-y-2 rounded-xl border border-azul/30 bg-azul-pale/50 px-3 py-2">
+                <p className="text-sm text-azul">
+                  ⏳ A tua resposta ficou guardada, mas a correção da Luna não
+                  chegou. Não conta como errada.
+                </p>
+                {isOwner ? (
+                  <button
+                    className="btn-terra text-xs"
+                    disabled={pending}
+                    onClick={() =>
+                      startTransition(() =>
+                        regradeHomeworkItem(homeworkId, item.n)
+                      )
+                    }
+                  >
+                    {pending ? "A Luna está a corrigir…" : "🌙 Pedir a correção"}
+                  </button>
+                ) : null}
+              </div>
+            ) : null}
 
             {item.verdict === "quase" ? (
               <p className="text-sm font-semibold text-terra-dark">

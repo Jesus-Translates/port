@@ -23,10 +23,11 @@ function isActive(pathname: string, href: string) {
 
 export function Nav({
   displayName,
-  spendEur,
+  spendSlot,
 }: {
   displayName: string;
-  spendEur?: string;
+  /** Server-rendered spend chip, streamed in via Suspense from the layout. */
+  spendSlot?: React.ReactNode;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -58,11 +59,7 @@ export function Nav({
             <span className="text-xs font-medium text-olive">
               {avatarFor(displayName)} {displayName}
             </span>
-            {spendEur ? (
-              <span className="border-l border-sage/40 pl-1.5 text-[11px] font-semibold text-terra-dark tabular-nums">
-                {spendEur}
-              </span>
-            ) : null}
+            {spendSlot}
           </Link>
           <button
             onClick={logout}

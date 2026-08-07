@@ -257,12 +257,16 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
     .sort((a, b) => b.xpThisWeek - a.xpThisWeek || b.xp - a.xp);
 }
 
+/** Kudos received in the last 7 days — the dashboard shows fresh cheer, not
+ *  the same five rows forever. */
 export async function getKudosFor(username: string, limit = 20) {
   const db = getDb();
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
   return db
     .select()
     .from(kudos)
-    .where(eq(kudos.toUser, username))
+    .where(and(eq(kudos.toUser, username), gte(kudos.createdAt, weekAgo)))
     .orderBy(desc(kudos.createdAt))
     .limit(limit);
 }
@@ -270,21 +274,6 @@ export async function getKudosFor(username: string, limit = 20) {
 export async function getRecentKudos(limit = 12) {
   const db = getDb();
   return db.select().from(kudos).orderBy(desc(kudos.createdAt)).limit(limit);
-}
-
-/** Best score per quiz topic across the family — the number to beat. */
-export async function getTopScores() {
-  const db = getDb();
-  return db
-    .select({
-      topic: quizzes.topic,
-      username: quizzes.username,
-      score: quizzes.score,
-      total: quizzes.total,
-    })
-    .from(quizzes)
-    .where(eq(quizzes.status, "completed"))
-    .orderBy(desc(quizzes.score));
 }
 
 export async function logActivity(

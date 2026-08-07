@@ -1,7 +1,7 @@
 "use server";
 
 import { generateText, Output } from "ai";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
@@ -17,6 +17,7 @@ import { getDb, homework } from "@/lib/db";
 import { modelId, recordUsage } from "@/lib/usage";
 import {
   type HomeworkItem,
+  introBefore,
   itemProgress,
   parseItemsFromMarkdown,
 } from "@/lib/homework-items";
@@ -27,14 +28,16 @@ export async function createHomework(formData: FormData) {
   const instructions = String(formData.get("instructions") ?? "").trim();
   if (!title || !instructions) return;
   const db = getDb();
-  // Split pasted class homework into individually answerable exercises.
+  // Split pasted class homework into individually answerable exercises; when
+  // that works, keep only the intro as prose so exercises aren't shown twice.
   const parsed = parseItemsFromMarkdown(instructions);
   const [row] = await db
     .insert(homework)
     .values({
       username: session.username,
       title,
-      instructions,
+      instructions:
+        parsed.length > 0 ? introBefore(instructions) || title : instructions,
       items: parsed.length > 0 ? parsed : null,
       source: "class",
     })
@@ -76,9 +79,10 @@ Keep it warm, specific and compact. English prose, pt-PT examples.`,
   }
 }
 
-export async function submitHomework(id: number, response: string) {
+export async function submitHomework(id: number, responseRaw: string) {
   const session = await requireSession();
-  if (!response.trim()) return;
+  const response = responseRaw.trim().slice(0, 8000);
+  if (!response) return;
   const db = getDb();
   const [hw] = await db
     .select()
@@ -165,9 +169,85 @@ and keep the original title unless it has none.`,
   revalidatePath(`/homework/${id}`);
 }
 
+/** Grade one item's answer with Luna. Returns the graded item; on AI failure
+ *  the answer is kept with correct=null (an explicit "ungraded" state). */
+async function gradeOneItem(
+  hwTitle: string,
+  item: HomeworkItem,
+  answer: string,
+  displayName: string,
+  username: string
+): Promise<HomeworkItem> {
+  try {
+    const { output, usage } = await generateText({
+      model: getModel(),
+      output: Output.object({ schema: itemFeedbackSchema }),
+      instructions: `You are Luna, a warm European Portuguese tutor giving instant feedback on ONE homework answer from a learner (${displayName}).
+${PT_STYLE}
+Accept natural variation (contractions, optional subject pronouns, synonyms). Right meaning with only spelling/accent
+slips counts as correct with verdict "quase". If the task asked them to write freely, judge whether the Portuguese is
+correct, not whether it matches an expected answer.
+${FEEDBACK_COACHING}`,
+      prompt: `ASSIGNMENT: ${hwTitle}
+EXERCISE ${item.n}${item.section ? ` (${item.section})` : ""}: ${item.prompt}${item.hint ? `\nHINT GIVEN: ${item.hint}` : ""}
+
+${displayName.toUpperCase()}'S ANSWER: ${answer}`,
+    });
+    await recordUsage(username, "grade", modelId(), usage);
+    return {
+      ...item,
+      answer,
+      correct: output.correct,
+      verdict: output.verdict,
+      correctedPt: output.correctedPt,
+      feedbackMd: output.feedbackMd,
+      tip: output.tip,
+    };
+  } catch {
+    // Never lose the answer just because the tutor call failed: correct stays
+    // null so the UI shows "ungraded", not "wrong".
+    return {
+      ...item,
+      answer,
+      correct: null,
+      verdict: null,
+      correctedPt: null,
+      tip: null,
+      feedbackMd: null,
+    };
+  }
+}
+
+/** Atomically write ONE item into the jsonb array (no read-modify-write of the
+ *  whole array — a slow grade + a second device must not erase each other),
+ *  then recompute status from what's actually stored. */
+async function writeItem(
+  id: number,
+  idx: number,
+  item: HomeworkItem,
+  firstSubmit: boolean
+): Promise<{ items: HomeworkItem[]; allDone: boolean }> {
+  const db = getDb();
+  const [row] = await db
+    .update(homework)
+    .set({
+      items: sql`jsonb_set(${homework.items}, ARRAY[${String(idx)}]::text[], ${JSON.stringify(item)}::jsonb)`,
+      ...(firstSubmit ? { submittedAt: new Date() } : {}),
+    })
+    .where(eq(homework.id, id))
+    .returning({ items: homework.items });
+  const items = (row?.items as HomeworkItem[]) ?? [];
+  const { allDone } = itemProgress(items);
+  await db
+    .update(homework)
+    .set({ status: allDone ? "reviewed" : "submitted" })
+    .where(eq(homework.id, id));
+  return { items, allDone };
+}
+
 /**
  * Answer ONE exercise and get Luna's feedback straight away, so the next
- * answer can be better. Returns the graded item for optimistic display.
+ * answer can be better.
  */
 export async function submitHomeworkItem(
   id: number,
@@ -175,7 +255,8 @@ export async function submitHomeworkItem(
   answer: string
 ): Promise<HomeworkItem | null> {
   const session = await requireSession();
-  if (!answer.trim()) return null;
+  const clean = answer.trim().slice(0, 4000);
+  if (!clean) return null;
   const db = getDb();
   const [hw] = await db
     .select()
@@ -187,54 +268,15 @@ export async function submitHomeworkItem(
   const items = (hw.items as HomeworkItem[] | null) ?? [];
   const idx = items.findIndex((i) => i.n === n);
   if (idx === -1) return null;
-  const item = items[idx];
 
-  let graded: HomeworkItem = { ...item, answer: answer.trim() };
-  try {
-    const { output, usage } = await generateText({
-      model: getModel(),
-      output: Output.object({ schema: itemFeedbackSchema }),
-      instructions: `You are Luna, a warm European Portuguese tutor giving instant feedback on ONE homework answer from a learner (${session.displayName}).
-${PT_STYLE}
-Accept natural variation (contractions, optional subject pronouns, synonyms). Right meaning with only spelling/accent
-slips counts as correct with verdict "quase". If the task asked them to write freely, judge whether the Portuguese is
-correct, not whether it matches an expected answer.
-${FEEDBACK_COACHING}`,
-      prompt: `ASSIGNMENT: ${hw.title}
-EXERCISE ${n}${item.section ? ` (${item.section})` : ""}: ${item.prompt}${item.hint ? `\nHINT GIVEN: ${item.hint}` : ""}
-
-${session.displayName.toUpperCase()}'S ANSWER: ${answer.trim()}`,
-    });
-    await recordUsage(session.username, "grade", modelId(), usage);
-    graded = {
-      ...graded,
-      correct: output.correct,
-      verdict: output.verdict,
-      correctedPt: output.correctedPt,
-      feedbackMd: output.feedbackMd,
-      tip: output.tip,
-    };
-  } catch {
-    // Never lose the answer just because the tutor call failed.
-    graded = {
-      ...graded,
-      feedbackMd:
-        "A Luna não conseguiu corrigir esta resposta agora — a tua resposta ficou guardada. Tenta pedir a correção outra vez daqui a pouco.",
-    };
-  }
-
-  const next = [...items];
-  next[idx] = graded;
-  const { allDone } = itemProgress(next);
-
-  await db
-    .update(homework)
-    .set({
-      items: next,
-      status: allDone ? "reviewed" : "submitted",
-      submittedAt: hw.submittedAt ?? new Date(),
-    })
-    .where(eq(homework.id, id));
+  const graded = await gradeOneItem(
+    hw.title,
+    items[idx],
+    clean,
+    session.displayName,
+    session.username
+  );
+  const { allDone } = await writeItem(id, idx, graded, hw.submittedAt === null);
 
   await logActivity(
     session.username,
@@ -249,6 +291,32 @@ ${session.displayName.toUpperCase()}'S ANSWER: ${answer.trim()}`,
   return graded;
 }
 
+/** Re-run grading for an answered item whose grading call failed. No XP. */
+export async function regradeHomeworkItem(id: number, n: number) {
+  const session = await requireSession();
+  const db = getDb();
+  const [hw] = await db
+    .select()
+    .from(homework)
+    .where(eq(homework.id, id))
+    .limit(1);
+  if (!hw || hw.username !== session.username) return;
+  const items = (hw.items as HomeworkItem[] | null) ?? [];
+  const idx = items.findIndex((i) => i.n === n);
+  const item = idx === -1 ? undefined : items[idx];
+  if (!item || item.answer === null || item.correct !== null) return;
+
+  const graded = await gradeOneItem(
+    hw.title,
+    item,
+    item.answer,
+    session.displayName,
+    session.username
+  );
+  await writeItem(id, idx, graded, false);
+  revalidatePath(`/homework/${id}`);
+}
+
 /** Clear one answer so it can be attempted again. */
 export async function retryHomeworkItem(id: number, n: number) {
   const session = await requireSession();
@@ -260,15 +328,18 @@ export async function retryHomeworkItem(id: number, n: number) {
     .limit(1);
   if (!hw || hw.username !== session.username) return;
   const items = (hw.items as HomeworkItem[] | null) ?? [];
-  const next = items.map((i) =>
-    i.n === n
-      ? { ...i, answer: null, feedbackMd: null, correctedPt: null, correct: null }
-      : i
-  );
-  await db
-    .update(homework)
-    .set({ items: next, status: "submitted" })
-    .where(eq(homework.id, id));
+  const idx = items.findIndex((i) => i.n === n);
+  if (idx === -1) return;
+  const reset: HomeworkItem = {
+    ...items[idx],
+    answer: null,
+    feedbackMd: null,
+    correctedPt: null,
+    correct: null,
+    verdict: null,
+    tip: null,
+  };
+  await writeItem(id, idx, reset, false);
   revalidatePath(`/homework/${id}`);
 }
 
@@ -284,7 +355,14 @@ export async function splitIntoItems(id: number) {
   if (!hw || hw.username !== session.username || hw.items) return;
   const parsed = parseItemsFromMarkdown(hw.instructions);
   if (parsed.length === 0) return;
-  await db.update(homework).set({ items: parsed }).where(eq(homework.id, id));
+  await db
+    .update(homework)
+    .set({
+      items: parsed,
+      // The exercises now live in items — don't render them twice.
+      instructions: introBefore(hw.instructions) || hw.title,
+    })
+    .where(eq(homework.id, id));
   revalidatePath(`/homework/${id}`);
 }
 

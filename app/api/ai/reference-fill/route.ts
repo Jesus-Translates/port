@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, PT_STYLE, refSuggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
-import { modelId, recordUsage } from "@/lib/usage";
+import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { categories, getDb, refEntries } from "@/lib/db";
 
 export const maxDuration = 120;
@@ -12,6 +12,13 @@ export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+
+  if (await aiRateLimited(session.username)) {
+    return NextResponse.json(
+      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { status: 429 }
+    );
   }
 
   let categoryId: number;

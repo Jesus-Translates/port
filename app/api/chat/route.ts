@@ -9,7 +9,7 @@ import { after, NextResponse, type NextRequest } from "next/server";
 import { getModel, tutorInstructions } from "@/lib/ai";
 import { getSession, getValidUsers } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
-import { modelId, recordUsage } from "@/lib/usage";
+import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
@@ -19,9 +19,24 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
+  if (await aiRateLimited(session.username)) {
+    return NextResponse.json(
+      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { status: 429 }
+    );
+  }
+
   let body: { messages: UIMessage[]; context?: string };
   try {
-    body = await request.json();
+    const raw = await request.text();
+    // PAYLOAD_CAP: a pasted novel must not become a six-figure token bill.
+    if (raw.length > 60_000) {
+      return NextResponse.json(
+        { error: "Mensagem demasiado longa." },
+        { status: 413 }
+      );
+    }
+    body = JSON.parse(raw);
     if (!Array.isArray(body.messages)) throw new Error();
   } catch {
     return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
