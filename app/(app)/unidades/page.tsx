@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { asc, eq, sql } from "drizzle-orm";
 import { UnitGenerate } from "@/components/unit-generate";
+import { getUnitProgress } from "@/lib/actions/course";
 import { getMyCefr } from "@/lib/actions/profile";
 import { getRole, requireSession } from "@/lib/auth";
 import { getDb, unitItems, units } from "@/lib/db";
@@ -56,6 +57,20 @@ export default async function UnidadesPage() {
   ]);
   const itemCountFor = new Map(counts.map((c) => [c.unitId, c.n]));
 
+  // How far THIS learner has walked each unit (grouped queries + a Map — see
+  // the warning in lib/actions/course.ts about correlated sub-selects).
+  const progress = await getUnitProgress(
+    session.username,
+    rows.map((r) => r.id)
+  );
+  const pctFor = new Map(progress.map((p) => [p.unitId, p]));
+
+  // Exactly one "A seguir" across the page: the first unit at the learner's
+  // own level, in syllabus order, that they have not finished.
+  const nextUnitId =
+    rows.find((r) => r.cefr === myLevel && (pctFor.get(r.id)?.pct ?? 0) < 100)
+      ?.id ?? null;
+
   // Known levels first, in order; anything odd keeps its own bucket at the end.
   const buckets = [
     ...LEVELS,
@@ -90,49 +105,79 @@ export default async function UnidadesPage() {
                 {level}
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
-                {inLevel.map((u) => (
-                  <Link
-                    key={u.id}
-                    href={`/unidades/${u.slug}`}
-                    className="card flex flex-col gap-2 p-4 transition-colors hover:border-sage hover:bg-sage-pale/40"
-                  >
-                    <span>
-                      <span className="block font-display text-lg leading-snug font-semibold">
-                        {u.title}
+                {inLevel.map((u) => {
+                  const p = pctFor.get(u.id);
+                  const walked = p && p.total > 0;
+                  return (
+                    <Link
+                      key={u.id}
+                      href={`/unidades/${u.slug}`}
+                      className={`card flex flex-col gap-2 p-4 transition-colors hover:border-sage hover:bg-sage-pale/40 ${
+                        u.id === nextUnitId ? "border-sage ring-1 ring-sage-light" : ""
+                      }`}
+                    >
+                      <span>
+                        {u.id === nextUnitId ? (
+                          <span className="chip mb-1 bg-olive text-paper">
+                            A seguir
+                          </span>
+                        ) : null}
+                        <span className="block font-display text-lg leading-snug font-semibold">
+                          {u.title}
+                        </span>
+                        {u.titlePt ? (
+                          <span className="block text-sm text-ink-faint">
+                            {u.titlePt}
+                          </span>
+                        ) : null}
                       </span>
-                      {u.titlePt ? (
-                        <span className="block text-sm text-ink-faint">
-                          {u.titlePt}
+                      {u.blurbEn ? (
+                        <span className="text-xs leading-snug text-ink-soft">
+                          {u.blurbEn}
                         </span>
                       ) : null}
-                    </span>
-                    {u.blurbEn ? (
-                      <span className="text-xs leading-snug text-ink-soft">
-                        {u.blurbEn}
+                      <span className="mt-auto block space-y-2">
+                        {walked ? (
+                          <span className="flex items-center gap-2">
+                            <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-sand">
+                              <span
+                                className={`block h-full rounded-full ${
+                                  p.pct === 100 ? "bg-terra" : "bg-olive"
+                                }`}
+                                style={{ width: `${p.pct}%` }}
+                              />
+                            </span>
+                            <span className="shrink-0 text-[11px] font-medium text-ink-soft tabular-nums">
+                              {p.pct}%
+                            </span>
+                          </span>
+                        ) : null}
+                        <span className="flex flex-wrap items-center gap-2">
+                          <span className={CATEGORY_CHIP[u.category] ?? "chip"}>
+                            {CATEGORY_LABEL[u.category] ?? u.category}
+                          </span>
+                          {itemCountFor.get(u.id) ? (
+                            <span className="chip bg-cream text-ink-soft">
+                              {walked && p.done > 0
+                                ? `${p.done}/${p.total} feitos`
+                                : `${itemCountFor.get(u.id)} atividades`}
+                            </span>
+                          ) : null}
+                          {u.hasNote ? null : (
+                            <span className="chip bg-cream text-ink-faint">
+                              nota por escrever
+                            </span>
+                          )}
+                          {u.status !== "published" ? (
+                            <span className="chip bg-terra-pale text-terra-dark">
+                              rascunho
+                            </span>
+                          ) : null}
+                        </span>
                       </span>
-                    ) : null}
-                    <span className="mt-auto flex flex-wrap items-center gap-2">
-                      <span className={CATEGORY_CHIP[u.category] ?? "chip"}>
-                        {CATEGORY_LABEL[u.category] ?? u.category}
-                      </span>
-                      {itemCountFor.get(u.id) ? (
-                        <span className="chip bg-cream text-ink-soft">
-                          {itemCountFor.get(u.id)} atividades
-                        </span>
-                      ) : null}
-                      {u.hasNote ? null : (
-                        <span className="chip bg-cream text-ink-faint">
-                          nota por escrever
-                        </span>
-                      )}
-                      {u.status !== "published" ? (
-                        <span className="chip bg-terra-pale text-terra-dark">
-                          rascunho
-                        </span>
-                      ) : null}
-                    </span>
-                  </Link>
-                ))}
+                    </Link>
+                  );
+                })}
               </div>
             </section>
           );

@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useMemo, useState, useTransition } from "react";
+import { AnswerDiff } from "@/components/answer-diff";
 import { Markdown } from "@/components/markdown";
 import {
   deleteHomework,
@@ -12,6 +13,7 @@ import {
   submitHomeworkItem,
   submitHomework,
 } from "@/lib/actions/homework";
+import { checkAnswer } from "@/lib/diff";
 import { type HomeworkItem, itemProgress } from "@/lib/homework-items";
 import { cn } from "@/lib/utils";
 
@@ -145,6 +147,22 @@ function ItemCard({
   const answered = item.answer !== null;
   const ungraded = answered && item.correct === null;
 
+  // Word-level diff whenever we have both sides. Skipped when the "correction"
+  // is identical to the answer (nothing to point at) — the plain answer box
+  // still shows below in that case.
+  const diff = useMemo(() => {
+    const given = item.answer?.trim();
+    const right = item.correctedPt?.trim();
+    if (!given || !right) return null;
+    // A free-writing answer against a one-sentence model answer isn't a diff,
+    // it's noise — fall back to the plain answer + correction boxes there.
+    const words = (s: string) => s.split(/\s+/).length;
+    if (words(right) > 30 || words(given) > 30) return null;
+    if (words(given) > words(right) * 2 + 4) return null;
+    const check = checkAnswer(right, given);
+    return check.verdict === "certo" ? null : check;
+  }, [item.answer, item.correctedPt]);
+
   function submit() {
     if (!answer.trim()) return;
     startTransition(async () => {
@@ -226,12 +244,14 @@ function ItemCard({
           )
         ) : (
           <div className="space-y-2">
-            <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
-              <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
-                Resposta
+            {diff ? null : (
+              <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
+                <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+                  Resposta
+                </div>
+                <p className="text-[15px] whitespace-pre-wrap">{item.answer}</p>
               </div>
-              <p className="text-[15px] whitespace-pre-wrap">{item.answer}</p>
-            </div>
+            )}
 
             {ungraded ? (
               <div className="space-y-2 rounded-xl border border-azul/30 bg-azul-pale/50 px-3 py-2">
@@ -255,20 +275,29 @@ function ItemCard({
               </div>
             ) : null}
 
-            {item.verdict === "quase" ? (
-              <p className="text-sm font-semibold text-terra-dark">
-                Quase! A ideia estava certa — só a escrita escorregou.
-              </p>
-            ) : null}
+            {diff ? (
+              // Word by word: what they wrote over what it should have been.
+              <AnswerDiff check={diff} nearMiss={item.verdict === "quase"} />
+            ) : (
+              <>
+                {item.verdict === "quase" ? (
+                  <p className="text-sm font-semibold text-terra-dark">
+                    Quase! A ideia estava certa — só a escrita escorregou.
+                  </p>
+                ) : null}
 
-            {item.correctedPt ? (
-              <div className="rounded-xl border border-sage bg-sage-pale/60 px-3 py-2">
-                <div className="text-[11px] font-semibold tracking-wide text-olive uppercase">
-                  Assim fica certo
-                </div>
-                <p className="font-display text-[16px]">{item.correctedPt}</p>
-              </div>
-            ) : null}
+                {item.correctedPt ? (
+                  <div className="rounded-xl border border-sage bg-sage-pale/60 px-3 py-2">
+                    <div className="text-[11px] font-semibold tracking-wide text-olive uppercase">
+                      Assim fica certo
+                    </div>
+                    <p className="font-display text-[16px]">
+                      {item.correctedPt}
+                    </p>
+                  </div>
+                ) : null}
+              </>
+            )}
 
             {item.feedbackMd ? (
               <div className="flex gap-2 rounded-xl bg-white/70 px-3 py-2">

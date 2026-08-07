@@ -25,6 +25,7 @@ export function QuizPlayer({
     Array(questions.length).fill("")
   );
   const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
 
   const q = questions[index];
   const last = index === questions.length - 1;
@@ -39,12 +40,16 @@ export function QuizPlayer({
 
   async function finish() {
     setBusy(true);
+    setFailed(false);
     try {
       await submitQuiz(quizId, answers);
       router.refresh();
     } catch {
+      // Handing back the whole quiz is the highest-stakes moment here: an
+      // alert() that can be dismissed leaves the learner unsure whether their
+      // answers survived. Stay on the page, keep every answer, offer a retry.
       setBusy(false);
-      alert("Algo correu mal ao entregar. Tenta outra vez.");
+      setFailed(true);
     }
   }
 
@@ -124,6 +129,24 @@ export function QuizPlayer({
           </div>
         )}
       </div>
+
+      {failed ? (
+        <div
+          role="alert"
+          className="card space-y-2 border-terra/50 bg-terra-pale/60 p-4"
+        >
+          <p className="text-sm font-semibold text-terra-dark">
+            A entrega não foi — mas nada se perdeu.
+          </p>
+          <p className="text-sm text-ink-soft">
+            Couldn&apos;t hand this in. Every answer is still here on this
+            screen — check your connection and try again.
+          </p>
+          <button className="btn-terra" onClick={finish}>
+            Tentar entregar outra vez ✓
+          </button>
+        </div>
+      ) : null}
 
       <div className="flex justify-between">
         <button

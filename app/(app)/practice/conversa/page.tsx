@@ -5,8 +5,11 @@ import { requireSession } from "@/lib/auth";
 
 export const metadata = { title: "Conversa" };
 
-export default async function ConversaPage() {
+export default async function ConversaPage(
+  props: PageProps<"/practice/conversa">
+) {
   await requireSession();
+  const { tema } = await props.searchParams;
   const cefr = await getMyCefr();
 
   return (
@@ -23,7 +26,10 @@ export default async function ConversaPage() {
         </p>
       </header>
 
-      <Conversa cefr={cefr} />
+      <Conversa
+        cefr={cefr}
+        initialTopic={typeof tema === "string" ? tema.slice(0, 200) : ""}
+      />
     </div>
   );
 }

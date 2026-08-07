@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
 import { getSession, type Session } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { addMistakeCard } from "@/lib/srs";
@@ -378,9 +378,14 @@ export async function POST(request: NextRequest) {
       const args = {
         model: getModel(),
         instructions: `You are Luna, reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${PT_STYLE}
-The learner's lines are speech transcripts — ignore spelling and accents entirely; only flag real word-choice, verb-form or
-phrasing errors. corrections must quote things the learner ACTUALLY said. newWords are useful pt-PT words or short phrases
-that came up (from either speaker) and are worth reviewing later. Be generous and specific about what went well.`,
+
+${SPEAKING_COACHING}
+
+Only flag real word-choice, verb-form or phrasing errors. corrections must quote things the learner ACTUALLY said.
+newWords are useful pt-PT words or short phrases that came up (from either speaker) and are worth reviewing later.
+Be generous and specific about what went well.
+resumoMd must END with the pronunciation pointer on its own final line, written as "🗣️ …" — the sound in **bold** and
+what the mouth does, tied to a word they actually used. Never close the conversation without it.`,
         prompt: `TOPIC: ${topic}\n\nTRANSCRIPT:\n${transcriptOf(history)}`,
       };
       let output: z.infer<typeof summarySchema>;

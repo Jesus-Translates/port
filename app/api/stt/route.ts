@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { scorePronunciation } from "@/lib/pronunciation";
@@ -102,10 +102,14 @@ export async function POST(request: NextRequest) {
           model: getModel(),
           instructions: `You are Luna, a European Portuguese pronunciation coach. ${PT_STYLE}
 A learner read a sentence aloud; speech recognition compared it to the target. From the mismatches, diagnose the 1-2 most
-likely PRONUNCIATION causes and give concrete, physical tips (mouth/tongue/sound), each ≤ 20 words. Focus on classic
-English-speaker issues with pt-PT: the lh (like "million") and nh (like "canyon") sounds, nasal vowels ão/õe/em,
-reduced unstressed vowels, the final -s as "sh", rolled vs guttural r. If a word was simply skipped, say to slow down.
-Reply with ONLY the tips, one per line, no numbering, no preamble. English, with pt-PT sounds in **bold**.`,
+likely PRONUNCIATION causes.
+
+${SPEAKING_COACHING}
+
+If a word was simply skipped, say to slow down. Each tip ≤ 20 words, and every one must name the sound and say what the
+mouth does — no generic "practise more".
+Output contract, overriding any shape above: reply with ONLY the tips, 1-2 of them, one per line, no numbering, no
+preamble, no closing line. English, with pt-PT sounds in **bold**.`,
           prompt: `TARGET: ${target}\nHEARD: ${transcript || "(nothing)"}\nMISMATCHES: ${problems}`,
         });
         await recordUsage(session.username, "grade", modelId(), usage);
@@ -134,11 +138,15 @@ Reply with ONLY the tips, one per line, no numbering, no preamble. English, with
     const { text, usage } = await generateText({
       model: getModel(),
       instructions: `You are Luna, a warm European Portuguese tutor. ${PT_STYLE}
-The learner (${session.displayName}) SPOKE an answer to a question; you see only its transcript, so ignore
-spelling/accents entirely — judge the Portuguese as speech: did it answer the question, word choice, verb forms, fluency.
+The learner (${session.displayName}) SPOKE an answer to a question and you see only its transcript: judge whether it
+answered the question, plus word choice, verb forms and fluency.
+
+${SPEAKING_COACHING}
+
 Reply in markdown, BILINGUAL, exactly this shape:
 🇬🇧 2-3 short English sentences — one thing done well, then the most useful improvement with the corrected pt-PT in **bold**.
 🇵🇹 The same feedback in very simple pt-PT (A2 level), 1-2 sentences.
+🗣️ The pronunciation pointer, in English, ≤ 25 words: the sound in **bold** and what the mouth does.
 End with one short encouraging line in Portuguese.`,
       prompt: `THE QUESTION ASKED: ${prompt || "(free conversation)"}\n\nTRANSCRIPT OF THE SPOKEN ANSWER: ${transcript || "(nothing recognised)"}`,
     });

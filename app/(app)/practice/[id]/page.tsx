@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AudioButton } from "@/components/audio-button";
+import { AnswerDiff } from "@/components/answer-diff";
 import { QuizPlayer } from "@/components/quiz-player";
 import type { QuizQuestions } from "@/lib/ai";
 import { cloneQuiz } from "@/lib/actions/quiz";
 import type { GradedResult } from "@/lib/actions/quiz";
 import { requireSession } from "@/lib/auth";
+import { checkAnswer } from "@/lib/diff";
 import { getQuiz } from "@/lib/data";
 
 export default async function QuizPage(props: PageProps<"/practice/[id]">) {
@@ -138,6 +140,14 @@ function CompletedView({
         {questions.map((q, i) => {
           const r = results.find((x) => x.index === i);
           const near = r?.verdict === "quase";
+          // Show WHICH word slipped, not just the right answer. Only for free
+          // text — a multiple-choice miss has nothing meaningful to diff.
+          const given = (answers[i] ?? "").trim();
+          const checked =
+            q.type === "translate" && given && r?.correctedPt
+              ? checkAnswer(r.correctedPt, given)
+              : null;
+          const diff = checked && checked.verdict !== "certo" ? checked : null;
           return (
             <li key={i} className="card p-4">
               <div className="flex items-start gap-2">
@@ -151,25 +161,35 @@ function CompletedView({
                   {q.promptPt ? (
                     <p className="text-sm text-ink-soft">{q.promptPt}</p>
                   ) : null}
-                  <p className="mt-1.5 text-sm">
-                    <span className="text-ink-faint">Answer given: </span>
-                    {answers[i] || <em className="text-ink-faint">blank</em>}
-                  </p>
+                  {diff ? (
+                    <AnswerDiff check={diff} nearMiss={near} className="mt-1.5" />
+                  ) : (
+                    <>
+                      <p className="mt-1.5 text-sm">
+                        <span className="text-ink-faint">A tua resposta: </span>
+                        {answers[i] || (
+                          <em className="text-ink-faint">em branco</em>
+                        )}
+                      </p>
 
-                  {near ? (
-                    <p className="mt-1.5 text-sm font-semibold text-terra-dark">
-                      Quase! Só escorregou a escrita — a ideia estava certa.
-                    </p>
-                  ) : null}
+                      {near ? (
+                        <p className="mt-1.5 text-sm font-semibold text-terra-dark">
+                          Quase! Só escorregou a escrita — a ideia estava certa.
+                        </p>
+                      ) : null}
 
-                  {r?.correctedPt ? (
-                    <div className="mt-1.5 rounded-lg border border-sage bg-sage-pale/60 px-2.5 py-1.5">
-                      <div className="text-[10px] font-semibold tracking-wide text-olive uppercase">
-                        Assim fica certo
-                      </div>
-                      <p className="font-display text-[16px]">{r.correctedPt}</p>
-                    </div>
-                  ) : null}
+                      {r?.correctedPt ? (
+                        <div className="mt-1.5 rounded-lg border border-sage bg-sage-pale/60 px-2.5 py-1.5">
+                          <div className="text-[10px] font-semibold tracking-wide text-olive uppercase">
+                            Assim fica certo
+                          </div>
+                          <p className="font-display text-[16px]">
+                            {r.correctedPt}
+                          </p>
+                        </div>
+                      ) : null}
+                    </>
+                  )}
 
                   {r?.comment ? (
                     <p className="mt-1.5 text-sm text-ink-soft">{r.comment}</p>

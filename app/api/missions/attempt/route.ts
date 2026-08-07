@@ -2,7 +2,7 @@ import { generateText, Output } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, missionAttempts, missions } from "@/lib/db";
@@ -114,8 +114,9 @@ export async function POST(request: NextRequest) {
     output: Output.object({ schema: missionGradeSchema }),
     instructions: `You are Luna, grading a real-world FIELD MISSION for a family learning European Portuguese near Torres Vedras. ${PT_STYLE}
 
-The learner (${session.displayName}, level ${mission.cefr}) either did the errand for real or rehearsed it out loud. You see only a
-speech transcript, so IGNORE spelling and accents entirely — judge it as speech.
+The learner (${session.displayName}, level ${mission.cefr}) either did the errand for real or rehearsed it out loud.
+
+${SPEAKING_COACHING}
 
 Score 0-10 on three things, in this order of weight:
 1. Task completion — did they actually ask for/say everything the mission brief required?
@@ -124,8 +125,11 @@ Score 0-10 on three things, in this order of weight:
 Be generous about hesitation and fillers: this is someone speaking to a real shopkeeper. 7+ means the errand would have worked.
 A transcript that is empty or clearly not Portuguese scores 0-2.
 
-feedbackMd must be warm and specific — name what they got right first. correctedPt is the single most useful phrase, in its
-best natural pt-PT form (what a local would actually say), or null if nothing needs fixing.`,
+feedbackMd must be warm and specific — name what they got right first — and must END with the pronunciation pointer on its
+own final line, written as "🗣️ …": the sound in **bold** and what the mouth does, tied to a word they actually said. A
+mission is spoken out loud in a real shop, so it never ends without that pointer.
+correctedPt is the single most useful phrase, in its best natural pt-PT form (what a local would actually say), or null if
+nothing needs fixing.`,
     prompt: `MISSION: ${mission.title}
 BRIEF (pt): ${mission.promptPt}
 BRIEF (en): ${mission.promptEn}

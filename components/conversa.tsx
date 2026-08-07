@@ -36,9 +36,16 @@ function play(b64: string | null | undefined) {
 }
 
 /** Spoken back-and-forth with Luna: she talks, you answer by mic (or keyboard). */
-export function Conversa({ cefr }: { cefr: string }) {
+export function Conversa({
+  cefr,
+  initialTopic = "",
+}: {
+  cefr: string;
+  /** Carried in from a unit path item ("conversa about o talho"). */
+  initialTopic?: string;
+}) {
   const [phase, setPhase] = useState<"setup" | "talk" | "summary">("setup");
-  const [topicInput, setTopicInput] = useState("");
+  const [topicInput, setTopicInput] = useState(initialTopic);
   const [topic, setTopic] = useState("");
   const [voice, setVoice] = useState("");
   const [msgs, setMsgs] = useState<Msg[]>([]);

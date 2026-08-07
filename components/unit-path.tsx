@@ -167,7 +167,7 @@ export function UnitPath({ items }: { items: PathItem[] }) {
                 <button
                   type="button"
                   className="btn-ghost h-8 min-h-0 px-3 text-xs"
-                  disabled={busy || (pendingId !== null && !busy)}
+                  disabled={pendingId !== null}
                   onClick={() => toggle(item, !finished)}
                 >
                   {busy

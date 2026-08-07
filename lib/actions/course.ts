@@ -2,7 +2,7 @@
 
 import { and, eq, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { requireSession } from "@/lib/auth";
+import { getRole, requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, unitItems, unitProgress, units } from "@/lib/db";
 
@@ -49,6 +49,14 @@ async function unitTally(
   const total = Number(totalRow?.n ?? 0);
   const done = Math.min(Number(doneRow?.n ?? 0), total);
   return { done, total, pct: pctOf(done, total) };
+}
+
+/** These are server actions, so `username` arrives from the client and cannot
+ *  be trusted: a learner reads their own progress, staff read anyone's. */
+async function readableUsername(asked: string): Promise<string> {
+  const session = await requireSession();
+  if (asked === session.username) return session.username;
+  return getRole(session.username) === "student" ? session.username : asked;
 }
 
 /** The item plus the slug we need to revalidate, in one round-trip. */
@@ -164,7 +172,7 @@ export async function getUnitProgress(
   username: string,
   unitIds: number[]
 ): Promise<UnitPct[]> {
-  await requireSession();
+  const who = await readableUsername(username);
 
   const ids = [...new Set(unitIds.filter((id) => Number.isInteger(id) && id > 0))];
   if (ids.length === 0) return [];
@@ -184,9 +192,7 @@ export async function getUnitProgress(
         n: sql<number>`count(distinct ${unitProgress.itemId})::int`,
       })
       .from(unitProgress)
-      .where(
-        and(eq(unitProgress.username, username), inArray(unitProgress.unitId, ids))
-      )
+      .where(and(eq(unitProgress.username, who), inArray(unitProgress.unitId, ids)))
       .groupBy(unitProgress.unitId),
   ]);
 
@@ -205,13 +211,11 @@ export async function getCompletedItemIds(
   username: string,
   unitId: number
 ): Promise<number[]> {
-  await requireSession();
+  const who = await readableUsername(username);
   if (!Number.isInteger(unitId) || unitId <= 0) return [];
   const rows = await getDb()
     .select({ itemId: unitProgress.itemId })
     .from(unitProgress)
-    .where(
-      and(eq(unitProgress.username, username), eq(unitProgress.unitId, unitId))
-    );
+    .where(and(eq(unitProgress.username, who), eq(unitProgress.unitId, unitId)));
   return [...new Set(rows.map((r) => r.itemId))];
 }
