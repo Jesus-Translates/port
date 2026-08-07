@@ -38,6 +38,28 @@ port.robertjeremiah.com.
 - reviewer: post-implementation diff critique
 - deployment agent (opus): Vercel deploy + env + domain
 
+## Second review round (2026-08-07)
+
+Fresh-eyes Opus review of everything since 0297505: 14 findings, verdict fix-first.
+All 4 blockers + perf fix + minors fixed and deployed same day (commit after cbb6f96).
+IMPORTANT OPERATIONAL NOTE: schema changes ship via `npm run db:push` from .env.local,
+which points at the PROD Neon DB — always push schema BEFORE `vercel deploy --prod`,
+or new-table queries 500 in prod. No migration step runs on deploy.
+
+## Feature roadmap (from Opus research agents, 2026-08-07)
+
+Convergent top picks (both researchers independently):
+1. FSRS spaced repetition over the family phrasebook (ts-fsrs, per-user card state)
+2. Mistakes auto-enrol into the review queue (we already store verdict+correction+tip)
+3. pt-PT TTS audio everywhere — MUST ear-test first (OpenAI TTS drifts Brazilian;
+   fallback Azure pt-PT-RaquelNeural/DuarteNeural); then ditado (dictation) + audio-only
+   anticipation drills (Pimsleur-style)
+4. CIPLE A2/B1 exam track — nationality law 1/2026 raised stakes (A2 kept, B1 for some
+   routes, new civics test); CAPLE sample papers = format spec; Realtime API for oral part
+5. Graded stories set in their real life (Santa Cruz) with comprehension Qs + tap-to-deck
+6. Verb-conjugation drill (perfeito vs imperfeito, conjuntivo)
+Do NOT copy: energy/practice caps, ranked leagues across mixed levels, guilt notifications.
+
 ## Review
 
 Shipped 2026-08-06. Deployment READY on Vercel (project port.robertjeremiah.com,
