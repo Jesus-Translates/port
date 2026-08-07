@@ -4,10 +4,17 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 /** Ask Luna for a new two-voice dialogue, then open it. */
-export function ListeningGenerate({ enabled }: { enabled: boolean }) {
+export function ListeningGenerate({
+  enabled,
+  level = "A2",
+}: {
+  enabled: boolean;
+  /** The learner's placement level — the sensible default to generate at. */
+  level?: string;
+}) {
   const router = useRouter();
   const [topic, setTopic] = useState("");
-  const [cefr, setCefr] = useState("A2");
+  const [cefr, setCefr] = useState(level);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

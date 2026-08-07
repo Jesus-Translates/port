@@ -21,7 +21,10 @@ export function priceFor(model: string): { input: number; output: number } {
   const envIn = Number(process.env.AI_PRICE_INPUT);
   const envOut = Number(process.env.AI_PRICE_OUTPUT);
   if (envIn > 0 && envOut > 0) return { input: envIn, output: envOut };
-  const key = model.replace(/^openai\//, "");
+  // Strip ANY provider prefix, not just openai/. Matching only openai/ sent
+  // "azure/neural-tts" to FALLBACK — which happens to equal the text-model
+  // rate, silently pricing speech at 1/80th of the real $16/M characters.
+  const key = model.replace(/^[a-z0-9.-]+\//i, "");
   return DEFAULT_PRICES[key] ?? FALLBACK;
 }
 

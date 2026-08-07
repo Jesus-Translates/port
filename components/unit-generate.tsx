@@ -5,10 +5,10 @@ import { useState } from "react";
 
 /** Ask Luna for a whole unit: Learning Note + an ordered path of activities.
  *  It lands as a draft — the teacher publishes it from the unit page. */
-export function UnitGenerate() {
+export function UnitGenerate({ level = "A2" }: { level?: string }) {
   const router = useRouter();
   const [topic, setTopic] = useState("");
-  const [cefr, setCefr] = useState("A2");
+  const [cefr, setCefr] = useState(level);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

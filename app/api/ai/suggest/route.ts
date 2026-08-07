@@ -3,7 +3,12 @@ import { NextResponse } from "next/server";
 import { getModel, PT_STYLE, suggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
-import { getCategoriesWithCounts, getStats } from "@/lib/data";
+import {
+  getCategoriesWithCounts,
+  getCefrFor,
+  getMyRecentActivity,
+  getStats,
+} from "@/lib/data";
 
 export const maxDuration = 120;
 
@@ -20,9 +25,11 @@ export async function POST() {
     );
   }
 
-  const [stats, cats] = await Promise.all([
+  const [stats, cats, mine, cefr] = await Promise.all([
     getStats(session.username),
     getCategoriesWithCounts(),
+    getMyRecentActivity(session.username),
+    getCefrFor(session.username),
   ]);
 
   const { output, usage } = await generateText({
@@ -37,7 +44,7 @@ Given the learner's recent activity, propose what to do next INSIDE the app. Ava
 - kind "homework": get a homework assignment (param = topic)
 Vary the kinds. Ground each reason in their actual activity (or gently note inactivity). Keep it light and encouraging.`,
     prompt: `Learner: ${session.displayName}. XP: ${stats.xp}. Streak: ${stats.streakDays} days. Active days this week: ${stats.activeThisWeek}.
-Recent activity (newest first): ${stats.recent.map((r) => `[${r.username}] ${r.summary}`).join("; ") || "nothing yet"}.
+CEFR level: ${cefr}.\nTHEIR OWN recent activity (newest first): ${mine.map((r) => r.summary).join("; ") || "nothing yet"}.
 Category slugs: ${cats.map((c) => `${c.slug} (${c.entryCount} entries)`).join(", ")}.`,
   });
 

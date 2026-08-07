@@ -33,6 +33,22 @@ export async function getCefrFor(username: string): Promise<string> {
   }
 }
 
+/** This ONE person's recent activity. getStats().recent is deliberately
+ *  family-wide for the dashboard feed; anything reasoning about "what should
+ *  YOU do next" must use this instead. */
+export async function getMyRecentActivity(username: string, limit = 12) {
+  return getDb()
+    .select({
+      kind: activity.kind,
+      summary: activity.summary,
+      createdAt: activity.createdAt,
+    })
+    .from(activity)
+    .where(eq(activity.username, username))
+    .orderBy(desc(activity.createdAt))
+    .limit(limit);
+}
+
 /** Has this person actually done the placement quiz (or set a level by hand)?
  *  Recorded as an activity row by setCefrLevel — no extra column needed. */
 export async function hasBeenPlaced(username: string): Promise<boolean> {

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { ListeningGenerate } from "@/components/listening-generate";
+import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import { azureConfigured } from "@/lib/tts";
@@ -11,6 +12,7 @@ export const metadata = { title: "Escutar" };
 export default async function EscutarPage() {
   await requireSession();
   const ready = azureConfigured();
+  const level = await getMyCefr();
   const clips = await getDb()
     .select({
       id: listeningClips.id,
@@ -55,7 +57,7 @@ export default async function EscutarPage() {
         </div>
       )}
 
-      <ListeningGenerate enabled={ready} />
+      <ListeningGenerate enabled={ready} level={level} />
 
       {clips.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">

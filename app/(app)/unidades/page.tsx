@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { asc, eq, sql } from "drizzle-orm";
 import { UnitGenerate } from "@/components/unit-generate";
+import { getMyCefr } from "@/lib/actions/profile";
 import { getRole, requireSession } from "@/lib/auth";
 import { getDb, unitItems, units } from "@/lib/db";
 
@@ -11,6 +12,8 @@ const LEVELS = ["A1", "A2", "B1", "B2"] as const;
 export default async function UnidadesPage() {
   const session = await requireSession();
   const isStaff = getRole(session.username) !== "student";
+  // Named myLevel: `level` is already the loop variable over CEFR buckets below.
+  const myLevel = await getMyCefr();
 
   const db = getDb();
   // NOT a correlated subquery — drizzle unqualifies `${units.id}` inside the
@@ -53,7 +56,7 @@ export default async function UnidadesPage() {
         </p>
       </header>
 
-      <UnitGenerate />
+      <UnitGenerate level={myLevel} />
 
       {rows.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">

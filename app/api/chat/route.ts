@@ -7,6 +7,7 @@ import {
 } from "ai";
 import { after, NextResponse, type NextRequest } from "next/server";
 import { getModel, tutorInstructions } from "@/lib/ai";
+import { getCefrFor } from "@/lib/data";
 import { getSession, getValidUsers } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
@@ -43,7 +44,8 @@ export async function POST(request: NextRequest) {
   }
   const { messages, context } = body;
 
-  let instructions = tutorInstructions(session.displayName, getValidUsers());
+  const cefr = await getCefrFor(session.username);
+  let instructions = tutorInstructions(session.displayName, getValidUsers(), cefr);
   if (context) {
     instructions += `\n\nCONTEXT the learner is currently looking at:\n${context.slice(0, 6000)}`;
   }

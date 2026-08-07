@@ -4,6 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel, PT_STYLE } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
+import { getCefrFor } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 import type { HomeworkItem } from "@/lib/homework-items";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
@@ -73,6 +74,7 @@ export async function POST(request: NextRequest) {
     // no body is fine
   }
 
+  const cefr = await getCefrFor(session.username);
   const context = await tpcContext(session.username);
   const grounding = theme
     ? `Create it around the requested topic: "${theme}".`
@@ -84,7 +86,7 @@ export async function POST(request: NextRequest) {
     const { output, usage } = await generateText({
       model: getModel(),
       output: Output.object({ schema: frasesSchema }),
-      instructions: `You write pt-PT sentences for an adult A2 learner to READ ALOUD as pronunciation practice. ${PT_STYLE}
+      instructions: `You write pt-PT sentences for an adult learner at CEFR level ${cefr} to READ ALOUD as pronunciation practice. ${PT_STYLE}
 Each sentence natural, spoken-register, 8-16 words, and deliberately rich in the sounds English speakers struggle
 with (lh, nh, nasal vowels ão/õe/em, reduced vowels, final -s). Vary the verb tense across the three.`,
       prompt: `Write 3 read-aloud sentences. ${grounding}`,
@@ -96,7 +98,7 @@ with (lh, nh, nasal vowels ão/õe/em, reduced vowels, final -s). Vary the verb 
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: perguntaSchema }),
-    instructions: `You are Luna, asking ONE spoken conversation question to an adult A2 learner of European Portuguese. ${PT_STYLE}
+    instructions: `You are Luna, asking ONE spoken conversation question to an adult learner of European Portuguese at CEFR level ${cefr}. ${PT_STYLE}
 The question must be answerable out loud in 2-4 sentences, personal and concrete, CIPLE-oral style — vary the verb
 tense you invite.`,
     prompt: `Ask one new question. ${grounding} Vary it — not the same opener every time. Seed: ${Date.now() % 97}`,

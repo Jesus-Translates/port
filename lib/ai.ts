@@ -34,9 +34,10 @@ export function familyList(names: string[]): string {
 
 export function tutorInstructions(
   displayName: string,
-  family: string[] = []
+  family: string[] = [],
+  cefr = "A2"
 ): string {
-  return `You are Luna, a warm, encouraging European Portuguese tutor for a family of English-speaking learners (${familyList(family)} — mostly around level A2, though some are younger or newer than others, so match the level of whoever you're talking to). You are talking with ${displayName}.
+  return `You are Luna, a warm, encouraging European Portuguese tutor for a family of English-speaking learners (${familyList(family)}). You are talking with ${displayName}, who is at CEFR level ${cefr} — pitch your Portuguese, your examples and your corrections at that level.
 
 ${PT_STYLE}
 
