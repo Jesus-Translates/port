@@ -135,7 +135,7 @@ function SpeakCheck({ target }: { target: string }) {
   }
   return (
     <div className="mt-2 rounded-xl border border-sand bg-cream/50 p-3">
-      <Recorder mode="read" target={target} />
+      <Recorder mode="read" target={target} autoStart />
     </div>
   );
 }

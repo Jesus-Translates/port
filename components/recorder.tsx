@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Markdown } from "@/components/markdown";
 import type { PronResult } from "@/lib/pronunciation";
 import { cn } from "@/lib/utils";
@@ -24,13 +24,17 @@ export function Recorder({
   mode,
   target,
   prompt,
+  autoStart = false,
 }: {
   mode: "read" | "open";
   target?: string;
   prompt?: string;
+  /** Open the mic immediately on mount — no second tap. */
+  autoStart?: boolean;
 }) {
   const recRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+  const autoStartedRef = useRef(false);
   const [status, setStatus] = useState<
     "idle" | "recording" | "processing" | "done" | "error"
   >("idle");
@@ -76,6 +80,14 @@ export function Recorder({
   function stop() {
     recRef.current?.stop();
   }
+
+  useEffect(() => {
+    if (autoStart && !autoStartedRef.current) {
+      autoStartedRef.current = true;
+      start();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="space-y-3">
