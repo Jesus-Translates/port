@@ -51,7 +51,8 @@ or new-table queries 500 in prod. No migration step runs on deploy.
 All six roadmap items shipped and verified in prod the same day:
 - [x] Rever: FSRS (ts-fsrs) over the phrasebook, per-user state, 20 new/day cap,
       mistake cards auto-enrol from homework/quiz/ditado/verb errors
-- [x] pt-PT TTS everywhere (gpt-4o-mini-tts, Postgres-cached, env-steerable) — NEEDS EAR-TEST
+- [x] pt-PT TTS everywhere (gpt-4o-mini-tts, Postgres-cached, env-steerable) — ear-tested
+      and approved by Robert 2026-08-08; staying on OpenAI, no Azure switch
 - [x] Ditado (dictation, LCS word grading, answer hidden server-side)
 - [x] Verbos (hand-checked EP conjugation tables, 30 verbs, EP -ámos)
 - [x] Falar (record → gpt-4o-mini-transcribe → word alignment / Luna feedback; iOS mp4 handled)
