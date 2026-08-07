@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Recorder } from "@/components/recorder";
 import { gradeCard } from "@/lib/actions/review";
 import type { ReviewRating } from "@/lib/srs";
 import { cn } from "@/lib/utils";
@@ -84,6 +85,8 @@ export function ReviewPlayer({ initialQueue }: { initialQueue: QueueCard[] }) {
             {card.note ? (
               <p className="text-sm text-ink-soft">{card.note}</p>
             ) : null}
+            {/* key on card.id: speaking state must reset with each new card */}
+            <SpeakCheck key={card.id} target={card.back} />
           </div>
         ) : null}
       </div>
@@ -112,6 +115,27 @@ export function ReviewPlayer({ initialQueue }: { initialQueue: QueueCard[] }) {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+/** Optional per-card speaking check: say the answer, get accent + word score.
+ *  Own component so its state resets when the card changes (keyed by card). */
+function SpeakCheck({ target }: { target: string }) {
+  const [open, setOpen] = useState(false);
+  if (!open) {
+    return (
+      <button
+        className="btn-ghost mt-1 text-xs"
+        onClick={() => setOpen(true)}
+      >
+        🎙️ Diz tu — a Luna avalia a pronúncia
+      </button>
+    );
+  }
+  return (
+    <div className="mt-2 rounded-xl border border-sand bg-cream/50 p-3">
+      <Recorder mode="read" target={target} />
     </div>
   );
 }
