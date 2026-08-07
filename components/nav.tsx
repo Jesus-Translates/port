@@ -5,21 +5,29 @@ import { usePathname, useRouter } from "next/navigation";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
+// `short` keeps 8 tabs legible in the phone bottom bar (~47px each).
 const TABS = [
-  { href: "/", emoji: "🏠", label: "Início" },
-  { href: "/tutor", emoji: "🌙", label: "Luna" },
-  { href: "/reference", emoji: "📖", label: "Livro" },
-  { href: "/workbook", emoji: "📚", label: "Lições" },
-  { href: "/homework", emoji: "✍️", label: "TPC" },
-  { href: "/practice", emoji: "🎯", label: "Praticar" },
-  { href: "/notes", emoji: "📝", label: "Notas" },
+  { href: "/", emoji: "🏠", label: "Início", short: "Início" },
+  { href: "/tutor", emoji: "🌙", label: "Luna", short: "Luna" },
+  { href: "/reference", emoji: "📖", label: "Livro", short: "Livro" },
+  { href: "/workbook", emoji: "📚", label: "Lições", short: "Lições" },
+  { href: "/homework", emoji: "✍️", label: "TPC", short: "TPC" },
+  { href: "/practice", emoji: "🎯", label: "Praticar", short: "Testes" },
+  { href: "/notes", emoji: "📝", label: "Notas", short: "Notas" },
+  { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
 ];
 
 function isActive(pathname: string, href: string) {
   return href === "/" ? pathname === "/" : pathname.startsWith(href);
 }
 
-export function Nav({ displayName }: { displayName: string }) {
+export function Nav({
+  displayName,
+  spendEur,
+}: {
+  displayName: string;
+  spendEur?: string;
+}) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -42,9 +50,20 @@ export function Nav({ displayName }: { displayName: string }) {
             </span>
           </Link>
           <div className="min-w-0 flex-1" />
-          <span className="chip shrink-0">
-            {avatarFor(displayName)} {displayName}
-          </span>
+          <Link
+            href="/gastos"
+            title="O teu gasto de IA este mês"
+            className="flex shrink-0 items-center gap-1.5 rounded-full bg-sage-pale px-2.5 py-0.5 transition-colors hover:bg-sage-light"
+          >
+            <span className="text-xs font-medium text-olive">
+              {avatarFor(displayName)} {displayName}
+            </span>
+            {spendEur ? (
+              <span className="border-l border-sage/40 pl-1.5 text-[11px] font-semibold text-terra-dark tabular-nums">
+                {spendEur}
+              </span>
+            ) : null}
+          </Link>
           <button
             onClick={logout}
             className="shrink-0 p-1 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
@@ -88,7 +107,7 @@ export function Nav({ displayName }: { displayName: string }) {
                   href={t.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 py-1.5 transition-colors",
+                    "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg px-px py-1.5 transition-colors",
                     active ? "text-olive" : "text-ink-faint"
                   )}
                 >
@@ -103,11 +122,11 @@ export function Nav({ displayName }: { displayName: string }) {
                   </span>
                   <span
                     className={cn(
-                      "text-[10px] leading-tight",
+                      "text-[9px] leading-tight",
                       active && "font-semibold"
                     )}
                   >
-                    {t.label}
+                    {t.short}
                   </span>
                 </Link>
               </li>

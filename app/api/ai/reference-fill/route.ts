@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, PT_STYLE, refSuggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
+import { modelId, recordUsage } from "@/lib/usage";
 import { categories, getDb, refEntries } from "@/lib/db";
 
 export const maxDuration = 120;
@@ -36,7 +37,7 @@ export async function POST(request: NextRequest) {
     .from(refEntries)
     .where(eq(refEntries.categoryId, categoryId));
 
-  const { output } = await generateText({
+  const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: refSuggestSchema }),
     instructions: `You expand a family's European Portuguese phrasebook. ${PT_STYLE}
@@ -48,6 +49,8 @@ Every entry: pt + natural English gloss; optional short note for usage tips or p
 Existing entries (pt · section): ${existing.map((e) => `${e.pt} · ${e.section}`).join("; ") || "none yet"}.
 Suggest 8-12 new entries.`,
   });
+
+  await recordUsage(session.username, "reference", modelId(), usage);
 
   const KINDS = ["term", "verb", "phrase", "task"];
   const entries = output.entries

@@ -2,6 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { familyList, getModel, lessonGenSchema, PT_STYLE } from "@/lib/ai";
 import { getSession, getValidUsers } from "@/lib/auth";
+import { modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
 import { getDb, lessons } from "@/lib/db";
 
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
   }
   const { topic = "daily routines", level = "A2" } = body;
 
-  const { output } = await generateText({
+  const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: lessonGenSchema }),
     instructions: `You write complete workbook lessons for a family learning European Portuguese together (${familyList(getValidUsers())}). ${PT_STYLE}
@@ -32,6 +33,8 @@ Model the style of a real tutor's worksheet: warm, practical, rooted in daily li
 Use 4-7 blocks. Every pt string needs a natural English gloss.`,
     prompt: `Write a lesson on "${topic}" at level ${level}.`,
   });
+
+  await recordUsage(session.username, "lesson", modelId(), usage);
 
   const db = getDb();
   const [row] = await db

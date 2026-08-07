@@ -4,15 +4,26 @@ import { generateText, Output } from "ai";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { gradeSchema, getModel, PT_STYLE, type QuizQuestions } from "@/lib/ai";
+import {
+  FEEDBACK_COACHING,
+  gradeSchema,
+  getModel,
+  PT_STYLE,
+  type QuizQuestions,
+} from "@/lib/ai";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, quizzes } from "@/lib/db";
+import { modelId, recordUsage } from "@/lib/usage";
 
 export type GradedResult = {
   index: number;
   correct: boolean;
   comment: string;
+  // Added later — older stored results won't have these.
+  verdict?: string;
+  correctedPt?: string | null;
+  tip?: string | null;
 };
 
 export async function submitQuiz(
@@ -38,13 +49,16 @@ export async function submitQuiz(
   questions.forEach((q, i) => {
     const given = (answers[i] ?? "").trim();
     if (q.type === "multiple") {
+      const right = given === q.answer;
       graded.set(i, {
         index: i,
-        correct: given === q.answer,
-        comment:
-          given === q.answer
-            ? q.explanation
-            : `Correct answer: **${q.answer}** — ${q.explanation}`,
+        correct: right,
+        verdict: right ? "certo" : "errado",
+        comment: right
+          ? q.explanation
+          : `You picked **${given || "nothing"}**. ${q.explanation}`,
+        correctedPt: right ? null : q.answer,
+        tip: null,
       });
     } else {
       toGrade.push({
@@ -58,22 +72,27 @@ export async function submitQuiz(
 
   if (toGrade.length > 0) {
     try {
-      const { output } = await generateText({
+      const { output, usage } = await generateText({
         model: getModel(),
         output: Output.object({ schema: gradeSchema }),
-        instructions: `You are grading a European Portuguese quiz for a kind family learning app. ${PT_STYLE}
-For each item decide if the learner's answer is an acceptable pt-PT answer (allow small variation: contractions,
-optional subject pronouns, synonyms). Empty answers are incorrect. Comments: one warm line each; when wrong,
-show the corrected pt-PT.`,
+        instructions: `You are grading a European Portuguese quiz for a family learning app. ${PT_STYLE}
+Decide if each answer is acceptable pt-PT (allow contractions, optional subject pronouns, synonyms).
+Treat a right-meaning answer with only spelling/accent slips as CORRECT, verdict "quase" — the learner understood,
+they just mis-typed. Empty answers are wrong.
+${FEEDBACK_COACHING}`,
         prompt: JSON.stringify(toGrade),
       });
+      await recordUsage(session.username, "grade", modelId(), usage);
       for (const r of output.results) {
         const item = toGrade.find((t) => t.index === r.index);
         if (item && !graded.has(r.index)) {
           graded.set(r.index, {
             index: r.index,
             correct: r.correct,
+            verdict: r.verdict,
             comment: r.comment,
+            correctedPt: r.correctedPt,
+            tip: r.tip,
           });
         }
       }

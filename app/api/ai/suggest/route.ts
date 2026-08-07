@@ -2,6 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse } from "next/server";
 import { getModel, PT_STYLE, suggestSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
+import { modelId, recordUsage } from "@/lib/usage";
 import { getCategoriesWithCounts, getStats } from "@/lib/data";
 
 export const maxDuration = 120;
@@ -17,7 +18,7 @@ export async function POST() {
     getCategoriesWithCounts(),
   ]);
 
-  const { output } = await generateText({
+  const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: suggestSchema }),
     instructions: `You are Luna, the tutor inside a family's European Portuguese learning app. ${PT_STYLE}
@@ -32,6 +33,8 @@ Vary the kinds. Ground each reason in their actual activity (or gently note inac
 Recent activity (newest first): ${stats.recent.map((r) => `[${r.username}] ${r.summary}`).join("; ") || "nothing yet"}.
 Category slugs: ${cats.map((c) => `${c.slug} (${c.entryCount} entries)`).join(", ")}.`,
   });
+
+  await recordUsage(session.username, "suggest", modelId(), usage);
 
   const KINDS = ["quiz", "lesson", "reference", "tutor", "homework"];
   return NextResponse.json({

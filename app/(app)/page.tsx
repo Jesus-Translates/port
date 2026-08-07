@@ -1,11 +1,14 @@
 import Link from "next/link";
 import { SuggestPanel } from "@/components/suggest-panel";
-import { requireSession } from "@/lib/auth";
+import { getValidUsers, requireSession } from "@/lib/auth";
 import {
   getCategoriesWithCounts,
+  getFamilyBoard,
   getHomeworkAll,
+  getKudosFor,
   getStats,
 } from "@/lib/data";
+import { avatarFor, titleCase } from "@/lib/people";
 
 const KIND_EMOJI: Record<string, string> = {
   quiz: "🎯",
@@ -18,11 +21,16 @@ const KIND_EMOJI: Record<string, string> = {
 
 export default async function Dashboard() {
   const session = await requireSession();
-  const [stats, allHomework, cats] = await Promise.all([
+  const [stats, allHomework, cats, board, myKudos] = await Promise.all([
     getStats(session.username),
     getHomeworkAll(),
     getCategoriesWithCounts(),
+    getFamilyBoard(getValidUsers()),
+    getKudosFor(session.username, 5),
   ]);
+  const myRank = board.findIndex((m) => m.username === session.username) + 1;
+  const leader = board[0];
+  const myStars = board.find((m) => m.username === session.username)?.stars ?? 0;
 
   const openHomework = allHomework.filter(
     (h) => h.username === session.username && h.status === "open"
@@ -56,12 +64,17 @@ export default async function Dashboard() {
             </div>
             <div className="text-[11px] text-ink-soft">XP total</div>
           </div>
-          <div className="card px-4 py-2.5 text-center">
+          <Link
+            href="/familia"
+            className="card px-4 py-2.5 text-center transition-colors hover:border-sage"
+          >
             <div className="text-lg leading-tight font-bold text-azul">
-              {stats.activeThisWeek}/7
+              {myRank > 0 ? `${myRank}º` : "—"}
             </div>
-            <div className="text-[11px] text-ink-soft">days this week</div>
-          </div>
+            <div className="text-[11px] text-ink-soft">
+              {myStars > 0 ? `⭐ ${myStars}` : "na família"}
+            </div>
+          </Link>
         </div>
       </header>
 
@@ -76,6 +89,55 @@ export default async function Dashboard() {
           </span>
           <span className="ml-2 text-sm text-ink-soft">
             — “{openHomework[0].title}” is waiting for you
+          </span>
+        </Link>
+      ) : null}
+
+      {myKudos.length > 0 ? (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">Para ti 💛</h2>
+          <div className="space-y-2">
+            {myKudos.slice(0, 3).map((k) => (
+              <div
+                key={k.id}
+                className={`card flex items-start gap-3 p-3 ${
+                  k.kind === "star" ? "border-terra/40 bg-terra-pale/30" : ""
+                }`}
+              >
+                <span className="text-xl" aria-hidden>
+                  {k.kind === "star" ? "⭐" : "💬"}
+                </span>
+                <div className="min-w-0 flex-1 text-sm">
+                  <span className="font-semibold">
+                    {titleCase(k.fromUser)} {avatarFor(k.fromUser)}
+                  </span>{" "}
+                  {k.kind === "star"
+                    ? "deu-te uma estrela!"
+                    : "deixou-te um recado:"}
+                  {k.message ? (
+                    <p className="mt-0.5 text-ink-soft italic">
+                      “{k.message}”
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {myRank > 1 && leader ? (
+        <Link
+          href="/familia"
+          className="block rounded-2xl border border-azul/25 bg-azul-pale p-4 transition-colors hover:border-azul"
+        >
+          <span className="font-semibold text-azul">
+            🏆 {titleCase(leader.username)} lidera esta semana
+          </span>
+          <span className="ml-2 text-sm text-ink-soft">
+            — estás a{" "}
+            {leader.xpThisWeek - (board[myRank - 1]?.xpThisWeek ?? 0)} XP.
+            Consegues apanhá-lo?
           </span>
         </Link>
       ) : null}

@@ -2,6 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, normalizeQuiz, PT_STYLE, quizGenSchema } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
+import { modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
 import { getDb, quizzes } from "@/lib/db";
 
@@ -21,7 +22,7 @@ export async function POST(request: NextRequest) {
   }
   const { topic = "everyday life at home", level = "A2", count = 8 } = body;
 
-  const { output } = await generateText({
+  const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: quizGenSchema }),
     instructions: `You create short European Portuguese quizzes for adult learners. ${PT_STYLE}
@@ -39,6 +40,8 @@ promptPt (optional pt-PT snippet), options (exactly 4, only for multiple), answe
       { status: 502 }
     );
   }
+
+  await recordUsage(session.username, "quiz", modelId(), usage);
 
   const db = getDb();
   const [row] = await db

@@ -138,15 +138,42 @@ export function normalizeQuiz(
   return { title: raw.title ?? undefined, questions };
 }
 
+/** Feedback that teaches: name what was right, what slipped, and a rule to keep. */
+export const FEEDBACK_COACHING = `Feedback must TEACH, never just mark. For every answer:
+- Start by naming what they actually got right — if the meaning was correct but the spelling/accents slipped, say so explicitly
+  ("You had the right structure — only the spelling slipped").
+- Diagnose the specific slip and its kind: spelling/accents, gender, verb form or tense, word order, agreement, or wrong word.
+  Say WHY it's wrong in one plain sentence ("morangos is masculine, so it takes de, not da").
+- Give the corrected European Portuguese in full.
+- End with one memorable, portable rule they can carry to the next question — not a restatement of the correction.
+Never sarcastic, never a bare "Wrong". A near-miss is "Quase!" and should feel encouraging.`;
+
+const VERDICT = z
+  .string()
+  .describe(
+    'One of: "certo" (right), "quase" (meaning right, small slips), "errado" (wrong)'
+  );
+
 export const gradeSchema = z.object({
   results: z.array(
     z.object({
       index: z.number(),
-      correct: z.boolean(),
+      correct: z.boolean().describe("True if acceptable — count 'quase' as true"),
+      verdict: VERDICT,
       comment: z
         .string()
         .describe(
-          "Short, kind English comment; if wrong, show the corrected pt-PT"
+          "1-3 sentences in English: what was right, then exactly what slipped and why."
+        ),
+      correctedPt: z
+        .string()
+        .nullable()
+        .describe("The full corrected pt-PT sentence; null if already perfect."),
+      tip: z
+        .string()
+        .nullable()
+        .describe(
+          "One short memorable rule to get it right next time, e.g. 'meio quilo de + plural noun — de never becomes da here.'"
         ),
     })
   ),
@@ -159,6 +186,61 @@ export const homeworkGenSchema = z.object({
     .describe(
       "The full assignment as markdown: a short intro, then 3-5 numbered exercises mixing writing, translation and vocabulary. English instructions, pt-PT content."
     ),
+});
+
+/** Structured assignment: each exercise is answered and graded on its own. */
+export const homeworkItemsGenSchema = z.object({
+  title: z.string().describe("Short assignment title, in Portuguese"),
+  introMd: z
+    .string()
+    .describe(
+      "2-3 sentences of markdown: what this practises and how to approach it. English prose, pt-PT examples. Do NOT list the exercises here."
+    ),
+  exercises: z
+    .array(
+      z.object({
+        section: z
+          .string()
+          .nullable()
+          .describe(
+            'Short grouping label in English, e.g. "Answer in Portuguese" or "Translate". Repeat it for consecutive exercises of the same kind.'
+          ),
+        prompt: z
+          .string()
+          .describe(
+            "One self-contained task the learner answers in a single box — a question in pt-PT, a sentence to translate, or a short prompt to write about."
+          ),
+        hint: z
+          .string()
+          .nullable()
+          .describe("Optional one-line nudge, e.g. the verb to use."),
+      })
+    )
+    .min(4)
+    .max(8),
+});
+
+/** Feedback on ONE answer, delivered immediately so the next answer improves. */
+export const itemFeedbackSchema = z.object({
+  correct: z
+    .boolean()
+    .describe("True if acceptable pt-PT for the task — count a near-miss as true"),
+  verdict: VERDICT,
+  correctedPt: z
+    .string()
+    .nullable()
+    .describe(
+      "The corrected/model Portuguese sentence. Null only when the answer was already perfect."
+    ),
+  feedbackMd: z
+    .string()
+    .describe(
+      "1-3 warm sentences of markdown: what was right, then exactly what slipped and why. English prose, pt-PT in **bold**."
+    ),
+  tip: z
+    .string()
+    .nullable()
+    .describe("One short memorable rule to carry into the next question."),
 });
 
 export const lessonBlockSchema = z.object({

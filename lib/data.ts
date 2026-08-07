@@ -4,6 +4,7 @@ import {
   categories,
   getDb,
   homework,
+  kudos,
   lessons,
   notes,
   quizzes,
@@ -166,6 +167,124 @@ export async function getStats(username: string): Promise<Stats> {
     .limit(8);
 
   return { xp: total, streakDays: streak, activeThisWeek, recent };
+}
+
+export type FamilyMember = {
+  username: string;
+  xp: number;
+  streakDays: number;
+  quizzesDone: number;
+  quizAccuracy: number | null;
+  stars: number;
+  xpThisWeek: number;
+};
+
+/** Leaderboard data: one row per family member, ranked by XP this week. */
+export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[]> {
+  const db = getDb();
+  const weekAgo = new Date();
+  weekAgo.setDate(weekAgo.getDate() - 7);
+  const since = new Date();
+  since.setDate(since.getDate() - 60);
+
+  const [xpRows, weekRows, quizRows, starRows, actRows] = await Promise.all([
+    db
+      .select({
+        username: activity.username,
+        xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
+      })
+      .from(activity)
+      .groupBy(activity.username),
+    db
+      .select({
+        username: activity.username,
+        xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
+      })
+      .from(activity)
+      .where(gte(activity.createdAt, weekAgo))
+      .groupBy(activity.username),
+    db
+      .select({
+        username: quizzes.username,
+        done: sql<number>`count(*)::int`,
+        score: sql<number>`coalesce(sum(${quizzes.score}), 0)::int`,
+        total: sql<number>`coalesce(sum(${quizzes.total}), 0)::int`,
+      })
+      .from(quizzes)
+      .where(eq(quizzes.status, "completed"))
+      .groupBy(quizzes.username),
+    db
+      .select({
+        username: kudos.toUser,
+        stars: sql<number>`count(*)::int`,
+      })
+      .from(kudos)
+      .where(eq(kudos.kind, "star"))
+      .groupBy(kudos.toUser),
+    db
+      .select({ username: activity.username, createdAt: activity.createdAt })
+      .from(activity)
+      .where(gte(activity.createdAt, since)),
+  ]);
+
+  const dayKey = (d: Date) =>
+    d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
+
+  return usernames
+    .map((name) => {
+      const u = name.toLowerCase();
+      const days = new Set(
+        actRows.filter((r) => r.username === u).map((r) => dayKey(r.createdAt))
+      );
+      let streak = 0;
+      const cursor = new Date();
+      if (!days.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1);
+      while (days.has(dayKey(cursor))) {
+        streak += 1;
+        cursor.setDate(cursor.getDate() - 1);
+      }
+      const q = quizRows.find((r) => r.username === u);
+      return {
+        username: u,
+        xp: xpRows.find((r) => r.username === u)?.xp ?? 0,
+        xpThisWeek: weekRows.find((r) => r.username === u)?.xp ?? 0,
+        streakDays: streak,
+        quizzesDone: q?.done ?? 0,
+        quizAccuracy: q && q.total > 0 ? Math.round((q.score / q.total) * 100) : null,
+        stars: starRows.find((r) => r.username === u)?.stars ?? 0,
+      };
+    })
+    .sort((a, b) => b.xpThisWeek - a.xpThisWeek || b.xp - a.xp);
+}
+
+export async function getKudosFor(username: string, limit = 20) {
+  const db = getDb();
+  return db
+    .select()
+    .from(kudos)
+    .where(eq(kudos.toUser, username))
+    .orderBy(desc(kudos.createdAt))
+    .limit(limit);
+}
+
+export async function getRecentKudos(limit = 12) {
+  const db = getDb();
+  return db.select().from(kudos).orderBy(desc(kudos.createdAt)).limit(limit);
+}
+
+/** Best score per quiz topic across the family — the number to beat. */
+export async function getTopScores() {
+  const db = getDb();
+  return db
+    .select({
+      topic: quizzes.topic,
+      username: quizzes.username,
+      score: quizzes.score,
+      total: quizzes.total,
+    })
+    .from(quizzes)
+    .where(eq(quizzes.status, "completed"))
+    .orderBy(desc(quizzes.score));
 }
 
 export async function logActivity(

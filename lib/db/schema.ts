@@ -66,11 +66,14 @@ export const lessons = pgTable("lessons", {
 });
 
 // status: open | submitted | reviewed
+// items: HomeworkItem[] — one exercise per entry, each answered and graded
+// on its own so the learner gets feedback before moving to the next.
 export const homework = pgTable("homework", {
   id: serial("id").primaryKey(),
   username: text("username").notNull(),
   title: text("title").notNull(),
   instructions: text("instructions").notNull(),
+  items: jsonb("items"),
   lessonId: integer("lesson_id").references(() => lessons.id, {
     onDelete: "set null",
   }),
@@ -96,6 +99,30 @@ export const quizzes = pgTable("quizzes", {
   status: text("status").notNull().default("ready"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   completedAt: timestamp("completed_at"),
+});
+
+// kind: star (golden star for an achievement) | note (encouragement message)
+export const kudos = pgTable("kudos", {
+  id: serial("id").primaryKey(),
+  fromUser: text("from_user").notNull(),
+  toUser: text("to_user").notNull(),
+  kind: text("kind").notNull().default("note"),
+  message: text("message").notNull().default(""),
+  seen: integer("seen").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// One row per AI call, so each person can see what they've actually spent.
+export const aiUsage = pgTable("ai_usage", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  kind: text("kind").notNull(), // tutor | quiz | grade | homework | lesson | reference | suggest
+  model: text("model").notNull(),
+  inputTokens: integer("input_tokens").notNull().default(0),
+  outputTokens: integer("output_tokens").notNull().default(0),
+  // Micro-dollars (USD × 1e6) — integers avoid float drift on tiny amounts.
+  costMicroUsd: integer("cost_micro_usd").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const activity = pgTable("activity", {

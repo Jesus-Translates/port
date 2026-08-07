@@ -123,10 +123,13 @@ function CompletedView({
       <ol className="space-y-3">
         {questions.map((q, i) => {
           const r = results.find((x) => x.index === i);
+          const near = r?.verdict === "quase";
           return (
             <li key={i} className="card p-4">
               <div className="flex items-start gap-2">
-                <span aria-hidden>{r?.correct ? "✅" : "❌"}</span>
+                <span aria-hidden>
+                  {r?.correct ? (near ? "🟡" : "✅") : "❌"}
+                </span>
                 <div className="min-w-0 flex-1">
                   <p className="font-medium">
                     {i + 1}. {q.promptEn}
@@ -138,9 +141,30 @@ function CompletedView({
                     <span className="text-ink-faint">Answer given: </span>
                     {answers[i] || <em className="text-ink-faint">blank</em>}
                   </p>
+
+                  {near ? (
+                    <p className="mt-1.5 text-sm font-semibold text-terra-dark">
+                      Quase! Só escorregou a escrita — a ideia estava certa.
+                    </p>
+                  ) : null}
+
+                  {r?.correctedPt ? (
+                    <div className="mt-1.5 rounded-lg border border-sage bg-sage-pale/60 px-2.5 py-1.5">
+                      <div className="text-[10px] font-semibold tracking-wide text-olive uppercase">
+                        Assim fica certo
+                      </div>
+                      <p className="font-display text-[16px]">{r.correctedPt}</p>
+                    </div>
+                  ) : null}
+
                   {r?.comment ? (
-                    <p className="mt-1 rounded-lg bg-sage-pale/70 px-2.5 py-1.5 text-sm text-olive">
-                      {r.comment}
+                    <p className="mt-1.5 text-sm text-ink-soft">{r.comment}</p>
+                  ) : null}
+
+                  {r?.tip ? (
+                    <p className="mt-1.5 rounded-lg bg-azul-pale px-2.5 py-1.5 text-sm text-azul">
+                      💡 <span className="font-semibold">Para a próxima:</span>{" "}
+                      {r.tip}
                     </p>
                   ) : null}
                 </div>

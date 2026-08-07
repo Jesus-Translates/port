@@ -4,6 +4,10 @@ import { HomeworkWork } from "@/components/homework-work";
 import { Markdown } from "@/components/markdown";
 import { requireSession } from "@/lib/auth";
 import { getHomeworkItem } from "@/lib/data";
+import {
+  type HomeworkItem,
+  parseItemsFromMarkdown,
+} from "@/lib/homework-items";
 import { formatDate } from "@/lib/utils";
 
 export default async function HomeworkDetail(
@@ -48,6 +52,9 @@ export default async function HomeworkDetail(
           status: hw.status,
           response: hw.response,
           feedback: hw.feedback,
+          items: hw.items as HomeworkItem[] | null,
+          canSplit:
+            !hw.items && parseItemsFromMarkdown(hw.instructions).length > 0,
         }}
         isOwner={isOwner}
         ownerName={hw.username}

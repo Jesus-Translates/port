@@ -9,6 +9,7 @@ import { after, NextResponse, type NextRequest } from "next/server";
 import { getModel, tutorInstructions } from "@/lib/ai";
 import { getSession, getValidUsers } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
+import { modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
@@ -46,6 +47,15 @@ export async function POST(request: NextRequest) {
     model: getModel(),
     instructions,
     messages: await convertToModelMessages(messages),
+  });
+
+  // Token counts only settle once the stream finishes.
+  after(async () => {
+    try {
+      await recordUsage(session.username, "tutor", modelId(), await result.usage);
+    } catch {
+      // Billing telemetry must never break the chat.
+    }
   });
 
   return createUIMessageStreamResponse({

@@ -68,6 +68,7 @@ export function QuizNewForm({ initialTopic = "" }: { initialTopic?: string }) {
             <option>A1</option>
             <option>A2</option>
             <option>B1</option>
+            <option>B2</option>
           </select>
         </div>
         <button type="submit" disabled={busy} className="btn-terra">
