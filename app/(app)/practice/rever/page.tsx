@@ -3,14 +3,16 @@ import { EnrolPanel } from "@/components/enrol-panel";
 import { ReviewPlayer } from "@/components/review-player";
 import { requireSession } from "@/lib/auth";
 import { getDeckOverview } from "@/lib/actions/review";
-import { getQueue } from "@/lib/srs";
+import { getFlashQueue, getQueue } from "@/lib/srs";
 
 export const metadata = { title: "Rever" };
 
-export default async function ReviewPage() {
+export default async function ReviewPage(props: PageProps<"/practice/rever">) {
   const session = await requireSession();
+  const { flash } = await props.searchParams;
+  const isFlash = flash === "1";
   const [queue, deck] = await Promise.all([
-    getQueue(session.username),
+    isFlash ? getFlashQueue(session.username, 5) : getQueue(session.username),
     getDeckOverview(),
   ]);
 
@@ -21,16 +23,19 @@ export default async function ReviewPage() {
           ← Praticar
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-          🔁 Rever
+          {isFlash ? "⚡ Flash review" : "🔁 Rever"}
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Spaced repetition over the family book and your own mistakes — each
-          card comes back right before you would forget it.
+          {isFlash
+            ? "Five quick cards as a sanity check — pass with Bom or better to complete each one."
+            : "Spaced repetition over the family book and your own mistakes — each card comes back right before you would forget it."}
         </p>
       </header>
 
       {queue.length > 0 ? (
         <ReviewPlayer
+          key={isFlash ? "flash" : "full"}
+          flash={isFlash}
           initialQueue={queue.map((c) => ({
             id: c.id,
             kind: c.kind,

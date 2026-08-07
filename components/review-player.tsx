@@ -18,30 +18,42 @@ type QueueCard = {
 
 const GRADES: { rating: ReviewRating; label: string; hint: string; cls: string }[] = [
   { rating: 1, label: "Errei", hint: "outra vez já", cls: "bg-terra text-paper hover:bg-terra-dark" },
-  { rating: 2, label: "Difícil", hint: "volta cedo", cls: "bg-sand text-ink hover:bg-sage-light" },
-  { rating: 3, label: "Bom", hint: "normal", cls: "bg-olive text-paper hover:bg-ink" },
-  { rating: 4, label: "Fácil", hint: "volta tarde", cls: "bg-azul text-paper hover:bg-ink" },
+  { rating: 2, label: "Difícil", hint: "repete a seguir", cls: "bg-sand text-ink hover:bg-sage-light" },
+  { rating: 3, label: "Bom", hint: "completo ✓", cls: "bg-olive text-paper hover:bg-ink" },
+  { rating: 4, label: "Fácil", hint: "completo ✓", cls: "bg-azul text-paper hover:bg-ink" },
 ];
 
-export function ReviewPlayer({ initialQueue }: { initialQueue: QueueCard[] }) {
+export function ReviewPlayer({
+  initialQueue,
+  flash = false,
+}: {
+  initialQueue: QueueCard[];
+  flash?: boolean;
+}) {
   const router = useRouter();
   const [queue, setQueue] = useState(initialQueue);
   const [revealed, setRevealed] = useState(false);
   const [doneCount, setDoneCount] = useState(0);
+  const [justPassed, setJustPassed] = useState(false);
   const [, startTransition] = useTransition();
 
+  // Stable session size: completed + still queued (repeats don't grow it).
+  const total = doneCount + queue.length;
   const card = queue[0];
+
   if (!card) {
     return (
       <div className="card p-8 text-center">
         <div className="mb-2 text-4xl" aria-hidden>
-          🎉
+          {flash ? "⚡" : "🎉"}
         </div>
         <p className="font-medium">
-          Sessão feita — {doneCount} {doneCount === 1 ? "cartão" : "cartões"}!
+          {flash
+            ? `Sanity check feito — ${doneCount} ${doneCount === 1 ? "cartão" : "cartões"} ✓`
+            : `Sessão feita — ${doneCount} ${doneCount === 1 ? "cartão" : "cartões"}!`}
         </p>
         <button className="btn-ghost mt-3" onClick={() => router.refresh()}>
-          Ver se há mais
+          {flash ? "Outra ronda ⚡" : "Ver se há mais"}
         </button>
       </div>
     );
@@ -49,25 +61,46 @@ export function ReviewPlayer({ initialQueue }: { initialQueue: QueueCard[] }) {
 
   function grade(rating: ReviewRating) {
     const current = card;
-    // Optimistic: advance immediately; the action reschedules in background.
+    // A card is only COMPLETE at Bom or above — Errei/Difícil repeat in this
+    // same session until it passes. FSRS records every grade either way.
+    const passed = rating >= 3;
     setQueue((q) => {
       const rest = q.slice(1);
-      // "Errei" comes back at the end of this same session.
-      return rating === 1 ? [...rest, current] : rest;
+      return passed ? rest : [...rest, current];
     });
-    if (rating !== 1) setDoneCount((n) => n + 1);
+    if (passed) {
+      setDoneCount((n) => n + 1);
+      setJustPassed(true);
+      setTimeout(() => setJustPassed(false), 600);
+    }
     setRevealed(false);
     startTransition(() => gradeCard(current.id, rating));
   }
 
   return (
     <div className="space-y-3">
+      <div className="flex items-center gap-3">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-sand">
+          <div
+            className={cn(
+              "h-full rounded-full bg-olive transition-all duration-500",
+              justPassed && "bg-terra"
+            )}
+            style={{ width: `${total > 0 ? (doneCount / total) * 100 : 0}%` }}
+          />
+        </div>
+        <span className="shrink-0 text-xs font-medium text-ink-soft tabular-nums">
+          {doneCount}/{total} ✓
+        </span>
+      </div>
       <div className="flex items-center justify-between text-xs text-ink-faint">
         <span>
-          {queue.length} na fila
+          {flash ? "⚡ Flash review" : `${queue.length} na fila`}
           {card.kind === "mistake" ? " · dos teus erros 🔧" : ""}
         </span>
-        <span>{doneCount} feitos</span>
+        {justPassed ? (
+          <span className="font-semibold text-olive">completo ✓</span>
+        ) : null}
       </div>
 
       <div className="card min-h-56 p-6">

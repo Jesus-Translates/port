@@ -89,6 +89,22 @@ export async function getQueue(username: string) {
   return [...due, ...fresh];
 }
 
+/** Flash review: a quick sanity-check hand — due cards first, then a random
+ *  sample of the rest of the deck. Grades still feed FSRS like any review. */
+export async function getFlashQueue(username: string, n = 5) {
+  const db = getDb();
+  const now = new Date();
+  return db
+    .select()
+    .from(cards)
+    .where(eq(cards.username, username))
+    .orderBy(
+      sql`case when ${cards.state} > 0 and ${cards.due} <= ${now} then 0 else 1 end`,
+      sql`random()`
+    )
+    .limit(n);
+}
+
 export async function countDue(username: string): Promise<number> {
   const db = getDb();
   const now = new Date();

@@ -54,6 +54,13 @@ export function Nav({
             </span>
           </Link>
           <div className="min-w-0 flex-1" />
+          <Link
+            href="/practice/rever?flash=1"
+            title="Flash review — 5 cartões rápidos"
+            className="shrink-0 rounded-full border border-sand bg-white/70 px-2 py-0.5 text-xs text-ink-soft transition-colors hover:border-terra hover:bg-terra-pale"
+          >
+            ⚡
+          </Link>
           {showPanel ? (
             <Link
               href="/admin"
