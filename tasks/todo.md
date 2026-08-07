@@ -46,6 +46,21 @@ IMPORTANT OPERATIONAL NOTE: schema changes ship via `npm run db:push` from .env.
 which points at the PROD Neon DB — always push schema BEFORE `vercel deploy --prod`,
 or new-table queries 500 in prod. No migration step runs on deploy.
 
+## Roadmap BUILT end to end (2026-08-07, autonomous /goal run)
+
+All six roadmap items shipped and verified in prod the same day:
+- [x] Rever: FSRS (ts-fsrs) over the phrasebook, per-user state, 20 new/day cap,
+      mistake cards auto-enrol from homework/quiz/ditado/verb errors
+- [x] pt-PT TTS everywhere (gpt-4o-mini-tts, Postgres-cached, env-steerable) — NEEDS EAR-TEST
+- [x] Ditado (dictation, LCS word grading, answer hidden server-side)
+- [x] Verbos (hand-checked EP conjugation tables, 30 verbs, EP -ámos)
+- [x] Falar (record → gpt-4o-mini-transcribe → word alignment / Luna feedback; iOS mp4 handled)
+- [x] CIPLE track (Leitura, Oral-listening via hidden TTS script, Escrita 25-35/60-80w,
+      Cultura e História quiz + seeded 🇵🇹 category 24 entries, oral via Falar)
+- [x] Histórias (serialized graded readers set in Santa Cruz, glossary→deck, questions, audio)
+- [x] Praticar hub + dashboard due-count nudge
+Prod-verified: TTS gen+cache, listening quiz audio, story ch.1, CIPLE escrita, STT round-trip 6/6.
+
 ## Feature roadmap (from Opus research agents, 2026-08-07)
 
 Convergent top picks (both researchers independently):
