@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Nav } from "@/components/nav";
 import { SpendChip } from "@/components/spend-chip";
-import { requireSession } from "@/lib/auth";
+import { getRole, requireSession } from "@/lib/auth";
 
 export default async function AppLayout({
   children,
@@ -13,6 +13,7 @@ export default async function AppLayout({
     <div className="min-h-dvh">
       <Nav
         displayName={session.displayName}
+        showPanel={getRole(session.username) !== "student"}
         spendSlot={
           <Suspense fallback={null}>
             <SpendChip username={session.username} />

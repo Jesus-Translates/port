@@ -6,7 +6,7 @@ import {
   homeworkItemsGenSchema,
   PT_STYLE,
 } from "@/lib/ai";
-import { getSession, getValidUsers } from "@/lib/auth";
+import { getRole, getSession, getValidUsers } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
@@ -31,7 +31,12 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let body: { topic?: string; forEveryone?: boolean; mode?: string };
+  let body: {
+    topic?: string;
+    forEveryone?: boolean;
+    mode?: string;
+    assignees?: string[];
+  };
   try {
     body = await request.json();
   } catch {
@@ -122,9 +127,21 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
   }
 
   const db = getDb();
-  const assignees = forEveryone
-    ? getValidUsers().map((u) => u.toLowerCase())
-    : [session.username];
+  const staff = getRole(session.username) !== "student";
+  // Teachers/admins may target specific students; everyone else assigns to
+  // themselves (or the whole family via forEveryone).
+  const requested = staff
+    ? (body.assignees ?? [])
+        .map((a) => String(a).toLowerCase())
+        .filter((a) => getValidUsers().some((u) => u.toLowerCase() === a))
+    : [];
+  const assignees =
+    requested.length > 0
+      ? requested
+      : forEveryone
+        ? getValidUsers().map((u) => u.toLowerCase())
+        : [session.username];
+  const source = requested.length > 0 ? "teacher" : "ai";
 
   const rows = await db
     .insert(homework)
@@ -134,7 +151,7 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
         title,
         instructions: introMd,
         items,
-        source: "ai",
+        source,
       }))
     )
     .returning({ id: homework.id, username: homework.username });

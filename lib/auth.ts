@@ -84,3 +84,29 @@ export async function requireSession(): Promise<Session> {
   if (!session) redirect("/login");
   return session;
 }
+
+/** Roles are derived from env at runtime (no re-login needed to change them):
+ *  ADMIN_USERS (default Robert) · TEACHER_USERS (default Kelly). */
+export type Role = "admin" | "teacher" | "student";
+
+function envList(name: string, fallback: string): string[] {
+  return (process.env[name] ?? fallback)
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function getRole(username: string): Role {
+  const u = username.toLowerCase();
+  if (envList("ADMIN_USERS", "Robert").includes(u)) return "admin";
+  if (envList("TEACHER_USERS", "Kelly").includes(u)) return "teacher";
+  return "student";
+}
+
+/** Admin or teacher only; students are sent home. */
+export async function requireStaff(): Promise<Session & { role: Role }> {
+  const session = await requireSession();
+  const role = getRole(session.username);
+  if (role === "student") redirect("/");
+  return { ...session, role };
+}

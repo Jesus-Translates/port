@@ -24,10 +24,13 @@ function isActive(pathname: string, href: string) {
 export function Nav({
   displayName,
   spendSlot,
+  showPanel = false,
 }: {
   displayName: string;
   /** Server-rendered spend chip, streamed in via Suspense from the layout. */
   spendSlot?: React.ReactNode;
+  /** Admin/teacher only. */
+  showPanel?: boolean;
 }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -51,6 +54,15 @@ export function Nav({
             </span>
           </Link>
           <div className="min-w-0 flex-1" />
+          {showPanel ? (
+            <Link
+              href="/admin"
+              title="Painel"
+              className="shrink-0 rounded-full border border-sand bg-white/70 px-2 py-0.5 text-xs text-ink-soft transition-colors hover:border-sage hover:bg-sage-pale"
+            >
+              ⚙️
+            </Link>
+          ) : null}
           <Link
             href="/gastos"
             title="O teu gasto de IA este mês"

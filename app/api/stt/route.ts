@@ -2,8 +2,8 @@ import { generateText } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, PT_STYLE } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
-import { gradeDitadoText } from "@/lib/ditado";
 import { logActivity } from "@/lib/data";
+import { scorePronunciation } from "@/lib/pronunciation";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 60;
@@ -83,14 +83,49 @@ export async function POST(request: NextRequest) {
   });
 
   if (mode === "read" && target) {
-    const diff = gradeDitadoText(target, transcript);
+    const pron = scorePronunciation(target, transcript);
+
+    // When something slipped, Luna diagnoses the specific sounds — comparing
+    // what was heard against the target word by word.
+    let tips: string[] = [];
+    if (pron.score < 100) {
+      const problems = pron.words
+        .filter((w) => w.status !== "ok")
+        .map((w) =>
+          w.heard
+            ? `target "${w.word}" was heard as "${w.heard}"`
+            : `target "${w.word}" was not heard at all`
+        )
+        .join("; ");
+      try {
+        const { text, usage } = await generateText({
+          model: getModel(),
+          instructions: `You are Luna, a European Portuguese pronunciation coach. ${PT_STYLE}
+A learner read a sentence aloud; speech recognition compared it to the target. From the mismatches, diagnose the 1-2 most
+likely PRONUNCIATION causes and give concrete, physical tips (mouth/tongue/sound), each ≤ 20 words. Focus on classic
+English-speaker issues with pt-PT: the lh (like "million") and nh (like "canyon") sounds, nasal vowels ão/õe/em,
+reduced unstressed vowels, the final -s as "sh", rolled vs guttural r. If a word was simply skipped, say to slow down.
+Reply with ONLY the tips, one per line, no numbering, no preamble. English, with pt-PT sounds in **bold**.`,
+          prompt: `TARGET: ${target}\nHEARD: ${transcript || "(nothing)"}\nMISMATCHES: ${problems}`,
+        });
+        await recordUsage(session.username, "grade", modelId(), usage);
+        tips = text
+          .split("\n")
+          .map((t) => t.replace(/^[-*\d.\s]+/, "").trim())
+          .filter(Boolean)
+          .slice(0, 2);
+      } catch {
+        tips = [];
+      }
+    }
+
     await logActivity(
       session.username,
       "falar",
-      `Leu em voz alta: ${diff.score}/${diff.total} palavras entendidas`,
-      Math.max(3, Math.round((diff.score / Math.max(diff.total, 1)) * 8))
+      `Leu em voz alta — pronúncia ${pron.score}/100`,
+      Math.max(3, Math.round((pron.score / 100) * 8))
     );
-    return NextResponse.json({ transcript, diff });
+    return NextResponse.json({ transcript, pron, tips });
   }
 
   // Open mode: short spoken-answer feedback from Luna.
@@ -99,11 +134,13 @@ export async function POST(request: NextRequest) {
     const { text, usage } = await generateText({
       model: getModel(),
       instructions: `You are Luna, a warm European Portuguese tutor. ${PT_STYLE}
-The learner (${session.displayName}) SPOKE an answer; you see only its transcript, so ignore
-spelling/accents entirely — judge the Portuguese as speech (word choice, verb forms, fluency).
-Reply in 2-3 short markdown sentences: name one thing they did well, one concrete improvement
-with the corrected pt-PT in **bold**, and end with an encouraging line. English prose.`,
-      prompt: `THE SPEAKING PROMPT: ${prompt || "(free conversation)"}\n\nTRANSCRIPT OF WHAT THEY SAID: ${transcript || "(nothing recognised)"}`,
+The learner (${session.displayName}) SPOKE an answer to a question; you see only its transcript, so ignore
+spelling/accents entirely — judge the Portuguese as speech: did it answer the question, word choice, verb forms, fluency.
+Reply in markdown, BILINGUAL, exactly this shape:
+🇬🇧 2-3 short English sentences — one thing done well, then the most useful improvement with the corrected pt-PT in **bold**.
+🇵🇹 The same feedback in very simple pt-PT (A2 level), 1-2 sentences.
+End with one short encouraging line in Portuguese.`,
+      prompt: `THE QUESTION ASKED: ${prompt || "(free conversation)"}\n\nTRANSCRIPT OF THE SPOKEN ANSWER: ${transcript || "(nothing recognised)"}`,
     });
     feedbackMd = text;
     await recordUsage(session.username, "grade", modelId(), usage);

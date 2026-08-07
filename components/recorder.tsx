@@ -2,17 +2,24 @@
 
 import { useRef, useState } from "react";
 import { Markdown } from "@/components/markdown";
-import type { DitadoResult } from "@/lib/ditado";
+import type { PronResult } from "@/lib/pronunciation";
 import { cn } from "@/lib/utils";
 
 type SttResponse = {
   transcript: string;
-  diff?: DitadoResult;
+  pron?: PronResult;
+  tips?: string[];
   feedbackMd?: string | null;
   error?: string;
 };
 
-/** Record → transcribe → show what was understood. */
+function scoreColor(score: number): string {
+  if (score >= 85) return "text-olive";
+  if (score >= 60) return "text-terra";
+  return "text-terra-dark";
+}
+
+/** Record → transcribe → pronunciation score (read) or Luna feedback (open). */
 export function Recorder({
   mode,
   target,
@@ -103,24 +110,66 @@ export function Recorder({
 
       {result ? (
         <div className="space-y-2">
-          {result.diff ? (
+          {result.pron ? (
             <>
-              <p className="flex flex-wrap gap-x-1.5 gap-y-1 font-display text-lg">
-                {result.diff.words.map((w, i) => (
-                  <span
-                    key={i}
+              <div className="flex items-center gap-4 rounded-xl border border-sand bg-white/70 px-4 py-3">
+                <div className="text-center">
+                  <div
                     className={cn(
-                      "rounded px-0.5",
-                      w.ok ? "text-olive" : "bg-terra-pale text-terra-dark"
+                      "font-display text-4xl leading-none font-bold",
+                      scoreColor(result.pron.score)
                     )}
                   >
-                    {w.word}
-                  </span>
-                ))}
-              </p>
-              <p className="text-xs text-ink-faint">
-                Verde = a Luna percebeu esta palavra. Isto mede se foste
-                entendido — não é uma nota de pronúncia.
+                    {result.pron.score}
+                  </div>
+                  <div className="text-[10px] text-ink-faint">/100 pronúncia</div>
+                </div>
+                <p className="flex flex-1 flex-wrap gap-x-1.5 gap-y-1 font-display text-lg">
+                  {result.pron.words.map((w, i) => (
+                    <span
+                      key={i}
+                      title={
+                        w.status === "close"
+                          ? `A Luna ouviu “${w.heard}”`
+                          : w.status === "missed"
+                            ? "Não ouvido"
+                            : undefined
+                      }
+                      className={cn(
+                        "rounded px-0.5",
+                        w.status === "ok" && "text-olive",
+                        w.status === "close" &&
+                          "bg-azul-pale text-azul underline decoration-dotted",
+                        w.status === "missed" &&
+                          "bg-terra-pale text-terra-dark"
+                      )}
+                    >
+                      {w.word}
+                    </span>
+                  ))}
+                </p>
+              </div>
+              {result.pron.words.some((w) => w.status === "close") ? (
+                <p className="text-xs text-ink-faint">
+                  Azul tracejado = quase — toca na palavra para ver o que a Luna
+                  ouviu.
+                </p>
+              ) : null}
+              {result.tips?.length ? (
+                <ul className="space-y-1.5">
+                  {result.tips.map((t, i) => (
+                    <li
+                      key={i}
+                      className="rounded-xl bg-azul-pale px-3 py-2 text-sm text-azul"
+                    >
+                      💡 <Markdown className="inline text-[14px]">{t}</Markdown>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <p className="text-[11px] text-ink-faint">
+                Estimativa a partir do reconhecimento de voz — mede se foste
+                percebido, palavra a palavra.
               </p>
             </>
           ) : (
