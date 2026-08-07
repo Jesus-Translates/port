@@ -65,7 +65,11 @@ async function main() {
   console.log("✓ users");
 
   // 2. Reference book
-  const packs = ["reference-casa.json", "reference-vida.json"].map((f) =>
+  const packs = [
+    "reference-casa.json",
+    "reference-vida.json",
+    "cultura.json",
+  ].map((f) =>
     loadJson<{ categories: SeedCategory[] }>(f)
   );
   let sortOrder = 0;

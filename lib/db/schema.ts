@@ -124,6 +124,60 @@ export const aiUsage = pgTable("ai_usage", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+// Spaced-repetition cards (FSRS). Shared content, per-user memory:
+// kind: entry (from the phrasebook) | mistake (from graded errors) | verb.
+// `fsrs` holds the serialized ts-fsrs Card; due/state are denormalized for queries.
+export const cards = pgTable("cards", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  kind: text("kind").notNull().default("entry"),
+  sourceId: integer("source_id"),
+  front: text("front").notNull(),
+  back: text("back").notNull(),
+  note: text("note"),
+  direction: text("direction").notNull().default("en-pt"),
+  fsrs: jsonb("fsrs").notNull(),
+  due: timestamp("due").notNull(),
+  state: integer("state").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const reviewLogs = pgTable("review_logs", {
+  id: serial("id").primaryKey(),
+  cardId: integer("card_id")
+    .notNull()
+    .references(() => cards.id, { onDelete: "cascade" }),
+  username: text("username").notNull(),
+  rating: integer("rating").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Cached TTS audio (base64 mp3) so each phrase is synthesized exactly once.
+export const ttsAudio = pgTable("tts_audio", {
+  id: serial("id").primaryKey(),
+  hash: text("hash").notNull().unique(),
+  text: text("text").notNull(),
+  voice: text("voice").notNull(),
+  audioB64: text("audio_b64").notNull(),
+  bytes: integer("bytes").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Serialized graded-reader chapters set in the family's real life.
+export const stories = pgTable("stories", {
+  id: serial("id").primaryKey(),
+  seriesTitle: text("series_title").notNull(),
+  chapter: integer("chapter").notNull().default(1),
+  title: text("title").notNull(),
+  level: text("level").notNull().default("A2"),
+  textPt: text("text_pt").notNull(),
+  textEn: text("text_en").notNull(),
+  glossary: jsonb("glossary").notNull(), // [{pt, en}]
+  questions: jsonb("questions").notNull(), // [{promptPt, options[4], answer}]
+  createdBy: text("created_by").notNull().default("seed"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const activity = pgTable("activity", {
   id: serial("id").primaryKey(),
   username: text("username").notNull(),

@@ -9,6 +9,7 @@ import {
   getStats,
 } from "@/lib/data";
 import { avatarFor, titleCase } from "@/lib/people";
+import { countDue } from "@/lib/srs";
 
 const KIND_EMOJI: Record<string, string> = {
   quiz: "🎯",
@@ -22,12 +23,13 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos] = await Promise.all([
+  const [stats, allHomework, cats, board, myKudos, due] = await Promise.all([
     getStats(session.username),
     getHomeworkAll(),
     getCategoriesWithCounts(),
     getFamilyBoard(getValidUsers()).catch(() => []),
     getKudosFor(session.username, 5).catch(() => []),
+    countDue(session.username).catch(() => 0),
   ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];
@@ -78,6 +80,20 @@ export default async function Dashboard() {
           </Link>
         </div>
       </header>
+
+      {due > 0 ? (
+        <Link
+          href="/practice/rever"
+          className="block rounded-2xl border border-olive/30 bg-sage-pale/60 p-4 transition-colors hover:border-olive"
+        >
+          <span className="font-semibold text-olive">
+            🔁 {due} {due === 1 ? "cartão" : "cartões"} para rever hoje
+          </span>
+          <span className="ml-2 text-sm text-ink-soft">
+            — five minutes now beats an hour later.
+          </span>
+        </Link>
+      ) : null}
 
       {openHomework.length > 0 ? (
         <Link
@@ -184,6 +200,18 @@ export default async function Dashboard() {
               emoji: "📝",
               title: "Notas",
               sub: "Your own study notes",
+            },
+            {
+              href: "/practice/rever",
+              emoji: "🔁",
+              title: "Rever",
+              sub: due > 0 ? `${due} cartões à espera` : "Spaced repetition",
+            },
+            {
+              href: "/stories",
+              emoji: "📕",
+              title: "Histórias",
+              sub: "Stories set in Santa Cruz",
             },
           ].map((c) => (
             <Link

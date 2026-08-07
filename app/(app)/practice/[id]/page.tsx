@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AudioButton } from "@/components/audio-button";
 import { QuizPlayer } from "@/components/quiz-player";
 import type { QuizQuestions } from "@/lib/ai";
 import { cloneQuiz } from "@/lib/actions/quiz";
@@ -17,6 +18,9 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
 
   const isOwner = quiz.username === session.username;
   const { questions } = quiz.questions as QuizQuestions;
+  const hasAudio = Boolean(
+    (quiz.questions as { audioScript?: string }).audioScript
+  );
   const cloneThis = cloneQuiz.bind(null, quiz.id);
 
   return (
@@ -35,6 +39,16 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
           {quiz.level} · {questions.length} perguntas
         </p>
       </header>
+
+      {hasAudio ? (
+        <div className="card flex items-center gap-3 border-azul/30 bg-azul-pale/50 p-4">
+          <AudioButton quizId={quiz.id} label="Ouvir o áudio" />
+          <p className="text-sm text-azul">
+            Ouve primeiro — no exame real o áudio passa duas vezes. O texto
+            nunca é mostrado.
+          </p>
+        </div>
+      ) : null}
 
       {quiz.status === "completed" ? (
         <>

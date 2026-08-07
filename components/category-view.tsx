@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import {
   addEntries,
   addEntry,
@@ -225,8 +226,12 @@ export function CategoryView({
                         : "•"}
                 </span>
                 <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline gap-x-2">
+                  <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                     <span className="font-medium">{e.pt}</span>
+                    <AudioButton
+                      text={e.replyPt ? `${e.pt} … ${e.replyPt}` : e.pt}
+                      className="min-h-7 min-w-7 scale-90 px-1.5"
+                    />
                     {showEn ? (
                       <span className="text-sm text-ink-soft">{e.en}</span>
                     ) : null}

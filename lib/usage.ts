@@ -9,6 +9,9 @@ const DEFAULT_PRICES: Record<string, { input: number; output: number }> = {
   "gpt-5.6-luna": { input: 0.0000002, output: 0.0000012 },
   "gpt-5.6-sol": { input: 0.0000005, output: 0.000004 },
   "gpt-oss-120b": { input: 0.00000005, output: 0.00000025 },
+  // audio: input = text tokens, output = audio tokens
+  "gpt-4o-mini-tts": { input: 0.0000006, output: 0.000012 },
+  "gpt-4o-mini-transcribe": { input: 0.000003, output: 0.000005 },
 };
 const FALLBACK = { input: 0.0000002, output: 0.0000012 };
 

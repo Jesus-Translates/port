@@ -14,6 +14,7 @@ import {
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
+import { addMistakeCard } from "@/lib/srs";
 import { modelId, recordUsage } from "@/lib/usage";
 import {
   type HomeworkItem,
@@ -194,6 +195,10 @@ EXERCISE ${item.n}${item.section ? ` (${item.section})` : ""}: ${item.prompt}${i
 ${displayName.toUpperCase()}'S ANSWER: ${answer}`,
     });
     await recordUsage(username, "grade", modelId(), usage);
+    // Errors become review cards — the review deck is where they get fixed.
+    if (output.correct === false && output.correctedPt) {
+      await addMistakeCard(username, item.prompt, output.correctedPt, output.tip);
+    }
     return {
       ...item,
       answer,

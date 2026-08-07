@@ -202,6 +202,7 @@ export const homeworkItemsGenSchema = z.object({
         section: z
           .string()
           .nullable()
+          // (CIPLE escrita uses 2 tasks; regular homework 4-8 — see prompt)
           .describe(
             'Short grouping label in English, e.g. "Answer in Portuguese" or "Translate". Repeat it for consecutive exercises of the same kind.'
           ),
@@ -216,7 +217,7 @@ export const homeworkItemsGenSchema = z.object({
           .describe("Optional one-line nudge, e.g. the verb to use."),
       })
     )
-    .min(4)
+    .min(2)
     .max(8),
 });
 
@@ -291,6 +292,55 @@ export const refSuggestSchema = z.object({
     )
     .min(5)
     .max(14),
+});
+
+/** CIPLE-style listening: a short spoken script + questions about it. */
+export const listeningGenSchema = z.object({
+  title: z.string().describe("Short title in Portuguese"),
+  audioScript: z
+    .string()
+    .describe(
+      "The pt-PT script to be read aloud: a short everyday dialogue or announcement, 60-120 words, natural spoken European Portuguese. No stage directions — only the words to be spoken."
+    ),
+  questions: z
+    .array(
+      z.object({
+        type: z.string().describe('Always "multiple"'),
+        promptPt: z.string().nullable(),
+        promptEn: z.string().describe("The question about the audio, in English"),
+        question: z.string().nullable().describe("Alias — prefer promptEn"),
+        options: z.array(z.string()).nullable().describe("Exactly 4 options"),
+        answer: z.string(),
+        explanation: z.string().nullable(),
+      })
+    )
+    .min(3)
+    .max(6),
+});
+
+/** A graded-reader chapter set in the family's real life. */
+export const storyGenSchema = z.object({
+  seriesTitle: z.string().describe("The ongoing series name, in Portuguese"),
+  title: z.string().describe("This chapter's title, in Portuguese"),
+  textPt: z
+    .string()
+    .describe("The chapter, 150-220 words of pt-PT prose at the target level, in 3-5 short paragraphs"),
+  textEn: z.string().describe("A natural English translation of the chapter"),
+  glossary: z
+    .array(z.object({ pt: z.string(), en: z.string() }))
+    .min(6)
+    .max(12)
+    .describe("The hardest words/expressions in the chapter"),
+  questions: z
+    .array(
+      z.object({
+        promptPt: z.string().describe("Comprehension question in pt-PT"),
+        options: z.array(z.string()).min(3).max(4),
+        answer: z.string().describe("The correct option verbatim"),
+      })
+    )
+    .min(3)
+    .max(4),
 });
 
 export const suggestSchema = z.object({

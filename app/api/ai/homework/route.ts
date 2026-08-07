@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  let body: { topic?: string; forEveryone?: boolean };
+  let body: { topic?: string; forEveryone?: boolean; mode?: string };
   try {
     body = await request.json();
   } catch {
@@ -39,12 +39,21 @@ export async function POST(request: NextRequest) {
   }
   const { topic: topicRaw = "everyday life in Portugal", forEveryone = false } = body;
   const topic = String(topicRaw).slice(0, 300);
+  const cipleEscrita = body.mode === "ciple-escrita";
 
-  const SHARED = `You are Luna, a European Portuguese tutor writing homework for adult learners (around A2). ${PT_STYLE}
-The whole assignment should take 15-25 minutes. Each exercise is answered on its own in a single input box and graded
-immediately, so every exercise must be self-contained and answerable in one or two sentences — never "do all of the
-following" or a multi-part task. Mix kinds across the set: answer a question in Portuguese, translate a sentence
-into pt-PT, and write a couple of lines about the learner's own life in Portugal.
+  const SHARED = cipleEscrita
+    ? `You are Luna, preparing an adult learner for the CIPLE A2 exam's Expressão Escrita component. ${PT_STYLE}
+Produce EXACTLY 2 exercises mirroring the real exam:
+1. A short interactional text (postal, recado, convite or email) of 25-35 words — give a concrete everyday situation.
+2. A longer text of 60-80 words about personal experience or daily life (descrever, contar, opinar).
+Each exercise's prompt must state the word count and the situation clearly. Section = "Expressão Escrita".
+Instructions in English, situations rooted in daily life near Torres Vedras.`
+    : `You are Luna, a European Portuguese tutor writing homework for adult learners (around A2). ${PT_STYLE}
+The whole assignment should take 15-25 minutes. Produce 4-6 exercises. Each exercise is answered on its own in a single
+input box and graded immediately, so every exercise must be self-contained and answerable in one or two sentences — never
+"do all of the following" or a multi-part task. Mix kinds across the set: answer a question in Portuguese, translate a
+sentence into pt-PT, and write a couple of lines about the learner's own life in Portugal. Draw from more than one
+sub-topic and mix verb tenses — interleaving beats blocking.
 Instructions in English, all target content in pt-PT.`;
 
   let title: string;
@@ -56,9 +65,11 @@ Instructions in English, all target content in pt-PT.`;
       model: getModel(),
       output: Output.object({ schema: homeworkItemsGenSchema }),
       instructions: SHARED,
-      prompt: `Write one homework assignment on "${topic}".`,
+      prompt: cipleEscrita
+        ? `Write one CIPLE A2 Expressão Escrita practice set${topic !== "everyday life in Portugal" ? ` themed around "${topic}"` : ""}.`
+        : `Write one homework assignment on "${topic}".`,
     });
-    title = output.title;
+    title = cipleEscrita ? `CIPLE Escrita: ${output.title}`.slice(0, 120) : output.title;
     introMd = output.introMd;
     await recordUsage(session.username, "homework", modelId(), usage);
     items = output.exercises.map((e, i) =>

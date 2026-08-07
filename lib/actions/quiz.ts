@@ -14,6 +14,7 @@ import {
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, quizzes } from "@/lib/db";
+import { addMistakeCard } from "@/lib/srs";
 import { modelId, recordUsage } from "@/lib/usage";
 
 export type GradedResult = {
@@ -113,6 +114,17 @@ ${FEEDBACK_COACHING}`,
 
   const results = [...graded.values()].sort((a, b) => a.index - b.index);
   const score = results.filter((r) => r.correct).length;
+
+  // Missed items → review cards (translate: corrected pt; multiple: the answer).
+  for (const r of results) {
+    if (r.correct) continue;
+    const q = questions[r.index];
+    if (!q) continue;
+    const back = r.correctedPt ?? q.answer;
+    if (back) {
+      await addMistakeCard(session.username, q.promptEn, back, r.tip ?? q.explanation);
+    }
+  }
 
   await db
     .update(quizzes)

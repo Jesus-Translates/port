@@ -1,0 +1,37 @@
+{
+  "categories": [
+    {
+      "slug": "cultura-e-historia",
+      "namePt": "Cultura e História",
+      "nameEn": "Portuguese culture & history",
+      "emoji": "🇵🇹",
+      "blurbEn": "The facts about Portugal the nationality process expects you to know — symbols, history, geography and traditions.",
+      "entries": [
+        { "kind": "phrase", "section": "Símbolos nacionais", "pt": "Qual é a capital de Portugal?", "en": "What is the capital of Portugal?", "replyPt": "A capital é Lisboa.", "replyEn": "The capital is Lisbon." },
+        { "kind": "phrase", "section": "Símbolos nacionais", "pt": "Como se chama o hino nacional?", "en": "What is the national anthem called?", "replyPt": "Chama-se «A Portuguesa».", "replyEn": "It's called 'A Portuguesa'." },
+        { "kind": "phrase", "section": "Símbolos nacionais", "pt": "De que cores é a bandeira portuguesa?", "en": "What colours is the Portuguese flag?", "replyPt": "É verde e vermelha, com a esfera armilar e o escudo.", "replyEn": "Green and red, with the armillary sphere and the shield." },
+        { "kind": "phrase", "section": "Símbolos nacionais", "pt": "Quando é o Dia de Portugal?", "en": "When is Portugal Day?", "replyPt": "É a 10 de junho, dia de Camões.", "replyEn": "June 10th, Camões Day." },
+        { "kind": "phrase", "section": "História", "pt": "Em que ano foi fundado Portugal?", "en": "In what year was Portugal founded?", "replyPt": "Em 1143, com D. Afonso Henriques como primeiro rei.", "replyEn": "In 1143, with D. Afonso Henriques as the first king." },
+        { "kind": "phrase", "section": "História", "pt": "O que aconteceu a 5 de outubro de 1910?", "en": "What happened on 5 October 1910?", "replyPt": "Foi implantada a República Portuguesa.", "replyEn": "The Portuguese Republic was established." },
+        { "kind": "phrase", "section": "História", "pt": "O que se celebra a 25 de Abril?", "en": "What is celebrated on the 25th of April?", "replyPt": "A Revolução dos Cravos de 1974, que trouxe a democracia.", "replyEn": "The 1974 Carnation Revolution, which brought democracy." },
+        { "kind": "phrase", "section": "História", "pt": "Quem foi Vasco da Gama?", "en": "Who was Vasco da Gama?", "replyPt": "O navegador que chegou à Índia por mar em 1498.", "replyEn": "The navigator who reached India by sea in 1498." },
+        { "kind": "phrase", "section": "História", "pt": "Quando entrou Portugal na União Europeia?", "en": "When did Portugal join the European Union?", "replyPt": "Em 1986.", "replyEn": "In 1986." },
+        { "kind": "term", "section": "História", "pt": "os Descobrimentos", "en": "the Age of Discoveries", "note": "Portugal's 15th-16th century maritime expansion — a cornerstone of national identity." },
+        { "kind": "term", "section": "História", "pt": "as Linhas de Torres", "en": "the Lines of Torres Vedras", "note": "Defensive lines built near your town during the Peninsular War (1810) — local history!" },
+        { "kind": "phrase", "section": "Geografia", "pt": "Qual é o rio mais comprido em território português?", "en": "Which river is the longest in Portuguese territory?", "replyPt": "O rio Tejo, que desagua em Lisboa.", "replyEn": "The Tagus, which meets the sea at Lisbon." },
+        { "kind": "phrase", "section": "Geografia", "pt": "Quais são as regiões autónomas?", "en": "What are the autonomous regions?", "replyPt": "Os arquipélagos da Madeira e dos Açores.", "replyEn": "The Madeira and Azores archipelagos." },
+        { "kind": "phrase", "section": "Geografia", "pt": "Qual é a segunda maior cidade do país?", "en": "What is the country's second city?", "replyPt": "O Porto, no norte.", "replyEn": "Porto, in the north." },
+        { "kind": "term", "section": "Geografia", "pt": "o concelho", "en": "the municipality", "note": "Portugal is divided into distritos, concelhos and freguesias — Santa Cruz belongs to the concelho de Torres Vedras." },
+        { "kind": "phrase", "section": "Cultura", "pt": "Quem escreveu «Os Lusíadas»?", "en": "Who wrote 'Os Lusíadas'?", "replyPt": "Luís de Camões, o maior poeta português.", "replyEn": "Luís de Camões, Portugal's greatest poet." },
+        { "kind": "phrase", "section": "Cultura", "pt": "Quem foi Fernando Pessoa?", "en": "Who was Fernando Pessoa?", "replyPt": "Um grande poeta do século XX, famoso pelos heterónimos.", "replyEn": "A great 20th-century poet, famous for his heteronyms." },
+        { "kind": "phrase", "section": "Cultura", "pt": "O que é o fado?", "en": "What is fado?", "replyPt": "A música tradicional portuguesa; Amália Rodrigues foi a voz mais famosa.", "replyEn": "Portugal's traditional music; Amália Rodrigues was its most famous voice." },
+        { "kind": "term", "section": "Cultura", "pt": "a guitarra portuguesa", "en": "the Portuguese guitar", "note": "The pear-shaped 12-string guitar that gives fado its sound." },
+        { "kind": "term", "section": "Cultura", "pt": "o pastel de nata", "en": "the custard tart", "note": "Born at the Mosteiro dos Jerónimos in Belém — os pastéis de Belém." },
+        { "kind": "phrase", "section": "Festas e tradições", "pt": "Quem é o santo popular de Lisboa?", "en": "Who is Lisbon's popular saint?", "replyPt": "Santo António, festejado a 13 de junho; no Porto festeja-se o São João.", "replyEn": "Saint Anthony, celebrated June 13th; Porto celebrates São João." },
+        { "kind": "term", "section": "Festas e tradições", "pt": "o Carnaval de Torres Vedras", "en": "the Torres Vedras Carnival", "note": "Famous as 'o Carnaval mais português de Portugal' — right next door to Santa Cruz." },
+        { "kind": "phrase", "section": "Festas e tradições", "pt": "O que se come tradicionalmente no Natal?", "en": "What is traditionally eaten at Christmas?", "replyPt": "Bacalhau cozido na Consoada, e rabanadas ou bolo-rei de sobremesa.", "replyEn": "Boiled salt cod on Christmas Eve, with rabanadas or bolo-rei for dessert." },
+        { "kind": "verb", "section": "Cultura", "pt": "festejar", "en": "to celebrate" }
+      ]
+    }
+  ]
+}
