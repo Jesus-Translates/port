@@ -13,19 +13,32 @@ import {
 
 export async function getCategoriesWithCounts() {
   const db = getDb();
-  return db
-    .select({
-      id: categories.id,
-      slug: categories.slug,
-      namePt: categories.namePt,
-      nameEn: categories.nameEn,
-      emoji: categories.emoji,
-      blurbEn: categories.blurbEn,
-      sortOrder: categories.sortOrder,
-      entryCount: sql<number>`(select count(*)::int from ${refEntries} where ${refEntries.categoryId} = ${categories.id})`,
-    })
-    .from(categories)
-    .orderBy(asc(categories.sortOrder), asc(categories.id));
+  // NOT a correlated subquery: drizzle renders `${categories.id}` unqualified
+  // inside a sub-select's FROM scope, so it binds to ref_entries.id and the
+  // correlation silently vanishes (counts come back 0). Group + Map instead.
+  const [cats, counts] = await Promise.all([
+    db
+      .select({
+        id: categories.id,
+        slug: categories.slug,
+        namePt: categories.namePt,
+        nameEn: categories.nameEn,
+        emoji: categories.emoji,
+        blurbEn: categories.blurbEn,
+        sortOrder: categories.sortOrder,
+      })
+      .from(categories)
+      .orderBy(asc(categories.sortOrder), asc(categories.id)),
+    db
+      .select({
+        categoryId: refEntries.categoryId,
+        n: sql<number>`count(*)::int`,
+      })
+      .from(refEntries)
+      .groupBy(refEntries.categoryId),
+  ]);
+  const byId = new Map(counts.map((c) => [c.categoryId, c.n]));
+  return cats.map((c) => ({ ...c, entryCount: byId.get(c.id) ?? 0 }));
 }
 
 export async function getCategoryBySlug(slug: string) {

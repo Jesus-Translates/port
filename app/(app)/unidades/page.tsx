@@ -12,19 +12,28 @@ export default async function UnidadesPage() {
   const session = await requireSession();
   const isStaff = getRole(session.username) !== "student";
 
-  const rows = await getDb()
-    .select({
-      id: units.id,
-      slug: units.slug,
-      title: units.title,
-      cefr: units.cefr,
-      status: units.status,
-      itemCount: sql<number>`(select count(*)::int from ${unitItems} where ${unitItems.unitId} = ${units.id})`,
-    })
-    .from(units)
-    // Students only ever see what the teacher has published.
-    .where(isStaff ? undefined : eq(units.status, "published"))
-    .orderBy(asc(units.sortOrder), asc(units.id));
+  const db = getDb();
+  // NOT a correlated subquery — drizzle unqualifies `${units.id}` inside the
+  // sub-select scope, so it binds to unit_items.id and counts come back wrong.
+  const [rows, counts] = await Promise.all([
+    db
+      .select({
+        id: units.id,
+        slug: units.slug,
+        title: units.title,
+        cefr: units.cefr,
+        status: units.status,
+      })
+      .from(units)
+      // Students only ever see what the teacher has published.
+      .where(isStaff ? undefined : eq(units.status, "published"))
+      .orderBy(asc(units.sortOrder), asc(units.id)),
+    db
+      .select({ unitId: unitItems.unitId, n: sql<number>`count(*)::int` })
+      .from(unitItems)
+      .groupBy(unitItems.unitId),
+  ]);
+  const itemCountFor = new Map(counts.map((c) => [c.unitId, c.n]));
 
   // Known levels first, in order; anything odd keeps its own bucket at the end.
   const buckets = [
@@ -72,8 +81,10 @@ export default async function UnidadesPage() {
                     <span className="mt-auto flex flex-wrap items-center gap-2">
                       <span className="chip">{u.cefr}</span>
                       <span className="chip bg-cream text-ink-soft">
-                        {u.itemCount}{" "}
-                        {u.itemCount === 1 ? "atividade" : "atividades"}
+                        {itemCountFor.get(u.id) ?? 0}{" "}
+                        {(itemCountFor.get(u.id) ?? 0) === 1
+                          ? "atividade"
+                          : "atividades"}
                       </span>
                       {u.status !== "published" ? (
                         <span className="chip bg-terra-pale text-terra-dark">

@@ -21,10 +21,11 @@ peer-reviews and fact-checks. Mid-wave addition: Conversa mode (spoken back-and-
 - [x] Fable integration: practice hub tiles (Escutar/Áudio/Ouvir/Missões/Nível),
       dashboard cards (Unidades, Missões) + activity emoji, nav unchanged (8 tabs full).
 - [x] Verify: npm run build ✓, lint ✓, tsc ✓. Deploy 1 = everything above.
-- [ ] G (Fable inline; Opus builder hit session limit): Conversa — /practice/conversa
-      spoken back-and-forth with Luna: topic or random, one consistent Azure voice per
-      session, mic→transcribe→reply+audio, recasts not lectures, end summary
-      (corrections→mistake cards, new words→deck, XP). Then re-add hub tile, deploy 2.
+- [x] G (Fable inline; Opus builder hit session limit): Conversa — /practice/conversa
+      spoken back-and-forth with Luna. Deploy 2 shipped; prod-verified end to end:
+      opener+audio (103KB mp3), recast confirmed live ("as ondas é" → Luna replied
+      "as ondas são"), summary caught exactly the seeded error, mistake card landed
+      in the deck. Salvage fallback added for schema-lax gateway models.
 - [ ] USER ENV NEEDED: AZURE_SPEECH_KEY + AZURE_SPEECH_REGION (Speech resource,
       free F0 tier OK). Until set, TTS falls back to OpenAI; Azure-only features gate cleanly.
 

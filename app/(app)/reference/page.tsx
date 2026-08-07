@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CategoryForm } from "@/components/category-form";
+import { IngestPanel } from "@/components/ingest-panel";
 import { requireSession } from "@/lib/auth";
 import { getCategoriesWithCounts } from "@/lib/data";
 
@@ -21,6 +22,8 @@ export default async function ReferencePage() {
         </div>
         <CategoryForm />
       </header>
+
+      <IngestPanel />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {cats.map((c) => (
