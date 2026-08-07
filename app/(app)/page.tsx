@@ -7,8 +7,8 @@ import {
   getHomeworkAll,
   getKudosFor,
   getStats,
-  hasBeenPlaced,
 } from "@/lib/data";
+import { resolveNextAction } from "@/lib/next-action";
 import { avatarFor, titleCase } from "@/lib/people";
 import { countDue } from "@/lib/srs";
 
@@ -33,7 +33,7 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos, due, placed] =
+  const [stats, allHomework, cats, board, myKudos, due, next] =
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
@@ -41,7 +41,7 @@ export default async function Dashboard() {
       getFamilyBoard(getValidUsers()).catch(() => []),
       getKudosFor(session.username, 5).catch(() => []),
       countDue(session.username).catch(() => 0),
-      hasBeenPlaced(session.username).catch(() => true),
+      resolveNextAction(session.username, session.displayName),
     ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];
@@ -93,22 +93,36 @@ export default async function Dashboard() {
         </div>
       </header>
 
-      {!placed ? (
-        <Link
-          href="/placement"
-          className="block rounded-2xl border border-azul/30 bg-azul-pale p-4 transition-colors hover:border-azul"
-        >
-          <span className="font-semibold text-azul">
-            🧭 Começa por descobrir o teu nível
+      {/* One answer to "what now?", so a session never starts with a decision
+          across twenty identical tiles. The banners below suppress themselves
+          when this card already points at the same place. */}
+      <Link
+        href={next.href}
+        className="group block rounded-2xl border border-olive/30 bg-sage-pale/70 p-5 transition-all hover:border-olive hover:shadow-md"
+      >
+        <div className="flex items-center gap-4">
+          <span className="text-3xl" aria-hidden>
+            {next.emoji}
           </span>
-          <span className="ml-2 text-sm text-ink-soft">
-            — a 5-minute check. Everything after it (homework, quizzes,
-            stories, Luna) is pitched at what you can actually do.
+          <div className="min-w-0 flex-1">
+            <div className="text-[11px] font-semibold tracking-widest text-olive/70 uppercase">
+              A seguir
+            </div>
+            <div className="font-display text-xl font-semibold text-olive group-hover:underline">
+              {next.label}
+            </div>
+            <p className="mt-0.5 text-sm text-ink-soft">{next.why}</p>
+          </div>
+          <span
+            className="shrink-0 text-2xl text-olive transition-transform group-hover:translate-x-1"
+            aria-hidden
+          >
+            →
           </span>
-        </Link>
-      ) : null}
+        </div>
+      </Link>
 
-      {due > 0 ? (
+      {due > 0 && next.href !== "/practice/rever" ? (
         <Link
           href="/practice/rever"
           className="block rounded-2xl border border-olive/30 bg-sage-pale/60 p-4 transition-colors hover:border-olive"
@@ -122,7 +136,7 @@ export default async function Dashboard() {
         </Link>
       ) : null}
 
-      {openHomework.length > 0 ? (
+      {openHomework.length > 0 && !next.href.startsWith("/homework/") ? (
         <Link
           href={`/homework/${openHomework[0].id}`}
           className="block rounded-2xl border border-terra/30 bg-terra-pale p-4 transition-colors hover:border-terra"
