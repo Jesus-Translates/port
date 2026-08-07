@@ -1,0 +1,398 @@
+[
+  {
+    "slug": "familia-e-relacoes",
+    "titleEn": "Family and Relationships",
+    "titlePt": "A Família e as Relações",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to introduce every member of your family, say how people are related to you, and describe what they are like.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the extended family (cunhado, sogra, sobrinho, primo, madrinha, padrasto, enteado, bisavô) plus 'os meus' for grouping. Two contrasts carry the unit: European Portuguese keeps the definite article before a possessive — 'a minha mãe', never 'minha mãe' — and masculine plurals cover mixed groups (os pais = both parents, os avós, os tios, os irmãos). The classic English-speaker error is the false friend 'parentes', which means relatives, not parents; also flag that 'os meus' alone means 'my family/my people' in conversation."
+  },
+  {
+    "slug": "moveis-e-eletrodomesticos",
+    "titleEn": "Furniture and Household Things",
+    "titlePt": "Móveis e Eletrodomésticos",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to name everything in a Portuguese house, from the frigorífico to the estendal, and say which room each thing belongs in.",
+    "grammarFocus": null,
+    "notePrompt": "Teach appliances (frigorífico, arca congeladora, máquina de lavar a loiça, máquina de lavar a roupa, esquentador, fogão, forno, exaustor, aspirador) and everyday objects (chave, tesoura, vassoura, panela, tacho, toalha, lençóis, estendal, cabide). Draw the pt-PT versus pt-BR line explicitly: frigorífico not geladeira, casa de banho not banheiro, autoclismo not descarga. The classic error is using 'aparelho' as a catch-all; teach 'eletrodoméstico' as the umbrella term and note that 'a máquina' with no qualifier means the washing machine in almost every Portuguese household."
+  },
+  {
+    "slug": "falar-com-os-vizinhos",
+    "titleEn": "Talking with the Neighbours",
+    "titlePt": "Falar com os Vizinhos",
+    "category": "communication",
+    "blurbEn": "You will be able to greet a neighbour over the wall, make small talk about the weather and the water bill, and accept or refuse an invitation for coffee without sounding rude.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the ritual openings (bom dia / boa tarde, 'então, tudo bem?', 'e a família?', 'está tudo bom?'), the softeners ('desculpe lá o incómodo', 'não quero maçar'), and how to decline warmly ('fica para a próxima', 'outro dia então'). The load-bearing contrast is register: tu with neighbours your own age, but 'o senhor / a senhora' or name-plus-third-person with older ones — 'a Dona Fernanda quer um café?'. English speakers either use tu with everyone or freeze into você, which in Portugal reads as cold or officious; explain that Portuguese most often drops the pronoun entirely and lets the verb ending do the work."
+  },
+  {
+    "slug": "imperativo-instrucoes",
+    "titleEn": "Giving Instructions: The Imperative",
+    "titlePt": "O Imperativo — Dar Instruções",
+    "category": "grammar",
+    "blurbEn": "You will be able to tell someone to do something — pass the salt, turn left, wait a second — using the tu imperative.",
+    "grammarFocus": "o imperativo afirmativo — 2.ª pessoa do singular (tu)",
+    "notePrompt": "Teach the affirmative tu imperative as the present indicative minus the final -s (falas → fala, comes → come, abres → abre), then drill the irregulars as a closed list: sê, está, vai, vem, tem, faz, diz, põe, sai, traz. The English-speaker error comes from English having one invisible imperative form, so learners either shout the infinitive ('falar!') or reuse the full present ('tu falas!'); make 'drop the -s' the single memorable rule. Add the softeners that make a bare imperative acceptable in Portugal: 'se faz favor', 'lá' (espera lá), and 'anda' (anda cá)."
+  },
+  {
+    "slug": "imperativo-formal-e-negativo",
+    "titleEn": "Polite Requests and Saying Don't",
+    "titlePt": "O Imperativo — Pedidos Formais e Ordens Negativas",
+    "category": "grammar",
+    "blurbEn": "You will be able to tell someone not to do something, and to give an instruction politely to a shopkeeper, a doctor or an older neighbour.",
+    "grammarFocus": "o imperativo negativo e as formas de cortesia",
+    "notePrompt": "Present the negative tu forms (não fales, não comas, não abras) and the courtesy forms (fale, coma, abra; faça, diga, venha, tenha, vá, seja, esteja) as fixed sets to learn now — do not name the subjunctive at this level. The anchor contrast is 'fala!' versus 'não fales!': affirmative and negative use different endings, which has no English parallel and is the single biggest error source, producing 'não fala!' constantly. Then give the everyday softening frames that replace the imperative altogether: 'faça favor', 'importa-se de fechar a porta?', 'pode dizer-me...?'"
+  },
+  {
+    "slug": "cozinhar-e-comer",
+    "titleEn": "Cooking and Eating",
+    "titlePt": "Cozinhar e Comer",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to follow a Portuguese recipe out loud and describe how a dish is made, from cortar a cebola to levar ao lume.",
+    "grammarFocus": null,
+    "notePrompt": "Teach kitchen verbs in the imperative just learned (corta, deita, mexe, tapa, refoga, leva ao lume, deixa apurar, tempera, escorre) with core ingredients (azeite, alho, cebola, coentros, louro, piri-piri, bacalhau, grão, batata a murro). Reinforce the meal names pequeno-almoço, almoço, lanche and jantar, and note that the Portuguese day genuinely has a lanche. Two errors: learners translate 'to cook' as 'cozinhar' everywhere, where Portuguese normally says 'fazer o jantar'; and they conflate 'cozer' (to boil) with 'cozinhar' (to cook) — 'batatas cozidas' are boiled, not baked."
+  },
+  {
+    "slug": "medidas-e-quantidades",
+    "titleEn": "Weights, Measures and Quantities",
+    "titlePt": "Medidas e Quantidades",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to ask for exactly the amount you want — half a kilo, a dozen, a slice, a bunch — and understand the price you are told.",
+    "grammarFocus": null,
+    "notePrompt": "Teach um quilo, meio quilo, um quarto de quilo, um litro, meio litro, uma dúzia, meia dúzia, uma fatia, uma posta, um pacote, uma lata, um molho de salsa, um cacho de uvas. Note that 'grama' is grammatically masculine (duzentos gramas) even though 'duzentas gramas' is heard everywhere in Portugal. Cover the spoken price rhythm — 'dois e cinquenta', 'um euro e vinte' — and the comma as decimal separator. The English-speaker error is asking for '500 gramas' where a Portuguese shopper says 'meio quilo'; also teach the counter-adjusting phrases 'chega', 'um bocadinho mais' and 'pode ser'."
+  },
+  {
+    "slug": "no-supermercado",
+    "titleEn": "At the Supermarket",
+    "titlePt": "No Supermercado",
+    "category": "communication",
+    "blurbEn": "You will be able to do a full weekly shop — find the aisle you need, ask whether they have something, weigh your own fruit and get through the checkout.",
+    "grammarFocus": null,
+    "notePrompt": "Build aisle vocabulary (corredor, prateleira, charcutaria, congelados, laticínios, mercearia, balança, talão, carrinho) and the checkout script you will hear: 'tem cartão?', 'quer saco?', 'é tudo?', 'quer talão?'. The central contrast is bluntness — English speakers say 'eu quero', where a Portuguese shopper says 'queria' or simply 'era' ('era meio quilo de queijo'); teach both as fixed polite formulas now and flag that queria's imperfeito morphology is explained later in the level. Also teach the 'é que' insertion in questions — 'onde é que está o leite?' — which English speakers systematically omit."
+  },
+  {
+    "slug": "verbos-auxiliares",
+    "titleEn": "Auxiliary Verbs and Verb Chains",
+    "titlePt": "Verbos Auxiliares e Perífrases Verbais",
+    "category": "grammar",
+    "blurbEn": "You will be able to chain two verbs together to say what you are doing right now, what you are going to do, what you have to do and what you have just done.",
+    "grammarFocus": "verbos auxiliares e perífrases verbais (ir / estar a / ter de + infinitivo)",
+    "notePrompt": "Teach ir + infinitivo (vou comprar), estar a + infinitivo (estou a comer), ter de/que + infinitivo (tenho de ir), acabar de + infinitivo (acabei de chegar), começar a, voltar a, andar a, deixar de. The non-negotiable contrast is 'estar a + infinitivo' versus the Brazilian gerund 'estou comendo' — European Portuguese does not use the gerund this way, and any learner who has touched Brazilian material or a mainstream app will produce it constantly; make this the headline of the note. Also flag that 'acabar de + infinitivo' means to have just done something, not to finish doing it, and that 'ter de' is preferred over 'ter que' in careful pt-PT."
+  },
+  {
+    "slug": "plurais-2",
+    "titleEn": "Plurals, Part Two",
+    "titlePt": "Plurais — Parte 2",
+    "category": "grammar",
+    "blurbEn": "You will be able to put any Portuguese noun into the plural, including the awkward ones ending in -ão and -l.",
+    "grammarFocus": "formação do plural — nomes em -ão, -l, -m, -s e -r",
+    "notePrompt": "Cover -ão → -ões (limão/limões) as the default, with -ães (pão/pães, cão/cães, alemão/alemães) and -ãos (mão/mãos, irmão/irmãos, cidadão/cidadãos) as short lists to memorise; then -l → -is (papel/papéis, animal/animais, hotel/hotéis), the -il split (funil/funis versus fácil/fáceis), the accent that appears in stressed -ol (lençol/lençóis), then -m → -ns (homem/homens) and invariable -s words (o país/os países, o lápis/os lápis). English speakers over-apply -ões to everything and produce 'pãos'; they also confuse 'mães' (mothers) with 'mãos' (hands). Drill the three -ão groups against each other rather than teaching them in isolation."
+  },
+  {
+    "slug": "no-talho-e-na-peixaria",
+    "titleEn": "At the Butcher's and the Fishmonger's",
+    "titlePt": "No Talho e na Peixaria",
+    "category": "communication",
+    "blurbEn": "You will be able to take your turn at the counter, order cuts of meat and whole fish by name, and ask to have them cleaned, boned or sliced the way you want.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the counter script — 'quem é o último?' or taking a senha, then 'era um quilo de...', 'pode limpar?', 'pode tirar as espinhas?', 'às postas ou inteiro?', 'mais alguma coisa?'. Meat: entrecosto, febras, bifanas, entremeada, frango do campo, vitela, borrego, alheira, chouriço. Fish: dourada, robalo, carapau, sardinha, pescada, polvo, ameijoas, bacalhau (salgado versus demolhado). The English-speaker error is asking for 'carne de porco' generically instead of naming the cut, which leaves the talhante guessing; the cultural point is that in Portugal you claim your place in the queue by asking who is last, not by silently standing in line."
+  },
+  {
+    "slug": "feira-de-torres-vedras",
+    "titleEn": "The Weekly Market in Torres Vedras",
+    "titlePt": "A Feira de Torres Vedras",
+    "category": "communication",
+    "blurbEn": "You will be able to work the weekly market — ask what is in season, price things up, and buy pêra rocha, couves and a frango do campo straight from the stallholders.",
+    "grammarFocus": null,
+    "notePrompt": "Teach feira vocabulary (banca, feirante, saco, da terra, da horta, biológico, à mão) and the produce of the Oeste: pêra rocha, maçã de Alcobaça, couve portuguesa, nabiça, figos, azeitonas, vinho do Oeste. Give the market register — 'quanto é o quilo?', 'está fresquinho?', 'é da sua horta?', 'faz-me um jeitinho no preço?' — and the diminutives that carry the warmth (fresquinho, baratinho, um bocadinho). The English-speaker error is hard bargaining: explain that Portuguese market haggling is a gentle request for a 'jeitinho' or a rounded-down price, not a negotiation, and that 'da terra' is the phrase signalling local produce, which is what you are actually there for."
+  },
+  {
+    "slug": "no-restaurante-e-no-cafe",
+    "titleEn": "At the Restaurant and the Café",
+    "titlePt": "No Restaurante e no Café",
+    "category": "communication",
+    "blurbEn": "You will be able to order coffee the way the Portuguese do, handle the couvert, ask for the prato do dia and split the bill.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the coffee taxonomy first — um café (uma bica), um abatanado, um garoto, uma meia de leite, um galão, um descafeinado — then meal vocabulary: couvert, entrada, prato do dia, dose and meia dose, acompanhamento, sobremesa, a conta. Script it: 'faz favor', 'já agora', 'a conta, se faz favor', 'pode ser em separado?'. Two errors to kill: ordering 'um expresso' or 'um café com leite' instead of the local names, and eating the couvert without knowing it is charged — teach that you may return it with 'pode levar, obrigado'. Also flag 'entrada' as a starter, not an entrée in the American sense."
+  },
+  {
+    "slug": "verbos-reflexos",
+    "titleEn": "Reflexive Verbs",
+    "titlePt": "Verbos Reflexos",
+    "category": "grammar",
+    "blurbEn": "You will be able to describe your daily routine — getting up, getting dressed, feeling tired, forgetting things — using verbs that turn back on the subject.",
+    "grammarFocus": "verbos reflexos e pronominais",
+    "notePrompt": "Teach chamar-se, levantar-se, deitar-se, vestir-se, sentar-se, sentir-se, lembrar-se de, esquecer-se de, ir-se embora, queixar-se de, with enclitic placement and the hyphen (levanto-me às sete). The anchor is the minimal pair with and without the pronoun: 'levanto a caixa' versus 'levanto-me', 'chamo o Pedro' versus 'chamo-me Pedro'. English has almost no true reflexives, so learners drop the pronoun ('levanto às sete') or pad it with 'a mim mesmo'. Also flag that lembrar-se and esquecer-se require 'de' where English needs no preposition, and that the pronoun changes with the person (levanto-me, levantas-te, levanta-se, levantamo-nos — note the dropped -s before -nos)."
+  },
+  {
+    "slug": "preterito-perfeito-ar",
+    "titleEn": "The Simple Past: Regular -ar Verbs",
+    "titlePt": "Pretérito Perfeito — Verbos Regulares em -ar",
+    "category": "grammar",
+    "blurbEn": "You will be able to say what you did yesterday with any -ar verb: falei, comprei, trabalhámos, chegaram.",
+    "grammarFocus": "pretérito perfeito simples — verbos regulares em -ar",
+    "notePrompt": "Drill the full paradigm: falei, falaste, falou, falámos, falaram. Two European Portuguese specifics are essential. First, the acute accent in the first person plural — 'falámos' (we spoke, past) versus 'falamos' (we speak, present) — which is a real spelling and pronunciation distinction in Portugal and is not made in Brazil. Second, Portugal uses this simple past where English reaches for the present perfect: 'já comi' means 'I have already eaten'. The classic error is inventing a compound with ter; explain that 'tenho comido' exists but means a repeated action continuing up to now, never a single finished event."
+  },
+  {
+    "slug": "partes-do-corpo",
+    "titleEn": "Parts of the Body",
+    "titlePt": "Partes do Corpo",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to point to any part of your body and say that it hurts.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the body from head to foot (cabeça, cabelo, garganta, ombro, cotovelo, pulso, barriga, costas, anca, joelho, tornozelo, peito, dentes, gengivas) together with doer: 'dói-me a cabeça', 'doem-me as costas'. The core contrast is that Portuguese uses the definite article plus an indirect pronoun where English uses a possessive — 'dói-me a cabeça', never 'a minha cabeça dói' — and that doer agrees with the body part, not the person, so plural parts take doem. Also flag that 'as costas' is plural and feminine, that 'mão' is feminine despite the -ão, and the difference between 'dói' (hurts) and 'magoei-me' (I hurt myself)."
+  },
+  {
+    "slug": "profissoes",
+    "titleEn": "Jobs and Professions",
+    "titlePt": "Profissões",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to say what you and your family do for a living and ask a new acquaintance about their work.",
+    "grammarFocus": null,
+    "notePrompt": "Teach professions with both genders (professor/professora, médico/médica, enfermeiro/enfermeira, advogado/advogada, empregado/empregada de mesa) plus the trades a family in the Oeste actually calls: canalizador, eletricista, pedreiro, talhante, padeiro, jardineiro, mecânico, senhorio. The headline error is the article — Portuguese says 'sou professor', not 'sou um professor' — closely followed by 'trabalho como...' versus 'trabalho em...' versus 'trabalho por conta própria'. Flag two false friends: 'reformado' means retired, not reformed, and 'canalizador' is the pt-PT plumber, where Brazilian material teaches 'encanador'."
+  },
+  {
+    "slug": "no-hospital-e-na-farmacia",
+    "titleEn": "At the Hospital and the Pharmacy",
+    "titlePt": "No Hospital e na Farmácia",
+    "category": "communication",
+    "blurbEn": "You will be able to describe symptoms at the centro de saúde, understand a triage question, and ask a pharmacist for something without a prescription.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the symptom script — 'estou constipado', 'tenho febre', 'dói-me aqui', 'estou enjoado', 'há três dias que...' — with centro de saúde, urgências, triagem de Manchester, número de utente, receita, comparticipação, farmácia de serviço, penso rápido, xarope, comprimidos. The lethal false friend is 'constipado', which in Portuguese means having a head cold, while English 'constipated' is 'prisão de ventre'; a learner will say this to a doctor. Also contrast 'ferido' with 'magoado', and explain that a Portuguese farmácia dispenses far more advice and medication over the counter than an English-speaking one — teach 'o que é que me aconselha?'"
+  },
+  {
+    "slug": "preterito-perfeito-er-ir",
+    "titleEn": "The Simple Past: Regular -er and -ir Verbs",
+    "titlePt": "Pretérito Perfeito — Verbos Regulares em -er e -ir",
+    "category": "grammar",
+    "blurbEn": "You will be able to narrate yesterday with -er and -ir verbs: comi, bebemos, saíram, decidi, abriste.",
+    "grammarFocus": "pretérito perfeito simples — verbos regulares em -er e -ir",
+    "notePrompt": "Drill comer (comi, comeste, comeu, comemos, comeram) beside partir (parti, partiste, partiu, partimos, partiram), showing that -er and -ir share every ending except the theme vowel. Then the pt-PT payoff: unlike -ar, these first person plural forms are identical to the present (comemos, partimos), so there is no accent to help and context alone disambiguates — this is the exact mirror of the falámos/falamos rule from the previous unit, and worth naming as such. Having just drilled 'falei', English speakers overgeneralise the -ei ending and produce 'comei' or 'bebei'; drill -i against -ei until the contrast is automatic."
+  },
+  {
+    "slug": "preterito-perfeito-irregulares",
+    "titleEn": "The Simple Past: Irregular Verbs",
+    "titlePt": "Pretérito Perfeito — Verbos Irregulares",
+    "category": "grammar",
+    "blurbEn": "You will be able to use the past of the verbs you need most: fui, tive, fiz, disse, pude, quis, trouxe, vim.",
+    "grammarFocus": "pretérito perfeito simples — verbos irregulares",
+    "notePrompt": "Group these rather than listing them: the ser/ir merger (fui, foste, foi, fomos, foram serves both verbs), the ter/estar family (tive/estive, teve/esteve, tivemos/estivemos), the -s- and -z- group (fiz, disse, quis, trouxe), and ver/vir/dar/poder/pôr. Two accents carry meaning: 'pôde' (he could, past) versus 'pode' (he can, present), and 'pôr' the verb versus 'por' the preposition. The signature difficulty is the ser/ir collapse — 'fui ao Porto' and 'fui professor' are identical forms separated only by context. English speakers also regularise, producing 'fazi', 'dizi' or 'tinhei'; drill the stressed-stem forms fez, teve, veio and viu against regular falou and comeu."
+  },
+  {
+    "slug": "lugares-da-vila",
+    "titleEn": "Places Around Town",
+    "titlePt": "Lugares da Vila",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to name every place you need in a Portuguese town and say which ones are open, closed or nearby.",
+    "grammarFocus": null,
+    "notePrompt": "Map a real Portuguese vila: câmara municipal, junta de freguesia, centro de saúde, esquadra, quartel dos bombeiros, correios, talho, padaria, papelaria, drogaria, tasca, mercado municipal, largo, rotunda, miradouro. The grammar hook is a versus em with place nouns and their contractions — 'vou à farmácia' for going, 'estou na farmácia' for being. The English-speaker error, imported from Spanish or Brazilian usage, is 'vou na farmácia'; drill the a/em split directly. Practically, distinguish junta de freguesia from câmara municipal, because an expat family will be sent to both for different documents and will not know which is which."
+  },
+  {
+    "slug": "pedir-indicacoes",
+    "titleEn": "Asking for Directions",
+    "titlePt": "Pedir Indicações",
+    "category": "communication",
+    "blurbEn": "You will be able to stop a stranger, ask the way, and actually follow the answer you get back.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the asking formulas ('desculpe, sabe onde fica...?', 'é longe daqui?', 'como é que se vai para...?') but weight the unit towards the answers, which is where learners collapse: siga sempre em frente, vire à direita, na rotunda saia na segunda saída, ao fundo da rua, mesmo ao lado, a seguir ao talho, ao pé da igreja, do outro lado. This unit consumes the imperative, so use the courtesy forms (siga, vire, atravesse, corte). The recurring error is 'em frente' (straight ahead) confused with 'em frente a' (facing/opposite), and 'ao pé de' misread as 'at the foot of' rather than 'next to'."
+  },
+  {
+    "slug": "transportes",
+    "titleEn": "Getting Around: Transport",
+    "titlePt": "Os Transportes",
+    "category": "communication",
+    "blurbEn": "You will be able to buy a ticket, read a timetable, and get from Santa Cruz to Lisbon by autocarro or comboio.",
+    "grammarFocus": null,
+    "notePrompt": "Teach comboio, autocarro, carruagem, paragem, apeadeiro, cais, bilhete de ida e volta, horário, atraso, passe, portagem, via verde, plus the operators an Oeste family meets (CP, Rodoviária do Oeste, Barraqueiro). Script it: 'a que horas é o próximo?', 'tenho de mudar?', 'este autocarro passa em Torres?', 'onde é que fica a paragem?'. The non-negotiable is vocabulary: it is autocarro, comboio and paragem, never the Brazilian ônibus, trem or ponto. Also teach 'apanhar o autocarro' for catching one (not 'tomar'), 'perder o comboio' for missing it, and that you flag down a rural bus rather than assume it stops."
+  },
+  {
+    "slug": "preterito-imperfeito",
+    "titleEn": "The Imperfect: How Things Used To Be",
+    "titlePt": "O Pretérito Imperfeito",
+    "category": "grammar",
+    "blurbEn": "You will be able to describe what life used to be like, what was going on in the background, and what you used to do every summer.",
+    "grammarFocus": "pretérito imperfeito do indicativo",
+    "notePrompt": "Teach the two regular sets (-ar: falava, falavas, falava, falávamos, falavam; -er and -ir together: comia, comias, comia, comíamos, comiam) and the four true irregulars: ser (era), ter (tinha), vir (vinha), pôr (punha) — with ir (ia) regular in form but feeling irregular. The headline English-speaker error is mapping the imperfeito onto 'was ...ing' only and missing the habitual 'used to' sense, so teach both readings from the first minute: 'estava a chover' (background) beside 'íamos sempre à praia' (habit). Finally, hand back 'queria' and 'podia' as the polite formulas they have already been using in shops, now explained."
+  },
+  {
+    "slug": "perfeito-ou-imperfeito",
+    "titleEn": "Perfect or Imperfect? Choosing Your Past",
+    "titlePt": "Perfeito ou Imperfeito?",
+    "category": "grammar-practice",
+    "blurbEn": "You will be able to tell a story in the past, choosing correctly between the event that happened and the scene it happened in.",
+    "grammarFocus": "contraste pretérito perfeito / pretérito imperfeito",
+    "notePrompt": "Teach the contrast as completed event versus background, habit or ongoing state, anchored on minimal pairs: 'ontem comi peixe' versus 'comia sempre peixe'; 'quando cheguei, estava a chover'; 'conheci-o em 2019' (I met him) versus 'conhecia-o bem' (I knew him). Give the trigger adverbs — ontem, no ano passado, de repente, nessa altura pull the perfeito; sempre, dantes, todos os dias, enquanto, naquele tempo pull the imperfeito. English speakers treat the imperfeito as merely 'was ...ing' and so use the perfeito for every 'used to'; the second, subtler error is with ser, estar, ter, saber and querer, where the imperfeito is almost always right for describing how things stood."
+  },
+  {
+    "slug": "o-tempo-e-as-estacoes",
+    "titleEn": "Weather and Seasons",
+    "titlePt": "O Tempo e as Estações",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to talk about the weather like a local — the nortada, the winter rain, the summer fog on the coast — and understand a forecast.",
+    "grammarFocus": null,
+    "notePrompt": "Teach weather with the verb each expression demands: fazer for sol, frio, calor and vento in the neutral register; estar for how it feels now ('está calor', 'está muito vento', 'está a chover'); haver for nevoeiro and trovoada. English uses 'it is' for all of them, which is exactly the interference to attack. Vocabulary: aguaceiro, chuva miudinha, trovoada, geada, granizo, nevoeiro, nortada, céu limpo, aberturas. Add the Oeste reality — the nortada on the Santa Cruz coast and morning sea fog — and flag the false friend 'o tempo', which means both weather and time, so 'não tenho tempo' and 'que tempo está?' hang on context."
+  },
+  {
+    "slug": "fazer-uma-viagem",
+    "titleEn": "Taking a Trip",
+    "titlePt": "Fazer uma Viagem",
+    "category": "communication",
+    "blurbEn": "You will be able to plan a weekend away, pack for it, and afterwards tell someone how it went.",
+    "grammarFocus": null,
+    "notePrompt": "Teach trip vocabulary (mala, bagagem, reserva, alojamento, ida e volta, destino, ponte, feriado, roteiro) and then use the unit as the first real workout for the past tenses: 'fomos ao Algarve, estava um calor horrível, e voltámos no domingo'. Push learners to mix perfeito for the events with imperfeito for the weather, the mood and the scenery — this is the unit where the previous grammar block either sticks or does not. The errors: 'viajar' used where Portuguese says 'ir' or 'fazer uma viagem'; 'estivemos num hotel' where a Portuguese speaker says 'ficámos'; and 'férias', which is always plural."
+  },
+  {
+    "slug": "no-hotel",
+    "titleEn": "At the Hotel",
+    "titlePt": "No Hotel",
+    "category": "communication",
+    "blurbEn": "You will be able to check in, ask what is included, report a problem with the room, and check out.",
+    "grammarFocus": null,
+    "notePrompt": "Teach reserva, quarto duplo, quarto individual, cama de casal, casa de banho privativa, pequeno-almoço incluído, receção, andar, elevador, ar condicionado, aquecimento, toalhas, cofre, hora de saída. Script the complaint politely: 'o chuveiro não funciona', 'não há água quente', 'importa-se de trocar as toalhas?', 'o quarto dá para a rua'. The pt-PT vocabulary points are casa de banho (never banheiro) and pequeno-almoço (never café da manhã). The practical trap is floor numbering: 'rés-do-chão' is the ground floor, so the Portuguese '1.º andar' is the British first floor but the American second — learners get out of the lift on the wrong floor."
+  },
+  {
+    "slug": "o-verbo-haver",
+    "titleEn": "The Verb Haver: There Is, There Was, Ago",
+    "titlePt": "O Verbo Haver",
+    "category": "grammar",
+    "blurbEn": "You will be able to say what there is, what there was, and how long ago something happened.",
+    "grammarFocus": "o verbo haver — há, havia, houve",
+    "notePrompt": "Teach haver as impersonal and therefore permanently singular: 'há um talho' and 'há três talhos' alike — never 'hão'. Cover the three tenses now available: há (there is/are), havia (there was, as background) and houve (there was, as an event: 'houve um acidente'). Then the time uses that no course explains properly: 'há três anos' meaning three years ago, versus 'há três anos que moro cá' meaning for three years. English speakers pluralise it by analogy with 'there are', and confuse written 'há' with 'à' (a + a), which are homophones — drill them side by side in writing. Finally, contrast with existential 'ter' ('tem um talho'), which is Brazilian and wrong here."
+  },
+  {
+    "slug": "pronomes-cliticos-me-te-nos",
+    "titleEn": "Object Pronouns: me, te, nos",
+    "titlePt": "Pronomes Clíticos — me, te, nos",
+    "category": "grammar",
+    "blurbEn": "You will be able to say that someone told me, called you or helped us, without repeating the name every time.",
+    "grammarFocus": "pronomes pessoais clíticos — me, te, nos",
+    "notePrompt": "Teach me, te and nos, which conveniently cover both direct and indirect object with one form each: 'ele viu-me' and 'ele deu-me o livro'. The default position in European Portuguese is enclitic, attached after the verb with a hyphen — diz-me, ajuda-nos, chamou-te, deram-nos — and this hyphen is part of the spelling, not decoration. The single biggest divergence from Brazilian Portuguese is exactly here: 'me diz' is normal in Brazil and wrong in a neutral pt-PT sentence, and learners fed Brazilian input will front the pronoun by reflex. Do not introduce o, a, lhe or the contracted forms yet — one paradigm at a time."
+  },
+  {
+    "slug": "nos-ctt",
+    "titleEn": "At the Post Office",
+    "titlePt": "Nos Correios (CTT)",
+    "category": "communication",
+    "blurbEn": "You will be able to send a parcel, collect one you missed, buy stamps and pay a bill at the CTT counter.",
+    "grammarFocus": null,
+    "notePrompt": "Teach selo, carta registada, encomenda, aviso de receção, remetente, destinatário, código postal, correio azul, correio normal, levantamento, aviso de tentativa de entrega, and paying bills (água, luz, IMI) at the counter. Script it: 'queria enviar isto para o Reino Unido', 'quanto tempo demora?', 'vim levantar uma encomenda', 'preciso do documento de identificação?'. Two practical traps: the Portuguese postal code is four digits, hyphen, three digits, then the locality (2560-123 Torres Vedras) and English speakers write it wrongly; and 'registada com aviso de receção' is what any official document requires. Note CTT is said as three letters, cê-tê-tê."
+  },
+  {
+    "slug": "o-banco-e-o-multibanco",
+    "titleEn": "The Bank and the Multibanco",
+    "titlePt": "O Banco e o Multibanco",
+    "category": "communication",
+    "blurbEn": "You will be able to use a multibanco machine in Portuguese, ask about your account, and pay a bill by reference.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the on-screen multibanco menu itself, because that is the real reading task: levantamento, consulta de saldo, movimentos, pagamento de serviços, entidade, referência, montante, carregamento de telemóvel, transferência. Then the bank: conta à ordem, IBAN, débito direto, MB WAY, cartão de débito, extrato, comissão. The pt-PT point is that 'Multibanco' is the national network and the everyday word for both the machine and card payment — 'posso pagar com multibanco?' — not the Brazilian 'caixa eletrônico'. English speakers also misread the entidade/referência/montante triplet, which is how almost every bill in Portugal is paid, and confuse 'levantar dinheiro' with 'tirar dinheiro'."
+  },
+  {
+    "slug": "onde-por-o-pronome",
+    "titleEn": "Where the Pronoun Goes",
+    "titlePt": "Onde Pôr o Pronome",
+    "category": "grammar-practice",
+    "blurbEn": "You will be able to move the object pronoun in front of the verb when Portuguese requires it, instead of always tacking it on the end.",
+    "grammarFocus": "colocação dos pronomes clíticos — ênclise e próclise",
+    "notePrompt": "Practise the trigger list that forces próclise: negation (não me disse, nunca te vi), question words (quem te viu?, onde me pôs?), the conjunction 'que' and subordinate clauses (disse que me viu, quando me telefonaste), and a closed set of adverbs — já, ainda, também, sempre, só, talvez, todos (já me disse). Everywhere else enclisis with the hyphen is the default. The anchor minimal pair is 'disse-me' versus 'não me disse': same words, pronoun moves, hyphen disappears. Having just drilled the hyphen, English speakers keep it after 'não' and write 'não disse-me'. Also stress that the trigger must sit in the same clause as the verb."
+  },
+  {
+    "slug": "pronomes-tonicos",
+    "titleEn": "Stressed Pronouns: mim, ti, si, comigo",
+    "titlePt": "Pronomes Tónicos",
+    "category": "grammar",
+    "blurbEn": "You will be able to use pronouns after prepositions — for me, with you, about him — and to put the emphasis on exactly who you mean.",
+    "grammarFocus": "pronomes pessoais tónicos e as formas comigo, contigo, connosco",
+    "notePrompt": "Teach mim, ti, si, ele/ela, nós, eles/elas after prepositions (para mim, de ti, sem ele, a nós) and the fused forms comigo, contigo, consigo, connosco, convosco. The anchor contrast is clitic versus tonic for emphasis: 'ele deu-me o livro' versus 'ele deu o livro a mim, não a ti'. English speakers produce 'para eu' and 'com mim' by direct translation; drill that eu and tu never follow a preposition (the common exception being after exceto, menos and salvo — 'todos menos eu') and that com + mim must fuse into comigo. Note the European use of 'consigo' meaning 'with you' in the polite register, which Brazilians do not share."
+  },
+  {
+    "slug": "na-policia",
+    "titleEn": "Dealing with the Police",
+    "titlePt": "Falar com a Polícia",
+    "category": "communication",
+    "blurbEn": "You will be able to report a theft at the esquadra and handle being stopped at a roadside check without panicking.",
+    "grammarFocus": null,
+    "notePrompt": "Two scenes. Reporting: 'quero apresentar queixa', roubo, furto, assalto, carteira, telemóvel, documentos, 'levaram-me a mala', auto de notícia, número de processo — and describing when and where, which is a genuine perfeito plus imperfeito workout ('estava na praia quando levaram a mochila'). Being stopped: 'documentos, se faz favor', carta de condução, documento único automóvel, seguro, IUC, inspeção, alcoolímetro, coima. Explain the PSP (towns and cities) versus GNR (roads and rural areas) split, which no course teaches and every resident needs. The vocabulary error is roubar/furtar/assaltar: teach 'roubaram-me o telemóvel' as the everyday phrasing."
+  },
+  {
+    "slug": "emergencias-e-o-112",
+    "titleEn": "Emergencies: Fire, Flood and Calling 112",
+    "titlePt": "Emergências: Fogos, Cheias e o 112",
+    "category": "communication",
+    "blurbEn": "You will be able to call 112, say what has happened and where, and follow instructions during a fire, a flood or a road accident.",
+    "grammarFocus": null,
+    "notePrompt": "Drill the 112 call in the order it actually happens: 'qual é a emergência?', what happened, the exact location, how many people, whether anyone is hurt, then stay on the line. Vocabulary: incêndio, fogo florestal, bombeiros, ambulância, INEM, cheia, inundação, acidente, ferido, desmaiado, a sangrar, fuga de gás, corte de energia, evacuar, aviso da Proteção Civil. The framing contrast is that 112 is the single number for all three services — English speakers reach for 999 or 911, and ask for the 'emergency room' rather than 'as urgências'. Teach short, blunt, present-tense sentences: emergency Portuguese drops the politeness formulas the rest of this level has been building."
+  },
+  {
+    "slug": "conjuncoes",
+    "titleEn": "Joining Sentences: Conjunctions",
+    "titlePt": "Conjunções",
+    "category": "grammar",
+    "blurbEn": "You will be able to join short sentences into real ones — because, so, while, as soon as, even though — instead of speaking in fragments.",
+    "grammarFocus": "conjunções coordenativas e subordinativas com indicativo",
+    "notePrompt": "Teach only the indicative-taking connectors: e, mas, ou, porque, como (meaning 'since', sentence-initial), por isso, portanto, então, quando, enquanto, assim que, se, que, apesar de. The anchor contrast is the porque cluster: 'porque' answers, 'porquê' ends a question, 'por isso' means therefore — and English 'so' maps onto por isso, not onto 'então', which is a discourse filler. Also separate 'como' meaning since at the head of a sentence from 'como' meaning how. Deliberately exclude embora, para que, talvez and antes que, which require the subjunctive; name them and tell learners they arrive later, so they do not import them from a dictionary and get the mood wrong."
+  },
+  {
+    "slug": "comparativos-e-superlativos",
+    "titleEn": "Comparatives and Superlatives",
+    "titlePt": "Comparativos e Superlativos",
+    "category": "grammar",
+    "blurbEn": "You will be able to compare two things and say which is the best, the worst, the cheapest or the closest.",
+    "grammarFocus": "graus dos adjetivos — comparativo e superlativo",
+    "notePrompt": "Teach mais ... (do) que, menos ... (do) que, tão ... como, tanto(s) ... como, and the relative superlative o/a mais ... de. Then the irregulars: melhor, pior, maior, menor, with bom/bem → melhor and mau/mal → pior. Add the absolute superlative in -íssimo (caríssimo, lindíssimo, ótimo, péssimo), which Portuguese uses far more readily than English uses 'extremely'. The two reliable English-speaker errors are 'mais bom' and 'mais mau', and using que instead of como in equality comparisons — it is 'tão caro como', not 'tão caro que'. Also flag that the article is obligatory in the superlative: 'o mais barato', never 'mais barato' alone."
+  },
+  {
+    "slug": "os-animais",
+    "titleEn": "Animals",
+    "titlePt": "Os Animais",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to talk about pets, farm animals and the creatures you meet on a walk in the Oeste, and to take a dog to the vet.",
+    "grammarFocus": null,
+    "notePrompt": "Teach pets (cão, cadela, gato, gata, coelho, periquito), farm and countryside animals (galinha, galo, porco, vaca, ovelha, cabra, burro, cavalo) and coastal wildlife (gaivota, caranguejo, polvo, lagartixa, formiga, mosquito, vespa). Add the vet register the family will actually need: veterinário, vacinas, chip, desparasitar, coleira, trela, 'o cão morde?'. This is the natural place to reuse Plurais 2, since cão/cães, galo/galos and animal/animais all behave differently — set them side by side. The vocabulary error is 'cachorro' for dog, which is Brazilian: in Portugal a cachorro is a hot dog, the animal is a cão, and a puppy is a cachorrinho or a cria."
+  },
+  {
+    "slug": "praia-e-surf-em-santa-cruz",
+    "titleEn": "Beach and Surf at Santa Cruz",
+    "titlePt": "Praia e Surf em Santa Cruz",
+    "category": "communication",
+    "blurbEn": "You will be able to read the beach flags, talk about the surf and the tide, and rent a board or book a lesson in Portuguese.",
+    "grammarFocus": null,
+    "notePrompt": "Teach beach and surf vocabulary as it is used on the Oeste coast: ondas, rebentação, maré cheia and maré vazia, corrente, nortada, bandeira verde, amarela, vermelha and xadrez, nadador-salvador, prancha, fato (wetsuit), cera, apanhar uma onda, o mar está bravo or chão. Script renting and booking: 'queria alugar uma prancha', 'a que horas é a maré baixa?', 'está bom para principiantes?'. Name the local landmarks — Praia da Formosa, Praia Azul, o Penedo do Guincho. The safety point is a real one: the checkered flag means the lifeguard is off duty, which foreigners routinely misread as 'all clear'. Note that 'fato de banho' is a swimsuit while a surfer's wetsuit is simply 'o fato'."
+  },
+  {
+    "slug": "preposicoes-2",
+    "titleEn": "Prepositions, Part Two",
+    "titlePt": "Preposições — Parte 2",
+    "category": "grammar",
+    "blurbEn": "You will be able to choose between por and para, and to use the prepositions that particular verbs insist on.",
+    "grammarFocus": "preposições — por e para, contrações e regência verbal",
+    "notePrompt": "Three strands. First, por versus para: para for destination, purpose and deadline ('vou para Lisboa', 'é para ti', 'para sexta'); por for cause, exchange, duration and route ('paguei dez euros por isto', 'passei por Torres', 'por causa da chuva'). Second, the contractions in full: por + o = pelo, de + aquele = daquele, em + um = num, a + a = à. Third, verb government, which is pure memorisation: gostar de, precisar de, lembrar-se de, casar com, sonhar com, pensar em, assistir a, chegar a. English speakers translate every 'for' as para and drop the de after gostar ('gosto café'); drill 'gosto de café' and the 'vou a Lisboa' (visit) versus 'vou para Lisboa' (to stay) contrast."
+  },
+  {
+    "slug": "adverbios-2",
+    "titleEn": "Adverbs, Part Two",
+    "titlePt": "Advérbios — Parte 2",
+    "category": "grammar",
+    "blurbEn": "You will be able to say how, how often and how certainly something happens, and to put the adverb where a Portuguese speaker would put it.",
+    "grammarFocus": "advérbios — formação em -mente, frequência, dúvida e intensidade",
+    "notePrompt": "Teach -mente built on the feminine adjective (rápida → rapidamente, fácil → facilmente, cuidadosa → cuidadosamente) and the rule that in a coordinated pair only the last one takes -mente ('lenta e cuidadosamente'). Then frequency (sempre, nunca, às vezes, muitas vezes, raramente, de vez em quando), doubt (se calhar, provavelmente, de certeza) and intensity (bastante, imenso, tão, demasiado, um bocado). Two errors: bem/mal swapped with bom/mau ('está bem' versus 'está bom' mean different things), and placement — Portuguese puts frequency adverbs after the verb ('vou sempre ao mercado'), where English puts them before. Teach 'se calhar' as the everyday pt-PT 'maybe', and note that 'talvez' normally drags in the subjunctive, so learners should prefer se calhar for now."
+  },
+  {
+    "slug": "a-casa-por-dentro",
+    "titleEn": "Inside the House: Rooms and Repairs",
+    "titlePt": "A Casa por Dentro",
+    "category": "vocabulary",
+    "blurbEn": "You will be able to describe your house room by room and explain to a landlord or a canalizador exactly what has gone wrong.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the rooms and fabric of a Portuguese house — sala, cozinha, casa de banho, quarto, corredor, sótão, cave, marquise, varanda, estendal, estores, persianas, portão, telhado, esquentador, caldeira, contador, quadro elétrico — and then the fault report: 'não há água quente', 'o esquentador não pega', 'há uma fuga de água', 'entra humidade pela parede', 'faltou a luz', 'o autoclismo está a verter'. Add senhorio, inquilino, contrato de arrendamento, caução, condomínio, obras. The vocabulary non-negotiables are casa de banho and rés-do-chão. The cultural error is expecting central-heating vocabulary: most Oeste houses run on an esquentador with no aquecimento central, and 'humidade' is the standing winter complaint."
+  },
+  {
+    "slug": "futuro-do-indicativo",
+    "titleEn": "The Synthetic Future",
+    "titlePt": "O Futuro do Indicativo",
+    "category": "grammar",
+    "blurbEn": "You will be able to recognise and use the written future — falarei, comerás, partiremos — and know when Portuguese speakers actually say it.",
+    "grammarFocus": "futuro do indicativo (futuro simples)",
+    "notePrompt": "Teach the one set of endings bolted onto the whole infinitive (-ei, -ás, -á, -emos, -ão: falarei, comerás, partiremos, serão) and the only three irregulars, which lose a syllable: dizer → direi, fazer → farei, trazer → trarei. The essential point is register, not morphology: in speech the Portuguese overwhelmingly say 'vou falar', so this tense lives in writing, notices, contracts and the news — and, crucially, in expressing present probability ('serão oito horas' = it must be about eight; 'estará em casa' = he's probably home). English speakers assume this is the ordinary way to say 'will' and end up sounding bookish. Close the level by contrasting 'amanhã vou trabalhar' with 'amanhã trabalharei'."
+  }
+]

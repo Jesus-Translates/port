@@ -1,0 +1,254 @@
+[
+  {
+    "slug": "registo-formal-e-burocracia",
+    "titleEn": "Formal Register: Bureaucratic Portuguese",
+    "titlePt": "Registo Formal: O Português dos Balcões",
+    "category": "communication",
+    "blurbEn": "You'll be able to step out of tu and handle a counter, a phone queue or an official email in the register Portuguese institutions actually expect.",
+    "grammarFocus": "as formas de tratamento (o senhor / a senhora)",
+    "notePrompt": "Teach that Portuguese formality lives in the third person, not in a pronoun: contrast 'Podes ajudar-me?' with 'O senhor pode ajudar-me?' and 'Quero' with 'Queria' and 'Seria possível...?'; drill 'faça favor', 'com licença', 'agradeço desde já a atenção', 'com os melhores cumprimentos'. The classic English-speaker error is reaching for 'você' as the polite you — explain that in Portugal 'você' can land as cold or condescending, and that the safe move is 'o senhor' / 'a senhora' or a bare third-person verb with no pronoun at all."
+  },
+  {
+    "slug": "pronuncia-europeia",
+    "titleEn": "The European Portuguese Sound",
+    "titlePt": "A Pronúncia Europeia",
+    "category": "communication",
+    "blurbEn": "You'll be able to make your Portuguese sound Portuguese — swallowing unstressed vowels, saying final -s as 'sh', and linking words the way the people around you do.",
+    "grammarFocus": "a redução vocálica",
+    "notePrompt": "Teach vowel reduction as the engine of the European accent: contrast the written 'telemóvel' with the spoken 'tlemóvel', 'pequeno-almoço' with 'pcnalmôç', and show final -s and -z as [ʃ] ('as casas' sounds like 'ash cazash'). The English-speaker error is giving every written vowel equal weight — a Spanish- or Brazilian-style full 'e' and 'o' — which is the loudest foreign marker here; contrast that with the rule that the stressed vowel stays long and clear while everything around it collapses."
+  },
+  {
+    "slug": "pares-minimos",
+    "titleEn": "Minimal Pairs: Training Your Ear",
+    "titlePt": "Pares Mínimos: Treinar o Ouvido",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to hear the difference between words that have sounded identical until now — sonho and sono, pão and pau, avó and avô — instead of guessing from context.",
+    "grammarFocus": "as vogais nasais e os dígrafos lh / nh",
+    "notePrompt": "Drill perception before production on four contrasts with real pairs: nh and lh against plain n and l (sonho/sono, malha/mala); nasal diphthong against oral (pão/pau, mão/mau, põe/pé); open against closed vowels (avó/avô, pôde/pode); and final -s as [ʃ] against no -s (a casa / as casas). English speakers hear a nasal vowel as vowel-plus-n and say 'pahn' for 'pão', and they flatten lh to a plain l so 'milhão' becomes 'milão'. Make the learner identify which of a pair they heard before ever asking them to produce it."
+  },
+  {
+    "slug": "modo-condicional",
+    "titleEn": "The Conditional",
+    "titlePt": "O Modo Condicional",
+    "category": "grammar",
+    "blurbEn": "You'll be able to say what you would do, soften a request into something a clerk will smile at, and talk about situations that aren't real.",
+    "grammarFocus": "o modo condicional",
+    "notePrompt": "Teach the conditional as one ending set (-ia, -ias, -ia, -íamos, -iam) welded onto the whole infinitive — falaria, comeria, partiria — plus the three irregular stems dir-, far-, trar-. Contrast 'quero' (blunt), 'queria' (everyday polite, an imperfeito) and 'gostaria' (formal, a true conditional), because English speakers map all three to 'I would like' and cannot tell when 'queria um café' is already enough. Stress that Portuguese has no separate 'would' auxiliary at all: 'I would go' is the single word 'iria'."
+  },
+  {
+    "slug": "condicional-na-pratica",
+    "titleEn": "The Conditional at the Counter",
+    "titlePt": "O Condicional na Prática",
+    "category": "grammar-practice",
+    "blurbEn": "You'll be able to make a delicate request, give advice and float a hypothetical without sounding like you're issuing orders.",
+    "grammarFocus": "o condicional em pedidos e conselhos",
+    "notePrompt": "Drill three jobs: softened requests ('Importava-se de me dar o número?', 'Seria possível marcar para quinta-feira?'), advice ('Eu, no teu lugar, mudava de operadora'), and hypotheticals framed without 'se'. Contrast the written conditional with the imperfeito that Portuguese people actually say out loud — 'gostava' for 'gostaria', 'era melhor' for 'seria melhor' — since English speakers over-use the full conditional and sound stiff at a counter. Keep every 'se' clause out of this unit: real conditional sentences need the imperfect subjunctive, which arrives at B2."
+  },
+  {
+    "slug": "financas-e-o-nif",
+    "titleEn": "Finanças: The NIF and the Tax Office",
+    "titlePt": "Nas Finanças: O NIF e os Impostos",
+    "category": "communication",
+    "blurbEn": "You'll be able to get a NIF at the Serviço de Finanças, understand what the clerk asks you for, and say why you're there when your senha is called.",
+    "grammarFocus": null,
+    "notePrompt": "Build the counter script end to end: 'tirar uma senha', 'Em que posso ser útil?', 'comprovativo de morada', 'representante fiscal', 'número de contribuinte', 'o IRS', 'a nota de liquidação', 'pode levantar aqui', 'já está'. Contrast 'as Finanças' (the office you walk into) with 'as finanças' (money in general), and make clear that 'NIF' and 'número de contribuinte' are one thing said two ways. English speakers read 'contribuinte' as 'contributor' and ask for the wrong document; also drill hearing a nine-digit NIF read back at speed in pairs."
+  },
+  {
+    "slug": "camara-municipal-e-residencia",
+    "titleEn": "The Câmara Municipal and Residency Paperwork",
+    "titlePt": "Na Câmara Municipal: Residência e Papelada",
+    "category": "communication",
+    "blurbEn": "You'll be able to register with the Junta or the Câmara, ask which document is still missing, and understand an appointment being set for you.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the map first — Junta de Freguesia, Câmara Municipal, AIMA and Loja do Cidadão, and who does what — then the paperwork nouns: 'atestado de residência', 'certificado de registo de cidadão da União Europeia', 'título de residência', 'marcação', 'requerimento', 'comprovativo', 'reconhecimento de assinatura'. Contrast 'inscrever-se' (to register yourself) with 'registar' (to record something), and 'a morada' (street address) with 'o endereço' (mostly an email address here). English speakers say 'aplicar para' as a calque of 'apply for'; the verbs are 'candidatar-se a', 'requerer', or simply 'dar entrada do processo'."
+  },
+  {
+    "slug": "instalacao-de-servicos",
+    "titleEn": "Setting Up Utilities",
+    "titlePt": "Instalação de Serviços: Luz, Água e Fibra",
+    "category": "communication",
+    "blurbEn": "You'll be able to open an electricity, water and fibre account by phone, give a meter reading, and query a bill you think is wrong.",
+    "grammarFocus": null,
+    "notePrompt": "Cover the whole utility encounter: 'fazer o contrato', 'a leitura do contador', 'a potência contratada', 'a fatura', 'o débito direto', 'a caução', 'o técnico vai lá a casa entre as nove e as treze'. Contrast the everyday 'a luz' with the formal 'a eletricidade', 'a fatura' (the bill you receive) with 'o recibo' (proof you paid), and 'a conta' (the account) with the bill itself — English speakers use 'conta' for the bill and confuse the operator. Train the automated menu as pure listening: 'prima um', 'aguarde', 'a sua chamada será encaminhada', and note that Portugal says 'prima', not the Brazilian 'digite'."
+  },
+  {
+    "slug": "pronomes-relativos",
+    "titleEn": "Relative Pronouns",
+    "titlePt": "Os Pronomes Relativos",
+    "category": "grammar",
+    "blurbEn": "You'll be able to join two ideas into one sentence — the man who came, the paper that I need, the neighbour whose roof leaks — instead of speaking in short bursts.",
+    "grammarFocus": "os pronomes relativos",
+    "notePrompt": "Teach 'que' as the workhorse for people and things; 'quem' only after a preposition ('o senhor com quem falei'); 'o qual / a qual' when 'que' would be ambiguous or after a longer preposition ('a rua ao longo da qual'); 'cujo' agreeing with the thing possessed, never the possessor ('o vizinho cuja casa'); and 'onde' for places. The English-speaker error is dropping the relative altogether — 'the paper I need' has no 'that', but 'o papel de que preciso' cannot lose its relative — and using 'quem' as a bare subject where Portuguese requires 'que'."
+  },
+  {
+    "slug": "arrendar-uma-casa",
+    "titleEn": "Renting an Apartment",
+    "titlePt": "Arrendar uma Casa",
+    "category": "communication",
+    "blurbEn": "You'll be able to view a place, ask what's included, negotiate the terms and read a rental contract without a dictionary.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the vocabulary an advert actually uses: 'T2', 'arrendamento', 'a renda', 'o senhorio / a senhoria', 'o inquilino', 'a caução', 'o fiador', 'as despesas de condomínio', 'mobilado', 'certificado energético', 'recibo de renda eletrónico'. Contrast 'alugar' (short-term hire: a car, a prancha) with 'arrendar' (a home), and 'a renda' (rent) with 'o rendimento' (income). English speakers ask for 'um apartamento de dois quartos' meaning two bedrooms and get shown a T1 — explain that the T-number counts bedrooms only, so a T2 is what an English advert calls two-bed."
+  },
+  {
+    "slug": "chamar-um-canalizador",
+    "titleEn": "Calling a Tradesperson",
+    "titlePt": "Chamar o Canalizador, o Eletricista e o Pedreiro",
+    "category": "communication",
+    "blurbEn": "You'll be able to describe what's broken over the phone, ask for a quote, and understand it when someone says they'll come 'para a semana'.",
+    "grammarFocus": null,
+    "notePrompt": "Drill fault description with 'estar a': 'a torneira está a pingar', 'o esquentador não acende', 'há uma infiltração na parede', 'saltou o quadro elétrico', 'entupiu o cano'. Then the business end: 'o orçamento', 'a mão de obra', 'o material', 'com IVA incluído', 'dou-lhe um toque'. The error to kill on sight is the gerund — an English speaker says 'está pingando'; in Portugal it is always 'estar a pingar'. Also flag that 'para a semana' means next week, not for a week, and that a tradesperson's 'já vou' can mean anything between now and Thursday."
+  },
+  {
+    "slug": "falsos-amigos",
+    "titleEn": "False Friends",
+    "titlePt": "Os Falsos Amigos",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to stop walking into the words that look English, sound English, and mean something else entirely.",
+    "grammarFocus": "os falsos amigos",
+    "notePrompt": "Group the traps by how badly they land: harmless ('esquisito' = odd, not exquisite; 'livraria' = bookshop against 'biblioteca' = library; 'puxe' = pull, not push), professional ('assistir' = to attend or watch, 'pretender' = to intend, 'realizar' = to carry out, 'eventualmente' = possibly, 'atualmente' = currently, 'a propina' = a tuition fee), and the ones that cause real embarrassment ('constipado' = with a head cold, 'excitado', 'preservativo'). Anchor the note on 'estou constipado' and 'a comida é esquisita', the two an English speaker says in their first month, and always give the correct Portuguese word beside the trap rather than only the warning."
+  },
+  {
+    "slug": "infinitivo-pessoal",
+    "titleEn": "The Personal Infinitive",
+    "titlePt": "O Infinitivo Pessoal",
+    "category": "grammar",
+    "blurbEn": "You'll be able to say whose action you mean in sentences where English simply leaves it vague.",
+    "grammarFocus": "o infinitivo pessoal",
+    "notePrompt": "Teach the personal infinitive as the answer to one question: whose action is it? Contrast 'É difícil sair' (in general) with 'É difícil sairmos' (difficult for us to leave), and 'É melhor esperar' with 'É melhor esperarem'. Show the endings as the plain infinitive plus -, -es, -, -mos, -em, and note that this structure has no English equivalent at all, which is exactly why English speakers avoid it — either flattening everything to the impersonal infinitive or reaching for a 'que' clause with the subjunctive they have not learnt yet. Sell it as the thing that lets them say complex sentences a whole level early."
+  },
+  {
+    "slug": "infinitivo-pessoal-com-preposicoes",
+    "titleEn": "The Personal Infinitive After Prepositions",
+    "titlePt": "O Infinitivo Pessoal Regido por Preposição",
+    "category": "grammar-practice",
+    "blurbEn": "You'll be able to use the frames Portuguese people use every day — antes de saírem, para não teres de esperar, apesar de estarmos atrasados.",
+    "grammarFocus": "o infinitivo pessoal regido por preposição",
+    "notePrompt": "Drill the high-frequency frames: 'antes de', 'depois de', 'para', 'até', 'sem', 'apesar de', 'no caso de' and 'por' plus a personal infinitive whose ending names the doer — 'Liguei antes de saírem', 'Deixei a chave para não teres de esperar', 'Saímos sem eles darem por nada'. Contrast each with the English -ing clause the learner is translating from ('before they left', 'without them noticing') and forbid the gerund outright: 'sem eles perceberem', never 'sem eles percebendo'. Push the learner to notice that a single ending is doing the work of a whole subject clause."
+  },
+  {
+    "slug": "no-centro-de-saude",
+    "titleEn": "The Doctor and the Centro de Saúde",
+    "titlePt": "No Centro de Saúde e no Médico",
+    "category": "communication",
+    "blurbEn": "You'll be able to book an appointment, describe a symptom accurately, and follow what the doctor tells you to do next.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the whole path: 'marcar uma consulta', 'o médico de família', 'o número de utente', 'a urgência', 'a triagem de Manchester' and its colours, 'a receita sem papel', 'as análises', 'a baixa'. Drill symptoms with 'doer' as an indirect construction — 'dói-me a cabeça', 'doem-me as costas' — because the thing that hurts is the subject and the person is the clitic; English speakers say 'eu tenho dor de' or try to conjugate 'doer' for themselves. Also contrast 'estou constipado' (a head cold) with 'estou entupido', and note that 'sinto-me maldisposto' means queasy, not badly dressed."
+  },
+  {
+    "slug": "comprar-casa",
+    "titleEn": "Buying a House",
+    "titlePt": "Comprar Casa em Portugal",
+    "category": "communication",
+    "blurbEn": "You'll be able to follow a viewing, understand the offer-to-deed sequence, and ask a solicitor the questions that actually matter.",
+    "grammarFocus": null,
+    "notePrompt": "Walk the sequence in Portuguese terms: 'a visita', 'a proposta', 'o CPCV (contrato-promessa de compra e venda)', 'o sinal', 'a escritura', 'o notário', 'a caderneta predial', 'a certidão permanente', 'a licença de utilização', 'o IMT e o imposto do selo', 'o IMI anual'. Contrast 'o sinal' with an English deposit — it is forfeited if the buyer walks and doubled back if the seller does — and contrast 'a caderneta predial' (the tax record of a property) with the school caderneta. English speakers say 'depósito' for 'sinal' and 'contrato' for 'CPCV', which makes an estate agent believe a different stage has been reached."
+  },
+  {
+    "slug": "adjetivos-compostos",
+    "titleEn": "Compound Adjectives",
+    "titlePt": "Os Adjetivos Compostos",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to describe things with the two-part adjectives Portuguese uses constantly — recém-chegado, mal-humorado, luso-britânico, verde-escuro.",
+    "grammarFocus": "os adjetivos compostos",
+    "notePrompt": "Teach the agreement rule that surprises everyone: in a compound adjective only the final element agrees ('uma família luso-britânica', 'olhos verde-escuros'), and a colour compound containing a noun is invariable ('camisas verde-garrafa', 'olhos cor de mel'). Cover the productive prefixes recém-, mal-, bem-, meio-, semi- and the hyphen after the 1990 spelling agreement. The English-speaker error is making both halves agree, as in 'camisas escuras verdes' or 'uma família lusa-britânica' — show the wrong and right forms side by side."
+  },
+  {
+    "slug": "cliticos-terceira-pessoa",
+    "titleEn": "Object Pronouns: Third Person",
+    "titlePt": "Os Pronomes Clíticos de Terceira Pessoa: o, a, os, as",
+    "category": "grammar",
+    "blurbEn": "You'll be able to say 'I saw him', 'I bought it' and 'I told her' without repeating the whole noun every single time.",
+    "grammarFocus": "os pronomes clíticos de 3.ª pessoa",
+    "notePrompt": "Teach the two columns separately: direct o/a/os/as ('Vi-o ontem') and indirect lhe/lhes ('Falei-lhe ontem'). Contrast them by verb, because Portuguese decides which column a verb takes and it does not match English intuition — 'telefonar a alguém' and 'responder a alguém' take lhe, while 'ver' and 'ajudar' take o/a. Drill the enclitic hyphen as the default in a plain affirmative sentence, then the proclitic shift after 'não', 'já', 'que', 'quem', 'todos', 'nunca' and 'só' ('não o vi'). The English-speaker error is putting the pronoun before the verb everywhere, Brazilian-style: 'eu o vi'."
+  },
+  {
+    "slug": "cliticos-contraidos",
+    "titleEn": "Object Pronouns: -lo, -la and the Merged Forms",
+    "titlePt": "Clíticos: -lo, -la e as Formas Contraídas (lho, lha)",
+    "category": "grammar",
+    "blurbEn": "You'll be able to read and say 'vou comprá-lo' and 'dei-lha' — the two shapes that make written Portuguese unreadable until you've met them.",
+    "grammarFocus": "as formas contraídas dos pronomes clíticos",
+    "notePrompt": "Teach two mechanical rules. First: after a verb form ending in -r, -s or -z that ending drops and o/a/os/as becomes -lo/-la/-los/-las, with an accent surfacing on the stressed vowel — 'comprar + o' gives 'comprá-lo', 'fazer + o' gives 'fazê-lo', 'pôr + as' gives 'pô-las', 'fizemos + o' gives 'fizemo-lo'. Second: an indirect and a direct pronoun merge — me + o = mo, te + a = ta, lhe + a = lha, lhes + os = lhos ('Dei-lha ontem'). Add -no/-na after a nasal ('dão-no'). English speakers read 'comprá-lo' as an unknown word and never produce 'lha' at all, saying 'dei ela a ele' or the Brazilian 'dei para ela' — name that workaround and replace it."
+  },
+  {
+    "slug": "conduzir-imt-e-carta",
+    "titleEn": "Driving: The IMT and Your Licence",
+    "titlePt": "Conduzir: O IMT e a Carta de Condução",
+    "category": "communication",
+    "blurbEn": "You'll be able to exchange a foreign licence at the IMT, register a car, and understand exactly which document you're being asked for.",
+    "grammarFocus": null,
+    "notePrompt": "Cover the counter and the paperwork: 'trocar a carta de condução', 'o atestado médico', 'o registo automóvel', 'o DUA (documento único automóvel)', 'o livrete' as the old word people still use, 'a matrícula', 'o seguro contra terceiros', 'o IUC'. Flag the acronym collision head-on: the IMT you visit is the Instituto da Mobilidade e dos Transportes, while the IMT you pay when buying a house is the Imposto Municipal sobre as Transmissões. Also note 'a matrícula' means both number plate and school enrolment. The English-speaker error is 'a licença de condução', a calque nobody uses — in Portugal it is simply 'a carta'."
+  },
+  {
+    "slug": "na-estrada-inspecao-e-gnr",
+    "titleEn": "On the Road: Inspection, Tolls and the GNR",
+    "titlePt": "Na Estrada: A Inspeção, as Portagens e a GNR",
+    "category": "communication",
+    "blurbEn": "You'll be able to book and pass the IPO inspection, deal with tolls, and handle being waved down by the GNR without panicking.",
+    "grammarFocus": null,
+    "notePrompt": "Build the roadside encounter as listening first: 'Documentos, faça favor', 'A carta e os documentos do carro', 'Sabe a que velocidade seguia?', 'Sopre aqui', 'Pode seguir'. Then the rest: 'a inspeção periódica obrigatória (IPO)', 'reprovou na inspeção', 'a Via Verde', 'as portagens', 'a multa', 'o limite de velocidade', 'a berma', 'o pisca'. Contrast GNR (roads and rural areas) with PSP (inside cities) so the learner knows who has stopped them. English speakers freeze because the officer uses formal third person with no pronoun at all — 'Tem a carta consigo?' — so train that exact shape, tying it back to the formal register unit."
+  },
+  {
+    "slug": "escola-e-caderneta",
+    "titleEn": "School: The Caderneta and Talking to Teachers",
+    "titlePt": "Na Escola: A Caderneta e as Reuniões de Pais",
+    "category": "communication",
+    "blurbEn": "You'll be able to read a note that comes home in the caderneta, hold a parent-teacher meeting, and understand how Portuguese school years and grades actually work.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the system and its paperwork together: 'a caderneta do aluno', 'o diretor de turma', 'a reunião de pais', 'a matrícula', 'o 9.º ano', 'o ensino básico e o secundário', 'os exames nacionais', 'a equivalência de habilitações', 'a falta justificada', 'a avaliação'. Contrast the Portuguese 0-20 marking scale with A-F so a parent does not read a 14 as a failure, and contrast 'a nota' (a mark) with 'o recado' (the message a teacher writes home). English-speaking parents write a textbook 'Prezado professor' letter — teach instead that a caderneta reply is short and signed: 'Tomei conhecimento' plus the encarregado de educação's signature."
+  },
+  {
+    "slug": "participio-passado",
+    "titleEn": "Past Participles",
+    "titlePt": "O Particípio Passado",
+    "category": "grammar",
+    "blurbEn": "You'll be able to read the participles that fill every sign, contract and notice — fechado, proibido, entregue — and use them to describe states and say what was done.",
+    "grammarFocus": "o particípio passado",
+    "notePrompt": "Teach the participle as an adjective that agrees ('a porta está fechada', 'os documentos foram entregues'), then build the passive: ser for the action ('a casa foi vendida em maio') against estar for the resulting state ('a casa está vendida'). Give the irregulars that earn their keep — feito, dito, visto, posto, aberto, escrito, ganho, pago, gasto, vindo — and the double forms, noting that Portugal prefers 'entregue' and 'aceite' over 'entregado' and 'aceitado'. Do not introduce compound tenses here. The English-speaker error is leaving the participle invariable as in English: 'as cartas foram enviado'."
+  },
+  {
+    "slug": "trabalho-e-emprego",
+    "titleEn": "Work and Employment",
+    "titlePt": "O Trabalho e o Emprego",
+    "category": "communication",
+    "blurbEn": "You'll be able to describe what you do for a living, read a job advert, and make sense of a Portuguese payslip and contract.",
+    "grammarFocus": null,
+    "notePrompt": "Cover both halves: talking about work ('trabalho por conta própria', 'passo recibos verdes', 'trabalho a partir de casa', 'estou reformado') and the paperwork ('o contrato sem termo', 'o período experimental', 'o recibo de vencimento', 'o subsídio de férias e o de Natal', 'a Segurança Social', 'as horas extraordinárias', 'o salário mínimo'). Contrast 'o emprego' (a specific post) with 'o trabalho' (work in general), and 'a reforma' (retirement, a pension) with the English reform. Two errors to fix: the gerund in 'estou trabalhando' — it is 'estou a trabalhar' — and the article in 'sou um professor', since professions drop it: 'sou professor'."
+  },
+  {
+    "slug": "uma-volta-por-portugal",
+    "titleEn": "A Tour of Portugal: Regions, Art and Culture",
+    "titlePt": "Uma Volta por Portugal: Regiões, Arte e Cultura",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to talk about where you've been and what each part of the country is known for, and hold your own when the conversation turns to fado, azulejos or a saint's day.",
+    "grammarFocus": null,
+    "notePrompt": "Move north to south — Minho, Douro, Beiras, Estremadura e Oeste, Ribatejo, Alentejo, Algarve, Açores e Madeira — with one dish, one landscape and one cultural anchor each; then the shared culture: o fado, os azulejos, a calçada portuguesa, Camões e Pessoa, os Santos Populares, as festas e os feriados. Contrast the tourist Portugal an expat arrives with (Lisboa e o Algarve) against the country their neighbours actually talk about. Drill the place prepositions English speakers get wrong: 'em Lisboa' but 'no Porto', 'no Alentejo' but 'na Madeira', and 'ir a' (go and come back) against 'ir para' (go and stay)."
+  },
+  {
+    "slug": "o-oeste-feira-vinho-carnaval",
+    "titleEn": "The Oeste: The Market, the Wine and Carnaval de Torres",
+    "titlePt": "O Oeste: A Feira, o Vinho e o Carnaval de Torres",
+    "category": "communication",
+    "blurbEn": "You'll be able to shop the weekly feira in Torres Vedras, talk about the wine the Oeste actually grows, and know what's happening when the whole town shuts down for Carnaval.",
+    "grammarFocus": null,
+    "notePrompt": "Ground everything in the family's own region. The weekly feira in Torres Vedras and the market at Santa Cruz: 'meio quilo', 'um molho de couves', 'é da terra?', 'quanto é ao todo?', 'leve mais um que eu arredondo'. The Oeste as a wine region: 'a vinha', 'a adega', 'a vindima', 'o vinho da região', 'a aguardente da Lourinhã'. Carnaval de Torres: 'as matrafonas', 'os cabeçudos', 'os carros alegóricos', 'os Zés Pereiras', 'o corso'. Contrast 'a feira' (the weekly open-air market) with 'o mercado' (the covered municipal building), and 'o talho', 'a peixaria' and 'a padaria' with a supermarket aisle. The error to fix is buying by unit — 'dois tomates' earns a strange look where 'meio quilo de tomate' does not."
+  },
+  {
+    "slug": "discurso-indireto",
+    "titleEn": "Reported Speech",
+    "titlePt": "O Discurso Indireto",
+    "category": "grammar",
+    "blurbEn": "You'll be able to tell your family what the clerk, the doctor or the diretora de turma actually said, instead of shrugging.",
+    "grammarFocus": "o discurso indireto",
+    "notePrompt": "Teach the backshift as a small set of swaps: presente to imperfeito ('Está fechado' becomes 'Disse que estava fechado'), futuro to condicional ('Virá amanhã' becomes 'Disse que viria no dia seguinte'), and the pretérito perfeito left as it is in speech, since the compound pluperfect belongs to a later level. Add the pronoun, possessive and time shifts: hoje to nesse dia, amanhã to no dia seguinte, aqui to ali. Drill 'perguntar se' for yes/no questions ('Perguntou se eu tinha o NIF') and 'pedir para' plus infinitive for requests ('Pediu para eu voltar na quinta'). The English-speaker errors are keeping the original tense — 'Ele disse que está fechado', which reads as a live quote — and using 'que' after 'perguntar' where Portuguese needs 'se'. Use no subjunctive."
+  },
+  {
+    "slug": "sotaque-do-oeste",
+    "titleEn": "Listening to the Oeste Accent",
+    "titlePt": "Ouvir o Sotaque do Oeste",
+    "category": "communication",
+    "blurbEn": "You'll be able to understand your actual neighbours — the Estremadura and Oeste speech that no course records and that defeats you at the talho counter.",
+    "grammarFocus": null,
+    "notePrompt": "Train comprehension on real regional features rather than studio Portuguese: vowel reduction pushed to disappearance ('está bem' to 'tá bem' to something near 'tâim'), swallowed final syllables, 'p'ra' for 'para', 'tou' for 'estou', 'num' for 'não', 'ó' for 'olha', 'pá' as a filler, and the very closed 'e' of rural Estremadura. Contrast the Lisbon-standard audio the learner has trained on with an older speaker from Torres Vedras or Santa Cruz saying the identical sentence. Address the false conclusion English speakers draw — that they need more vocabulary — when the real gap is that the words they know are stored unreduced; teach 'Desculpe, importa-se de repetir mais devagar?' and train prediction from context."
+  }
+]

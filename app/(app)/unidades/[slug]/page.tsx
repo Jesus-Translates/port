@@ -2,8 +2,11 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
 import { UnitNote } from "@/components/unit-note";
+import { UnitPath, UnitPathBuild, type PathItem } from "@/components/unit-path";
 import { UnitReview } from "@/components/unit-review";
+import { getCompletedItemIds } from "@/lib/actions/course";
 import { getRole, requireSession } from "@/lib/auth";
+import { isItemKind, KIND_META, type ItemKind } from "@/lib/course";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 
 type ItemConfig = { topic?: string; level?: string };
@@ -15,49 +18,79 @@ type ItemRow = {
   config: unknown;
   catSlug: string | null;
   catName: string | null;
-  catEmoji: string | null;
 };
 
-/** Every unit item resolves to a screen that already exists. */
-function resolve(item: ItemRow): {
-  href: string;
-  emoji: string;
-  hint: string;
-} | null {
+/** Rows written before the path generator used lib/course's vocabulary. */
+function normalizeKind(raw: string): ItemKind | null {
+  const k = raw.trim().toLowerCase();
+  if (isItemKind(k)) return k;
+  if (k === "category" || k === "reference") return "vocab";
+  if (k === "listening") return "escutar";
+  return null;
+}
+
+/**
+ * Every item resolves to a screen that ALREADY EXISTS, and carries its topic
+ * with it — the learner lands on something ready to run, never on an empty
+ * form they have to fill in themselves.
+ */
+function resolve(
+  item: ItemRow
+): { kind: ItemKind; href: string; hint: string } | null {
+  const kind = normalizeKind(item.kind);
+  if (!kind) return null;
+
   const config = (item.config ?? {}) as ItemConfig;
   const topic = (config.topic ?? "").trim();
-  switch (item.kind) {
-    case "quiz":
+  const q = encodeURIComponent(topic);
+  const about = topic ? topic : KIND_META[kind].trains;
+
+  switch (kind) {
+    case "vocab":
+      if (!item.catSlug) return null; // a phrasebook link with no category is a dead end
       return {
-        href: topic ? `/practice?topic=${encodeURIComponent(topic)}` : "/practice",
-        emoji: "🎯",
-        hint: topic ? `Teste sobre ${topic}` : "Teste",
+        kind,
+        href: `/reference/${item.catSlug}`,
+        hint: item.catName ?? "livro de referência",
+      };
+    case "quiz":
+      return { kind, href: topic ? `/practice?topic=${q}` : "/practice", hint: about };
+    case "jogo-pares":
+      return {
+        kind,
+        href: topic ? `/jogos/pares?topic=${q}` : "/jogos/pares",
+        hint: about,
+      };
+    case "jogo-frase":
+      return {
+        kind,
+        href: topic ? `/jogos/frase?topic=${q}` : "/jogos/frase",
+        hint: about,
       };
     case "ditado":
-      return { href: "/practice/ditado", emoji: "✏️", hint: "Ditado" };
+      return { kind, href: "/practice/ditado", hint: about };
+    case "cloze":
+      return { kind, href: "/practice/ditado?modo=cloze", hint: about };
     case "verbos":
-      return { href: "/practice/verbos", emoji: "⚡", hint: "Conjugação" };
+      return { kind, href: "/practice/verbos", hint: about };
+    case "escutar":
+      return { kind, href: "/escutar", hint: about };
     case "story":
+      return { kind, href: "/stories", hint: about };
+    case "falar":
       return {
-        href: "/stories",
-        emoji: "📕",
-        hint: topic ? `História sobre ${topic}` : "História",
+        kind,
+        href: topic ? `/practice/falar?tema=${q}` : "/practice/falar",
+        hint: about,
+      };
+    case "conversa":
+      return {
+        kind,
+        href: topic ? `/practice/conversa?tema=${q}` : "/practice/conversa",
+        hint: about,
       };
     case "homework":
-      return {
-        href: topic ? `/homework?topic=${encodeURIComponent(topic)}` : "/homework",
-        emoji: "✍️",
-        hint: topic ? `TPC sobre ${topic}` : "TPC",
-      };
-    case "category":
-      if (!item.catSlug) return null;
-      return {
-        href: `/reference/${item.catSlug}`,
-        emoji: item.catEmoji || "📖",
-        hint: item.catName ? `Livro — ${item.catName}` : "Livro de referência",
-      };
-    default:
-      return null;
+      return { kind, href: topic ? `/homework?topic=${q}` : "/homework", hint: about };
   }
 }
 
@@ -82,12 +115,30 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
       config: unitItems.config,
       catSlug: categories.slug,
       catName: categories.namePt,
-      catEmoji: categories.emoji,
     })
     .from(unitItems)
     .leftJoin(categories, eq(categories.id, unitItems.refId))
     .where(eq(unitItems.unitId, unit.id))
     .orderBy(asc(unitItems.sortOrder), asc(unitItems.id));
+
+  const doneIds = new Set(
+    items.length > 0 ? await getCompletedItemIds(session.username, unit.id) : []
+  );
+
+  const path: PathItem[] = items.flatMap((item) => {
+    const target = resolve(item);
+    if (!target) return [];
+    return [
+      {
+        id: item.id,
+        kind: target.kind,
+        titlePt: item.titlePt || KIND_META[target.kind].label,
+        href: target.href,
+        hint: target.hint,
+        done: doneIds.has(item.id),
+      },
+    ];
+  });
 
   const isDraft = unit.status !== "published";
 
@@ -126,52 +177,20 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
 
       <UnitNote unitId={unit.id} noteMd={unit.noteMd} />
 
-      <section className="space-y-2">
-        <h2 className="font-display text-lg font-semibold">
-          O caminho{" "}
-          <span className="text-sm font-normal text-ink-faint">
-            · work through these in order
+      {path.length > 0 ? (
+        <UnitPath items={path} />
+      ) : items.length === 0 ? (
+        <UnitPathBuild unitId={unit.id} />
+      ) : (
+        // Items exist but none resolves to a screen — never re-trigger the
+        // generator here, or the page would spin on "a montar…" forever.
+        <p className="card p-6 text-center text-sm text-ink-soft">
+          As atividades desta unidade já não abrem em lado nenhum.{" "}
+          <span className="text-ink-faint">
+            Ask Kelly to rebuild this unit&apos;s path.
           </span>
-        </h2>
-        {items.length === 0 ? (
-          <p className="card p-6 text-center text-sm text-ink-soft">
-            Esta unidade ainda não tem atividades.
-          </p>
-        ) : (
-          <ol className="space-y-2">
-            {items.map((item, i) => {
-              const target = resolve(item);
-              if (!target) return null;
-              return (
-                <li key={item.id}>
-                  <Link
-                    href={target.href}
-                    className="card flex items-center gap-3 p-4 transition-colors hover:border-sage hover:bg-sage-pale/40"
-                  >
-                    <span
-                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-cream text-lg"
-                      aria-hidden
-                    >
-                      {target.emoji}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-medium">
-                        {i + 1}. {item.titlePt}
-                      </span>
-                      <span className="block truncate text-xs text-ink-faint">
-                        {target.hint}
-                      </span>
-                    </span>
-                    <span className="shrink-0 text-ink-faint" aria-hidden>
-                      →
-                    </span>
-                  </Link>
-                </li>
-              );
-            })}
-          </ol>
-        )}
-      </section>
+        </p>
+      )}
 
       <footer className="card flex flex-wrap items-center gap-3 p-4">
         <span className="text-sm font-medium">Dúvidas sobre esta unidade?</span>

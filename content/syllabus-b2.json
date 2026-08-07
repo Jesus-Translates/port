@@ -135,13 +135,13 @@
     "notePrompt": "Map the real structures a resident deals with: freguesia and junta de freguesia → câmara municipal (presidente, vereadores) → distrito, then Assembleia da República and the Primeiro-Ministro at São Bento versus the Presidente da República at Belém, plus legislativas, autárquicas, círculo eleitoral, coligação, moção de censura and the party acronyms; the contrast to draw is Portugal's semi-presidential split against the English-speaker assumption of one head of government — the recurring error is calling the Primeiro-Ministro 'o Presidente' — and cover enough 25 de Abril and Estado Novo background to understand how older neighbours in the Oeste frame politics, plus the exits 'não estou muito por dentro' and 'lá isso não sei'."
   },
   {
-    "slug": "discurso-indireto",
-    "titleEn": "Reported Speech",
-    "titlePt": "Discurso Indireto",
+    "slug": "discurso-indireto-concordancia",
+    "titleEn": "Reported Speech: The Full Backshift",
+    "titlePt": "O Discurso Indireto: A Concordância dos Tempos",
     "category": "grammar",
     "blurbEn": "You'll be able to pass on what someone else said — a message, an instruction, a piece of gossip — accurately and in one go.",
     "grammarFocus": "discurso indireto",
-    "notePrompt": "Teach the transposition machinery: reporting verbs (dizer, contar, perguntar, pedir, avisar, responder, acrescentar) taking 'que' for statements, 'se' for yes/no questions and the bare question word for the rest, plus the shifts in pronouns, possessives and deictics (aqui→ali, este→aquele, hoje→nesse dia, amanhã→no dia seguinte, trazer→levar, vir→ir); the anchor contrast is 'Perguntou-me: «Onde estás?»' → 'Perguntou-me onde eu estava', against the two systematic English-speaker errors — using 'que' after perguntar (*perguntou que onde eu estava) instead of 'se' or the bare question word, and keeping the direct question's inverted order and present tense inside the reported clause."
+    "notePrompt": "B1 already introduced reporting present-tense speech; this is the DEEPENING pass, so open by referencing it. Teach the full concordância dos tempos: how each tense shifts when the reporting verb is in the past (presente→imperfeito, pretérito perfeito→mais-que-perfeito composto, futuro→condicional), plus the pronoun and deictic shifts (aqui→ali, hoje→nesse dia, este→esse). The English-speaker error is failing to backshift at all — «ele disse que está cansado» where pt-PT wants «ele disse que estava cansado»."
   },
   {
     "slug": "discurso-indireto-no-passado",
