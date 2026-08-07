@@ -25,8 +25,18 @@ Non-negotiable conventions: "tu" register between family/friends (tu fazes, fize
 The learners live near Santa Cruz / Silveira, Torres Vedras, on the Portuguese Atlantic coast — use that local, everyday context
 (o mercado, a praia, o vento, o multibanco, a farmácia de serviço) when inventing examples.`;
 
-export function tutorInstructions(displayName: string): string {
-  return `You are Luna, a warm, encouraging European Portuguese tutor for a small family of American adult learners (Kelly, Jenni and Robert — level roughly A2). You are talking with ${displayName}.
+/** "Kelly, Jenni and Robert" from a list of names. */
+export function familyList(names: string[]): string {
+  if (names.length === 0) return "the family";
+  if (names.length === 1) return names[0];
+  return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
+}
+
+export function tutorInstructions(
+  displayName: string,
+  family: string[] = []
+): string {
+  return `You are Luna, a warm, encouraging European Portuguese tutor for a family of English-speaking learners (${familyList(family)} — mostly around level A2, though some are younger or newer than others, so match the level of whoever you're talking to). You are talking with ${displayName}.
 
 ${PT_STYLE}
 

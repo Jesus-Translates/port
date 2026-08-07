@@ -31,6 +31,15 @@
 @layer base {
   body {
     @apply bg-paper text-ink font-sans antialiased;
+    /* Stop iOS from re-flowing text size in landscape. */
+    -webkit-text-size-adjust: 100%;
+  }
+  /* Touch devices have no hover: reveal-on-hover controls would be
+     unreachable, so show them always. */
+  @media (hover: none) {
+    .touch-visible {
+      opacity: 1 !important;
+    }
   }
   ::selection {
     @apply bg-terra-pale text-terra-dark;
@@ -49,7 +58,8 @@
   .btn-primary,
   .btn-terra,
   .btn-ghost {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
+    /* min-h-11 = 44px: Apple's minimum comfortable tap target */
+    @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-50;
   }
   .btn-primary {
     @apply bg-olive text-paper hover:bg-ink;
@@ -61,7 +71,9 @@
     @apply border border-sand bg-white/60 text-ink hover:border-sage hover:bg-sage-pale;
   }
   .input {
-    @apply w-full rounded-xl border border-sand bg-white/80 px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-faint focus:border-sage focus:ring-2 focus:ring-sage-light focus:outline-none;
+    /* text-base (16px) on phones: anything smaller makes iOS Safari
+       auto-zoom the whole page every time a field is focused. */
+    @apply w-full rounded-xl border border-sand bg-white/80 px-3.5 py-2.5 text-base text-ink placeholder:text-ink-faint focus:border-sage focus:ring-2 focus:ring-sage-light focus:outline-none sm:text-[15px];
   }
   .label {
     @apply mb-1.5 block text-xs font-semibold tracking-wide text-ink-soft uppercase;

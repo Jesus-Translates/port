@@ -17,7 +17,9 @@ function getSecret(): Uint8Array {
 }
 
 export function getValidUsers(): string[] {
-  const raw = process.env.VALID_USERS ?? "Kelly,Jenni,Robert";
+  const raw =
+    process.env.VALID_USERS ??
+    "Kelly,Jenni,Robert,Bobby,Sarah,Hannah,Rebecca,Sammy";
   return raw
     .split(",")
     .map((u) => u.trim())

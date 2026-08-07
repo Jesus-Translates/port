@@ -48,8 +48,15 @@ function loadJson<T>(file: string): T {
 }
 
 async function main() {
-  // 1. Users
-  for (const displayName of ["Kelly", "Jenni", "Robert"]) {
+  // 1. Users — keep in sync with VALID_USERS / getValidUsers()
+  const people = (
+    process.env.VALID_USERS ??
+    "Kelly,Jenni,Robert,Bobby,Sarah,Hannah,Rebecca,Sammy"
+  )
+    .split(",")
+    .map((p) => p.trim())
+    .filter(Boolean);
+  for (const displayName of people) {
     await db
       .insert(schema.users)
       .values({ username: displayName.toLowerCase(), displayName })

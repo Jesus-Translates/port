@@ -78,7 +78,7 @@ export function HomeworkComposer({ initialTopic = "" }: { initialTopic?: string 
             onChange={(e) => setForEveryone(e.target.checked)}
             className="accent-olive"
           />
-          Dar o mesmo TPC a toda a família (Kelly, Jenni e Robert)
+          Dar o mesmo TPC a toda a família
         </label>
         {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
       </form>

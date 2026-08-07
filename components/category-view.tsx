@@ -94,30 +94,32 @@ export function CategoryView({
 
   return (
     <div className="space-y-5">
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="space-y-2">
         <input
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
           placeholder={`Procurar em ${category.namePt}…`}
-          className="input max-w-xs flex-1"
+          className="input sm:max-w-xs"
         />
-        <button
-          className="btn-ghost text-xs"
-          onClick={() => setShowEn((s) => !s)}
-        >
-          {showEn ? "Esconder inglês" : "Mostrar inglês"}
-        </button>
-        <div className="flex-1" />
-        <button className="btn-ghost" onClick={() => setAdding((a) => !a)}>
-          + Adicionar
-        </button>
-        <button
-          className="btn-terra"
-          onClick={fetchSuggestions}
-          disabled={suggesting}
-        >
-          {suggesting ? "A Luna está a escrever…" : "✨ Luna, dá-nos mais"}
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            className="btn-ghost text-xs"
+            onClick={() => setShowEn((s) => !s)}
+          >
+            {showEn ? "Esconder inglês" : "Mostrar inglês"}
+          </button>
+          <div className="hidden flex-1 sm:block" />
+          <button className="btn-ghost" onClick={() => setAdding((a) => !a)}>
+            + Adicionar
+          </button>
+          <button
+            className="btn-terra"
+            onClick={fetchSuggestions}
+            disabled={suggesting}
+          >
+            {suggesting ? "A Luna está a escrever…" : "✨ Luna, dá-nos mais"}
+          </button>
+        </div>
       </div>
 
       {adding ? (
@@ -250,7 +252,8 @@ export function CategoryView({
                 ) : null}
                 <button
                   title="Apagar"
-                  className="mt-0.5 shrink-0 text-ink-faint opacity-0 transition-opacity group-hover:opacity-100 hover:text-terra"
+                  aria-label={`Apagar ${e.pt}`}
+                  className="touch-visible -m-1 mt-0 shrink-0 p-1 text-ink-faint opacity-0 transition-opacity group-hover:opacity-100 hover:text-terra"
                   onClick={() => {
                     if (confirm(`Apagar “${e.pt}”?`)) {
                       startTransition(() => deleteEntry(e.id, category.slug));

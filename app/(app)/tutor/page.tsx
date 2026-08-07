@@ -9,7 +9,8 @@ export default async function TutorPage(props: PageProps<"/tutor">) {
   const initialInput = typeof q === "string" ? q : "";
 
   return (
-    <div className="flex h-[calc(100dvh-11rem)] min-h-[24rem] flex-col">
+    // Chat needs a floor height on phones — a cramped scroll area is painful.
+    <div className="flex h-[calc(100dvh-15rem)] min-h-[26rem] flex-col sm:h-[calc(100dvh-13rem)]">
       <header className="mb-4">
         <h1 className="text-2xl font-semibold tracking-tight">
           🌙 Luna, a vossa tutora

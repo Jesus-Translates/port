@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 const TABS = [
@@ -14,6 +15,10 @@ const TABS = [
   { href: "/notes", emoji: "📝", label: "Notas" },
 ];
 
+function isActive(pathname: string, href: string) {
+  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+}
+
 export function Nav({ displayName }: { displayName: string }) {
   const pathname = usePathname();
   const router = useRouter();
@@ -25,39 +30,39 @@ export function Nav({ displayName }: { displayName: string }) {
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand bg-paper/90 backdrop-blur">
-      <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
-        <Link href="/" className="flex items-baseline gap-1.5 shrink-0">
-          <span className="font-display text-xl font-semibold tracking-tight">
-            Português
+    <>
+      <header className="sticky top-0 z-40 border-b border-sand bg-paper/90 backdrop-blur">
+        <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
+          <Link href="/" className="flex shrink-0 items-baseline gap-1.5">
+            <span className="font-display text-xl font-semibold tracking-tight">
+              Português
+            </span>
+            <span className="hidden text-xs text-ink-faint sm:inline">
+              · Santa Cruz
+            </span>
+          </Link>
+          <div className="min-w-0 flex-1" />
+          <span className="chip shrink-0">
+            {avatarFor(displayName)} {displayName}
           </span>
-          <span className="hidden text-xs text-ink-faint sm:inline">
-            · Santa Cruz
-          </span>
-        </Link>
-        <div className="min-w-0 flex-1" />
-        <span className="chip shrink-0">
-          {displayName === "Kelly" ? "👩‍🏫" : "🌊"} {displayName}
-        </span>
-        <button
-          onClick={logout}
-          className="shrink-0 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
-        >
-          Sair
-        </button>
-      </div>
-      <nav className="mx-auto max-w-5xl overflow-x-auto px-2 pb-2 [scrollbar-width:none]">
-        <ul className="flex gap-1 whitespace-nowrap">
-          {TABS.map((t) => {
-            const active =
-              t.href === "/" ? pathname === "/" : pathname.startsWith(t.href);
-            return (
+          <button
+            onClick={logout}
+            className="shrink-0 p-1 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
+          >
+            Sair
+          </button>
+        </div>
+
+        {/* Desktop / tablet: pill row. On phones the bottom bar takes over. */}
+        <nav className="mx-auto hidden max-w-5xl px-2 pb-2 sm:block">
+          <ul className="flex flex-wrap gap-1">
+            {TABS.map((t) => (
               <li key={t.href}>
                 <Link
                   href={t.href}
                   className={cn(
                     "flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
-                    active
+                    isActive(pathname, t.href)
                       ? "bg-olive text-paper"
                       : "text-ink-soft hover:bg-sage-pale hover:text-ink"
                   )}
@@ -66,10 +71,50 @@ export function Nav({ displayName }: { displayName: string }) {
                   {t.label}
                 </Link>
               </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
+
+      {/* Phones: fixed bottom tab bar — every section one tap away, and it
+          clears the iPhone home indicator via safe-area padding. */}
+      <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-sand bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden">
+        <ul className="flex items-stretch justify-between px-1">
+          {TABS.map((t) => {
+            const active = isActive(pathname, t.href);
+            return (
+              <li key={t.href} className="flex-1">
+                <Link
+                  href={t.href}
+                  aria-current={active ? "page" : undefined}
+                  className={cn(
+                    "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg px-0.5 py-1.5 transition-colors",
+                    active ? "text-olive" : "text-ink-faint"
+                  )}
+                >
+                  <span
+                    className={cn(
+                      "text-lg leading-none transition-transform",
+                      active && "scale-110"
+                    )}
+                    aria-hidden
+                  >
+                    {t.emoji}
+                  </span>
+                  <span
+                    className={cn(
+                      "text-[10px] leading-tight",
+                      active && "font-semibold"
+                    )}
+                  >
+                    {t.label}
+                  </span>
+                </Link>
+              </li>
             );
           })}
         </ul>
       </nav>
-    </header>
+    </>
   );
 }

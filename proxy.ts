@@ -1,7 +1,17 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth";
 
-const PUBLIC_PATHS = ["/login", "/api/auth/login"];
+const PUBLIC_PATHS = [
+  "/login",
+  "/api/auth/login",
+  // Next metadata routes — these have no file extension, so the matcher below
+  // doesn't skip them. Social/link previews and the iOS home-screen icon must
+  // be fetchable without a session.
+  "/opengraph-image",
+  "/twitter-image",
+  "/apple-icon",
+  "/icon",
+];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

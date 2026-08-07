@@ -7,7 +7,7 @@ import {
 } from "ai";
 import { after, NextResponse, type NextRequest } from "next/server";
 import { getModel, tutorInstructions } from "@/lib/ai";
-import { getSession } from "@/lib/auth";
+import { getSession, getValidUsers } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 
 export const maxDuration = 120;
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
   }
   const { messages, context } = body;
 
-  let instructions = tutorInstructions(session.displayName);
+  let instructions = tutorInstructions(session.displayName, getValidUsers());
   if (context) {
     instructions += `\n\nCONTEXT the learner is currently looking at:\n${context.slice(0, 6000)}`;
   }

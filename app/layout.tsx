@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -13,13 +13,35 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://port.robertjeremiah.com"),
   title: {
     default: "Português · the family hub",
     template: "%s · Português",
   },
   description:
-    "Kelly, Jenni & Robert's European Portuguese learning hub — notes, workbook, quizzes and Luna the AI tutor.",
+    "Our European Portuguese learning hub — a shared phrasebook, workbook lessons, homework, quizzes and Luna the AI tutor.",
   robots: { index: false, follow: false },
+  applicationName: "Português",
+  appleWebApp: {
+    capable: true,
+    title: "Português",
+    statusBarStyle: "default",
+  },
+  openGraph: {
+    title: "Português · the family hub",
+    description:
+      "A shared European Portuguese phrasebook, workbook, quizzes and an AI tutor — for the family in Santa Cruz.",
+    type: "website",
+    locale: "pt_PT",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  // Lets the bottom tab bar sit flush and use env(safe-area-inset-*).
+  viewportFit: "cover",
+  themeColor: "#faf7f0",
 };
 
 export default function RootLayout({

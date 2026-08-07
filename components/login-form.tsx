@@ -3,6 +3,7 @@
 import { Turnstile } from "@marsidev/react-turnstile";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 function LoginFormInner({
@@ -54,23 +55,25 @@ function LoginFormInner({
     <form onSubmit={submit} className="card space-y-5 p-6">
       <div>
         <span className="label">Quem és tu? · Who are you?</span>
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-4 gap-2">
           {users.map((u) => (
             <button
               key={u}
               type="button"
               onClick={() => setUsername(u)}
               className={cn(
-                "rounded-xl border px-2 py-3 text-center transition-all",
+                "flex min-h-16 flex-col items-center justify-center rounded-xl border px-1 py-2 text-center transition-all",
                 username === u
                   ? "border-olive bg-olive text-paper shadow"
                   : "border-sand bg-white/70 text-ink hover:border-sage hover:bg-sage-pale"
               )}
             >
-              <div className="text-2xl" aria-hidden>
-                {u === "Kelly" ? "👩‍🏫" : u === "Jenni" ? "🌻" : "🏄"}
-              </div>
-              <div className="mt-1 text-sm font-semibold">{u}</div>
+              <span className="text-xl leading-none" aria-hidden>
+                {avatarFor(u)}
+              </span>
+              <span className="mt-1 text-[11px] leading-tight font-semibold">
+                {u}
+              </span>
             </button>
           ))}
         </div>

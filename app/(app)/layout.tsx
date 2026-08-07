@@ -10,7 +10,10 @@ export default async function AppLayout({
   return (
     <div className="min-h-dvh">
       <Nav displayName={session.displayName} />
-      <main className="mx-auto max-w-5xl px-4 py-6 pb-16">{children}</main>
+      {/* pb-28 on phones keeps content clear of the fixed bottom tab bar. */}
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:pb-16">
+        {children}
+      </main>
     </div>
   );
 }
