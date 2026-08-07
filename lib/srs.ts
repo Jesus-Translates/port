@@ -82,7 +82,15 @@ export async function getQueue(username: string) {
           .select()
           .from(cards)
           .where(and(eq(cards.username, username), eq(cards.state, 0)))
-          .orderBy(asc(cards.id))
+          // MISTAKES FIRST. Ordering by id alone starved them: enrolling a
+          // phrasebook category inserts hundreds of low-id "entry" cards, so a
+          // word you actually got wrong queued behind all of them — for weeks,
+          // at 20 new/day. Auto-enrolling mistakes is the whole point of the
+          // deck; showing them promptly is what makes it true.
+          .orderBy(
+            sql`case when ${cards.kind} = 'mistake' then 0 else 1 end`,
+            asc(cards.id)
+          )
           .limit(newBudget)
       : [];
 
