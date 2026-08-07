@@ -1,3 +1,69 @@
+# WAVE 4 (2026-08-07): Competitive upgrade plan — from the Practice Portuguese review
+
+Seven agents reviewed practiceportuguese.com (logged-in) + our own codebase.
+Full reports in the session transcript. Synthesis below.
+
+## Where we already win (do NOT spend effort here)
+- FSRS vs their binary Leitner ladder (they have NO daily limit; 166/172 cards
+  were due at once on the real account). Their own staff admit the gap.
+- We auto-enrol mistakes from every grading path; they REMOVED auto-add in 2022
+  and make you tap "Add to Smart Review" on an item you just failed.
+- AI generation, AI tutor, Conversa, speech scoring in review: they have none.
+- Placement: they have NO placement test at all — everyone starts A1 unit 1.
+
+## Ranked plan (impact / effort)
+- [x] 1. "A seguir" card — one server-resolved next action (SHIPPED fb61826)
+- [x] 2. Loading skeleton for the whole (app) group (SHIPPED 521e51b)
+- [x] 3. Honour placement level everywhere + Azure TTS mispricing (SHIPPED 913db36)
+- [ ] 4. CURRICULUM SPINE — the biggest gap. They have 137 tight single-concept
+      units (A1 39 / A2 55 / B1 24 / B2 19); ours is EMPTY (units default to
+      draft, students see nothing). Generate ~126 units with their interleaving
+      rule: never >2 consecutive grammar units, never >3 non-grammar; grammar
+      exercises drawn from the situational units around them. Fix the draft trap.
+      Add local units nobody else has: mercado de Torres, Carnaval de Torres,
+      surf/Santa Cruz, pêra rocha/Oeste wines, Estremadura accent listening.
+      Non-negotiable topics they got right that naive syllabi miss: Correios,
+      Polícia, Desastres, Falar com os Vizinhos, Finanças/NIF, Câmara,
+      utilities, IMT/licence, 112. [L]
+- [ ] 5. Token-level diff feedback: ✗ your answer w/ offending word marked above
+      ✓ correct w/ fix marked. We ALREADY have the LCS machinery in
+      lib/pronunciation.ts + lib/ditado.ts — just needs to render in quiz/TPC. [S]
+- [ ] 6. "Start Here" unit: teach the app + why pt-PT + one trivially easy win,
+      counting toward progress. Their highest-ROI onboarding move. [S/M]
+- [ ] 7. Universal phrase menu — AddToDeck/play/slow-audio/lookup on EVERY phrase
+      object everywhere (theirs works mid-quiz, in verb tables, in prose). [M]
+- [ ] 8. Register chips on cards: `sing., inf.` / `formal` / `masc.` — removes the
+      "which you?" ambiguity in EN→PT. Our AI can emit these at generation time;
+      theirs is hand-curated, so this is CHEAPER for us. [S]
+- [ ] 9. Dual-speed audio on every phrase (normal + prosody rate -25%), incl. each
+      MCQ option — turns recognition items into listening practice. [S/M]
+- [ ] 10. Three-state answer check: typo / incomplete / wrong, with a "that was a
+      typo" retry. We have "quase" in TPC only. [S]
+- [ ] 11. Nav 8 tabs → 5; merge ditado+verbos into Rever modes, ciple → quiz
+      preset, ouvir → section of escutar, falar+missoes → Conversa. [M]
+- [ ] 12. Error-pattern analysis — we store every graded item WITH a diagnosis and
+      never aggregate it. One AI pass → "os teus três erros" + practise-this. [M]
+- [ ] 13. Card state as full-card fill (completed=gold+trophy, next=green). COPY
+      THE LOOK, FIX THE CONTRAST — theirs measures 2.98:1 and fails WCAG. [S]
+- [ ] 14. Adaptive level from quiz accuracy + FSRS lapse rate. [M]
+
+## Their mistakes to avoid
+- Binary ✓/✗ grading throws away scheduler signal.
+- Wrong answers never come back automatically.
+- Explanations are per-phrase, not per-error (an LLM can do better).
+- No lesson score, no end-of-lesson summary.
+- Gamification so hidden it is undiscoverable; account page is billing-only.
+- Community-authored cards shipped to paying learners with a "may contain
+  mistakes" disclaimer.
+- 83 of 105 buttons unlabelled; transcript lines not keyboard-reachable.
+
+## Model decision
+Gemini Flash Lite: NO. luna cut prices ~80% on 2026-07-30 to $0.20/$1.20;
+3.5 Flash Lite is $0.30/$2.50 — dearer on both axes. Only cheaper option is
+2-gen-old 2.5 Flash Lite, saving <2 cents all-time. The AI SDK Google path
+silently strips minItems/maxItems (we have been burned by near-miss JSON
+twice already), and NOBODY has measured any Flash Lite on pt-PT. Staying.
+
 # WAVE 3 (2026-08-08): Azure voices + full competitive roadmap — SHIPPED (deploy 1)
 
 User directives: (1) swap TTS to Azure with RANDOM/rotating EU-PT voices;
