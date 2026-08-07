@@ -1,6 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useTransition } from "react";
+import { getStartUnit } from "@/lib/actions/course";
 import { setCefrLevel } from "@/lib/actions/profile";
 import { cn } from "@/lib/utils";
 
@@ -194,6 +196,11 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   const [scores, setScores] = useState(emptyScores);
   const [result, setResult] = useState<Level | null>(null);
   const [saved, setSaved] = useState(false);
+  const [startUnit, setStartUnit] = useState<{
+    slug: string;
+    title: string;
+    titlePt: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [pending, startTransition] = useTransition();
 
@@ -205,6 +212,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setScores(emptyScores());
     setResult(null);
     setSaved(false);
+    setStartUnit(null);
     setError(null);
   }
 
@@ -218,6 +226,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setScores(emptyScores());
     setResult(null);
     setSaved(false);
+    setStartUnit(null);
     setError(null);
   }
 
@@ -246,6 +255,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       try {
         await setCefrLevel(result);
         setSaved(true);
+        // A score is not an answer to "what now?" — fetch the actual unit
+        // this learner should open first.
+        setStartUnit(await getStartUnit().catch(() => null));
       } catch {
         setError("Não deu para guardar. Tenta outra vez.");
       }
@@ -292,9 +304,28 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
             </button>
           </div>
 
-          {saved ? (
+          {saved && startUnit ? (
+            <Link
+              href={`/unidades/${startUnit.slug}`}
+              className="group mt-5 block rounded-2xl border border-olive/30 bg-sage-pale/70 p-4 text-left transition-all hover:border-olive hover:shadow-md"
+            >
+              <div className="text-[11px] font-semibold tracking-widest text-olive/70 uppercase">
+                Começa aqui
+              </div>
+              <div className="font-display text-lg font-semibold text-olive group-hover:underline">
+                {startUnit.title}
+              </div>
+              {startUnit.titlePt ? (
+                <div className="text-sm text-ink-faint">{startUnit.titlePt}</div>
+              ) : null}
+              <p className="mt-1 text-sm text-ink-soft">
+                The first unit of your {result} course — read the note, then
+                work the path through it. →
+              </p>
+            </Link>
+          ) : saved ? (
             <p className="mt-3 text-sm text-olive">
-              Os testes, lições e histórias já vêm em {result} por omissão.
+              Nível guardado. Os testes, lições e histórias já vêm em {result}.
             </p>
           ) : null}
           {error ? (

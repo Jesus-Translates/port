@@ -1,9 +1,9 @@
 "use server";
 
-import { and, eq, inArray, sql } from "drizzle-orm";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
-import { logActivity } from "@/lib/data";
+import { getCefrFor, logActivity } from "@/lib/data";
 import { getDb, unitItems, unitProgress, units } from "@/lib/db";
 
 /** What a unit looks like on a progress bar. */
@@ -209,4 +209,49 @@ export async function getCompletedItemIds(
     .from(unitProgress)
     .where(and(eq(unitProgress.username, who), eq(unitProgress.unitId, unitId)));
   return [...new Set(rows.map((r) => r.itemId))];
+}
+
+/**
+ * Where this learner should START the course, given their placement level.
+ *
+ * The placement quiz used to end by announcing a level and nothing else — the
+ * learner was told their defaults had changed and left to find the course on
+ * their own. This is what turns a score into a next step.
+ */
+export async function getStartUnit(): Promise<{
+  slug: string;
+  title: string;
+  titlePt: string;
+  cefr: string;
+} | null> {
+  const session = await requireSession();
+  const cefr = await getCefrFor(session.username);
+  const db = getDb();
+
+  // The first unit at their level that they have not already finished.
+  const rows = await db
+    .select({
+      id: units.id,
+      slug: units.slug,
+      title: units.title,
+      titlePt: units.titlePt,
+      cefr: units.cefr,
+    })
+    .from(units)
+    .where(and(eq(units.status, "published"), eq(units.cefr, cefr)))
+    .orderBy(asc(units.sortOrder), asc(units.id))
+    .limit(40);
+  if (rows.length === 0) return null;
+
+  const pcts = await getUnitProgress(rows.map((r) => r.id));
+  const doneIds = new Set(
+    pcts.filter((p) => p.total > 0 && p.done >= p.total).map((p) => p.unitId)
+  );
+  const next = rows.find((r) => !doneIds.has(r.id)) ?? rows[0];
+  return {
+    slug: next.slug,
+    title: next.title,
+    titlePt: next.titlePt,
+    cefr: next.cefr,
+  };
 }

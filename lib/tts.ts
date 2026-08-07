@@ -15,7 +15,7 @@ import { recordUsage } from "@/lib/usage";
  */
 
 const DEFAULT_AZURE_VOICES =
-  "pt-PT-RaquelNeural,pt-PT-DuarteNeural,pt-PT-FernandaNeural";
+  "pt-PT-RaquelNeural,pt-PT-DuarteNeural,pt-PT-FernandaNeural,pt-PT-Rui:MAI-Voice-2";
 
 export function azureConfigured(): boolean {
   return Boolean(process.env.AZURE_SPEECH_KEY && process.env.AZURE_SPEECH_REGION);
