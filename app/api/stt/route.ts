@@ -45,8 +45,20 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Gravação demasiado longa." }, { status: 413 });
   }
 
+  // iOS Safari records audio/mp4; Chrome records webm — name the file to
+  // match its real container or the transcriber rejects it.
+  const type = audio.type || "audio/webm";
+  const ext = type.includes("mp4")
+    ? "mp4"
+    : type.includes("mpeg") || type.includes("mp3")
+      ? "mp3"
+      : type.includes("ogg")
+        ? "ogg"
+        : type.includes("wav")
+          ? "wav"
+          : "webm";
   const upstream = new FormData();
-  upstream.append("file", audio, "audio.webm");
+  upstream.append("file", audio, `audio.${ext}`);
   upstream.append("model", process.env.STT_MODEL ?? "gpt-4o-mini-transcribe");
   upstream.append("language", "pt");
   const res = await fetch("https://api.openai.com/v1/audio/transcriptions", {
