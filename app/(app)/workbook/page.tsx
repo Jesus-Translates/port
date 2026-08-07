@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LessonGenerate } from "@/components/lesson-generate";
+import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { getLessons } from "@/lib/data";
 
@@ -8,7 +9,7 @@ export const metadata = { title: "Lições" };
 export default async function WorkbookPage(props: PageProps<"/workbook">) {
   await requireSession();
   const { topic } = await props.searchParams;
-  const lessons = await getLessons();
+  const [lessons, level] = await Promise.all([getLessons(), getMyCefr()]);
 
   return (
     <div className="space-y-6">
@@ -20,7 +21,10 @@ export default async function WorkbookPage(props: PageProps<"/workbook">) {
         </p>
       </header>
 
-      <LessonGenerate initialTopic={typeof topic === "string" ? topic : ""} />
+      <LessonGenerate
+        initialTopic={typeof topic === "string" ? topic : ""}
+        initialLevel={level}
+      />
 
       <div className="grid gap-3 sm:grid-cols-2">
         {lessons.map((l) => (

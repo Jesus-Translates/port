@@ -68,11 +68,21 @@ export default async function ReviewPage(props: PageProps<"/practice/rever">) {
         </div>
       )}
 
-      <EnrolPanel
-        byCategory={deck.byCategory}
-        deckTotal={deck.total}
-        due={deck.due}
-      />
+      <div className="space-y-2">
+        <EnrolPanel
+          byCategory={deck.byCategory}
+          deckTotal={deck.total}
+          due={deck.due}
+        />
+        <div className="text-right">
+          <Link
+            href="/practice/rever/gerir"
+            className="text-xs text-ink-faint hover:text-olive"
+          >
+            ⚙️ Gerir o baralho
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

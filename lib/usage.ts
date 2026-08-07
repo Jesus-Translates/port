@@ -12,6 +12,8 @@ const DEFAULT_PRICES: Record<string, { input: number; output: number }> = {
   // audio: input = text tokens, output = audio tokens
   "gpt-4o-mini-tts": { input: 0.0000006, output: 0.000012 },
   "gpt-4o-mini-transcribe": { input: 0.000003, output: 0.000005 },
+  // Azure neural TTS: $16 per 1M characters, modeled as char = input token.
+  "neural-tts": { input: 0.000016, output: 0 },
 };
 const FALLBACK = { input: 0.0000002, output: 0.0000012 };
 

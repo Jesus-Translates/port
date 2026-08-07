@@ -12,10 +12,16 @@ const TOPIC_IDEAS = [
   "no café",
 ];
 
-export function QuizNewForm({ initialTopic = "" }: { initialTopic?: string }) {
+export function QuizNewForm({
+  initialTopic = "",
+  initialLevel = "A2",
+}: {
+  initialTopic?: string;
+  initialLevel?: string;
+}) {
   const router = useRouter();
   const [topic, setTopic] = useState(initialTopic);
-  const [level, setLevel] = useState("A2");
+  const [level, setLevel] = useState(initialLevel);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

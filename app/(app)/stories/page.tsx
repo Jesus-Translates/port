@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { desc } from "drizzle-orm";
 import { StoryGenerate } from "@/components/story-generate";
+import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { getDb, stories } from "@/lib/db";
 
@@ -8,6 +9,7 @@ export const metadata = { title: "Histórias" };
 
 export default async function StoriesPage() {
   await requireSession();
+  const level = await getMyCefr();
   const all = await getDb()
     .select({
       id: stories.id,
@@ -34,7 +36,7 @@ export default async function StoriesPage() {
         </p>
       </header>
 
-      <StoryGenerate seriesTitles={seriesTitles} />
+      <StoryGenerate seriesTitles={seriesTitles} initialLevel={level} />
 
       {seriesTitles.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">

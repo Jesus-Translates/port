@@ -3,11 +3,17 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export function StoryGenerate({ seriesTitles }: { seriesTitles: string[] }) {
+export function StoryGenerate({
+  seriesTitles,
+  initialLevel = "A2",
+}: {
+  seriesTitles: string[];
+  initialLevel?: string;
+}) {
   const router = useRouter();
   const [series, setSeries] = useState(seriesTitles[0] ?? "");
   const [theme, setTheme] = useState("");
-  const [level, setLevel] = useState("A2");
+  const [level, setLevel] = useState(initialLevel);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 

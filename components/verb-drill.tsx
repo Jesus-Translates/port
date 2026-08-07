@@ -5,6 +5,7 @@ import { finishVerbRound } from "@/lib/actions/verbos";
 import {
   PERSONS,
   TENSE_LABEL,
+  personLabel,
   type Tense,
   verbsWithTense,
 } from "@/lib/verbs";
@@ -32,12 +33,15 @@ function makeRound(tenses: Tense[]): Q[] {
     const available = tenses.filter((t) => verb.forms[t]);
     const tense = available[Math.floor(Math.random() * available.length)];
     const p = Math.floor(Math.random() * PERSONS.length);
+    // Some slots have no form at all (the imperative has no "eu") — skip them.
+    const answer = verb.forms[tense]![p];
+    if (!answer) continue;
     const key = `${verb.inf}|${tense}|${p}`;
     if (seen.has(key)) continue;
     seen.add(key);
     qs.push({
-      prompt: `${PERSONS[p]} · ${verb.inf} · ${TENSE_LABEL[tense].toLowerCase()}`,
-      answer: verb.forms[tense]![p],
+      prompt: `${personLabel(tense, p)} · ${verb.inf} · ${TENSE_LABEL[tense].toLowerCase()}`,
+      answer,
       verb: verb.inf,
       en: verb.en,
     });

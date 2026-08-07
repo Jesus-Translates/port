@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { desc } from "drizzle-orm";
+import { asc, desc } from "drizzle-orm";
 import { ContentList, DangerTools } from "@/components/admin-tools";
 import { AssignHomework } from "@/components/assign-homework";
 import { getValidUsers, requireStaff } from "@/lib/auth";
 import { getClassOverview } from "@/lib/actions/admin";
 import { getFamilyBoard } from "@/lib/data";
 import { avatarFor, titleCase } from "@/lib/people";
-import { getDb, homework, kudos, notes, quizzes, ttsAudio } from "@/lib/db";
+import { getDb, homework, kudos, notes, quizzes, ttsAudio, units } from "@/lib/db";
 import { formatEur, getSpendByUser } from "@/lib/usage";
 import { formatDate } from "@/lib/utils";
 import { sql } from "drizzle-orm";
@@ -20,6 +20,18 @@ export default async function AdminPage() {
 
   const isAdmin = staff.role === "admin";
   const db = getDb();
+
+  // Index only — publish/unpublish/edit controls live on each unit page.
+  const allUnits = await db
+    .select({
+      id: units.id,
+      slug: units.slug,
+      title: units.title,
+      cefr: units.cefr,
+      status: units.status,
+    })
+    .from(units)
+    .orderBy(asc(units.sortOrder), asc(units.id));
 
   const [board, spend, recentHw, recentQuizzes, recentNotes, recentKudos, ttsCount] =
     isAdmin
@@ -53,6 +65,48 @@ export default async function AdminPage() {
       <section className="space-y-3">
         <h2 className="text-lg font-semibold">✍️ Atribuir TPC</h2>
         <AssignHomework students={students} />
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="text-lg font-semibold">
+          📚 Unidades{" "}
+          <span className="text-sm font-normal text-ink-faint">
+            · publish from the unit page
+          </span>
+        </h2>
+        <div className="card divide-y divide-sand/70">
+          {allUnits.length === 0 ? (
+            <p className="px-4 py-3 text-sm text-ink-faint">
+              Ainda não há unidades.{" "}
+              <Link href="/unidades" className="text-azul underline">
+                Criar a primeira
+              </Link>
+              .
+            </p>
+          ) : (
+            allUnits.map((u) => (
+              <Link
+                key={u.id}
+                href={`/unidades/${u.slug}`}
+                className="flex items-center gap-3 px-4 py-2.5 transition-colors hover:bg-sage-pale/40"
+              >
+                <span className="min-w-0 flex-1 truncate text-sm font-medium">
+                  {u.title}
+                </span>
+                <span className="chip shrink-0">{u.cefr}</span>
+                <span
+                  className={
+                    u.status === "published"
+                      ? "chip shrink-0 bg-sage-pale text-olive"
+                      : "chip shrink-0 bg-terra-pale text-terra-dark"
+                  }
+                >
+                  {u.status === "published" ? "publicada" : "rascunho"}
+                </span>
+              </Link>
+            ))
+          )}
+        </div>
       </section>
 
       <section>

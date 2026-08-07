@@ -35,6 +35,7 @@ export async function POST(request: NextRequest) {
     topic?: string;
     forEveryone?: boolean;
     mode?: string;
+    transcript?: string;
     assignees?: string[];
   };
   try {
@@ -45,8 +46,23 @@ export async function POST(request: NextRequest) {
   const { topic: topicRaw = "everyday life in Portugal", forEveryone = false } = body;
   const topic = String(topicRaw).slice(0, 300);
   const cipleEscrita = body.mode === "ciple-escrita";
+  const transcript = String(body.transcript ?? "").slice(0, 6000);
+  // Homework built from a tutor session: practise exactly what just happened.
+  const fromChat = body.mode === "from-chat" && transcript.trim().length > 0;
 
-  const SHARED = cipleEscrita
+  const SHARED = fromChat
+    ? `You are Luna, a European Portuguese tutor writing homework for the adult learner you have just been chatting with (around A2). ${PT_STYLE}
+The assignment must come STRAIGHT out of that conversation — "practise what you just talked about". Produce EXACTLY 4-5 exercises that target:
+- the words and expressions the learner struggled with, asked about, or got wrong;
+- every correction you made in the conversation (make them use the corrected form again, in a new sentence);
+- the structures and tenses that actually came up, in the same everyday situations the learner mentioned.
+Reuse the learner's own vocabulary and context — if they talked about the market, the exercises happen at the market.
+The whole assignment should take 15-25 minutes. Each exercise is answered on its own in a single input box and graded
+immediately, so every exercise must be self-contained and answerable in one or two sentences — never "do all of the
+following" or a multi-part task. Mix kinds: answer a question in Portuguese, translate a sentence into pt-PT, and write
+a couple of lines using something that came up.
+Instructions in English, all target content in pt-PT.`
+    : cipleEscrita
     ? `You are Luna, preparing an adult learner for the CIPLE A2 exam's Expressão Escrita component. ${PT_STYLE}
 Produce EXACTLY 2 exercises mirroring the real exam:
 1. A short interactional text (postal, recado, convite or email) of 25-35 words — give a concrete everyday situation.
@@ -61,6 +77,20 @@ sentence into pt-PT, and write a couple of lines about the learner's own life in
 sub-topic and mix verb tenses — interleaving beats blocking.
 Instructions in English, all target content in pt-PT.`;
 
+  // The transcript-driven prompt is shared by all three generation tiers.
+  const chatPrompt = `Here is the tutoring conversation, most recent last (the learner is "Aluno", you are "Luna"):
+
+"""
+${transcript}
+"""
+
+Write one homework assignment of 4-5 exercises that makes the learner practise exactly what came up above:
+the words they stumbled on, the corrections you gave, and the structures you used together.`;
+  const topicPrompt = `Write one homework assignment on "${topic}".`;
+  const genPrompt = fromChat ? chatPrompt : topicPrompt;
+  const chatTitle = (t: string) =>
+    `Da conversa: ${t.replace(/^Da conversa:\s*/i, "").trim()}`.slice(0, 120);
+
   let title: string;
   let introMd: string;
   let items: HomeworkItem[];
@@ -70,11 +100,17 @@ Instructions in English, all target content in pt-PT.`;
       model: getModel(),
       output: Output.object({ schema: homeworkItemsGenSchema }),
       instructions: SHARED,
-      prompt: cipleEscrita
-        ? `Write one CIPLE A2 Expressão Escrita practice set${topic !== "everyday life in Portugal" ? ` themed around "${topic}"` : ""}.`
-        : `Write one homework assignment on "${topic}".`,
+      prompt: fromChat
+        ? chatPrompt
+        : cipleEscrita
+          ? `Write one CIPLE A2 Expressão Escrita practice set${topic !== "everyday life in Portugal" ? ` themed around "${topic}"` : ""}.`
+          : topicPrompt,
     });
-    title = cipleEscrita ? `CIPLE Escrita: ${output.title}`.slice(0, 120) : output.title;
+    title = fromChat
+      ? chatTitle(output.title)
+      : cipleEscrita
+        ? `CIPLE Escrita: ${output.title}`.slice(0, 120)
+        : output.title;
     introMd = output.introMd;
     await recordUsage(session.username, "homework", modelId(), usage);
     items = output.exercises.map((e, i) =>
@@ -89,9 +125,9 @@ Instructions in English, all target content in pt-PT.`;
         model: getModel(),
         output: Output.object({ schema: homeworkGenSchema }),
         instructions: `${SHARED}\nReturn a short intro, then the exercises as a numbered markdown list — one task per number.`,
-        prompt: `Write one homework assignment on "${topic}".`,
+        prompt: genPrompt,
       });
-      title = output.title;
+      title = fromChat ? chatTitle(output.title) : output.title;
       md = output.instructions;
       await recordUsage(session.username, "homework", modelId(), usage);
     } catch {
@@ -100,13 +136,14 @@ Instructions in English, all target content in pt-PT.`;
         instructions: `${SHARED}
 Reply with ONLY markdown: a "# " title line, one or two intro sentences, then the exercises as a numbered list
 ("1. ", "2. " …) with exactly one self-contained task per number. No preamble, no JSON, no code fences.`,
-        prompt: `Write one homework assignment on "${topic}".`,
+        prompt: genPrompt,
       });
       md = text;
       await recordUsage(session.username, "homework", modelId(), usage);
-      title =
-        md.match(/^#\s+(.+)$/m)?.[1]?.replace(/\*/g, "").trim() ||
-        `TPC: ${topic}`;
+      const parsedTitle = md.match(/^#\s+(.+)$/m)?.[1]?.replace(/\*/g, "").trim();
+      title = fromChat
+        ? chatTitle(parsedTitle || "a conversa com a Luna")
+        : parsedTitle || `TPC: ${topic}`;
     }
     items = parseItemsFromMarkdown(md);
     // Keep the intro only; the exercises now live in items.

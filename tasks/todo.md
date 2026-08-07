@@ -1,3 +1,33 @@
+# WAVE 3 (2026-08-08): Azure voices + full competitive roadmap — SHIPPED (deploy 1)
+
+User directives: (1) swap TTS to Azure with RANDOM/rotating EU-PT voices;
+(2) build ALL 10 roadmap items; (3) Opus builders write code, Fable orchestrates,
+peer-reviews and fact-checks. Mid-wave addition: Conversa mode (spoken back-and-forth).
+
+## Plan
+- [x] FOUNDATION (Fable): Azure TTS seam in lib/tts.ts (stable-hash voice rotation,
+      OpenAI fallback, azureSynthesizeSsml/ssmlSegments); 6 new tables pushed to prod.
+- [x] A: chat-derived TPC ("Gerar TPC desta conversa") + AddToDeck/Harvest chips +
+      /practice/rever/gerir deck manager. Reviewed: ownership-scoped, XP anti-farm ok.
+- [x] B: CEFR per user + /placement (16 items fact-checked) + /ouvir. Reviewed earlier.
+- [x] C: cloze ditado mode + verbs 30→107 w/ futuro+imperativo. Fact-checked subir/
+      seguir/cair/haver/vestir/construir — all correct; EP -ámos + -car/-gar/-çar shifts ok.
+- [x] D: Listen & Speak — session MP3 (EN prompt → pause → PT answer), RSS feed
+      (token-auth, /api/ls/* public paths), 10-min cooldown, prune to 5.
+- [x] E: listening library /escutar — multi-voice dialogues, whisper word timings,
+      greedy alignment w/ coverage gate, speed pills, human re-record override.
+- [x] F: /unidades unit spine (draft→publish, teacher review, admin index) +
+      /missoes 8 field missions (all 8 briefs fact-checked pt-PT correct).
+- [x] Fable integration: practice hub tiles (Escutar/Áudio/Ouvir/Missões/Nível),
+      dashboard cards (Unidades, Missões) + activity emoji, nav unchanged (8 tabs full).
+- [x] Verify: npm run build ✓, lint ✓, tsc ✓. Deploy 1 = everything above.
+- [ ] G (Fable inline; Opus builder hit session limit): Conversa — /practice/conversa
+      spoken back-and-forth with Luna: topic or random, one consistent Azure voice per
+      session, mic→transcribe→reply+audio, recasts not lectures, end summary
+      (corrections→mistake cards, new words→deck, XP). Then re-add hub tile, deploy 2.
+- [ ] USER ENV NEEDED: AZURE_SPEECH_KEY + AZURE_SPEECH_REGION (Speech resource,
+      free F0 tier OK). Until set, TTS falls back to OpenAI; Azure-only features gate cleanly.
+
 # Portuguese Hub — Full Rebuild (2026-08-06)
 
 Goal: A true learning app for Kelly, Jenni & Robert learning European Portuguese while

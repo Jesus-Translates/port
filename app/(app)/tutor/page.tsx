@@ -23,6 +23,7 @@ export default async function TutorPage(props: PageProps<"/tutor">) {
       <div className="card min-h-0 flex-1 p-4">
         <Chat
           initialInput={initialInput}
+          tpcButton
           starters={[
             "Corrige: eu fazer o pequeno-almoço hoje",
             "Qual é a diferença entre ser e estar?",

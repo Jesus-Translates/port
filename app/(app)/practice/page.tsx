@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { QuizNewForm } from "@/components/quiz-new-form";
+import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { getQuizzesAll } from "@/lib/data";
 import { countDue } from "@/lib/srs";
@@ -10,9 +11,10 @@ export const metadata = { title: "Praticar" };
 export default async function PracticePage(props: PageProps<"/practice">) {
   const session = await requireSession();
   const { topic } = await props.searchParams;
-  const [quizzes, due] = await Promise.all([
+  const [quizzes, due, level] = await Promise.all([
     getQuizzesAll(),
     countDue(session.username).catch(() => 0),
+    getMyCefr(),
   ]);
 
   const MODES = [
@@ -23,11 +25,16 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       sub: due > 0 ? `${due} cartões à espera` : "spaced repetition",
       hot: due > 0,
     },
+    { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Luna ouve-te" },
     { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
     { href: "/practice/verbos", emoji: "⚡", title: "Verbos", sub: "conjugação sprint" },
-    { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Luna ouve-te" },
+    { href: "/escutar", emoji: "👂", title: "Escutar", sub: "diálogos com transcrição" },
+    { href: "/practice/audio", emoji: "📻", title: "Áudio", sub: "sessões para o carro" },
+    { href: "/ouvir", emoji: "🎧", title: "Ouvir", sub: "rádio, podcasts, vídeo" },
     { href: "/stories", emoji: "📕", title: "Histórias", sub: "ler ao teu nível" },
+    { href: "/missoes", emoji: "🗺️", title: "Missões", sub: "sai à rua e fala" },
     { href: "/practice/ciple", emoji: "🎓", title: "CIPLE", sub: "preparação do exame" },
+    { href: "/placement", emoji: "🧭", title: "Nível", sub: "descobre o teu CEFR" },
   ];
 
   return (
@@ -35,8 +42,9 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">🎯 Praticar</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Six ways to train — reviews, dictation, verbs, speaking, stories and
-          exam prep — plus fresh quizzes below.
+          Twelve ways to train — reviews, live conversation, dictation, verbs,
+          listening, real-world missions, exam prep and more — plus fresh
+          quizzes below.
         </p>
       </header>
 
@@ -60,7 +68,10 @@ export default async function PracticePage(props: PageProps<"/practice">) {
         ))}
       </div>
 
-      <QuizNewForm initialTopic={typeof topic === "string" ? topic : ""} />
+      <QuizNewForm
+        initialTopic={typeof topic === "string" ? topic : ""}
+        initialLevel={level}
+      />
 
       {quizzes.length > 0 ? (
         <section>

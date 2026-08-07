@@ -11,6 +11,8 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   displayName: text("display_name").notNull(),
+  // A1 | A2 | B1 | B2 — set by the placement quiz, filters default to level ±1.
+  cefrLevel: text("cefr_level").notNull().default("A2"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -175,6 +177,88 @@ export const stories = pgTable("stories", {
   glossary: jsonb("glossary").notNull(), // [{pt, en}]
   questions: jsonb("questions").notNull(), // [{promptPt, options[4], answer}]
   createdBy: text("created_by").notNull().default("seed"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Listening library: multi-voice dialogues with word-synced transcripts.
+// transcript: {lines: [{speaker, voice, text, words: [{w, start, end}]}]}
+// A human recording (source='human') overrides the TTS take when present.
+export const listeningClips = pgTable("listening_clips", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  cefr: text("cefr").notNull().default("A2"),
+  topic: text("topic").notNull().default(""),
+  transcript: jsonb("transcript").notNull(),
+  audioB64: text("audio_b64").notNull(),
+  bytes: integer("bytes").notNull().default(0),
+  source: text("source").notNull().default("ai"), // ai | human
+  createdBy: text("created_by").notNull().default("ai"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Curriculum spine: a unit = Learning Note + ordered references to existing
+// activities (quiz topics, ditado, stories, phrasebook categories…).
+export const units = pgTable("units", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  cefr: text("cefr").notNull().default("A2"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  noteMd: text("note_md").notNull().default(""),
+  status: text("status").notNull().default("draft"), // draft | published
+  createdBy: text("created_by").notNull().default("ai"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// kind: note | category | quiz | ditado | verbos | story | listening | homework
+// refId points at the concrete row when applicable; config carries params
+// (e.g. {topic, level} for a quiz to generate).
+export const unitItems = pgTable("unit_items", {
+  id: serial("id").primaryKey(),
+  unitId: integer("unit_id")
+    .notNull()
+    .references(() => units.id, { onDelete: "cascade" }),
+  kind: text("kind").notNull(),
+  refId: integer("ref_id"),
+  config: jsonb("config"),
+  titlePt: text("title_pt").notNull().default(""),
+  sortOrder: integer("sort_order").notNull().default(0),
+});
+
+// Field missions: real-world tasks around Torres Vedras.
+export const missions = pgTable("missions", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull(),
+  promptPt: text("prompt_pt").notNull(),
+  promptEn: text("prompt_en").notNull(),
+  location: text("location").notNull().default(""),
+  cefr: text("cefr").notNull().default("A2"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  active: integer("active").notNull().default(1),
+  createdBy: text("created_by").notNull().default("seed"),
+});
+
+export const missionAttempts = pgTable("mission_attempts", {
+  id: serial("id").primaryKey(),
+  missionId: integer("mission_id")
+    .notNull()
+    .references(() => missions.id, { onDelete: "cascade" }),
+  username: text("username").notNull(),
+  kind: text("kind").notNull().default("self"), // self | audio
+  transcript: text("transcript"),
+  feedbackMd: text("feedback_md"),
+  score: integer("score"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+// Listen & Speak: one generated MP3 per session (EN prompt → pause → PT),
+// exposed via a personal RSS feed. Pruned to the last few per user.
+export const lsSessions = pgTable("ls_sessions", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  cardCount: integer("card_count").notNull().default(0),
+  audioB64: text("audio_b64").notNull(),
+  bytes: integer("bytes").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

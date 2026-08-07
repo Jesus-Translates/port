@@ -18,6 +18,15 @@ const KIND_EMOJI: Record<string, string> = {
   reference: "📖",
   tutor: "🌙",
   lesson: "📚",
+  review: "🔁",
+  ditado: "✏️",
+  verbos: "⚡",
+  falar: "🎙️",
+  conversa: "💬",
+  escutar: "👂",
+  story: "📕",
+  missao: "🗺️",
+  kudos: "⭐",
 };
 
 export default async function Dashboard() {
@@ -212,6 +221,18 @@ export default async function Dashboard() {
               emoji: "📕",
               title: "Histórias",
               sub: "Stories set in Santa Cruz",
+            },
+            {
+              href: "/unidades",
+              emoji: "🧩",
+              title: "Unidades",
+              sub: "Guided path, A1 → B2",
+            },
+            {
+              href: "/missoes",
+              emoji: "🗺️",
+              title: "Missões",
+              sub: "Real errands, real Portuguese",
             },
           ].map((c) => (
             <Link

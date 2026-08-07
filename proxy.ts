@@ -11,6 +11,10 @@ const PUBLIC_PATHS = [
   "/twitter-image",
   "/apple-icon",
   "/icon",
+  // Listen & Speak podcast: fetched by podcast apps, which send no cookies.
+  // These routes authenticate with a signed ?t= token instead (lib/ls.ts).
+  "/api/ls/feed",
+  "/api/ls/audio",
 ];
 
 export async function proxy(request: NextRequest) {

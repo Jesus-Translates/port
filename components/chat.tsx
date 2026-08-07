@@ -1,10 +1,20 @@
 "use client";
 
 import { useChat } from "@ai-sdk/react";
-import { DefaultChatTransport } from "ai";
+import { DefaultChatTransport, type UIMessage } from "ai";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { HarvestFromMarkdown } from "@/components/add-to-deck";
 import { Markdown } from "@/components/markdown";
 import { cn } from "@/lib/utils";
+
+/** Text parts of one message, flattened. */
+function textOf(message: UIMessage): string {
+  return message.parts
+    .map((p) => (p.type === "text" ? p.text : ""))
+    .join("\n")
+    .trim();
+}
 
 export function Chat({
   context,
@@ -12,14 +22,19 @@ export function Chat({
   starters = [],
   compact = false,
   initialInput = "",
+  tpcButton = false,
 }: {
   context?: string;
   placeholder?: string;
   starters?: string[];
   compact?: boolean;
   initialInput?: string;
+  /** Offer "turn this conversation into homework" once there's enough to go on. */
+  tpcButton?: boolean;
 }) {
+  const router = useRouter();
   const [input, setInput] = useState(initialInput);
+  const [makingTpc, setMakingTpc] = useState(false);
   const { messages, sendMessage, status, error, regenerate } = useChat({
     transport: new DefaultChatTransport({
       api: "/api/chat",
@@ -39,6 +54,38 @@ export function Chat({
     if (!trimmed || busy) return;
     sendMessage({ text: trimmed });
     setInput("");
+  }
+
+  const userTurns = messages.filter((m) => m.role === "user").length;
+  const canMakeTpc = tpcButton && userTurns >= 2 && !busy;
+
+  async function makeTpc() {
+    const lines: string[] = [];
+    for (const m of messages) {
+      const text = textOf(m);
+      if (!text) continue;
+      lines.push(`${m.role === "user" ? "Aluno" : "Luna"}: ${text}`);
+    }
+    const joined = lines.join("\n");
+    // Keep the tail — the end of the conversation is what's freshest.
+    const transcript =
+      joined.length > 6000 ? joined.slice(joined.length - 6000) : joined;
+    if (!transcript) return;
+
+    setMakingTpc(true);
+    try {
+      const res = await fetch("/api/ai/homework", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ mode: "from-chat", transcript }),
+      });
+      if (!res.ok) throw new Error();
+      const { id } = await res.json();
+      router.push(`/homework/${id}`);
+    } catch {
+      setMakingTpc(false);
+      alert("A Luna não conseguiu montar o TPC. Tenta outra vez.");
+    }
   }
 
   return (
@@ -100,6 +147,9 @@ export function Chat({
                   )
                 ) : null
               )}
+              {message.role === "assistant" ? (
+                <HarvestFromMarkdown md={textOf(message)} />
+              ) : null}
             </div>
           </div>
         ))}
@@ -126,6 +176,21 @@ export function Chat({
         ) : null}
         <div ref={bottomRef} />
       </div>
+
+      {tpcButton && userTurns >= 2 ? (
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={makeTpc}
+            disabled={!canMakeTpc || makingTpc}
+            className="btn-ghost min-h-0 py-1.5 text-xs"
+          >
+            {makingTpc
+              ? "A Luna está a escrever o TPC…"
+              : "✍️ Gerar TPC desta conversa"}
+          </button>
+        </div>
+      ) : null}
 
       <form
         onSubmit={(e) => {
