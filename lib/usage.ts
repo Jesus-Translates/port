@@ -34,7 +34,14 @@ export function usdToEur(): number {
 export type TokenUsage = {
   inputTokens?: number | null;
   outputTokens?: number | null;
+  /** AI SDK v7 reports the cached slice of the prompt here. */
+  inputTokenDetails?: { cacheReadTokens?: number | null } | null;
 };
+
+/** Cached prompt tokens bill at ~10% of the normal input rate. Our long
+ *  instruction blocks are identical call to call, so most of the prompt is
+ *  served from cache — charging full rate overstates the family's spend. */
+const CACHE_READ_RATE = 0.1;
 
 /** Fire-and-forget: a billing hiccup must never break a lesson. */
 export async function recordUsage(
@@ -47,9 +54,18 @@ export async function recordUsage(
     const inTok = Math.max(0, Math.round(usage?.inputTokens ?? 0));
     const outTok = Math.max(0, Math.round(usage?.outputTokens ?? 0));
     if (inTok === 0 && outTok === 0) return;
+    // cacheReadTokens is a SUBSET of inputTokens, not an addition to it.
+    const cached = Math.min(
+      inTok,
+      Math.max(0, Math.round(usage?.inputTokenDetails?.cacheReadTokens ?? 0))
+    );
+    const fullPriceIn = inTok - cached;
     const p = priceFor(model);
     const costMicroUsd = Math.round(
-      (inTok * p.input + outTok * p.output) * 1_000_000
+      (fullPriceIn * p.input +
+        cached * p.input * CACHE_READ_RATE +
+        outTok * p.output) *
+        1_000_000
     );
     await getDb()
       .insert(aiUsage)

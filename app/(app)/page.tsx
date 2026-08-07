@@ -7,6 +7,7 @@ import {
   getHomeworkAll,
   getKudosFor,
   getStats,
+  hasBeenPlaced,
 } from "@/lib/data";
 import { avatarFor, titleCase } from "@/lib/people";
 import { countDue } from "@/lib/srs";
@@ -32,14 +33,16 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos, due] = await Promise.all([
-    getStats(session.username),
-    getHomeworkAll(),
-    getCategoriesWithCounts(),
-    getFamilyBoard(getValidUsers()).catch(() => []),
-    getKudosFor(session.username, 5).catch(() => []),
-    countDue(session.username).catch(() => 0),
-  ]);
+  const [stats, allHomework, cats, board, myKudos, due, placed] =
+    await Promise.all([
+      getStats(session.username),
+      getHomeworkAll(),
+      getCategoriesWithCounts(),
+      getFamilyBoard(getValidUsers()).catch(() => []),
+      getKudosFor(session.username, 5).catch(() => []),
+      countDue(session.username).catch(() => 0),
+      hasBeenPlaced(session.username).catch(() => true),
+    ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];
   const myStars = board.find((m) => m.username === session.username)?.stars ?? 0;
@@ -89,6 +92,21 @@ export default async function Dashboard() {
           </Link>
         </div>
       </header>
+
+      {!placed ? (
+        <Link
+          href="/placement"
+          className="block rounded-2xl border border-azul/30 bg-azul-pale p-4 transition-colors hover:border-azul"
+        >
+          <span className="font-semibold text-azul">
+            🧭 Começa por descobrir o teu nível
+          </span>
+          <span className="ml-2 text-sm text-ink-soft">
+            — a 5-minute check. Everything after it (homework, quizzes,
+            stories, Luna) is pitched at what you can actually do.
+          </span>
+        </Link>
+      ) : null}
 
       {due > 0 ? (
         <Link

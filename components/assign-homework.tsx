@@ -13,6 +13,8 @@ export function AssignHomework({ students }: { students: string[] }) {
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [mode, setMode] = useState<"luna" | "manual">("luna");
   const [topic, setTopic] = useState("");
+  // "" = pitch it at the student's own placement level (the useful default).
+  const [level, setLevel] = useState("");
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState<string | null>(null);
 
@@ -37,6 +39,7 @@ export function AssignHomework({ students }: { students: string[] }) {
         body: JSON.stringify({
           topic: topic.trim(),
           assignees: [...selected],
+          ...(level ? { level } : {}),
         }),
       });
       if (!res.ok) throw new Error();
@@ -119,6 +122,24 @@ export function AssignHomework({ students }: { students: string[] }) {
               className="input"
               placeholder="ex.: o pretérito imperfeito no dia a dia"
             />
+          </div>
+          <div>
+            <label className="label" htmlFor="assign-level">
+              Nível
+            </label>
+            <select
+              id="assign-level"
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
+              className="input"
+            >
+              <option value="">Nível do aluno</option>
+              {["A1", "A2", "B1", "B2"].map((l) => (
+                <option key={l} value={l}>
+                  {l}
+                </option>
+              ))}
+            </select>
           </div>
           <button
             className="btn-terra"

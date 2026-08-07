@@ -9,7 +9,50 @@ import {
   notes,
   quizzes,
   refEntries,
+  users,
 } from "@/lib/db";
+
+export const CEFR_LEVELS = ["A1", "A2", "B1", "B2"] as const;
+export const DEFAULT_CEFR = "A2";
+
+/** Anyone's stored level. Server-only (not a server action) so a client can't
+ *  probe other people's rows. Falls back to the default, never throws. */
+export async function getCefrFor(username: string): Promise<string> {
+  try {
+    const [row] = await getDb()
+      .select({ level: users.cefrLevel })
+      .from(users)
+      .where(eq(users.username, username.toLowerCase()))
+      .limit(1);
+    const level = row?.level ?? "";
+    return (CEFR_LEVELS as readonly string[]).includes(level)
+      ? level
+      : DEFAULT_CEFR;
+  } catch {
+    return DEFAULT_CEFR;
+  }
+}
+
+/** Has this person actually done the placement quiz (or set a level by hand)?
+ *  Recorded as an activity row by setCefrLevel — no extra column needed. */
+export async function hasBeenPlaced(username: string): Promise<boolean> {
+  try {
+    const [row] = await getDb()
+      .select({ id: activity.id })
+      .from(activity)
+      .where(
+        and(
+          eq(activity.username, username),
+          sql`${activity.summary} like 'Nível definido%'`
+        )
+      )
+      .limit(1);
+    return Boolean(row);
+  } catch {
+    // Never nag someone because a query failed.
+    return true;
+  }
+}
 
 export async function getCategoriesWithCounts() {
   const db = getDb();

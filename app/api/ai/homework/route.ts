@@ -8,7 +8,7 @@ import {
 } from "@/lib/ai";
 import { getRole, getSession, getValidUsers } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
-import { logActivity } from "@/lib/data";
+import { CEFR_LEVELS, getCefrFor, logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 import {
   blankItem,
@@ -37,6 +37,7 @@ export async function POST(request: NextRequest) {
     mode?: string;
     transcript?: string;
     assignees?: string[];
+    level?: string;
   };
   try {
     body = await request.json();
@@ -50,8 +51,34 @@ export async function POST(request: NextRequest) {
   // Homework built from a tutor session: practise exactly what just happened.
   const fromChat = body.mode === "from-chat" && transcript.trim().length > 0;
 
+  const staff = getRole(session.username) !== "student";
+  // Staff may target specific students; everyone else assigns to themselves
+  // (or the whole family via forEveryone). Resolved here because the target
+  // decides which level the exercises are written for.
+  const requested = staff
+    ? (body.assignees ?? [])
+        .map((a) => String(a).toLowerCase())
+        .filter((a) => getValidUsers().some((u) => u.toLowerCase() === a))
+    : [];
+
+  // Pitch the work at the learner it is FOR: an explicit pick wins, then the
+  // single target student's own level, then the requester's.
+  const picked = String(body.level ?? "").toUpperCase();
+  const level = (CEFR_LEVELS as readonly string[]).includes(picked)
+    ? picked
+    : await getCefrFor(requested.length === 1 ? requested[0] : session.username);
+
+  const LEVEL_GUIDE: Record<string, string> = {
+    A1: "Level A1: present tense only, very high-frequency words, short concrete sentences about immediate needs. No past tenses, no subjunctive. One idea per exercise.",
+    A2: "Level A2: present plus pretérito perfeito and a little imperfeito; everyday topics (shops, home, weather, routines). Keep sentences short and concrete.",
+    B1: "Level B1: past tenses used naturally, future and conditional, opinions and reasons, linking words (porque, embora, apesar de). Longer answers expected.",
+    B2: "Level B2: idiomatic register, conjuntivo where a native would use it, abstract topics, argument and nuance. Expect a paragraph, not a sentence.",
+  };
+  const levelLine = LEVEL_GUIDE[level] ?? LEVEL_GUIDE.A2;
+
   const SHARED = fromChat
-    ? `You are Luna, a European Portuguese tutor writing homework for the adult learner you have just been chatting with (around A2). ${PT_STYLE}
+    ? `You are Luna, a European Portuguese tutor writing homework for the adult learner you have just been chatting with. ${PT_STYLE}
+${levelLine}
 The assignment must come STRAIGHT out of that conversation — "practise what you just talked about". Produce EXACTLY 4-5 exercises that target:
 - the words and expressions the learner struggled with, asked about, or got wrong;
 - every correction you made in the conversation (make them use the corrected form again, in a new sentence);
@@ -69,7 +96,8 @@ Produce EXACTLY 2 exercises mirroring the real exam:
 2. A longer text of 60-80 words about personal experience or daily life (descrever, contar, opinar).
 Each exercise's prompt must state the word count and the situation clearly. Section = "Expressão Escrita".
 Instructions in English, situations rooted in daily life near Torres Vedras.`
-    : `You are Luna, a European Portuguese tutor writing homework for adult learners (around A2). ${PT_STYLE}
+    : `You are Luna, a European Portuguese tutor writing homework for an adult learner. ${PT_STYLE}
+${levelLine}
 The whole assignment should take 15-25 minutes. Produce 4-6 exercises. Each exercise is answered on its own in a single
 input box and graded immediately, so every exercise must be self-contained and answerable in one or two sentences — never
 "do all of the following" or a multi-part task. Mix kinds across the set: answer a question in Portuguese, translate a
@@ -164,14 +192,6 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
   }
 
   const db = getDb();
-  const staff = getRole(session.username) !== "student";
-  // Teachers/admins may target specific students; everyone else assigns to
-  // themselves (or the whole family via forEveryone).
-  const requested = staff
-    ? (body.assignees ?? [])
-        .map((a) => String(a).toLowerCase())
-        .filter((a) => getValidUsers().some((u) => u.toLowerCase() === a))
-    : [];
   const assignees =
     requested.length > 0
       ? requested
