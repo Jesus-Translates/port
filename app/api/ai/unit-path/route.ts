@@ -3,7 +3,7 @@ import { asc, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel, PT_STYLE } from "@/lib/ai";
-import { getSession } from "@/lib/auth";
+import { getRole, getSession } from "@/lib/auth";
 import {
   isItemKind,
   ITEM_KINDS,
@@ -101,6 +101,10 @@ export async function POST(request: NextRequest) {
     .limit(1);
   if (!unit) {
     return NextResponse.json({ error: "Unidade não encontrada." }, { status: 404 });
+  }
+  // Don't let a student force a draft unit to generate itself.
+  if (unit.status !== "published" && getRole(session.username) === "student") {
+    return NextResponse.json({ error: "Unidade não disponível." }, { status: 403 });
   }
 
   // Idempotent: a second open (or a hover-prefetch that turned into a click)

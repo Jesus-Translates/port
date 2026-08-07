@@ -122,7 +122,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
     .orderBy(asc(unitItems.sortOrder), asc(unitItems.id));
 
   const doneIds = new Set(
-    items.length > 0 ? await getCompletedItemIds(session.username, unit.id) : []
+    items.length > 0 ? await getCompletedItemIds(unit.id) : []
   );
 
   const path: PathItem[] = items.flatMap((item) => {
@@ -141,6 +141,10 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
   });
 
   const isDraft = unit.status !== "published";
+  // The banner promises "Kelly reads it before the class sees it" — so honour
+  // that. A student with a guessed slug could otherwise read a draft AND make
+  // it spend AI calls building itself.
+  if (isDraft && !isStaff) notFound();
 
   return (
     <article className="space-y-5">

@@ -5,6 +5,7 @@ import {
   serial,
   text,
   timestamp,
+  uniqueIndex,
 } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
@@ -241,19 +242,25 @@ export const unitItems = pgTable("unit_items", {
  * the family's progress all read from here. One row per (username, itemId);
  * writes use onConflictDoNothing so replaying an item is harmless.
  */
-export const unitProgress = pgTable("unit_progress", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  unitId: integer("unit_id")
-    .notNull()
-    .references(() => units.id, { onDelete: "cascade" }),
-  itemId: integer("item_id")
-    .notNull()
-    .references(() => unitItems.id, { onDelete: "cascade" }),
-  /** 0-100 where the activity produces one; null when it is just "done". */
-  score: integer("score"),
-  completedAt: timestamp("completed_at").defaultNow().notNull(),
-});
+export const unitProgress = pgTable(
+  "unit_progress",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    unitId: integer("unit_id")
+      .notNull()
+      .references(() => units.id, { onDelete: "cascade" }),
+    itemId: integer("item_id")
+      .notNull()
+      .references(() => unitItems.id, { onDelete: "cascade" }),
+    /** 0-100 where the activity produces one; null when it is just "done". */
+    score: integer("score"),
+    completedAt: timestamp("completed_at").defaultNow().notNull(),
+  },
+  // Enforced in the DATABASE, not by a read-then-write: two tabs ticking the
+  // same item raced through the old guard and double-awarded XP.
+  (t) => [uniqueIndex("unit_progress_user_item").on(t.username, t.itemId)]
+);
 
 // Field missions: real-world tasks around Torres Vedras.
 export const missions = pgTable("missions", {

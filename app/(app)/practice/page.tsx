@@ -26,6 +26,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       hot: due > 0,
     },
     { href: "/practice/conversa", emoji: "💬", title: "Conversa", sub: "fala com a Luna" },
+    { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "pares e frases" },
     { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Luna ouve-te" },
     { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
     { href: "/practice/verbos", emoji: "⚡", title: "Verbos", sub: "conjugação sprint" },
@@ -43,7 +44,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">🎯 Praticar</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Twelve ways to train — reviews, live conversation, dictation, verbs,
+          Thirteen ways to train — reviews, live conversation, dictation, verbs,
           listening, real-world missions, exam prep and more — plus fresh
           quizzes below.
         </p>

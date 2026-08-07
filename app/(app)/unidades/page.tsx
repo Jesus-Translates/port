@@ -59,10 +59,7 @@ export default async function UnidadesPage() {
 
   // How far THIS learner has walked each unit (grouped queries + a Map — see
   // the warning in lib/actions/course.ts about correlated sub-selects).
-  const progress = await getUnitProgress(
-    session.username,
-    rows.map((r) => r.id)
-  );
+  const progress = await getUnitProgress(rows.map((r) => r.id));
   const pctFor = new Map(progress.map((p) => [p.unitId, p]));
 
   // Exactly one "A seguir" across the page: the first unit at the learner's

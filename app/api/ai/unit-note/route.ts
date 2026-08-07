@@ -2,7 +2,7 @@ import { generateText } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, PT_STYLE } from "@/lib/ai";
-import { getSession } from "@/lib/auth";
+import { getRole, getSession } from "@/lib/auth";
 import { getDb, units } from "@/lib/db";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
@@ -45,6 +45,10 @@ export async function POST(request: NextRequest) {
     .limit(1);
   if (!unit) {
     return NextResponse.json({ error: "Unidade não encontrada." }, { status: 404 });
+  }
+  // Don't let a student force a draft unit to generate itself.
+  if (unit.status !== "published" && getRole(session.username) === "student") {
+    return NextResponse.json({ error: "Unidade não disponível." }, { status: 403 });
   }
   // Already written (possibly by a concurrent open) — nothing to pay for.
   if (unit.noteMd.trim()) {

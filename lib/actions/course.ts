@@ -2,7 +2,7 @@
 
 import { and, eq, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { getRole, requireSession } from "@/lib/auth";
+import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, unitItems, unitProgress, units } from "@/lib/db";
 
@@ -51,14 +51,6 @@ async function unitTally(
   return { done, total, pct: pctOf(done, total) };
 }
 
-/** These are server actions, so `username` arrives from the client and cannot
- *  be trusted: a learner reads their own progress, staff read anyone's. */
-async function readableUsername(asked: string): Promise<string> {
-  const session = await requireSession();
-  if (asked === session.username) return session.username;
-  return getRole(session.username) === "student" ? session.username : asked;
-}
-
 /** The item plus the slug we need to revalidate, in one round-trip. */
 async function loadItem(itemId: number) {
   const [row] = await getDb()
@@ -80,9 +72,10 @@ async function loadItem(itemId: number) {
 /**
  * Tick one path item off for the learner who is signed in.
  *
- * unit_progress has NO unique index on (username, item_id), so the insert is
- * guarded by a read: replaying an activity must not double-count the unit or
- * hand out XP twice.
+ * The (username, item_id) uniqueness is enforced by an index in the database,
+ * so this is a single atomic insert. It used to be a read-then-write, which
+ * two tabs could race through — both saw "not done", both inserted, and XP
+ * was awarded twice into the family leaderboard.
  */
 export async function completeItem(
   itemId: number,
@@ -97,28 +90,27 @@ export async function completeItem(
   if (!item) return { ok: false, error: "Esta atividade já não existe." };
 
   const db = getDb();
-  const [already] = await db
-    .select({ id: unitProgress.id })
-    .from(unitProgress)
-    .where(
-      and(
-        eq(unitProgress.username, session.username),
-        eq(unitProgress.itemId, itemId)
-      )
-    )
-    .limit(1);
+  const clean =
+    typeof score === "number" && Number.isFinite(score)
+      ? Math.max(0, Math.min(100, Math.round(score)))
+      : null;
 
-  if (!already) {
-    const clean =
-      typeof score === "number" && Number.isFinite(score)
-        ? Math.max(0, Math.min(100, Math.round(score)))
-        : null;
-    await db.insert(unitProgress).values({
+  const inserted = await db
+    .insert(unitProgress)
+    .values({
       username: session.username,
       unitId: item.unitId,
       itemId,
       score: clean,
-    });
+    })
+    .onConflictDoNothing({
+      target: [unitProgress.username, unitProgress.itemId],
+    })
+    .returning({ id: unitProgress.id });
+
+  // XP only when this really was a new completion. Re-ticking an item the
+  // learner already finished must never pay out again.
+  if (inserted.length > 0) {
     await logActivity(
       session.username,
       "unidade",
@@ -169,10 +161,11 @@ export async function uncompleteItem(itemId: number): Promise<ItemResult> {
  * wrong (zeros) without erroring. That has bitten this repo twice.
  */
 export async function getUnitProgress(
-  username: string,
   unitIds: number[]
 ): Promise<UnitPct[]> {
-  const who = await readableUsername(username);
+  // Every exported function in a "use server" file is a callable endpoint, so
+  // the learner is taken from the session — never from an argument.
+  const { username: who } = await requireSession();
 
   const ids = [...new Set(unitIds.filter((id) => Number.isInteger(id) && id > 0))];
   if (ids.length === 0) return [];
@@ -187,8 +180,7 @@ export async function getUnitProgress(
     db
       .select({
         unitId: unitProgress.unitId,
-        // distinct: unit_progress has no unique index, so a double-write
-        // would otherwise push a unit past 100%.
+        // distinct is belt-and-braces: a unique index now prevents duplicates.
         n: sql<number>`count(distinct ${unitProgress.itemId})::int`,
       })
       .from(unitProgress)
@@ -208,10 +200,9 @@ export async function getUnitProgress(
 
 /** The item ids this learner has already ticked in ONE unit. */
 export async function getCompletedItemIds(
-  username: string,
   unitId: number
 ): Promise<number[]> {
-  const who = await readableUsername(username);
+  const { username: who } = await requireSession();
   if (!Number.isInteger(unitId) || unitId <= 0) return [];
   const rows = await getDb()
     .select({ itemId: unitProgress.itemId })

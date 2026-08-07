@@ -12,8 +12,9 @@ const DEFAULT_PRICES: Record<string, { input: number; output: number }> = {
   // audio: input = text tokens, output = audio tokens
   "gpt-4o-mini-tts": { input: 0.0000006, output: 0.000012 },
   "gpt-4o-mini-transcribe": { input: 0.000003, output: 0.000005 },
-  // Azure neural TTS: $16 per 1M characters, modeled as char = input token.
-  "neural-tts": { input: 0.000016, output: 0 },
+  // Azure neural TTS: $15 per 1M characters (Azure retail price API,
+  // checked 2026-08-07), modeled as char = input token.
+  "neural-tts": { input: 0.000015, output: 0 },
 };
 const FALLBACK = { input: 0.0000002, output: 0.0000012 };
 
@@ -23,7 +24,7 @@ export function priceFor(model: string): { input: number; output: number } {
   if (envIn > 0 && envOut > 0) return { input: envIn, output: envOut };
   // Strip ANY provider prefix, not just openai/. Matching only openai/ sent
   // "azure/neural-tts" to FALLBACK — which happens to equal the text-model
-  // rate, silently pricing speech at 1/80th of the real $16/M characters.
+  // rate, silently pricing speech at a fraction of the real $15/M characters.
   const key = model.replace(/^[a-z0-9.-]+\//i, "");
   return DEFAULT_PRICES[key] ?? FALLBACK;
 }
