@@ -9,6 +9,20 @@ export const metadata = { title: "Unidades" };
 
 const LEVELS = ["A1", "A2", "B1", "B2"] as const;
 
+/** The interleaving is the whole point of the syllabus — make it legible. */
+const CATEGORY_LABEL: Record<string, string> = {
+  communication: "comunicação",
+  grammar: "gramática",
+  "grammar-practice": "prática",
+  vocabulary: "vocabulário",
+};
+const CATEGORY_CHIP: Record<string, string> = {
+  communication: "chip bg-azul-pale text-azul",
+  grammar: "chip bg-terra-pale text-terra-dark",
+  "grammar-practice": "chip bg-sand text-ink-soft",
+  vocabulary: "chip bg-sage-pale text-olive",
+};
+
 export default async function UnidadesPage() {
   const session = await requireSession();
   const isStaff = getRole(session.username) !== "student";
@@ -24,8 +38,12 @@ export default async function UnidadesPage() {
         id: units.id,
         slug: units.slug,
         title: units.title,
+        titlePt: units.titlePt,
+        category: units.category,
+        blurbEn: units.blurbEn,
         cefr: units.cefr,
         status: units.status,
+        hasNote: sql<boolean>`length(${units.noteMd}) > 0`,
       })
       .from(units)
       // Students only ever see what the teacher has published.
@@ -78,17 +96,35 @@ export default async function UnidadesPage() {
                     href={`/unidades/${u.slug}`}
                     className="card flex flex-col gap-2 p-4 transition-colors hover:border-sage hover:bg-sage-pale/40"
                   >
-                    <span className="font-display text-lg leading-snug font-semibold">
-                      {u.title}
-                    </span>
-                    <span className="mt-auto flex flex-wrap items-center gap-2">
-                      <span className="chip">{u.cefr}</span>
-                      <span className="chip bg-cream text-ink-soft">
-                        {itemCountFor.get(u.id) ?? 0}{" "}
-                        {(itemCountFor.get(u.id) ?? 0) === 1
-                          ? "atividade"
-                          : "atividades"}
+                    <span>
+                      <span className="block font-display text-lg leading-snug font-semibold">
+                        {u.title}
                       </span>
+                      {u.titlePt ? (
+                        <span className="block text-sm text-ink-faint">
+                          {u.titlePt}
+                        </span>
+                      ) : null}
+                    </span>
+                    {u.blurbEn ? (
+                      <span className="text-xs leading-snug text-ink-soft">
+                        {u.blurbEn}
+                      </span>
+                    ) : null}
+                    <span className="mt-auto flex flex-wrap items-center gap-2">
+                      <span className={CATEGORY_CHIP[u.category] ?? "chip"}>
+                        {CATEGORY_LABEL[u.category] ?? u.category}
+                      </span>
+                      {itemCountFor.get(u.id) ? (
+                        <span className="chip bg-cream text-ink-soft">
+                          {itemCountFor.get(u.id)} atividades
+                        </span>
+                      ) : null}
+                      {u.hasNote ? null : (
+                        <span className="chip bg-cream text-ink-faint">
+                          nota por escrever
+                        </span>
+                      )}
                       {u.status !== "published" ? (
                         <span className="chip bg-terra-pale text-terra-dark">
                           rascunho

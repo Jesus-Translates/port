@@ -202,8 +202,18 @@ export const units = pgTable("units", {
   id: serial("id").primaryKey(),
   slug: text("slug").notNull().unique(),
   title: text("title").notNull(),
+  /** Portuguese title, shown under the English one like a real course index. */
+  titlePt: text("title_pt").notNull().default(""),
+  /** communication | grammar | grammar-practice | vocabulary — makes the
+   *  interleaving of the syllabus visible and auditable. */
+  category: text("category").notNull().default("communication"),
+  /** One line, second person: what you'll be able to DO after this unit. */
+  blurbEn: text("blurb_en").notNull().default(""),
+  /** Authorial intent, carried from the syllabus into lazy note generation. */
+  notePrompt: text("note_prompt").notNull().default(""),
   cefr: text("cefr").notNull().default("A2"),
   sortOrder: integer("sort_order").notNull().default(0),
+  /** Empty until someone opens the unit — the note is generated on demand. */
   noteMd: text("note_md").notNull().default(""),
   status: text("status").notNull().default("draft"), // draft | published
   createdBy: text("created_by").notNull().default("ai"),
@@ -223,6 +233,26 @@ export const unitItems = pgTable("unit_items", {
   config: jsonb("config"),
   titlePt: text("title_pt").notNull().default(""),
   sortOrder: integer("sort_order").notNull().default(0),
+});
+
+/**
+ * Per-learner completion of a single unit item. This is what turns the
+ * syllabus from an index into a course: unit % , the "next item" pointer and
+ * the family's progress all read from here. One row per (username, itemId);
+ * writes use onConflictDoNothing so replaying an item is harmless.
+ */
+export const unitProgress = pgTable("unit_progress", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  unitId: integer("unit_id")
+    .notNull()
+    .references(() => units.id, { onDelete: "cascade" }),
+  itemId: integer("item_id")
+    .notNull()
+    .references(() => unitItems.id, { onDelete: "cascade" }),
+  /** 0-100 where the activity produces one; null when it is just "done". */
+  score: integer("score"),
+  completedAt: timestamp("completed_at").defaultNow().notNull(),
 });
 
 // Field missions: real-world tasks around Torres Vedras.

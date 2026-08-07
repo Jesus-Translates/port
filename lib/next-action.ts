@@ -1,6 +1,6 @@
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { getDb, homework, units } from "@/lib/db";
-import { hasBeenPlaced } from "@/lib/data";
+import { getCefrFor, hasBeenPlaced } from "@/lib/data";
 import { countDue } from "@/lib/srs";
 
 /**
@@ -69,12 +69,15 @@ export async function resolveNextAction(
     };
   }
 
-  // Forward progress: the newest published unit, as the course spine.
+  // Forward progress along the course spine: the first unit AT THE LEARNER'S
+  // OWN LEVEL, in syllabus order. (Not the newest unit — with a full A1→B2
+  // syllabus seeded, "newest" is the last B2 unit, which is nobody's next step.)
+  const cefr = await getCefrFor(username);
   const [unit] = await db
     .select({ slug: units.slug, title: units.title })
     .from(units)
-    .where(eq(units.status, "published"))
-    .orderBy(desc(units.sortOrder), desc(units.id))
+    .where(and(eq(units.status, "published"), eq(units.cefr, cefr)))
+    .orderBy(asc(units.sortOrder), asc(units.id))
     .limit(1)
     .catch(() => []);
   if (unit) {

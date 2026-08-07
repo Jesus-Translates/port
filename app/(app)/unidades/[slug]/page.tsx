@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { asc, eq } from "drizzle-orm";
-import { Markdown } from "@/components/markdown";
+import { UnitNote } from "@/components/unit-note";
 import { UnitReview } from "@/components/unit-review";
 import { getRole, requireSession } from "@/lib/auth";
 import { categories, getDb, unitItems, units } from "@/lib/db";
@@ -102,6 +102,9 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
             {unit.title}
           </h1>
           <span className="chip">{unit.cefr}</span>
+          {unit.category ? (
+            <span className="chip bg-cream text-ink-soft">{unit.category}</span>
+          ) : null}
           {isDraft ? (
             <span className="chip bg-terra-pale text-terra-dark">rascunho</span>
           ) : null}
@@ -121,9 +124,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
         <UnitReview id={unit.id} status={unit.status} noteMd={unit.noteMd} />
       ) : null}
 
-      <section className="card prose-basic p-5">
-        <Markdown>{unit.noteMd || "_Sem nota ainda._"}</Markdown>
-      </section>
+      <UnitNote unitId={unit.id} noteMd={unit.noteMd} />
 
       <section className="space-y-2">
         <h2 className="font-display text-lg font-semibold">

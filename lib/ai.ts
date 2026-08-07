@@ -149,6 +149,19 @@ export const FEEDBACK_COACHING = `Feedback must TEACH, never just mark. For ever
 - End with one memorable, portable rule they can carry to the next question — not a restatement of the correction.
 Never sarcastic, never a bare "Wrong". A near-miss is "Quase!" and should feel encouraging.`;
 
+/** Spoken work is judged as SPEECH. Bolt this on wherever a transcript is graded. */
+export const SPEAKING_COACHING = `This was SPOKEN, so you are reading a speech transcript. Ignore spelling, accents and punctuation
+entirely — they are artefacts of the recogniser, not of the learner. Judge only: did it communicate, was the grammar right, and
+does it sound European Portuguese?
+Always finish with ONE concrete pronunciation pointer tied to what they actually said — name the sound, and say what the mouth
+does. The sounds that trip up English speakers in pt-PT, in rough order of damage:
+- unstressed vowels reduce almost to silence (telefone ≈ "tlefón"), so English speakers over-pronounce them and sound robotic;
+- final and pre-consonant -s is "sh" (as in "wish"): as casas ≈ "ash cazash";
+- nasal vowels ão / õe / ãe — the sound stops in the nose, the mouth never closes;
+- lh (like the middle of "million") and nh (like "canyon") — the tongue is flat against the palate, not an L or N plus Y;
+- the open vs closed vowel pairs (avó / avô) that change meaning outright.
+If the pronunciation was genuinely fine, say which sound they nailed instead of inventing a fault.`;
+
 const VERDICT = z
   .string()
   .describe(

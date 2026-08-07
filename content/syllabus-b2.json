@@ -1,0 +1,200 @@
+[
+  {
+    "slug": "sociedade-e-convivencia",
+    "titleEn": "Society and Living Together",
+    "titlePt": "Sociedade e Convivência",
+    "category": "communication",
+    "blurbEn": "You'll be able to handle a condomínio meeting, a noise complaint and a favour from a neighbour without either escalating or caving in.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the lexicon and etiquette of shared life in a Portuguese town — condomínio, quota, administrador (never the pt-BR 'síndico'), assembleia de condóminos, junta de freguesia, vizinho do lado, dar-se bem com, fazer um favor, ficar mal visto — plus the pt-PT preference for impersonal, question-shaped complaints; the anchor contrast is the direct English 'You're being too loud' against 'Se calhar não dava para baixar um bocadinho?', and the classic English-speaker error is the bare tu imperative ('Baixa o som') where Portuguese hedges, plus reading 'convivência' as cold 'coexistence' when it carries the warmer sense of getting on with people."
+  },
+  {
+    "slug": "interjeicoes-e-marcadores-discursivos",
+    "titleEn": "Interjections and Discourse Markers",
+    "titlePt": "Interjeições e Marcadores Discursivos",
+    "category": "grammar",
+    "blurbEn": "You'll be able to drop pois, epá, olha and então into your speech so you sound like you live here rather than like you're reciting sentences.",
+    "grammarFocus": "interjeições e marcadores discursivos",
+    "notePrompt": "Teach the pt-PT particle set as meaning-carrying, not filler: pois (agreement or mild resignation) vs pois é vs the sarcastic pois sim, olha / olha lá as attention-getters, então? as both greeting and challenge, pronto as the wrap-up, epá as a neutral 'mate', and the deictic pair lá / cá (vou lá vs cá em casa, and 'eu cá acho que...' = 'personally I reckon'); the anchor contrast is that English speakers render 'well...' as 'bem' when pt-PT wants 'bom', 'então' or 'pronto', and they omit 'pois' entirely, which makes their agreement land as cold or grudging."
+  },
+  {
+    "slug": "diminutivos-e-aumentativos",
+    "titleEn": "Diminutives and Augmentatives",
+    "titlePt": "Diminutivos e Aumentativos",
+    "category": "grammar",
+    "blurbEn": "You'll be able to use -inho and -ão to soften a request, warm up a thank-you, or land an insult on purpose rather than by accident.",
+    "grammarFocus": "sufixos diminutivos e aumentativos",
+    "notePrompt": "Teach -inho/-zinho and -ão/-ona as register and affect rather than size: cafezinho (a coffee offered with warmth, not a small coffee), obrigadinho (affectionate or faintly sarcastic depending on tone), um bocadinho and daqui a bocadinho as politeness softeners, devagarinho, and the augmentative's split between admiration (mulherão) and abuse (palavrão, chorão); cover the attachment rule (café→cafezinho, mãe→mãezinha, casa→casinha) and address the English-speaker error of assuming the suffix always means 'small' and therefore avoiding it altogether, which makes every request sound curt — 'Dás-me um bocado de pão' vs 'Dás-me um bocadinho de pão'."
+  },
+  {
+    "slug": "expressoes-idiomaticas-i",
+    "titleEn": "Idioms I: Body, Food and Animals",
+    "titlePt": "Expressões Idiomáticas I: Corpo, Comida e Animais",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to follow the idioms that fly around a Portuguese family table instead of hearing a wall of literal nonsense.",
+    "grammarFocus": null,
+    "notePrompt": "Teach high-frequency pt-PT idioms grouped by source image — corpo (meter o pé na argola, estar com a pulga atrás da orelha, dar com a língua nos dentes, não ter papas na língua), comida (é canja, pão-pão queijo-queijo, ir com os porcos) and animais (ter macaquinhos no sótão, ver-se grego, estar à sombra da bananeira) — always giving the pragmatic force and the register, not just the gloss; the contrast to draw is idiom-for-idiom rather than word-for-word, and the English-speaker error is calquing ('it's a piece of cake' → *é um pedaço de bolo) instead of reaching for the Portuguese image that already exists, 'é canja'."
+  },
+  {
+    "slug": "expressoes-idiomaticas-ii",
+    "titleEn": "Idioms II: Work, Luck, the Sea and Proverbs",
+    "titlePt": "Expressões Idiomáticas II: Trabalho, Sorte, Mar e Provérbios",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to close an argument with the same proverb your neighbour would reach for, and know when a proverb is the graceful way out.",
+    "grammarFocus": null,
+    "notePrompt": "Cover idioms of effort and fortune (dar o litro, andar numa roda-viva, ficar a ver navios, deitar água na fervura, estar com água pela barba, à espera que caia o maná) plus the provérbio as a conversational move — devagar se vai ao longe; quem não tem cão caça com gato; águas passadas não movem moinhos; grão a grão enche a galinha o papo; the contrast to draw is the English habit of quoting proverbs ironically or apologetically against the Portuguese habit of using one sincerely to end a disagreement without anyone losing face, and the error to correct is translating 'left high and dry' or 'up to my neck' literally when 'ficar a ver navios' and 'estar com água pela barba' already exist."
+  },
+  {
+    "slug": "giria-e-calao",
+    "titleEn": "Slang and Street Portuguese",
+    "titlePt": "Gíria e Calão",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to follow the teenagers and the café counter, and know which words you can say back and which you should only recognise.",
+    "grammarFocus": null,
+    "notePrompt": "Separate gíria (fixe, bué, ganda, cota, gajo/gaja, curtir, bazar, chunga, ter piada, estar-se nas tintas) from calão proper, and label every item produce-or-recognise-only, including which ones a parent can say in front of teenagers; the essential contrast is pt-PT fixe / bué / puto against pt-BR legal / muito / moleque, and the English-speaker error is importing Brazilian slang absorbed from music and streaming, which in the Oeste reads as either foreign or comic — also warn that 'gajo' is fine among friends and rude about a stranger, and that 'giro' means nice-looking, not funny."
+  },
+  {
+    "slug": "presente-do-conjuntivo",
+    "titleEn": "Present Subjunctive",
+    "titlePt": "Presente do Conjuntivo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to express doubt, desire, emotion and polite pressure — the whole 'I want you to...' family that Portuguese refuses to say with the indicative.",
+    "grammarFocus": "presente do conjuntivo",
+    "notePrompt": "Build the presente do conjuntivo off the eu-form of the present indicative (faço→faça, tenho→tenha, digo→diga, ponho→ponha) with the six true irregulars (ser, estar, ir, haver, saber, querer), triggered by desire, doubt, emotion and impersonal judgement, and by para que, embora, talvez, antes que, sem que, a não ser que, caso; the anchor contrast is 'Quero que tu venhas' against the two English-speaker errors *'Quero que tu vens' and the infinitive calque *'Quero-te vir' straight from 'I want you to come' — English has no live morphological subjunctive, so the triggers must be learned as a list — and note that talvez takes the conjuntivo when it precedes the verb but the indicative when it follows ('Talvez venha' vs 'Ele vem, talvez')."
+  },
+  {
+    "slug": "preterito-imperfeito-do-conjuntivo",
+    "titleEn": "Imperfect Subjunctive",
+    "titlePt": "Pretérito Imperfeito do Conjuntivo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to say what you would do if things were different, and make requests so soft that refusing them politely is easy.",
+    "grammarFocus": "pretérito imperfeito do conjuntivo",
+    "notePrompt": "Derive the imperfeito do conjuntivo from the third person plural of the pretérito perfeito (fizeram→fizesse, foram→fosse, tiveram→tivesse, puderam→pudesse) so every irregular is inherited rather than memorised, then drill the fixed frame se + imperfeito do conjuntivo + condicional ('Se eu tivesse tempo, ia contigo'), the politeness uses ('Queria...', 'Se calhar era melhor que...') and 'como se' + conjuntivo; the classic English-speaker error is mapping 'If I had time' onto *'Se eu tinha tempo' because English uses a plain past — stress that hypothetical se never takes the imperfeito do indicativo — and point out that colloquial pt-PT normally prefers 'ia' to 'iria' in the main clause."
+  },
+  {
+    "slug": "futuro-do-conjuntivo",
+    "titleEn": "Future Subjunctive",
+    "titlePt": "Futuro do Conjuntivo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to talk about open future conditions — when you can, if you want, as soon as they arrive — the way every Portuguese speaker actually does.",
+    "grammarFocus": "futuro do conjuntivo",
+    "notePrompt": "Give this tense real weight: it is a living, everyday Portuguese tense with no English analogue and no Spanish equivalent in daily use, formed from the third person plural preterite stem so irregulars carry over intact (fizeram→fizer, foram→for, tiveram→tiver, puderam→puder, quiseram→quiser, disseram→disser), and it is obligatory after se, quando, enquanto, assim que, logo que, sempre que, conforme and depois de que whenever the event is still open; the anchor is 'quando puderes' / 'se quiseres' / 'assim que chegarem' against the systematic English-speaker error 'quando podes' / 'se queres', which comes straight from English using the present after 'when' and 'if' — and flag the trap that most futuro do conjuntivo forms are identical to the infinitivo pessoal (ser is where they split: for vs ser), so learners must know which structure they are inside."
+  },
+  {
+    "slug": "humor-ironia-e-delicadeza",
+    "titleEn": "Humour, Irony and Softening",
+    "titlePt": "Humor, Ironia e Delicadeza",
+    "category": "communication",
+    "blurbEn": "You'll be able to disagree with a neighbour, query a bill and turn down an invitation without ever sounding blunt.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the pt-PT softening toolkit — 'não é bem assim', 'se calhar', 'sabes como é', 'olha, não me leves a mal, mas...', 'estou a brincar', 'ora essa', 'até certo ponto' — together with understatement and the social ritual of queixar-se (complaining as bonding, not as a demand for action); the contrast to draw is the English 'I'm afraid I have to disagree' against the Portuguese move of opening in agreement and then reversing ('Pois, pois... agora lá que seja assim tão fácil, não é'), and the errors to correct are using 'desculpa' where 'com licença' is needed, delivering deadpan English sarcasm that reads as sincere rudeness, and mistaking Portuguese directness about bodies, age and money for aggression."
+  },
+  {
+    "slug": "o-trabalho-e-o-emprego",
+    "titleEn": "Work and Employment",
+    "titlePt": "O Trabalho e o Emprego",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to read a Portuguese job advert, sit through a work meeting, and make sense of your own contract and payslip.",
+    "grammarFocus": null,
+    "notePrompt": "Cover the real paperwork and the real register: recibos verdes vs contrato a termo certo vs contrato sem termo, subsídio de férias and subsídio de Natal, Segurança Social, IRS retido na fonte, baixa médica, despedimento vs rescisão por mútuo acordo, plus currículo, carta de motivação and meeting language (dar seguimento, ficar com o dossiê, estar em cima do acontecimento); the contrast is pt-PT telemóvel de serviço, reunião, colega and ordenado against pt-BR celular, galera and salário-as-default, and the two English-speaker errors to name are *'aplicar para um emprego' for 'candidatar-se a um emprego' and *'suportar' for 'to support' where Portuguese wants 'apoiar'."
+  },
+  {
+    "slug": "tempos-compostos-do-indicativo",
+    "titleEn": "Compound Tenses: Indicative",
+    "titlePt": "Tempos Compostos do Indicativo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to say what has been going on lately and what had already happened before something else, without collapsing everything into the simple past.",
+    "grammarFocus": "tempos compostos do indicativo",
+    "notePrompt": "Teach ter + particípio passado across the pretérito perfeito composto (tenho feito), the mais-que-perfeito composto (tinha feito), the futuro composto (terei feito) and the condicional composto (teria feito), noting that spoken pt-PT uses ter, never haver, and that 'tinha feito' has entirely displaced the synthetic 'fizera' outside literature; the make-or-break contrast is that 'tenho feito' is NOT the English present perfect — it means a repeated or continuing action across a recent stretch ('Tenho trabalhado muito' = I've been working a lot lately) — while a single completed event stays in the simple pretérito perfeito ('Já fiz isso'); the classic English-speaker error is *'Tenho tomado o pequeno-almoço' for 'I have had breakfast', which a Portuguese ear hears as a repeated habit."
+  },
+  {
+    "slug": "tempos-compostos-do-conjuntivo",
+    "titleEn": "Compound Tenses: Subjunctive",
+    "titlePt": "Tempos Compostos do Conjuntivo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to voice doubt and regret about things that already happened, including the whole 'if I had known' family.",
+    "grammarFocus": "tempos compostos do conjuntivo",
+    "notePrompt": "Combine the conjuntivo of ter with the particípio: tenha feito for doubt about a completed event ('Espero que já tenham chegado'), tivesse feito for the unreal past ('Se eu tivesse sabido, tinha dito'), and tiver feito for a completed future condition ('Quando tiveres acabado, avisa-me'); the anchor contrast is the past-unreal conditional 'Se eu tivesse sabido, teria dito' against the two English-speaker errors *'Se eu tinha sabido' (English's plain past perfect after 'if') and 'Se eu soubesse' used for a past regret when soubesse is present-unreal — and note that colloquial pt-PT very often says 'tinha dito' where the grammar book prescribes 'teria dito'."
+  },
+  {
+    "slug": "noticias-e-atualidade",
+    "titleEn": "News and Current Affairs",
+    "titlePt": "Notícias e Atualidade",
+    "category": "communication",
+    "blurbEn": "You'll be able to follow the Telejornal and a talk-show panel talking over each other, and give your own take on a story at dinner.",
+    "grammarFocus": null,
+    "notePrompt": "Teach the register of Portuguese news — headline ellipsis and nominalisation ('Aprovada em Conselho de Ministros a subida das pensões'), the passive and the se-impersonal, the condicional de rumor ('teria admitido') — alongside the media landscape learners will meet: RTP1, SIC and TVI, the Telejornal, Público and Expresso, and the comentador panel format where everyone talks at once; contrast the compressed written headline with the spoken retelling learners actually need ('Ouvi dizer que...', 'Parece que...', 'Ao que consta...'), and address the false friends that make headlines misleading — 'atualmente' is currently not actually, 'eventualmente' is possibly not eventually, 'assistir a' is to watch not to help, and 'pretender' is to intend not to pretend."
+  },
+  {
+    "slug": "governo-e-politica",
+    "titleEn": "Government and Politics",
+    "titlePt": "Governo e Política",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to work out who actually decides what — from the junta de freguesia up to São Bento — and hold a political conversation without giving offence.",
+    "grammarFocus": null,
+    "notePrompt": "Map the real structures a resident deals with: freguesia and junta de freguesia → câmara municipal (presidente, vereadores) → distrito, then Assembleia da República and the Primeiro-Ministro at São Bento versus the Presidente da República at Belém, plus legislativas, autárquicas, círculo eleitoral, coligação, moção de censura and the party acronyms; the contrast to draw is Portugal's semi-presidential split against the English-speaker assumption of one head of government — the recurring error is calling the Primeiro-Ministro 'o Presidente' — and cover enough 25 de Abril and Estado Novo background to understand how older neighbours in the Oeste frame politics, plus the exits 'não estou muito por dentro' and 'lá isso não sei'."
+  },
+  {
+    "slug": "discurso-indireto",
+    "titleEn": "Reported Speech",
+    "titlePt": "Discurso Indireto",
+    "category": "grammar",
+    "blurbEn": "You'll be able to pass on what someone else said — a message, an instruction, a piece of gossip — accurately and in one go.",
+    "grammarFocus": "discurso indireto",
+    "notePrompt": "Teach the transposition machinery: reporting verbs (dizer, contar, perguntar, pedir, avisar, responder, acrescentar) taking 'que' for statements, 'se' for yes/no questions and the bare question word for the rest, plus the shifts in pronouns, possessives and deictics (aqui→ali, este→aquele, hoje→nesse dia, amanhã→no dia seguinte, trazer→levar, vir→ir); the anchor contrast is 'Perguntou-me: «Onde estás?»' → 'Perguntou-me onde eu estava', against the two systematic English-speaker errors — using 'que' after perguntar (*perguntou que onde eu estava) instead of 'se' or the bare question word, and keeping the direct question's inverted order and present tense inside the reported clause."
+  },
+  {
+    "slug": "discurso-indireto-no-passado",
+    "titleEn": "Reported Speech in the Past",
+    "titlePt": "Discurso Indireto no Passado",
+    "category": "grammar-practice",
+    "blurbEn": "You'll be able to relay a whole conversation from yesterday, keeping every tense where a Portuguese ear expects to find it.",
+    "grammarFocus": "concordância dos tempos no discurso indireto",
+    "notePrompt": "Drill the back-shift when the reporting verb is in the past: presente→imperfeito, pretérito perfeito→mais-que-perfeito composto (tinha feito), futuro→condicional, imperativo and presente do conjuntivo→imperfeito do conjuntivo, and futuro do conjuntivo→imperfeito do conjuntivo ('Quando puderes, liga-me' → 'Pediu-me que lhe ligasse quando pudesse'); the contrast to hammer is that English lets the tense stay put when the fact is still true ('He said he lives in Torres') while pt-PT back-shifts anyway ('Disse que morava em Torres'), and the English-speaker errors are leaving the present in place after a past reporting verb and reporting a command with an imperative instead of the imperfeito do conjuntivo."
+  },
+  {
+    "slug": "sotaques-e-falares-regionais",
+    "titleEn": "Regional Accents and Dialects",
+    "titlePt": "Sotaques e Falares Regionais",
+    "category": "communication",
+    "blurbEn": "You'll be able to understand the plumber from the Alentejo, the cousins from São Miguel and the neighbour who has never left the Oeste.",
+    "grammarFocus": null,
+    "notePrompt": "Work through the varieties this family will actually meet, with the specific sound substitutions rather than vague description: the local Estremadura/Oeste falar, close to the Lisbon standard but with heavier unstressed-vowel crushing and swallowed final syllables; Alentejano with its drawn-out vowels, 'ê' for 'ei' (fêjão, primêro) and a markedly commoner gerund ('estou fazendo') that contradicts the standard estar a + infinitivo; Algarvio, clipped and end-swallowing with an Andalusian-tinged rhythm; and Micaelense from São Miguel, where /u/ fronts towards a French-style ü (Lisboa → Lüsboa) and diphthongs shift, making it the hardest variety in the country for learners; the contrast to draw is Lisbon's crushed unstressed vowels against the fuller vowels of the north and the islands, and the error to correct is the learner who concludes their listening is bad — give them the substitution rules so they decode instead of guessing."
+  },
+  {
+    "slug": "carnaval-de-torres",
+    "titleEn": "Carnival in Torres Vedras",
+    "titlePt": "O Carnaval de Torres",
+    "category": "vocabulary",
+    "blurbEn": "You'll be able to follow the corso, get the jokes on the floats, and explain to a visitor why this is the most Portuguese carnival there is.",
+    "grammarFocus": null,
+    "notePrompt": "Give the real lexicon and the real culture of 'o mais português de Portugal': corso, carros alegóricos, matrafonas (men in women's clothes), cabeçudos, Zés-Pereiras, os Reis do Carnaval, entrudo, folião, and the satirical crítica social that is the whole point of the floats; the contrast to draw is Torres against the feathers-and-samba Rio carnival that Portuguese people will assume a foreigner has in mind — this one is mockery of politicians and local grievances, not spectacle — and the errors to address are reading 'fantasia' as fantasy when it means costume, and treating the political jokes as hostility rather than as licensed once-a-year mockery."
+  },
+  {
+    "slug": "gerundio-e-estar-a-infinitivo",
+    "titleEn": "The Gerund, and Why Portugal Avoids It",
+    "titlePt": "O Gerúndio e o «Estar a» + Infinitivo",
+    "category": "grammar",
+    "blurbEn": "You'll be able to use the gerund in the places European Portuguese genuinely wants it, and stop reaching for it everywhere English would.",
+    "grammarFocus": "gerúndio",
+    "notePrompt": "Establish first that pt-PT expresses ongoing action with estar a + infinitivo ('Estou a comer') where pt-BR uses the gerund ('Estou comendo'), then teach where the gerund is genuinely alive in pt-PT: adverbial clauses of time, cause and manner ('Chegando a casa, telefono-te'; 'Sendo assim, fica para amanhã'; 'Tendo em conta o preço...'), the compound gerund ('Tendo acabado, saiu'), formal and written register, and its dialectal survival in the Alentejo and Algarve; the anchor contrast is 'Estou a trabalhar' vs the Brazilian 'Estou trabalhando', and the English-speaker error is mapping every '-ing' onto '-ndo' — *'Gosto de nadando' where Portuguese takes the plain infinitive (gosto de nadar), and *'Depois de comendo' where it takes 'depois de comer'."
+  },
+  {
+    "slug": "infinitivo-pessoal-e-conjuntivo",
+    "titleEn": "Personal Infinitive vs Subjunctive",
+    "titlePt": "Infinitivo Pessoal e Conjuntivo",
+    "category": "grammar-practice",
+    "blurbEn": "You'll be able to pick the lighter infinitive construction where a native speaker would, instead of grinding out a conjuntivo every single time.",
+    "grammarFocus": "infinitivo pessoal",
+    "notePrompt": "Teach the inflected infinitive (fazer, fazeres, fazer, fazermos, fazerem) as the everyday alternative to the conjuntivo after prepositions, drilled as minimal pairs: 'para eu fazer' vs 'para que eu faça', 'antes de saíres' vs 'antes que saias', 'apesar de teres razão' vs 'embora tenhas razão', plus 'é melhor irmos', 'no caso de chegarmos tarde' and 'até eles voltarem'; the governing contrast is that a preposition takes the infinitivo pessoal while a conjunction built on 'que' takes the conjuntivo, and the two English-speaker errors are leaving the infinitive uninflected when the subject changes (*'para nós ir' for 'para nós irmos') and defaulting to the conjuntivo in slots where Portuguese finds it heavy — close by noting that many infinitivo pessoal forms are homographs of the futuro do conjuntivo, told apart only by what governs them."
+  },
+  {
+    "slug": "as-linhas-de-torres-vedras",
+    "titleEn": "The Lines of Torres Vedras",
+    "titlePt": "As Linhas de Torres Vedras",
+    "category": "communication",
+    "blurbEn": "You'll be able to walk a visitor round the forts above your own town and follow a Portuguese guide narrating the Peninsular War at full speed.",
+    "grammarFocus": null,
+    "notePrompt": "Use the local Napoleonic fortifications as an extended listening-and-narrating unit: the Guerra Peninsular and the Invasões Francesas, Wellington's secret defensive lines built in 1809-10, the terra queimada policy that emptied the Oeste, the redutos and fortes at São Vicente, Zambujal and Alqueidão, and the Centro de Interpretação in Torres Vedras; the language focus is the narrative past working as a system — pretérito perfeito for events, imperfeito for background and habit, mais-que-perfeito composto for what had already happened — plus the historic present that guides use for drama; the English-speaker error to correct is telling the whole story in the pretérito perfeito because English gets by with one simple past, which flattens the narrative and turns scene-setting into a chain of events."
+  }
+]
