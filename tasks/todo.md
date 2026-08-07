@@ -24,7 +24,12 @@ port.robertjeremiah.com.
 - [x] Cloudflare CNAME `port` → vercel-dns (DNS only) — LIVE at https://port.robertjeremiah.com
 - [x] Real Turnstile widget "Portuguese Hub" created (port.robertjeremiah.com + localhost),
       keys swapped in Vercel prod/preview and .env.local, redeployed, enforcement verified
-- [ ] USER: add OPENAI_API_KEY + set AI_MODEL=openai/gpt-5.6-luna (see README) to unlock Luna
+- [x] OPENAI_API_KEY added by user; AI_MODEL switched to openai/gpt-5.6-luna — all 6 AI
+      features verified live in production (chat, quiz, homework, lesson, ref-fill, suggest)
+- [x] Mobile pass: bottom tab bar, 16px inputs (no iOS zoom), 44px targets, safe areas,
+      PWA manifest + apple-icon; verified at 375×812
+- [x] 8 users: Kelly, Jenni, Robert, Bobby, Sarah, Hannah, Rebecca, Sammy
+- [x] OG image + apple icon via next/og (fixed proxy.ts 307 that blocked them)
 
 ## Delegations
 
