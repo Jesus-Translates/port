@@ -1,3 +1,52 @@
+# WAVE 4 RESULTS (2026-08-07) — shipped
+
+- [x] 126-unit A1-B2 course seeded and live (A1 32 / A2 44 / B1 28 / B2 22),
+      Learning Notes written by Luna on first open (verified in prod: 5,527
+      chars, all 4 headings, real pt-PT examples)
+- [x] Walkable unit paths: generated on open, contract enforced in code,
+      per-item completion, unit %, one "A seguir" pill
+- [x] Two games: /jogos/pares (matching, timed) and /jogos/frase (sentence
+      builder WITH distractor tiles). Misses become review cards
+- [x] Token-level answer diff (certo/quase/incompleto/errado), LCS-anchored so
+      one inserted word marks one token. Verified 6/6 + anti-cascade
+- [x] SPEAKING_COACHING everywhere a transcript is graded — pronunciation
+      pointers, not punctuation (user correction)
+- [x] Fixed 3 security/correctness bugs a fresh-eyes review found: draft units
+      readable+AI-buildable by students; completeItem XP double-award race;
+      IDOR on the two progress readers
+- [x] Fixed mistake-card starvation in getQueue — the headline differentiator
+      was enrolling mistakes and then never showing them
+- [x] Azure TTS priced $15/1M (was $16, and before that fell through to the
+      text-model rate entirely)
+
+## VERDICT: build vs buy (cross-examination)
+KEEP THE APP. Duolingo, Babbel and Busuu are BRAZILIAN-ONLY — buying them is
+negative value here. Only Pimsleur (2 levels, audio-only) and Memrise
+(Portuguese (EU), 300+ native videos) are genuine pt-PT, and neither has a
+family plan. App runs under EUR 1/month.
+BUT: buy weekly italki hours (~$18/hr, Portugal-based tutors, variety
+selectable). Nothing in software replaces a human ear from the Oeste.
+
+## THE RISK THAT SHOULD WORRY US MOST
+126 units, their notes, dialogues and verb tables are ALL model output with
+NO native-speaker review — and the 8 people using it cannot detect a
+Brazilianism. The draft->publish workflow exists; make it mean something.
+
+## NEXT, in order
+- [ ] AZURE_SPEECH_KEY + AZURE_SPEECH_REGION (user). Highest leverage single
+      change: 87% of spend -> 0 (F0 free tier is 27x lifetime usage/month),
+      accent stops depending on prompt steering, voice rotation becomes real,
+      AND free phoneme-level pronunciation assessment unlocks (pt-PT supported;
+      prosody is en-US only). Settle AZURE_TTS_VOICES in the SAME change —
+      adding a voice later re-hashes and re-synthesizes the whole library.
+- [ ] Native-speaker (or adversarial second-model) pass gating unit publish
+- [ ] Move audio blobs out of Postgres (Neon free = 0.5GB; base64 inflates
+      1.33x) to Blob/R2 BEFORE bulk-generating audio for 126 units
+- [ ] Azure Pronunciation Assessment replaces the ASR-proxy score in Falar
+- [ ] KILL dual-speed second render (WAVE 4 #9) — browser playbackRate is free
+      and ttsHash ignores rate, so it would collide silently
+- [ ] Error-pattern analysis -> feed the italki lesson, not compete with it
+
 # WAVE 4 (2026-08-07): Competitive upgrade plan — from the Practice Portuguese review
 
 Seven agents reviewed practiceportuguese.com (logged-in) + our own codebase.
