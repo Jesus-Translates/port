@@ -25,6 +25,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       sub: due > 0 ? `${due} cartões à espera` : "spaced repetition",
       hot: due > 0,
     },
+    { href: "/practice/conversa", emoji: "💬", title: "Conversa", sub: "fala com a Luna" },
     { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Luna ouve-te" },
     { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
     { href: "/practice/verbos", emoji: "⚡", title: "Verbos", sub: "conjugação sprint" },
