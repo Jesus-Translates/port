@@ -1,12 +1,16 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
 import { finishVerbRound } from "@/lib/actions/verbos";
+import type { UnitContext } from "@/lib/unit-context";
 import {
   PERSONS,
   TENSE_LABEL,
   personLabel,
   type Tense,
+  type Verb,
   verbsWithTense,
 } from "@/lib/verbs";
 import { cn } from "@/lib/utils";
@@ -23,12 +27,20 @@ function stripAccents(s: string): string {
     .replace(/[̀-ͯ]/g, "");
 }
 
-function makeRound(tenses: Tense[]): Q[] {
-  const pool = verbsWithTense(tenses);
-  const qs: Q[] = [];
-  const seen = new Set<string>();
+/** How much of a round a topic's own verbs get, when it names any. */
+const FOCUS_SHARE = 0.6;
+
+/** Draw distinct questions from `pool` until `qs` reaches `target`. */
+function draw(
+  qs: Q[],
+  seen: Set<string>,
+  pool: Verb[],
+  tenses: Tense[],
+  target: number
+) {
+  if (pool.length === 0) return;
   let guard = 0;
-  while (qs.length < ROUND && guard++ < 200) {
+  while (qs.length < target && guard++ < 200) {
     const verb = pool[Math.floor(Math.random() * pool.length)];
     const available = tenses.filter((t) => verb.forms[t]);
     const tense = available[Math.floor(Math.random() * available.length)];
@@ -46,11 +58,36 @@ function makeRound(tenses: Tense[]): Q[] {
       en: verb.en,
     });
   }
+}
+
+function makeRound(tenses: Tense[], focus: string[] = []): Q[] {
+  const all = verbsWithTense(tenses);
+  const wanted = all.filter((v) => focus.includes(v.inf));
+  const qs: Q[] = [];
+  const seen = new Set<string>();
+  // A step that names its verbs gets a round that is MOSTLY those verbs — but
+  // never only them: two verbs in one tense offer ten distinct questions at
+  // best, and a round that came up short would teach less than a mixed one.
+  if (wanted.length > 0) draw(qs, seen, wanted, tenses, Math.ceil(ROUND * FOCUS_SHARE));
+  draw(qs, seen, all, tenses, ROUND);
   return qs;
 }
 
-export function VerbDrill() {
-  const [tenses, setTenses] = useState<Tense[]>(["perfeito"]);
+export function VerbDrill({
+  initialTenses = [],
+  focusVerbs = [],
+  unit = null,
+}: {
+  /** Tenses the unit step asked for. Empty leaves the learner's own choice. */
+  initialTenses?: Tense[];
+  /** Infinitives the topic names, weighted up when the round is dealt. */
+  focusVerbs?: string[];
+  /** The unit path step this round is fulfilling, when there is one. */
+  unit?: UnitContext | null;
+}) {
+  const [tenses, setTenses] = useState<Tense[]>(
+    initialTenses.length > 0 ? initialTenses : ["perfeito"]
+  );
   const [round, setRound] = useState<Q[] | null>(null);
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
@@ -70,7 +107,7 @@ export function VerbDrill() {
 
   function start() {
     if (tenses.length === 0) return;
-    setRound(makeRound(tenses));
+    setRound(makeRound(tenses, focusVerbs));
     setIndex(0);
     setTyped("");
     setChecked(null);
@@ -93,6 +130,12 @@ export function VerbDrill() {
       const misses = results
         .filter((r) => !r.ok)
         .map((r) => ({ prompt: r.q.prompt, answer: r.q.answer }));
+      // The round IS the step — tick it off here, defensively, so a failed
+      // tick can never cost the learner the round they just finished.
+      if (unit?.itemId) {
+        const pct = Math.round((score / Math.max(round.length, 1)) * 100);
+        void completeItem(unit.itemId, pct).catch(() => {});
+      }
       await finishVerbRound(score, round.length, misses);
       setSaving(false);
     } else {
@@ -120,6 +163,12 @@ export function VerbDrill() {
                   ? "Conjugação impecável!"
                   : "Os erros foram para o teu baralho de revisão."}
             </p>
+            {/* Came from a unit? The way onward is back to the course. */}
+            {unit ? (
+              <div className="mt-5">
+                <UnitContinue unit={unit} />
+              </div>
+            ) : null}
           </div>
         ) : null}
         <div className="card space-y-3 p-5">

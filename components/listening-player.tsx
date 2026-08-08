@@ -8,9 +8,11 @@ import {
   type NextLesson,
 } from "@/components/lesson-complete";
 import { Markdown } from "@/components/markdown";
+import { completeItem } from "@/lib/actions/course";
 import { finishListening, myTotalXp } from "@/lib/actions/listening";
 import type { ListeningLine } from "@/lib/listening";
 import type { PronResult } from "@/lib/pronunciation";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 const SPEEDS = [0.75, 0.9, 1] as const;
@@ -63,6 +65,7 @@ export function ListeningPlayer({
   source,
   canReplace,
   next,
+  unit = null,
 }: {
   clipId: number;
   /** Byte count doubles as the audio cache-buster: it changes on re-record. */
@@ -72,6 +75,8 @@ export function ListeningPlayer({
   /** Staff only: replacing the library audio changes the clip for everyone. */
   canReplace: boolean;
   next: NextLesson;
+  /** Set when a unit path opened this clip, so finishing ticks the step. */
+  unit?: UnitContext | null;
 }) {
   const router = useRouter();
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -88,6 +93,8 @@ export function ListeningPlayer({
   const [finishError, setFinishError] = useState<string | null>(null);
   const [xpEarned, setXpEarned] = useState(0);
   const [xpTotal, setXpTotal] = useState<number | null>(null);
+  /** Only true once the unit step really was ticked — never claimed on faith. */
+  const [unitTicked, setUnitTicked] = useState(false);
   /** Best-effort last score per line index — a retry replaces the old one. */
   const [scores, setScores] = useState<Record<number, number>>({});
   /** Only one line may hold the microphone: two hot mics on a phone is how you
@@ -206,6 +213,18 @@ export function ListeningPlayer({
       setXpTotal(res.total);
       finishedRef.current = true;
       setFinished(true);
+      // "Marquei como ouvido" IS the completion of the unit step — the learner
+      // should never have to walk back to the unit and tick a box by hand. The
+      // score is their pronunciation average when they read lines aloud, and
+      // null when they only listened; a failure here must not cost them the
+      // lesson they just banked.
+      if (unit?.itemId) {
+        void completeItem(unit.itemId, avgScore)
+          .then((r) => {
+            if (r.ok) setUnitTicked(true);
+          })
+          .catch(() => {});
+      }
     } catch {
       setFinishError("Não deu para guardar os pontos. Tenta outra vez.");
     } finally {
@@ -345,6 +364,8 @@ export function ListeningPlayer({
         recordedLines={scored.length}
         avgScore={avgScore}
         next={next}
+        unit={unit}
+        unitTicked={unitTicked}
         onFinish={() => void finish()}
       />
 

@@ -1,11 +1,17 @@
 import Link from "next/link";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { FalarModes } from "@/components/falar-modes";
+import { UnitReturn } from "@/components/unit-return";
 import { requireSession } from "@/lib/auth";
 import { cards, getDb, homework, refEntries } from "@/lib/db";
 import type { HomeworkItem } from "@/lib/homework-items";
+import { unitContextFrom } from "@/lib/unit-context";
 
 export const metadata = { title: "Falar" };
+
+function one(v: string | string[] | undefined): string {
+  return (Array.isArray(v) ? v[0] : (v ?? "")).trim();
+}
 
 const GENERIC_QUESTIONS = [
   {
@@ -25,8 +31,14 @@ const GENERIC_QUESTIONS = [
   },
 ];
 
-export default async function FalarPage() {
+export default async function FalarPage(props: PageProps<"/practice/falar">) {
   const session = await requireSession();
+  const sp = await props.searchParams;
+  const unit = await unitContextFrom(sp);
+  // An explicit topic beats the learner's TPC: a unit step that says "falar
+  // sobre o talho" must not open on last week's homework questions. With no
+  // topic configured, the unit's own name is still better than nothing.
+  const tema = one(sp.tema).slice(0, 200) || unit?.titlePt.trim() || "";
   const db = getDb();
 
   // Everything spoken here derives from the learner's own TPC: their homework
@@ -60,9 +72,24 @@ export default async function FalarPage() {
       pt: i.prompt,
       en: i.hint ?? "Answer out loud, in Portuguese.",
     }));
+  // The unit's topic goes first and needs no AI call, so the learner lands on
+  // something to say about the right thing even before Luna is asked.
+  const topicQuestions = tema
+    ? [
+        {
+          titlePt: `Tema da unidade: ${tema.slice(0, 48)}`,
+          pt: `Conta-me tudo sobre ${tema} — o que vês, o que dizes e o que pedes.`,
+          en: "Your unit's topic — say as much as you can, out loud.",
+        },
+      ]
+    : [];
   const starterQuestions = [
+    ...topicQuestions,
     ...tpcQuestions,
-    ...GENERIC_QUESTIONS.slice(0, Math.max(0, 3 - tpcQuestions.length)),
+    ...GENERIC_QUESTIONS.slice(
+      0,
+      Math.max(0, 3 - topicQuestions.length - tpcQuestions.length)
+    ),
   ];
 
   // Ler: the corrected sentences from their own errors — homework first,
@@ -120,18 +147,38 @@ export default async function FalarPage() {
 
   return (
     <div className="space-y-6">
+      <UnitReturn unit={unit} />
+
       <header>
         <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
           ← Praticar
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">🎙️ Falar</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Built from your own TPC: answer your homework questions out loud, and
-          re-say the sentences you once got wrong — this time perfectly.
+          {tema ? (
+            <>
+              Fala sobre <strong className="text-ink">«{tema}»</strong> — o tema
+              desta unidade.{" "}
+              <span className="text-ink-faint">
+                Answer out loud, or read the sentences and get a pronunciation
+                score.
+              </span>
+            </>
+          ) : (
+            <>
+              Built from your own TPC: answer your homework questions out loud,
+              and re-say the sentences you once got wrong — this time perfectly.
+            </>
+          )}
         </p>
       </header>
 
-      <FalarModes readAloud={readAloud} starterQuestions={starterQuestions} />
+      <FalarModes
+        readAloud={readAloud}
+        starterQuestions={starterQuestions}
+        initialTopic={tema}
+        unit={unit}
+      />
     </div>
   );
 }

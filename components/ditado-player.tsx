@@ -3,13 +3,23 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
 import { finishDitado, gradeDitado } from "@/lib/actions/ditado";
 import type { DitadoResult } from "@/lib/ditado";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 type Sentence = { id: number; en: string };
 
-export function DitadoPlayer({ sentences }: { sentences: Sentence[] }) {
+export function DitadoPlayer({
+  sentences,
+  unit = null,
+}: {
+  sentences: Sentence[];
+  /** The unit path step this dictation is fulfilling, when there is one. */
+  unit?: UnitContext | null;
+}) {
   const router = useRouter();
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
@@ -40,6 +50,12 @@ export function DitadoPlayer({ sentences }: { sentences: Sentence[] }) {
         .filter((r) => r.score < r.total)
         .map((r) => ({ pt: r.targetPt, en: r.en }));
       setFinished(true);
+      // The round is the step: finishing it ticks the unit item, defensively —
+      // a failed tick must never cost the learner the dictation they just did.
+      if (unit?.itemId) {
+        const pct = total > 0 ? Math.round((score / total) * 100) : 0;
+        void completeItem(unit.itemId, pct).catch(() => {});
+      }
       await finishDitado(score, total, missed);
     } else {
       setIndex((i) => i + 1);
@@ -65,9 +81,16 @@ export function DitadoPlayer({ sentences }: { sentences: Sentence[] }) {
             ? "Ouvido afinado! Fantástico."
             : "As frases falhadas foram para o teu baralho de revisão."}
         </p>
-        <button className="btn-primary mt-4" onClick={() => router.refresh()}>
-          Outro ditado →
-        </button>
+        {/* Back to the course first when a unit sent you here. */}
+        <div className="mt-5 space-y-2">
+          <UnitContinue unit={unit} />
+          <button
+            className={cn("w-full", unit ? "btn-ghost" : "btn-primary")}
+            onClick={() => router.refresh()}
+          >
+            Outro ditado →
+          </button>
+        </div>
       </div>
     );
   }

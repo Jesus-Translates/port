@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { UnitContinue } from "@/components/unit-return";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 /** Where "Continuar →" goes. `null` when this was the last one. */
@@ -64,6 +66,8 @@ export function LessonComplete({
   avgScore,
   next,
   onFinish,
+  unit = null,
+  unitTicked = false,
   backHref = "/escutar",
   backLabel = "Voltar ao Escutar",
 }: {
@@ -78,6 +82,11 @@ export function LessonComplete({
   avgScore: number | null;
   next: NextLesson;
   onFinish: () => void;
+  /** The unit this lesson is a step of — when set, the course wins the
+   *  loudest button and the library's next clip becomes the small option. */
+  unit?: UnitContext | null;
+  /** True only once the step really was ticked off — never claimed on faith. */
+  unitTicked?: boolean;
   backHref?: string;
   backLabel?: string;
 }) {
@@ -157,7 +166,30 @@ export function LessonComplete({
       ) : null}
 
       <div className="space-y-2 border-t border-sand/70 pt-4">
-        {next ? (
+        {unit ? (
+          // Came from a course path: the unit gets the loud button, and the
+          // library's next clip is demoted to "if you feel like more".
+          <>
+            <UnitContinue unit={unit} />
+            {unit.itemId ? (
+              <p className="text-[11px] text-ink-faint">
+                {unitTicked
+                  ? "Este passo ficou marcado na tua unidade. ✓"
+                  : "Marca como ouvido em cima e o passo fica feito na unidade."}
+              </p>
+            ) : null}
+            {next ? (
+              <Link
+                href={next.href}
+                className="btn-ghost mt-1 w-full justify-start text-left sm:w-auto"
+              >
+                <span className="min-w-0 truncate">
+                  Mais um diálogo: {next.title} →
+                </span>
+              </Link>
+            ) : null}
+          </>
+        ) : next ? (
           <>
             <div className="flex flex-wrap items-center gap-3">
               <Link

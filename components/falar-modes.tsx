@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { Recorder } from "@/components/recorder";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 type ReadTarget = { key: string; pt: string; en: string; source?: string };
@@ -11,16 +14,47 @@ type Question = { titlePt?: string; pt: string; en: string };
 export function FalarModes({
   readAloud,
   starterQuestions,
+  initialTopic = "",
+  unit = null,
 }: {
   readAloud: ReadTarget[];
   starterQuestions: Question[];
+  /** The unit item's topic — seeds everything Luna is asked to write. */
+  initialTopic?: string;
+  /** The course step this speaking session is fulfilling, when there is one. */
+  unit?: UnitContext | null;
 }) {
   const [mode, setMode] = useState<"ler" | "responder">("responder");
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState(initialTopic);
   const [questions, setQuestions] = useState<Question[]>(starterQuestions);
   const [targets, setTargets] = useState<ReadTarget[]>(readAloud);
   const [fetching, setFetching] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /** They have reached for the microphone at least once. The Recorder reports
+   *  nothing back, so this is the honest floor for "actually had a go". */
+  const [attempted, setAttempted] = useState(false);
+  const [ticking, setTicking] = useState(false);
+  const [ticked, setTicked] = useState(false);
+  const [tickError, setTickError] = useState<string | null>(null);
+
+  async function finishStep() {
+    if (!unit?.itemId || ticking || ticked) return;
+    setTicking(true);
+    setTickError(null);
+    try {
+      const res = await completeItem(unit.itemId, null);
+      if (!res.ok) throw new Error(res.error);
+      setTicked(true);
+    } catch (e) {
+      setTickError(
+        e instanceof Error && e.message
+          ? e.message
+          : "Não deu para marcar o passo. Podes marcá-lo na unidade."
+      );
+    } finally {
+      setTicking(false);
+    }
+  }
 
   async function regenerate() {
     setFetching(true);
@@ -99,7 +133,7 @@ export function FalarModes({
       <div className="card flex flex-wrap items-end gap-2 p-3">
         <div className="min-w-44 flex-1">
           <label className="label" htmlFor="falar-topic">
-            Tema (opcional)
+            {initialTopic ? "Tema desta unidade" : "Tema (opcional)"}
           </label>
           <input
             id="falar-topic"
@@ -113,9 +147,15 @@ export function FalarModes({
           {fetching
             ? "A Luna está a criar…"
             : mode === "ler"
-              ? "✨ Novas frases"
-              : "✨ Nova pergunta"}
+              ? `✨ Novas frases${topic.trim() ? " sobre o tema" : ""}`
+              : `✨ Nova pergunta${topic.trim() ? " sobre o tema" : ""}`}
         </button>
+        {initialTopic ? (
+          <p className="w-full text-xs text-ink-faint">
+            Tudo o que a Luna criar aqui é sobre este tema — muda-o se quiseres
+            outra coisa.
+          </p>
+        ) : null}
         {error ? (
           <p className="w-full text-sm text-terra-dark">{error}</p>
         ) : null}
@@ -137,7 +177,11 @@ export function FalarModes({
                 </div>
                 <AudioButton text={e.pt} />
               </div>
-              <Recorder mode="read" target={e.pt} />
+              {/* Recorder reports nothing back, so a tap inside it is the one
+                  honest signal that they had a real go at speaking. */}
+              <div onPointerDownCapture={() => setAttempted(true)}>
+                <Recorder mode="read" target={e.pt} />
+              </div>
             </div>
           ))}
         </section>
@@ -157,11 +201,52 @@ export function FalarModes({
                 </div>
                 <AudioButton text={p.pt} />
               </div>
-              <Recorder mode="open" prompt={p.pt} />
+              <div onPointerDownCapture={() => setAttempted(true)}>
+                <Recorder mode="open" prompt={p.pt} />
+              </div>
             </div>
           ))}
         </section>
       )}
+
+      {/* Came from a unit path: nothing here grades itself, so the learner
+          says when they are done — but only after they have actually reached
+          for the microphone. */}
+      {unit ? (
+        <section className="card space-y-3 p-5">
+          <div>
+            <h2 className="font-semibold">🏁 Terminar este passo</h2>
+            <p className="mt-0.5 text-sm text-ink-soft">
+              {ticked
+                ? `Passo concluído na unidade ${unit.title}.`
+                : attempted
+                  ? "Já falaste em voz alta — marca o passo e volta à unidade."
+                  : "Grava pelo menos uma resposta em voz alta para terminares este passo."}{" "}
+              <span className="text-ink-faint">
+                {ticked
+                  ? "Done — this step is ticked off."
+                  : "Record at least one answer, then mark it done."}
+              </span>
+            </p>
+          </div>
+          {ticked ? (
+            <UnitContinue unit={unit} />
+          ) : (
+            <button
+              className="btn-primary w-full"
+              onClick={() => void finishStep()}
+              disabled={!attempted || ticking}
+            >
+              {ticking ? "A marcar…" : "Já falei — terminar ✓"}
+            </button>
+          )}
+          {tickError ? (
+            <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
+              {tickError}
+            </p>
+          ) : null}
+        </section>
+      ) : null}
     </div>
   );
 }

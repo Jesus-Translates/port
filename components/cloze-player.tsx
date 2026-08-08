@@ -3,7 +3,10 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
 import { finishCloze, gradeCloze, type ClozeResult } from "@/lib/actions/ditado";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 export type ClozeSentence = {
@@ -17,7 +20,14 @@ const BLANK = "____";
 
 /** Audio-cloze: the whole sentence is on screen except one word, and the
  *  audio plays it in full — the ear has to supply what the eye can't see. */
-export function ClozePlayer({ sentences }: { sentences: ClozeSentence[] }) {
+export function ClozePlayer({
+  sentences,
+  unit = null,
+}: {
+  sentences: ClozeSentence[];
+  /** The unit path step this round is fulfilling, when there is one. */
+  unit?: UnitContext | null;
+}) {
   const router = useRouter();
   const [index, setIndex] = useState(0);
   const [typed, setTyped] = useState("");
@@ -48,6 +58,13 @@ export function ClozePlayer({ sentences }: { sentences: ClozeSentence[] }) {
   async function next() {
     if (last) {
       setFinished(true);
+      // Finishing the round IS the completion — don't make the learner walk
+      // back to the unit and tick a box they already earned. Fire and forget:
+      // a failed tick must never cost them the round they just played.
+      if (unit?.itemId) {
+        const pct = Math.round((score / Math.max(sentences.length, 1)) * 100);
+        void completeItem(unit.itemId, pct).catch(() => {});
+      }
       await finishCloze(score, sentences.length);
     } else {
       setIndex((i) => i + 1);
@@ -71,9 +88,17 @@ export function ClozePlayer({ sentences }: { sentences: ClozeSentence[] }) {
             ? "Apanhaste as palavras que ninguém pronuncia. Boa!"
             : "As que falharam foram para o teu baralho de revisão."}
         </p>
-        <button className="btn-primary mt-4" onClick={() => router.refresh()}>
-          Outras frases →
-        </button>
+        {/* Came from a unit? Then the loudest button goes back to the course,
+            not deeper into the tool. */}
+        <div className="mt-5 space-y-2">
+          <UnitContinue unit={unit} />
+          <button
+            className={cn("w-full", unit ? "btn-ghost" : "btn-primary")}
+            onClick={() => router.refresh()}
+          >
+            Outras frases →
+          </button>
+        </div>
       </div>
     );
   }

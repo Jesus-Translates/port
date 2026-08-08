@@ -3,12 +3,14 @@ import { notFound } from "next/navigation";
 import { AudioButton } from "@/components/audio-button";
 import { AnswerDiff } from "@/components/answer-diff";
 import { QuizPlayer } from "@/components/quiz-player";
+import { UnitContinue, UnitReturn } from "@/components/unit-return";
 import type { QuizQuestions } from "@/lib/ai";
 import { cloneQuiz } from "@/lib/actions/quiz";
 import type { GradedResult } from "@/lib/actions/quiz";
 import { requireSession } from "@/lib/auth";
 import { checkAnswer } from "@/lib/diff";
 import { getQuiz } from "@/lib/data";
+import { unitContextFrom } from "@/lib/unit-context";
 
 export default async function QuizPage(props: PageProps<"/practice/[id]">) {
   const session = await requireSession();
@@ -17,6 +19,10 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
   if (!Number.isInteger(quizId)) notFound();
   const quiz = await getQuiz(quizId);
   if (!quiz) notFound();
+
+  // The quiz id only exists after the AI wrote it, so the unit that asked for
+  // this quiz travels in the URL — see QuizUnitForm.
+  const unit = await unitContextFrom(await props.searchParams);
 
   const isOwner = quiz.username === session.username;
   const { questions } = quiz.questions as QuizQuestions;
@@ -28,9 +34,13 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
   return (
     <div className="space-y-5">
       <header>
-        <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
-          ← Praticar
-        </Link>
+        {unit ? (
+          <UnitReturn unit={unit} />
+        ) : (
+          <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
+            ← Praticar
+          </Link>
+        )}
         <div className="mt-1 flex flex-wrap items-center gap-2">
           <h1 className="text-2xl font-semibold tracking-tight">
             🎯 {quiz.topic}
@@ -63,6 +73,8 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
             ownerName={quiz.username}
             isOwner={isOwner}
           />
+          {/* Done, and it came from a unit: the way onward is the course. */}
+          <UnitContinue unit={unit} />
           <form action={cloneThis}>
             <button type="submit" className="btn-ghost">
               🔁 Fazer este teste também
@@ -78,6 +90,7 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
             promptEn: q.promptEn,
             options: q.options,
           }))}
+          unitItemId={unit?.itemId ?? null}
         />
       ) : (
         <div className="card space-y-3 p-6 text-center">

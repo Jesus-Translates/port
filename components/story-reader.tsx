@@ -1,7 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
 import { finishStory, saveGlossaryWord } from "@/lib/actions/stories";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 type Story = {
@@ -13,11 +16,20 @@ type Story = {
   questions: { promptPt: string; options: string[]; answer: string }[];
 };
 
-export function StoryReader({ story }: { story: Story }) {
+export function StoryReader({
+  story,
+  unit = null,
+}: {
+  story: Story;
+  /** The course step this chapter is fulfilling, when there is one. */
+  unit?: UnitContext | null;
+}) {
   const [showEn, setShowEn] = useState(false);
   const [saved, setSaved] = useState<Set<string>>(new Set());
   const [answers, setAnswers] = useState<Record<number, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  /** True only once the unit step really was ticked — never claimed on faith. */
+  const [unitTicked, setUnitTicked] = useState(false);
   const [, startTransition] = useTransition();
 
   const ptParas = story.textPt.split(/\n+/).filter(Boolean);
@@ -32,6 +44,20 @@ export function StoryReader({ story }: { story: Story }) {
     startTransition(() =>
       finishStory(story.id, story.title, score, story.questions.length)
     );
+    // Answering the comprehension check is the end of the chapter — the score
+    // out of 100 is exactly what the unit should record. Fired defensively:
+    // a failure here must never cost the learner the reading they just did.
+    if (unit?.itemId) {
+      const pct =
+        story.questions.length > 0
+          ? Math.round((score / story.questions.length) * 100)
+          : null;
+      void completeItem(unit.itemId, pct)
+        .then((r) => {
+          if (r.ok) setUnitTicked(true);
+        })
+        .catch(() => {});
+    }
   }
 
   return (
@@ -137,6 +163,19 @@ export function StoryReader({ story }: { story: Story }) {
           </p>
         )}
       </section>
+
+      {/* Finishing the chapter is finishing the step: the loudest button goes
+          back to the course, not on to an unrelated series. */}
+      {unit && submitted ? (
+        <section className="card space-y-2 p-5">
+          <p className="text-sm text-ink-soft">
+            {unitTicked
+              ? `✓ Passo concluído na unidade ${unit.title}.`
+              : `Capítulo lido — volta à unidade ${unit.title} para continuares.`}
+          </p>
+          <UnitContinue unit={unit} />
+        </section>
+      ) : null}
     </div>
   );
 }

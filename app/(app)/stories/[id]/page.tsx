@@ -3,8 +3,10 @@ import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { AudioButton } from "@/components/audio-button";
 import { StoryReader } from "@/components/story-reader";
+import { UnitReturn } from "@/components/unit-return";
 import { requireSession } from "@/lib/auth";
 import { getDb, stories } from "@/lib/db";
+import { unitContextFrom } from "@/lib/unit-context";
 
 export default async function StoryPage(props: PageProps<"/stories/[id]">) {
   await requireSession();
@@ -18,8 +20,12 @@ export default async function StoryPage(props: PageProps<"/stories/[id]">) {
     .limit(1);
   if (!story) notFound();
 
+  const unit = await unitContextFrom(await props.searchParams);
+
   return (
     <article className="space-y-5">
+      <UnitReturn unit={unit} />
+
       <header>
         <Link href="/stories" className="text-xs text-ink-faint hover:text-olive">
           ← Histórias
@@ -50,6 +56,7 @@ export default async function StoryPage(props: PageProps<"/stories/[id]">) {
             answer: string;
           }[],
         }}
+        unit={unit}
       />
     </article>
   );

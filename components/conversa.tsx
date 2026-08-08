@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { AddToDeck } from "@/components/add-to-deck";
 import { Markdown } from "@/components/markdown";
+import { UnitContinue } from "@/components/unit-return";
+import { completeItem } from "@/lib/actions/course";
+import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
 const TOPIC_CHIPS = [
@@ -39,10 +42,13 @@ function play(b64: string | null | undefined) {
 export function Conversa({
   cefr,
   initialTopic = "",
+  unit = null,
 }: {
   cefr: string;
   /** Carried in from a unit path item ("conversa about o talho"). */
   initialTopic?: string;
+  /** The course step this conversation is fulfilling, when there is one. */
+  unit?: UnitContext | null;
 }) {
   const [phase, setPhase] = useState<"setup" | "talk" | "summary">("setup");
   const [topicInput, setTopicInput] = useState(initialTopic);
@@ -55,6 +61,11 @@ export function Conversa({
   const [summary, setSummary] = useState<Summary | null>(null);
   const [recording, setRecording] = useState(false);
   const [recSeconds, setRecSeconds] = useState(0);
+  /** True only once the unit step really was ticked — never claimed on faith. */
+  const [unitTicked, setUnitTicked] = useState(false);
+
+  /** What this unit asked them to talk about: its item topic, else its name. */
+  const unitTopic = (initialTopic || unit?.titlePt || unit?.title || "").trim();
 
   const recRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
@@ -224,6 +235,17 @@ export function Conversa({
       if (!res.ok) throw new Error(data.error);
       setSummary(data);
       setPhase("summary");
+      // The summary IS the end of the conversation — there is nothing left to
+      // do here, so the step is done. No score: nothing in a conversation is
+      // graded out of 100, and counting corrections would punish the learner
+      // who talked the most. A failure here must never break the summary.
+      if (unit?.itemId) {
+        void completeItem(unit.itemId, null)
+          .then((r) => {
+            if (r.ok) setUnitTicked(true);
+          })
+          .catch(() => {});
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "O resumo falhou.");
     } finally {
@@ -243,8 +265,12 @@ export function Conversa({
 
   // ── Setup ──────────────────────────────────────────────────────────────────
   if (phase === "setup") {
-    return (
-      <div className="card space-y-4 p-5">
+    const fromUnit = Boolean(unit && unitTopic);
+    // The free-text box, the eight generic chips and the "surprise me" die.
+    // Perfectly good on their own — but when a unit sent you here to talk
+    // about o talho, none of them is the thing you came to do.
+    const chooseYourOwn = (
+      <div className="space-y-4">
         <div>
           <label className="label" htmlFor="conversa-topic">
             Sobre o que queres falar?
@@ -267,14 +293,18 @@ export function Conversa({
               key={t}
               onClick={() => start(t)}
               disabled={pending}
-              className="rounded-full border border-sand bg-white/70 px-3 py-1.5 text-sm transition-colors hover:border-sage"
+              className="min-h-11 rounded-full border border-sand bg-white/70 px-4 py-1.5 text-sm transition-colors hover:border-sage"
             >
               {t}
             </button>
           ))}
         </div>
         <div className="flex gap-2">
-          <button className="btn-primary flex-1" onClick={() => start()} disabled={pending}>
+          <button
+            className={cn("flex-1", fromUnit ? "btn-ghost" : "btn-primary")}
+            onClick={() => start()}
+            disabled={pending}
+          >
             {pending ? "A Luna está a pensar…" : "Começar a conversa 💬"}
           </button>
           <button
@@ -286,6 +316,45 @@ export function Conversa({
             🎲 Surpreende-me
           </button>
         </div>
+      </div>
+    );
+
+    return (
+      <div className="card space-y-4 p-5">
+        {fromUnit ? (
+          <>
+            <div className="space-y-2 rounded-2xl bg-sage-pale/60 p-4">
+              <p className="text-[11px] font-semibold tracking-wide text-olive uppercase">
+                Passo da unidade · {unit?.title}
+              </p>
+              <p className="font-display text-xl">«{unitTopic}»</p>
+              <p className="text-sm text-ink-soft">
+                É sobre isto que a Luna vai falar contigo.{" "}
+                <span className="text-ink-faint">
+                  Your unit&apos;s own topic — one tap and you&apos;re talking.
+                </span>
+              </p>
+              <button
+                className="btn-primary w-full"
+                onClick={() => start(unitTopic)}
+                disabled={pending}
+              >
+                {pending
+                  ? "A Luna está a pensar…"
+                  : `Falar sobre «${unitTopic.length > 44 ? `${unitTopic.slice(0, 44).trimEnd()}…` : unitTopic}» 💬`}
+              </button>
+            </div>
+            <details className="border-t border-sand/70 pt-3">
+              <summary className="flex min-h-11 cursor-pointer items-center text-sm text-ink-soft">
+                Preferes outro tema?{" "}
+                <span className="ml-1 text-ink-faint">…or pick your own</span>
+              </summary>
+              <div className="mt-3">{chooseYourOwn}</div>
+            </details>
+          </>
+        ) : (
+          chooseYourOwn
+        )}
         {error ? (
           <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">{error}</p>
         ) : null}
@@ -344,9 +413,25 @@ export function Conversa({
           </div>
         ) : null}
 
-        <button className="btn-primary w-full" onClick={reset}>
-          Nova conversa 💬
-        </button>
+        {/* A unit sent them here: the loudest button goes back to the course,
+            not deeper into the tool. "Nova conversa" is still one tap away. */}
+        {unit ? (
+          <div className="space-y-2">
+            {unitTicked ? (
+              <p className="rounded-xl bg-sage-pale/60 px-3 py-2 text-center text-sm text-olive">
+                ✓ Passo concluído na unidade {unit.title}.
+              </p>
+            ) : null}
+            <UnitContinue unit={unit} />
+            <button className="btn-ghost w-full" onClick={reset}>
+              Nova conversa 💬
+            </button>
+          </div>
+        ) : (
+          <button className="btn-primary w-full" onClick={reset}>
+            Nova conversa 💬
+          </button>
+        )}
       </div>
     );
   }

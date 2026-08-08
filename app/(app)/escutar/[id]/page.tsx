@@ -3,9 +3,11 @@ import { notFound } from "next/navigation";
 import { and, asc, eq, gt } from "drizzle-orm";
 import { ListeningPlayer } from "@/components/listening-player";
 import type { NextLesson } from "@/components/lesson-complete";
+import { UnitReturn } from "@/components/unit-return";
 import { getRole, requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import { parseTranscript } from "@/lib/listening";
+import { unitContextFrom } from "@/lib/unit-context";
 
 /**
  * Where "Continuar →" goes: the next clip at the same level, else the next one
@@ -57,9 +59,12 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
 
   const transcript = parseTranscript(clip.transcript);
   const next = await findNextClip(clip.id, clip.cefr);
+  const unit = await unitContextFrom(await props.searchParams);
 
   return (
     <article className="space-y-5">
+      <UnitReturn unit={unit} />
+
       <header>
         <Link href="/escutar" className="text-xs text-ink-faint hover:text-olive">
           ← Escutar
@@ -87,6 +92,7 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
         lines={transcript.lines}
         canReplace={getRole(session.username) !== "student"}
         next={next}
+        unit={unit}
       />
     </article>
   );

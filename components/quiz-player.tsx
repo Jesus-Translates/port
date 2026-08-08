@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { completeItem } from "@/lib/actions/course";
 import { submitQuiz } from "@/lib/actions/quiz";
 import { cn } from "@/lib/utils";
 
@@ -15,9 +16,12 @@ type PlayerQuestion = {
 export function QuizPlayer({
   quizId,
   questions,
+  unitItemId = null,
 }: {
   quizId: number;
   questions: PlayerQuestion[];
+  /** When a unit path asked for this quiz, tick that step off on submit. */
+  unitItemId?: number | null;
 }) {
   const router = useRouter();
   const [index, setIndex] = useState(0);
@@ -42,7 +46,14 @@ export function QuizPlayer({
     setBusy(true);
     setFailed(false);
     try {
-      await submitQuiz(quizId, answers);
+      const results = await submitQuiz(quizId, answers);
+      // Handing the quiz in IS the completion. Fire and forget on purpose: a
+      // failed tick must never turn a graded quiz into an error screen.
+      if (unitItemId && results) {
+        const right = results.filter((r) => r.correct).length;
+        const pct = Math.round((right / Math.max(questions.length, 1)) * 100);
+        void completeItem(unitItemId, pct).catch(() => {});
+      }
       router.refresh();
     } catch {
       // Handing back the whole quiz is the highest-stakes moment here: an
