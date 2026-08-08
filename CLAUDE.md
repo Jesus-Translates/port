@@ -21,5 +21,11 @@ Conventions:
 - Auth: JWT cookie (`ph_session`) checked in `proxy.ts`; every server action and
   API route re-checks via `requireSession()` / `getSession()`.
 - DB access through `getDb()` (lazy — never construct at module top level).
-- `npm run db:push` / `db:seed` for schema/content. Seed is idempotent and must
-  never clobber user-added rows (`addedBy != 'seed'`).
+- Schema changes go through MIGRATIONS, never `drizzle-kit push`. `push` diffs
+  against the live DB and silently drops what it thinks is gone — unacceptable
+  now there is real family data and a tenancy migration in flight.
+  `npm run db:generate` writes a reviewable file to `drizzle/`, then
+  `npm run db:migrate` applies it in order. `db:push` has been removed.
+- `db:seed` / `db:syllabus` for content; both idempotent and must never clobber
+  user-added rows (`addedBy != 'seed'`). `db:backfill` adopts new users into
+  the account model.

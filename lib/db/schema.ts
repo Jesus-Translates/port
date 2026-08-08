@@ -307,3 +307,115 @@ export const activity = pgTable("activity", {
   xp: integer("xp").notNull().default(5),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+// ───────────────────────────────────────────────────────────────────────────
+// MULTI-TENANT IDENTITY — Stage 1, DORMANT.
+//
+// Nothing reads these yet. The live app still authenticates via the shared
+// password and the bare `username` string on every table. These exist so the
+// cutover can happen in verifiable steps rather than one rewrite.
+//
+// The central hazard the plan identified: `username` is currently a GLOBAL
+// identifier, and stops being unique the moment a second family signs up. So
+// it moves here, onto `memberships`, unique only WITHIN an account. Email is
+// the global identifier instead — and is nullable, because children may not
+// have one and must still be able to sign in.
+// ───────────────────────────────────────────────────────────────────────────
+
+/** A family or a lone individual — whatever subscribes and holds seats. */
+export const accounts = pgTable("accounts", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  name: text("name").notNull(),
+  // free | individual | family
+  plan: text("plan").notNull().default("free"),
+  seatLimit: integer("seat_limit").notNull().default(1),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/** A real human. Email is globally unique WHERE PRESENT; children have none. */
+export const people = pgTable(
+  "people",
+  {
+    id: serial("id").primaryKey(),
+    email: text("email"),
+    displayName: text("display_name").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [uniqueIndex("people_email_unique").on(t.email)]
+);
+
+/** Person ↔ account. `username` lives HERE and is unique per account only. */
+export const memberships = pgTable(
+  "memberships",
+  {
+    id: serial("id").primaryKey(),
+    accountId: integer("account_id")
+      .notNull()
+      .references(() => accounts.id, { onDelete: "cascade" }),
+    personId: integer("person_id")
+      .notNull()
+      .references(() => people.id, { onDelete: "cascade" }),
+    username: text("username").notNull(),
+    // owner | parent | child  (the existing admin/teacher roles map onto these)
+    role: text("role").notNull().default("child"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [uniqueIndex("memberships_account_username").on(t.accountId, t.username)]
+);
+
+/** Password credentials. Hash only — scrypt via node:crypto, no native dep. */
+export const credentials = pgTable("credentials", {
+  personId: integer("person_id")
+    .primaryKey()
+    .references(() => people.id, { onDelete: "cascade" }),
+  passwordHash: text("password_hash").notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+/**
+ * Server-side sessions, so access can actually be REVOKED. The current JWT
+ * cannot be — which is tolerable for one family and not once money and child
+ * accounts are involved. Only the hash is stored.
+ */
+export const sessions = pgTable("sessions", {
+  id: serial("id").primaryKey(),
+  personId: integer("person_id")
+    .notNull()
+    .references(() => people.id, { onDelete: "cascade" }),
+  tokenHash: text("token_hash").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  lastSeenAt: timestamp("last_seen_at").defaultNow().notNull(),
+  revokedAt: timestamp("revoked_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/** One row per account. `status` is Stripe's, and is the entitlement source. */
+export const subscriptions = pgTable("subscriptions", {
+  accountId: integer("account_id")
+    .primaryKey()
+    .references(() => accounts.id, { onDelete: "cascade" }),
+  stripeCustomerId: text("stripe_customer_id"),
+  stripeSubscriptionId: text("stripe_subscription_id"),
+  // active | trialing | past_due | canceled | incomplete | none
+  status: text("status").notNull().default("none"),
+  priceId: text("price_id"),
+  currentPeriodEnd: timestamp("current_period_end"),
+  cancelAt: timestamp("cancel_at"),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+/** Single-use tokens: family invitations and magic-link sign-in. Hash only. */
+export const authTokens = pgTable("auth_tokens", {
+  id: serial("id").primaryKey(),
+  // invite | magic
+  kind: text("kind").notNull(),
+  accountId: integer("account_id").references(() => accounts.id, {
+    onDelete: "cascade",
+  }),
+  email: text("email"),
+  tokenHash: text("token_hash").notNull().unique(),
+  expiresAt: timestamp("expires_at").notNull(),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
