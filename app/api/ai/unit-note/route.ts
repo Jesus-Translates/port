@@ -72,7 +72,7 @@ Structure, using these exact headings:
 ## O que é
 ## Como funciona
 ## Na vida real
-## ## Erros comuns  ← 2-4 mistakes ENGLISH SPEAKERS specifically make here, each with the wrong version and the fix
+## Erros comuns  ← 2-4 mistakes ENGLISH SPEAKERS specifically make here, each with the wrong version and the fix
 
 550-800 words. Markdown only — no preamble, no title heading (the page supplies the title), no code fences.`,
     prompt: `UNIT: ${unit.title}${unit.titlePt ? ` (${unit.titlePt})` : ""}

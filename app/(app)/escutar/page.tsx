@@ -9,8 +9,9 @@ import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Escutar" };
 
-export default async function EscutarPage() {
+export default async function EscutarPage(props: PageProps<"/escutar">) {
   await requireSession();
+  const { tema } = await props.searchParams;
   const ready = azureConfigured();
   const level = await getMyCefr();
   const clips = await getDb()
@@ -57,7 +58,11 @@ export default async function EscutarPage() {
         </div>
       )}
 
-      <ListeningGenerate enabled={ready} level={level} />
+      <ListeningGenerate
+        enabled={ready}
+        level={level}
+        initialTopic={typeof tema === "string" ? tema.slice(0, 200) : ""}
+      />
 
       {clips.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">

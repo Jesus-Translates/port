@@ -7,13 +7,16 @@ import { useState } from "react";
 export function ListeningGenerate({
   enabled,
   level = "A2",
+  initialTopic = "",
 }: {
   enabled: boolean;
+  /** Carried in from a unit path item, so the box is never blank. */
+  initialTopic?: string;
   /** The learner's placement level — the sensible default to generate at. */
   level?: string;
 }) {
   const router = useRouter();
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState(initialTopic);
   const [cefr, setCefr] = useState(level);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);

@@ -7,6 +7,7 @@ import {
   getHomeworkAll,
   getKudosFor,
   getStats,
+  hasBeenPlaced,
 } from "@/lib/data";
 import { getCourseProgress } from "@/lib/actions/course";
 import { resolveNextAction } from "@/lib/next-action";
@@ -34,7 +35,7 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos, due, next, course] =
+  const [stats, allHomework, cats, board, myKudos, due, next, course, placed] =
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
@@ -44,6 +45,7 @@ export default async function Dashboard() {
       countDue(session.username).catch(() => 0),
       resolveNextAction(session.username, session.displayName),
       getCourseProgress().catch(() => null),
+      hasBeenPlaced(session.username).catch(() => true),
     ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];
@@ -124,7 +126,7 @@ export default async function Dashboard() {
         </div>
       </Link>
 
-      {course && course.unitsTotal > 0 ? (
+      {placed && course && course.unitsTotal > 0 ? (
         <section>
           <h2 className="mb-3 text-lg font-semibold">
             🎓 O teu curso{" "}

@@ -182,12 +182,35 @@ function pick(levelIdx: number, asked: Item[]): Item | null {
   return null;
 }
 
-/** Highest level with at least PASS correct answers, else A1. */
-function verdict(scores: Record<Level, number>): Level {
-  for (let i = LEVELS.length - 1; i >= 0; i--) {
-    if (scores[LEVELS[i]] >= PASS) return LEVELS[i];
+/**
+ * The highest level whose ladder you actually own.
+ *
+ * The old rule returned the highest level with PASS correct answers and looked
+ * no lower — so two lucky B2 guesses placed you at B2 while you had failed
+ * everything beneath. A real tester got B2 having missed BOTH subjunctive
+ * items, and was then told B2 means "conjuntivo com à-vontade". Now you climb:
+ * a level counts only if you got at least half of what was ASKED at that level
+ * (and at least PASS where enough were asked), and the climb stops at the first
+ * level you did not own. Levels that were never asked don't break the chain.
+ */
+function verdict(
+  scores: Record<Level, number>,
+  askedPerLevel: Record<Level, number>
+): Level {
+  let best: Level = "A1";
+  for (const level of LEVELS) {
+    const n = askedPerLevel[level] ?? 0;
+    if (n === 0) continue; // not tested here — neither owned nor failed
+    const got = scores[level] ?? 0;
+    // Below half at this level: you don't get to climb past it.
+    if (got * 2 < n) break;
+    // To actually CLAIM a level you need two thirds, not a coin flip — these
+    // are four-option questions, so 50% is barely above guessing. This is what
+    // stops 2-of-4 at B2 (having missed both subjunctive items) reading as
+    // "conjuntivo com à-vontade".
+    if (got >= PASS && got * 3 >= n * 2) best = level;
   }
-  return "A1";
+  return best;
 }
 
 export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
@@ -245,7 +268,15 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
     const next = asked.length >= TOTAL ? null : pick(nextIdx, asked);
     if (next) setAsked([...asked, next]);
-    else setResult(verdict(nextScores));
+    else {
+      // How many were actually ASKED at each level — the verdict needs the
+      // denominator, not just the count of right answers.
+      const perLevel = LEVELS.reduce(
+        (acc, l) => ({ ...acc, [l]: asked.filter((a) => a.level === l).length }),
+        {} as Record<Level, number>
+      );
+      setResult(verdict(nextScores, perLevel));
+    }
   }
 
   function save() {
@@ -282,7 +313,8 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           <div className="mt-4 flex flex-wrap justify-center gap-1.5">
             {LEVELS.map((l) => (
               <span key={l} className="chip">
-                {l} · {scores[l]}
+                {l} · {scores[l]}/
+                {asked.filter((a) => a.level === l).length}
               </span>
             ))}
           </div>

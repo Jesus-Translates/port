@@ -47,6 +47,8 @@ function resolve(
   const about = topic ? topic : KIND_META[kind].trains;
 
   switch (kind) {
+    // Every destination gets the topic AND the unit it came from, so nothing
+    // lands on an empty form and everything knows the way back.
     case "vocab":
       if (!item.catSlug) return null; // a phrasebook link with no category is a dead end
       return {
@@ -69,29 +71,53 @@ function resolve(
         hint: about,
       };
     case "ditado":
-      return { kind, href: "/practice/ditado", hint: about };
+      return {
+        kind,
+        href: `/practice/ditado?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
     case "cloze":
-      return { kind, href: "/practice/ditado?modo=cloze", hint: about };
+      return {
+        kind,
+        href: `/practice/ditado?modo=cloze&${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
     case "verbos":
-      return { kind, href: "/practice/verbos", hint: about };
+      return {
+        kind,
+        href: `/practice/verbos?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
     case "escutar":
-      return { kind, href: "/escutar", hint: about };
+      return {
+        kind,
+        href: `/escutar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
     case "story":
-      return { kind, href: "/stories", hint: about };
+      return {
+        kind,
+        href: `/stories?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
     case "falar":
       return {
         kind,
-        href: topic ? `/practice/falar?tema=${q}` : "/practice/falar",
+        href: `/practice/falar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
         hint: about,
       };
     case "conversa":
       return {
         kind,
-        href: topic ? `/practice/conversa?tema=${q}` : "/practice/conversa",
+        href: `/practice/conversa?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
         hint: about,
       };
     case "homework":
-      return { kind, href: topic ? `/homework?topic=${q}` : "/homework", hint: about };
+      return {
+        kind,
+        href: `/homework?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        hint: about,
+      };
   }
 }
 
