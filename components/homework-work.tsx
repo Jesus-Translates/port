@@ -2,7 +2,10 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { AnswerDiff } from "@/components/answer-diff";
+import Link from "next/link";
 import { Markdown } from "@/components/markdown";
+import { UnitContinue } from "@/components/unit-return";
+import type { UnitContext } from "@/lib/unit-context";
 import {
   deleteHomework,
   enhanceHomework,
@@ -21,7 +24,11 @@ export function HomeworkWork({
   homework,
   isOwner,
   ownerName,
+  unit = null,
 }: {
+  /** Set when this TPC was opened from a unit path, so the finish sends the
+   *  learner back to the course rather than to a list of other homework. */
+  unit?: UnitContext | null;
   homework: {
     id: number;
     status: string;
@@ -40,6 +47,7 @@ export function HomeworkWork({
         items={homework.items}
         isOwner={isOwner}
         ownerName={ownerName}
+        unit={unit}
       />
     );
   }
@@ -59,11 +67,13 @@ function ItemisedHomework({
   items,
   isOwner,
   ownerName,
+  unit,
 }: {
   homeworkId: number;
   items: HomeworkItem[];
   isOwner: boolean;
   ownerName: string;
+  unit: UnitContext | null;
 }) {
   const { done, total, ungraded, correct, allDone } = itemProgress(items);
 
@@ -96,23 +106,7 @@ function ItemisedHomework({
         </span>
       </div>
 
-      {allDone ? (
-        <div className="card flex items-center gap-4 border-sage bg-sage-pale/50 p-5">
-          <span className="text-4xl" aria-hidden>
-            {correct === total ? "🏆" : correct >= total / 2 ? "💪" : "🌱"}
-          </span>
-          <div>
-            <div className="font-display text-xl font-semibold">
-              {correct}/{total} certas
-            </div>
-            <p className="text-sm text-ink-soft">
-              {correct === total
-                ? "Perfeito! Não erraste nada. 🎉"
-                : "TPC entregue — revê as correções da Luna abaixo."}
-            </p>
-          </div>
-        </div>
-      ) : done === total && ungraded > 0 ? (
+      {done === total && ungraded > 0 ? (
         <div className="card border-azul/30 bg-azul-pale/50 p-4 text-sm text-azul">
           ⏳ Tudo respondido — {ungraded === 1 ? "falta 1 correção" : `faltam ${ungraded} correções`} da Luna. Pede a correção nas perguntas marcadas.
         </div>
@@ -127,6 +121,34 @@ function ItemisedHomework({
           ownerName={ownerName}
         />
       ))}
+
+      {/* The completion moment belongs where the learner actually is — at the
+          bottom, having just answered the last question. It used to render
+          above all the questions, so finishing produced nothing visible. */}
+      {allDone ? (
+        <div className="card border-sage bg-sage-pale/50 p-5 text-center">
+          <div className="text-4xl" aria-hidden>
+            {correct === total ? "🏆" : correct >= total / 2 ? "💪" : "🌱"}
+          </div>
+          <div className="mt-2 font-display text-2xl font-semibold">
+            {correct}/{total} certas
+          </div>
+          <p className="mt-1 text-sm text-ink-soft">
+            {correct === total
+              ? "Perfeito! Não erraste nada. 🎉"
+              : "TPC entregue — as correções da Luna estão acima, e os erros já foram para o teu baralho."}
+          </p>
+          {unit ? (
+            <div className="mt-4">
+              <UnitContinue unit={unit} />
+            </div>
+          ) : (
+            <Link href="/homework" className="btn-ghost mt-4 inline-block">
+              ← Todos os TPC
+            </Link>
+          )}
+        </div>
+      ) : null}
     </div>
   );
 }

@@ -72,7 +72,7 @@ export function UnitPath({
   }
 
   return (
-    <section className="space-y-3">
+    <section id="caminho" className="space-y-3">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="font-display text-lg font-semibold">
           O caminho{" "}

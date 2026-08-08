@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { HomeworkWork } from "@/components/homework-work";
 import { Markdown } from "@/components/markdown";
 import { requireSession } from "@/lib/auth";
+import { unitContextFrom } from "@/lib/unit-context";
+import { UnitReturn } from "@/components/unit-return";
 import { getHomeworkItem } from "@/lib/data";
 import {
   type HomeworkItem,
@@ -15,6 +17,7 @@ export default async function HomeworkDetail(
 ) {
   const session = await requireSession();
   const { id } = await props.params;
+  const unit = await unitContextFrom(await props.searchParams);
   const hwId = Number(id);
   if (!Number.isInteger(hwId)) notFound();
   const hw = await getHomeworkItem(hwId);
@@ -25,6 +28,7 @@ export default async function HomeworkDetail(
   return (
     <div className="space-y-5">
       <header>
+        {unit ? <UnitReturn unit={unit} /> : null}
         <Link href="/homework" className="text-xs text-ink-faint hover:text-olive">
           ← TPC
         </Link>
@@ -47,6 +51,7 @@ export default async function HomeworkDetail(
       </section>
 
       <HomeworkWork
+        unit={unit}
         homework={{
           id: hw.id,
           status: hw.status,
