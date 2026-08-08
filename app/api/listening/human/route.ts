@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
-import { getSession } from "@/lib/auth";
+import { getRole, getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import {
   alignTranscript,
@@ -23,6 +23,15 @@ export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+  // Replacing a clip's audio changes it for the WHOLE family, so it is a
+  // staff action. The player only shows the control to staff, but a UI
+  // affordance is not a boundary — enforce it here.
+  if (getRole(session.username) === "student") {
+    return NextResponse.json(
+      { error: "Só a professora pode substituir o áudio." },
+      { status: 403 }
+    );
   }
 
   const form = await request.formData();

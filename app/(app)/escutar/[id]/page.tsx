@@ -1,13 +1,49 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { and, asc, eq, gt } from "drizzle-orm";
 import { ListeningPlayer } from "@/components/listening-player";
-import { requireSession } from "@/lib/auth";
+import type { NextLesson } from "@/components/lesson-complete";
+import { getRole, requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import { parseTranscript } from "@/lib/listening";
 
+/**
+ * Where "Continuar →" goes: the next clip at the same level, else the next one
+ * at any level, else nothing. Ordered by id so the sequence is stable — the
+ * library index sorts by date, which would send you backwards.
+ */
+async function findNextClip(
+  afterId: number,
+  cefr: string
+): Promise<NextLesson> {
+  const db = getDb();
+  const columns = {
+    id: listeningClips.id,
+    title: listeningClips.title,
+    cefr: listeningClips.cefr,
+  };
+  const [sameLevel] = await db
+    .select(columns)
+    .from(listeningClips)
+    .where(and(gt(listeningClips.id, afterId), eq(listeningClips.cefr, cefr)))
+    .orderBy(asc(listeningClips.id))
+    .limit(1);
+  const row =
+    sameLevel ??
+    (
+      await db
+        .select(columns)
+        .from(listeningClips)
+        .where(gt(listeningClips.id, afterId))
+        .orderBy(asc(listeningClips.id))
+        .limit(1)
+    )[0];
+  if (!row) return null;
+  return { href: `/escutar/${row.id}`, title: row.title, cefr: row.cefr };
+}
+
 export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
-  await requireSession();
+  const session = await requireSession();
   const { id } = await props.params;
   const clipId = Number(id);
   if (!Number.isInteger(clipId)) notFound();
@@ -20,6 +56,7 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
   if (!clip) notFound();
 
   const transcript = parseTranscript(clip.transcript);
+  const next = await findNextClip(clip.id, clip.cefr);
 
   return (
     <article className="space-y-5">
@@ -48,6 +85,8 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
         bytes={clip.bytes}
         source={clip.source}
         lines={transcript.lines}
+        canReplace={getRole(session.username) !== "student"}
+        next={next}
       />
     </article>
   );
