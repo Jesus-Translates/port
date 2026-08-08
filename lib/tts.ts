@@ -141,26 +141,74 @@ export function ssmlFor(text: string, voice: string, rate = "0.95"): string {
   return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="pt-PT"><voice name="${voice}"><prosody rate="${rate}">${xmlEscape(text)}</prosody></voice></speak>`;
 }
 
+export type Segment = {
+  text: string;
+  voice: string;
+  rate?: string;
+  breakAfterMs?: number;
+};
+
+/**
+ * Azure rejects any document holding more than 50 <voice> elements with a bare
+ * 400. A 20-card Listen & Speak session needs 41, so it fits — but only since
+ * each segment now emits ONE voice element. Splitting long content across
+ * documents (below) is what keeps this from becoming a cliff again.
+ */
+export const AZURE_MAX_VOICES = 50;
+
 /**
  * Build one SSML doc from segments — each with its own voice, optional rate,
  * and an optional trailing pause. Powers dialogues and Listen & Speak.
+ *
+ * The pause lives INSIDE the segment's own <voice> element. Giving the break
+ * its own wrapper doubled the element count and pushed a full session past
+ * Azure's limit, which failed the whole document while short clips kept
+ * working — so the breakage only ever showed up on real sessions.
  */
-export function ssmlSegments(
-  segments: {
-    text: string;
-    voice: string;
-    rate?: string;
-    breakAfterMs?: number;
-  }[]
-): string {
+export function ssmlSegments(segments: Segment[]): string {
   const body = segments
     .map(
       (s) =>
-        `<voice name="${s.voice}"><prosody rate="${s.rate ?? "0.95"}">${xmlEscape(s.text)}</prosody></voice>` +
-        (s.breakAfterMs ? `<voice name="${s.voice}"><break time="${Math.min(s.breakAfterMs, 5000)}ms"/></voice>` : "")
+        `<voice name="${s.voice}"><prosody rate="${s.rate ?? "0.95"}">${xmlEscape(s.text)}</prosody>` +
+        (s.breakAfterMs ? `<break time="${Math.min(s.breakAfterMs, 5000)}ms"/>` : "") +
+        `</voice>`
     )
     .join("");
   return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="pt-PT">${body}</speak>`;
+}
+
+/**
+ * The same content as one or more documents, none exceeding Azure's element
+ * limit. Callers synthesize each and join the audio — MP3 frames concatenate
+ * cleanly, so the listener hears one continuous track.
+ */
+export function ssmlSegmentDocs(
+  segments: Segment[],
+  maxVoices = AZURE_MAX_VOICES
+): string[] {
+  const docs: string[] = [];
+  for (let i = 0; i < segments.length; i += maxVoices) {
+    docs.push(ssmlSegments(segments.slice(i, i + maxVoices)));
+  }
+  return docs.length > 0 ? docs : [ssmlSegments([])];
+}
+
+/**
+ * Synthesize a multi-document run and return it as a single MP3. Any failing
+ * part fails the whole thing — a session with a silent gap in the middle is
+ * worse than an honest error.
+ */
+export async function azureSynthesizeDocs(
+  docs: string[],
+  username?: string
+): Promise<Buffer | null> {
+  const parts: Buffer[] = [];
+  for (const doc of docs) {
+    const audio = await azureSynthesizeSsml(doc, username);
+    if (!audio) return null;
+    parts.push(audio);
+  }
+  return parts.length > 0 ? Buffer.concat(parts) : null;
 }
 
 async function azureCost(username: string, chars: number): Promise<void> {

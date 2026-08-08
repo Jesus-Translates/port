@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
-import { pickVoice, ssmlSegments } from "@/lib/tts";
+import { pickVoice, ssmlSegmentDocs } from "@/lib/tts";
 
 /**
  * Listen & Speak — Pimsleur-style hands-free sessions built from the learner's
@@ -31,7 +31,7 @@ type Segment = {
  */
 export function buildSessionSsml(
   cards: { front: string; back: string }[]
-): { ssml: string; chars: number } {
+): { docs: string[]; chars: number } {
   const usable = cards
     .map((c) => ({ front: c.front?.trim() ?? "", back: c.back?.trim() ?? "" }))
     .filter((c) => c.front && c.back)
@@ -56,7 +56,9 @@ export function buildSessionSsml(
   }
 
   return {
-    ssml: ssmlSegments(segments),
+    // Split across documents when needed — Azure caps <voice> elements per
+    // document, and a session is the longest thing we ever synthesize.
+    docs: ssmlSegmentDocs(segments),
     // Azure bills per spoken character; markup and pauses don't count.
     chars: segments.reduce((n, s) => n + s.text.length, 0),
   };

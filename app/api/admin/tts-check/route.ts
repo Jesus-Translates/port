@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getRole, getSession } from "@/lib/auth";
+import { buildSessionSsml } from "@/lib/ls";
 import { azureConfigured, azureTrySsml, azureVoices, ssmlFor, ssmlSegments } from "@/lib/tts";
 
 export const maxDuration = 60;
@@ -36,6 +37,22 @@ export async function GET() {
         { text: "Where is the bus stop?", voice: "en-US-JennyNeural", rate: "1.0", breakAfterMs: 4500 },
         { text: "Onde fica a paragem do autocarro?", voice, rate: "0.9", breakAfterMs: 1500 },
       ]),
+    });
+  }
+
+  // Size probes. A full Listen & Speak session is 20 cards; Azure caps a
+  // document at 50 <voice> elements, and the builder emits two per segment.
+  const card = (i: number) => ({
+    front: `Where is the bus stop number ${i}?`,
+    back: `Onde fica a paragem do autocarro número ${i}?`,
+  });
+  for (const n of [4, 8, 12, 20]) {
+    const { docs } = buildSessionSsml(Array.from({ length: n }, (_, i) => card(i)));
+    docs.forEach((ssml, part) => {
+      probes.push({
+        name: `session ${n} cards${docs.length > 1 ? ` p${part + 1}` : ""} (${(ssml.match(/<voice/g) ?? []).length} voice tags)`,
+        ssml,
+      });
     });
   }
 
