@@ -1,7 +1,8 @@
 import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
@@ -54,7 +55,7 @@ const fraseSchema = z.object({
 
 const GAME_RULES = `You build short, fast vocabulary GAMES for a family of English speakers learning EUROPEAN Portuguese.
 
-${PT_STYLE}
+${await currentStyle()}
 
 Non-negotiable rules for every single item:
 - STRICT European Portuguese. Never a Brazilian form: o autocarro (never ônibus), a casa de banho (never banheiro),
@@ -65,8 +66,8 @@ Non-negotiable rules for every single item:
 - Continuous action is ALWAYS "estar a + infinitive" (estou a comer, ela está a trabalhar) — NEVER the gerund (estou comendo).
 - Every noun is written WITH its definite article, exactly as a phrasebook would list it: a praia, o frigorífico,
   os vizinhos, a casa de banho, o multibanco.
-- Ground everything in their real life on the Atlantic coast near Santa Cruz / Torres Vedras: o mercado, a praia,
-  os vizinhos, o multibanco, a farmácia, o talho, o autocarro, o vento, a escola.
+- Ground everything in the learner's own real life: o mercado, a praia,
+  os vizinhos, o multibanco, a farmácia, o talho, o autocarro, a escola.
 - Respect the CEFR level: A1 concrete everyday things and set phrases; A2 simple everyday sentences in present and
   perfeito; B1 opinions, plans and past narration; B2 nuance, connectors and idiom.
 - The English is natural British English, not a word-for-word gloss.`;
@@ -162,7 +163,7 @@ Avoid sentences that would still sound right scrambled (no bare lists, no "A e B
 in one sentence, and keep them between 5 and 10 words. Punctuation only at the very end.`,
       prompt: `Write 6 sentences about "${topic}" at CEFR level ${level}.
 Vary them: a statement, a question, a negative, one about the past, one about what someone is doing right now
-(estar a + infinitive), one about a plan. Each one must be something this family would really say near Santa Cruz.`,
+(estar a + infinitive), one about a plan. Each one must be something the learner would really say where they live.`,
     });
     await recordUsage(session.username, "jogo-frase", modelId(), usage);
 

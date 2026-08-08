@@ -1,12 +1,13 @@
 import { PlacementQuiz } from "@/components/placement-quiz";
+import { PlaceForm } from "@/components/place-form";
 import { requireSession } from "@/lib/auth";
-import { getMyCefr } from "@/lib/actions/profile";
+import { getMyCefr, getMyPlace } from "@/lib/actions/profile";
 
 export const metadata = { title: "Nível" };
 
 export default async function PlacementPage() {
   await requireSession();
-  const level = await getMyCefr();
+  const [level, place] = await Promise.all([getMyCefr(), getMyPlace()]);
 
   return (
     <div className="space-y-6">
@@ -20,6 +21,10 @@ export default async function PlacementPage() {
           any time by taking the test again.
         </p>
       </header>
+
+      {/* Asked before the quiz: it takes two taps and it localises every piece
+          of content the app generates from here on. */}
+      <PlaceForm initial={place} />
 
       <PlacementQuiz savedLevel={level} />
 

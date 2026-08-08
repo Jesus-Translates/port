@@ -1,7 +1,8 @@
 import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import {
@@ -79,13 +80,13 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: dialogueSchema }),
-    instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${PT_STYLE}
+    instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}
 Write it as REAL SPEECH, not a textbook: exactly two speakers with short Portuguese first names, taking turns, 8-14 lines,
 most of them one sentence long. Use the contractions and fillers spoken Portuguese actually has — "'tá" for está when it
 fits, "pois", "então", "olha", "se calhar", "pronto", "'tá bem" — plus everyday politeness (bom dia, faz favor, obrigado/a).
 Keep every structure inside the target CEFR level; a lower level means shorter lines and present tense, not stilted robot talk.
-Ground it in their real world near Santa Cruz / Silveira / Torres Vedras: o mercado, a peixaria, a praia, o autocarro, o
-multibanco, a farmácia, os vizinhos, o vento. Translations are natural English, not word-for-word.`,
+Ground it in the learner's own real world: o mercado, a peixaria, a praia, o autocarro, o
+multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English, not word-for-word.`,
     prompt: `Write a listening dialogue at CEFR level ${cefr}${
       topic ? ` about: ${topic}` : " about an ordinary everyday situation"
     }.`,

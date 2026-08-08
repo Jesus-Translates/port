@@ -1,7 +1,8 @@
 import { generateText, Output } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
-import { getModel, PT_STYLE, refSuggestSchema } from "@/lib/ai";
+import { getModel, refSuggestSchema } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { categories, getDb, refEntries } from "@/lib/db";
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: refSuggestSchema }),
-    instructions: `You expand a family's European Portuguese phrasebook. ${PT_STYLE}
+    instructions: `You expand a family's European Portuguese phrasebook. ${await currentStyle()}
 Suggest genuinely useful NEW entries for the given category — never duplicate or trivially vary what's already there.
 kinds: term (noun with article), verb (infinitive), phrase (natural sentence, usually with a replyPt/replyEn),
 task (household to-do). Reuse the existing section names where they fit; invent at most one new section.

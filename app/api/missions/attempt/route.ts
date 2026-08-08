@@ -2,7 +2,8 @@ import { generateText, Output } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
+import { getModel, SPEAKING_COACHING } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, missionAttempts, missions } from "@/lib/db";
@@ -112,7 +113,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: missionGradeSchema }),
-    instructions: `You are Luna, grading a real-world FIELD MISSION for a family learning European Portuguese near Torres Vedras. ${PT_STYLE}
+    instructions: `You are Luna, grading a real-world FIELD MISSION for a family learning European Portuguese. ${await currentStyle()}
 
 The learner (${session.displayName}, level ${mission.cefr}) either did the errand for real or rehearsed it out loud.
 

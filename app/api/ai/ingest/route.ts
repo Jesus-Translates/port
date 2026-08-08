@@ -2,7 +2,8 @@ import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { categories, getDb, refEntries } from "@/lib/db";
@@ -171,7 +172,7 @@ export async function POST(request: NextRequest) {
 
   const args = {
     model: getModel(),
-    instructions: `You file new content into a family's European Portuguese phrasebook. ${PT_STYLE}
+    instructions: `You file new content into a family's European Portuguese phrasebook. ${await currentStyle()}
 The raw content may be messy: a word list, class notes, a worksheet, mixed English/Portuguese, even Brazilian forms.
 For each genuinely useful vocabulary item or phrase you find, produce ONE entry:
 - pt: the CORRECT pt-PT form — fix errors, convert Brazilian to European forms, give nouns their article (a toalha), verbs as infinitive, phrases as natural sentences.

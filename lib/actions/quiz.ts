@@ -8,9 +8,9 @@ import {
   FEEDBACK_COACHING,
   gradeSchema,
   getModel,
-  PT_STYLE,
   type QuizQuestions,
 } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, quizzes } from "@/lib/db";
@@ -76,7 +76,7 @@ export async function submitQuiz(
       const { output, usage } = await generateText({
         model: getModel(),
         output: Output.object({ schema: gradeSchema }),
-        instructions: `You are grading a European Portuguese quiz for a family learning app. ${PT_STYLE}
+        instructions: `You are grading a European Portuguese quiz for a family learning app. ${await currentStyle()}
 Decide if each answer is acceptable pt-PT (allow contractions, optional subject pronouns, synonyms).
 Treat a right-meaning answer with only spelling/accent slips as CORRECT, verdict "quase" — the learner understood,
 they just mis-typed. Empty answers are wrong.

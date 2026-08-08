@@ -1,4 +1,5 @@
 import {
+  boolean,
   integer,
   jsonb,
   pgTable,
@@ -14,6 +15,12 @@ export const users = pgTable("users", {
   displayName: text("display_name").notNull(),
   // A1 | A2 | B1 | B2 — set by the placement quiz, filters default to level ±1.
   cefrLevel: text("cefr_level").notNull().default("A2"),
+  // Where the learner actually lives, asked during onboarding. null means not
+  // asked yet, which is NOT the same as "no" — generated content stays generic
+  // until we know, rather than guessing at a town.
+  livesInPortugal: boolean("lives_in_portugal"),
+  /** Free text as the learner typed it: "Ericeira", "Lisboa", "Austin, Texas". */
+  locality: text("locality"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

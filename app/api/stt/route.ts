@@ -1,6 +1,7 @@
 import { generateText } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
-import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
+import { getModel, SPEAKING_COACHING } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { scorePronunciation } from "@/lib/pronunciation";
@@ -100,7 +101,7 @@ export async function POST(request: NextRequest) {
       try {
         const { text, usage } = await generateText({
           model: getModel(),
-          instructions: `You are Luna, a European Portuguese pronunciation coach. ${PT_STYLE}
+          instructions: `You are Luna, a European Portuguese pronunciation coach. ${await currentStyle()}
 A learner read a sentence aloud; speech recognition compared it to the target. From the mismatches, diagnose the 1-2 most
 likely PRONUNCIATION causes.
 
@@ -137,7 +138,7 @@ preamble, no closing line. English, with pt-PT sounds in **bold**.`,
   try {
     const { text, usage } = await generateText({
       model: getModel(),
-      instructions: `You are Luna, a warm European Portuguese tutor. ${PT_STYLE}
+      instructions: `You are Luna, a warm European Portuguese tutor. ${await currentStyle()}
 The learner (${session.displayName}) SPOKE an answer to a question and you see only its transcript: judge whether it
 answered the question, plus word choice, verb forms and fluency.
 

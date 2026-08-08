@@ -5,6 +5,7 @@ import { eq } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, users } from "@/lib/db";
+import { cleanLocality, getPlace, type Place } from "@/lib/place";
 
 // Kept module-local: a "use server" file may only export async functions.
 const LEVELS = ["A1", "A2", "B1", "B2"];
@@ -25,6 +26,44 @@ export async function getMyCefr(): Promise<string> {
     // A level is only ever a default for a <select>; never block a page on it.
     return DEFAULT_LEVEL;
   }
+}
+
+/** Where the signed-in person lives — drives the examples every generator invents. */
+export async function getMyPlace(): Promise<Place> {
+  const session = await requireSession();
+  return getPlace(session.username);
+}
+
+/**
+ * Save the onboarding answer. `livesInPortugal` is the deciding fact and
+ * `locality` is optional — someone can say "yes, Portugal" without naming a
+ * town, and the content still improves.
+ */
+export async function setMyPlace(
+  livesInPortugal: boolean,
+  locality: string
+): Promise<void> {
+  const session = await requireSession();
+  const clean = cleanLocality(locality);
+
+  // Upsert for the same reason setCefrLevel does: a member added after the
+  // last seed run has no users row yet, and would otherwise save nothing.
+  await getDb()
+    .insert(users)
+    .values({
+      username: session.username,
+      displayName: session.displayName,
+      livesInPortugal,
+      locality: clean,
+    })
+    .onConflictDoUpdate({
+      target: users.username,
+      set: { livesInPortugal, locality: clean },
+    });
+
+  // Everything generated from here on is pitched at this place, so drop the
+  // cached pages that show generated content.
+  revalidatePath("/", "layout");
 }
 
 /** Store the level from the placement quiz (or a manual pick). */

@@ -22,6 +22,13 @@
       "when": 1786195334405,
       "tag": "0002_homework_unit_item",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1786228040907,
+      "tag": "0003_learner_place",
+      "breakpoints": true
     }
   ]
 }

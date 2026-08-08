@@ -2,7 +2,8 @@ import { generateText, Output } from "ai";
 import { asc, inArray, like, sql } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { familyList, getModel, PT_STYLE } from "@/lib/ai";
+import { familyList, getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession, getValidUsers } from "@/lib/auth";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
@@ -129,7 +130,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: unitGenSchema }),
-    instructions: `You are Luna, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(getValidUsers())}). ${PT_STYLE}
+    instructions: `You are Luna, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(getValidUsers())}). ${await currentStyle()}
 
 A UNIT is one teaching point plus a short, ordered path through activities the app already has.
 

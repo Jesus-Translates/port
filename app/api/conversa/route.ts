@@ -2,7 +2,8 @@ import { createHash } from "node:crypto";
 import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE, SPEAKING_COACHING } from "@/lib/ai";
+import { getModel, SPEAKING_COACHING } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession, type Session } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { addMistakeCard } from "@/lib/srs";
@@ -30,14 +31,14 @@ export const maxDuration = 120;
  */
 
 const RANDOM_TOPICS = [
-  "a praia de Santa Cruz",
+  "a praia",
   "o mercado semanal",
   "o tempo e o vento",
   "os vizinhos",
   "o jantar de hoje",
   "futebol e desporto",
   "as férias de verão",
-  "uma ida a Torres Vedras",
+  "uma ida à vila",
   "os pastéis e o café",
   "a família",
   "o supermercado",
@@ -104,8 +105,11 @@ function transcriptOf(history: HistoryTurn[]): string {
     .slice(0, 6000);
 }
 
-function conversationInstructions(displayName: string, cefr: string): string {
-  return `You are Luna, having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. ${PT_STYLE}
+async function conversationInstructions(
+  displayName: string,
+  cefr: string
+): Promise<string> {
+  return `You are Luna, having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. ${await currentStyle()}
 
 Rules of the conversation:
 - Reply in 1-2 SHORT sentences, then ask exactly ONE simple follow-up question. Never a monologue.
@@ -165,7 +169,7 @@ async function generateReply(
 ): Promise<{ replyPt: string; glossEn: string }> {
   const args = {
     model: getModel(),
-    instructions: conversationInstructions(session.displayName, cefr),
+    instructions: await conversationInstructions(session.displayName, cefr),
     prompt:
       history.length === 0 && learnerLine === null
         ? `Open a conversation about "${topic}". Greet ${session.displayName} by name, say one short thing about the topic, and ask one easy question to get them talking.`
@@ -375,7 +379,7 @@ export async function POST(request: NextRequest) {
     try {
       const args = {
         model: getModel(),
-        instructions: `You are Luna, reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${PT_STYLE}
+        instructions: `You are Luna, reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${await currentStyle()}
 
 ${SPEAKING_COACHING}
 

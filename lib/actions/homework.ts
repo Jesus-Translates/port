@@ -9,8 +9,8 @@ import {
   homeworkGenSchema,
   getModel,
   itemFeedbackSchema,
-  PT_STYLE,
 } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { requireSession } from "@/lib/auth";
 import { completeItem } from "@/lib/actions/course";
 import { logActivity } from "@/lib/data";
@@ -61,7 +61,7 @@ async function gradeWithLuna(
     const { text, usage } = await generateText({
       model: getModel(),
       instructions: `You are Luna, a kind European Portuguese tutor grading homework from an adult A2 learner.
-${PT_STYLE}
+${await currentStyle()}
 Return markdown feedback with exactly these sections:
 ### O que está ótimo ✨  (2-3 genuine positives, quote their Portuguese)
 ### Correções 🔧  (each mistake: their sentence → corrected sentence → one-line why; skip if none)
@@ -153,7 +153,7 @@ export async function enhanceHomework(id: number) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: homeworkGenSchema }),
-    instructions: `You are Luna, a European Portuguese tutor. ${PT_STYLE}
+    instructions: `You are Luna, a European Portuguese tutor. ${await currentStyle()}
 The learner brought homework from their Portuguese class. Enhance it: keep the original meaning but return an improved version
 that appends a "## ✨ Extras da Luna" markdown section with: key vocabulary they'll need (pt → en), one worked example,
 and 1-2 bonus mini-exercises in the same spirit. Return the FULL instructions (original + extras) in the instructions field,
@@ -185,7 +185,7 @@ async function gradeOneItem(
       model: getModel(),
       output: Output.object({ schema: itemFeedbackSchema }),
       instructions: `You are Luna, a warm European Portuguese tutor giving instant feedback on ONE homework answer from a learner (${displayName}).
-${PT_STYLE}
+${await currentStyle()}
 Accept natural variation (contractions, optional subject pronouns, synonyms). Right meaning with only spelling/accent
 slips counts as correct with verdict "quase". If the task asked them to write freely, judge whether the Portuguese is
 correct, not whether it matches an expected answer.

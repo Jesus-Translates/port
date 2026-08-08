@@ -21,9 +21,9 @@ export function getModel(): LanguageModel {
 
 export const PT_STYLE = `You are working with EUROPEAN Portuguese (português europeu, pt-PT), never Brazilian Portuguese.
 Non-negotiable conventions: "tu" register between family/friends (tu fazes, fizeste), "estar a + infinitive" (not gerund),
-"o pequeno-almoço" (not café da manhã), "o autocarro", "a casa de banho", "o frigorífico", "o telemóvel".
-The learners live near Santa Cruz / Silveira, Torres Vedras, on the Portuguese Atlantic coast — use that local, everyday context
-(o mercado, a praia, o vento, o multibanco, a farmácia de serviço) when inventing examples.`;
+"o pequeno-almoço" (not café da manhã), "o autocarro", "a casa de banho", "o frigorífico", "o telemóvel".`;
+// Where the learner lives is deliberately NOT here — it varies per person and
+// is appended by styleFor() in lib/place.ts. See placeLine() for the wording.
 
 /** "Kelly, Jenni and Robert" from a list of names. */
 export function familyList(names: string[]): string {

@@ -2,7 +2,8 @@ import { generateText, Output } from "ai";
 import { desc, eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { getCefrFor } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
@@ -80,13 +81,13 @@ export async function POST(request: NextRequest) {
     ? `Create it around the requested topic: "${theme}".`
     : context
       ? `Ground it in what the learner is currently studying — ${context} Practise that same material.`
-      : "Everyday life near Santa Cruz / Torres Vedras.";
+      : "Everyday life where the learner lives.";
 
   if (kind === "frases") {
     const { output, usage } = await generateText({
       model: getModel(),
       output: Output.object({ schema: frasesSchema }),
-      instructions: `You write pt-PT sentences for an adult learner at CEFR level ${cefr} to READ ALOUD as pronunciation practice. ${PT_STYLE}
+      instructions: `You write pt-PT sentences for an adult learner at CEFR level ${cefr} to READ ALOUD as pronunciation practice. ${await currentStyle()}
 Each sentence natural, spoken-register, 8-16 words, and deliberately rich in the sounds English speakers struggle
 with (lh, nh, nasal vowels ão/õe/em, reduced vowels, final -s). Vary the verb tense across the three.`,
       prompt: `Write 3 read-aloud sentences. ${grounding}`,
@@ -98,7 +99,7 @@ with (lh, nh, nasal vowels ão/õe/em, reduced vowels, final -s). Vary the verb 
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: perguntaSchema }),
-    instructions: `You are Luna, asking ONE spoken conversation question to an adult learner of European Portuguese at CEFR level ${cefr}. ${PT_STYLE}
+    instructions: `You are Luna, asking ONE spoken conversation question to an adult learner of European Portuguese at CEFR level ${cefr}. ${await currentStyle()}
 The question must be answerable out loud in 2-4 sentences, personal and concrete, CIPLE-oral style — vary the verb
 tense you invite.`,
     prompt: `Ask one new question. ${grounding} Vary it — not the same opener every time. Seed: ${Date.now() % 97}`,

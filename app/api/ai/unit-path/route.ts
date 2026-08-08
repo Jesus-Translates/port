@@ -2,7 +2,8 @@ import { generateText, Output } from "ai";
 import { asc, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getRole, getSession } from "@/lib/auth";
 import {
   isItemKind,
@@ -128,7 +129,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: pathGenSchema }),
-    instructions: `You are Luna, building the PRACTICE PATH for one unit of a European Portuguese course. The learners are an English-speaking family living near Santa Cruz / Torres Vedras. ${PT_STYLE}
+    instructions: `You are Luna, building the PRACTICE PATH for one unit of a European Portuguese course. ${await currentStyle()}
 
 ${PATH_RULE}
 

@@ -1,6 +1,7 @@
 import { generateText, Output } from "ai";
 import { NextResponse } from "next/server";
-import { getModel, PT_STYLE, suggestSchema } from "@/lib/ai";
+import { getModel, suggestSchema } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import {
@@ -35,7 +36,7 @@ export async function POST() {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: suggestSchema }),
-    instructions: `You are Luna, the tutor inside a family's European Portuguese learning app. ${PT_STYLE}
+    instructions: `You are Luna, the tutor inside a family's European Portuguese learning app. ${await currentStyle()}
 Given the learner's recent activity, propose what to do next INSIDE the app. Available actions:
 - kind "quiz": take a generated quiz (param = topic)
 - kind "lesson": generate a workbook lesson (param = topic)

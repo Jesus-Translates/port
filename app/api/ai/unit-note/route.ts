@@ -1,7 +1,8 @@
 import { generateText } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
-import { getModel, PT_STYLE } from "@/lib/ai";
+import { getModel } from "@/lib/ai";
+import { currentStyle } from "@/lib/place";
 import { getRole, getSession } from "@/lib/auth";
 import { getDb, units } from "@/lib/db";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
@@ -57,7 +58,7 @@ export async function POST(request: NextRequest) {
 
   const { text, usage } = await generateText({
     model: getModel(),
-    instructions: `You are Luna, writing ONE unit's Learning Note for a family of English speakers living near Santa Cruz / Torres Vedras and learning European Portuguese together. ${PT_STYLE}
+    instructions: `You are Luna, writing ONE unit's Learning Note for English speakers learning European Portuguese. ${await currentStyle()}
 
 Write for an adult who wants to understand WHY, not just memorise. The house style, which matters:
 - FUNCTION BEFORE FORM. Open with what the structure DOES, in plain English, before naming it.
