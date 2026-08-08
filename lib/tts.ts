@@ -193,11 +193,9 @@ async function openaiSynthesize(
     }),
   });
   if (!res.ok) {
-    // Azure's failure reason was being thrown away, so every caller could only
-    // say "no audio came back". The body carries the actual cause.
     const detail = await res.text().catch(() => "");
     console.error(
-      `azure tts failed: ${res.status} ${res.statusText} — ${detail.slice(0, 400)} (ssml ${ssml.length} chars)`
+      `openai tts failed: ${res.status} ${res.statusText} — ${detail.slice(0, 400)}`
     );
     return null;
   }
