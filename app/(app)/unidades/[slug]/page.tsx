@@ -35,7 +35,8 @@ function normalizeKind(raw: string): ItemKind | null {
  * form they have to fill in themselves.
  */
 function resolve(
-  item: ItemRow
+  item: ItemRow,
+  unitSlug: string
 ): { kind: ItemKind; href: string; hint: string } | null {
   const kind = normalizeKind(item.kind);
   if (!kind) return null;
@@ -58,13 +59,13 @@ function resolve(
     case "jogo-pares":
       return {
         kind,
-        href: topic ? `/jogos/pares?topic=${q}` : "/jogos/pares",
+        href: `/jogos/pares?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
         hint: about,
       };
     case "jogo-frase":
       return {
         kind,
-        href: topic ? `/jogos/frase?topic=${q}` : "/jogos/frase",
+        href: `/jogos/frase?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
         hint: about,
       };
     case "ditado":
@@ -126,7 +127,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
   );
 
   const path: PathItem[] = items.flatMap((item) => {
-    const target = resolve(item);
+    const target = resolve(item, unit.slug);
     if (!target) return [];
     return [
       {

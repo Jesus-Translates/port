@@ -52,7 +52,18 @@ function clock(seconds: number): string {
   return m > 0 ? `${m}:${String(s).padStart(2, "0")}` : `${s}s`;
 }
 
-export function GamePares({ topic, level }: { topic: string; level: string }) {
+export function GamePares({
+  topic,
+  level,
+  nextHref,
+  nextLabel,
+}: {
+  topic: string;
+  level: string;
+  /** Where "Continuar" goes — the unit you came from, or the other game. */
+  nextHref: string;
+  nextLabel: string;
+}) {
   const [round, setRound] = useState(0);
   const [pairs, setPairs] = useState<Pair[]>([]);
   const [tiles, setTiles] = useState<Tile[]>([]);
@@ -291,13 +302,20 @@ export function GamePares({ topic, level }: { topic: string; level: string }) {
         {saveError ? (
           <p className="mt-2 text-sm text-terra-dark">{saveError}</p>
         ) : null}
-        <div className="mt-5 flex flex-wrap justify-center gap-2">
-          <button className="btn-primary" onClick={again} disabled={saving}>
-            Jogar outra vez ↻
-          </button>
-          <Link href="/jogos" className="btn-ghost">
-            ← Jogos
+        {/* Forward first: finishing something should always offer the next
+            thing, not just a way to repeat what you just did. */}
+        <div className="mt-5 space-y-2">
+          <Link href={nextHref} className="btn-primary block w-full">
+            {nextLabel} →
           </Link>
+          <div className="flex flex-wrap justify-center gap-2">
+            <button className="btn-ghost" onClick={again} disabled={saving}>
+              Jogar outra vez ↻
+            </button>
+            <Link href="/jogos" className="btn-ghost">
+              ← Jogos
+            </Link>
+          </div>
         </div>
       </div>
     );

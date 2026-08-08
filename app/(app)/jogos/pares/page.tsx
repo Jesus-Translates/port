@@ -21,6 +21,16 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
   const topic = one(sp.topic).slice(0, 200) || DEFAULT_TOPIC;
   const asked = one(sp.level).toUpperCase();
   const level = LEVELS.includes(asked) ? asked : await getMyCefr();
+
+  // Where "Continuar" goes. A unit path sends ?unidade=<slug>, so finishing
+  // the game returns you to the unit to tick it off; otherwise move on to the
+  // sibling game carrying the same topic, so momentum is never lost.
+  const unidade = one(sp.unidade).slice(0, 120);
+  const qs = `topic=${encodeURIComponent(topic)}&level=${encodeURIComponent(level)}`;
+  const nextHref = unidade
+    ? `/unidades/${encodeURIComponent(unidade)}`
+    : `/jogos/frase?${qs}`;
+  const nextLabel = unidade ? "Voltar à unidade" : "Constrói a frase";
   const meta = KIND_META["jogo-pares"];
 
   return (
@@ -51,7 +61,13 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
         </div>
       </header>
 
-      <GamePares key={`${topic}|${level}`} topic={topic} level={level} />
+      <GamePares
+        key={`${topic}|${level}`}
+        topic={topic}
+        level={level}
+        nextHref={nextHref}
+        nextLabel={nextLabel}
+      />
     </div>
   );
 }
