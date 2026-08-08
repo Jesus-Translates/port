@@ -4,7 +4,7 @@ import { asc, eq } from "drizzle-orm";
 import { UnitNote } from "@/components/unit-note";
 import { UnitPath, UnitPathBuild, type PathItem } from "@/components/unit-path";
 import { UnitReview } from "@/components/unit-review";
-import { getCompletedItemIds } from "@/lib/actions/course";
+import { getCompletedItemIds, getCourseProgress } from "@/lib/actions/course";
 import { getRole, requireSession } from "@/lib/auth";
 import { isItemKind, KIND_META, type ItemKind } from "@/lib/course";
 import { categories, getDb, unitItems, units } from "@/lib/db";
@@ -61,61 +61,61 @@ function resolve(
     case "jogo-pares":
       return {
         kind,
-        href: `/jogos/pares?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/jogos/pares?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "jogo-frase":
       return {
         kind,
-        href: `/jogos/frase?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/jogos/frase?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "ditado":
       return {
         kind,
-        href: `/practice/ditado?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/practice/ditado?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "cloze":
       return {
         kind,
-        href: `/practice/ditado?modo=cloze&${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/practice/ditado?modo=cloze&${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "verbos":
       return {
         kind,
-        href: `/practice/verbos?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/practice/verbos?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "escutar":
       return {
         kind,
-        href: `/escutar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/escutar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "story":
       return {
         kind,
-        href: `/stories?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/stories?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "falar":
       return {
         kind,
-        href: `/practice/falar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/practice/falar?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "conversa":
       return {
         kind,
-        href: `/practice/conversa?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/practice/conversa?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "homework":
       return {
         kind,
-        href: `/homework?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}`,
+        href: `/homework?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
   }
@@ -151,6 +151,13 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
   const doneIds = new Set(
     items.length > 0 ? await getCompletedItemIds(unit.id) : []
   );
+
+  // The unit after this one, for the 100% hand-off.
+  const course = await getCourseProgress().catch(() => null);
+  const nextUnit =
+    course?.next && course.next.slug !== unit.slug
+      ? { slug: course.next.slug, title: course.next.title }
+      : null;
 
   const path: PathItem[] = items.flatMap((item) => {
     const target = resolve(item, unit.slug);
@@ -209,7 +216,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
       <UnitNote unitId={unit.id} noteMd={unit.noteMd} />
 
       {path.length > 0 ? (
-        <UnitPath items={path} />
+        <UnitPath items={path} nextUnit={nextUnit} />
       ) : items.length === 0 ? (
         <UnitPathBuild unitId={unit.id} />
       ) : (

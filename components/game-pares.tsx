@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { cn } from "@/lib/utils";
 
@@ -57,12 +58,15 @@ export function GamePares({
   level,
   nextHref,
   nextLabel,
+  unitItemId,
 }: {
   topic: string;
   level: string;
   /** Where "Continuar" goes — the unit you came from, or the other game. */
   nextHref: string;
   nextLabel: string;
+  /** When launched from a unit path, tick that item off automatically. */
+  unitItemId?: number | null;
 }) {
   const [round, setRound] = useState(0);
   const [pairs, setPairs] = useState<Pair[]>([]);
@@ -163,6 +167,9 @@ export function GamePares({
     setResult({ seconds, score });
     setSaving(true);
     try {
+      // Finishing the activity IS the completion — don't make the learner walk
+      // back to the unit and tick a box they already earned.
+      if (unitItemId) void completeItem(unitItemId, score).catch(() => {});
       await finishGame(
         "pares",
         score,

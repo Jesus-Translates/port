@@ -126,12 +126,14 @@ export default async function Dashboard() {
         </div>
       </Link>
 
-      {placed && course && course.unitsTotal > 0 ? (
+      {course && course.unitsTotal > 0 ? (
         <section>
           <h2 className="mb-3 text-lg font-semibold">
             🎓 O teu curso{" "}
             <span className="text-sm font-normal text-ink-faint">
-              · nível {course.level}
+              {placed
+                ? `· nível ${course.level}`
+                : `· ${course.level} por omissão — faz o teste de nível`}
             </span>
           </h2>
           <div className="card p-4">

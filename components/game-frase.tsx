@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { cn } from "@/lib/utils";
 
@@ -146,12 +147,15 @@ export function GameFrase({
   level,
   nextHref,
   nextLabel,
+  unitItemId,
 }: {
   topic: string;
   level: string;
   /** Where "Continuar" goes — the unit you came from, or the other game. */
   nextHref: string;
   nextLabel: string;
+  /** When launched from a unit path, tick that item off automatically. */
+  unitItemId?: number | null;
 }) {
   const [round, setRound] = useState(0);
   const [items, setItems] = useState<Item[]>([]);
@@ -263,6 +267,14 @@ export function GameFrase({
     setDone(true);
     setSaving(true);
     try {
+      // Finishing the activity IS the completion — don't make the learner walk
+      // back to the unit and tick a box they already earned.
+      if (unitItemId) {
+        const pct = items.length
+          ? Math.round((score / items.length) * 100)
+          : null;
+        void completeItem(unitItemId, pct).catch(() => {});
+      }
       await finishGame("frase", score, items.length, misses);
     } catch {
       setSaveError("Fizeste o teu resultado, mas não deu para o guardar.");

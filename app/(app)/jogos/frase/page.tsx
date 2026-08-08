@@ -26,6 +26,8 @@ export default async function JogoFrasePage(props: PageProps<"/jogos/frase">) {
   // the game returns you to the unit to tick it off; otherwise move on to the
   // sibling game carrying the same topic, so momentum is never lost.
   const unidade = one(sp.unidade).slice(0, 120);
+  // The path item this game is fulfilling, so it can tick itself off.
+  const itemId = Number(one(sp.item)) || null;
   const qs = `topic=${encodeURIComponent(topic)}&level=${encodeURIComponent(level)}`;
   const nextHref = unidade
     ? `/unidades/${encodeURIComponent(unidade)}`
@@ -68,6 +70,7 @@ export default async function JogoFrasePage(props: PageProps<"/jogos/frase">) {
         level={level}
         nextHref={nextHref}
         nextLabel={nextLabel}
+        unitItemId={itemId}
       />
     </div>
   );

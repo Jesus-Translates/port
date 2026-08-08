@@ -22,7 +22,14 @@ export type PathItem = {
  * screen that already knows the topic, every step can be ticked off, and the
  * first unfinished one is marked as where you pick up.
  */
-export function UnitPath({ items }: { items: PathItem[] }) {
+export function UnitPath({
+  items,
+  nextUnit,
+}: {
+  items: PathItem[];
+  /** The unit after this one, so 100% is a doorway rather than a dead end. */
+  nextUnit?: { slug: string; title: string } | null;
+}) {
   // Overrides layer on TOP of the server truth, so a revalidate that brings
   // fresh props back never fights a stale local Set.
   const [overrides, setOverrides] = useState<Record<number, boolean>>({});
@@ -186,12 +193,24 @@ export function UnitPath({ items }: { items: PathItem[] }) {
       </ol>
 
       {done === total && total > 0 ? (
-        <p className="rounded-2xl border-l-4 border-sage bg-sage-pale/60 px-4 py-3 text-sm text-olive">
-          Unidade completa. Boa!{" "}
-          <span className="text-olive/80">
-            Every step ticked — pick the next unit when you are ready.
-          </span>
-        </p>
+        <div className="rounded-2xl border-l-4 border-sage bg-sage-pale/60 px-4 py-4">
+          <p className="text-sm text-olive">
+            🎉 Unidade completa. Boa!{" "}
+            <span className="text-olive/80">Every step ticked.</span>
+          </p>
+          {nextUnit ? (
+            <Link
+              href={`/unidades/${nextUnit.slug}`}
+              className="btn-primary mt-3 block w-full text-center"
+            >
+              Próxima unidade: {nextUnit.title} →
+            </Link>
+          ) : (
+            <Link href="/unidades" className="btn-ghost mt-3 inline-block">
+              ← Ver todas as unidades
+            </Link>
+          )}
+        </div>
       ) : null}
     </section>
   );
