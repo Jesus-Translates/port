@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { Recorder } from "@/components/recorder";
@@ -30,7 +29,6 @@ export function ReviewPlayer({
   initialQueue: QueueCard[];
   flash?: boolean;
 }) {
-  const router = useRouter();
   const [queue, setQueue] = useState(initialQueue);
   const [revealed, setRevealed] = useState(false);
   const [doneCount, setDoneCount] = useState(0);
@@ -52,7 +50,16 @@ export function ReviewPlayer({
             ? `Sanity check feito — ${doneCount} ${doneCount === 1 ? "cartão" : "cartões"} ✓`
             : `Sessão feita — ${doneCount} ${doneCount === 1 ? "cartão" : "cartões"}!`}
         </p>
-        <button className="btn-ghost mt-3" onClick={() => router.refresh()}>
+        <button
+          className="btn-ghost mt-3"
+          onClick={() => {
+            // router.refresh() left the page showing "all done" while cards
+            // were still due — a full navigation is what actually refetches.
+            window.location.href = flash
+              ? "/practice/rever?flash=1"
+              : "/practice/rever";
+          }}
+        >
           {flash ? "Outra ronda ⚡" : "Ver se há mais"}
         </button>
       </div>

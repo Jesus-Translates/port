@@ -6,7 +6,7 @@ import {
   type Card as FsrsCard,
   type Grade,
 } from "ts-fsrs";
-import { and, asc, eq, gt, gte, lte, sql } from "drizzle-orm";
+import { and, asc, eq, gt, gte, lte, ne, sql } from "drizzle-orm";
 import { cards, getDb, reviewLogs } from "@/lib/db";
 
 // Default FSRS-6 weights, 90% retention target. Fuzz spreads due times so
@@ -44,6 +44,10 @@ export function nextState(raw: unknown, rating: ReviewRating): FsrsCard {
 }
 
 const NEW_PER_DAY = 20;
+/** Mistakes ride OUTSIDE the new-card cap. Enrolling a phrasebook category
+ *  exhausts NEW_PER_DAY in one tap, and a mistake made afterwards would then
+ *  wait a full day — the opposite of "every wrong answer comes back". */
+const MISTAKE_PER_DAY = 10;
 const MAX_QUEUE = 100;
 
 /** Today's queue: due learning/review cards first, then up to the daily cap of
@@ -75,26 +79,40 @@ export async function getQueue(username: string) {
       )
     );
 
+  // Unseen MISTAKES first, on their own allowance. Ordering alone was not
+  // enough: once the daily cap was spent the fresh batch was empty entirely,
+  // so a word you got wrong an hour ago simply did not appear.
+  const freshMistakes = await db
+    .select()
+    .from(cards)
+    .where(
+      and(
+        eq(cards.username, username),
+        eq(cards.state, 0),
+        eq(cards.kind, "mistake")
+      )
+    )
+    .orderBy(asc(cards.id))
+    .limit(MISTAKE_PER_DAY);
+
   const newBudget = Math.max(0, NEW_PER_DAY - Number(introduced ?? 0));
-  const fresh =
+  const freshEntries =
     newBudget > 0
       ? await db
           .select()
           .from(cards)
-          .where(and(eq(cards.username, username), eq(cards.state, 0)))
-          // MISTAKES FIRST. Ordering by id alone starved them: enrolling a
-          // phrasebook category inserts hundreds of low-id "entry" cards, so a
-          // word you actually got wrong queued behind all of them — for weeks,
-          // at 20 new/day. Auto-enrolling mistakes is the whole point of the
-          // deck; showing them promptly is what makes it true.
-          .orderBy(
-            sql`case when ${cards.kind} = 'mistake' then 0 else 1 end`,
-            asc(cards.id)
+          .where(
+            and(
+              eq(cards.username, username),
+              eq(cards.state, 0),
+              ne(cards.kind, "mistake")
+            )
           )
+          .orderBy(asc(cards.id))
           .limit(newBudget)
       : [];
 
-  return [...due, ...fresh];
+  return [...due, ...freshMistakes, ...freshEntries];
 }
 
 /** Flash review: a quick sanity-check hand — due cards first, then a random

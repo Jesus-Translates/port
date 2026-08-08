@@ -12,7 +12,7 @@ const TABS = [
   { href: "/reference", emoji: "📖", label: "Livro", short: "Livro" },
   { href: "/workbook", emoji: "📚", label: "Lições", short: "Lições" },
   { href: "/homework", emoji: "✍️", label: "TPC", short: "TPC" },
-  { href: "/practice", emoji: "🎯", label: "Praticar", short: "Testes" },
+  { href: "/practice", emoji: "🎯", label: "Praticar", short: "Praticar" },
   { href: "/notes", emoji: "📝", label: "Notas", short: "Notas" },
   { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
 ];
@@ -82,7 +82,7 @@ export function Nav({
           </Link>
           <button
             onClick={logout}
-            className="shrink-0 p-1 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
+            className="flex min-h-11 shrink-0 items-center px-2 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
           >
             Sair
           </button>
@@ -138,7 +138,7 @@ export function Nav({
                   </span>
                   <span
                     className={cn(
-                      "text-[9px] leading-tight",
+                      "text-[10px] leading-tight",
                       active && "font-semibold"
                     )}
                   >
