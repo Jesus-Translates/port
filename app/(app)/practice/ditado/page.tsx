@@ -136,9 +136,21 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
     )
     .limit(POOL);
 
-  const picks = rows.slice(0, ROUND);
+  // Dedupe by the sentence itself, not the row id. The book genuinely holds
+  // the same phrase twice in places, and topic ranking scores identical text
+  // identically — so duplicates now sort ADJACENTLY where random ordering used
+  // to scatter them. Frase 1 and frase 2 came out the same sentence.
+  const seen = new Set<string>();
+  const unique = rows.filter((r) => {
+    const key = r.pt.trim().toLowerCase();
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+
+  const picks = unique.slice(0, ROUND);
   const clozes = isCloze
-    ? rows
+    ? unique
         .flatMap((p) => {
           const c = makeCloze(p.pt);
           return c ? [{ id: p.id, en: p.en, ...c }] : [];
