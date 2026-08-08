@@ -3,6 +3,8 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export const SESSION_COOKIE = "ph_session";
+/** Distinguishes a login session from every other token signed with JWT_SECRET. */
+const SESSION_AUDIENCE = "ph-session";
 const SESSION_DAYS = 30;
 
 export type Session = {
@@ -43,6 +45,7 @@ export async function createSessionToken(session: Session): Promise<string> {
   return new SignJWT({ name: session.displayName })
     .setProtectedHeader({ alg: "HS256" })
     .setSubject(session.username)
+    .setAudience(SESSION_AUDIENCE)
     .setIssuedAt()
     .setExpirationTime(`${SESSION_DAYS}d`)
     .sign(getSecret());
@@ -54,6 +57,15 @@ export async function verifySessionToken(
   try {
     const { payload } = await jwtVerify(token, getSecret());
     if (!payload.sub) return null;
+    // A session must not be impersonated by another token signed with the same
+    // secret. The Listen & Speak podcast feed mints a 90-day token with
+    // aud="ls-feed" and sub=username, and that URL is SHOWN to the user to
+    // paste into a podcast app — so without this check, leaking a feed URL
+    // leaked a login. Tokens minted before this existed carry no aud and stay
+    // valid so nobody is signed out; anything with a FOREIGN aud is rejected.
+    if (payload.aud !== undefined && payload.aud !== SESSION_AUDIENCE) {
+      return null;
+    }
     return {
       username: payload.sub,
       displayName: (payload.name as string) ?? payload.sub,

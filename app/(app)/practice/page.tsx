@@ -30,6 +30,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
     { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Luna ouve-te" },
     { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
     { href: "/practice/verbos", emoji: "⚡", title: "Verbos", sub: "conjugação sprint" },
+    { href: "/verbos", emoji: "🔤", title: "Conjugador", sub: "consulta, ouve e treina" },
     { href: "/escutar", emoji: "👂", title: "Escutar", sub: "diálogos com transcrição" },
     { href: "/practice/audio", emoji: "📻", title: "Áudio", sub: "sessões para o carro" },
     { href: "/ouvir", emoji: "🎧", title: "Ouvir", sub: "rádio, podcasts, vídeo" },
