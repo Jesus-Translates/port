@@ -95,7 +95,15 @@ export async function azureSynthesizeSsml(
       body: ssml,
     }
   );
-  if (!res.ok) return null;
+  if (!res.ok) {
+    // Azure's failure reason was being thrown away, so every caller could only
+    // say "no audio came back". The body carries the actual cause.
+    const detail = await res.text().catch(() => "");
+    console.error(
+      `azure tts failed: ${res.status} ${res.statusText} — ${detail.slice(0, 400)} (ssml ${ssml.length} chars)`
+    );
+    return null;
+  }
   const buf = Buffer.from(await res.arrayBuffer());
   if (username) await azureCost(username, ssml.length);
   return buf;
@@ -157,7 +165,15 @@ async function openaiSynthesize(
       response_format: "mp3",
     }),
   });
-  if (!res.ok) return null;
+  if (!res.ok) {
+    // Azure's failure reason was being thrown away, so every caller could only
+    // say "no audio came back". The body carries the actual cause.
+    const detail = await res.text().catch(() => "");
+    console.error(
+      `azure tts failed: ${res.status} ${res.statusText} — ${detail.slice(0, 400)} (ssml ${ssml.length} chars)`
+    );
+    return null;
+  }
   const buf = Buffer.from(await res.arrayBuffer());
   const seconds = buf.length / 4000;
   await recordUsage(username, "tts", "openai/gpt-4o-mini-tts", {
