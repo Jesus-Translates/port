@@ -255,3 +255,71 @@ export async function getStartUnit(): Promise<{
     cefr: next.cefr,
   };
 }
+
+export type CourseProgress = {
+  level: string;
+  unitsTotal: number;
+  unitsDone: number;
+  unitsStarted: number;
+  pct: number;
+  next: { slug: string; title: string; titlePt: string } | null;
+};
+
+/**
+ * The learner's whole course at a glance: how far through their level they
+ * are, and which unit is next.
+ *
+ * Placement assigns a level; this is what makes that assignment feel like an
+ * actual course rather than a label on a dropdown.
+ */
+export async function getCourseProgress(): Promise<CourseProgress> {
+  const session = await requireSession();
+  const level = await getCefrFor(session.username);
+  const db = getDb();
+
+  const rows = await db
+    .select({
+      id: units.id,
+      slug: units.slug,
+      title: units.title,
+      titlePt: units.titlePt,
+    })
+    .from(units)
+    .where(and(eq(units.status, "published"), eq(units.cefr, level)))
+    .orderBy(asc(units.sortOrder), asc(units.id));
+
+  const empty: CourseProgress = {
+    level,
+    unitsTotal: rows.length,
+    unitsDone: 0,
+    unitsStarted: 0,
+    pct: 0,
+    next: rows[0]
+      ? { slug: rows[0].slug, title: rows[0].title, titlePt: rows[0].titlePt }
+      : null,
+  };
+  if (rows.length === 0) return empty;
+
+  const pcts = await getUnitProgress(rows.map((r) => r.id));
+  const byId = new Map(pcts.map((p) => [p.unitId, p]));
+  const done = new Set<number>();
+  let started = 0;
+  for (const r of rows) {
+    const p = byId.get(r.id);
+    if (!p) continue;
+    if (p.total > 0 && p.done >= p.total) done.add(r.id);
+    else if (p.done > 0) started += 1;
+  }
+  const nextRow = rows.find((r) => !done.has(r.id)) ?? null;
+
+  return {
+    level,
+    unitsTotal: rows.length,
+    unitsDone: done.size,
+    unitsStarted: started,
+    pct: pctOf(done.size, rows.length),
+    next: nextRow
+      ? { slug: nextRow.slug, title: nextRow.title, titlePt: nextRow.titlePt }
+      : null,
+  };
+}

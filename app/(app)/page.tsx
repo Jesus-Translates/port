@@ -8,6 +8,7 @@ import {
   getKudosFor,
   getStats,
 } from "@/lib/data";
+import { getCourseProgress } from "@/lib/actions/course";
 import { resolveNextAction } from "@/lib/next-action";
 import { avatarFor, titleCase } from "@/lib/people";
 import { countDue } from "@/lib/srs";
@@ -33,7 +34,7 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos, due, next] =
+  const [stats, allHomework, cats, board, myKudos, due, next, course] =
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
@@ -42,6 +43,7 @@ export default async function Dashboard() {
       getKudosFor(session.username, 5).catch(() => []),
       countDue(session.username).catch(() => 0),
       resolveNextAction(session.username, session.displayName),
+      getCourseProgress().catch(() => null),
     ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const leader = board[0];
@@ -121,6 +123,66 @@ export default async function Dashboard() {
           </span>
         </div>
       </Link>
+
+      {course && course.unitsTotal > 0 ? (
+        <section>
+          <h2 className="mb-3 text-lg font-semibold">
+            🎓 O teu curso{" "}
+            <span className="text-sm font-normal text-ink-faint">
+              · nível {course.level}
+            </span>
+          </h2>
+          <div className="card p-4">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="text-sm text-ink-soft">
+                {course.unitsDone} de {course.unitsTotal} unidades
+                {course.unitsStarted > 0
+                  ? ` · ${course.unitsStarted} a meio`
+                  : ""}
+              </span>
+              <span className="font-display text-xl font-semibold text-olive tabular-nums">
+                {course.pct}%
+              </span>
+            </div>
+            <div className="mt-2 h-2 overflow-hidden rounded-full bg-sand">
+              <div
+                className="h-full rounded-full bg-olive transition-all"
+                style={{ width: `${course.pct}%` }}
+              />
+            </div>
+            <div className="mt-3 flex flex-wrap items-center gap-3">
+              {course.next ? (
+                <Link
+                  href={`/unidades/${course.next.slug}`}
+                  className="btn-primary"
+                >
+                  {course.unitsDone === 0 && course.unitsStarted === 0
+                    ? "Começar →"
+                    : "Continuar →"}
+                </Link>
+              ) : (
+                <span className="chip bg-sage-pale text-olive">
+                  🏆 Nível {course.level} completo
+                </span>
+              )}
+              {course.next ? (
+                <span className="min-w-0 flex-1 truncate text-sm text-ink-soft">
+                  {course.next.title}
+                  {course.next.titlePt ? (
+                    <span className="text-ink-faint"> · {course.next.titlePt}</span>
+                  ) : null}
+                </span>
+              ) : null}
+              <Link
+                href="/unidades"
+                className="text-xs text-ink-faint hover:text-olive"
+              >
+                ver todas
+              </Link>
+            </div>
+          </div>
+        </section>
+      ) : null}
 
       {due > 0 && next.href !== "/practice/rever" ? (
         <Link

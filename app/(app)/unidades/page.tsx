@@ -68,13 +68,15 @@ export default async function UnidadesPage() {
     rows.find((r) => r.cefr === myLevel && (pctFor.get(r.id)?.pct ?? 0) < 100)
       ?.id ?? null;
 
-  // Known levels first, in order; anything odd keeps its own bucket at the end.
-  const buckets = [
+  // THE LEARNER'S OWN LEVEL FIRST. Listing A1 first meant an A2 learner
+  // scrolled past 32 units that are not their course to reach the one that is.
+  const others = [
     ...LEVELS,
     ...[...new Set(rows.map((r) => r.cefr))].filter(
       (c) => !LEVELS.includes(c as (typeof LEVELS)[number])
     ),
-  ];
+  ].filter((l) => l !== myLevel);
+  const buckets = [myLevel, ...others];
 
   return (
     <div className="space-y-6">
@@ -98,8 +100,27 @@ export default async function UnidadesPage() {
           if (inLevel.length === 0) return null;
           return (
             <section key={level}>
-              <h2 className="mb-2 font-display text-lg font-semibold">
+              <h2 className="mb-2 flex flex-wrap items-baseline gap-2 font-display text-lg font-semibold">
                 {level}
+                {level === myLevel ? (
+                  <>
+                    <span className="chip bg-sage-pale text-olive">
+                      o teu curso
+                    </span>
+                    <span className="text-sm font-normal text-ink-faint">
+                      {
+                        inLevel.filter(
+                          (u) => (pctFor.get(u.id)?.pct ?? 0) >= 100
+                        ).length
+                      }{" "}
+                      de {inLevel.length} feitas
+                    </span>
+                  </>
+                ) : (
+                  <span className="text-sm font-normal text-ink-faint">
+                    {inLevel.length} unidades
+                  </span>
+                )}
               </h2>
               <div className="grid gap-3 sm:grid-cols-2">
                 {inLevel.map((u) => {

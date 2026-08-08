@@ -1,5 +1,6 @@
 import { and, asc, eq } from "drizzle-orm";
 import { getDb, homework, units } from "@/lib/db";
+import { getCourseProgress } from "@/lib/actions/course";
 import { getCefrFor, hasBeenPlaced } from "@/lib/data";
 import { countDue } from "@/lib/srs";
 
@@ -48,6 +49,19 @@ export async function resolveNextAction(
       emoji: "🧭",
       label: "Descobre o teu nível",
       why: "Five minutes. Everything after this gets pitched at what you can actually do.",
+    };
+  }
+
+  // Placed but the course is untouched: starting it beats everything else.
+  // This is the gap that made placement feel like a dead end — you got a
+  // level and were left to find the 126 units on your own.
+  const course = await getCourseProgress().catch(() => null);
+  if (course && course.unitsTotal > 0 && course.unitsDone === 0 && course.unitsStarted === 0 && course.next) {
+    return {
+      href: `/unidades/${course.next.slug}`,
+      emoji: "🎓",
+      label: "Começar o teu curso",
+      why: `${course.unitsTotal} unidades em ${course.level}, a começar por “${course.next.title}”.`,
     };
   }
 
