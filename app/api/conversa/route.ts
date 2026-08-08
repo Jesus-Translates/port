@@ -124,14 +124,12 @@ async function speak(
 ): Promise<string | null> {
   try {
     if (azureConfigured() && voice) {
-      const buf = await azureSynthesizeSsml(ssmlFor(text, voice, "0.92"));
-      if (buf) {
-        await recordUsage(username, "tts", "azure/neural-tts", {
-          inputTokens: text.length,
-          outputTokens: 0,
-        });
-        return buf.toString("base64");
-      }
+      // Billing happens inside azureSynthesizeSsml, on the exact SSML sent.
+      const buf = await azureSynthesizeSsml(
+        ssmlFor(text, voice, "0.92"),
+        username
+      );
+      if (buf) return buf.toString("base64");
     }
     const buf = await getTtsAudio(text, username);
     return buf ? buf.toString("base64") : null;

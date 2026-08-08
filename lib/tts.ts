@@ -63,8 +63,22 @@ export function ttsHash(text: string): string {
 
 const AZURE_FORMAT = "audio-24khz-48kbitrate-mono-mp3";
 
-/** Raw Azure synthesis of an SSML document. Returns MP3 bytes or null. */
-export async function azureSynthesizeSsml(ssml: string): Promise<Buffer | null> {
+/**
+ * Raw Azure synthesis of an SSML document. Returns MP3 bytes or null.
+ *
+ * Billing happens HERE, on the exact string sent, so no call site can forget
+ * it and none can under-count. Pass the learner so the spend lands on them;
+ * omit it only for work that genuinely belongs to nobody.
+ *
+ * We charge the FULL SSML length rather than just the spoken text. Multi-voice
+ * documents carry ~140 characters of <voice>/<prosody>/<break> markup per line,
+ * so counting text alone under-reported a dialogue by roughly 4x. Over-stating
+ * a spend display is recoverable; under-stating it is how you get a surprise.
+ */
+export async function azureSynthesizeSsml(
+  ssml: string,
+  username?: string
+): Promise<Buffer | null> {
   const key = process.env.AZURE_SPEECH_KEY;
   const region = process.env.AZURE_SPEECH_REGION;
   if (!key || !region) return null;
@@ -82,7 +96,9 @@ export async function azureSynthesizeSsml(ssml: string): Promise<Buffer | null> 
     }
   );
   if (!res.ok) return null;
-  return Buffer.from(await res.arrayBuffer());
+  const buf = Buffer.from(await res.arrayBuffer());
+  if (username) await azureCost(username, ssml.length);
+  return buf;
 }
 
 /** Wrap plain text in single-voice SSML. */
@@ -113,7 +129,8 @@ export function ssmlSegments(
 }
 
 async function azureCost(username: string, chars: number): Promise<void> {
-  // $16 per 1M characters (standard neural). Modeled as char = input token.
+  // $15 per 1M characters (standard neural, Azure retail price API 2026-08-07).
+  // Modelled as char = input token so it flows through the same pricing table.
   await recordUsage(username, "tts", "azure/neural-tts", {
     inputTokens: chars,
     outputTokens: 0,
@@ -174,8 +191,7 @@ export async function getTtsAudio(
   let voiceUsed = "";
   if (azureConfigured()) {
     voiceUsed = pickVoice(clean);
-    buf = await azureSynthesizeSsml(ssmlFor(clean, voiceUsed));
-    if (buf) await azureCost(username, clean.length);
+    buf = await azureSynthesizeSsml(ssmlFor(clean, voiceUsed), username);
   }
   if (!buf) {
     voiceUsed = `openai:${openaiVoice()}`;

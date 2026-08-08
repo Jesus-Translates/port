@@ -120,7 +120,8 @@ multibanco, a farmácia, os vizinhos, o vento. Translations are natural English,
         rate: "0.95",
         breakAfterMs: 350,
       }))
-    )
+    ),
+    session.username
   );
   if (!mp3) {
     return NextResponse.json(
@@ -128,11 +129,6 @@ multibanco, a farmácia, os vizinhos, o vento. Translations are natural English,
       { status: 502 }
     );
   }
-  const chars = script.reduce((n, l) => n + l.text.length, 0);
-  await recordUsage(session.username, "tts", "azure/neural-tts", {
-    inputTokens: chars,
-    outputTokens: 0,
-  });
 
   // Word timestamps for the audio we just made — the script is authoritative,
   // Whisper only tells us WHEN each word lands.

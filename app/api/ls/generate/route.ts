@@ -5,7 +5,6 @@ import { getDb, lsSessions } from "@/lib/db";
 import { buildSessionSsml, LS_MAX_CARDS } from "@/lib/ls";
 import { getFlashQueue, getQueue } from "@/lib/srs";
 import { azureConfigured, azureSynthesizeSsml } from "@/lib/tts";
-import { recordUsage } from "@/lib/usage";
 
 // Six minutes of neural TTS in one request — give Azure room.
 export const maxDuration = 120;
@@ -71,19 +70,15 @@ export async function POST() {
     );
   }
 
-  const { ssml, chars } = buildSessionSsml(cards);
+  const { ssml } = buildSessionSsml(cards);
 
-  const audio = await azureSynthesizeSsml(ssml);
+  const audio = await azureSynthesizeSsml(ssml, username);
   if (!audio) {
     return NextResponse.json(
       { error: "O Azure não devolveu áudio. Tenta outra vez daqui a pouco." },
       { status: 502 }
     );
   }
-  await recordUsage(username, "tts", "azure/neural-tts", {
-    inputTokens: chars,
-    outputTokens: 0,
-  });
 
   const [row] = await db
     .insert(lsSessions)
