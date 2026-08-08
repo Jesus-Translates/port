@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { Markdown } from "@/components/markdown";
 import { finishVerbRound } from "@/lib/actions/verbos";
@@ -56,6 +56,15 @@ function shuffle<T>(items: T[]): T[] {
     [out[i], out[j]] = [out[j], out[i]];
   }
   return out;
+}
+
+/**
+ * How many questions a round will hold. Speaking-only rounds are shorter —
+ * ten recordings in a row is a chore, not practice.
+ */
+function roundSize(poolSize: number, types: QType[]): number {
+  const speakOnly = types.length === 1 && types[0] === "dizer";
+  return Math.min(speakOnly ? 5 : ROUND, poolSize);
 }
 
 /** Deal a round over the chosen slice, mixing the question types asked for. */
@@ -116,7 +125,22 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
   const [micError, setMicError] = useState<string | null>(null);
 
   const recRef = useRef<MediaRecorder | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
   const chunksRef = useRef<Blob[]>([]);
+
+  // Leaving mid-recording must close the microphone — a live mic on a phone
+  // that has navigated away is not acceptable, and the upload is moot anyway.
+  useEffect(() => {
+    return () => {
+      const rec = recRef.current;
+      if (rec && rec.state !== "inactive") {
+        rec.onstop = null;
+        rec.stop();
+      }
+      streamRef.current?.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
+    };
+  }, []);
 
   const filters: VerbFilters = {
     classes: cls === "all" ? ["ar", "er", "ir", "outro"] : [cls],
@@ -220,10 +244,12 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const recorder = new MediaRecorder(stream);
+      streamRef.current = stream;
       chunksRef.current = [];
       recorder.ondataavailable = (e) => chunksRef.current.push(e.data);
       recorder.onstop = async () => {
         stream.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
         setMic("sending");
         const blob = new Blob(chunksRef.current, { type: recorder.mimeType });
         // iOS Safari records audio/mp4, Chrome audio/webm — the filename
@@ -462,7 +488,8 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
             <p className="text-sm text-ink-soft">
               {poolSize} formas nesta seleção.{" "}
               <span className="text-ink-faint">
-                Forms matching your filters — a round takes {poolSize === 0 ? 0 : Math.min(ROUND, poolSize)} of them.
+                Forms matching your filters — a round takes{" "}
+                {roundSize(poolSize, types)} of them.
               </span>
             </p>
             {poolSize === 0 ? (
@@ -528,6 +555,10 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
 
         {q.type === "escrever" ? (
           <input
+            // Remount per question so autoFocus fires again — otherwise only
+            // the first typed question opens the keyboard on a phone.
+            key={index}
+            aria-label={`Forma de ${q.slot.inf}`}
             value={typed}
             onChange={(e) => setTyped(e.target.value)}
             onKeyDown={(e) => {

@@ -37,7 +37,11 @@ export function VerbConjugator({
 
   const verb = findVerb(inf);
   const tenses = verb ? tensesOf(verb) : [];
-  const shown = only === "todos" ? tenses : tenses.filter((t) => t === only);
+  // Switching verbs can strand the tense filter — plenty of verbs have no
+  // imperativo or conjuntivo — so a filter this verb cannot honour falls back
+  // to showing everything instead of rendering an empty page.
+  const active = only !== "todos" && tenses.includes(only) ? only : "todos";
+  const shown = active === "todos" ? tenses : tenses.filter((t) => t === active);
   const irregulars = verb ? tenses.filter((t) => !isRegular(verb, t)) : [];
 
   return (
@@ -129,10 +133,10 @@ export function VerbConjugator({
                   key={t}
                   type="button"
                   onClick={() => setOnly(t)}
-                  aria-pressed={only === t}
+                  aria-pressed={active === t}
                   className={cn(
                     "min-h-11 rounded-full border px-3 py-1.5 text-sm transition-colors",
-                    only === t
+                    active === t
                       ? "border-olive bg-olive text-paper"
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
