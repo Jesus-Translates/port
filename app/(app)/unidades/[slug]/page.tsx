@@ -57,7 +57,11 @@ function resolve(
         hint: item.catName ?? "livro de referência",
       };
     case "quiz":
-      return { kind, href: topic ? `/practice?topic=${q}` : "/practice", hint: about };
+      return {
+        kind,
+        href: `/practice?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
+        hint: about,
+      };
     case "jogo-pares":
       return {
         kind,

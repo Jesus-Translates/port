@@ -1,7 +1,7 @@
 import { and, asc, eq } from "drizzle-orm";
-import { getDb, homework, units } from "@/lib/db";
+import { getDb, homework } from "@/lib/db";
 import { getCourseProgress } from "@/lib/actions/course";
-import { getCefrFor, hasBeenPlaced } from "@/lib/data";
+import { hasBeenPlaced } from "@/lib/data";
 import { countDue } from "@/lib/srs";
 
 /**
@@ -83,23 +83,15 @@ export async function resolveNextAction(
     };
   }
 
-  // Forward progress along the course spine: the first unit AT THE LEARNER'S
-  // OWN LEVEL, in syllabus order. (Not the newest unit — with a full A1→B2
-  // syllabus seeded, "newest" is the last B2 unit, which is nobody's next step.)
-  const cefr = await getCefrFor(username);
-  const [unit] = await db
-    .select({ slug: units.slug, title: units.title })
-    .from(units)
-    .where(and(eq(units.status, "published"), eq(units.cefr, cefr)))
-    .orderBy(asc(units.sortOrder), asc(units.id))
-    .limit(1)
-    .catch(() => []);
-  if (unit) {
+  // Forward progress along the course spine. Use the SAME resolver the course
+  // card uses — selecting by sortOrder alone ignored what you had finished, so
+  // the hero could say "continue X" while the card below said "continue Y".
+  if (course?.next) {
     return {
-      href: `/unidades/${unit.slug}`,
+      href: `/unidades/${course.next.slug}`,
       emoji: "🧩",
       label: "Continuar a unidade",
-      why: `“${unit.title}” — read the note, then work the path through it.`,
+      why: `“${course.next.title}” — read the note, then work the path through it.`,
     };
   }
 

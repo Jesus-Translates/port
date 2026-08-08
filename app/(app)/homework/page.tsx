@@ -14,7 +14,8 @@ const STATUS_META: Record<string, { label: string; cls: string }> = {
 
 export default async function HomeworkPage(props: PageProps<"/homework">) {
   const session = await requireSession();
-  const { topic } = await props.searchParams;
+  const { topic, item } = await props.searchParams;
+  const unitItemId = Number(Array.isArray(item) ? item[0] : item) || null;
   const all = await getHomeworkAll();
   const mine = all.filter((h) => h.username === session.username);
   const family = all.filter((h) => h.username !== session.username).slice(0, 10);
@@ -31,7 +32,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
         </p>
       </header>
 
-      <HomeworkComposer initialTopic={typeof topic === "string" ? topic : ""} />
+      <HomeworkComposer unitItemId={unitItemId} initialTopic={typeof topic === "string" ? topic : ""} />
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">O teu TPC</h2>

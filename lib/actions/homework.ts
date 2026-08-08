@@ -12,6 +12,7 @@ import {
   PT_STYLE,
 } from "@/lib/ai";
 import { requireSession } from "@/lib/auth";
+import { completeItem } from "@/lib/actions/course";
 import { logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 import { addMistakeCard } from "@/lib/srs";
@@ -247,6 +248,22 @@ async function writeItem(
     .update(homework)
     .set({ status: allDone ? "reviewed" : "submitted" })
     .where(eq(homework.id, id));
+
+  // Finishing a TPC that came from a unit path IS completing that step. Five
+  // AI-graded written answers used to leave the course bar at 0% until the
+  // learner went back and ticked a box themselves.
+  if (allDone) {
+    const [hw] = await db
+      .select({ unitItemId: homework.unitItemId })
+      .from(homework)
+      .where(eq(homework.id, id))
+      .limit(1);
+    if (hw?.unitItemId) {
+      const { correct, total } = itemProgress(items);
+      const pct = total > 0 ? Math.round((correct / total) * 100) : null;
+      await completeItem(hw.unitItemId, pct).catch(() => {});
+    }
+  }
   return { items, allDone };
 }
 

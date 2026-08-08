@@ -4,7 +4,15 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createHomework } from "@/lib/actions/homework";
 
-export function HomeworkComposer({ initialTopic = "" }: { initialTopic?: string }) {
+export function HomeworkComposer({
+  initialTopic = "",
+  unitItemId,
+}: {
+  initialTopic?: string;
+  /** Set when this TPC fulfils a unit path item, so finishing it ticks the
+   *  course forward instead of leaving the bar at zero. */
+  unitItemId?: number | null;
+}) {
   const router = useRouter();
   const [mode, setMode] = useState<"luna" | "class" | null>(
     initialTopic ? "luna" : null
@@ -23,7 +31,11 @@ export function HomeworkComposer({ initialTopic = "" }: { initialTopic?: string 
       const res = await fetch("/api/ai/homework", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: topic.trim(), forEveryone }),
+        body: JSON.stringify({
+          topic: topic.trim(),
+          forEveryone,
+          ...(unitItemId ? { unitItemId } : {}),
+        }),
       });
       if (!res.ok) throw new Error();
       const { id } = await res.json();

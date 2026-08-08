@@ -38,6 +38,7 @@ export async function POST(request: NextRequest) {
     transcript?: string;
     assignees?: string[];
     level?: string;
+    unitItemId?: number;
   };
   try {
     body = await request.json();
@@ -46,6 +47,10 @@ export async function POST(request: NextRequest) {
   }
   const { topic: topicRaw = "everyday life in Portugal", forEveryone = false } = body;
   const topic = String(topicRaw).slice(0, 300);
+  const unitItemId =
+    Number.isInteger(body.unitItemId) && Number(body.unitItemId) > 0
+      ? Number(body.unitItemId)
+      : null;
   const cipleEscrita = body.mode === "ciple-escrita";
   const transcript = String(body.transcript ?? "").slice(0, 6000);
   // Homework built from a tutor session: practise exactly what just happened.
@@ -209,6 +214,12 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
         instructions: introMd,
         items,
         source,
+        // Only the learner's OWN copy is tied to a path item — a TPC pushed to
+        // the whole family must not tick one person's unit for everyone else.
+        unitItemId:
+          unitItemId && assignees.length === 1 && username === session.username
+            ? unitItemId
+            : null,
       }))
     )
     .returning({ id: homework.id, username: homework.username });

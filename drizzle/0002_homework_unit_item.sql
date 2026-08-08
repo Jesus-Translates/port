@@ -1,0 +1,2 @@
+ALTER TABLE "homework" ADD COLUMN "unit_item_id" integer;--> statement-breakpoint
+ALTER TABLE "homework" ADD CONSTRAINT "homework_unit_item_id_unit_items_id_fk" FOREIGN KEY ("unit_item_id") REFERENCES "public"."unit_items"("id") ON DELETE set null ON UPDATE no action;

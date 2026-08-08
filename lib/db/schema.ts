@@ -84,6 +84,13 @@ export const homework = pgTable("homework", {
   status: text("status").notNull().default("open"),
   response: text("response"),
   feedback: text("feedback"),
+  /** The unit path item this TPC fulfils, so finishing it ticks the course
+   *  forward. Without somewhere to STORE the link, threading a query param
+   *  through was never going to be enough — the grading happens question by
+   *  question, long after the URL is gone. */
+  unitItemId: integer("unit_item_id").references(() => unitItems.id, {
+    onDelete: "set null",
+  }),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   submittedAt: timestamp("submitted_at"),
 });
