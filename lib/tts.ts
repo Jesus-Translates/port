@@ -75,38 +75,65 @@ const AZURE_FORMAT = "audio-24khz-48kbitrate-mono-mp3";
  * so counting text alone under-reported a dialogue by roughly 4x. Over-stating
  * a spend display is recoverable; under-stating it is how you get a surprise.
  */
+export type AzureResult = {
+  ok: boolean;
+  status: number;
+  /** Azure's own explanation when it refuses — empty on success. */
+  detail: string;
+  bytes: number;
+  audio: Buffer | null;
+};
+
+/**
+ * The single place we speak to Azure. Returns the failure reason rather than
+ * swallowing it, so callers can log or surface WHY there is no audio — one
+ * bad voice name in a rotation rejects the whole document, and "returned
+ * null" is not enough to find that.
+ */
+export async function azureTrySsml(ssml: string): Promise<AzureResult> {
+  const key = process.env.AZURE_SPEECH_KEY;
+  const region = process.env.AZURE_SPEECH_REGION;
+  if (!key || !region) {
+    return { ok: false, status: 0, detail: "AZURE_SPEECH_KEY/REGION not set", bytes: 0, audio: null };
+  }
+  let res: Response;
+  try {
+    res = await fetch(
+      `https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`,
+      {
+        method: "POST",
+        headers: {
+          "Ocp-Apim-Subscription-Key": key,
+          "Content-Type": "application/ssml+xml",
+          "X-Microsoft-OutputFormat": AZURE_FORMAT,
+          "User-Agent": "portuguese-hub",
+        },
+        body: ssml,
+      }
+    );
+  } catch (err) {
+    const detail = err instanceof Error ? err.message : String(err);
+    return { ok: false, status: 0, detail, bytes: 0, audio: null };
+  }
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => "")).slice(0, 400);
+    console.error(
+      `azure tts failed: ${res.status} ${res.statusText} — ${detail} (ssml ${ssml.length} chars)`
+    );
+    return { ok: false, status: res.status, detail, bytes: 0, audio: null };
+  }
+  const audio = Buffer.from(await res.arrayBuffer());
+  return { ok: true, status: res.status, detail: "", bytes: audio.length, audio };
+}
+
 export async function azureSynthesizeSsml(
   ssml: string,
   username?: string
 ): Promise<Buffer | null> {
-  const key = process.env.AZURE_SPEECH_KEY;
-  const region = process.env.AZURE_SPEECH_REGION;
-  if (!key || !region) return null;
-  const res = await fetch(
-    `https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`,
-    {
-      method: "POST",
-      headers: {
-        "Ocp-Apim-Subscription-Key": key,
-        "Content-Type": "application/ssml+xml",
-        "X-Microsoft-OutputFormat": AZURE_FORMAT,
-        "User-Agent": "portuguese-hub",
-      },
-      body: ssml,
-    }
-  );
-  if (!res.ok) {
-    // Azure's failure reason was being thrown away, so every caller could only
-    // say "no audio came back". The body carries the actual cause.
-    const detail = await res.text().catch(() => "");
-    console.error(
-      `azure tts failed: ${res.status} ${res.statusText} — ${detail.slice(0, 400)} (ssml ${ssml.length} chars)`
-    );
-    return null;
-  }
-  const buf = Buffer.from(await res.arrayBuffer());
+  const result = await azureTrySsml(ssml);
+  if (!result.audio) return null;
   if (username) await azureCost(username, ssml.length);
-  return buf;
+  return result.audio;
 }
 
 /** Wrap plain text in single-voice SSML. */
