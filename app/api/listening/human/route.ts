@@ -12,6 +12,8 @@ import { recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
+/** Below this it cannot be a real recording, whatever the content type says. */
+const MIN_BYTES = 2048;
 const MAX_BYTES = 15 * 1024 * 1024;
 
 /**
@@ -42,6 +44,15 @@ export async function POST(request: NextRequest) {
   }
   if (!(audio instanceof Blob) || audio.size === 0) {
     return NextResponse.json({ error: "Sem áudio." }, { status: 400 });
+  }
+  // A real recording of even one word is tens of kilobytes. Without this the
+  // route happily accepted a few bytes of text and destroyed the clip's audio
+  // — which is exactly how a test wiped one in production.
+  if (audio.size < MIN_BYTES) {
+    return NextResponse.json(
+      { error: "Gravação demasiado curta ou inválida." },
+      { status: 400 }
+    );
   }
   if (audio.size > MAX_BYTES) {
     return NextResponse.json(
