@@ -1057,3 +1057,40 @@ banho, autocarro.
 - Museu de Serralves — https://pt.wikipedia.org/wiki/Museu_de_Arte_Contempor%C3%A2nea_de_Serralves
 - Jardim Botânico do Porto / Casa dos Andresen — https://pt.wikipedia.org/wiki/Jardim_Bot%C3%A2nico_do_Porto
 - Bairro do Aleixo — https://pt.wikipedia.org/wiki/Bairro_do_Aleixo
+
+**Sub-regions of the Norte**
+
+- The 1936 províncias, Amorim Girão, and their survival in speech — https://pt.wikipedia.org/wiki/Prov%C3%ADncias_de_Portugal and https://en.wikipedia.org/wiki/Provinces_of_Portugal
+- Minho (província) — https://pt.wikipedia.org/wiki/Minho_(prov%C3%ADncia) and https://pt.wikipedia.org/wiki/Minhoto
+- Douro Litoral (24 concelhos) — https://pt.wikipedia.org/wiki/Douro_Litoral
+- Trás-os-Montes (província) and Terra Fria — https://pt.wikipedia.org/wiki/Tr%C3%A1s-os-Montes_(prov%C3%ADncia) and https://pt.wikipedia.org/wiki/Terra_Fria_Transmontana
+- Alto Douro and the Douro sub-region — https://pt.wikipedia.org/wiki/Alto_Douro and https://pt.wikipedia.org/wiki/Douro_(sub-regi%C3%A3o)
+- Terras de Trás-os-Montes and Alto Tâmega — https://pt.wikipedia.org/wiki/Terras_de_Tr%C3%A1s-os-Montes and https://pt.wikipedia.org/wiki/Alto_T%C3%A2mega
+- Área Metropolitana do Porto and Tâmega e Sousa — https://pt.wikipedia.org/wiki/%C3%81rea_Metropolitana_do_Porto and https://pt.wikipedia.org/wiki/T%C3%A2mega_e_Sousa
+- Betacismo anchored to Entre-Douro-e-Minho — https://pt.wikipedia.org/wiki/Betacismo
+- Northern features (ou/ei diphthongs, ch [tʃ] in Alto Minho and Trás-os-Montes, vós) — https://en.wikipedia.org/wiki/Portuguese_dialects
+- Mirandês (Lei 7/99; ~3 500 with knowledge, ~1 500 regular speakers) — https://pt.wikipedia.org/wiki/Mirand%C3%AAs
+- Tripeiro as legend; Invicta and the 1832–34 siege — https://pt.wikipedia.org/wiki/Tripeiro and https://pt.wikipedia.org/wiki/Porto
+
+**Porto language and register**
+
+- tu / você / o senhor and third-person address — https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/tu-voce-o-senhor-a-senhora/2683
+- Word-by-word checks (cimbalino, fino, molete, sertã, cruzeta, chuço, carago, caraças, beira, quinar, bota-abaixo) — https://dicionario.priberam.org/ and https://ciberduvidas.iscte-iul.pt/
+
+**The belt**
+
+- STCP exclusivity inside Porto; UNIR across the rest of the AMP since 1 December 2023 — https://www.stcp.pt/ and https://www.unirmobilidade.pt/
+- Vila Nova de Gaia — https://pt.wikipedia.org/wiki/Vila_Nova_de_Gaia and https://en.wikipedia.org/wiki/Vila_Nova_de_Gaia
+- Taylor's (founded 1692 in Gaia) and Sandeman (Largo Miguel Bombarda 3) — https://en.wikipedia.org/wiki/Taylor%27s_Port and https://en.wikipedia.org/wiki/Sandeman_(wine)
+- Matosinhos (population, canning factories, freguesias) — https://pt.wikipedia.org/wiki/Matosinhos and https://en.wikipedia.org/wiki/Matosinhos
+- Mercado Municipal de Matosinhos (1952, ARS–Arquitectos) — https://pt.wikipedia.org/wiki/Mercado_Municipal_de_Matosinhos
+- Padrão do Bom Jesus de Matosinhos — https://pt.wikipedia.org/wiki/Padr%C3%A3o_do_Bom_Jesus_de_Matosinhos
+- Porto de Leixões (scale, cruise terminal 2015) — https://pt.wikipedia.org/wiki/Porto_de_Leix%C3%B5es
+- Leça da Palmeira (restored as a freguesia 14 March 2025; Siza works; Galp closure 2021) — https://pt.wikipedia.org/wiki/Le%C3%A7a_da_Palmeira
+- Maia (population, festivals with dates) — https://pt.wikipedia.org/wiki/Maia_(Portugal)
+- Gondomar (ourivesaria figures, Museu da Filigrana) — https://pt.wikipedia.org/wiki/Gondomar and https://en.wikipedia.org/wiki/Gondomar,_Portugal
+- Valongo, Ermesinde and Alfena — https://pt.wikipedia.org/wiki/Valongo, https://pt.wikipedia.org/wiki/Ermesinde and https://pt.wikipedia.org/wiki/Alfena
+- Linha do Minho and Linha do Douro (Ermesinde junction) — https://pt.wikipedia.org/wiki/Linha_do_Minho and https://pt.wikipedia.org/wiki/Linha_do_Douro
+- Regueifa as a northern pão de romaria — https://pt.wikipedia.org/wiki/Regueifa
+- Póvoa de Varzim and the siglas poveiras — https://pt.wikipedia.org/wiki/P%C3%B3voa_de_Varzim, https://pt.wikipedia.org/wiki/Siglas_poveiras and https://www.cm-pvarzim.pt/
+- Vila do Conde and renda de bilros — https://pt.wikipedia.org/wiki/Vila_do_Conde and https://pt.wikipedia.org/wiki/Renda_de_bilros
