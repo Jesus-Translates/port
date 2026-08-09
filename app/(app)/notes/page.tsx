@@ -17,7 +17,7 @@ export default async function NotesPage() {
           📝 Notas da família
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Shared study notes — everyone can read, add and improve them. Luna can
+          Shared study notes — everyone can read, add and improve them. Sandra can
           explain, correct and expand any note.
         </p>
       </header>

@@ -17,7 +17,7 @@ const TABS = [
   { href: "/", emoji: "🏠", label: "Hoje", short: "Hoje" },
   { href: "/unidades", emoji: "🎓", label: "Curso", short: "Curso" },
   { href: "/practice", emoji: "🧭", label: "Explorar", short: "Explorar" },
-  { href: "/tutor", emoji: "🌙", label: "Luna", short: "Luna" },
+  { href: "/tutor", emoji: "🌙", label: "Sandra", short: "Sandra" },
   { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
 ];
 

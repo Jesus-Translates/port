@@ -13,7 +13,7 @@ export const maxDuration = 120;
 
 /**
  * Ingest anything into O Livro: paste words/phrases/notes, or upload a file
- * (.txt/.md/.csv/.pdf). Luna turns the raw content into proper pt-PT
+ * (.txt/.md/.csv/.pdf). Sandra turns the raw content into proper pt-PT
  * phrasebook entries and files each one under the best existing category.
  * Duplicates (same pt already in that category) are skipped, not overwritten.
  */
@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -199,7 +199,7 @@ Cap at 40 entries — prefer the most useful.`,
     if (!saved || saved.length === 0) {
       console.error("ingest generation failed:", err);
       return NextResponse.json(
-        { error: "A Luna não conseguiu processar isto. Tenta outra vez." },
+        { error: "A Sandra não conseguiu processar isto. Tenta outra vez." },
         { status: 502 }
       );
     }

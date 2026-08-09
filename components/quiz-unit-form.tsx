@@ -51,7 +51,7 @@ export function QuizUnitForm({
       setError(
         err instanceof Error && err.message
           ? err.message
-          : "A Luna não conseguiu criar o teste. Tenta outra vez."
+          : "A Sandra não conseguiu criar o teste. Tenta outra vez."
       );
       setBusy(false);
     }
@@ -89,7 +89,7 @@ export function QuizUnitForm({
           </select>
         </div>
         <button type="submit" disabled={busy} className="btn-terra flex-1">
-          {busy ? "A Luna está a escrever o teste…" : "Criar teste ✨"}
+          {busy ? "A Sandra está a escrever o teste…" : "Criar teste ✨"}
         </button>
       </div>
       {busy ? (

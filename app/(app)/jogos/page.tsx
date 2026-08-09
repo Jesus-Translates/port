@@ -147,7 +147,7 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
       </form>
 
       <p className="text-center text-xs text-ink-faint">
-        Sem tema? Deixa em branco — a Luna escolhe coisas do dia a dia.
+        Sem tema? Deixa em branco — a Sandra escolhe coisas do dia a dia.
       </p>
 
       {/* These three deal from the phrasebook and the verb tables instead of

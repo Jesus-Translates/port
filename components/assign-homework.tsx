@@ -6,12 +6,12 @@ import { assignHomework } from "@/lib/actions/admin";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
-/** Teacher panel: pick students, then either let Luna write the homework or
+/** Teacher panel: pick students, then either let Sandra write the homework or
  *  write it yourself. */
 export function AssignHomework({ students }: { students: string[] }) {
   const router = useRouter();
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [mode, setMode] = useState<"luna" | "manual">("luna");
+  const [mode, setMode] = useState<"sandra" | "manual">("sandra");
   const [topic, setTopic] = useState("");
   // "" = pitch it at the student's own placement level (the useful default).
   const [level, setLevel] = useState("");
@@ -28,7 +28,7 @@ export function AssignHomework({ students }: { students: string[] }) {
     setDone(null);
   }
 
-  async function assignWithLuna() {
+  async function assignWithSandra() {
     if (selected.size === 0 || !topic.trim()) return;
     setBusy(true);
     setDone(null);
@@ -43,7 +43,7 @@ export function AssignHomework({ students }: { students: string[] }) {
         }),
       });
       if (!res.ok) throw new Error();
-      setDone(`TPC da Luna atribuído a ${selected.size} ${selected.size === 1 ? "aluno" : "alunos"} ✓`);
+      setDone(`TPC da Sandra atribuído a ${selected.size} ${selected.size === 1 ? "aluno" : "alunos"} ✓`);
       setTopic("");
       router.refresh();
     } catch {
@@ -89,7 +89,7 @@ export function AssignHomework({ students }: { students: string[] }) {
       <div className="grid grid-cols-2 gap-2 rounded-xl border border-sand bg-white/60 p-1">
         {(
           [
-            { key: "luna", label: "✨ A Luna escreve" },
+            { key: "sandra", label: "✨ A Sandra escreve" },
             { key: "manual", label: "✍️ Escrevo eu" },
           ] as const
         ).map((m) => (
@@ -109,7 +109,7 @@ export function AssignHomework({ students }: { students: string[] }) {
         ))}
       </div>
 
-      {mode === "luna" ? (
+      {mode === "sandra" ? (
         <div className="flex flex-wrap items-end gap-2">
           <div className="min-w-48 flex-1">
             <label className="label" htmlFor="assign-topic">
@@ -144,9 +144,9 @@ export function AssignHomework({ students }: { students: string[] }) {
           <button
             className="btn-terra"
             disabled={busy || selected.size === 0 || !topic.trim()}
-            onClick={assignWithLuna}
+            onClick={assignWithSandra}
           >
-            {busy ? "A Luna está a escrever…" : `Atribuir a ${selected.size || "…"}`}
+            {busy ? "A Sandra está a escrever…" : `Atribuir a ${selected.size || "…"}`}
           </button>
         </div>
       ) : (

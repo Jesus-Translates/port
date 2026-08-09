@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, SPEAKING_COACHING } from "@/lib/ai";
+import { getModel, SANDRA, SPEAKING_COACHING } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { getSession, type Session } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
@@ -19,11 +19,11 @@ import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 export const maxDuration = 120;
 
 /**
- * Conversa: a spoken back-and-forth with Luna.
+ * Conversa: a spoken back-and-forth with Sandra.
  *   mode=start — pick topic (or random) + ONE voice for the whole session,
- *                generate Luna's opener, return it with inline audio.
+ *                generate Sandra's opener, return it with inline audio.
  *   mode=turn  — transcribe the learner's recording (or accept typed text),
- *                generate Luna's next line, return it with inline audio.
+ *                generate Sandra's next line, return it with inline audio.
  *   mode=end   — grade the whole transcript: summary, corrections (→ mistake
  *                cards), new words worth saving, XP.
  * Audio is synthesized inline and NOT cached — every line is one-off, and a
@@ -51,7 +51,7 @@ const RANDOM_TOPICS = [
 const replySchema = z.object({
   replyPt: z
     .string()
-    .describe("Luna's next spoken line: 1-2 short pt-PT sentences plus ONE follow-up question."),
+    .describe("Sandra's next spoken line: 1-2 short pt-PT sentences plus ONE follow-up question."),
   glossEn: z.string().describe("Natural English translation of replyPt."),
 });
 
@@ -81,7 +81,7 @@ const summarySchema = z.object({
     .describe("One warm closing sentence in very simple European Portuguese."),
 });
 
-type HistoryTurn = { role: "luna" | "eu"; text: string };
+type HistoryTurn = { role: "sandra" | "eu"; text: string };
 
 function cleanHistory(raw: unknown): HistoryTurn[] {
   if (!Array.isArray(raw)) return [];
@@ -91,7 +91,7 @@ function cleanHistory(raw: unknown): HistoryTurn[] {
         typeof t === "object" && t !== null
     )
     .map((t) => ({
-      role: t.role === "eu" ? ("eu" as const) : ("luna" as const),
+      role: t.role === "eu" ? ("eu" as const) : ("sandra" as const),
       text: String(t.text ?? "").slice(0, 500),
     }))
     .filter((t) => t.text.length > 0)
@@ -100,7 +100,7 @@ function cleanHistory(raw: unknown): HistoryTurn[] {
 
 function transcriptOf(history: HistoryTurn[]): string {
   return history
-    .map((t) => `${t.role === "eu" ? "Aluno" : "Luna"}: ${t.text}`)
+    .map((t) => `${t.role === "eu" ? "Aluno" : "Sandra"}: ${t.text}`)
     .join("\n")
     .slice(0, 6000);
 }
@@ -109,7 +109,9 @@ async function conversationInstructions(
   displayName: string,
   cefr: string
 ): Promise<string> {
-  return `You are Luna, having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. ${await currentStyle()}
+  return `${SANDRA}
+
+You are having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. Being talked to out loud is the most exposing thing in this app — warmth beats wit here, and a joke only ever lands once they are relaxed. ${await currentStyle()}
 
 Rules of the conversation:
 - Reply in 1-2 SHORT sentences, then ask exactly ONE simple follow-up question. Never a monologue.
@@ -209,7 +211,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -291,7 +293,7 @@ export async function POST(request: NextRequest) {
     } catch (err) {
       console.error("conversa audio turn failed:", err);
       return NextResponse.json(
-        { error: "A Luna não conseguiu responder. Tenta outra vez." },
+        { error: "A Sandra não conseguiu responder. Tenta outra vez." },
         { status: 502 }
       );
     }
@@ -322,7 +324,7 @@ export async function POST(request: NextRequest) {
       // is a route handler, so plain randomness is fine.
       topic = RANDOM_TOPICS[Math.floor(Math.random() * RANDOM_TOPICS.length)];
     }
-    // One voice for the whole session so Luna doesn't change person mid-chat.
+    // One voice for the whole session so Sandra doesn't change person mid-chat.
     const voices = azureVoices();
     const h = createHash("sha1").update(`${topic}|${session.username}`).digest();
     const voice = azureConfigured() ? voices[h[0] % voices.length] : "";
@@ -340,7 +342,7 @@ export async function POST(request: NextRequest) {
     } catch (err) {
       console.error("conversa start failed:", err);
       return NextResponse.json(
-        { error: "A Luna não conseguiu começar. Tenta outra vez." },
+        { error: "A Sandra não conseguiu começar. Tenta outra vez." },
         { status: 502 }
       );
     }
@@ -365,7 +367,7 @@ export async function POST(request: NextRequest) {
     } catch (err) {
       console.error("conversa typed turn failed:", err);
       return NextResponse.json(
-        { error: "A Luna não conseguiu responder. Tenta outra vez." },
+        { error: "A Sandra não conseguiu responder. Tenta outra vez." },
         { status: 502 }
       );
     }
@@ -379,7 +381,9 @@ export async function POST(request: NextRequest) {
     try {
       const args = {
         model: getModel(),
-        instructions: `You are Luna, reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${await currentStyle()}
+        instructions: `${SANDRA}
+
+You are reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${await currentStyle()}
 
 ${SPEAKING_COACHING}
 

@@ -76,7 +76,7 @@ export function UnitNote({
             🌙
           </span>
           <span>
-            A Luna está a escrever a nota desta unidade…
+            A Sandra está a escrever a nota desta unidade…
             <span className="block text-xs text-ink-faint">
               Só acontece uma vez — depois fica guardada para toda a família.
             </span>

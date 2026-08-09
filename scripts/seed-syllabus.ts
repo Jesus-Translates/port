@@ -3,7 +3,7 @@
  *
  * Units are the course itself, so they land PUBLISHED (unlike a unit someone
  * drafts with the generator, which waits for the teacher). `noteMd` is left
- * empty on purpose — the Learning Note is written by Luna the first time
+ * empty on purpose — the Learning Note is written by Sandra the first time
  * somebody opens the unit, using `notePrompt` as the brief.
  *
  * Idempotent, and safe to re-run: a unit is matched by slug; only rows this

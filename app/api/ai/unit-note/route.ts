@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
   const { text, usage } = await generateText({
     model: getModel(),
-    instructions: `You are Luna, writing ONE unit's Learning Note for English speakers learning European Portuguese. ${await currentStyle()}
+    instructions: `You are Sandra, writing ONE unit's Learning Note for English speakers learning European Portuguese. ${await currentStyle()}
 
 Write for an adult who wants to understand WHY, not just memorise. The house style, which matters:
 - FUNCTION BEFORE FORM. Open with what the structure DOES, in plain English, before naming it.
@@ -89,7 +89,7 @@ Write the Learning Note.`,
   const noteMd = text.trim();
   if (!noteMd) {
     return NextResponse.json(
-      { error: "A Luna não conseguiu escrever a nota. Tenta outra vez." },
+      { error: "A Sandra não conseguiu escrever a nota. Tenta outra vez." },
       { status: 502 }
     );
   }

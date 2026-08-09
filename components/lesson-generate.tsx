@@ -31,7 +31,7 @@ export function LessonGenerate({
       const { id } = await res.json();
       router.push(`/workbook/${id}`);
     } catch {
-      setError("A Luna não conseguiu criar a lição. Tenta outra vez.");
+      setError("A Sandra não conseguiu criar a lição. Tenta outra vez.");
       setBusy(false);
     }
   }
@@ -68,7 +68,7 @@ export function LessonGenerate({
         </select>
       </div>
       <button type="submit" disabled={busy} className="btn-terra">
-        {busy ? "A Luna está a preparar a lição…" : "Criar lição ✨"}
+        {busy ? "A Sandra está a preparar a lição…" : "Criar lição ✨"}
       </button>
       {error ? <p className="w-full text-sm text-terra-dark">{error}</p> : null}
     </form>

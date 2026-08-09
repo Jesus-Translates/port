@@ -19,7 +19,7 @@ function scoreColor(score: number): string {
   return "text-terra-dark";
 }
 
-/** Record → transcribe → pronunciation score (read) or Luna feedback (open). */
+/** Record → transcribe → pronunciation score (read) or Sandra feedback (open). */
 export function Recorder({
   mode,
   target,
@@ -142,7 +142,7 @@ export function Recorder({
                       key={i}
                       title={
                         w.status === "close"
-                          ? `A Luna ouviu “${w.heard}”`
+                          ? `A Sandra ouviu “${w.heard}”`
                           : w.status === "missed"
                             ? "Não ouvido"
                             : undefined
@@ -163,7 +163,7 @@ export function Recorder({
               </div>
               {result.pron.words.some((w) => w.status === "close") ? (
                 <p className="text-xs text-ink-faint">
-                  Azul tracejado = quase — toca na palavra para ver o que a Luna
+                  Azul tracejado = quase — toca na palavra para ver o que a Sandra
                   ouviu.
                 </p>
               ) : null}
@@ -187,7 +187,7 @@ export function Recorder({
           ) : (
             <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
               <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
-                O que a Luna ouviu
+                O que a Sandra ouviu
               </div>
               <p className="text-[15px]">{result.transcript || "—"}</p>
             </div>

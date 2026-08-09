@@ -28,8 +28,8 @@ const KIND_MENU = `- "vocab" — opens the phrasebook category. Set categorySlug
 - "escutar" — a spoken dialogue with a synced transcript.
 - "story" — a short graded reader.
 - "falar" — read aloud and get a pronunciation score.
-- "conversa" — a spoken back-and-forth with Luna about the topic.
-- "homework" — a written assignment Luna marks answer by answer.`;
+- "conversa" — a spoken back-and-forth with Sandra about the topic.
+- "homework" — a written assignment Sandra marks answer by answer.`;
 
 // Absent-able fields are .nullable() (never .optional()): strict structured
 // outputs require every key to be present, with null for "no value".
@@ -41,7 +41,7 @@ const pathGenSchema = z.object({
         titlePt: z
           .string()
           .describe(
-            'Short European Portuguese label for this step, e.g. "Lê o livro" or "Fala com a Luna"'
+            'Short European Portuguese label for this step, e.g. "Lê o livro" or "Fala com a Sandra"'
           ),
         topic: z
           .string()
@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: pathGenSchema }),
-    instructions: `You are Luna, building the PRACTICE PATH for one unit of a European Portuguese course. ${await currentStyle()}
+    instructions: `You are Sandra, building the PRACTICE PATH for one unit of a European Portuguese course. ${await currentStyle()}
 
 ${PATH_RULE}
 
@@ -140,7 +140,7 @@ Phrasebook slugs that really exist (for kind="vocab"): ${catMenu}. Never invent 
 
 Every item MUST carry a "topic": the concrete thing that activity covers for THIS unit, written so another AI can generate material from it without seeing the unit. "no talho: pedir 200 g de fiambre" is a topic; "vocabulário" is not. Reuse the unit's own words and situations; keep it European Portuguese.
 
-titlePt is what the learner reads on the button — short, pt-PT, imperative and friendly ("Ouve e escreve", "Constrói a frase", "Fala com a Luna").
+titlePt is what the learner reads on the button — short, pt-PT, imperative and friendly ("Ouve e escreve", "Constrói a frase", "Fala com a Sandra").
 Return 5-7 items, ordered easiest recognition first, hardest production last, one kind at most per unit, the last one always spoken.`,
     prompt: `Unit: "${unit.title}"${unit.titlePt ? ` (${unit.titlePt})` : ""}
 CEFR level: ${unit.cefr}
@@ -199,7 +199,7 @@ Build this unit's path.`,
       : [
           {
             kind: "conversa",
-            titlePt: "Fala com a Luna",
+            titlePt: "Fala com a Sandra",
             topic:
               rest.find((i) => i.topic)?.topic ||
               unit.titlePt ||
@@ -211,7 +211,7 @@ Build this unit's path.`,
 
   if (ordered.length === 0) {
     return NextResponse.json(
-      { error: "A Luna não conseguiu montar o caminho. Tenta outra vez." },
+      { error: "A Sandra não conseguiu montar o caminho. Tenta outra vez." },
       { status: 502 }
     );
   }

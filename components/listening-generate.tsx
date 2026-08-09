@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-/** Ask Luna for a new two-voice dialogue, then open it. */
+/** Ask Sandra for a new two-voice dialogue, then open it. */
 export function ListeningGenerate({
   enabled,
   level = "A2",

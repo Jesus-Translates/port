@@ -60,7 +60,7 @@ export default async function GerirPage() {
           </div>
           <p className="font-medium">O teu baralho está vazio.</p>
           <p className="mt-1 text-sm text-ink-soft">
-            Add categories from the book, or save words straight from Luna&apos;s
+            Add categories from the book, or save words straight from Sandra&apos;s
             answers.
           </p>
         </div>

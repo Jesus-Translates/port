@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s · Português",
   },
   description:
-    "Our European Portuguese learning hub — a shared phrasebook, workbook lessons, homework, quizzes and Luna the AI tutor.",
+    "Our European Portuguese learning hub — a shared phrasebook, workbook lessons, homework, quizzes and Sandra the AI tutor.",
   robots: { index: false, follow: false },
   applicationName: "Português",
   appleWebApp: {

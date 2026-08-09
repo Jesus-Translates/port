@@ -131,7 +131,7 @@ export async function resolveNextAction(
       href: `/homework/${openHw[0].id}`,
       emoji: "✍️",
       label: "Fazer o TPC",
-      why: `“${openHw[0].title}” is waiting, and Luna marks each answer as you go.`,
+      why: `“${openHw[0].title}” is waiting, and Sandra marks each answer as you go.`,
     };
   }
 
@@ -146,7 +146,7 @@ export async function resolveNextAction(
       href: "/practice/conversa",
       emoji: "✅",
       label: "Feito por hoje",
-      why: `${doneToday} ${doneToday === 1 ? "atividade" : "atividades"} hoje, ${displayName} — objetivo cumprido. Queres mais? Fala com a Luna.`,
+      why: `${doneToday} ${doneToday === 1 ? "atividade" : "atividades"} hoje, ${displayName} — objetivo cumprido. Queres mais? Fala com a Sandra.`,
       done: true,
     };
   }
@@ -167,7 +167,7 @@ export async function resolveNextAction(
     href: "/practice/conversa",
     emoji: "✅",
     label: "Feito por hoje",
-    why: `Nothing is due and the course is up to date, ${displayName}. Want more? Five minutes talking to Luna.`,
+    why: `Nothing is due and the course is up to date, ${displayName}. Want more? Five minutes talking to Sandra.`,
     done: true,
   };
 }

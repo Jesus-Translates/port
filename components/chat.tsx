@@ -18,7 +18,7 @@ function textOf(message: UIMessage): string {
 
 export function Chat({
   context,
-  placeholder = "Pergunta alguma coisa à Luna… (ask anything)",
+  placeholder = "Pergunta alguma coisa à Sandra… (ask anything)",
   starters = [],
   compact = false,
   initialInput = "",
@@ -64,7 +64,7 @@ export function Chat({
     for (const m of messages) {
       const text = textOf(m);
       if (!text) continue;
-      lines.push(`${m.role === "user" ? "Aluno" : "Luna"}: ${text}`);
+      lines.push(`${m.role === "user" ? "Aluno" : "Sandra"}: ${text}`);
     }
     const joined = lines.join("\n");
     // Keep the tail — the end of the conversation is what's freshest.
@@ -84,7 +84,7 @@ export function Chat({
       router.push(`/homework/${id}`);
     } catch {
       setMakingTpc(false);
-      alert("A Luna não conseguiu montar o TPC. Tenta outra vez.");
+      alert("A Sandra não conseguiu montar o TPC. Tenta outra vez.");
     }
   }
 
@@ -102,7 +102,7 @@ export function Chat({
               🌙
             </div>
             <p className="text-sm text-ink-soft">
-              Olá! Sou a Luna, a vossa tutora de português. 🇵🇹
+              Olá! Sou a Sandra, a vossa tutora de português. 🇵🇹
             </p>
             {starters.length > 0 ? (
               <div className="mx-auto mt-4 flex max-w-md flex-wrap justify-center gap-2">
@@ -157,14 +157,14 @@ export function Chat({
         {status === "submitted" ? (
           <div className="flex justify-start">
             <div className="rounded-2xl border border-sand bg-white/80 px-4 py-2.5 text-sm text-ink-faint">
-              A Luna está a escrever…
+              A Sandra está a escrever…
             </div>
           </div>
         ) : null}
         {error ? (
           <div className="flex items-center gap-2 rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
             <span>
-              A Luna não conseguiu responder (a ligação ou o limite do modelo).
+              A Sandra não conseguiu responder (a ligação ou o limite do modelo).
             </span>
             <button
               onClick={() => regenerate()}
@@ -186,7 +186,7 @@ export function Chat({
             className="btn-ghost min-h-0 py-1.5 text-xs"
           >
             {makingTpc
-              ? "A Luna está a escrever o TPC…"
+              ? "A Sandra está a escrever o TPC…"
               : "✍️ Gerar TPC desta conversa"}
           </button>
         </div>

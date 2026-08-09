@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: missionGradeSchema }),
-    instructions: `You are Luna, grading a real-world FIELD MISSION for a family learning European Portuguese. ${await currentStyle()}
+    instructions: `You are Sandra, grading a real-world FIELD MISSION for a family learning European Portuguese. ${await currentStyle()}
 
 The learner (${session.displayName}, level ${mission.cefr}) either did the errand for real or rehearsed it out loud.
 

@@ -20,7 +20,7 @@ const TOPIC_CHIPS = [
 ];
 
 type Msg = {
-  role: "luna" | "eu";
+  role: "sandra" | "eu";
   text: string;
   glossEn?: string;
   audioB64?: string | null;
@@ -38,7 +38,7 @@ function play(b64: string | null | undefined) {
   new Audio(`data:audio/mpeg;base64,${b64}`).play().catch(() => {});
 }
 
-/** Spoken back-and-forth with Luna: she talks, you answer by mic (or keyboard). */
+/** Spoken back-and-forth with Sandra: she talks, you answer by mic (or keyboard). */
 export function Conversa({
   cefr,
   initialTopic = "",
@@ -107,7 +107,7 @@ export function Conversa({
       setVoice(data.voice ?? "");
       setMsgs([
         {
-          role: "luna",
+          role: "sandra",
           text: data.openerPt,
           glossEn: data.glossEn,
           audioB64: data.audioB64,
@@ -132,7 +132,7 @@ export function Conversa({
       ...cur,
       { role: "eu", text: data.heard || "🤔 (não percebi)" },
       {
-        role: "luna",
+        role: "sandra",
         text: data.replyPt,
         glossEn: data.glossEn,
         audioB64: data.audioB64,
@@ -305,7 +305,7 @@ export function Conversa({
             onClick={() => start()}
             disabled={pending}
           >
-            {pending ? "A Luna está a pensar…" : "Começar a conversa 💬"}
+            {pending ? "A Sandra está a pensar…" : "Começar a conversa 💬"}
           </button>
           <button
             className="btn-ghost"
@@ -329,7 +329,7 @@ export function Conversa({
               </p>
               <p className="font-display text-xl">«{unitTopic}»</p>
               <p className="text-sm text-ink-soft">
-                É sobre isto que a Luna vai falar contigo.{" "}
+                É sobre isto que a Sandra vai falar contigo.{" "}
                 <span className="text-ink-faint">
                   Your unit&apos;s own topic — one tap and you&apos;re talking.
                 </span>
@@ -340,7 +340,7 @@ export function Conversa({
                 disabled={pending}
               >
                 {pending
-                  ? "A Luna está a pensar…"
+                  ? "A Sandra está a pensar…"
                   : `Falar sobre «${unitTopic.length > 44 ? `${unitTopic.slice(0, 44).trimEnd()}…` : unitTopic}» 💬`}
               </button>
             </div>
@@ -359,7 +359,7 @@ export function Conversa({
           <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">{error}</p>
         ) : null}
         <p className="text-xs text-ink-faint">
-          A Luna fala ao teu nível ({cefr}). Responde com a tua voz — ou escreve,
+          A Sandra fala ao teu nível ({cefr}). Responde com a tua voz — ou escreve,
           se não puderes falar. No fim recebes as correções.
         </p>
       </div>
@@ -465,13 +465,13 @@ export function Conversa({
                   : "rounded-bl-sm border border-sand bg-white/80"
               )}
             >
-              {m.role === "luna" ? (
+              {m.role === "sandra" ? (
                 <span className="mr-1" aria-hidden>
                   🌙
                 </span>
               ) : null}
               {m.text}
-              {m.role === "luna" ? (
+              {m.role === "sandra" ? (
                 <span className="mt-1.5 flex items-center gap-2">
                   {m.audioB64 ? (
                     <button
@@ -516,7 +516,7 @@ export function Conversa({
             onClick={startRecording}
             disabled={pending}
           >
-            {pending ? "A Luna está a ouvir…" : "🎙️ Responder com a voz"}
+            {pending ? "A Sandra está a ouvir…" : "🎙️ Responder com a voz"}
           </button>
         )}
         <div className="flex gap-2">

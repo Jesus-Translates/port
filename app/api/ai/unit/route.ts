@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -130,7 +130,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: unitGenSchema }),
-    instructions: `You are Luna, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(getValidUsers())}). ${await currentStyle()}
+    instructions: `You are Sandra, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(getValidUsers())}). ${await currentStyle()}
 
 A UNIT is one teaching point plus a short, ordered path through activities the app already has.
 

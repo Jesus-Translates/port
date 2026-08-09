@@ -73,7 +73,7 @@ export default async function FalarPage(props: PageProps<"/practice/falar">) {
       en: i.hint ?? "Answer out loud, in Portuguese.",
     }));
   // The unit's topic goes first and needs no AI call, so the learner lands on
-  // something to say about the right thing even before Luna is asked.
+  // something to say about the right thing even before Sandra is asked.
   const topicQuestions = tema
     ? [
         {

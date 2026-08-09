@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -102,7 +102,7 @@ multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English,
     .filter((l) => l.text.length > 0);
   if (script.length === 0) {
     return NextResponse.json(
-      { error: "A Luna não escreveu nada. Tenta outra vez." },
+      { error: "A Sandra não escreveu nada. Tenta outra vez." },
       { status: 502 }
     );
   }

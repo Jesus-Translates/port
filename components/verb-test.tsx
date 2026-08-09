@@ -281,7 +281,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
           settle(
             status === "ok" ? "certo" : status === "close" ? "quase" : "errado",
             status === "close"
-              ? `a Luna ouviu «${data.pron.words[target.wordIndex]?.heard ?? "?"}»`
+              ? `a Sandra ouviu «${data.pron.words[target.wordIndex]?.heard ?? "?"}»`
               : undefined
           );
         } catch (e) {
@@ -627,7 +627,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                 disabled={mic === "sending"}
               >
                 {mic === "sending"
-                  ? "A Luna está a ouvir-te…"
+                  ? "A Sandra está a ouvir-te…"
                   : mic === "error"
                     ? "🎙️ Gravar outra vez"
                     : "🎙️ Gravar"}
@@ -671,7 +671,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                         key={i}
                         title={
                           w.status === "close"
-                            ? `A Luna ouviu “${w.heard}”`
+                            ? `A Sandra ouviu “${w.heard}”`
                             : w.status === "missed"
                               ? "Não ouvido"
                               : undefined

@@ -34,7 +34,7 @@ export function SuggestPanel() {
       setGreeting(data.greetingPt);
       setSuggestions(data.suggestions);
     } catch {
-      setError("A Luna não respondeu. Tenta outra vez.");
+      setError("A Sandra não respondeu. Tenta outra vez.");
     } finally {
       setLoading(false);
     }
@@ -46,7 +46,7 @@ export function SuggestPanel() {
         <div>
           <h2 className="text-lg font-semibold">O que estudar hoje?</h2>
           <p className="text-sm text-ink-soft">
-            Luna looks at what you&apos;ve been doing and suggests next steps.
+            Sandra looks at what you&apos;ve been doing and suggests next steps.
           </p>
         </div>
         <button
@@ -54,7 +54,7 @@ export function SuggestPanel() {
           disabled={loading}
           className="btn-terra"
         >
-          {loading ? "A Luna está a pensar…" : suggestions ? "Outra vez 🌙" : "Pergunta à Luna 🌙"}
+          {loading ? "A Sandra está a pensar…" : suggestions ? "Outra vez 🌙" : "Pergunta à Sandra 🌙"}
         </button>
       </div>
 

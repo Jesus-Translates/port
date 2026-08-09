@@ -215,7 +215,7 @@ export function LessonComplete({
           <>
             <p className="text-sm text-ink-soft">
               Era o último diálogo da biblioteca. Bom trabalho — pede um novo à
-              Luna quando quiseres. 👏
+              Sandra quando quiseres. 👏
             </p>
             <Link
               href={backHref}

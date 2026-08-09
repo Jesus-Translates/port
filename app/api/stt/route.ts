@@ -1,6 +1,6 @@
 import { generateText } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
-import { getModel, SPEAKING_COACHING } from "@/lib/ai";
+import { getModel, SANDRA, SPEAKING_COACHING } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
@@ -13,7 +13,7 @@ export const maxDuration = 60;
  * Speech practice: transcribe a recording, then either
  *   mode=read  — align against the target sentence (word-level, honest framing:
  *                "did the recogniser understand you", not a pronunciation score)
- *   mode=open  — Luna gives short feedback on the spoken answer to a prompt.
+ *   mode=open  — Sandra gives short feedback on the spoken answer to a prompt.
  */
 export async function POST(request: NextRequest) {
   const session = await getSession();
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
   if (mode === "read" && target) {
     const pron = scorePronunciation(target, transcript);
 
-    // When something slipped, Luna diagnoses the specific sounds — comparing
+    // When something slipped, Sandra diagnoses the specific sounds — comparing
     // what was heard against the target word by word.
     let tips: string[] = [];
     if (pron.score < 100) {
@@ -101,7 +101,9 @@ export async function POST(request: NextRequest) {
       try {
         const { text, usage } = await generateText({
           model: getModel(),
-          instructions: `You are Luna, a European Portuguese pronunciation coach. ${await currentStyle()}
+          instructions: `${SANDRA}
+
+Right now you are coaching pronunciation. Someone has just recorded their own voice and is waiting to hear how bad it was — so lead with what landed, and keep any humour firmly on the language. ${await currentStyle()}
 A learner read a sentence aloud; speech recognition compared it to the target. From the mismatches, diagnose the 1-2 most
 likely PRONUNCIATION causes.
 
@@ -133,12 +135,12 @@ preamble, no closing line. English, with pt-PT sounds in **bold**.`,
     return NextResponse.json({ transcript, pron, tips });
   }
 
-  // Open mode: short spoken-answer feedback from Luna.
+  // Open mode: short spoken-answer feedback from Sandra.
   let feedbackMd: string | null = null;
   try {
     const { text, usage } = await generateText({
       model: getModel(),
-      instructions: `You are Luna, a warm European Portuguese tutor. ${await currentStyle()}
+      instructions: `${SANDRA} ${await currentStyle()}
 The learner (${session.displayName}) SPOKE an answer to a question and you see only its transcript: judge whether it
 answered the question, plus word choice, verb forms and fluency.
 

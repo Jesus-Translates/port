@@ -132,7 +132,7 @@ export default async function StoriesPage(props: PageProps<"/stories">) {
 
       {seriesTitles.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">
-          Ainda não há histórias — pede o primeiro capítulo à Luna ↑
+          Ainda não há histórias — pede o primeiro capítulo à Sandra ↑
         </p>
       ) : (
         seriesTitles.map((series) => {

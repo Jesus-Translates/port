@@ -76,7 +76,7 @@ export const QUESTIONS: Question[] = [
   {
     id: "voice",
     pt: "Falar em voz alta para a app — como te sentes?",
-    en: "Nobody hears this but Luna. It only changes when speaking shows up.",
+    en: "Nobody hears this but Sandra. It only changes when speaking shows up.",
     options: [
       { value: "avontade", pt: "À vontade", en: "let me talk from day one" },
       {

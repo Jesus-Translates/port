@@ -1,7 +1,7 @@
 # WAVE 4 RESULTS (2026-08-07) — shipped
 
 - [x] 126-unit A1-B2 course seeded and live (A1 32 / A2 44 / B1 28 / B2 22),
-      Learning Notes written by Luna on first open (verified in prod: 5,527
+      Learning Notes written by Sandra on first open (verified in prod: 5,527
       chars, all 4 headings, real pt-PT examples)
 - [x] Walkable unit paths: generated on open, contract enforced in code,
       per-item completion, unit %, one "A seguir" pill
@@ -107,7 +107,7 @@ Full reports in the session transcript. Synthesis below.
 - 83 of 105 buttons unlabelled; transcript lines not keyboard-reachable.
 
 ## Model decision
-Gemini Flash Lite: NO. luna cut prices ~80% on 2026-07-30 to $0.20/$1.20;
+Gemini Flash Lite: NO. sandra cut prices ~80% on 2026-07-30 to $0.20/$1.20;
 3.5 Flash Lite is $0.30/$2.50 — dearer on both axes. Only cheaper option is
 2-gen-old 2.5 Flash Lite, saving <2 cents all-time. The AI SDK Google path
 silently strips minItems/maxItems (we have been burned by near-miss JSON
@@ -137,8 +137,8 @@ peer-reviews and fact-checks. Mid-wave addition: Conversa mode (spoken back-and-
       dashboard cards (Unidades, Missões) + activity emoji, nav unchanged (8 tabs full).
 - [x] Verify: npm run build ✓, lint ✓, tsc ✓. Deploy 1 = everything above.
 - [x] G (Fable inline; Opus builder hit session limit): Conversa — /practice/conversa
-      spoken back-and-forth with Luna. Deploy 2 shipped; prod-verified end to end:
-      opener+audio (103KB mp3), recast confirmed live ("as ondas é" → Luna replied
+      spoken back-and-forth with Sandra. Deploy 2 shipped; prod-verified end to end:
+      opener+audio (103KB mp3), recast confirmed live ("as ondas é" → Sandra replied
       "as ondas são"), summary caught exactly the seeded error, mistake card landed
       in the deck. Salvage fallback added for schema-lax gateway models.
 - [ ] USER ENV NEEDED: AZURE_SPEECH_KEY + AZURE_SPEECH_REGION (Speech resource,
@@ -148,7 +148,7 @@ peer-reviews and fact-checks. Mid-wave addition: Conversa mode (spoken back-and-
 
 Goal: A true learning app for Kelly, Jenni & Robert learning European Portuguese while
 living near Santa Cruz (Torres Vedras), Portugal. Gated by simple username + shared
-password + Turnstile. AI = GPT 5.6 Luna via Vercel AI Gateway. Host: Vercel,
+password + Turnstile. AI = GPT 5.6 Sandra via Vercel AI Gateway. Host: Vercel,
 port.robertjeremiah.com.
 
 ## Plan
@@ -201,7 +201,7 @@ All six roadmap items shipped and verified in prod the same day:
       and approved by Robert 2026-08-08; staying on OpenAI, no Azure switch
 - [x] Ditado (dictation, LCS word grading, answer hidden server-side)
 - [x] Verbos (hand-checked EP conjugation tables, 30 verbs, EP -ámos)
-- [x] Falar (record → gpt-4o-mini-transcribe → word alignment / Luna feedback; iOS mp4 handled)
+- [x] Falar (record → gpt-4o-mini-transcribe → word alignment / Sandra feedback; iOS mp4 handled)
 - [x] CIPLE track (Leitura, Oral-listening via hidden TTS script, Escrita 25-35/60-80w,
       Cultura e História quiz + seeded 🇵🇹 category 24 entries, oral via Falar)
 - [x] Histórias (serialized graded readers set in Santa Cruz, glossary→deck, questions, audio)
@@ -255,7 +255,7 @@ Verified against the live DB, not by inspection:
   vocabulary — forno, panela, roupa, fogão — because it kept the LONGEST terms.
   Removed now that matching is in memory; one topic went from 0 matches to 27.
 - Every Escutar/Histórias diff is an improvement: 6 false positives gone (the
-  "A família da Luna" clip was matching butcher and condominium topics on the
+  "A família da Sandra" clip was matching butcher and condominium topics on the
   boilerplate "diálogo"/"frases"/"português"), 3 true positives gained via
   singular/plural matching (vizinho → "Os Vizinhos e o Mercado…").
 - Grammar-only topics ("o artigo definido antes de possessivos") still score 0

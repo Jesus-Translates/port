@@ -22,7 +22,7 @@ export default async function SpendPage() {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">💶 Gastos de IA</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          What Luna has actually cost, in euros —{" "}
+          What Sandra has actually cost, in euros —{" "}
           <span className="capitalize">{month}</span>.
         </p>
       </header>
@@ -34,7 +34,7 @@ export default async function SpendPage() {
             {formatEur(mine.monthEur)}
           </div>
           <div className="mt-1 text-xs text-ink-faint">
-            {mine.calls} {mine.calls === 1 ? "pedido" : "pedidos"} à Luna
+            {mine.calls} {mine.calls === 1 ? "pedido" : "pedidos"} à Sandra
           </div>
         </div>
         <div className="card p-4">
@@ -58,7 +58,7 @@ export default async function SpendPage() {
         <h2 className="mb-3 text-lg font-semibold">Quem gastou o quê</h2>
         {byUser.length === 0 ? (
           <p className="card p-6 text-center text-sm text-ink-soft">
-            Ainda ninguém usou a Luna este mês.
+            Ainda ninguém usou a Sandra este mês.
           </p>
         ) : (
           <div className="card divide-y divide-sand/70">

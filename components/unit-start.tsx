@@ -95,7 +95,7 @@ export function UnitStart({
       setError(
         e instanceof Error && e.message
           ? e.message
-          : "A Luna não conseguiu criar isto agora. Tenta outra vez."
+          : "A Sandra não conseguiu criar isto agora. Tenta outra vez."
       );
       setBusy(null);
     }
@@ -150,7 +150,7 @@ export function UnitStart({
           onClick={() => void create("novo")}
         >
           {busy === "novo"
-            ? "A Luna está a criar…"
+            ? "A Sandra está a criar…"
             : `${meta.emoji} ${meta.newLabel} ${topic ? `«${short(topic)}»` : "esta unidade"} ✨`}
         </button>
         {kind === "story" && seriesTitle ? (
@@ -160,7 +160,7 @@ export function UnitStart({
             onClick={() => void create("serie")}
           >
             {busy === "serie"
-              ? "A Luna está a escrever…"
+              ? "A Sandra está a escrever…"
               : `Próximo capítulo de «${short(seriesTitle, 32)}»`}
           </button>
         ) : null}

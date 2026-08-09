@@ -92,7 +92,7 @@ export default async function UnidadesPage() {
 
       {rows.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">
-          Ainda não há unidades — pede a primeira à Luna ↑
+          Ainda não há unidades — pede a primeira à Sandra ↑
         </p>
       ) : (
         buckets.map((level) => {

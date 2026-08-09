@@ -20,7 +20,7 @@ function scoreColor(score: number): string {
 }
 
 /** Two ways to close a mission: record yourself doing (or rehearsing) it and
- *  let Luna grade it, or just tell us it's done. */
+ *  let Sandra grade it, or just tell us it's done. */
 export function MissionAttempt({
   missionId,
   selfReport,
@@ -88,7 +88,7 @@ export function MissionAttempt({
             🎙️ Grava a missão
           </h2>
           <p className="text-sm text-ink-soft">
-            Record yourself doing it for real, or rehearsing it at home. Luna
+            Record yourself doing it for real, or rehearsing it at home. Sandra
             listens and grades the errand out of 10.
           </p>
         </div>
@@ -108,7 +108,7 @@ export function MissionAttempt({
               disabled={status === "processing"}
             >
               {status === "processing"
-                ? "A Luna está a ouvir…"
+                ? "A Sandra está a ouvir…"
                 : result
                   ? "🎙️ Gravar outra vez"
                   : "🎙️ Gravar"}
@@ -148,7 +148,7 @@ export function MissionAttempt({
 
             <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
               <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
-                O que a Luna ouviu
+                O que a Sandra ouviu
               </div>
               <p className="text-[15px]">{result.transcript || "—"}</p>
             </div>

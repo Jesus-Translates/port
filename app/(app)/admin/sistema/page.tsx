@@ -23,7 +23,7 @@ const KIND_LABEL: Record<string, string> = {
   tts: "Voz (text-to-speech)",
   stt: "Transcrição da fala",
   grade: "Correção de respostas",
-  tutor: "Conversas com a Luna",
+  tutor: "Conversas com a Sandra",
   homework: "TPC gerado",
   quiz: "Testes gerados",
   lesson: "Lições geradas",

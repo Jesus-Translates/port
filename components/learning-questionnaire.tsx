@@ -88,7 +88,7 @@ export function LearningQuestionnaire({
           <li>
             🎙️{" "}
             {prefs.voice === "avontade"
-              ? "Falas com a Luna desde o início."
+              ? "Falas com a Sandra desde o início."
               : prefs.voice === "nervoso"
                 ? "Começas por ler em voz alta; a conversa vem depois."
                 : "Começas por escrever; o microfone fica para depois."}

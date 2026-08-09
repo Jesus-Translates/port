@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
   // after() keeps the write alive past the end of the streamed response.
   if (messages.filter((m) => m.role === "user").length === 1) {
     after(
-      logActivity(session.username, "tutor", "Talked with Luna", 5).catch(
+      logActivity(session.username, "tutor", "Talked with Sandra", 5).catch(
         () => {}
       )
     );

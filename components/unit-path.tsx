@@ -287,7 +287,7 @@ export function UnitPathBuild({ unitId }: { unitId: number }) {
               🌙
             </span>
             <span>
-              A Luna está a montar o caminho…
+              A Sandra está a montar o caminho…
               <span className="block text-xs text-ink-faint">
                 Only happens once — then the whole family gets the same path.
               </span>

@@ -158,7 +158,7 @@ export function ErrorPatterns({
                       disabled={busy || !topic.trim()}
                     >
                       {busy
-                        ? "A Luna está a escrever…"
+                        ? "A Sandra está a escrever…"
                         : `Atribuir a ${titleCase(username)}`}
                     </button>
                     <button

@@ -7,7 +7,8 @@ import { z } from "zod";
  * - Default: a "provider/model" string routed through the Vercel AI Gateway
  *   (auth: OIDC on Vercel, AI_GATEWAY_API_KEY locally).
  * - If OPENAI_API_KEY is set to a real key, calls OpenAI directly instead —
- *   lets GPT 5.6 Luna work without gateway credits.
+ *   lets the gpt-5.6-luna model work without gateway credits.
+ *   (That model's NAME is luna — the tutor persona is Sandra. Different things.)
  */
 export function getModel(): LanguageModel {
   const id = process.env.AI_MODEL ?? "openai/gpt-5.6-luna";
@@ -25,6 +26,32 @@ Non-negotiable conventions: "tu" register between family/friends (tu fazes, fize
 // Where the learner lives is deliberately NOT here — it varies per person and
 // is appended by styleFor() in lib/place.ts. See placeLine() for the wording.
 
+/**
+ * Who Sandra is.
+ *
+ * One definition, shared by the chat tutor, the spoken conversation and every
+ * piece of feedback, so she is the same person everywhere instead of three
+ * different tutors wearing one name.
+ *
+ * The humour is bounded on purpose. A tutor who jokes constantly is exhausting
+ * and, worse, unclear — and a joke at the expense of someone who just got a
+ * sentence wrong is how a learner quietly stops opening the app. So: dry, warm,
+ * occasional, and never aimed at the person.
+ */
+export const SANDRA = `You are Sandra, a European Portuguese tutor — warm, funny, and genuinely pleased when someone gets it.
+
+Who you are:
+- Portuguese, and fond of it: the language, the food, the bureaucracy you complain about affectionately, the weather nobody can predict.
+- You talk like a real teacher who likes her job, not a textbook. Contractions, short sentences, the occasional aside.
+- You are encouraging without being saccharine. "Boa!" when it is good. Honest when it is not, but never cold about it.
+
+Your humour — read this carefully, it is easy to get wrong:
+- Dry and light. A wry aside every few exchanges, NOT every message. If you have made a joke recently, just teach.
+- Aim it at the LANGUAGE, never at the learner: Portuguese spelling, the verbs that refuse to behave, how many ways there are to say "yes", the fact that "pois" means whatever the speaker wants.
+- Self-deprecation is fine. Mocking a mistake is not. Someone who just got it wrong needs the correction and a reason to try again.
+- When the learner is struggling or frustrated, drop the jokes entirely and be kind and clear. Reading the room matters more than being funny.
+- Never explain a joke, and never use canned openers like "Ah, the classic mistake!" every time.`;
+
 /** "Kelly, Jenni and Robert" from a list of names. */
 export function familyList(names: string[]): string {
   if (names.length === 0) return "the family";
@@ -37,7 +64,9 @@ export function tutorInstructions(
   family: string[] = [],
   cefr = "A2"
 ): string {
-  return `You are Luna, a warm, encouraging European Portuguese tutor for a family of English-speaking learners (${familyList(family)}). You are talking with ${displayName}, who is at CEFR level ${cefr} — pitch your Portuguese, your examples and your corrections at that level.
+  return `${SANDRA}
+
+You are tutoring a family of English-speaking learners (${familyList(family)}). Right now you are talking with ${displayName}, at CEFR level ${cefr} — pitch your Portuguese, your examples and your corrections at that level.
 
 ${PT_STYLE}
 
@@ -372,7 +401,7 @@ export const suggestSchema = z.object({
         param: z
           .string()
           .describe(
-            "For quiz/lesson: a topic. For reference: a category slug if given in context, else a topic. For tutor: an opening question to ask Luna. For homework: a topic."
+            "For quiz/lesson: a topic. For reference: a category slug if given in context, else a topic. For tutor: an opening question to ask Sandra. For homework: a topic."
           ),
       })
     )

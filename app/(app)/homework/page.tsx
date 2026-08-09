@@ -27,7 +27,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
           ✍️ TPC — trabalhos de casa
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Homework from Luna or from class. Submit your answers and Luna
+          Homework from Sandra or from class. Submit your answers and Sandra
           corrects them with kind, specific feedback.
         </p>
       </header>
@@ -38,7 +38,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
         <h2 className="mb-3 text-lg font-semibold">O teu TPC</h2>
         {mine.length === 0 ? (
           <p className="card p-6 text-center text-sm text-ink-soft">
-            Nada por aqui — pede TPC à Luna ↑
+            Nada por aqui — pede TPC à Sandra ↑
           </p>
         ) : (
           <div className="card divide-y divide-sand/70">
@@ -60,7 +60,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
                   <div className="min-w-0 flex-1">
                     <div className="truncate font-medium">{h.title}</div>
                     <div className="text-xs text-ink-faint">
-                      {h.source === "ai" ? "da Luna" : "da aula"} ·{" "}
+                      {h.source === "ai" ? "da Sandra" : "da aula"} ·{" "}
                       {formatDate(h.createdAt)}
                     </div>
                   </div>

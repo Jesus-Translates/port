@@ -90,7 +90,7 @@ export default async function OuvirPage() {
           🎧 Ouvir — ouvido de português
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Luna speaks clearly on purpose; real Portuguese does not. Nothing
+          Sandra speaks clearly on purpose; real Portuguese does not. Nothing
           trains the ear like native audio — the swallowed vowels, the speed,
           two people talking over each other. Everything below lives outside
           this app, and most of it is free.

@@ -30,7 +30,7 @@ const TASKS = [
     emoji: "✍️",
     title: "Expressão Escrita",
     weight: "45% (com a Leitura)",
-    desc: "Two timed-style writing tasks (25-35 and 60-80 words), graded by Luna.",
+    desc: "Two timed-style writing tasks (25-35 and 60-80 words), graded by Sandra.",
     api: "/api/ai/homework",
     body: { mode: "ciple-escrita" },
     dest: (id: number) => `/homework/${id}`,
@@ -65,7 +65,7 @@ export function CipleActions() {
       const { id } = await res.json();
       router.push(task.dest(id));
     } catch {
-      setError("A Luna não conseguiu preparar o exercício. Tenta outra vez.");
+      setError("A Sandra não conseguiu preparar o exercício. Tenta outra vez.");
       setBusy(null);
     }
   }
@@ -93,7 +93,7 @@ export function CipleActions() {
               disabled={busy !== null}
               onClick={() => run(t)}
             >
-              {busy === t.key ? "A Luna está a preparar…" : "Praticar ✨"}
+              {busy === t.key ? "A Sandra está a preparar…" : "Praticar ✨"}
             </button>
           </div>
         ))}
@@ -106,7 +106,7 @@ export function CipleActions() {
           </div>
           <h3 className="mt-2 font-semibold">Produção e Interação Oral</h3>
           <p className="mt-1 flex-1 text-sm text-ink-soft">
-            Self-introduction and conversation — practise speaking with Luna
+            Self-introduction and conversation — practise speaking with Sandra
             listening.
           </p>
           <Link href="/practice/falar" className="btn-primary mt-3">

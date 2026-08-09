@@ -24,8 +24,8 @@ export type ItemKind =
   | "escutar" // listen to a dialogue with a synced transcript
   | "story" // read a graded story
   | "falar" // read aloud, get a pronunciation score
-  | "conversa" // talk with Luna about this unit's topic
-  | "homework"; // write it, Luna marks every answer
+  | "conversa" // talk with Sandra about this unit's topic
+  | "homework"; // write it, Sandra marks every answer
 
 export const ITEM_KINDS: ItemKind[] = [
   "vocab",

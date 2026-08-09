@@ -17,7 +17,7 @@ function clean(s: string | undefined | null): string {
 }
 
 /**
- * Save any Portuguese snippet — from Luna, the book, a story — as a review
+ * Save any Portuguese snippet — from Sandra, the book, a story — as a review
  * card. Returns true when a card was created, false when it was already
  * there (the UI shows "no baralho ✓" either way).
  */

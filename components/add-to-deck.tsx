@@ -62,7 +62,7 @@ export function AddToDeck({
 }
 
 /**
- * Luna bolds every Portuguese word she teaches, so **bold** is a reliable
+ * Sandra bolds every Portuguese word she teaches, so **bold** is a reliable
  * harvest of "the new vocabulary in this reply". Collapsed by default —
  * the chips are there when you want them, invisible when you don't.
  */
@@ -94,7 +94,7 @@ export function HarvestFromMarkdown({ md }: { md: string }) {
 
 /**
  * All `**bold**` segments: deduped, letters only, short enough to be a card.
- * Luna is instructed to put the English right after the bold in parentheses,
+ * Sandra is instructed to put the English right after the bold in parentheses,
  * so `**o frigorífico** (the fridge)` yields a real en→pt card instead of one
  * with the same text on both sides.
  */

@@ -10,7 +10,7 @@ type IngestResult = {
   truncated: boolean;
 };
 
-/** Paste anything (or attach a file) and Luna files it into the right categories. */
+/** Paste anything (or attach a file) and Sandra files it into the right categories. */
 export function IngestPanel() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -79,7 +79,7 @@ export function IngestPanel() {
       </div>
       <p className="text-xs text-ink-soft">
         Cola palavras, frases ou notas — em inglês ou português — ou anexa um
-        ficheiro (.txt, .md, .csv, .pdf). A Luna corrige para pt-PT, define e
+        ficheiro (.txt, .md, .csv, .pdf). A Sandra corrige para pt-PT, define e
         arruma tudo na categoria certa.
       </p>
       <textarea
@@ -103,7 +103,7 @@ export function IngestPanel() {
           />
         </label>
         <button className="btn-primary flex-1" onClick={submit} disabled={pending}>
-          {pending ? "A Luna está a arrumar…" : "Processar e adicionar ✓"}
+          {pending ? "A Sandra está a arrumar…" : "Processar e adicionar ✓"}
         </button>
       </div>
 

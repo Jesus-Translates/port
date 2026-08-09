@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-/** Ask Luna for a whole unit: Learning Note + an ordered path of activities.
+/** Ask Sandra for a whole unit: Learning Note + an ordered path of activities.
  *  It lands as a draft — the teacher publishes it from the unit page. */
 export function UnitGenerate({ level = "A2" }: { level?: string }) {
   const router = useRouter();
@@ -26,7 +26,7 @@ export function UnitGenerate({ level = "A2" }: { level?: string }) {
       const { slug } = (await res.json()) as { slug: string };
       router.push(`/unidades/${slug}`);
     } catch {
-      setError("A Luna não conseguiu montar a unidade. Tenta outra vez.");
+      setError("A Sandra não conseguiu montar a unidade. Tenta outra vez.");
       setBusy(false);
     }
   }
@@ -70,7 +70,7 @@ export function UnitGenerate({ level = "A2" }: { level?: string }) {
           disabled={busy || !topic.trim()}
           onClick={create}
         >
-          {busy ? "A Luna está a montar…" : "✨ Criar unidade"}
+          {busy ? "A Sandra está a montar…" : "✨ Criar unidade"}
         </button>
       </div>
       <p className="text-xs text-ink-faint">

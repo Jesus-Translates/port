@@ -78,7 +78,7 @@ export function CategoryView({
       setSelected(new Set(data.entries.map((_: NewEntry, i: number) => i)));
     } catch {
       setSuggestions(null);
-      alert("A Luna não respondeu. Tenta outra vez.");
+      alert("A Sandra não respondeu. Tenta outra vez.");
     } finally {
       setSuggesting(false);
     }
@@ -118,7 +118,7 @@ export function CategoryView({
             onClick={fetchSuggestions}
             disabled={suggesting}
           >
-            {suggesting ? "A Luna está a escrever…" : "✨ Luna, dá-nos mais"}
+            {suggesting ? "A Sandra está a escrever…" : "✨ Sandra, dá-nos mais"}
           </button>
         </div>
       </div>
@@ -139,7 +139,7 @@ export function CategoryView({
       {suggestions ? (
         <div className="card border-terra/40 p-4">
           <div className="mb-2 flex items-center justify-between">
-            <h3 className="font-semibold">Sugestões da Luna</h3>
+            <h3 className="font-semibold">Sugestões da Sandra</h3>
             <div className="flex gap-2">
               <button
                 className="btn-primary text-xs"

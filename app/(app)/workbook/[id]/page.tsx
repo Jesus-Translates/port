@@ -62,7 +62,7 @@ export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
           href={`/tutor?q=${encodeURIComponent(`Tenho dúvidas sobre a lição "${lesson.title}".`)}`}
           className="btn-ghost text-sm"
         >
-          🌙 Falar com a Luna
+          🌙 Falar com a Sandra
         </Link>
       </footer>
     </article>
@@ -170,7 +170,7 @@ function LessonBlock({
             <p className="mt-1 text-sm text-ink-faint">{block.promptEn}</p>
           ) : null}
           <p className="mt-3 text-xs text-ink-faint">
-            💡 Tip: write it as a note and ask Luna to correct it.
+            💡 Tip: write it as a note and ask Sandra to correct it.
           </p>
         </BlockShell>
       );

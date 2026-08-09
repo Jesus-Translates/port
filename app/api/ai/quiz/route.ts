@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
 
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -102,7 +102,7 @@ Draw from at least three sub-topics and mix verb tenses across the set — inter
   }
   if (quiz.questions.length < 3) {
     return NextResponse.json(
-      { error: "A Luna não conseguiu montar o teste. Tenta outra vez." },
+      { error: "A Sandra não conseguiu montar o teste. Tenta outra vez." },
       { status: 502 }
     );
   }

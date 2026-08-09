@@ -49,7 +49,7 @@ export async function createHomework(formData: FormData) {
   redirect(`/homework/${row.id}`);
 }
 
-async function gradeWithLuna(
+async function gradeWithSandra(
   id: number,
   instructions: string,
   response: string,
@@ -60,7 +60,7 @@ async function gradeWithLuna(
   try {
     const { text, usage } = await generateText({
       model: getModel(),
-      instructions: `You are Luna, a kind European Portuguese tutor grading homework from an adult A2 learner.
+      instructions: `You are Sandra, a kind European Portuguese tutor grading homework from an adult A2 learner.
 ${await currentStyle()}
 Return markdown feedback with exactly these sections:
 ### O que está ótimo ✨  (2-3 genuine positives, quote their Portuguese)
@@ -98,7 +98,7 @@ export async function submitHomework(id: number, responseRaw: string) {
     .set({ response, status: "submitted", submittedAt: new Date() })
     .where(eq(homework.id, id));
 
-  const graded = await gradeWithLuna(
+  const graded = await gradeWithSandra(
     id,
     hw.instructions,
     response,
@@ -128,7 +128,7 @@ export async function requestFeedback(id: number) {
     .where(eq(homework.id, id))
     .limit(1);
   if (!hw || hw.username !== session.username || !hw.response) return;
-  await gradeWithLuna(
+  await gradeWithSandra(
     id,
     hw.instructions,
     hw.response,
@@ -153,9 +153,9 @@ export async function enhanceHomework(id: number) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: homeworkGenSchema }),
-    instructions: `You are Luna, a European Portuguese tutor. ${await currentStyle()}
+    instructions: `You are Sandra, a European Portuguese tutor. ${await currentStyle()}
 The learner brought homework from their Portuguese class. Enhance it: keep the original meaning but return an improved version
-that appends a "## ✨ Extras da Luna" markdown section with: key vocabulary they'll need (pt → en), one worked example,
+that appends a "## ✨ Extras da Sandra" markdown section with: key vocabulary they'll need (pt → en), one worked example,
 and 1-2 bonus mini-exercises in the same spirit. Return the FULL instructions (original + extras) in the instructions field,
 and keep the original title unless it has none.`,
     prompt: `Title: ${hw.title}\n\nAssignment:\n${hw.instructions}`,
@@ -167,11 +167,11 @@ and keep the original title unless it has none.`,
     .set({ title: output.title || hw.title, instructions: output.instructions })
     .where(eq(homework.id, id));
 
-  await logActivity(session.username, "homework", `Enhanced “${hw.title}” with Luna`, 5);
+  await logActivity(session.username, "homework", `Enhanced “${hw.title}” with Sandra`, 5);
   revalidatePath(`/homework/${id}`);
 }
 
-/** Grade one item's answer with Luna. Returns the graded item; on AI failure
+/** Grade one item's answer with Sandra. Returns the graded item; on AI failure
  *  the answer is kept with correct=null (an explicit "ungraded" state). */
 async function gradeOneItem(
   hwTitle: string,
@@ -184,7 +184,7 @@ async function gradeOneItem(
     const { output, usage } = await generateText({
       model: getModel(),
       output: Output.object({ schema: itemFeedbackSchema }),
-      instructions: `You are Luna, a warm European Portuguese tutor giving instant feedback on ONE homework answer from a learner (${displayName}).
+      instructions: `You are Sandra, a warm European Portuguese tutor giving instant feedback on ONE homework answer from a learner (${displayName}).
 ${await currentStyle()}
 Accept natural variation (contractions, optional subject pronouns, synonyms). Right meaning with only spelling/accent
 slips counts as correct with verdict "quase". If the task asked them to write freely, judge whether the Portuguese is
@@ -268,7 +268,7 @@ async function writeItem(
 }
 
 /**
- * Answer ONE exercise and get Luna's feedback straight away, so the next
+ * Answer ONE exercise and get Sandra's feedback straight away, so the next
  * answer can be better.
  */
 export async function submitHomeworkItem(

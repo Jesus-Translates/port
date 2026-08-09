@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
   const levelLine = LEVEL_GUIDE[level] ?? LEVEL_GUIDE.A2;
 
   const SHARED = fromChat
-    ? `You are Luna, a European Portuguese tutor writing homework for the adult learner you have just been chatting with. ${await currentStyle()}
+    ? `You are Sandra, a European Portuguese tutor writing homework for the adult learner you have just been chatting with. ${await currentStyle()}
 ${levelLine}
 The assignment must come STRAIGHT out of that conversation — "practise what you just talked about". Produce EXACTLY 4-5 exercises that target:
 - the words and expressions the learner struggled with, asked about, or got wrong;
@@ -95,13 +95,13 @@ following" or a multi-part task. Mix kinds: answer a question in Portuguese, tra
 a couple of lines using something that came up.
 Instructions in English, all target content in pt-PT.`
     : cipleEscrita
-    ? `You are Luna, preparing an adult learner for the CIPLE A2 exam's Expressão Escrita component. ${await currentStyle()}
+    ? `You are Sandra, preparing an adult learner for the CIPLE A2 exam's Expressão Escrita component. ${await currentStyle()}
 Produce EXACTLY 2 exercises mirroring the real exam:
 1. A short interactional text (postal, recado, convite or email) of 25-35 words — give a concrete everyday situation.
 2. A longer text of 60-80 words about personal experience or daily life (descrever, contar, opinar).
 Each exercise's prompt must state the word count and the situation clearly. Section = "Expressão Escrita".
 Instructions in English, situations rooted in the learner's own daily life.`
-    : `You are Luna, a European Portuguese tutor writing homework for an adult learner. ${await currentStyle()}
+    : `You are Sandra, a European Portuguese tutor writing homework for an adult learner. ${await currentStyle()}
 ${levelLine}
 The whole assignment should take 15-25 minutes. Produce 4-6 exercises. Each exercise is answered on its own in a single
 input box and graded immediately, so every exercise must be self-contained and answerable in one or two sentences — never
@@ -111,7 +111,7 @@ sub-topic and mix verb tenses — interleaving beats blocking.
 Instructions in English, all target content in pt-PT.`;
 
   // The transcript-driven prompt is shared by all three generation tiers.
-  const chatPrompt = `Here is the tutoring conversation, most recent last (the learner is "Aluno", you are "Luna"):
+  const chatPrompt = `Here is the tutoring conversation, most recent last (the learner is "Aluno", you are "Sandra"):
 
 """
 ${transcript}
@@ -175,7 +175,7 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
       await recordUsage(session.username, "homework", modelId(), usage);
       const parsedTitle = md.match(/^#\s+(.+)$/m)?.[1]?.replace(/\*/g, "").trim();
       title = fromChat
-        ? chatTitle(parsedTitle || "a conversa com a Luna")
+        ? chatTitle(parsedTitle || "a conversa com a Sandra")
         : parsedTitle || `TPC: ${topic}`;
     }
     items = parseItemsFromMarkdown(md);
@@ -191,7 +191,7 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
 
   if (items.length === 0) {
     return NextResponse.json(
-      { error: "A Luna não conseguiu montar o TPC. Tenta outra vez." },
+      { error: "A Sandra não conseguiu montar o TPC. Tenta outra vez." },
       { status: 502 }
     );
   }
@@ -227,7 +227,7 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
   await logActivity(
     session.username,
     "homework",
-    `Luna assigned “${title}”${forEveryone ? " to everyone" : ""}`,
+    `Sandra assigned “${title}”${forEveryone ? " to everyone" : ""}`,
     5
   );
 

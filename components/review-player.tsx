@@ -169,7 +169,7 @@ function SpeakCheck({ target }: { target: string }) {
         className="btn-ghost mt-1 text-xs"
         onClick={() => setOpen(true)}
       >
-        🎙️ Diz tu — a Luna avalia a pronúncia
+        🎙️ Diz tu — a Sandra avalia a pronúncia
       </button>
     );
   }

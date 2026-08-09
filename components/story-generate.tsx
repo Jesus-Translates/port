@@ -34,7 +34,7 @@ export function StoryGenerate({
       const { id } = await res.json();
       router.push(`/stories/${id}`);
     } catch {
-      setError("A Luna não conseguiu escrever agora. Tenta outra vez.");
+      setError("A Sandra não conseguiu escrever agora. Tenta outra vez.");
       setBusy(false);
     }
   }
@@ -75,7 +75,7 @@ export function StoryGenerate({
             disabled={busy || !series}
             onClick={() => create(true)}
           >
-            {busy ? "A Luna está a escrever…" : "Próximo capítulo ✨"}
+            {busy ? "A Sandra está a escrever…" : "Próximo capítulo ✨"}
           </button>
         ) : null}
       </div>

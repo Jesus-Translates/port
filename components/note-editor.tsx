@@ -21,7 +21,7 @@ export function NoteEditor({
   const [tags, setTags] = useState(note.tags);
   const [saved, setSaved] = useState(true);
   const [pending, startTransition] = useTransition();
-  const [lunaOpen, setLunaOpen] = useState(false);
+  const [sandraOpen, setSandraOpen] = useState(false);
   // Edits made while a save is in flight must not be marked as saved.
   const editCounter = useRef(0);
 
@@ -94,12 +94,12 @@ export function NoteEditor({
       <section className="card p-4">
         <button
           className="flex w-full items-center justify-between"
-          onClick={() => setLunaOpen((o) => !o)}
+          onClick={() => setSandraOpen((o) => !o)}
         >
-          <span className="font-semibold">🌙 Pergunta à Luna sobre esta nota</span>
-          <span className="text-ink-faint">{lunaOpen ? "▴" : "▾"}</span>
+          <span className="font-semibold">🌙 Pergunta à Sandra sobre esta nota</span>
+          <span className="text-ink-faint">{sandraOpen ? "▴" : "▾"}</span>
         </button>
-        {lunaOpen ? (
+        {sandraOpen ? (
           <div className="mt-3">
             <Chat
               compact

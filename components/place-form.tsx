@@ -49,7 +49,7 @@ export function PlaceForm({
         📍 Onde vives? · Where do you live?
       </h2>
       <p className="mt-1 text-xs text-ink-soft">
-        Luna writes your lessons, stories and homework around where you actually
+        Sandra writes your lessons, stories and homework around where you actually
         are — your market, your beach, your bus.
       </p>
 

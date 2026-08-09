@@ -641,7 +641,7 @@ const LineRow = memo(function LineRow({
                   key={i}
                   title={
                     w.status === "close"
-                      ? `A Luna ouviu “${w.heard}”`
+                      ? `A Sandra ouviu “${w.heard}”`
                       : w.status === "missed"
                         ? "Não ouvido"
                         : undefined
@@ -661,7 +661,7 @@ const LineRow = memo(function LineRow({
           </div>
           {result.pron.words.some((w) => w.status === "close") ? (
             <p className="text-xs text-ink-faint">
-              Azul tracejado = quase — toca na palavra para ver o que a Luna
+              Azul tracejado = quase — toca na palavra para ver o que a Sandra
               ouviu.
             </p>
           ) : null}

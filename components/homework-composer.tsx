@@ -14,15 +14,15 @@ export function HomeworkComposer({
   unitItemId?: number | null;
 }) {
   const router = useRouter();
-  const [mode, setMode] = useState<"luna" | "class" | null>(
-    initialTopic ? "luna" : null
+  const [mode, setMode] = useState<"sandra" | "class" | null>(
+    initialTopic ? "sandra" : null
   );
   const [topic, setTopic] = useState(initialTopic);
   const [forEveryone, setForEveryone] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  async function askLuna(e: React.FormEvent) {
+  async function askSandra(e: React.FormEvent) {
     e.preventDefault();
     if (!topic.trim()) return;
     setBusy(true);
@@ -41,7 +41,7 @@ export function HomeworkComposer({
       const { id } = await res.json();
       router.push(`/homework/${id}`);
     } catch {
-      setError("A Luna não respondeu. Tenta outra vez.");
+      setError("A Sandra não respondeu. Tenta outra vez.");
       setBusy(false);
     }
   }
@@ -49,8 +49,8 @@ export function HomeworkComposer({
   if (mode === null) {
     return (
       <div className="flex flex-wrap gap-2">
-        <button className="btn-terra" onClick={() => setMode("luna")}>
-          ✨ Pedir TPC à Luna
+        <button className="btn-terra" onClick={() => setMode("sandra")}>
+          ✨ Pedir TPC à Sandra
         </button>
         <button className="btn-ghost" onClick={() => setMode("class")}>
           📎 Adicionar TPC da aula
@@ -59,9 +59,9 @@ export function HomeworkComposer({
     );
   }
 
-  if (mode === "luna") {
+  if (mode === "sandra") {
     return (
-      <form onSubmit={askLuna} className="card space-y-3 p-4">
+      <form onSubmit={askSandra} className="card space-y-3 p-4">
         <div className="flex flex-wrap items-end gap-3">
           <div className="min-w-52 flex-1">
             <label className="label" htmlFor="hw-topic">
@@ -77,7 +77,7 @@ export function HomeworkComposer({
             />
           </div>
           <button type="submit" disabled={busy} className="btn-terra">
-            {busy ? "A Luna está a escrever…" : "Pedir ✨"}
+            {busy ? "A Sandra está a escrever…" : "Pedir ✨"}
           </button>
           <button type="button" className="btn-ghost" onClick={() => setMode(null)}>
             Cancelar
@@ -133,7 +133,7 @@ export function HomeworkComposer({
         </button>
       </div>
       <p className="text-xs text-ink-faint">
-        💡 Depois de guardar, podes pedir à Luna para “melhorar” o TPC — ela
+        💡 Depois de guardar, podes pedir à Sandra para “melhorar” o TPC — ela
         acrescenta vocabulário, um exemplo e exercícios extra.
       </p>
     </form>

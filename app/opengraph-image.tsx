@@ -114,7 +114,7 @@ export default async function Image() {
             The family hub — livro, lições,
           </div>
           <div style={{ fontSize: 40, color: INK_SOFT, lineHeight: 1.3 }}>
-            TPC, testes e a Luna.
+            TPC, testes e a Sandra.
           </div>
 
           <div style={{ display: "flex", gap: 16, marginTop: 46 }}>

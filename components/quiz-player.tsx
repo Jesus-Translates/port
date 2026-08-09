@@ -70,7 +70,7 @@ export function QuizPlayer({
         <div className="mb-3 animate-pulse text-4xl" aria-hidden>
           🌙
         </div>
-        <p className="font-medium">A Luna está a corrigir…</p>
+        <p className="font-medium">A Sandra está a corrigir…</p>
         <p className="mt-1 text-sm text-ink-soft">
           Grading your answers — a few seconds.
         </p>
@@ -134,7 +134,7 @@ export function QuizPlayer({
               autoFocus
             />
             <p className="mt-1.5 text-xs text-ink-faint">
-              Type your answer in Portuguese. Accents welcome but Luna is
+              Type your answer in Portuguese. Accents welcome but Sandra is
               forgiving.
             </p>
           </div>

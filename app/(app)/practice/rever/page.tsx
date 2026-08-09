@@ -62,7 +62,7 @@ export default async function ReviewPage(props: PageProps<"/practice/rever">) {
           </div>
           <p className="font-medium">Tudo revisto por hoje!</p>
           <p className="mt-1 text-sm text-ink-soft">
-            {deck.total} cartões no baralho. Volta amanhã — a Luna guarda a
+            {deck.total} cartões no baralho. Volta amanhã — a Sandra guarda a
             ordem certa.
           </p>
         </div>

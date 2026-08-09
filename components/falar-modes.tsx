@@ -19,7 +19,7 @@ export function FalarModes({
 }: {
   readAloud: ReadTarget[];
   starterQuestions: Question[];
-  /** The unit item's topic — seeds everything Luna is asked to write. */
+  /** The unit item's topic — seeds everything Sandra is asked to write. */
   initialTopic?: string;
   /** The course step this speaking session is fulfilling, when there is one. */
   unit?: UnitContext | null;
@@ -76,7 +76,7 @@ export function FalarModes({
             key: `gen-${Date.now()}-${i}`,
             pt: f.pt,
             en: f.en,
-            source: topic.trim() ? `Tema: ${topic.trim()}` : "Frases novas da Luna ✨",
+            source: topic.trim() ? `Tema: ${topic.trim()}` : "Frases novas da Sandra ✨",
           }))
         );
       } else {
@@ -85,14 +85,14 @@ export function FalarModes({
           {
             titlePt: topic.trim()
               ? `Sobre «${topic.trim().slice(0, 40)}» ✨`
-              : "Pergunta da Luna ✨",
+              : "Pergunta da Sandra ✨",
             ...q,
           },
           ...qs,
         ]);
       }
     } catch {
-      setError("A Luna não respondeu. Tenta outra vez.");
+      setError("A Sandra não respondeu. Tenta outra vez.");
     } finally {
       setFetching(false);
     }
@@ -103,7 +103,7 @@ export function FalarModes({
       <div className="grid grid-cols-2 gap-2 rounded-2xl border border-sand bg-white/60 p-1.5">
         {(
           [
-            { key: "responder", label: "💬 Responder", sub: "a Luna pergunta, tu respondes" },
+            { key: "responder", label: "💬 Responder", sub: "a Sandra pergunta, tu respondes" },
             { key: "ler", label: "📄 Ler em voz alta", sub: "pronúncia com nota" },
           ] as const
         ).map((m) => (
@@ -145,14 +145,14 @@ export function FalarModes({
         </div>
         <button className="btn-terra" onClick={regenerate} disabled={fetching}>
           {fetching
-            ? "A Luna está a criar…"
+            ? "A Sandra está a criar…"
             : mode === "ler"
               ? `✨ Novas frases${topic.trim() ? " sobre o tema" : ""}`
               : `✨ Nova pergunta${topic.trim() ? " sobre o tema" : ""}`}
         </button>
         {initialTopic ? (
           <p className="w-full text-xs text-ink-faint">
-            Tudo o que a Luna criar aqui é sobre este tema — muda-o se quiseres
+            Tudo o que a Sandra criar aqui é sobre este tema — muda-o se quiseres
             outra coisa.
           </p>
         ) : null}

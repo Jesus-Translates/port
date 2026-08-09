@@ -17,7 +17,7 @@ export default async function WorkbookPage(props: PageProps<"/workbook">) {
         <h1 className="text-2xl font-semibold tracking-tight">📚 Lições</h1>
         <p className="mt-1 text-sm text-ink-soft">
           Workbook pages just like class — reading, vocab, prompts and games.
-          Ask Luna for a new one on any topic.
+          Ask Sandra for a new one on any topic.
         </p>
       </header>
 
@@ -37,7 +37,7 @@ export default async function WorkbookPage(props: PageProps<"/workbook">) {
               <span className="chip">{l.level}</span>
               {l.source === "ai" ? (
                 <span className="chip bg-terra-pale text-terra-dark">
-                  ✨ Luna
+                  ✨ Sandra
                 </span>
               ) : null}
             </div>

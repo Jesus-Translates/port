@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Português · the family hub",
     short_name: "Português",
     description:
-      "Our European Portuguese learning hub — phrasebook, lessons, homework, quizzes and Luna the AI tutor.",
+      "Our European Portuguese learning hub — phrasebook, lessons, homework, quizzes and Sandra the AI tutor.",
     start_url: "/",
     display: "standalone",
     background_color: "#faf7f0",

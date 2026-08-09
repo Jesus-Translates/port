@@ -163,7 +163,7 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
 
       {listed.length === 0 ? (
         <p className="card p-8 text-center text-sm text-ink-soft">
-          Ainda não há nada para ouvir — pede o primeiro diálogo à Luna ↑
+          Ainda não há nada para ouvir — pede o primeiro diálogo à Sandra ↑
         </p>
       ) : (
         <div className="card divide-y divide-sand/70">

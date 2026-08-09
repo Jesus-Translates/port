@@ -108,7 +108,7 @@ function ItemisedHomework({
 
       {done === total && ungraded > 0 ? (
         <div className="card border-azul/30 bg-azul-pale/50 p-4 text-sm text-azul">
-          ⏳ Tudo respondido — {ungraded === 1 ? "falta 1 correção" : `faltam ${ungraded} correções`} da Luna. Pede a correção nas perguntas marcadas.
+          ⏳ Tudo respondido — {ungraded === 1 ? "falta 1 correção" : `faltam ${ungraded} correções`} da Sandra. Pede a correção nas perguntas marcadas.
         </div>
       ) : null}
 
@@ -136,7 +136,7 @@ function ItemisedHomework({
           <p className="mt-1 text-sm text-ink-soft">
             {correct === total
               ? "Perfeito! Não erraste nada. 🎉"
-              : "TPC entregue — as correções da Luna estão acima, e os erros já foram para o teu baralho."}
+              : "TPC entregue — as correções da Sandra estão acima, e os erros já foram para o teu baralho."}
           </p>
           {unit ? (
             <div className="mt-4">
@@ -255,7 +255,7 @@ function ItemCard({
                 onClick={submit}
                 disabled={pending || !answer.trim()}
               >
-                {pending ? "A Luna está a corrigir…" : "Responder ✓"}
+                {pending ? "A Sandra está a corrigir…" : "Responder ✓"}
               </button>
             </div>
           ) : (
@@ -278,7 +278,7 @@ function ItemCard({
             {ungraded ? (
               <div className="space-y-2 rounded-xl border border-azul/30 bg-azul-pale/50 px-3 py-2">
                 <p className="text-sm text-azul">
-                  ⏳ A tua resposta ficou guardada, mas a correção da Luna não
+                  ⏳ A tua resposta ficou guardada, mas a correção da Sandra não
                   chegou. Não conta como errada.
                 </p>
                 {isOwner ? (
@@ -291,7 +291,7 @@ function ItemCard({
                       )
                     }
                   >
-                    {pending ? "A Luna está a corrigir…" : "🌙 Pedir a correção"}
+                    {pending ? "A Sandra está a corrigir…" : "🌙 Pedir a correção"}
                   </button>
                 ) : null}
               </div>
@@ -382,7 +382,7 @@ function LegacyHomework({
         <div className="mb-3 animate-pulse text-4xl" aria-hidden>
           🌙
         </div>
-        <p className="font-medium">A Luna está a corrigir o teu trabalho…</p>
+        <p className="font-medium">A Sandra está a corrigir o teu trabalho…</p>
       </div>
     );
   }
@@ -421,7 +421,7 @@ function LegacyHomework({
                 }}
                 disabled={pending || !response.trim()}
               >
-                Entregar à Luna ✓
+                Entregar à Sandra ✓
               </button>
               <button
                 className="btn-ghost"
@@ -435,7 +435,7 @@ function LegacyHomework({
                 disabled={pending}
               >
                 {pending && working === "enhance"
-                  ? "A Luna está a melhorar…"
+                  ? "A Sandra está a melhorar…"
                   : "✨ Melhorar o TPC"}
               </button>
               <button
@@ -469,13 +469,13 @@ function LegacyHomework({
           </section>
           {homework.feedback ? (
             <section className="card border-sage bg-sage-pale/40 p-5">
-              <h2 className="mb-2 font-semibold">🌙 Feedback da Luna</h2>
+              <h2 className="mb-2 font-semibold">🌙 Feedback da Sandra</h2>
               <Markdown>{homework.feedback}</Markdown>
             </section>
           ) : (
             <div className="card space-y-3 p-5">
               <p className="text-sm text-ink-soft">
-                Entregue — a correção da Luna ainda não chegou.
+                Entregue — a correção da Sandra ainda não chegou.
               </p>
               {isOwner ? (
                 <button
@@ -485,7 +485,7 @@ function LegacyHomework({
                     startTransition(() => requestFeedback(homework.id))
                   }
                 >
-                  {pending ? "A Luna está a corrigir…" : "🌙 Pedir a correção"}
+                  {pending ? "A Sandra está a corrigir…" : "🌙 Pedir a correção"}
                 </button>
               ) : null}
             </div>

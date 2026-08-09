@@ -162,7 +162,7 @@ export async function sendHomeworkEmail(
     html: emailShell(
       "Tens TPC novo",
       `<p style="margin:0;font-size:15px;line-height:1.6"><strong>${escapeHtml(session.displayName)}</strong> deixou-te um TPC: “${escapeHtml(hw.title)}”.</p>
-       <p style="margin:12px 0 0;font-size:15px;line-height:1.6">A Luna corrige cada resposta assim que a escreves.</p>
+       <p style="margin:12px 0 0;font-size:15px;line-height:1.6">A Sandra corrige cada resposta assim que a escreves.</p>
        ${button(`${SITE}/homework/${hw.id}`, "Fazer o TPC")}`
     ),
   });

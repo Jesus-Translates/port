@@ -26,7 +26,7 @@ export default async function ConversaPage(
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">💬 Conversa</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          A real back-and-forth with Luna: she speaks, you answer out loud. She
+          A real back-and-forth with Sandra: she speaks, you answer out loud. She
           gently reuses the corrected forms as you go — the full list of
           corrections arrives at the end, straight into your review deck.
         </p>

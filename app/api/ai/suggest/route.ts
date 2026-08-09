@@ -21,7 +21,7 @@ export async function POST() {
 
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -36,7 +36,7 @@ export async function POST() {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: suggestSchema }),
-    instructions: `You are Luna, the tutor inside a family's European Portuguese learning app. ${await currentStyle()}
+    instructions: `You are Sandra, the tutor inside a family's European Portuguese learning app. ${await currentStyle()}
 Given the learner's recent activity, propose what to do next INSIDE the app. Available actions:
 - kind "quiz": take a generated quiz (param = topic)
 - kind "lesson": generate a workbook lesson (param = topic)

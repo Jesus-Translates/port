@@ -26,13 +26,13 @@ export function HomeworkFromTopic({
       router.push(`/homework/${id}`);
     } catch {
       setBusy(false);
-      alert("A Luna não respondeu. Tenta outra vez.");
+      alert("A Sandra não respondeu. Tenta outra vez.");
     }
   }
 
   return (
     <button onClick={create} disabled={busy} className="btn-ghost text-sm">
-      {busy ? "A Luna está a escrever…" : label}
+      {busy ? "A Sandra está a escrever…" : label}
     </button>
   );
 }

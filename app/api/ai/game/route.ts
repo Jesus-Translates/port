@@ -95,7 +95,7 @@ export async function POST(request: NextRequest) {
   }
   if (await aiRateLimited(session.username)) {
     return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Luna — espera uns minutos." },
+      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
       { status: 429 }
     );
   }
@@ -145,7 +145,7 @@ Mix the kinds of item: mostly nouns with their article, plus two or three useful
       }
       if (pairs.length < 6) {
         return NextResponse.json(
-          { error: "A Luna baralhou-se nas palavras. Tenta outra vez." },
+          { error: "A Sandra baralhou-se nas palavras. Tenta outra vez." },
           { status: 502 }
         );
       }
@@ -182,14 +182,14 @@ Vary them: a statement, a question, a negative, one about the past, one about wh
     }
     if (items.length < 4) {
       return NextResponse.json(
-        { error: "A Luna baralhou-se nas frases. Tenta outra vez." },
+        { error: "A Sandra baralhou-se nas frases. Tenta outra vez." },
         { status: 502 }
       );
     }
     return NextResponse.json({ items, topic, level });
   } catch {
     return NextResponse.json(
-      { error: "A Luna não conseguiu preparar o jogo. Tenta outra vez." },
+      { error: "A Sandra não conseguiu preparar o jogo. Tenta outra vez." },
       { status: 502 }
     );
   }

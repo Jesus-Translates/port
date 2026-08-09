@@ -99,7 +99,7 @@ with (lh, nh, nasal vowels ão/õe/em, reduced vowels, final -s). Vary the verb 
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: perguntaSchema }),
-    instructions: `You are Luna, asking ONE spoken conversation question to an adult learner of European Portuguese at CEFR level ${cefr}. ${await currentStyle()}
+    instructions: `You are Sandra, asking ONE spoken conversation question to an adult learner of European Portuguese at CEFR level ${cefr}. ${await currentStyle()}
 The question must be answerable out loud in 2-4 sentences, personal and concrete, CIPLE-oral style — vary the verb
 tense you invite.`,
     prompt: `Ask one new question. ${grounding} Vary it — not the same opener every time. Seed: ${Date.now() % 97}`,

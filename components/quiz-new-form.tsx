@@ -40,7 +40,7 @@ export function QuizNewForm({
       const { id } = await res.json();
       router.push(`/practice/${id}`);
     } catch {
-      setError("A Luna não conseguiu criar o teste. Tenta outra vez.");
+      setError("A Sandra não conseguiu criar o teste. Tenta outra vez.");
       setBusy(false);
     }
   }
@@ -78,7 +78,7 @@ export function QuizNewForm({
           </select>
         </div>
         <button type="submit" disabled={busy} className="btn-terra">
-          {busy ? "A Luna está a escrever o teste…" : "Criar teste ✨"}
+          {busy ? "A Sandra está a escrever o teste…" : "Criar teste ✨"}
         </button>
       </div>
       <div className="flex flex-wrap gap-1.5">

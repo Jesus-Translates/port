@@ -38,7 +38,7 @@ export default async function HomeworkDetail(
           </h1>
           <span className="chip capitalize">{hw.username}</span>
           <span className="chip">
-            {hw.source === "ai" ? "✨ da Luna" : "📎 da aula"}
+            {hw.source === "ai" ? "✨ da Sandra" : "📎 da aula"}
           </span>
         </div>
         <p className="mt-1 text-xs text-ink-faint">
