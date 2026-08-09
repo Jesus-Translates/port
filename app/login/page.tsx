@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { count } from "drizzle-orm";
 import { getSession, getValidUsers } from "@/lib/auth";
@@ -46,10 +47,20 @@ export default async function LoginPage() {
             European Portuguese, com a Sandra
           </p>
         </div>
+        {/* A login page with no way to sign up is a door with no handle. */}
         <LoginForm
           users={single ? getValidUsers() : []}
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
         />
+        <p className="mt-6 text-center text-sm text-ink-soft">
+          Ainda não tens conta?{" "}
+          <Link
+            href="/registar"
+            className="font-medium text-olive underline underline-offset-2"
+          >
+            Criar a tua família
+          </Link>
+        </p>
       </div>
     </div>
   );
