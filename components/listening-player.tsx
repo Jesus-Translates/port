@@ -690,10 +690,9 @@ const LineRow = memo(function LineRow({
 /** Swap the synthetic voices for real ones — the whole point of a family hub:
  *  Kelly's neighbour reading the dialogue beats any neural voice.
  *
- *  Only rendered for staff, because it rewrites the clip for everybody. NOTE:
- *  that is a UI affordance, not a security boundary — /api/listening/human
- *  still authenticates without checking the role, so the copy here deliberately
- *  describes the blast radius rather than claiming "staff only". */
+ *  Only rendered for staff, because it rewrites the clip for everybody.
+ *  /api/listening/human re-checks the role on the request, so this gate is the
+ *  affordance and that one is the boundary. */
 function ReplaceLibraryAudio({
   clipId,
   source,
@@ -795,7 +794,7 @@ function ReplaceLibraryAudio({
         Isto troca o áudio deste diálogo para toda a família — não é o teu
         exercício de pronúncia.{" "}
         <span className="text-ink-faint/80">
-          Replaces the clip for everyone, permanently.
+          Staff only. Replaces the clip for everyone, permanently.
         </span>
       </p>
 
