@@ -138,11 +138,11 @@ event.
 - **Guarda**: the **Sé da Guarda**, whose retable carries around a hundred carved
   figures under Nossa Senhora da Assunção; the **judiaria** in São Vicente with 48
   documented cross-marks cut into doorframes.
-- **Castelo Branco**: the **Jardim do Paço Episcopal** (1725) with its baroque
-  **Escadaria dos Reis** and azulejo panels; the Templar castle (1214–1230) on the
-  **Monte da Cardosa**.
+- **Castelo Branco**: the baroque **Jardim do Paço Episcopal**, with its staircase of
+  kings (the name *Escadaria dos Reis* is *single-source*) and azulejo panels; the
+  Templar castle (1214–1230) on the **Monte da Cardosa**.
 - **Covilhã**: the **Universidade da Beira Interior** occupying the **Real Fábrica dos
-  Panos** built under Pombal in 1763 — the university literally lives in the old
+  Panos** built under Pombal in the 1760s — the university literally lives in the old
   wool mills; the 19th-century **Torre de São Tiago**.
 - **Buçaco / Bussaco** — the walled forest and Serra do Buçaco in Mealhada, with the
   spa town of **Luso** below it.
@@ -155,30 +155,54 @@ Santarém, and receives around **six million visitors a year**. The core structu
 are the **Capelinha das Aparições**, the **Basílica de Nossa Senhora do Rosário**,
 the **Basílica da Santíssima Trindade** and the vast open **Recinto de Oração**.
 
+The **Basílica de Nossa Senhora do Rosário** (begun 13 May 1928, consecrated 1953)
+holds the tombs of **Jacinta**, **Francisco Marto** and **Irmã Lúcia**. Outside the
+recinto are **Aljustrel**, the shepherds' home village, **Valinhos**, and the **Loca
+do Cabeço**. Note the common error: Fátima *is* a **cidade** (10,533 people) but it is
+**not its own concelho** — it is a freguesia of **Ourém**, and the **Castelo de Ourém**
+and its medieval village 10 km away are a quiet local weekend outing.
+
 What matters for residents: the **peregrinações aniversárias fall on the 13th of the
-month**, with 13 May and 13 October the largest. In the days before, pilgrims walk
-the national roads on foot in reflective vests, and drivers slow behind them for
-kilometres. The **procissão das velas** fills the recinto at night. Fátima's 13,212
-residents work in hotels, restaurants and shops selling *artigos religiosos*; the
-A1 has an exit that reaches the sanctuary in under five minutes, the IC9 feeds it,
-and the coach terminal runs mostly Rede Expressos. People genuinely do say *vou à
-Cova da Iria* the way others say *vou ao centro*.
+month**, biggest from May to October, with 13 May and 13 October the peaks. In the
+days before, pilgrims walk the national roads on foot in reflective vests, and drivers
+slow behind them for kilometres. The **procissão das velas** fills the recinto at
+night. Fátima's 13,212 residents work in hotels, restaurants and shops selling
+*artigos religiosos*; the A1 has an exit that reaches the sanctuary in under five
+minutes, the IC9 feeds it, and the coach terminal runs mostly Rede Expressos. People
+genuinely do say *vou à Cova da Iria* the way others say *vou ao centro*. Two
+practices everyone knows and residents have words for — **o queimador**, where candles
+are burned, and going **de joelhos** along the penitential path — are real but
+*unverified* in this pass.
 
-**Coimbra** has two cathedrals: the Romanesque **Sé Velha**, on whose steps the
-**Serenata Monumental** is sung at midnight to open the Queima das Fitas, and the
-**Sé Nova**. The university's **Capela de São Miguel** sits inside the Paço das
-Escolas (its everyday use for weddings and services is unverified here). The
-**Mosteiro de Santa Cruz** stands on Praça 8 de Maio; the **Mosteiro de Santa
-Clara-a-Velha** on the far bank gave its name to the *pastéis de Santa Clara*.
+**Coimbra.** The Romanesque **Sé Velha**, on whose steps the **Serenata Monumental**
+is sung at midnight to open the Queima das Fitas, is the only Reconquest-era
+Portuguese cathedral to survive largely intact — and it is **a working parish church**,
+not just a monument. Pombal moved the episcopal seat in 1772 to the former Jesuit
+church, the **Sé Nova**; today the two share the seat of the Diocese de Coimbra. The
+university's **Capela de São Miguel**, inside the Paço das Escolas, is **in active
+liturgical use**: the university chaplaincy celebrates the Eucharist there every
+Sunday at noon, and it is simultaneously a ticketed stop on the tour. The **Mosteiro
+de Santa Cruz** on **Praça 8 de Maio** is also a working parish church, and since 2003
+a **Panteão Nacional**, holding the tombs of **D. Afonso Henriques** and **D. Sancho
+I**. Across the river, **Santa Clara-a-Velha** (the flooded ruins) gave its name to the
+*pastéis de Santa Clara*, and **Santa Clara-a-Nova** holds the **Rainha Santa Isabel**.
 
-The **Convento de Cristo** in Tomar functions today as a monument rather than a
-parish; ordinary Tomar worship happens at the **Igreja de São João Batista** on the
-main square and the **Igreja de Santa Maria dos Olivais**, where Gualdim Pais is
-buried. Tomar also keeps a 15th-century **Sinagoga**.
+The **Convento de Cristo** in Tomar is today a museum and cultural site with **no
+monastic or parish function**; ordinary Tomar worship happens at the **Igreja de São
+João Baptista** on the Praça da República and the **Igreja de Santa Maria dos
+Olivais**, where Gualdim Pais is buried. Tomar also keeps its **Sinagoga**, now the
+Museu Luso-Hebraico.
 
-Cathedral cities: **Sé de Viseu** (with the **Igreja da Misericórdia** facing it
-across the terreiro), **Sé da Guarda**, **Sé de Leiria**, **Sé de Castelo Branco**
-(unverified).
+Cathedrals of the interior: **Sé de Viseu** (Igreja de Nossa Senhora da Assunção),
+sharing the **Largo da Sé** with the **Igreja da Misericórdia** and the Museu Grão
+Vasco; the **Sé da Guarda**, late Gothic with Manueline detail, reopened after
+restoration in 1921; the **Sé de Leiria**. Castelo Branco's cathedral is properly the
+**Igreja de São Miguel**, the *igreja matriz*, serving as **Sé Concatedral** — the town
+shares a see with Portalegre in the **Diocese de Portalegre-Castelo Branco** and is not
+its own diocese. Aveiro's is the **Igreja de São Domingos** (Convento de São Domingos /
+Nossa Senhora da Glória), founded 1423. In Marinha Grande say simply *a igreja matriz*:
+the dedication is *unverified*, but the **padroeira is Nossa Senhora do Rosário**, with
+festivities in October.
 
 Everyday parish life is the same across the zone and is what lessons should use:
 *missa de domingo*, *catequese* on Saturday mornings, the *festa da padroeira* with
@@ -384,8 +408,9 @@ Académica, Beira-Mar, União de Leiria, Académico de Viseu, Sporting da Covilh
 
 - **13th of every month, Fátima** — *peregrinações aniversárias*, biggest on **13 May**
   and **13 October**. Roads fill with walking pilgrims for days beforehand.
-- **February** — Carnaval; *interrupção letiva*; the deep cheese and *enchidos*
-  season in the Serra, out of the winter milk.
+- **February** — Carnaval, of which the **Carnaval de Ovar** is the zone's biggest;
+  *interrupção letiva*; the deep cheese and *enchidos* season in the Serra, out of
+  the winter milk.
 - **March–April** — the **Feira de Março** in Aveiro, the city's big annual fair
   (month confirmed by name; programme details *unverified*). Semana Santa and Páscoa.
 - **April** — Tomar's *beija-me depressa* and *bolos de cama* celebration.
@@ -442,8 +467,9 @@ Vocabulary a resident would actually use:
 - `marnoto` — the salt worker who rakes the pans by hand.
 - `marinha` — a salt pan. `flor de sal` — the fine crust skimmed off the top.
 - `palheiro` — a fisherman's plank store; now the striped houses of Costa Nova.
-- `arte xávega` — beach-seine fishing, the net hauled ashore by tractor where oxen
-  once pulled; still visible at Praia da Vieira, Mira and Torreira.
+- `arte xávega` — beach-seine fishing, the net hauled ashore by tractor where *dez
+  juntas de bois* once pulled; still worked at Praia da Vieira, Praia de Mira (about
+  five boats left) and Vagueira, where it is described as deeply rooted in local life.
 - `dóri` — the one-man boat the Ílhavo cod fishermen rowed off the trawler.
 - `faina maior` — the Newfoundland cod campaign.
 - `caçoila` — the black clay pot chanfana is baked in.
@@ -466,10 +492,11 @@ streets rather than in a fado house, accompanied by the *guitarra de Coimbra* tu
 a tone lower than Lisbon's for a darker sound. (The tradition of applauding by
 coughing is widely repeated but *unverified*.)
 
-Demonyms (*unverified* in this pass): conimbricense (Coimbra), aveirense (Aveiro),
-viseense (Viseu), guardense (Guarda), covilhanense (Covilhã), leiriense (Leiria),
-figueirense (Figueira da Foz), albicastrense (Castelo Branco), tomarense (Tomar),
-ilhavense (Ílhavo).
+Demonyms: **albicastrense** (Castelo Branco) is confirmed and is a lovely word to
+teach. The rest are standard but *unverified* in this pass: conimbricense (Coimbra),
+aveirense (Aveiro), viseense (Viseu), guardense (Guarda), covilhanense (Covilhã),
+leiriense (Leiria), figueirense (Figueira da Foz), tomarense (Tomar), ilhavense
+(Ílhavo).
 
 One usage split worth flagging: a small draught beer is generally `fino` in the
 north and `imperial` in the south, with the boundary running roughly through this
@@ -480,30 +507,45 @@ south, but `um café` is always safe.
 
 ### Coimbra
 
-The university city and the zone's medical centre — around 156,000 in the município,
-about 45,000 of them students, with roughly 21,000 at the **Universidade de Coimbra**,
-founded 1290 and UNESCO-listed since 2013. The city divides into the **Alta**, the old
-clerical and academic upper town, and the **Baixa** along the Mondego, with **Praça da
-República**, **Praça 8 de Maio** and **Largo da Portagem** as the fixed points and the
-**Ponte de Santa Clara** and **Ponte Rainha Santa Isabel** crossing the river.
-*Landmark*: the Paço das Escolas and its tower above everything. *Food*: `arrufada de
-Coimbra`, the dry double-risen sweet bread from the Convento de Sant'Ana, and
-`chanfana` from the villages just east. *Everyday*: since Coimbra-A closed in January
-2025 everyone catches trains at **Coimbra-B**, and the new Metro Mondego metrobus
-runs from Largo da Portagem out to Vale das Flores.
+The university city and the zone's medical centre — **140,796 in the município at the
+2021 census** (ignore the 156,359 figure floating about; it is a 2026 projection),
+with a student population in the tens of thousands at the **Universidade de Coimbra**,
+founded 1290 and UNESCO-listed since 2013. It is a university-and-hospital economy:
+the **CHUC**, the **HUC**, the **Hospital dos Covões** and the **IPO**, plus a tech
+cluster (Critical Software, Feedzai, WIT Software, Bluepharma). The city divides into
+the **Alta**, the old clerical and academic upper town, and the **Baixa** along the
+Mondego. Fixed points: **Praça da República** up by the university, **Praça 8 de
+Maio** in front of Santa Cruz, **Largo da Portagem** by the river, with **Rua Ferreira
+Borges**, **Rua Visconde da Luz** and **Rua da Sofia** for shopping, and the **Ponte de
+Santa Clara**, **Ponte Rainha Santa** and the pedestrian **Ponte Pedro e Inês** across
+the river. *Landmark*: the **Paço das Escolas** with the **Porta Férrea**, the
+**Biblioteca Joanina** and the **Torre da Universidade**, whose bell students call
+**"a cabra"**. *Food*: `arrufada de Coimbra`, the dry double-risen sweet bread from
+the Convento de Sant'Ana, and `chanfana` from the villages just east. *Everyday*:
+since Coimbra-A closed in January 2025 everyone catches trains at **Coimbra-B**, and
+the new Metro Mondego metrobus runs from Largo da Portagem out to Vale das Flores.
 
 ### Aveiro
 
-A lagoon city of about 81,000 in the município, built on the **Ria** with **canais**,
-**moliceiros**, **salinas** and salt warehouses, and an Art Nouveau centre. The
-**Universidade de Aveiro** (15,284 students) sits on the Campus de Santiago between
-the salt pans and the town, with buildings by Siza Vieira and Souto de Moura. Next
-door, **Ílhavo** is the *Capital Portuguesa do Bacalhau*, home to Vista Alegre
-porcelain, the Museu Marítimo and the Gafanhas; **Costa Nova**'s striped *palheiros*
-and the **Farol da Barra** are its beaches. *Landmark*: the Canal Central with the
-moliceiros tied up along it. *Food*: `ovos moles` in a painted *barrica*, and a hot
-`tripa` from Costa Nova. *Everyday*: it is a bicycle town — flat, with BUGA bikes
-(paid since 2023) and MoveAveiro buses.
+A lagoon city — 62,653 in the cidade, about 88,000 in the município — built on the
+**Ria** with **canais**, **moliceiros**, **salinas** and salt warehouses, and an Art
+Nouveau centre (the **Museu Arte Nova** is in the 1907 **Casa do Major Pessoa** by the
+Jardim do Rossio). The **Universidade de Aveiro** (15,284 students, founded 1973)
+sits on the **Campus de Santiago** between the salt pans and the town, strong in
+telecommunications, materials and ceramics, with a library by Siza Vieira and a
+geosciences building by Souto de Moura. Salt is still harvested but is economically
+in decline — do not present it as a live major industry. Next door, **Ílhavo** is the
+*Capital Portuguesa do Bacalhau*, with two cities in one município (Ílhavo and
+**Gafanha da Nazaré**), the **Museu Marítimo de Ílhavo** and the **Vista Alegre**
+works — founded 1824 by José Ferreira Pinto Basto, *Real Fábrica* from 1829, still
+producing around ten million pieces a year under Grupo Visabeira. *Landmark*: the
+Canal Central with the moliceiros tied up along it. *Food*: `ovos moles` in a painted
+*barrica*, and a hot `tripa` from Costa Nova. *Everyday*: people navigate by the
+**Praça do Peixe** (market by day, bars by night), the **Rossio**, the **Avenida Dr.
+Lourenço Peixinho** running from the azulejo-tiled station into town, and the **Fórum
+Aveiro** for actual shopping. It is a bicycle town — flat, with BUGA bikes (paid since
+2023) and MoveAveiro buses. Avoid "a Veneza de Portugal"; that is a tourist tag, not a
+resident's phrase.
 
 ### Leiria
 
@@ -513,23 +555,28 @@ manufacturing: ceramics, plastics, cement and above all **moldes**. The
 A8, A17 and A19** all touch the city. Neighbouring **Marinha Grande** is the glass
 town — Guilherme Stephens' **Real Fábrica de Vidros**, the **Museu do Vidro** in the
 Palácio Stephens — and the gateway to the **Pinhal de Leiria** and the beaches of
-São Pedro de Moel and Praia da Vieira. *Landmark*: the **Castelo de Leiria** above
-the Lis. *Food*: `brisas do Lis`, from the Convento de Santana. *Everyday*:
-**Praça Rodrigues Lobo** with its cafés is where people arrange to meet, and the
-**Mercado de Sant'Ana** and **Jardim Luís de Camões** are the other landmarks in
-ordinary directions.
+São Pedro de Moel and Praia da Vieira — one of the last beaches where **arte xávega**
+is still worked. *Landmark*: the **Castelo de Leiria** on its hill above the Lis; the
+historic city lives *entre a colina do castelo e o rio*, and that up/down split is how
+residents give directions. *Food*: `brisas do Lis`, from the Convento de Santana.
+*Everyday*: **Praça Rodrigues Lobo** with its ring of cafés is where people arrange to
+meet; the **Mercado de Sant'Ana**, the **Jardim Luís de Camões** and the riverside
+**Percurso Polis** are the other fixed points.
 
 ### Figueira da Foz
 
-About 59,000 people at the mouth of the Mondego, with what the city claims is
-Europe's widest urban beach and the nickname *Rainha das Praias de Portugal*. The
-**Casino Figueira** (1884) is the oldest on the Peninsula. The town works: fishing,
-a commercial port with a container terminal and shipyards, paper and cellulose,
-glass, chemicals, salt and the rice fields upriver. **Buarcos** is the old fishing
-quarter and **Cabo Mondego** the Jurassic headland. *Landmark*: the Forte de Santa
-Catarina at the river mouth. *Food*: `caldeirada de petinga` with broa. *Everyday*:
-the population multiplies in August and drains in September — winter Figueira is a
-different, windier town.
+About 59,000 people at the mouth of the Mondego, with one of the widest urban beaches
+in Europe (the "widest in Europe" claim is promotional — hedge it) and the nickname
+*Rainha das Praias de Portugal*. The **Casino Figueira** (1884) is the oldest on the
+Peninsula. This is a genuinely industrial town that happens to have a beach: fishing,
+a commercial port with container terminal and shipyards, pulp and paper (**The
+Navigator Company**, **Celbi**), glass (**Verallia**), chemicals, salt, and the rice
+fields upriver. **Buarcos** is the old fishing quarter, now absorbed; **Cabo Mondego**
+is a Monumento Natural Nacional for its Jurassic rock. *Landmark*: the **Forte de
+Santa Catarina** at the river mouth, and the **Serra da Boa Viagem** behind.
+*Food*: `caldeirada de petinga` with broa. *Everyday*: the population multiplies in
+August and drains in September — winter Figueira is a different, windier town. (Street
+and square names here are *unverified*; do not invent them.)
 
 ### Viseu
 
@@ -538,10 +585,13 @@ surveys. It is the capital of the **Dão** wine region, a *Destino de Gastronomi
 since 2019, with the **Sé de Viseu** and the **Igreja da Misericórdia** facing each
 other in the upper town, the **Museu Grão Vasco** in the Paço dos Três Escalões, and
 the **Cava de Viriato** — an octagonal earthwork about 2 km around — on the edge of
-town. *Landmark*: the Rossio, now Praça da República, which pulled the city's centre
-downhill in the 19th century. *Food*: a glass of **Encruzado** or a Touriga Nacional
-from the Dão. *Everyday*: for a fortnight either side of 21 September the whole city
-revolves around the **Feira de São Mateus**, chartered in 1392.
+town. *Landmark*: the **Rossio**, formally Praça da República, which pulled the city's
+centre downhill in the 16th–19th centuries; the **Rua Direita** climbs from it into
+the granite medieval quarter, and the **Largo da Sé** holds cathedral, Misericórdia
+and museum on one square. *Food*: a glass of **Encruzado** or a Touriga Nacional from
+the Dão. *Everyday*: for a fortnight either side of 21 September the whole city
+revolves around the **Feira de São Mateus**, chartered in 1392; the rest of the year
+people walk in the **Parque Aquilino Ribeiro**.
 
 ### Guarda
 
@@ -550,25 +600,35 @@ município and 26,000 in the urban centre. Known by the *cinco efes* — **forte
 fria, fiel e formosa**. January averages 4 °C and it snows several times a year.
 Historically agricultural, then industrial (Renault and Delphi, both gone by 2010),
 now leaning on logistics and its position on the **A25** and the **Linha da Beira
-Alta** to **Vilar Formoso** and Spain. The **Instituto Politécnico da Guarda** dates
-from 1983. *Landmark*: the granite **Sé da Guarda**, and the **judiaria** in São
-Vicente with 48 crosses cut into the doorframes. *Food*: `farinheiros à moda da
-Guarda` out of the *matança do porco*. *Everyday*: it is the town where you keep the
-snow chains in the boot and where relatives working in France and Switzerland come
-home in August.
+Alta** to **Vilar Formoso** and Spain; current employers include Coficab, Dura
+Automotive and Sodecia, and the **PLIE** cross-border logistics platform. The
+**Instituto Politécnico da Guarda** dates from 1983. *Landmark*: the granite **Sé da
+Guarda** and the **Torre de Menagem**, the surviving walls and gates (**Porta d'El
+Rei**, **Porta da Erva**, **Torre dos Ferreiros**, **Porta do Sol**), and the
+**judiaria** in São Vicente with 48 crosses cut into the doorframes. *Food*:
+`farinheiros à moda da Guarda` out of the *matança do porco*. *Everyday*: the hospital
+is the old **Sanatório Sousa Martins**, now the Hospital da Guarda; this is the town
+where you keep snow chains in the boot and where relatives working in France and
+Switzerland come home in August. (The main square's name is *unverified* — do not
+assert one.)
 
 ### Covilhã
 
 About 46,000 people on the southeast slope of the Serra between 450 and 800 m — *a
-porta sul da Serra da Estrela*. Wool has been made here for roughly 800 years and
-still is: around 40,000 km of cloth a year for Hugo Boss and Armani. The
-**Universidade da Beira Interior** (about 8,000 students) occupies the **Real Fábrica
-dos Panos** that Pombal founded in 1763, so the students literally study in the mills.
-**Torre** is 20 km away and **Penhas da Saúde** holds Portugal's only ski slopes.
-*Landmark*: the 19th-century **Torre de São Tiago** and the medieval walls.
-*Food*: `pastel de molho`, a beef-filled spiral served in saffron broth. *Everyday*:
-the city is built on a slope, so people talk in terms of up and down, and the **A23**
-— toll-free now — is how you reach Castelo Branco or Guarda.
+porta sul da Serra da Estrela*, and the nearest city to the Torre, 20 km away. Wool
+has been made here for roughly 800 years and **still is** — around 40,000 km of cloth
+a year from firms like Paulo de Oliveira, Penteadora and Tessimax, for Hugo Boss,
+Armani and Calvin Klein. The usual "the textiles died" narrative is wrong. The
+**Universidade da Beira Interior** (about 8,000 students; polytechnic 1973,
+university 1986) occupies the **Real Fábrica dos Panos** that Pombal founded in the
+1760s, so students literally study in the mills; the **Museu de Lanifícios** tells
+the rest. The município lost 10.3% of its people between 2011 and 2021.
+*Landmark*: the 19th-century **Torre de São Tiago**, the medieval walls, and the
+azulejo-clad **Igreja de Santa Maria Maior**. *Food*: `pastel de molho`, a beef-filled
+spiral served in saffron broth. *Everyday*: the city is built at 450–800 m on a slope,
+all *escadinhas* and terraces, so people give directions as up and down; the **Praça
+do Município** is the centre, and the **A23** — toll-free now — is how you reach
+Castelo Branco or Guarda.
 
 ### Castelo Branco
 
@@ -576,43 +636,55 @@ About 52,000 people, capital of the Beira Baixa: hot dry summers around 25 °C i
 July, mild winters, rain packed into October to January. The economy is food and
 industry — Danone, Versigent, Centauro, with roughly 4,000 employed across the
 industrial zone — plus olives and agriculture. The **Instituto Politécnico de Castelo
-Branco** serves the interior. *Landmark*: the **Jardim do Paço Episcopal** of 1725
-with its baroque **Escadaria dos Reis**, under the Templar castle on the Monte da
-Cardosa. *Food*: `queijo de Castelo Branco` DOP, sheep's milk set with thistle, and
-`empadas de carne`. *Everyday*: **a Devesa** is where the cafés and bars are, and
-the **A23** and the **Linha da Beira Baixa** are the two ways out — three hours to
-Lisboa, and Covilhã and Guarda to the north.
+Branco** serves the interior. Residents are **albicastrenses**. *Landmark*: the
+baroque **Jardim do Paço Episcopal**, laid out in the 18th century beside a Paço
+raised in 1596, with its staircase of kings — the local story that the Spanish
+Habsburg kings were carved deliberately small is much loved but should be told **as a
+story**, since the original bronzes were looted in the French invasions. Also the
+Templar castle (1214–1230) on the **Monte da Cardosa**, the **Museu Francisco Tavares
+Proença Júnior**, and the silk-embroidered linen **colchas de Castelo Branco**.
+*Food*: `queijo de Castelo Branco` DOP, sheep's milk set with thistle, and
+`empadas de carne`. *Everyday*: **a Devesa** is where the cafés and bars are, the
+**Praça Luís de Camões** and **Largo da Sé** are the fixed points, and the **A23**
+and the **Linha da Beira Baixa** are the two ways out — Covilhã and Guarda to the
+north, Lisboa to the south. Note the frequent mix-up: Delphi was in **Guarda**, not
+here.
 
 ### Tomar
 
-A town of about 14,000 in a município of 36,000 on the **Rio Nabão**, defined by the
-Templars and the Order of Christ. The **Convento de Cristo**, UNESCO-listed since
-1983, is the economic engine; the town also keeps a 15th-century **Sinagoga** and the
-**Igreja de Santa Maria dos Olivais** where Gualdim Pais is buried. Beyond tourism it
-farms maize, olives and grapes, with a shrinking legacy of paper, textiles and wood.
-*Landmark*: the Convento above the town, and the **Aqueduto dos Pegões** running to
-it (*unverified*). *Food*: `fatias de Tomar`, egg and sugar in syrup, cooked in a pan
-made nowhere else. *Everyday*: life orbits the **Praça da República** and the **Igreja
-de São João Batista**, and every fourth year the whole town rebuilds itself around the
-**Festa dos Tabuleiros** — next 3–12 July 2027.
+Administratively in the **Médio Tejo** and the distrito de Santarém, so never call it
+"na Região Centro" — but culturally and for everyday purposes it belongs with this
+zone. A town of 14,123 in a município of 36,413 on the **Rio Nabão**, defined by the
+Templars and the Order of Christ. The **Castelo de Tomar** was founded in 1160 by
+**Gualdim Pais**; the **Convento de Cristo**, UNESCO-listed since 1983, is the
+economic engine; the town also keeps its **Sinagoga** (Museu Luso-Hebraico) and the
+**Igreja de Santa Maria dos Olivais**, where Gualdim Pais is buried. Beyond tourism it
+farms irrigated maize, olives and vines, with a shrinking legacy of paper, textiles
+and wood. *Landmark*: the Convento above the town and the **Aqueduto dos Pegões**,
+six kilometres of arches by Filipe Terzi, running water to it. (**Almourol** is *not*
+Tomar's castle — it is 40 km away at Vila Nova da Barquinha.) *Food*: `fatias de
+Tomar`, egg and sugar in syrup, cooked in a pan made nowhere else. *Everyday*: life
+orbits the **Praça da República** and the **Igreja de São João Baptista**, and every
+fourth year the whole town rebuilds itself around the **Festa dos Tabuleiros** — next
+**3–12 July 2027**.
 
 ## Prompt context
 
 The learner lives in Portugal's Centro, between the Atlantic and the Serra da
 Estrela. Reach for concrete local things: the Ria de Aveiro with its moliceiros,
 salinas and marnotos; the striped palheiros of Costa Nova; the burnt and replanted
-Pinhal de Leiria; the Mondego running through Coimbra to Figueira da Foz; Torre under
-snow. Transport means the comboio on the Linha do Norte from Coimbra-B (the
-city-centre station closed in 2025), the Linha da Beira Alta to Guarda, SMTUC buses
-and the Elevador do Mercado, the new Metro Mondego metrobus, the A1, the now
-toll-free A23 and A25, and the accident-prone IP3 to Viseu. Errands mean the Mercado
-Municipal D. Pedro V, the feira semanal, Continente or Pingo Doce, tirar uma senha at
-the Loja do Cidadão, an atestado at the junta de freguesia, the centro de saúde,
-SNS 24, and the farmácia de serviço. Food means leitão da Bairrada with espumante,
-ovos moles de Aveiro, pastéis de Tentúgal, chanfana in a caçoila de barro, queijo da
-Serra spooned from the top, vinho do Dão, Licor Beirão. Habits: missa de domingo, a
-café and torrada in the pastelaria, the agrupamento school run, snow trips in
-February, the beach in August, pilgrims walking to Fátima on the thirteenth.
+Pinhal de Leiria; the Mondego running through Coimbra to Figueira da Foz; the Torre
+under snow. Transport: the comboio on the Linha do Norte from Coimbra-B (the
+city-centre station closed in 2025), the Linha da Beira Alta to Guarda, SMTUC buses,
+the Metro Mondego metrobus, the A1, the now toll-free A23 and A25, and the
+accident-prone IP3 to Viseu. Errands: the Mercado Municipal D. Pedro V, the feira
+semanal, Continente or Pingo Doce, tirar uma senha at the Loja do Cidadão, an
+atestado at the junta de freguesia, the centro de saúde, SNS 24 and the farmácia de
+serviço. Food: leitão da Bairrada with espumante, ovos moles de Aveiro, pastéis de
+Tentúgal, chanfana in a caçoila de barro, queijo da Serra spooned from the top, vinho
+do Dão and Licor Beirão. Habits: missa de domingo, a café and torrada in the
+pastelaria, the agrupamento school run, snow in February, the beach in August, and
+pilgrims walking to Fátima on the thirteenth.
 
 ## Sources
 
@@ -685,3 +757,21 @@ February, the beach in August, pilgrims walking to Fátima on the thirteenth.
 - https://www.allaboutportugal.pt/en/castelo-branco/knowledge-and-flavours
 - https://turismodocentro.pt/gastronomia-e-vinhos-do-centro-de-portugal/
 - https://pt.wikipedia.org/wiki/Broa
+- https://pt.wikipedia.org/wiki/Regi%C3%A3o_de_Aveiro
+- https://pt.wikipedia.org/wiki/%C3%81rea_Metropolitana_do_Porto
+- https://pt.wikipedia.org/wiki/Mira_(Portugal)
+- https://pt.wikipedia.org/wiki/Ria_de_Aveiro
+- https://pt.wikipedia.org/wiki/Museu_Arte_Nova
+- https://pt.wikipedia.org/wiki/Museu_Mar%C3%ADtimo_de_%C3%8Dlhavo
+- https://pt.wikipedia.org/wiki/F%C3%A1brica_da_Vista_Alegre
+- https://pt.wikipedia.org/wiki/Baixa_de_Coimbra
+- https://en.wikipedia.org/wiki/Coimbra
+- https://en.wikipedia.org/wiki/University_of_Coimbra
+- https://pt.wikipedia.org/wiki/Mata_Nacional_do_Bu%C3%A7aco
+- https://pt.wikipedia.org/wiki/Castelo_de_Almourol
+- https://pt.wikipedia.org/wiki/Pa%C3%A7o_Episcopal_de_Castelo_Branco
+- https://pt.wikipedia.org/wiki/Vieira_de_Leiria
+- https://tradicional.dgadr.gov.pt/pt/cat/queijos-e-produtos-lacteos/97-queijos-da-beira-baixa-dop
+- https://www.visitecoimbra.pt/
+- https://winesofportugal.com/pt/descobrir/regioes-vitivinicolas/beira-interior/
+- https://www.compete2020.gov.pt/detalhe/detalhe/Licor-Beirao-Uma-historia-magica-e-secular

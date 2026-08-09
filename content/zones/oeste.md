@@ -256,10 +256,13 @@ in either direction. Do not invent a "prato de Santa Cruz".
 
 **Roads and driving.** Everything here runs on the **A8** (Lisboa–Leiria), the tolled
 motorway that is the spine of the zone — Óbidos is about 88 km from Lisbon on it. The
-**A15** links Caldas da Rainha eastwards towards Santarém. The **N247** is the slow,
-beautiful coast road that strings Ericeira–Santa Cruz–Lourinhã–Peniche together; the
-**N8** and **N9** are the old inland routes. Almost every household drives; distances
-between village, school, supermarket and beach are short but not walkable.
+**A15** links Caldas da Rainha eastwards towards Santarém. The **EN 247** is the old road —
+117 km from **Peniche** down through **Lourinhã**, **Torres Vedras** and **Mafra** to
+**Cascais**, slower than the motorway and the one people actually use for local journeys.
+Note that it does not itself run along the shoreline: **Santa Cruz and Ericeira sit on branch
+roads off it** (the EN 247-2 and the EN 116), and the EN 247 has a break in its own numbering
+between Ribamar and Bombardeira. Almost every household drives; distances between village,
+school, supermarket and beach are short but not walkable.
 
 **Trains.** The **Linha do Oeste** serves **Torres Vedras**, **Bombarral**, **Óbidos**,
 **Caldas da Rainha** and **Valado** (the station for Nazaré, still a bus ride away), running
@@ -452,7 +455,7 @@ beach". The **Rio Sizandro** reaches the sea just up the coast at **Praia Azul**
   handful of cafés carry the village. Santa Cruz has **no dish of its own** — be honest about
   that. What is genuinely local is the pêra rocha off the fields behind Silveira, the
   **pastel de feijão** from Torres Vedras, and the Peniche or Ericeira seafood a short drive
-  up or down the N247.
+  up or down the coast.
 - **Everyday**: the seasonal swing is extreme. In August the place is packed with Lisbon
   families, the campsite is full and there is nowhere to park; in January it is a windy
   village where you drive to Torres Vedras for anything substantial. The **Ocean Spirit**
@@ -642,7 +645,7 @@ each August, and hosts the **Bacalhôa Buddha Eden** sculpture garden among the 
 The learner lives on Portugal's Oeste coast: surf beaches, pear and vine country, market
 towns. Set examples in real places — Torres Vedras, Santa Cruz, Silveira, Ericeira, Mafra,
 Peniche, Baleal, Óbidos, Caldas da Rainha, Nazaré, Lourinhã, Bombarral, Alcobaça. Everyone
-drives, using the tolled A8 to Lisbon and the slow coastal N247; the Linha do Oeste train
+drives, using the tolled A8 to Lisbon and the slower EN 247; the Linha do Oeste train
 serves Torres Vedras, Bombarral, Óbidos and Caldas da Rainha, but Peniche, Ericeira and
 Nazaré have no station. Errands: the daily Praça da Fruta in Caldas, the mini-mercado,
 Continente or Pingo Doce in the nearest town, the centro de saúde, the Câmara Municipal, the
@@ -726,6 +729,8 @@ Research conducted August 2026 via web search and direct page retrieval. Princip
 - Dialect classification (Estremenho): <https://pt.wikipedia.org/wiki/Dialetos_da_l%C3%ADngua_portuguesa>
 - Região saloia: <https://pt.wikipedia.org/wiki/Saloio>, <https://www.jornalsaloio.pt/2020/02/11/a-regiao-saloia/>
 - Linha do Oeste: <https://pt.wikipedia.org/wiki/Linha_do_Oeste>
+- EN 247 route: <https://pt.wikipedia.org/wiki/EN_247>
+- District assignments: <https://pt.wikipedia.org/wiki/Distrito_de_Leiria>
 - ULS do Oeste: <https://www.choeste.min-saude.pt/unidade-de-caldas-da-rainha/>
 
 **Marked unverified in this pass:** the Aldeia Típica José Franco at Sobreiro; per-town

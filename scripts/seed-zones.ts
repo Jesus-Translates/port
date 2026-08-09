@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { eq } from "drizzle-orm";
 import { getDb, zonePlaces, zones } from "../lib/db";
 
 /**
@@ -21,11 +22,24 @@ const META: Record<string, { pt: string; en: string; emoji: string; sort: number
   norte: { pt: "Norte", en: "The North — Porto, Braga, the Douro", emoji: "🍇", sort: 10 },
   centro: { pt: "Centro", en: "Centre — Coimbra, Aveiro, Leiria, Serra da Estrela", emoji: "⛰️", sort: 20 },
   oeste: { pt: "Oeste", en: "The West coast — Torres Vedras, Ericeira, Óbidos, Nazaré", emoji: "🌊", sort: 30 },
+  ribatejo: { pt: "Ribatejo", en: "The Tejo valley — Santarém, Tomar, Golegã", emoji: "🐎", sort: 35 },
   lisboa: { pt: "Grande Lisboa", en: "Lisbon and around — Sintra, Cascais, the south bank", emoji: "🏛️", sort: 40 },
+  setubal: { pt: "Península de Setúbal", en: "South bank — Almada, Setúbal, Sesimbra, Arrábida", emoji: "🐬", sort: 45 },
   alentejo: { pt: "Alentejo", en: "The plains — Évora, Beja, the cork oaks", emoji: "🌾", sort: 50 },
   algarve: { pt: "Algarve", en: "The south — Faro, Tavira, Lagos", emoji: "🏖️", sort: 60 },
   madeira: { pt: "Madeira", en: "Madeira and Porto Santo", emoji: "🌺", sort: 70 },
   acores: { pt: "Açores", en: "The Azores — nine islands", emoji: "🌋", sort: 80 },
+};
+
+/**
+ * Neighbourhood dossiers are not zones of their own — they deepen one.
+ * bairros-lisboa.md contributes Alfama, Alvalade and the rest as pickable
+ * places inside Grande Lisboa, so a learner can name their bairro and get that
+ * bairro's metro stop, market and pastelaria.
+ */
+const EXTENDS: Record<string, string> = {
+  "bairros-lisboa": "lisboa",
+  "bairros-porto": "norte",
 };
 
 /**
@@ -47,9 +61,9 @@ function section(md: string, heading: string): string {
   return "";
 }
 
-/** The "### Name" subsections under "## Towns" become the town list. */
-function towns(md: string): { name: string; context: string }[] {
-  const block = section(md, "Towns");
+/** The "### Name" subsections under a given heading become the place list. */
+function towns(md: string, heading = "Towns"): { name: string; context: string }[] {
+  const block = section(md, heading);
   if (!block) return [];
   const out: { name: string; context: string }[] = [];
   const parts = block.split(/^###\s+/m).slice(1);
@@ -95,8 +109,49 @@ async function main() {
   for (const file of files) {
     const slug = file.replace(/\.md$/, "");
     const meta = META[slug];
-    // Files without a META entry (the bairros deep-dives, thematic notes) are
-    // reference material, not pickable zones — skip them here.
+
+    // A neighbourhood dossier deepens an existing zone rather than being one.
+    const parent = EXTENDS[slug];
+    if (!meta && parent) {
+      const md = readFileSync(join(DIR, file), "utf8");
+      const [zone] = await db
+        .select({ id: zones.id, namePt: zones.namePt })
+        .from(zones)
+        .where(eq(zones.slug, parent))
+        .limit(1);
+      if (!zone) {
+        console.log(`  – ${file}: waiting for the ${parent} zone to be seeded`);
+        continue;
+      }
+      // Bairros files head their list "## Bairros"; fall back to "## Towns".
+      const list = towns(md, "Bairros").length
+        ? towns(md, "Bairros")
+        : towns(md, "Towns");
+      let n = 0;
+      for (const t of list) {
+        const row = {
+          zoneId: zone.id,
+          slug: slugify(t.name),
+          name: t.name,
+          promptContext: t.context,
+          // After the zone's own towns, so headline towns stay first.
+          sortOrder: 100 + n++,
+        };
+        if (!row.slug) continue;
+        await db
+          .insert(zonePlaces)
+          .values(row)
+          .onConflictDoUpdate({
+            target: [zonePlaces.zoneId, zonePlaces.slug],
+            set: { name: row.name, promptContext: row.promptContext },
+          });
+        placeCount++;
+      }
+      console.log(`  ✓ ${zone.namePt.padEnd(16)} +${list.length} bairros from ${file}`);
+      continue;
+    }
+
+    // Anything else (thematic notes) is reference material for humans.
     if (!meta) {
       console.log(`  – ${file}: reference only, not a pickable zone`);
       continue;
