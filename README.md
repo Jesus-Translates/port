@@ -5,20 +5,20 @@ Santa Cruz (Torres Vedras), Portugal. Live at **https://port.robertjeremiah.com*
 
 ## What's inside
 
-- **🌙 Luna** — an AI tutor (chat, corrections, explanations) with a European
+- **🌙 Sandra** — an AI tutor (chat, corrections, explanations) with a European
   Portuguese persona rooted in local daily life.
 - **📖 O Livro** — the shared family phrasebook: 16 seeded categories (Cozinha,
   Lavandaria, Compras, Imprevistos…), searchable, everyone can add entries, and
-  Luna can suggest more per category.
+  Sandra can suggest more per category.
 - **📚 Lições** — workbook lessons in the style of real class worksheets
-  (prompts, vocab, reading + questions, speaking, games). Luna generates new
+  (prompts, vocab, reading + questions, speaking, games). Sandra generates new
   ones on any topic.
-- **✍️ TPC** — homework: Luna writes assignments (optionally for the whole
+- **✍️ TPC** — homework: Sandra writes assignments (optionally for the whole
   family), class homework can be pasted in and "enhanced", and submissions get
   warm, specific AI feedback with a score.
 - **🎯 Praticar** — AI-generated quizzes (multiple choice + translation) with
   AI grading of free-text answers.
-- **📝 Notas** — personal study notes with a "ask Luna about this note" panel.
+- **📝 Notas** — personal study notes with a "ask Sandra about this note" panel.
 - **Dashboard** — streak, XP, family activity feed, and "O que estudar hoje?"
   AI suggestions.
 
