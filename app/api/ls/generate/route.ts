@@ -5,6 +5,7 @@ import { getDb, lsSessions } from "@/lib/db";
 import { buildSessionSsml, LS_MAX_CARDS } from "@/lib/ls";
 import { getFlashQueue, getQueue } from "@/lib/srs";
 import { azureConfigured, azureSynthesizeDocs } from "@/lib/tts";
+import { audioKey, putAudio } from "@/lib/blob";
 
 // Six minutes of neural TTS in one request — give Azure room.
 export const maxDuration = 120;
@@ -80,12 +81,20 @@ export async function POST() {
     );
   }
 
+  // Key it by learner + content so a regenerated identical session reuses the
+  // object instead of orphaning the last one.
+  const key = await putAudio(
+    audioKey("ls", `${username}|${Date.now()}|${cards.length}`),
+    audio
+  );
+
   const [row] = await db
     .insert(lsSessions)
     .values({
       username,
       cardCount: cards.length,
-      audioB64: audio.toString("base64"),
+      audioB64: key ? null : audio.toString("base64"),
+      audioKey: key,
       bytes: audio.length,
     })
     .returning({ id: lsSessions.id });

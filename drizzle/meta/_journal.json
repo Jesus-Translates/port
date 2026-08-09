@@ -50,6 +50,13 @@
       "when": 1786303321525,
       "tag": "0006_email_log",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1786310639608,
+      "tag": "0007_audio_in_r2",
+      "breakpoints": true
     }
   ]
 }

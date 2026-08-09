@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { eq } from "drizzle-orm";
 import { getDb, ttsAudio } from "@/lib/db";
 import { recordUsage } from "@/lib/usage";
+import { audioKey, getAudio, putAudio } from "@/lib/blob";
 
 /**
  * TTS provider seam.
@@ -270,11 +271,18 @@ export async function getTtsAudio(
   const db = getDb();
   const hash = ttsHash(clean);
   const [cached] = await db
-    .select({ audioB64: ttsAudio.audioB64 })
+    .select({ audioB64: ttsAudio.audioB64, audioKey: ttsAudio.audioKey })
     .from(ttsAudio)
     .where(eq(ttsAudio.hash, hash))
     .limit(1);
-  if (cached) return Buffer.from(cached.audioB64, "base64");
+  if (cached?.audioKey) {
+    const fromBlob = await getAudio(cached.audioKey);
+    if (fromBlob) return fromBlob;
+    // Object missing but row present: fall through and re-synthesize rather
+    // than serving silence.
+  } else if (cached?.audioB64) {
+    return Buffer.from(cached.audioB64, "base64");
+  }
 
   let buf: Buffer | null = null;
   let voiceUsed = "";
@@ -288,13 +296,19 @@ export async function getTtsAudio(
   }
   if (!buf) return null;
 
+  // Upload first: a row pointing at an object that does not exist is worse
+  // than a row with inline bytes, so the key is only stored once the PUT won.
+  const key = await putAudio(audioKey("tts", hash), buf);
+
   await db
     .insert(ttsAudio)
     .values({
       hash,
       text: clean,
       voice: voiceUsed,
-      audioB64: buf.toString("base64"),
+      // R2 when configured, inline base64 when not — one row either way.
+      audioB64: key ? null : buf.toString("base64"),
+      audioKey: key,
       bytes: buf.length,
     })
     .onConflictDoNothing({ target: ttsAudio.hash });

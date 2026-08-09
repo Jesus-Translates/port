@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { roleOf, getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
+import { audioKey, putAudio } from "@/lib/blob";
 import {
   alignTranscript,
   audioExtension,
@@ -101,10 +102,16 @@ export async function POST(request: NextRequest) {
     heard?.duration ?? 0
   );
 
+  const humanKey = await putAudio(
+    audioKey("clip", `human|${id}|${bytes.length}`),
+    Buffer.from(bytes)
+  );
+
   await db
     .update(listeningClips)
     .set({
-      audioB64: Buffer.from(bytes).toString("base64"),
+      audioB64: humanKey ? null : Buffer.from(bytes).toString("base64"),
+      audioKey: humanKey,
       bytes: bytes.length,
       source: "human",
       createdBy: session.username,

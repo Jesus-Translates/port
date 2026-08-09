@@ -189,12 +189,19 @@ export const reviewLogs = pgTable("review_logs", {
 });
 
 // Cached TTS audio (base64 mp3) so each phrase is synthesized exactly once.
+/**
+ * audioKey points at R2; audioB64 is the legacy inline copy. Exactly one of
+ * them is set per row, and reads try the key first — that is what lets the
+ * migration run gradually instead of as a big bang.
+ */
 export const ttsAudio = pgTable("tts_audio", {
   id: serial("id").primaryKey(),
   hash: text("hash").notNull().unique(),
   text: text("text").notNull(),
   voice: text("voice").notNull(),
-  audioB64: text("audio_b64").notNull(),
+  /** Legacy inline copy. Null once the row lives in R2. */
+  audioB64: text("audio_b64"),
+  audioKey: text("audio_key"),
   bytes: integer("bytes").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -223,7 +230,9 @@ export const listeningClips = pgTable("listening_clips", {
   cefr: text("cefr").notNull().default("A2"),
   topic: text("topic").notNull().default(""),
   transcript: jsonb("transcript").notNull(),
-  audioB64: text("audio_b64").notNull(),
+  /** Legacy inline copy. Null once the row lives in R2. */
+  audioB64: text("audio_b64"),
+  audioKey: text("audio_key"),
   bytes: integer("bytes").notNull().default(0),
   source: text("source").notNull().default("ai"), // ai | human
   createdBy: text("created_by").notNull().default("ai"),
@@ -327,7 +336,9 @@ export const lsSessions = pgTable("ls_sessions", {
   id: serial("id").primaryKey(),
   username: text("username").notNull(),
   cardCount: integer("card_count").notNull().default(0),
-  audioB64: text("audio_b64").notNull(),
+  /** Legacy inline copy. Null once the row lives in R2. */
+  audioB64: text("audio_b64"),
+  audioKey: text("audio_key"),
   bytes: integer("bytes").notNull().default(0),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });

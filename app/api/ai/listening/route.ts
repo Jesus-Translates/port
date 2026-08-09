@@ -2,6 +2,7 @@ import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel } from "@/lib/ai";
+import { audioKey, putAudio } from "@/lib/blob";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
@@ -150,14 +151,21 @@ multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English,
     heard?.duration ?? 0
   );
 
+  const clipTitle = output.title?.trim() || topic || "Diálogo";
+  const clipKey = await putAudio(
+    audioKey("clip", `${clipTitle}|${mp3.length}`),
+    mp3
+  );
+
   const [row] = await getDb()
     .insert(listeningClips)
     .values({
-      title: output.title?.trim() || topic || "Diálogo",
+      title: clipTitle,
       cefr,
       topic,
       transcript,
-      audioB64: mp3.toString("base64"),
+      audioB64: clipKey ? null : mp3.toString("base64"),
+      audioKey: clipKey,
       bytes: mp3.length,
       source: "ai",
       createdBy: session.username,

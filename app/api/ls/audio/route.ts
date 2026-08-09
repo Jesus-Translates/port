@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getDb, lsSessions } from "@/lib/db";
+import { getAudio, presignAudio } from "@/lib/blob";
 import { verifyLsToken } from "@/lib/ls";
 import { azureConfigured } from "@/lib/tts";
 
@@ -36,6 +37,7 @@ export async function GET(request: NextRequest) {
     .select({
       username: lsSessions.username,
       audioB64: lsSessions.audioB64,
+      audioKey: lsSessions.audioKey,
     })
     .from(lsSessions)
     .where(eq(lsSessions.id, id))
@@ -46,13 +48,29 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Sessão não encontrada." }, { status: 404 });
   }
 
-  const audio = Buffer.from(row.audioB64, "base64");
+  // The whole reason for object storage: hand the listener a short-lived URL
+  // and let their podcast app pull 1.5 MB straight from R2, where egress is
+  // free, instead of streaming it through this function on every replay.
+  if (row.audioKey) {
+    const url = await presignAudio(row.audioKey);
+    if (url) return NextResponse.redirect(url, 302);
+    const fromBlob = await getAudio(row.audioKey);
+    if (fromBlob) return audioResponse(fromBlob);
+  }
+  if (!row.audioB64) {
+    return NextResponse.json({ error: "Sessão sem áudio." }, { status: 404 });
+  }
+  return audioResponse(Buffer.from(row.audioB64, "base64"));
+}
+
+/** One shape for every audio response, whatever the bytes came from. */
+function audioResponse(audio: Buffer): NextResponse {
   return new NextResponse(new Uint8Array(audio), {
     headers: {
       "Content-Type": "audio/mpeg",
       "Content-Length": String(audio.length),
-      // A session's audio never changes once generated.
       "Cache-Control": "private, max-age=31536000, immutable",
     },
   });
 }
+
