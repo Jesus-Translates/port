@@ -95,7 +95,7 @@ export async function styleFor(username: string): Promise<string> {
   return `${PT_STYLE}\n${placeLine(place)}${immersionLine(prefs)}`;
 }
 
-async function readPrefsFor(username: string) {
+export async function readPrefsFor(username: string) {
   try {
     const [row] = await getDb()
       .select({ prefs: users.prefs })
@@ -116,6 +116,12 @@ async function readPrefsFor(username: string) {
  * the extra lookup happens once per request no matter how many prompts a route
  * assembles. Falls back to the generic style when there is no session.
  */
+/** The signed-in learner's questionnaire answers, cached per request. */
+export const currentPrefs = cache(async () => {
+  const session = await getSession().catch(() => null);
+  return session ? readPrefsFor(session.username) : null;
+});
+
 export const currentStyle = cache(async (): Promise<string> => {
   const session = await getSession().catch(() => null);
   return session ? styleFor(session.username) : PT_STYLE;

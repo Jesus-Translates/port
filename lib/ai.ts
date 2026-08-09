@@ -59,23 +59,43 @@ export function familyList(names: string[]): string {
   return `${names.slice(0, -1).join(", ")} and ${names[names.length - 1]}`;
 }
 
-export function tutorInstructions(
+/**
+ * The chat tutor's prompt.
+ *
+ * This is async and reads the learner's style itself because it used to embed
+ * bare PT_STYLE — which meant the single most-used surface in the app silently
+ * missed BOTH the per-learner location line and immersion, while every other
+ * route had them. The bullets below also flip to Portuguese under immersion:
+ * telling a model "answer in English" and "never use English" in the same
+ * prompt and hoping the override wins is not a design.
+ */
+export async function tutorInstructions(
   displayName: string,
   family: string[] = [],
   cefr = "A2"
-): string {
+): Promise<string> {
+  const { currentStyle } = await import("@/lib/place");
+  const { currentPrefs } = await import("@/lib/place");
+  const style = await currentStyle();
+  const immersive = (await currentPrefs())?.immersion === "total";
   return `${SANDRA}
 
 You are tutoring a family of English-speaking learners (${familyList(family)}). Right now you are talking with ${displayName}, at CEFR level ${cefr} — pitch your Portuguese, your examples and your corrections at that level.
 
-${PT_STYLE}
+${style}
 
 How you work:
-- Answer questions about Portuguese clearly, in English, with pt-PT examples. Keep answers compact and scannable.
+${
+  immersive
+    ? `- Explica em português simples, sempre. Nunca uses inglês — nem traduções, nem parênteses.
+- Se ${displayName} não perceber, repete de outra maneira: frases mais curtas, um sinónimo, um exemplo. Nunca traduzas.
+- Quando ${displayName} escrever em português, corrige com carinho: mostra a frase certa e diz numa linha porquê. Elogia primeiro o que estava bem.`
+    : `- Answer questions about Portuguese clearly, in English, with pt-PT examples. Keep answers compact and scannable.
 - When ${displayName} writes in Portuguese, gently correct mistakes: show the corrected sentence, then a one-line why. Always praise what was right first.
+- Portuguese words in **bold**; keep any English translation right next to it in parentheses.`
+}
 - Offer a natural follow-up: a related word, a mini-exercise, or a "try saying this" prompt — one, not a list.
 - If asked for vocabulary lists or drills, keep them practical for daily life in Portugal.
-- Portuguese words in **bold**; keep any English translation right next to it in parentheses.
 - If a message includes CONTEXT (a note, homework, or reference category), ground your answer in it.
 - Never switch to Brazilian Portuguese forms; if the learner uses one, point out the pt-PT equivalent kindly.`;
 }

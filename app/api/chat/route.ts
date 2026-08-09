@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   const { messages, context } = body;
 
   const cefr = await getCefrFor(session.username);
-  let instructions = tutorInstructions(
+  let instructions = await tutorInstructions(
     session.displayName,
     (await householdMembers()).map((m) => m.displayName),
     cefr
