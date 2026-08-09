@@ -3,7 +3,7 @@
 import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import type { GradedResult } from "@/lib/actions/quiz";
-import { getRole, getValidUsers, requireSession, requireStaff } from "@/lib/auth";
+import { roleOf, getValidUsers, requireSession, requireStaff } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import {
   activity,
@@ -208,7 +208,7 @@ export async function adminDeleteContent(
   id: number
 ) {
   const session = await requireSession();
-  if (getRole(session.username) !== "admin") return;
+  if (await roleOf(session.username) !== "admin") return;
   const db = getDb();
   if (kind === "homework") await db.delete(homework).where(eq(homework.id, id));
   else if (kind === "quiz") await db.delete(quizzes).where(eq(quizzes.id, id));
@@ -222,7 +222,7 @@ export async function adminDeleteContent(
 /** Admin: wipe the cached audio so a new voice regenerates everything. */
 export async function clearTtsCache() {
   const session = await requireSession();
-  if (getRole(session.username) !== "admin") return;
+  if (await roleOf(session.username) !== "admin") return;
   const db = getDb();
   await db.delete(ttsAudio);
   revalidatePath("/admin");
@@ -231,7 +231,7 @@ export async function clearTtsCache() {
 /** Admin: reset one learner's review deck (fresh start). */
 export async function resetDeck(username: string) {
   const session = await requireSession();
-  if (getRole(session.username) !== "admin") return;
+  if (await roleOf(session.username) !== "admin") return;
   const u = username.toLowerCase();
   if (!getValidUsers().some((v) => v.toLowerCase() === u)) return;
   const db = getDb();

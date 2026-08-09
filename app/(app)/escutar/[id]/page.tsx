@@ -4,7 +4,7 @@ import { and, asc, eq, gt } from "drizzle-orm";
 import { ListeningPlayer } from "@/components/listening-player";
 import type { NextLesson } from "@/components/lesson-complete";
 import { UnitReturn } from "@/components/unit-return";
-import { getRole, requireSession } from "@/lib/auth";
+import { roleOf, requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import { parseTranscript } from "@/lib/listening";
 import { unitContextFrom } from "@/lib/unit-context";
@@ -90,7 +90,7 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
         bytes={clip.bytes}
         source={clip.source}
         lines={transcript.lines}
-        canReplace={getRole(session.username) !== "student"}
+        canReplace={await roleOf(session.username) !== "student"}
         next={next}
         unit={unit}
       />

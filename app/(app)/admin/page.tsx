@@ -204,6 +204,21 @@ export default async function AdminPage() {
             </p>
           </Link>
 
+          {isAdmin && (
+            <Link
+              href="/admin/utilizadores"
+              className="card p-5 transition-colors hover:bg-sage-pale/40"
+            >
+              <div className="font-display text-lg font-semibold">
+                👥 Contas
+              </div>
+              <p className="mt-1 text-sm text-ink-soft">
+                Add and remove people, set passwords, change usernames and
+                emails, and pick who gets the guided app.
+              </p>
+            </Link>
+          )}
+
           {isAdmin ? (
             <Link
               href="/admin/sistema"

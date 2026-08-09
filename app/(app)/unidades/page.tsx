@@ -3,7 +3,7 @@ import { asc, eq, sql } from "drizzle-orm";
 import { UnitGenerate } from "@/components/unit-generate";
 import { getUnitProgress } from "@/lib/actions/course";
 import { getMyCefr } from "@/lib/actions/profile";
-import { getRole, requireSession } from "@/lib/auth";
+import { roleOf, requireSession } from "@/lib/auth";
 import { getDb, unitItems, units } from "@/lib/db";
 
 export const metadata = { title: "Unidades" };
@@ -26,7 +26,7 @@ const CATEGORY_CHIP: Record<string, string> = {
 
 export default async function UnidadesPage() {
   const session = await requireSession();
-  const isStaff = getRole(session.username) !== "student";
+  const isStaff = await roleOf(session.username) !== "student";
   // Named myLevel: `level` is already the loop variable over CEFR buckets below.
   const myLevel = await getMyCefr();
 

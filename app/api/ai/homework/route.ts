@@ -6,7 +6,7 @@ import {
   homeworkItemsGenSchema,
 } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
-import { getRole, getSession, getValidUsers } from "@/lib/auth";
+import { roleOf, getSession, getValidUsers } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { CEFR_LEVELS, getCefrFor, logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
   // Homework built from a tutor session: practise exactly what just happened.
   const fromChat = body.mode === "from-chat" && transcript.trim().length > 0;
 
-  const staff = getRole(session.username) !== "student";
+  const staff = await roleOf(session.username) !== "student";
   // Staff may target specific students; everyone else assigns to themselves
   // (or the whole family via forEveryone). Resolved here because the target
   // decides which level the exercises are written for.

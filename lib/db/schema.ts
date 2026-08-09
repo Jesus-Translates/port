@@ -21,6 +21,19 @@ export const users = pgTable("users", {
   livesInPortugal: boolean("lives_in_portugal"),
   /** Free text as the learner typed it: "Ericeira", "Lisboa", "Austin, Texas". */
   locality: text("locality"),
+  /** Login identifier and the address account mail goes to. Optional. */
+  email: text("email"),
+  /** scrypt hash. null means this account still uses the shared password. */
+  passwordHash: text("password_hash"),
+  /** admin | teacher | student. null falls back to the ADMIN_USERS/TEACHER_USERS env lists. */
+  role: text("role"),
+  /** Soft delete: an inactive account keeps its history but cannot sign in. */
+  active: boolean("active").notNull().default(true),
+  /**
+   * simple | full — how much of the app this person sees. New accounts start
+   * simple: one guided step at a time. Full exposes every feature.
+   */
+  mode: text("mode").notNull().default("simple"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

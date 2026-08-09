@@ -53,7 +53,10 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const session = checkCredentials(body.username ?? "", body.password ?? "");
+  const session = await checkCredentials(
+    body.username ?? "",
+    body.password ?? ""
+  );
   if (!session) {
     return NextResponse.json(
       { error: "Nome ou palavra-passe errados. Tenta outra vez!" },

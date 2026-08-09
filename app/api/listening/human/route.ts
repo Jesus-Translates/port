@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
-import { getRole, getSession } from "@/lib/auth";
+import { roleOf, getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import {
   alignTranscript,
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   // Replacing a clip's audio changes it for the WHOLE family, so it is a
   // staff action. The player only shows the control to staff, but a UI
   // affordance is not a boundary — enforce it here.
-  if (getRole(session.username) === "student") {
+  if (await roleOf(session.username) === "student") {
     return NextResponse.json(
       { error: "Só a professora pode substituir o áudio." },
       { status: 403 }

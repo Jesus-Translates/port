@@ -5,7 +5,7 @@ import { UnitNote } from "@/components/unit-note";
 import { UnitPath, UnitPathBuild, type PathItem } from "@/components/unit-path";
 import { UnitReview } from "@/components/unit-review";
 import { getCompletedItemIds, getCourseProgress } from "@/lib/actions/course";
-import { getRole, requireSession } from "@/lib/auth";
+import { roleOf, requireSession } from "@/lib/auth";
 import { isItemKind, KIND_META, type ItemKind } from "@/lib/course";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 
@@ -128,7 +128,7 @@ function resolve(
 export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) {
   const session = await requireSession();
   const { slug } = await props.params;
-  const isStaff = getRole(session.username) !== "student";
+  const isStaff = await roleOf(session.username) !== "student";
 
   const db = getDb();
   const [unit] = await db

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getRole, getSession } from "@/lib/auth";
+import { roleOf, getSession } from "@/lib/auth";
 import { buildSessionSsml } from "@/lib/ls";
 import { azureConfigured, azureTrySsml, azureVoices, ssmlFor, ssmlSegments } from "@/lib/tts";
 
@@ -16,7 +16,7 @@ export const maxDuration = 60;
  */
 export async function GET() {
   const session = await getSession();
-  if (!session || getRole(session.username) !== "admin") {
+  if (!session || await roleOf(session.username) !== "admin") {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
   if (!azureConfigured()) {

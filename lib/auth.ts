@@ -1,4 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
+import { eq, or, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -28,17 +29,64 @@ export function getValidUsers(): string[] {
     .filter(Boolean);
 }
 
-export function checkCredentials(
-  username: string,
+/**
+ * Sign-in, by username OR email.
+ *
+ * The database is authoritative when it can be read: an account there may have
+ * its own password, may be deactivated, and may not appear in VALID_USERS at
+ * all. An account with no password of its own still accepts the shared one, so
+ * migrating to per-user passwords never locks anybody out mid-flight, and the
+ * env list remains the last resort so a fresh deployment with an empty users
+ * table (or an unreachable database) can still be signed into.
+ */
+export async function checkCredentials(
+  identifier: string,
   password: string
-): Session | null {
-  const shared = process.env.SHARED_PASSWORD;
-  if (!shared) throw new Error("SHARED_PASSWORD is not set");
-  const match = getValidUsers().find(
-    (u) => u.toLowerCase() === username.trim().toLowerCase()
-  );
-  if (!match || password !== shared) return null;
+): Promise<Session | null> {
+  const id = identifier.trim().toLowerCase();
+  if (!id || !password) return null;
+
+  try {
+    const { getDb, users } = await import("@/lib/db");
+    const { verifyPassword } = await import("@/lib/password");
+    const [row] = await getDb()
+      .select({
+        username: users.username,
+        displayName: users.displayName,
+        passwordHash: users.passwordHash,
+        active: users.active,
+        email: users.email,
+      })
+      .from(users)
+      .where(or(eq(users.username, id), sql`lower(${users.email}) = ${id}`))
+      .limit(1);
+
+    if (row) {
+      if (!row.active) return null;
+      if (row.passwordHash) {
+        return (await verifyPassword(password, row.passwordHash))
+          ? { username: row.username, displayName: row.displayName }
+          : null;
+      }
+      // No personal password set yet — the shared one still works for them.
+      return sharedMatches(password)
+        ? { username: row.username, displayName: row.displayName }
+        : null;
+    }
+  } catch {
+    // Database unreachable: fall through to the env list rather than locking
+    // the whole family out of a working app.
+  }
+
+  const match = getValidUsers().find((u) => u.toLowerCase() === id);
+  if (!match || !sharedMatches(password)) return null;
   return { username: match.toLowerCase(), displayName: match };
+}
+
+function sharedMatches(password: string): boolean {
+  const shared = process.env.SHARED_PASSWORD;
+  if (!shared) return false;
+  return password === shared;
 }
 
 export async function createSessionToken(session: Session): Promise<string> {
@@ -108,17 +156,52 @@ function envList(name: string, fallback: string): string[] {
     .filter(Boolean);
 }
 
-export function getRole(username: string): Role {
+export const ROLES: readonly Role[] = ["admin", "teacher", "student"];
+
+/** The env-list answer. Used when the database has no opinion. */
+export function envRole(username: string): Role {
   const u = username.toLowerCase();
   if (envList("ADMIN_USERS", "Robert").includes(u)) return "admin";
   if (envList("TEACHER_USERS", "Kelly").includes(u)) return "teacher";
   return "student";
 }
 
+/**
+ * The role that actually applies: whatever an admin set on the account, else
+ * the env lists. Stored roles win so the admin panel can promote and demote
+ * without a redeploy, but ADMIN_USERS stays a working recovery hatch — the
+ * person named there is an admin even if the row says otherwise.
+ */
+export async function roleOf(username: string): Promise<Role> {
+  const fromEnv = envRole(username);
+  if (fromEnv === "admin") return "admin";
+  try {
+    const { getDb, users } = await import("@/lib/db");
+    const [row] = await getDb()
+      .select({ role: users.role })
+      .from(users)
+      .where(eq(users.username, username.toLowerCase()))
+      .limit(1);
+    const stored = row?.role ?? "";
+    return (ROLES as readonly string[]).includes(stored)
+      ? (stored as Role)
+      : fromEnv;
+  } catch {
+    return fromEnv;
+  }
+}
+
 /** Admin or teacher only; students are sent home. */
 export async function requireStaff(): Promise<Session & { role: Role }> {
   const session = await requireSession();
-  const role = getRole(session.username);
+  const role = await roleOf(session.username);
   if (role === "student") redirect("/");
   return { ...session, role };
+}
+
+/** Admin only. Used by the destructive account-management actions. */
+export async function requireAdmin(): Promise<Session> {
+  const session = await requireSession();
+  if ((await roleOf(session.username)) !== "admin") redirect("/");
+  return session;
 }
