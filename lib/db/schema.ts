@@ -341,6 +341,23 @@ export const activity = pgTable("activity", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+/**
+ * Every email the app tried to send, delivered or not.
+ *
+ * "Did the parent actually get it?" has to be answerable without logging into
+ * a third-party dashboard, and a failed send that leaves no trace is how you
+ * find out weeks later that nobody has been receiving anything.
+ */
+export const emailLog = pgTable("email_log", {
+  id: serial("id").primaryKey(),
+  kind: text("kind").notNull(),
+  recipient: text("recipient").notNull(),
+  ok: boolean("ok").notNull(),
+  providerId: text("provider_id"),
+  error: text("error"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 // ───────────────────────────────────────────────────────────────────────────
 // MULTI-TENANT IDENTITY — Stage 1, DORMANT.
 //

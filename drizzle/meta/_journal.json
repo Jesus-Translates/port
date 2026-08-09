@@ -43,6 +43,13 @@
       "when": 1786302969075,
       "tag": "0005_learning_prefs",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1786303321525,
+      "tag": "0006_email_log",
+      "breakpoints": true
     }
   ]
 }

@@ -1,0 +1,140 @@
+import { getDb, emailLog } from "@/lib/db";
+
+/**
+ * Email, through one door.
+ *
+ * Same shape as the Azure speech seam: nothing throws when the provider is not
+ * configured, every send goes through one function, and every attempt is
+ * recorded. A send that silently no-ops is worse than one that fails loudly —
+ * "did the parent get the email?" must be answerable.
+ */
+
+export type SendResult = {
+  ok: boolean;
+  /** Resend's id when accepted, so a delivery can be traced later. */
+  id: string | null;
+  error: string | null;
+};
+
+export function emailConfigured(): boolean {
+  return Boolean(process.env.RESEND_API_KEY && emailFrom());
+}
+
+/**
+ * The From address. Resend will only accept a domain you have verified, so
+ * this is deliberately explicit rather than guessed from the site URL.
+ */
+export function emailFrom(): string {
+  return process.env.EMAIL_FROM ?? "";
+}
+
+/** Where replies should go, when it differs from the sending identity. */
+function replyTo(): string | undefined {
+  return process.env.EMAIL_REPLY_TO || undefined;
+}
+
+export async function sendEmail(input: {
+  to: string;
+  subject: string;
+  html: string;
+  text: string;
+  /** Groups sends in the log and in Resend: "welcome", "homework", "test". */
+  kind: string;
+}): Promise<SendResult> {
+  const to = input.to.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(to)) {
+    return record(input.kind, to, { ok: false, id: null, error: "Endereço inválido." });
+  }
+  if (!emailConfigured()) {
+    return record(input.kind, to, {
+      ok: false,
+      id: null,
+      error: "Email não configurado (falta RESEND_API_KEY ou EMAIL_FROM).",
+    });
+  }
+
+  try {
+    const res = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: emailFrom(),
+        to: [to],
+        subject: input.subject,
+        html: input.html,
+        text: input.text,
+        reply_to: replyTo(),
+        tags: [{ name: "kind", value: input.kind }],
+      }),
+    });
+
+    const body = (await res.json().catch(() => ({}))) as {
+      id?: string;
+      message?: string;
+      name?: string;
+    };
+    if (!res.ok) {
+      const error = `${res.status} ${body.name ?? ""} ${body.message ?? ""}`.trim();
+      console.error(`resend send failed: ${error}`);
+      return record(input.kind, to, { ok: false, id: null, error });
+    }
+    return record(input.kind, to, { ok: true, id: body.id ?? null, error: null });
+  } catch (err) {
+    const error = err instanceof Error ? err.message : String(err);
+    return record(input.kind, to, { ok: false, id: null, error });
+  }
+}
+
+/** Every attempt lands in the log, successful or not. */
+async function record(
+  kind: string,
+  to: string,
+  result: SendResult
+): Promise<SendResult> {
+  try {
+    await getDb().insert(emailLog).values({
+      kind,
+      recipient: to,
+      ok: result.ok,
+      providerId: result.id,
+      error: result.error?.slice(0, 500) ?? null,
+    });
+  } catch {
+    // Logging must never be the reason a message fails to send.
+  }
+  return result;
+}
+
+/**
+ * One house style for every message, so a parent can tell at a glance that it
+ * really came from the app. Plain, readable, and legible without images —
+ * most mail clients block those by default anyway.
+ */
+export function emailShell(title: string, bodyHtml: string): string {
+  return `<!doctype html>
+<html lang="pt-PT"><body style="margin:0;padding:24px;background:#faf7f2;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;color:#2c2a26">
+  <div style="max-width:520px;margin:0 auto;background:#fff;border:1px solid #e8e0d4;border-radius:16px;padding:28px">
+    <p style="margin:0 0 4px;font-size:13px;color:#8a8378">🇵🇹 Português</p>
+    <h1 style="margin:0 0 16px;font-size:20px;line-height:1.3">${escapeHtml(title)}</h1>
+    ${bodyHtml}
+  </div>
+  <p style="max-width:520px;margin:16px auto 0;font-size:12px;color:#8a8378;text-align:center">
+    Recebeste isto porque tens conta em Português.
+  </p>
+</body></html>`;
+}
+
+export function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+export function button(href: string, label: string): string {
+  return `<p style="margin:20px 0"><a href="${escapeHtml(href)}" style="display:inline-block;background:#6b7f5e;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600">${escapeHtml(label)}</a></p>`;
+}

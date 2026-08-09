@@ -206,6 +206,21 @@ export default async function AdminPage() {
 
           {isAdmin && (
             <Link
+              href="/admin/relatorios"
+              className="card p-5 transition-colors hover:bg-sage-pale/40"
+            >
+              <div className="font-display text-lg font-semibold">
+                📊 Relatórios
+              </div>
+              <p className="mt-1 text-sm text-ink-soft">
+                Cost, revenue and margin per household — plus whether email is
+                actually being delivered.
+              </p>
+            </Link>
+          )}
+
+          {isAdmin && (
+            <Link
               href="/admin/utilizadores"
               className="card p-5 transition-colors hover:bg-sage-pale/40"
             >
