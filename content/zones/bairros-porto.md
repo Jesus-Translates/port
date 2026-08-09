@@ -401,8 +401,9 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   a café where you order **um cimbalino** and then sit far longer than the cup justifies, which
   is the correct use of it. The **Coliseu do Porto**, on **Rua de Passos Manuel**, opened
   **19 December 1941** to an art deco design by Cassiano Branco and Júlio de Brito and holds
-  about 4 000; Porto famously kept it in public hands in 1995 by forming an association to buy
-  it, and rebuilt it after a fire in 1996 — a Portuense will tell you this story on the way in.
+  about 4 000; when it nearly changed hands in 1995 the city formed a non-profit association to
+  take it over instead, and rebuilt it after a fire in 1996 — a Portuense will tell you that
+  story on the way in, every time.
   The **Livraria Lello** at **Rua das Carmelitas 144** has traded from its neo-gothic building
   since **13 January 1906**, and since 2015 you buy a voucher to enter that comes off the price
   of a book.

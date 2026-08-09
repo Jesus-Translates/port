@@ -116,6 +116,21 @@ function towns(md: string, heading = "Towns"): { name: string; context: string }
   return out;
 }
 
+/**
+ * Places a dossier covers but should not OFFER, because another zone owns them.
+ *
+ * The Grande Lisboa dossier discusses Almada and the south bank — and states
+ * plainly that they are Península de Setúbal, not Grande Lisboa. Offering
+ * Almada under both would contradict the very correction the researcher made,
+ * and a resident of Almada will put a learner right about it.
+ *
+ * Tomar is deliberately NOT here: the 2024 NUTS revision genuinely moved it,
+ * sources disagree, and letting a learner in Tomar pick either is honest.
+ */
+const NOT_OFFERED: Record<string, RegExp> = {
+  lisboa: /^almada/i,
+};
+
 function slugify(name: string): string {
   return name
     .normalize("NFD")
@@ -132,7 +147,21 @@ async function main() {
     process.exit(1);
   }
   const db = getDb();
-  const files = readdirSync(DIR).filter((f) => f.endsWith(".md"));
+  /*
+   * Order matters, and alphabetical is the wrong one: bairros-lisboa.md sorts
+   * before lisboa.md, so on a fresh database the bairros were skipped for a
+   * parent zone that had not been created yet. Zones first, then the files
+   * that extend them, then reference material.
+   */
+  const rank = (f: string) => {
+    const slug = f.replace(/\.md$/, "");
+    if (META[slug]) return 0;
+    if (EXTENDS[slug]) return 1;
+    return 2;
+  };
+  const files = readdirSync(DIR)
+    .filter((f) => f.endsWith(".md"))
+    .sort((a, b) => rank(a) - rank(b) || a.localeCompare(b));
   let zoneCount = 0;
   let placeCount = 0;
 
@@ -240,7 +269,8 @@ async function main() {
       .returning({ id: zones.id });
     zoneCount++;
 
-    const list = towns(md);
+    const drop = NOT_OFFERED[slug];
+    const list = towns(md).filter((t) => !(drop && drop.test(t.name)));
     let i = 0;
     for (const t of list) {
       const row = {
