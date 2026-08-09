@@ -70,8 +70,10 @@ vertically. You **desces** to the Ribeira and **sobes** to the Batalha. *"É tud
 warning about your knees. The **Funicular dos Guindais** exists precisely because of this: 281 m
 of track (90 m of it in tunnel), a 61 m drop and gradients up to 55 %, linking **Rua Augusto
 Rosa** at the Batalha with **Avenida Gustave Eiffel** at the Ribeira. It first opened on
-4 June 1891, closed after an accident in 1893, and reopened on 19 February 2004; STCP has run
-it since 2022.
+4 June 1891, closed after an accident in 1893, and reopened on 19 February 2004. It was run by
+**Metro do Porto** for most of that second life, and has been operated by **STCP since 2022** —
+worth knowing, because older descriptions (including the zone-level Norte dossier) still credit
+Metro do Porto.
 
 **The metro, by letter and by colour.** Six lines, about 85 stations, roughly 70 km. Residents
 say the letter and the colour interchangeably — *a linha D*, *a amarela*, *o metro para Gaia*
@@ -567,9 +569,14 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   The other Boavista institution is the interval at the Casa da Música: the sunlit terraces and
   the corridor **bar** where the whole audience appears at once and orders a small coffee it has
   seven minutes to drink.
-- **Everyday detail** — The Rotunda is a roundabout with a park in the middle, and residents
-  know that "meet me at the Boavista" is genuinely ambiguous — there are two sides and neither
-  is visible from the other. Locals fix it by naming the corner: *do lado da Casa da Música*.
+- **Everyday detail** — People do live here, and the residential Boavista is the streets *behind*
+  the avenue rather than on it: 1960s and 70s blocks with **estendais** on the back balconies, a
+  **farmácia** with the green cross, a **talho** and a **frutaria** on the corner, and porters who
+  know everybody. The address is prestigious and the daily life is completely ordinary, and
+  residents enjoy the gap. The other local knowledge: the Rotunda is a roundabout with a park in
+  the middle, so *"encontramo-nos na Boavista"* is genuinely ambiguous — there are two sides and
+  neither is visible from the other. Locals fix it by naming the corner: *do lado da Casa da
+  Música*.
 
 ### Foz do Douro
 
@@ -690,7 +697,42 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
 - **Everyday detail** — The park does not quite reach the sea; you cross a road at the western
   end to get to the water, and every resident has an opinion about the crossing. The other
   local knowledge: the lakes are fed and the paths flood in the same three places every winter,
-  which is why people who live nearby own proper boots and visitors arrive in trainers.
+  which is why people who live nearby own proper boots and visitors arrive in trainers. And the
+  streets behind the park are ordinary in the best sense: low blocks, a **frutaria**, a
+  **papelaria** that also does photocopies, and a **café** whose regulars are the same eleven
+  people every morning.
+
+### Nevogilde
+
+- **Character** — The smallest and quietest of the three parishes in the western union: 2,00 km²
+  and just **5 018 residents** in 2011, a density of about 2 509 per km² — a fraction of
+  Bonfim's or Cedofeita's. It became a parish in **1895** and lasted 118 years before the 2013
+  merger with Aldoar and Foz do Douro. It is low-rise, green, sea-facing and ageing (over-65s
+  went from 16,3 % to 20,8 % between 2001 and 2011). Porto people use "Nevogilde" the way other
+  cities use the name of a leafy suburb — quietly, and with a raised eyebrow about the house
+  prices, which is as far as anyone takes it.
+- **Getting there** — No metro, like the rest of the seaward city. STCP **200** runs down the
+  **Avenida da Boavista** and finishes at the **Castelo do Queijo**, which is effectively
+  Nevogilde's bus; otherwise the coast road and the walk from Foz.
+- **Landmarks** — The **Castelo do Queijo**, properly the **Forte de São Francisco Xavier**,
+  built around **1661–62** during the Restoration wars to a design by the French engineer Miguel
+  de l'Ècole — triangular, moated, with a drawbridge, and named for the round granite rock it
+  sits on, which somebody long ago decided looked like a cheese. It now houses a military museum
+  run by the Associação de Comandos and is open to the public. **Praça de Gonçalves Zarco** at
+  the end of the avenue. The **Igreja de São Miguel de Nevogilde**. The **Molhe** and the
+  **Esplanada do Molhe**. And the western half of the **Parque da Cidade**.
+- **Food & institutions** — Nevogilde has no market of its own; the weekly shop goes to the
+  **Mercado do Bom Sucesso** up the avenue or over to Matosinhos, and the neighbourhood
+  institution is the **quiosque** on the sea wall. The ritual is small, fixed and reliable: the same
+  bench at the same hour, **um café** or **um fino**, the dog, the newspaper, and a running
+  conversation with whoever is on the next bench that has been going on for about fifteen years
+  and has no subject. On summer weekends the **Castelo do Queijo** forecourt fills with families
+  eating **tremoços** and waiting for the sun to go down over the water — free, unorganised, and
+  the same every year.
+- **Everyday detail** — This is where the Douro coast turns into the open Atlantic, and locals
+  know that the wind at the Castelo do Queijo is a completely different animal from the wind
+  three hundred metres back at Foz. Residents take a jacket for the last stretch of the walk even
+  in July, and they will tell you to as you set off.
 
 ### Ramalde
 
@@ -723,7 +765,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   much harder than the map suggests. Everyone also knows exactly which three underpasses connect
   the halves, and which one you do not use after dark.
 
-## The belt: living just outside the city
+**The belt.** The eight entries below are not bairros of Porto — they are separate concelhos (or,
+in Leça's case, a freguesia of one) in the Área Metropolitana do Porto. They matter because a
+great many people who say *"vou ao Porto"* every morning live in them, and because each keeps an
+identity it will defend. Same five fields.
 
 ### Vila Nova de Gaia
 
@@ -762,8 +807,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
 - **Character** — 172 557 residents (2021), ten freguesias, and three cities inside one concelho
   — Matosinhos, São Mamede de Infesta and Senhora da Hora. A **matosinhense** (or
   **matosinheiro**) belongs to a fishing and **conservas** town: between 1940 and 1960 there were
-  **54 canning factories** here, and **three** still operate — **Conservas Portugal Norte**,
-  **Fábrica de Conservas Pinhais** and **Conservas Ramirez**. Alongside them is **Leixões**, the
+  **54 canning factories** here, and the sources consulted record **three** still working —
+  **Conservas Portugal Norte**, **Fábrica de Conservas Pinhais** and **Conservas Ramirez** (a
+  count that can only go one way, so treat it as of the date of the source). Alongside them is
+  **Leixões**, the
   late-nineteenth-century artificial harbour at the mouth of the **rio Leça**, now Portugal's
   second largest — 5 km of quay, about 3 000 ships and 14 million tonnes a year, with a cruise
   terminal opened **24 July 2015**. Working, salty, proud, and not Porto.

@@ -277,8 +277,10 @@ to Viana do Castelo and **Valença** on the Spanish border, and the **Linha de G
 
 **Trams and funicular.** Three historic **elétricos** survive, run by STCP: **linha 1**
 (Infante ↔ Passeio Alegre, along the river to Foz), **linha 18** (Carmo ↔ Passeio Alegre) and
-**linha 22** (a circular between Carmo and Batalha). The **Funicular dos Guindais** drops from
-Batalha to the Ribeira and is operated by Metro do Porto.
+**linha 22** (a circular between Carmo and Batalha) — though sources disagree on whether
+linha 22 is currently running, so do not put a learner on it as though it certainly is.
+The **Funicular dos Guindais** drops from Batalha to the Ribeira; it has been operated by
+**STCP since 2022**, not by Metro do Porto.
 
 **Driving.** The **A1** to Lisbon, **A3** to Braga and Valença, **A4** over the Marão to Vila
 Real and Bragança, **A28** up the coast, **IP4** across Trás-os-Montes. **Portagens** and
