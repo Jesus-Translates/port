@@ -738,14 +738,16 @@ it. Inside lie the facing tombs of **D. Pedro I** and **D. Inês de Castro**.
   **cornucópias de Alcobaça**; **frango na púcara**, chicken cooked in a clay pot with
   presunto, port and aguardente, invented here in the 1960s; the **Maçã de Alcobaça IGP**;
   and the **doçaria conventual** the monastery gave its name to, celebrated at the
-  **Mostra de Doces Conventuais** each November.
+  **Mostra de Doces Conventuais** held inside the monastery (reported as November).
 - **Everyday**: beyond the monastery, this is a working concelho — ceramics, red clay,
   plastic moulds and cement are real local industries, alongside the apple orchards.
   **Alfeizerão** and **São Martinho do Porto** are both freguesias of this concelho.
 
 **Also in the zone.** **Lourinhã** (distrito de Lisboa, ~26 200 people) is the dinosaur
-capital — the **Museu da Lourinhã** holds the largest Iberian collection of Upper Jurassic
-fossils, the **Lourinhanosaurus** and the **ninho de Paimogo** are its icons, and **Dino
+capital, a title it has claimed since 2004 — the **Museu da Lourinhã** holds the largest
+Iberian collection of Upper Jurassic fossils. **Lourinhanosaurus antunesi** was found at
+Peralta in 1982 and described in 1998 by Octávio Mateus; the **ninho de Paimogo**, about a
+hundred eggs with embryonic bone found on the beach in 1993, is the other icon, and **Dino
 Parque Lourinhã** is the family day out. Its beach is **Praia da Areia Branca**, its fort is
 the **Forte de Paimogo** (1674), its pastries are **amendoados** and **areias brancas**, and
 its great point of pride is the **Aguardente DOC Lourinhã** — demarcated in 1992, the only
