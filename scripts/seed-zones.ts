@@ -28,10 +28,23 @@ const META: Record<string, { pt: string; en: string; emoji: string; sort: number
   acores: { pt: "Açores", en: "The Azores — nine islands", emoji: "🌋", sort: 80 },
 };
 
-/** Pull one "## Heading" section out of a dossier. */
+/**
+ * Pull one "## Heading" section out of a dossier.
+ *
+ * Split rather than regex on purpose. The first version ended its lookahead
+ * with `\Z`, which JavaScript does not support as an end-of-input anchor — it
+ * matched a LITERAL "Z", so every section silently truncated at the first
+ * capital Z in the prose. Norte lost seven of its nine towns that way and
+ * still reported success.
+ */
 function section(md: string, heading: string): string {
-  const re = new RegExp(`^##\\s+${heading}\\s*$([\\s\\S]*?)(?=^##\\s|\\Z)`, "im");
-  return (md.match(re)?.[1] ?? "").trim();
+  const want = heading.trim().toLowerCase();
+  for (const part of md.split(/^## /m).slice(1)) {
+    const nl = part.indexOf("\n");
+    const found = (nl === -1 ? part : part.slice(0, nl)).trim().toLowerCase();
+    if (found === want) return (nl === -1 ? "" : part.slice(nl + 1)).trim();
+  }
+  return "";
 }
 
 /** The "### Name" subsections under "## Towns" become the town list. */
