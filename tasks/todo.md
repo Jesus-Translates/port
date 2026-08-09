@@ -234,3 +234,33 @@ maxDuration, after(), note-editor save race). Live-tested end to end locally:
 login API, dashboard, reference, lesson, notes, streaming tutor, quiz 4/4 with
 AI grading. AI runs on gpt-oss-120b until gateway credits unlock gpt-5.6-luna
 (env-only switch).
+
+## Review — topic matching unified (2026-08-09)
+
+Two concurrent agents had shipped two answers to "does this row match the unit
+topic?": `rankByTopic` (in-memory token overlap, used by Escutar/Histórias) and a
+private `TOPIC_STOP`/`topicTerms`/`topicScore` in the ditado page (SQL ILIKE
+scoring over ref_entries + categories). Now one module, `lib/topic-match.ts`:
+`rankByTopic` (matches only) and `sortByTopic` (everything, best first) over one
+stop list and one match rule. Ditado loads its eligible rows (130 today, capped
+at 500) and ranks in memory instead of scoring in SQL.
+
+Verified against the live DB, not by inspection:
+- ILIKE is NOT accent-folded here (`'família' ilike '%familia%'` → false), so the
+  two scorers could never have agreed on accents. In-memory folds both sides.
+- The old SQL path matched 98-108 of 130 rows on four real syllabus topics — no
+  ranking at all — because nearly every row's section is "Perguntas e respostas"
+  and those topics contain "resposta"/"perguntas". Stop-listed; now 7-24 rows.
+- The 12-term cap (a cost guard for 5 ILIKEs/term/row) was dropping real
+  vocabulary — forno, panela, roupa, fogão — because it kept the LONGEST terms.
+  Removed now that matching is in memory; one topic went from 0 matches to 27.
+- Every Escutar/Histórias diff is an improvement: 6 false positives gone (the
+  "A família da Luna" clip was matching butcher and condominium topics on the
+  boilerplate "diálogo"/"frases"/"português"), 3 true positives gained via
+  singular/plural matching (vizinho → "Os Vizinhos e o Mercado…").
+- Grammar-only topics ("o artigo definido antes de possessivos") still score 0
+  everywhere and fall back to a full random round of 5, never an empty screen.
+
+Watch: matching is now O(rows) in the page, so if the phrasebook outgrows the
+500-row CANDIDATES cap the ditado ranking silently becomes "best of a random
+500". Revisit with a SQL prefilter if the book gets big.
