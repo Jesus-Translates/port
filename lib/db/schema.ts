@@ -21,6 +21,10 @@ export const users = pgTable("users", {
   livesInPortugal: boolean("lives_in_portugal"),
   /** Free text as the learner typed it: "Ericeira", "Lisboa", "Austin, Texas". */
   locality: text("locality"),
+  /** zones.slug — the region they picked. null when abroad or not asked. */
+  zoneSlug: text("zone_slug"),
+  /** zone_places.slug — the optional "where in that zone". */
+  placeSlug: text("place_slug"),
   /** Login identifier and the address account mail goes to. Optional. */
   email: text("email"),
   /** scrypt hash. null means this account still uses the shared password. */
@@ -351,6 +355,46 @@ export const activity = pgTable("activity", {
   xp: integer("xp").notNull().default(5),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+/**
+ * Portugal, as the app understands it.
+ *
+ * `promptContext` is the whole point: a distilled paragraph, researched per
+ * zone, injected into Sandra's prompts so a learner in Faro gets the Olhão
+ * fish market and one in Braga gets Bom Jesus — instead of everyone getting
+ * the same invented Portuguese village. The long-form research lives in
+ * content/zones/*.md; only the distilled block belongs in a prompt.
+ */
+export const zones = pgTable("zones", {
+  id: serial("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  namePt: text("name_pt").notNull(),
+  nameEn: text("name_en").notNull(),
+  emoji: text("emoji").notNull().default("📍"),
+  /** One line for the picker. */
+  blurbEn: text("blurb_en"),
+  /** The paragraph appended to prompts. Keep it short — it costs tokens on every call. */
+  promptContext: text("prompt_context"),
+  sortOrder: integer("sort_order").notNull().default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+/** Towns and bairros inside a zone — the optional second question. */
+export const zonePlaces = pgTable(
+  "zone_places",
+  {
+    id: serial("id").primaryKey(),
+    zoneId: integer("zone_id")
+      .notNull()
+      .references(() => zones.id, { onDelete: "cascade" }),
+    slug: text("slug").notNull(),
+    name: text("name").notNull(),
+    /** Optional extra detail for this town specifically, appended after the zone's. */
+    promptContext: text("prompt_context"),
+    sortOrder: integer("sort_order").notNull().default(0),
+  },
+  (t) => [uniqueIndex("zone_places_zone_slug").on(t.zoneId, t.slug)]
+);
 
 /**
  * Every email the app tried to send, delivered or not.

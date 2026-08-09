@@ -1,17 +1,18 @@
 import { PlacementQuiz } from "@/components/placement-quiz";
-import { PlaceForm } from "@/components/place-form";
+import { ZonePicker } from "@/components/zone-picker";
 import { requireSession } from "@/lib/auth";
-import { getMyCefr, getMyPlace, getMyPrefs } from "@/lib/actions/profile";
+import { getMyCefr, getMyPlace, getMyPrefs, getZones } from "@/lib/actions/profile";
 import { LearningQuestionnaire } from "@/components/learning-questionnaire";
 
 export const metadata = { title: "Nível" };
 
 export default async function PlacementPage() {
   await requireSession();
-  const [level, place, prefs] = await Promise.all([
+  const [level, place, prefs, zoneList] = await Promise.all([
     getMyCefr(),
     getMyPlace(),
     getMyPrefs(),
+    getZones(),
   ]);
 
   return (
@@ -29,7 +30,7 @@ export default async function PlacementPage() {
 
       {/* Asked before the quiz: it takes two taps and it localises every piece
           of content the app generates from here on. */}
-      <PlaceForm initial={place} />
+      <ZonePicker initial={place} zones={zoneList} />
 
       <PlacementQuiz savedLevel={level} />
 

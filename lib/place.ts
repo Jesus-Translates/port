@@ -1,6 +1,6 @@
 import { cache } from "react";
-import { eq } from "drizzle-orm";
-import { getDb, users } from "@/lib/db";
+import { and, eq } from "drizzle-orm";
+import { getDb, users, zonePlaces, zones } from "@/lib/db";
 import { PT_STYLE } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { immersionLine, readPrefs } from "@/lib/learning-path";
@@ -19,9 +19,18 @@ export type Place = {
   livesInPortugal: boolean | null;
   /** As typed: "Ericeira", "Lisboa", "Austin, Texas". */
   locality: string | null;
+  /** zones.slug — the researched region, when they picked one. */
+  zoneSlug: string | null;
+  /** zone_places.slug — the optional town inside that zone. */
+  placeSlug: string | null;
 };
 
-export const EMPTY_PLACE: Place = { livesInPortugal: null, locality: null };
+export const EMPTY_PLACE: Place = {
+  livesInPortugal: null,
+  locality: null,
+  zoneSlug: null,
+  placeSlug: null,
+};
 
 /** Free text from a person, headed for a prompt — keep it short and inert. */
 export function cleanLocality(input: unknown): string | null {
@@ -39,6 +48,8 @@ export async function getPlace(username: string): Promise<Place> {
       .select({
         livesInPortugal: users.livesInPortugal,
         locality: users.locality,
+        zoneSlug: users.zoneSlug,
+        placeSlug: users.placeSlug,
       })
       .from(users)
       .where(eq(users.username, username.toLowerCase()))
@@ -46,6 +57,8 @@ export async function getPlace(username: string): Promise<Place> {
     return {
       livesInPortugal: row?.livesInPortugal ?? null,
       locality: row?.locality ?? null,
+      zoneSlug: row?.zoneSlug ?? null,
+      placeSlug: row?.placeSlug ?? null,
     };
   } catch {
     // Content generation must never fail because we could not read a preference.
@@ -84,15 +97,56 @@ export function placeLine(place: Place): string {
  * PT_STYLE with the learner's own surroundings folded in. Use this instead of
  * bare PT_STYLE anywhere the signed-in person is known.
  */
+/**
+ * The researched paragraph for the learner's region, and their town within it.
+ *
+ * This is what makes "local" mean something. Without it a learner in Faro and
+ * one in Braga get the same invented Portuguese village; with it they get the
+ * Olhão fish market and Bom Jesus respectively, because a researcher wrote
+ * down what is actually there.
+ */
+async function zoneContextFor(place: Place): Promise<string> {
+  if (!place.zoneSlug) return "";
+  try {
+    const db = getDb();
+    const [zone] = await db
+      .select({ id: zones.id, namePt: zones.namePt, context: zones.promptContext })
+      .from(zones)
+      .where(eq(zones.slug, place.zoneSlug))
+      .limit(1);
+    if (!zone?.context) return "";
+
+    let out = `\nTHE LEARNER'S REGION — ${zone.namePt}. Set examples here, using these specifics: ${zone.context}`;
+
+    if (place.placeSlug) {
+      const [town] = await db
+        .select({ name: zonePlaces.name, context: zonePlaces.promptContext })
+        .from(zonePlaces)
+        .where(
+          and(eq(zonePlaces.zoneId, zone.id), eq(zonePlaces.slug, place.placeSlug))
+        )
+        .limit(1);
+      if (town?.context) {
+        out += `\nThey live specifically in ${town.name}: ${town.context} Prefer ${town.name} itself over anywhere else in the region.`;
+      }
+    }
+    return out;
+  } catch {
+    // A missing region must never stop a lesson being generated.
+    return "";
+  }
+}
+
 export async function styleFor(username: string): Promise<string> {
   const [place, prefs] = await Promise.all([
     getPlace(username),
     readPrefsFor(username),
   ]);
+  const zoneBlock = await zoneContextFor(place);
   // Immersion rides along with the style because every AI surface already
   // appends this — wiring it here reaches all eighteen instead of the three
   // that happen to mention Sandra by name.
-  return `${PT_STYLE}\n${placeLine(place)}${immersionLine(prefs)}`;
+  return `${PT_STYLE}\n${placeLine(place)}${zoneBlock}${immersionLine(prefs)}`;
 }
 
 export async function readPrefsFor(username: string) {

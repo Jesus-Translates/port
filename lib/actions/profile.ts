@@ -1,10 +1,10 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { eq } from "drizzle-orm";
+import { and, asc, eq } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
-import { getDb, users } from "@/lib/db";
+import { getDb, users, zonePlaces, zones } from "@/lib/db";
 import { cleanLocality, getPlace, type Place } from "@/lib/place";
 import {
   DEFAULT_PREFS,
@@ -139,4 +139,95 @@ export async function setCefrLevel(level: string): Promise<void> {
 
   await logActivity(session.username, "review", `Nível definido: ${level}`, 2);
   revalidatePath("/");
+}
+
+export type ZoneOption = {
+  slug: string;
+  namePt: string;
+  nameEn: string;
+  emoji: string;
+  places: { slug: string; name: string }[];
+};
+
+/** The zone list for the picker, with each zone's towns. */
+export async function getZones(): Promise<ZoneOption[]> {
+  try {
+    const db = getDb();
+    const [zoneRows, placeRows] = await Promise.all([
+      db.select().from(zones).orderBy(asc(zones.sortOrder)),
+      db.select().from(zonePlaces).orderBy(asc(zonePlaces.sortOrder)),
+    ]);
+    // Grouped + Map, never a correlated sub-select.
+    const byZone = new Map<number, { slug: string; name: string }[]>();
+    for (const p of placeRows) {
+      const list = byZone.get(p.zoneId) ?? [];
+      list.push({ slug: p.slug, name: p.name });
+      byZone.set(p.zoneId, list);
+    }
+    return zoneRows.map((z) => ({
+      slug: z.slug,
+      namePt: z.namePt,
+      nameEn: z.nameEn,
+      emoji: z.emoji,
+      places: byZone.get(z.id) ?? [],
+    }));
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Save the region, and optionally the town inside it.
+ *
+ * The zone is the useful answer — it unlocks a researched paragraph of real
+ * local detail. The town is a bonus that narrows it further, and is genuinely
+ * optional: plenty of people would rather not say exactly where they live.
+ */
+export async function setMyZone(
+  zoneSlug: string,
+  placeSlug: string | null
+): Promise<void> {
+  const session = await requireSession();
+  const db = getDb();
+
+  const [zone] = await db
+    .select({ id: zones.id, namePt: zones.namePt })
+    .from(zones)
+    .where(eq(zones.slug, zoneSlug))
+    .limit(1);
+  if (!zone) throw new Error("Zona desconhecida");
+
+  let place: { slug: string; name: string } | null = null;
+  if (placeSlug) {
+    const [row] = await db
+      .select({ slug: zonePlaces.slug, name: zonePlaces.name })
+      .from(zonePlaces)
+      .where(and(eq(zonePlaces.zoneId, zone.id), eq(zonePlaces.slug, placeSlug)))
+      .limit(1);
+    place = row ?? null;
+  }
+
+  await db
+    .insert(users)
+    .values({
+      username: session.username,
+      displayName: session.displayName,
+      livesInPortugal: true,
+      zoneSlug,
+      placeSlug: place?.slug ?? null,
+      // Keep the human-readable locality in step, so existing prompts that
+      // read it still say something true.
+      locality: place?.name ?? zone.namePt,
+    })
+    .onConflictDoUpdate({
+      target: users.username,
+      set: {
+        livesInPortugal: true,
+        zoneSlug,
+        placeSlug: place?.slug ?? null,
+        locality: place?.name ?? zone.namePt,
+      },
+    });
+
+  revalidatePath("/", "layout");
 }

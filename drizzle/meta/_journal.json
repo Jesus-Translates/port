@@ -57,6 +57,13 @@
       "when": 1786310639608,
       "tag": "0007_audio_in_r2",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1786314850500,
+      "tag": "0008_zones",
+      "breakpoints": true
     }
   ]
 }

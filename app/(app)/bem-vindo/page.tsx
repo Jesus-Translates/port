@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { PlaceForm } from "@/components/place-form";
+import { ZonePicker } from "@/components/zone-picker";
 import { PlacementQuiz } from "@/components/placement-quiz";
 import { LearningQuestionnaire } from "@/components/learning-questionnaire";
 import { requireSession } from "@/lib/auth";
-import { getMyCefr, getMyPlace, getMyPrefs } from "@/lib/actions/profile";
+import { getMyCefr, getMyPlace, getMyPrefs, getZones } from "@/lib/actions/profile";
 import { onboardingState } from "@/lib/onboarding";
 import { getCourseProgress } from "@/lib/actions/course";
 
@@ -21,10 +21,11 @@ export default async function WelcomePage() {
 
   // Everything the current step needs; each child saves and refreshes, and the
   // page recomputes the step server-side, so the flow advances by itself.
-  const [place, level, prefs, course] = await Promise.all([
+  const [place, level, prefs, zoneList, course] = await Promise.all([
     getMyPlace(),
     getMyCefr(),
     getMyPrefs(),
+    getZones(),
     state.done ? getCourseProgress().catch(() => null) : Promise.resolve(null),
   ]);
 
@@ -103,7 +104,9 @@ export default async function WelcomePage() {
         <p className="mt-1 text-sm text-ink-soft">{copy.en}</p>
       </header>
 
-      {state.step === "place" && <PlaceForm initial={place} />}
+      {state.step === "place" && (
+        <ZonePicker initial={place} zones={zoneList} />
+      )}
       {state.step === "level" && <PlacementQuiz savedLevel={level} />}
       {state.step === "prefs" && <LearningQuestionnaire initial={prefs} />}
 
