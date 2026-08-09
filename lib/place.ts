@@ -116,7 +116,15 @@ async function zoneContextFor(place: Place): Promise<string> {
       .limit(1);
     if (!zone?.context) return "";
 
-    let out = `\nTHE LEARNER'S REGION — ${zone.namePt}. Set examples here, using these specifics: ${zone.context}`;
+    let out = `
+THE LEARNER'S REGION — ${zone.namePt}.
+${zone.context}
+
+How to use this region:
+- Reach for these REAL names and details when you invent an example, a dialogue, a story or a homework situation. A named street, market, bus or dish beats a generic one every time — the learner will use these words this week.
+- Never contradict it. Do not move them to Lisbon or Porto, and do not describe their region as a visitor would.
+- Local institutions come with rituals — the queue, the ordering custom, the argument about who does it best. Those rituals are where your humour belongs: affectionate, dry, aimed at the ritual and never at a real business or the people who run it. Never repeat a complaint about a named establishment.
+- Use local words and accent notes as flavour the learner can actually adopt, always in European Portuguese.`;
 
     if (place.placeSlug) {
       const [town] = await db
@@ -127,7 +135,10 @@ async function zoneContextFor(place: Place): Promise<string> {
         )
         .limit(1);
       if (town?.context) {
-        out += `\nThey live specifically in ${town.name}: ${town.context} Prefer ${town.name} itself over anywhere else in the region.`;
+        out += `
+
+THEIR TOWN — ${town.name}. ${town.context}
+Prefer ${town.name} itself over anywhere else in the region: its streets, its shops, its beach or square. This is the place they walk through every day, so it is the place the language should happen in.`;
       }
     }
     return out;
