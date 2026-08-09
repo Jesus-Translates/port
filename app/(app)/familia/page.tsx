@@ -1,5 +1,6 @@
 import { FamilyBoard } from "@/components/family-board";
-import { getValidUsers, requireSession } from "@/lib/auth";
+import { requireSession } from "@/lib/auth";
+import { householdUsernames } from "@/lib/tenant";
 import { getFamilyBoard, getRecentKudos } from "@/lib/data";
 
 export const metadata = { title: "Família" };
@@ -7,7 +8,7 @@ export const metadata = { title: "Família" };
 export default async function FamilyPage() {
   const session = await requireSession();
   const [board, recent] = await Promise.all([
-    getFamilyBoard(getValidUsers()),
+    getFamilyBoard(await householdUsernames()),
     getRecentKudos(15),
   ]);
 

@@ -6,7 +6,8 @@ import {
   homeworkItemsGenSchema,
 } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
-import { roleOf, getSession, getValidUsers } from "@/lib/auth";
+import { roleOf, getSession } from "@/lib/auth";
+import { householdUsernames } from "@/lib/tenant";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { CEFR_LEVELS, getCefrFor, logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
@@ -56,14 +57,16 @@ export async function POST(request: NextRequest) {
   // Homework built from a tutor session: practise exactly what just happened.
   const fromChat = body.mode === "from-chat" && transcript.trim().length > 0;
 
-  const staff = await roleOf(session.username) !== "student";
+  // Staff may target specific students — but only inside their own household.
+  const household = await householdUsernames();
+  const staff = (await roleOf(session.username)) !== "student";
   // Staff may target specific students; everyone else assigns to themselves
   // (or the whole family via forEveryone). Resolved here because the target
   // decides which level the exercises are written for.
   const requested = staff
     ? (body.assignees ?? [])
         .map((a) => String(a).toLowerCase())
-        .filter((a) => getValidUsers().some((u) => u.toLowerCase() === a))
+        .filter((a) => household.includes(a))
     : [];
 
   // Pitch the work at the learner it is FOR: an explicit pick wins, then the
@@ -201,7 +204,7 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
     requested.length > 0
       ? requested
       : forEveryone
-        ? getValidUsers().map((u) => u.toLowerCase())
+        ? household
         : [session.username];
   const source = requested.length > 0 ? "teacher" : "ai";
 

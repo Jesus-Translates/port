@@ -3,7 +3,8 @@
 import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import type { GradedResult } from "@/lib/actions/quiz";
-import { roleOf, getValidUsers, requireSession, requireStaff } from "@/lib/auth";
+import { roleOf, requireSession, requireStaff } from "@/lib/auth";
+import { householdUsernames, inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import {
   activity,
@@ -173,10 +174,12 @@ export async function assignHomework(formData: FormData) {
   const instructions = String(formData.get("instructions") ?? "")
     .trim()
     .slice(0, 8000);
+  // Only people in my own household may be assigned work.
+  const household = await householdUsernames();
   const assignees = formData
     .getAll("assignees")
     .map((a) => String(a).toLowerCase())
-    .filter((a) => getValidUsers().some((u) => u.toLowerCase() === a));
+    .filter((a) => household.includes(a));
   if (!title || !instructions || assignees.length === 0) return;
 
   const db = getDb();
@@ -233,7 +236,7 @@ export async function resetDeck(username: string) {
   const session = await requireSession();
   if (await roleOf(session.username) !== "admin") return;
   const u = username.toLowerCase();
-  if (!getValidUsers().some((v) => v.toLowerCase() === u)) return;
+  if (!(await inMyHousehold(u))) return;
   const db = getDb();
   await db.delete(cards).where(eq(cards.username, u));
   revalidatePath("/admin");
@@ -255,7 +258,7 @@ export type StudentStatus = {
 export async function getClassOverview(): Promise<StudentStatus[]> {
   await requireStaff();
   const db = getDb();
-  const roster = getValidUsers().map((u) => u.toLowerCase());
+  const roster = await householdUsernames();
 
   // Grouped queries + Maps, never a correlated sub-select: drizzle renders the
   // outer column unqualified inside a sub-select and it binds to the wrong
@@ -333,7 +336,7 @@ export type HubStats = {
 export async function getHubStats(): Promise<HubStats> {
   await requireStaff();
   const db = getDb();
-  const roster = getValidUsers().map((u) => u.toLowerCase());
+  const roster = await householdUsernames();
   const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
 
   const [active, hwByStatus, unitsByStatus] = await Promise.all([
@@ -464,7 +467,7 @@ export async function getLearnerDetail(
 ): Promise<LearnerDetail | null> {
   await requireStaff();
   const who = String(username ?? "").toLowerCase();
-  if (!getValidUsers().some((u) => u.toLowerCase() === who)) return null;
+  if (!(await inMyHousehold(who))) return null;
 
   const db = getDb();
 

@@ -4,9 +4,15 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { familyList, getModel } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
-import { getSession, getValidUsers } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { householdMembers } from "@/lib/tenant";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+
+/** Display names of my household — never every account on the instance. */
+async function householdNames(): Promise<string[]> {
+  return (await householdMembers()).map((m) => m.displayName);
+}
 
 export const maxDuration = 120;
 
@@ -130,7 +136,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: unitGenSchema }),
-    instructions: `You are Sandra, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(getValidUsers())}). ${await currentStyle()}
+    instructions: `You are Sandra, building the curriculum spine for a family learning EUROPEAN Portuguese together (${familyList(await householdNames())}). ${await currentStyle()}
 
 A UNIT is one teaching point plus a short, ordered path through activities the app already has.
 

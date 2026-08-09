@@ -55,6 +55,22 @@ function LoginFormInner({
     <form onSubmit={submit} className="card space-y-5 p-6">
       <div>
         <span className="label">Quem és tu? · Who are you?</span>
+        {/* No picker means more than one household shares this front door, so
+            there is no safe list to show — type who you are instead. The field
+            accepts either a username or an email, same as the server. */}
+        {users.length === 0 ? (
+          <input
+            name="username"
+            value={username ?? ""}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="nome de utilizador ou email"
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoComplete="username"
+            required
+            className="input w-full"
+          />
+        ) : (
         <div className="grid grid-cols-4 gap-2">
           {users.map((u) => (
             <button
@@ -77,6 +93,7 @@ function LoginFormInner({
             </button>
           ))}
         </div>
+        )}
       </div>
 
       <div>

@@ -1,4 +1,4 @@
-import { and, asc, desc, eq, gte, sql } from "drizzle-orm";
+import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import {
   activity,
   categories,
@@ -11,6 +11,7 @@ import {
   refEntries,
   users,
 } from "@/lib/db";
+import { householdUsernames, visibleOwners } from "@/lib/tenant";
 
 export const CEFR_LEVELS = ["A1", "A2", "B1", "B2"] as const;
 export const DEFAULT_CEFR = "A2";
@@ -87,6 +88,7 @@ export async function getCategoriesWithCounts() {
         sortOrder: categories.sortOrder,
       })
       .from(categories)
+      .where(inArray(categories.createdBy, await visibleOwners()))
       .orderBy(asc(categories.sortOrder), asc(categories.id)),
     db
       .select({
@@ -94,6 +96,7 @@ export async function getCategoriesWithCounts() {
         n: sql<number>`count(*)::int`,
       })
       .from(refEntries)
+      .where(inArray(refEntries.addedBy, await visibleOwners()))
       .groupBy(refEntries.categoryId),
   ]);
   const byId = new Map(counts.map((c) => [c.categoryId, c.n]));
@@ -105,37 +108,70 @@ export async function getCategoryBySlug(slug: string) {
   const [category] = await db
     .select()
     .from(categories)
-    .where(eq(categories.slug, slug))
+    .where(
+      and(
+        eq(categories.slug, slug),
+        inArray(categories.createdBy, await visibleOwners())
+      )
+    )
     .limit(1);
   if (!category) return null;
   const entries = await db
     .select()
     .from(refEntries)
-    .where(eq(refEntries.categoryId, category.id))
+    .where(
+      and(
+        eq(refEntries.categoryId, category.id),
+        // Seeded entries belong to the product; added ones to whoever added
+        // them. A word another family typed is not in your phrasebook.
+        inArray(refEntries.addedBy, await visibleOwners())
+      )
+    )
     .orderBy(asc(refEntries.id));
   return { category, entries };
 }
 
-// The whole hub is shared family space: notes and quizzes are visible to all
-// three users; `username` records who created a thing, not who may see it.
+/**
+ * A household still shares everything INSIDE it — notes and quizzes are common
+ * family space, exactly as before. What changed is the boundary: "everyone"
+ * now means everyone in YOUR household, not every account in the database.
+ *
+ * The single-item getters matter more than the lists. A list that leaks is
+ * visible and embarrassing; /notes/5 quietly serving another family's note is
+ * the one that actually hurts, so each one re-checks ownership rather than
+ * trusting that a link could only have come from a scoped list.
+ */
 export async function getNotesAll() {
   const db = getDb();
-  return db.select().from(notes).orderBy(desc(notes.updatedAt));
+  const mine = await householdUsernames();
+  if (mine.length === 0) return [];
+  return db
+    .select()
+    .from(notes)
+    .where(inArray(notes.username, mine))
+    .orderBy(desc(notes.updatedAt));
 }
 
 export async function getNote(id: number) {
   const db = getDb();
+  const mine = await householdUsernames();
+  if (mine.length === 0) return null;
   const [note] = await db
     .select()
     .from(notes)
-    .where(eq(notes.id, id))
+    .where(and(eq(notes.id, id), inArray(notes.username, mine)))
     .limit(1);
   return note ?? null;
 }
 
+/** Lessons are product content when seeded, household content when authored. */
 export async function getLessons() {
   const db = getDb();
-  return db.select().from(lessons).orderBy(asc(lessons.id));
+  return db
+    .select()
+    .from(lessons)
+    .where(inArray(lessons.createdBy, await visibleOwners()))
+    .orderBy(asc(lessons.id));
 }
 
 export async function getLesson(id: number) {
@@ -143,37 +179,53 @@ export async function getLesson(id: number) {
   const [lesson] = await db
     .select()
     .from(lessons)
-    .where(eq(lessons.id, id))
+    .where(and(eq(lessons.id, id), inArray(lessons.createdBy, await visibleOwners())))
     .limit(1);
   return lesson ?? null;
 }
 
 export async function getHomeworkAll() {
   const db = getDb();
-  return db.select().from(homework).orderBy(desc(homework.createdAt));
+  const mine = await householdUsernames();
+  if (mine.length === 0) return [];
+  return db
+    .select()
+    .from(homework)
+    .where(inArray(homework.username, mine))
+    .orderBy(desc(homework.createdAt));
 }
 
 export async function getHomeworkItem(id: number) {
   const db = getDb();
+  const mine = await householdUsernames();
+  if (mine.length === 0) return null;
   const [hw] = await db
     .select()
     .from(homework)
-    .where(eq(homework.id, id))
+    .where(and(eq(homework.id, id), inArray(homework.username, mine)))
     .limit(1);
   return hw ?? null;
 }
 
 export async function getQuizzesAll() {
   const db = getDb();
-  return db.select().from(quizzes).orderBy(desc(quizzes.createdAt));
+  const mine = await householdUsernames();
+  if (mine.length === 0) return [];
+  return db
+    .select()
+    .from(quizzes)
+    .where(inArray(quizzes.username, mine))
+    .orderBy(desc(quizzes.createdAt));
 }
 
 export async function getQuiz(id: number) {
   const db = getDb();
+  const mine = await householdUsernames();
+  if (mine.length === 0) return null;
   const [quiz] = await db
     .select()
     .from(quizzes)
-    .where(eq(quizzes.id, id))
+    .where(and(eq(quizzes.id, id), inArray(quizzes.username, mine)))
     .limit(1);
   return quiz ?? null;
 }

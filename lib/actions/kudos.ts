@@ -2,12 +2,18 @@
 
 import { and, eq, gte, or, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { requireSession, getValidUsers } from "@/lib/auth";
+import { requireSession } from "@/lib/auth";
+import { inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { getDb, kudos } from "@/lib/db";
 
-function isFamily(username: string): boolean {
-  return getValidUsers().some((u) => u.toLowerCase() === username.toLowerCase());
+/**
+ * You may only star or encourage someone in YOUR household. This used to check
+ * the global VALID_USERS env list, which named every account on the instance —
+ * so a second family could hand out stars inside the first one's leaderboard.
+ */
+async function isFamily(username: string): Promise<boolean> {
+  return inMyHousehold(username);
 }
 
 /**
@@ -18,7 +24,7 @@ function isFamily(username: string): boolean {
 export async function giveStar(toUser: string, message: string) {
   const session = await requireSession();
   const to = toUser.trim().toLowerCase();
-  if (!isFamily(to) || to === session.username) return;
+  if (!(await isFamily(to)) || to === session.username) return;
 
   const db = getDb();
   const dayStart = lisbonDayStart();
@@ -56,7 +62,7 @@ export async function sendNote(toUser: string, message: string) {
   const session = await requireSession();
   const to = toUser.trim().toLowerCase();
   const text = message.trim();
-  if (!isFamily(to) || to === session.username || !text) return;
+  if (!(await isFamily(to)) || to === session.username || !text) return;
 
   const db = getDb();
   // Gentle flood guard: max 10 notes per sender per day.

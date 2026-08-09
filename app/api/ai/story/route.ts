@@ -4,10 +4,16 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getModel, storyGenSchema } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { familyList } from "@/lib/ai";
-import { getSession, getValidUsers } from "@/lib/auth";
+import { getSession } from "@/lib/auth";
+import { householdMembers } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { getDb, stories } from "@/lib/db";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+
+/** Display names of my household — never every account on the instance. */
+async function householdNames(): Promise<string[]> {
+  return (await householdMembers()).map((m) => m.displayName);
+}
 
 export const maxDuration = 120;
 
@@ -58,7 +64,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: storyGenSchema }),
-    instructions: `You write serialized graded-reader chapters for a family learning EUROPEAN Portuguese (${familyList(getValidUsers())}). ${await currentStyle()}
+    instructions: `You write serialized graded-reader chapters for a family learning EUROPEAN Portuguese (${familyList(await householdNames())}). ${await currentStyle()}
 Set the stories in the learner's own real world — the beach or street they know, the mercado, the escola, neighbours,
 the surrounding countryside: warm, lightly funny slice-of-life with recurring fictional characters (do not put the real family members in awkward
 situations; a fictional neighbour family works well). Strictly control grammar/vocabulary to the target CEFR level.

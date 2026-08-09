@@ -2,7 +2,8 @@ import Link from "next/link";
 import { DangerTools } from "@/components/admin-tools";
 import { AssignHomework } from "@/components/assign-homework";
 import { getClassOverview, getHubStats } from "@/lib/actions/admin";
-import { getValidUsers, requireStaff } from "@/lib/auth";
+import { requireStaff } from "@/lib/auth";
+import { householdMembers } from "@/lib/tenant";
 import { getDb, ttsAudio } from "@/lib/db";
 import { avatarFor, titleCase } from "@/lib/people";
 import { formatEur, getSpendByUser } from "@/lib/usage";
@@ -42,7 +43,7 @@ function Stat({
 export default async function AdminPage() {
   const staff = await requireStaff();
   const isAdmin = staff.role === "admin";
-  const students = getValidUsers();
+  const students = (await householdMembers()).map((m) => m.username);
 
   const [stats, turma] = await Promise.all([getHubStats(), getClassOverview()]);
 

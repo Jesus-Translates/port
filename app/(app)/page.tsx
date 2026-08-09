@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { getValidUsers, requireSession } from "@/lib/auth";
+import { requireSession } from "@/lib/auth";
+import { householdUsernames } from "@/lib/tenant";
 import {
   getFamilyBoard,
   getHomeworkAll,
@@ -37,7 +38,7 @@ export default async function Dashboard() {
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
-      getFamilyBoard(getValidUsers()).catch(() => []),
+      householdUsernames().then(getFamilyBoard).catch(() => []),
       getKudosFor(session.username, 5).catch(() => []),
       countDue(session.username).catch(() => 0),
       resolveNextAction(session.username, session.displayName),
