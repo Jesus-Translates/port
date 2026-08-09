@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { SuggestPanel } from "@/components/suggest-panel";
 import { getValidUsers, requireSession } from "@/lib/auth";
 import {
-  getCategoriesWithCounts,
   getFamilyBoard,
   getHomeworkAll,
   getKudosFor,
@@ -35,11 +33,10 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, cats, board, myKudos, due, next, course, placed] =
+  const [stats, allHomework, board, myKudos, due, next, course, placed] =
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
-      getCategoriesWithCounts(),
       getFamilyBoard(getValidUsers()).catch(() => []),
       getKudosFor(session.username, 5).catch(() => []),
       countDue(session.username).catch(() => 0),
@@ -48,7 +45,6 @@ export default async function Dashboard() {
       hasBeenPlaced(session.username).catch(() => true),
     ]);
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
-  const leader = board[0];
   const myStars = board.find((m) => m.username === session.username)?.stars ?? 0;
 
   const openHomework = allHomework.filter(
@@ -250,105 +246,6 @@ export default async function Dashboard() {
         </section>
       ) : null}
 
-      {myRank > 1 && leader ? (
-        <Link
-          href="/familia"
-          className="block rounded-2xl border border-azul/25 bg-azul-pale p-4 transition-colors hover:border-azul"
-        >
-          <span className="font-semibold text-azul">
-            🏆 {titleCase(leader.username)} lidera esta semana
-          </span>
-          <span className="ml-2 text-sm text-ink-soft">
-            — estás a{" "}
-            {leader.xpThisWeek - (board[myRank - 1]?.xpThisWeek ?? 0)} XP.
-            Consegues apanhá-lo?
-          </span>
-        </Link>
-      ) : null}
-
-      <SuggestPanel />
-
-      <section>
-        <h2 className="mb-3 text-lg font-semibold">Ir para…</h2>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-          {[
-            {
-              href: "/tutor",
-              emoji: "🌙",
-              title: "Falar com a Luna",
-              sub: "Ask anything, get corrections",
-            },
-            {
-              href: "/reference",
-              emoji: "📖",
-              title: "O Livro",
-              sub: `${cats.length} categories · quick reference`,
-            },
-            {
-              href: "/workbook",
-              emoji: "📚",
-              title: "Lições",
-              sub: "Workbook pages like class",
-            },
-            {
-              href: "/practice",
-              emoji: "🎯",
-              title: "Praticar",
-              sub: "Quizzes made for you",
-            },
-            {
-              href: "/homework",
-              emoji: "✍️",
-              title: "TPC",
-              sub: "Homework + Luna's feedback",
-            },
-            {
-              href: "/notes",
-              emoji: "📝",
-              title: "Notas",
-              sub: "Your own study notes",
-            },
-            {
-              href: "/practice/rever",
-              emoji: "🔁",
-              title: "Rever",
-              sub: due > 0 ? `${due} cartões à espera` : "Spaced repetition",
-            },
-            {
-              href: "/stories",
-              emoji: "📕",
-              title: "Histórias",
-              sub: "Stories set in Santa Cruz",
-            },
-            {
-              href: "/unidades",
-              emoji: "🧩",
-              title: "Unidades",
-              sub: "Guided path, A1 → B2",
-            },
-            {
-              href: "/missoes",
-              emoji: "🗺️",
-              title: "Missões",
-              sub: "Real errands, real Portuguese",
-            },
-          ].map((c) => (
-            <Link
-              key={c.href}
-              href={c.href}
-              className="card group p-4 transition-all hover:border-sage hover:shadow-md"
-            >
-              <div className="text-2xl" aria-hidden>
-                {c.emoji}
-              </div>
-              <div className="mt-2 font-semibold group-hover:text-olive">
-                {c.title}
-              </div>
-              <div className="mt-0.5 text-xs text-ink-soft">{c.sub}</div>
-            </Link>
-          ))}
-        </div>
-      </section>
 
       {stats.recent.length > 0 ? (
         <section>

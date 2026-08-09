@@ -3,6 +3,7 @@ import { getDb, homework } from "@/lib/db";
 import { getCourseProgress } from "@/lib/actions/course";
 import { hasBeenPlaced } from "@/lib/data";
 import { countDue } from "@/lib/srs";
+import { firstUnfinishedStep } from "@/lib/next-step";
 
 /**
  * "What do I do now?" — resolved on the server, deterministically.
@@ -23,7 +24,36 @@ export type NextAction = {
   label: string;
   /** English, one line — why this, now. */
   why: string;
+  /** True when there is genuinely nothing left today. */
+  done?: boolean;
 };
+
+/**
+ * Resolve a unit to the exact activity to open, falling back to the unit page
+ * when its path has no runnable step left.
+ */
+async function intoUnit(
+  slug: string,
+  title: string,
+  emoji: string,
+  lead: string
+): Promise<NextAction> {
+  const step = await firstUnfinishedStep(slug).catch(() => null);
+  if (!step) {
+    return {
+      href: `/unidades/${slug}`,
+      emoji,
+      label: lead,
+      why: `“${title}” — read the note, then work the path through it.`,
+    };
+  }
+  return {
+    href: step.href,
+    emoji,
+    label: lead,
+    why: `“${title}” · passo ${step.index} de ${step.total} — ${step.label}`,
+  };
+}
 
 export async function resolveNextAction(
   username: string,
@@ -57,12 +87,12 @@ export async function resolveNextAction(
   // level and were left to find the 126 units on your own.
   const course = await getCourseProgress().catch(() => null);
   if (course && course.unitsTotal > 0 && course.unitsDone === 0 && course.unitsStarted === 0 && course.next) {
-    return {
-      href: `/unidades/${course.next.slug}`,
-      emoji: "🎓",
-      label: "Começar o teu curso",
-      why: `${course.unitsTotal} unidades em ${course.level}, a começar por “${course.next.title}”.`,
-    };
+    return intoUnit(
+      course.next.slug,
+      course.next.title,
+      "🎓",
+      "Começar o teu curso"
+    );
   }
 
   if (due > 0) {
@@ -87,19 +117,22 @@ export async function resolveNextAction(
   // card uses — selecting by sortOrder alone ignored what you had finished, so
   // the hero could say "continue X" while the card below said "continue Y".
   if (course?.next) {
-    return {
-      href: `/unidades/${course.next.slug}`,
-      emoji: "🧩",
-      label: "Continuar a unidade",
-      why: `“${course.next.title}” — read the note, then work the path through it.`,
-    };
+    return intoUnit(
+      course.next.slug,
+      course.next.title,
+      "🧩",
+      "Continuar a unidade"
+    );
   }
 
-  // Nothing pending and nothing to continue: talk. Never a dead end.
+  // Genuinely nothing pending: say so and stop. An app that never admits you
+  // are finished is an app that nags, and the learner most likely to give up
+  // is the one who can never see the end of a day.
   return {
     href: "/practice/conversa",
-    emoji: "💬",
-    label: "Falar com a Luna",
-    why: `Nothing is due, ${displayName} — so spend five minutes actually speaking.`,
+    emoji: "✅",
+    label: "Feito por hoje",
+    why: `Nothing is due and the course is up to date, ${displayName}. Want more? Five minutes talking to Luna.`,
+    done: true,
   };
 }

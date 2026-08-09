@@ -5,15 +5,19 @@ import { usePathname, useRouter } from "next/navigation";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
-// `short` keeps 8 tabs legible in the phone bottom bar (~47px each).
+/**
+ * Five tabs, ~75px each on a phone instead of eight at ~47px.
+ *
+ * Livro, Lições, TPC and Notas are not gone — they live one tap inside
+ * Explorar. Eight equally-weighted tabs made every session start with a
+ * decision; this makes the guided path the obvious thing and everything else
+ * findable in one place.
+ */
 const TABS = [
-  { href: "/", emoji: "🏠", label: "Início", short: "Início" },
+  { href: "/", emoji: "🏠", label: "Hoje", short: "Hoje" },
+  { href: "/unidades", emoji: "🎓", label: "Curso", short: "Curso" },
+  { href: "/practice", emoji: "🧭", label: "Explorar", short: "Explorar" },
   { href: "/tutor", emoji: "🌙", label: "Luna", short: "Luna" },
-  { href: "/reference", emoji: "📖", label: "Livro", short: "Livro" },
-  { href: "/workbook", emoji: "📚", label: "Lições", short: "Lições" },
-  { href: "/homework", emoji: "✍️", label: "TPC", short: "TPC" },
-  { href: "/practice", emoji: "🎯", label: "Praticar", short: "Praticar" },
-  { href: "/notes", emoji: "📝", label: "Notas", short: "Notas" },
   { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
 ];
 
