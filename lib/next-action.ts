@@ -1,7 +1,7 @@
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { activity, getDb, homework, users } from "@/lib/db";
 import { getCourseProgress } from "@/lib/actions/course";
-import { hasBeenPlaced } from "@/lib/data";
+import { onboardingState } from "@/lib/onboarding";
 import { countDue } from "@/lib/srs";
 import { firstUnfinishedStep } from "@/lib/next-step";
 import { DEFAULT_PREFS, dailyGoal, readPrefs } from "@/lib/learning-path";
@@ -62,8 +62,7 @@ export async function resolveNextAction(
 ): Promise<NextAction> {
   const db = getDb();
 
-  const [placed, due, openHw, doneToday, prefs] = await Promise.all([
-    hasBeenPlaced(username).catch(() => true),
+  const [due, openHw, doneToday, prefs] = await Promise.all([
     countDue(username).catch(() => 0),
     db
       .select({ id: homework.id, title: homework.title })
@@ -95,12 +94,22 @@ export async function resolveNextAction(
       .catch(() => null),
   ]);
 
-  if (!placed) {
+  // First run is a sequence, not a pile: where you live, then your level,
+  // then how you like to learn — each answer makes the next step better, and
+  // the course is waiting at the end of it.
+  const onboarding = await onboardingState(username).catch(() => null);
+  if (onboarding && !onboarding.done) {
+    const label =
+      onboarding.step === "place"
+        ? "Começar por aqui"
+        : onboarding.step === "level"
+          ? "Descobre o teu nível"
+          : "Como gostas de aprender?";
     return {
-      href: "/placement",
+      href: "/bem-vindo",
       emoji: "🧭",
-      label: "Descobre o teu nível",
-      why: "Five minutes. Everything after this gets pitched at what you can actually do.",
+      label,
+      why: `Passo ${onboarding.index} de ${onboarding.total} — five minutes, and everything after is pitched at you.`,
     };
   }
 
