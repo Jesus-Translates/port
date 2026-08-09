@@ -18,7 +18,7 @@ const KIND_EMOJI: Record<string, string> = {
   note: "📝",
   homework: "✍️",
   reference: "📖",
-  tutor: "🌙",
+  tutor: "👩‍🏫",
   lesson: "📚",
   review: "🔁",
   ditado: "✏️",

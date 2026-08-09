@@ -374,7 +374,7 @@ export function Conversa({
           <h2 className="text-lg font-semibold">📋 Como correu</h2>
           <Markdown className="text-sm">{summary.resumoMd}</Markdown>
           <p className="rounded-xl bg-sage-pale/60 px-3 py-2 text-sm text-olive">
-            🌙 {summary.encouragementPt}
+            👩‍🏫 {summary.encouragementPt}
           </p>
         </div>
 
@@ -467,7 +467,7 @@ export function Conversa({
             >
               {m.role === "sandra" ? (
                 <span className="mr-1" aria-hidden>
-                  🌙
+                  👩‍🏫
                 </span>
               ) : null}
               {m.text}
@@ -491,7 +491,7 @@ export function Conversa({
         {pending ? (
           <div className="flex justify-start">
             <div className="rounded-2xl rounded-bl-sm border border-sand bg-white/80 px-4 py-2.5 text-sm text-ink-faint">
-              🌙 …
+              👩‍🏫 …
             </div>
           </div>
         ) : null}

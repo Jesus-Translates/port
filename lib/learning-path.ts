@@ -23,6 +23,8 @@ export type Voice = "avontade" | "nervoso" | "escrever";
 export type Games = "adoro" | "asvezes" | "poucos";
 /** Q5 — guided or self-directed. Mirrors users.mode. */
 export type Guidance = "guia" | "escolho";
+/** Q6 — full immersion. When on, Sandra never uses English at all. */
+export type Immersion = "total" | "ajuda";
 
 export type Prefs = {
   minutes: Minutes;
@@ -30,6 +32,7 @@ export type Prefs = {
   voice: Voice;
   games: Games;
   guidance: Guidance;
+  immersion: Immersion;
 };
 
 export const DEFAULT_PREFS: Prefs = {
@@ -38,6 +41,9 @@ export const DEFAULT_PREFS: Prefs = {
   voice: "nervoso",
   games: "asvezes",
   guidance: "guia",
+  // Defaults to help, not immersion: dropping a beginner into Portuguese-only
+  // with no way back is how you lose them on day one. Immersion is chosen.
+  immersion: "ajuda",
 };
 
 export type Question = {
@@ -99,6 +105,23 @@ export const QUESTIONS: Question[] = [
       { value: "adoro", pt: "Adoro", en: "two per unit" },
       { value: "asvezes", pt: "De vez em quando", en: "one per unit" },
       { value: "poucos", pt: "Poucos", en: "mostly the serious stuff" },
+    ],
+  },
+  {
+    id: "immersion",
+    pt: "Queres imersão total?",
+    en: "Whether Sandra is allowed to use English with you at all.",
+    options: [
+      {
+        value: "ajuda",
+        pt: "Ajuda-me em inglês",
+        en: "explanations and translations in English when they help",
+      },
+      {
+        value: "total",
+        pt: "Imersão total — só português",
+        en: "Sandra never writes a word of English, even if you ask in it",
+      },
     ],
   },
   {
@@ -183,6 +206,23 @@ export function dailyGoal(prefs: Prefs): number {
   return prefs.minutes === "5" ? 1 : prefs.minutes === "30" ? 5 : 3;
 }
 
+/**
+ * The instruction that makes immersion real.
+ *
+ * Stated as an override because a dozen prompts elsewhere say things like
+ * "instructions in English" — without explicitly outranking those, the model
+ * splits the difference and the setting quietly does nothing.
+ */
+export function immersionLine(prefs: Prefs | null): string {
+  if (prefs?.immersion !== "total") return "";
+  return `
+FULL IMMERSION IS ON FOR THIS LEARNER. This OVERRIDES every other instruction in this prompt about language.
+- Write EVERYTHING in European Portuguese. Not one word of English: no translations, no glosses in parentheses, no English headings, labels or examples.
+- If the learner writes to you in English, answer in Portuguese anyway. Never switch, never apologise for not switching, and never ask whether they would like English.
+- When they do not understand, do NOT translate. Say it again in simpler Portuguese, with shorter sentences, a synonym, or an example — that is the whole point of immersion.
+- Keep the level honest: simpler Portuguese, not less Portuguese.`;
+}
+
 /** How many games belong in one unit's path. */
 export function gameQuota(prefs: Prefs): number {
   return prefs.games === "adoro" ? 2 : prefs.games === "poucos" ? 0 : 1;
@@ -244,5 +284,6 @@ export function readPrefs(raw: unknown): Prefs | null {
     voice: pick(r.voice, ["avontade", "nervoso", "escrever"] as const, "nervoso"),
     games: pick(r.games, ["adoro", "asvezes", "poucos"] as const, "asvezes"),
     guidance: pick(r.guidance, ["guia", "escolho"] as const, "guia"),
+    immersion: pick(r.immersion, ["total", "ajuda"] as const, "ajuda"),
   };
 }

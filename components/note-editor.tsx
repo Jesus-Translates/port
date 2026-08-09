@@ -96,7 +96,7 @@ export function NoteEditor({
           className="flex w-full items-center justify-between"
           onClick={() => setSandraOpen((o) => !o)}
         >
-          <span className="font-semibold">🌙 Pergunta à Sandra sobre esta nota</span>
+          <span className="font-semibold">👩‍🏫 Pergunta à Sandra sobre esta nota</span>
           <span className="text-ink-faint">{sandraOpen ? "▴" : "▾"}</span>
         </button>
         {sandraOpen ? (

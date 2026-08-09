@@ -14,7 +14,7 @@ const KIND_META: Record<Suggestion["kind"], { emoji: string; href: (p: string) =
   quiz: { emoji: "🎯", href: (p) => `/practice?topic=${encodeURIComponent(p)}` },
   lesson: { emoji: "📚", href: (p) => `/workbook?topic=${encodeURIComponent(p)}` },
   reference: { emoji: "📖", href: (p) => `/reference/${encodeURIComponent(p)}` },
-  tutor: { emoji: "🌙", href: (p) => `/tutor?q=${encodeURIComponent(p)}` },
+  tutor: { emoji: "👩‍🏫", href: (p) => `/tutor?q=${encodeURIComponent(p)}` },
   homework: { emoji: "✍️", href: (p) => `/homework?topic=${encodeURIComponent(p)}` },
 };
 
@@ -54,7 +54,7 @@ export function SuggestPanel() {
           disabled={loading}
           className="btn-terra"
         >
-          {loading ? "A Sandra está a pensar…" : suggestions ? "Outra vez 🌙" : "Pergunta à Sandra 🌙"}
+          {loading ? "A Sandra está a pensar…" : suggestions ? "Outra vez 👩‍🏫" : "Pergunta à Sandra 👩‍🏫"}
         </button>
       </div>
 

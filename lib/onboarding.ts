@@ -23,6 +23,15 @@ export type OnboardingState = {
   index: number;
   total: number;
   done: boolean;
+  /**
+   * Whether this must be finished before anything else.
+   *
+   * Only the location and the level qualify: without them every lesson is
+   * pitched at a guess. The learning survey is genuinely optional — hijacking
+   * the dashboard of someone with cards due today, to ask a preference
+   * question, buries the work they came to do.
+   */
+  required: boolean;
 };
 
 export const ONBOARDING_STEPS = 3;
@@ -43,21 +52,33 @@ export async function onboardingState(
     prefsAnswered = readPrefs(row?.prefs) !== null;
   } catch {
     // If we cannot read it, do not trap someone in onboarding forever.
-    return { step: "ready", index: ONBOARDING_STEPS, total: ONBOARDING_STEPS, done: true };
+    return {
+      step: "ready",
+      index: ONBOARDING_STEPS,
+      total: ONBOARDING_STEPS,
+      done: true,
+      required: false,
+    };
   }
 
   const placed = await hasBeenPlaced(username).catch(() => true);
 
   if (!livesAnswered) {
-    return { step: "place", index: 1, total: ONBOARDING_STEPS, done: false };
+    return { step: "place", index: 1, total: ONBOARDING_STEPS, done: false, required: true };
   }
   if (!placed) {
-    return { step: "level", index: 2, total: ONBOARDING_STEPS, done: false };
+    return { step: "level", index: 2, total: ONBOARDING_STEPS, done: false, required: true };
   }
   if (!prefsAnswered) {
-    return { step: "prefs", index: 3, total: ONBOARDING_STEPS, done: false };
+    return { step: "prefs", index: 3, total: ONBOARDING_STEPS, done: false, required: false };
   }
-  return { step: "ready", index: ONBOARDING_STEPS, total: ONBOARDING_STEPS, done: true };
+  return {
+    step: "ready",
+    index: ONBOARDING_STEPS,
+    total: ONBOARDING_STEPS,
+    done: true,
+    required: false,
+  };
 }
 
 /** Has this person finished first-run setup? */

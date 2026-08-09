@@ -284,7 +284,7 @@ export function UnitPathBuild({ unitId }: { unitId: number }) {
         ) : (
           <div className="flex items-center gap-3 text-sm text-ink-soft">
             <span className="animate-pulse text-2xl" aria-hidden>
-              🌙
+              👩‍🏫
             </span>
             <span>
               A Sandra está a montar o caminho…

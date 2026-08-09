@@ -98,7 +98,7 @@ export async function resolveNextAction(
   // then how you like to learn — each answer makes the next step better, and
   // the course is waiting at the end of it.
   const onboarding = await onboardingState(username).catch(() => null);
-  if (onboarding && !onboarding.done) {
+  if (onboarding?.required) {
     const label =
       onboarding.step === "place"
         ? "Começar por aqui"

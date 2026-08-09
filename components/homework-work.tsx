@@ -291,7 +291,7 @@ function ItemCard({
                       )
                     }
                   >
-                    {pending ? "A Sandra está a corrigir…" : "🌙 Pedir a correção"}
+                    {pending ? "A Sandra está a corrigir…" : "👩‍🏫 Pedir a correção"}
                   </button>
                 ) : null}
               </div>
@@ -324,7 +324,7 @@ function ItemCard({
             {item.feedbackMd ? (
               <div className="flex gap-2 rounded-xl bg-white/70 px-3 py-2">
                 <span className="shrink-0" aria-hidden>
-                  🌙
+                  👩‍🏫
                 </span>
                 <Markdown className="text-[14px]">{item.feedbackMd}</Markdown>
               </div>
@@ -380,7 +380,7 @@ function LegacyHomework({
     return (
       <div className="card p-10 text-center">
         <div className="mb-3 animate-pulse text-4xl" aria-hidden>
-          🌙
+          👩‍🏫
         </div>
         <p className="font-medium">A Sandra está a corrigir o teu trabalho…</p>
       </div>
@@ -469,7 +469,7 @@ function LegacyHomework({
           </section>
           {homework.feedback ? (
             <section className="card border-sage bg-sage-pale/40 p-5">
-              <h2 className="mb-2 font-semibold">🌙 Feedback da Sandra</h2>
+              <h2 className="mb-2 font-semibold">👩‍🏫 Feedback da Sandra</h2>
               <Markdown>{homework.feedback}</Markdown>
             </section>
           ) : (
@@ -485,7 +485,7 @@ function LegacyHomework({
                     startTransition(() => requestFeedback(homework.id))
                   }
                 >
-                  {pending ? "A Sandra está a corrigir…" : "🌙 Pedir a correção"}
+                  {pending ? "A Sandra está a corrigir…" : "👩‍🏫 Pedir a correção"}
                 </button>
               ) : null}
             </div>

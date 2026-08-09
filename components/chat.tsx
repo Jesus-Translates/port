@@ -99,7 +99,7 @@ export function Chat({
         {messages.length === 0 ? (
           <div className="py-8 text-center">
             <div className="mb-2 text-4xl" aria-hidden>
-              🌙
+              👩‍🏫
             </div>
             <p className="text-sm text-ink-soft">
               Olá! Sou a Sandra, a vossa tutora de português. 🇵🇹

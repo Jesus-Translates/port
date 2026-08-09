@@ -155,7 +155,7 @@ export function MissionAttempt({
 
             {result.feedbackMd ? (
               <div className="flex gap-2 rounded-xl bg-sage-pale/60 px-3 py-2">
-                <span aria-hidden>🌙</span>
+                <span aria-hidden>👩‍🏫</span>
                 <Markdown className="text-[14px]">{result.feedbackMd}</Markdown>
               </div>
             ) : null}

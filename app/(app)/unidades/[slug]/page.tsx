@@ -129,7 +129,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
           href={`/tutor?q=${encodeURIComponent(`Tenho dúvidas sobre a unidade "${unit.title}".`)}`}
           className="btn-ghost text-sm"
         >
-          🌙 Falar com a Sandra
+          👩‍🏫 Falar com a Sandra
         </Link>
       </footer>
     </article>

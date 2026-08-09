@@ -154,7 +154,7 @@ export default async function MissaoPage(props: PageProps<"/missoes/[id]">) {
                 ) : null}
                 {a.feedbackMd ? (
                   <div className="flex gap-2 rounded-xl bg-sage-pale/60 px-3 py-2">
-                    <span aria-hidden>🌙</span>
+                    <span aria-hidden>👩‍🏫</span>
                     <Markdown className="text-[14px]">{a.feedbackMd}</Markdown>
                   </div>
                 ) : null}

@@ -73,7 +73,7 @@ export function UnitNote({
       ) : (
         <div className="flex items-center gap-3 text-sm text-ink-soft">
           <span className="animate-pulse text-2xl" aria-hidden>
-            🌙
+            👩‍🏫
           </span>
           <span>
             A Sandra está a escrever a nota desta unidade…

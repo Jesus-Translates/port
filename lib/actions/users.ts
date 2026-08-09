@@ -1,15 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { asc, eq, sql } from "drizzle-orm";
+import { redirect } from "next/navigation";
+import { asc, eq, inArray, sql } from "drizzle-orm";
 import {
   envRole,
-  requireAdmin,
   requireSession,
   roleOf,
   type Role,
 } from "@/lib/auth";
-import { getDb, users } from "@/lib/db";
+import { accounts, getDb, memberships, people, users } from "@/lib/db";
+import { currentAccountId, householdUsernames } from "@/lib/tenant";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/password";
 import { logActivity } from "@/lib/data";
 
@@ -43,6 +44,54 @@ const RESERVED = new Set([
   "new", "null", "undefined",
 ]);
 
+/**
+ * Who may manage accounts, and whose.
+ *
+ * Two different jobs wear the same word. The person in ADMIN_USERS runs the
+ * INSTANCE and can see every household — that is the recovery hatch. A family's
+ * own admin runs THEIR household and must never see another one; without this
+ * distinction, "let a family admin add members" would hand every customer the
+ * keys to every other customer.
+ */
+type ManageScope = {
+  username: string;
+  /** Instance operator: sees and edits every household. */
+  superadmin: boolean;
+  /** The household being managed, null only for a superadmin with no membership. */
+  accountId: number | null;
+};
+
+async function manageScope(): Promise<ManageScope> {
+  const session = await requireSession();
+  const superadmin = envRole(session.username) === "admin";
+  const accountId = await currentAccountId();
+
+  if (superadmin) return { username: session.username, superadmin, accountId };
+
+  // A household admin: either the app role, or owner/parent of the household.
+  const role = await roleOf(session.username);
+  let householdRole = "";
+  if (accountId !== null) {
+    const [row] = await getDb()
+      .select({ role: memberships.role })
+      .from(memberships)
+      .where(eq(memberships.username, session.username))
+      .limit(1);
+    householdRole = row?.role ?? "";
+  }
+  const allowed =
+    role === "admin" || householdRole === "owner" || householdRole === "parent";
+  if (!allowed) redirect("/");
+
+  return { username: session.username, superadmin: false, accountId };
+}
+
+/** May this scope touch that account? Household admins are boxed in. */
+async function canTouch(scope: ManageScope, target: string): Promise<boolean> {
+  if (scope.superadmin) return true;
+  return (await householdUsernames()).includes(target);
+}
+
 function cleanUsername(input: unknown): string {
   return String(input ?? "").trim().toLowerCase();
 }
@@ -75,7 +124,8 @@ function cleanEmail(input: unknown): string | null {
 }
 
 export async function listAccounts(): Promise<Account[]> {
-  await requireAdmin();
+  const scope = await manageScope();
+  const mine = scope.superadmin ? null : await householdUsernames();
   const rows = await getDb()
     .select({
       username: users.username,
@@ -88,6 +138,7 @@ export async function listAccounts(): Promise<Account[]> {
       createdAt: users.createdAt,
     })
     .from(users)
+    .where(mine ? inArray(users.username, mine) : undefined)
     .orderBy(asc(users.username));
 
   return Promise.all(
@@ -124,7 +175,7 @@ export async function createAccount(input: {
   password?: string;
   role?: string;
 }): Promise<{ ok: true } | { ok: false; error: string }> {
-  await requireAdmin();
+  const scope = await manageScope();
   const username = cleanUsername(input.username);
   const displayName = String(input.displayName ?? "").trim().slice(0, 60);
   if (!displayName) return { ok: false, error: "Falta o nome." };
@@ -154,6 +205,35 @@ export async function createAccount(input: {
     .limit(1);
   if (existing) return { ok: false, error: "Esse nome de utilizador já existe." };
 
+  // A new person must JOIN a household, not float free. Without the
+  // membership row they would be a household of one — invisible on the family
+  // board, unassignable homework, and counted against nobody's seats.
+  const accountId = scope.accountId;
+  if (accountId === null) {
+    return {
+      ok: false,
+      error: "A tua conta ainda não pertence a uma família — corre db:backfill.",
+    };
+  }
+
+  const [account] = await db
+    .select({ seatLimit: accounts.seatLimit, name: accounts.name })
+    .from(accounts)
+    .where(eq(accounts.id, accountId))
+    .limit(1);
+  const taken = (
+    await db
+      .select({ username: memberships.username })
+      .from(memberships)
+      .where(eq(memberships.accountId, accountId))
+  ).length;
+  if (account && taken >= account.seatLimit) {
+    return {
+      ok: false,
+      error: `O plano ${account.name} tem ${account.seatLimit} lugares e já estão todos ocupados.`,
+    };
+  }
+
   try {
     await db.insert(users).values({
       username,
@@ -163,6 +243,16 @@ export async function createAccount(input: {
       role,
       // New accounts start guided; they can switch once they find their feet.
       mode: "simple",
+    });
+    const [person] = await db
+      .insert(people)
+      .values({ displayName, email })
+      .returning({ id: people.id });
+    await db.insert(memberships).values({
+      accountId,
+      personId: person.id,
+      username,
+      role: role === "student" ? "child" : "parent",
     });
   } catch {
     return { ok: false, error: "Não foi possível criar a conta (email repetido?)." };
@@ -176,10 +266,14 @@ export async function setAccountPassword(
   username: string,
   password: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  await requireAdmin();
+  const scope = await manageScope();
   const bad = passwordProblem(password);
   if (bad) return { ok: false, error: bad };
   const target = cleanUsername(username);
+  if (!(await canTouch(scope, target))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
 
   const hash = await hashPassword(password);
   const rows = await getDb()
@@ -200,11 +294,16 @@ export async function setAccountPassword(
 export async function clearAccountPassword(
   username: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  await requireAdmin();
+  const scope = await manageScope();
+  const who = cleanUsername(username);
+  if (!(await canTouch(scope, who))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   await getDb()
     .update(users)
     .set({ passwordHash: null })
-    .where(eq(users.username, cleanUsername(username)));
+    .where(eq(users.username, who));
   revalidatePath("/admin/utilizadores");
   return { ok: true };
 }
@@ -243,14 +342,19 @@ export async function setAccountEmail(
   username: string,
   email: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  await requireAdmin();
+  const scope = await manageScope();
+  const who = cleanUsername(username);
+  if (!(await canTouch(scope, who))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   const clean = cleanEmail(email);
   if (clean === "") return { ok: false, error: "Email inválido." };
   try {
     await getDb()
       .update(users)
       .set({ email: clean })
-      .where(eq(users.username, cleanUsername(username)));
+      .where(eq(users.username, who));
   } catch {
     return { ok: false, error: "Esse email já está noutra conta." };
   }
@@ -262,8 +366,13 @@ export async function setAccountRole(
   username: string,
   role: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const admin = await requireAdmin();
+  const scope = await manageScope();
+  const admin = { username: scope.username };
   const target = cleanUsername(username);
+  if (!(await canTouch(scope, target))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   if (!ROLE_VALUES.includes(role as Role)) {
     return { ok: false, error: "Papel inválido." };
   }
@@ -287,12 +396,17 @@ export async function setAccountMode(
   username: string,
   mode: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  await requireAdmin();
+  const scope = await manageScope();
+  const who = cleanUsername(username);
+  if (!(await canTouch(scope, who))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   if (!MODES.includes(mode)) return { ok: false, error: "Modo inválido." };
   await getDb()
     .update(users)
     .set({ mode })
-    .where(eq(users.username, cleanUsername(username)));
+    .where(eq(users.username, who));
   revalidatePath("/admin/utilizadores");
   return { ok: true };
 }
@@ -306,8 +420,13 @@ export async function setAccountActive(
   username: string,
   active: boolean
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const admin = await requireAdmin();
+  const scope = await manageScope();
+  const admin = { username: scope.username };
   const target = cleanUsername(username);
+  if (!(await canTouch(scope, target))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   if (target === admin.username && !active) {
     return { ok: false, error: "Não te podes desativar a ti próprio." };
   }
@@ -351,9 +470,14 @@ export async function renameAccount(
   username: string,
   newUsername: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const admin = await requireAdmin();
+  const scope = await manageScope();
+  const admin = { username: scope.username };
   const from = cleanUsername(username);
   const to = cleanUsername(newUsername);
+  if (!(await canTouch(scope, from))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   if (from === to) return { ok: true };
 
   const bad = usernameProblem(to);
@@ -411,8 +535,13 @@ export async function deleteAccountForever(
   username: string,
   confirmation: string
 ): Promise<{ ok: true } | { ok: false; error: string }> {
-  const admin = await requireAdmin();
+  const scope = await manageScope();
+  const admin = { username: scope.username };
   const target = cleanUsername(username);
+  if (!(await canTouch(scope, target))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
   if (target === admin.username) {
     return { ok: false, error: "Não te podes apagar a ti próprio." };
   }

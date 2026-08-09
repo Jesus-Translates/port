@@ -3,6 +3,7 @@ import { eq } from "drizzle-orm";
 import { getDb, users } from "@/lib/db";
 import { PT_STYLE } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
+import { immersionLine, readPrefs } from "@/lib/learning-path";
 
 /**
  * Where the learner lives, and what that means for generated content.
@@ -84,7 +85,27 @@ export function placeLine(place: Place): string {
  * bare PT_STYLE anywhere the signed-in person is known.
  */
 export async function styleFor(username: string): Promise<string> {
-  return `${PT_STYLE}\n${placeLine(await getPlace(username))}`;
+  const [place, prefs] = await Promise.all([
+    getPlace(username),
+    readPrefsFor(username),
+  ]);
+  // Immersion rides along with the style because every AI surface already
+  // appends this — wiring it here reaches all eighteen instead of the three
+  // that happen to mention Sandra by name.
+  return `${PT_STYLE}\n${placeLine(place)}${immersionLine(prefs)}`;
+}
+
+async function readPrefsFor(username: string) {
+  try {
+    const [row] = await getDb()
+      .select({ prefs: users.prefs })
+      .from(users)
+      .where(eq(users.username, username.toLowerCase()))
+      .limit(1);
+    return readPrefs(row?.prefs);
+  } catch {
+    return null;
+  }
 }
 
 /**

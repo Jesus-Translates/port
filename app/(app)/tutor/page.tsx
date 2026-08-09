@@ -13,7 +13,7 @@ export default async function TutorPage(props: PageProps<"/tutor">) {
     <div className="flex h-[calc(100dvh-15rem)] min-h-[26rem] flex-col sm:h-[calc(100dvh-13rem)]">
       <header className="mb-4">
         <h1 className="text-2xl font-semibold tracking-tight">
-          🌙 Sandra, a vossa tutora
+          👩‍🏫 Sandra, a vossa tutora
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
           Ask in English or Portuguese — Sandra corrects gently and always answers

@@ -62,7 +62,7 @@ export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
           href={`/tutor?q=${encodeURIComponent(`Tenho dúvidas sobre a lição "${lesson.title}".`)}`}
           className="btn-ghost text-sm"
         >
-          🌙 Falar com a Sandra
+          👩‍🏫 Falar com a Sandra
         </Link>
       </footer>
     </article>

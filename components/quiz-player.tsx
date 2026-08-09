@@ -68,7 +68,7 @@ export function QuizPlayer({
     return (
       <div className="card p-10 text-center">
         <div className="mb-3 animate-pulse text-4xl" aria-hidden>
-          🌙
+          👩‍🏫
         </div>
         <p className="font-medium">A Sandra está a corrigir…</p>
         <p className="mt-1 text-sm text-ink-soft">
