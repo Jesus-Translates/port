@@ -22,6 +22,12 @@ export type PathItem = {
  * screen that already knows the topic, every step can be ticked off, and the
  * first unfinished one is marked as where you pick up.
  */
+/**
+ * Kinds with no natural end: you read a phrasebook category or a story until
+ * you decide you are done, and nothing in the page can know when that is.
+ */
+const NEEDS_MANUAL: string[] = ["vocab", "story"];
+
 export function UnitPath({
   items,
   nextUnit,
@@ -171,18 +177,35 @@ export function UnitPath({
                 {isResume ? (
                   <span className="chip">Continua aqui</span>
                 ) : null}
-                <button
-                  type="button"
-                  className="btn-ghost h-8 min-h-0 px-3 text-xs"
-                  disabled={pendingId !== null}
-                  onClick={() => toggle(item, !finished)}
-                >
-                  {busy
-                    ? "A guardar…"
-                    : finished
-                      ? "desmarcar"
-                      : "marcar como feito ✓"}
-                </button>
+                {/*
+                 * Activities tick THEMSELVES off now — finishing one and
+                 * pressing Continue is the completion. Asking the learner to
+                 * also come back here and mark a box is bookkeeping for work
+                 * they already did.
+                 *
+                 * Two exceptions keep the button: reading the phrasebook has
+                 * no natural "finished" moment, and undoing a completion has
+                 * to stay possible.
+                 */}
+                {finished ? (
+                  <button
+                    type="button"
+                    className="btn-ghost h-8 min-h-0 px-3 text-xs"
+                    disabled={pendingId !== null}
+                    onClick={() => toggle(item, false)}
+                  >
+                    {busy ? "A guardar…" : "desmarcar"}
+                  </button>
+                ) : NEEDS_MANUAL.includes(item.kind) ? (
+                  <button
+                    type="button"
+                    className="btn-ghost h-8 min-h-0 px-3 text-xs"
+                    disabled={pendingId !== null}
+                    onClick={() => toggle(item, true)}
+                  >
+                    {busy ? "A guardar…" : "marcar como feito ✓"}
+                  </button>
+                ) : null}
                 {error ? (
                   <span className="text-xs text-terra-dark">{error}</span>
                 ) : null}

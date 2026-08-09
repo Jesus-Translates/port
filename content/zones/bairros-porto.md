@@ -359,6 +359,59 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   street at volume and resolved in about ninety seconds, which is Porto's actual conflict style:
   loud, blunt, over.
 
+### A Baixa (Santo Ildefonso, Vitória e São Nicolau)
+
+- **Character** — Not one bairro but the three old parishes that make the low commercial city,
+  and the answer to *"vou à Baixa"*. **Santo Ildefonso** (1,28 km², 9 029 residents in 2011) is
+  the shopping half — Aliados, Santa Catarina, the Bolhão. **Vitória** is tiny and steep:
+  0,31 km² and just 1 901 residents in 2011, down from 8 248 in 1864, and it held the
+  **Judiaria do Olival**, the most important of Porto's three medieval Jewish quarters until its
+  destruction in the late fifteenth century — a marble memorial in Hebrew and Portuguese now
+  stands at the **Mosteiro de São Bento da Vitória**. **São Nicolau** runs down to the river.
+  Residents are few and long-standing; everyone else is passing through, which is exactly what
+  the Baixa is for.
+- **Getting there** — The best-connected square kilometre in the north. **Trindade** (all six
+  lines) at the top; **Bolhão** (A/B/C/E/F); **Aliados** and **São Bento** (D, amarela). The
+  **elétrico 22** circles Carmo–Batalha through it (status unverified) and the **Funicular dos
+  Guindais** drops from the Batalha to the river.
+- **Landmarks** — The **Avenida dos Aliados**, the civic room of the city, where Porto gathers
+  when something is won. The **Torre dos Clérigos**, which is how you know where you are from
+  anywhere. The **Igreja do Carmo** at Praça de Carlos Alberto, whose entire side wall is one
+  tile panel designed by Silvestre Silvestri, painted by Carlos Branco and fired in Gaia in
+  **1912** — and between it and the **Igreja dos Carmelitas** stands the **Casa Escondida**, a
+  house barely over 1,5 m wide, sold to visitors as the narrowest in Porto. The **Jardim da
+  Cordoaria** (properly Jardim de João Chagas). **Praça da Batalha** with the **Igreja de Santo
+  Ildefonso**, tiled by **Jorge Colaço in 1932**. **Rua de Santa Catarina**, 1 540 m of
+  pedestrian shopping street from the Batalha up to Praça do Marquês de Pombal, with the
+  **Capela das Almas**, the **Galerias Palladium** (1914, Marques da Silva) and **Via Catarina**
+  (1996) along it. **Rua das Taipas** and **Rua de São Bento da Vitória** for the old city.
+- **Food & institutions** — The **Mercado do Bolhão** is the institution: built in **1914** to
+  Correia da Silva's design in reinforced concrete, granite and steel, on two levels between Rua
+  Formosa, Rua de Sá da Bandeira, Rua Fernandes Tomás and Rua Alexandre Braga; restored from
+  2018 and reopened on **15 September 2022** with 81 **bancas**, 38 **lojas** and 10 restaurants.
+  Open **Monday to Friday 08:00–20:00, Saturday until 18:00, closed Sundays** — which is why
+  Saturday morning is a fixed appointment for half the city. The ritual is not shopping, it is
+  being known: you go to *your* **peixeira** and *your* fruit stall, you are told what is good
+  today and, more usefully, what is not, and you buy that instead of what you came for. The
+  going-home custom is a free bunch of **salsa** tucked in on top, which nobody charges for and
+  nobody asks for (a Portuguese habit rather than a documented Bolhão rule — unverified).
+  The **Café Majestic** at **Rua de Santa Catarina 112** opened on **17 December 1921** as the
+  *Elite*, took its present name the following year, is art nouveau by João Queiroz, has been an
+  **Imóvel de Interesse Público** since 1983 and reopened after restoration in July 1994; it is
+  a café where you order **um cimbalino** and then sit far longer than the cup justifies, which
+  is the correct use of it. The **Coliseu do Porto**, on **Rua de Passos Manuel**, opened
+  **19 December 1941** to an art deco design by Cassiano Branco and Júlio de Brito and holds
+  about 4 000; Porto famously kept it in public hands in 1995 by forming an association to buy
+  it, and rebuilt it after a fire in 1996 — a Portuense will tell you this story on the way in.
+  The **Livraria Lello** at **Rua das Carmelitas 144** has traded from its neo-gothic building
+  since **13 January 1906**, and since 2015 you buy a voucher to enter that comes off the price
+  of a book.
+- **Everyday detail** — Locals navigate by the **Torre dos Clérigos** and by which side of the
+  Aliados the sun is on, and they will give you directions in landmarks rather than street names
+  every single time. The other thing only a resident knows: the Bolhão has four entrances at
+  four different street levels, so *"encontramo-nos no Bolhão"* is an invitation to spend ten
+  minutes on the phone. Say which side.
+
 ### Cedofeita
 
 - **Character** — The bairro immediately north-west of the Baixa, and the one that reads
@@ -991,24 +1044,21 @@ urban reforms, not for Porto, and the association appears to be a misattribution
 
 ## Prompt context
 
-When a learner names a Porto bairro or a Norte sub-region, make every example local to it
-rather than generically Portuguese. Someone in Bonfim shops at o talho and a mercearia near
-Campo 24 de Agosto and catches the metro there on linhas A, B, C, E ou F; someone in Paranhos
-lives among students in Asprela, near o Hospital de São João, and takes a linha D (amarela);
-someone in Campanhã meets people at a estação and hears o Estádio do Dragão on match days;
-someone in Foz has no metro at all and takes o elétrico 1 to Passeio Alegre or walks along o
-molhe past o Farolim de Felgueiras. Reach for the right transport verbs — carregar o Andante,
-validar, apanhar o metro, o funicular dos Guindais, o autocarro da STCP dentro do Porto e a
-UNIR fora dele. Use the mental map: vou à Baixa for errands, à Ribeira or aos Clérigos to go
-out, à Foz to walk, à Boavista for work or a concert, and do outro lado for Gaia. Prefer real
-nouns: o Mercado do Bolhão (fechado ao domingo), o Mercado do Bom Sucesso, a Feira da Vandoma
-ao sábado, os jardins do Palácio de Cristal, o Parque da Cidade, Serralves. Foods: a
-francesinha and the argument about o molho, um cimbalino, um fino, um molete, tremoços at a
-kiosk, grilled fish in Matosinhos. Outside the city, distinguish the sub-regions: o Minho is
-green, wet, festive and famous for betacismo; Trás-os-Montes is high, cold, smoked and
-emptying; o Alto Douro is terraced socalcos and a vindima; o Douro Litoral is Porto and its
-belt. Keep everything European Portuguese: tu, pequeno-almoço, estar a + infinitive, casa de
-banho, autocarro.
+When a learner names a Porto bairro or a Norte sub-region, make every example local to it, not
+generic. Someone in Bonfim shops at o talho by o Campo 24 de Agosto and takes
+linhas A, B, C, E ou F; someone in Paranhos lives among students in Asprela beside o Hospital de
+São João and rides a linha D (amarela); someone in Campanhã meets people at a estação and hears
+o Estádio do Dragão on match days; someone in Foz has no metro at all, takes o elétrico 1 to o
+Passeio Alegre and walks o molhe past o Farolim de Felgueiras. Transport words: carregar o
+Andante, validar, apanhar o metro, o funicular dos Guindais, a STCP dentro do Porto e a UNIR
+fora dele. Use the mental map — vou à Baixa for errands, à Ribeira to go out, à Foz to walk, à
+Boavista for work, do outro lado for Gaia. Prefer real nouns: o Mercado do Bolhão (fechado ao
+domingo), o Mercado do Bom Sucesso, a Feira da Vandoma ao sábado, os jardins do Palácio de
+Cristal, o Parque da Cidade, Serralves. Foods: a francesinha and the argument about o molho, um
+cimbalino, um fino, um molete, tremoços, grilled fish in Matosinhos. Outside the city keep the
+sub-regions distinct: o Minho green, wet and festive; Trás-os-Montes high, cold and emptying; o
+Alto Douro socalcos and a vindima; o Douro Litoral Porto and its belt. Keep everything European
+Portuguese — tu, pequeno-almoço, estar a + infinitive, autocarro.
 
 ## Sources
 
