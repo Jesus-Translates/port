@@ -345,7 +345,9 @@ Participation is mass and largely spontaneous; some events are ticketed and some
   (spring), the **Mercado Medieval** inside the walls (summer), **FOLIO — Festival Literário
   Internacional de Óbidos** (autumn; the town has been a UNESCO Creative City of Literature
   since December 2015), and **Óbidos Vila Natal** at Christmas.
-- **Mostra de Doçaria Conventual e Tradicional**, Alcobaça — the conventual-sweets fair.
+- **Mostra de Doces Conventuais**, at the Mosteiro de Alcobaça — **November**, the
+  conventual-sweets fair, held inside the monastery itself.
+- **Festival do Pão de Mafra** — **July**, built around the town's wheat-and-rye bread.
 - **Ocean Spirit**, Santa Cruz — the town's annual water-sports festival, hosting official
   international-circuit competitions.
 - **Big-wave season at Nazaré** — roughly October to March, when the Canhão delivers.
@@ -447,7 +449,10 @@ beach". The **Rio Sizandro** reaches the sea just up the coast at **Praia Azul**
   the village's emblem; the **Miradouro do Alto da Vela**; the **Parque Municipal de Santa
   Cruz**; and the **Aeródromo Municipal**, which does sightseeing flights.
 - **Food**: grilled fish and seafood at the seafront restaurants in season; out of season a
-  handful of cafés carry the village.
+  handful of cafés carry the village. Santa Cruz has **no dish of its own** — be honest about
+  that. What is genuinely local is the pêra rocha off the fields behind Silveira, the
+  **pastel de feijão** from Torres Vedras, and the Peniche or Ericeira seafood a short drive
+  up or down the N247.
 - **Everyday**: the seasonal swing is extreme. In August the place is packed with Lisbon
   families, the campsite is full and there is nowhere to park; in January it is a windy
   village where you drive to Torres Vedras for anything substantial. The **Ocean Spirit**
@@ -475,8 +480,10 @@ Portugal departed from this beach, and there is a plaque.
 - **Landmarks**: the whitewashed old town above the harbour, the **Igreja Paroquial de São
   Pedro da Ericeira**, the **Capela de São Sebastião**, the **Capela de Nossa Senhora da Boa
   Viagem e Santo António**, and the **Forte de Milreu** (Forte de São Pedro).
-- **Food**: **marisco** is the town's calling card, particularly from **Ribamar**;
-  **ouriços-do-mar** are a local delicacy on this stretch of coast.
+- **Food**: **marisco** is the town's calling card, particularly from **Ribamar** —
+  **lagosta**, **percebes**, **ouriços-do-mar**, **raia**. The deep local dish is
+  **caneja d'infundice**, the cured shark eaten with boiled potatoes and red wine in winter;
+  it has its own confraria and most restaurants will not serve it.
 - **Everyday**: an unusual town in that it now has a permanent international population —
   surf schools, remote workers, year-round rentals — which has pushed housing costs up and
   made the winter far less dead than in Santa Cruz or Baleal. Parking in the old town is the
@@ -494,8 +501,10 @@ about 36 000 volumes; the **Basílica** has **six historic organs** and two cari
   21 km wall, created in 1747 under D. João V, with deer, wild boar and birds of prey, plus
   walking and mountain-bike trails; the **Jardim do Cerco**; and the **Aldeia Típica José
   Franco** at Sobreiro *(unverified)*.
-- **Food**: **pão de Mafra** is a name people actually ask for by name, alongside **queijo
-  fresco** and the **bolo da festa**. Pêra rocha comes off the surrounding land.
+- **Food**: **pão de Mafra**, a wheat-and-rye *pão de mistura* asked for by name and sold
+  *redondo*, *comprido* or *em bolinhas* — originally the *pão saloio*, with its own
+  **Festival do Pão de Mafra** in July. Also **queijo fresco**, **carracenas** and **trouxas
+  da Malveira**. Pêra rocha comes off the surrounding land.
 - **Everyday**: Mafra is genuinely commuter country now — the concelho includes Ericeira,
   Malveira, Venda do Pinheiro and Milharado, and a great many residents drive or bus into
   Lisbon. The bells of the basílica are simply part of the soundscape.
@@ -517,9 +526,14 @@ overwhelmingly a surf village, though the fishing heritage is in the name (whale
   **Museu Nacional Resistência e Liberdade**; **Cabo Carvoeiro** at the western tip; the
   **Ilhéu da Papôa**; and the **Berlengas**, six nautical miles out, a **Reserva Natural**
   reached by boat in summer.
-- **Food**: the fishing port, historically built on **sardinha** and canning, still lands
-  the fish the town eats. **Rendas de bilros** — bobbin lace — is the craft tradition,
-  medalled at Paris and London in 1851.
+- **Food**: this is **Portugal's leading fish auction by value**, and the port that was built
+  on **sardinha** and canning still lands what the town eats. The named dishes are
+  **caldeirada de Peniche**, **sequinho de robalo** and **lagosta suada à moda de Peniche**;
+  **percebes** off the Berlengas are harvested under a strictly licensed co-management plan.
+  The pastries the council itself names are **pastéis de Peniche**, **amigos de Peniche** and
+  **esses**, almond biscuits *(sold and eaten here, though Setúbal also claims their origin —
+  call them local, not invented here)*. **Rendas de bilros** — bobbin lace — is the craft
+  tradition, medalled at Paris and London in 1851.
 - **Everyday**: the working harbour sets the tone — the fish auction, the boats, the
   chandlers — and coexists awkwardly but genuinely with the surf hostels. The patronal
   **Nossa Senhora da Boa Viagem**, on the Monday after the first Sunday in August, takes the
@@ -538,7 +552,9 @@ the world**.
   the town in 2014.
 - **Food**: the **Praça da Fruta** — officially Praça da República — where the country's
   **only daily** fruit-and-vegetable market has run essentially unchanged since the late
-  19th century. This is where the town buys its food.
+  19th century. This is where the town buys its food. The sweets are **cavacas das Caldas**,
+  hollow egg pastries under a hard white glaze sold near the Largo do Hospital Termal, and
+  **trouxas de ovos**.
 - **Everyday**: the other identity is **ceramics**. Rafael Bordalo Pinheiro's **Fábrica de
   Faianças** (1884–1907) made the town synonymous with **louça das Caldas** and created
   **Zé Povinho**, the sardonic Portuguese everyman. The art school and studios keep the
@@ -555,8 +571,10 @@ installed in converted buildings around the town.
   da Vila** with the tiled **Capela de Nossa Senhora da Piedade** inside its double dog-leg;
   **Rua Direita**, the spine since the 14th century; and the 16th-century **Aqueduto da
   Usseira**, about 3 km of arches across the vines.
-- **Food**: **ginja de Óbidos**, the sour-cherry liqueur, served in a small **chocolate cup**
-  from stalls along Rua Direita.
+- **Food**: **ginjinha de Óbidos**, from the **Galega** cherry protected as *Ginja de Óbidos
+  e Alcobaça IGP*, macerated at least a year and often served in a small edible **chocolate
+  cup** from the stalls along Rua Direita. You are asked whether you want it **com elas** or
+  **sem elas** — with the cherries in the glass, or without.
 - **Everyday**: for residents the reality is a town that belongs to visitors most of the
   year and to itself in the off-season. Most of the concelho's population actually lives in
   the surrounding freguesias — Gaeiras, Amoreira, Olho Marinho, Usseira, A-dos-Negros, Vau —
@@ -576,7 +594,11 @@ McNamara's 2011 ride held the Guinness record until 2017; **Sebastian Steudtner*
   Miguel Arcanjo** and its lighthouse overlooking Praia do Norte; the **Ermida da Memória**
   at the cliff edge; and the **Santuário de Nossa Senhora da Nazaré**, founded by D. Fernando I
   in 1377, holding a wooden **Virgem Negra** said to have come from Mérida in 711.
-- **Food**: an Atlantic fishing town's diet — grilled fish, seafood, caldeirada-style stews.
+- **Food**: **caldeirada à moda da Nazaré**, descended from the *quinhão* — the crew's share
+  of small or damaged fish, boiled up at home. And the **carapau seco**: fish gutted, salted,
+  split open and laid out on **paneiros** to dry two or three days in the sun on the sand,
+  still done in the open. Half-dried fish is **enjoado**. The sweets are **támares**, small
+  boat-shaped cakes filled with egg sweet.
 - **Everyday**: tradition is unusually visible here. Older women still wear the **sete saias**,
   the seven layered skirts worn while waiting for the boats. The **Festas da Nazaré** fall on
   **8 September**. In big-wave season the whole town reorganises around the forecast and the
@@ -594,10 +616,12 @@ it. Inside lie the facing tombs of **D. Pedro I** and **D. Inês de Castro**.
 - **Landmarks**: the monastery; and on the coast, **São Martinho do Porto**, a scallop-shell
   bay opening to the sea through a gap of only a few metres — calm, shallow and the family
   beach of the whole region. The **Duna de Salir** nearby reaches around 50 m.
-- **Food**: **pão-de-ló de Alfeizerão**, the famously underbaked molten sponge from the
-  neighbouring freguesia; **frango na púcara**; the **Maçã de Alcobaça IGP**; and the
-  **doçaria conventual** the monastery gave its name to, celebrated at the annual **Mostra
-  de Doçaria Conventual e Tradicional**.
+- **Food**: **pão-de-ló de Alfeizerão** from the neighbouring freguesia — sunken in the
+  middle and deliberately left molten, the texture born of an error in the baking time;
+  **cornucópias de Alcobaça**; **frango na púcara**, chicken cooked in a clay pot with
+  presunto, port and aguardente, invented here in the 1960s; the **Maçã de Alcobaça IGP**;
+  and the **doçaria conventual** the monastery gave its name to, celebrated at the
+  **Mostra de Doces Conventuais** each November.
 - **Everyday**: beyond the monastery, this is a working concelho — ceramics, red clay,
   plastic moulds and cement are real local industries, alongside the apple orchards. Valado
   dos Frades has the nearest railway station to Nazaré.
@@ -606,28 +630,29 @@ it. Inside lie the facing tombs of **D. Pedro I** and **D. Inês de Castro**.
 capital — the **Museu da Lourinhã** holds the largest Iberian collection of Upper Jurassic
 fossils, the **Lourinhanosaurus** and the **ninho de Paimogo** are its icons, and **Dino
 Parque Lourinhã** is the family day out. Its beach is **Praia da Areia Branca**, its fort is
-the **Forte de Paimogo** (1674), and its great point of pride is the **Aguardente DOC da
-Lourinhã**, a demarcated brandy region since 1992 — the only one in Portugal and the third
-in Europe. **Bombarral** (distrito de Leiria, ~12 750) lives on wine, **pêra rocha** and
-market gardening, marks it with the **Feira Nacional do Vinho e da Pêra Rocha** each August,
-and hosts the **Bacalhôa Buddha Eden** sculpture garden among the vines.
+the **Forte de Paimogo** (1674), its pastries are **amendoados** and **areias brancas**, and
+its great point of pride is the **Aguardente DOC Lourinhã** — demarcated in 1992, the only
+region in Portugal set aside solely for brandy and one of just three in Europe, alongside
+Cognac and Armagnac. **Bombarral** (distrito de Leiria, ~12 750) lives on wine, **pêra
+rocha** and market gardening, marks it with the **Feira Nacional do Vinho e da Pêra Rocha**
+each August, and hosts the **Bacalhôa Buddha Eden** sculpture garden among the vines.
 
 ## Prompt context
 
-The learner lives on Portugal's Oeste coast — surf beaches, pear and vine country, market
-towns. Ground examples in real places: Torres Vedras, Santa Cruz, Silveira, Ericeira, Mafra,
-Peniche, Baleal, Óbidos, Caldas da Rainha, Nazaré, Lourinhã, Bombarral, Alcobaça. People
-drive everywhere, use the tolled A8 to Lisbon and the slow coastal N247; the Linha do Oeste
-train serves Torres Vedras, Bombarral, Óbidos and Caldas da Rainha but not Peniche, Ericeira
-or Nazaré. Errands: the Praça da Fruta in Caldas (daily produce market), the mini-mercado,
+The learner lives on Portugal's Oeste coast: surf beaches, pear and vine country, market
+towns. Set examples in real places — Torres Vedras, Santa Cruz, Silveira, Ericeira, Mafra,
+Peniche, Baleal, Óbidos, Caldas da Rainha, Nazaré, Lourinhã, Bombarral, Alcobaça. Everyone
+drives, using the tolled A8 to Lisbon and the slow coastal N247; the Linha do Oeste train
+serves Torres Vedras, Bombarral, Óbidos and Caldas da Rainha, but Peniche, Ericeira and
+Nazaré have no station. Errands: the daily Praça da Fruta in Caldas, the mini-mercado,
 Continente or Pingo Doce in the nearest town, the centro de saúde, the Câmara Municipal, the
-Junta de Freguesia, the school run to an agrupamento de escolas. Foods to reach for: pêra
-rocha, maçã de Alcobaça, sardinha and marisco from Peniche and Ericeira, pão de Mafra,
-pão-de-ló de Alfeizerão, ginja de Óbidos in a chocolate cup, aguardente da Lourinhã, local
-wine, the prato do dia at a tasca, uma bica. Weather and sea dominate small talk: a nortada
-that gets up every summer afternoon, cold water, wetsuits, arribas, big waves at Nazaré in
-winter. Life is seasonal — packed in August with Lisbon families and emigrantes, shuttered
-by January. Carnaval de Torres Vedras in February is the year's landmark event.
+Junta de Freguesia, the school run to an agrupamento de escolas. Foods: pêra rocha, maçã de
+Alcobaça, sardinha and caldeirada at Peniche, marisco at Ericeira, pão de Mafra, pão-de-ló
+de Alfeizerão, cavacas das Caldas, pastel de feijão, ginjinha de Óbidos com elas, aguardente
+da Lourinhã, the prato do dia at a tasca, uma bica. Weather and sea drive small talk: the
+nortada every summer afternoon, cold water, wetsuits, arribas, winter swells at Nazaré. Life is
+seasonal — packed in August with Lisbon families and emigrantes, shuttered by January.
+Carnaval de Torres Vedras is the year's landmark.
 
 ## Sources
 
@@ -663,7 +688,30 @@ Research conducted August 2026 via web search and direct page retrieval. Princip
   <https://en.wikipedia.org/wiki/List_of_surfing_records>
 - Lourinhã, dinosaurs and Aguardente DOC: <https://pt.wikipedia.org/wiki/Lourinh%C3%A3>,
   <https://www.dinoparque.pt/>, <https://visitlourinha.pt/menu/959/turismo-paleontologico>
-- Pêra Rocha do Oeste DOP: <https://pt.wikipedia.org/wiki/Pera_rocha>
+- Protected products, via the Portuguese state's Produtos Tradicionais registry (DGADR):
+  Pêra Rocha do Oeste DOP
+  <https://tradicional.dgadr.gov.pt/pt/cat/frutos-frescos/686-pera-rocha-do-oeste-dop>,
+  Maçã de Alcobaça IGP
+  <https://tradicional.dgadr.gov.pt/pt/cat/frutos-frescos/738-maca-de-alcobaca-igp>,
+  Ginja de Óbidos e Alcobaça IGP
+  <https://tradicional.dgadr.gov.pt/pt/cat/frutos-frescos/563-ginja-de-obidos-e-alcobaca-igp>,
+  Pão-de-ló de Alfeizerão
+  <https://tradicional.dgadr.gov.pt/pt/cat/doces-e-produtos-de-pastelaria/192-pao-de-lo-de-alfeizerao>,
+  Pão de Mafra
+  <https://tradicional.dgadr.gov.pt/pt/cat/pao-e-produtos-de-panificacao/1036-pao-de-mafra>
+- Aguardente DOC Lourinhã: <https://doc-lourinha.pt/doc-lourinha/>,
+  <https://visitlourinha.pt/2875/aguardente-doc-lourinha>
+- Wine region (Vinho Regional Lisboa and its DOCs):
+  <https://winesofportugal.com/en/discover/wine-regions/lisboa/>
+- Regional dishes: <https://www.cm-peniche.pt/visitar/turismo/gastronomia>,
+  <https://www.cm-nazare.pt/visitar/onde-ir/monumentos-e-patrimonio/poi/secagem-de-peixe>,
+  <https://turismodocentro.pt/artigo/o-que-comer-na-nazare/>,
+  <https://www.cm-alcobaca.pt/50061/frango-na-pucara>,
+  <https://confrariadacaneja.pt/caneja-dinfundice-2/>, <https://www.cm-mafra.pt/pages/853>,
+  <https://www.cm-mafra.pt/pages/1576>,
+  <https://turismodocentro.pt/artigo/docaria-regional-do-centro-de-portugal/>
+- Coffee vocabulary by region (Ciberdúvidas):
+  <https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/nomes-de-bebidas-com-cafe-em-portugal/17030>
 - Óbidos: <https://pt.wikipedia.org/wiki/%C3%93bidos_(Portugal)>,
   <https://pt.wikipedia.org/wiki/Lagoa_de_%C3%93bidos>
 - Bombarral: <https://pt.wikipedia.org/wiki/Bombarral>
@@ -681,4 +729,15 @@ Research conducted August 2026 via web search and direct page retrieval. Princip
 - ULS do Oeste: <https://www.choeste.min-saude.pt/unidade-de-caldas-da-rainha/>
 
 **Marked unverified in this pass:** the Aldeia Típica José Franco at Sobreiro; per-town
-weekday market days (only the Caldas da Rainha daily Praça da Fruta is confirmed).
+weekday market days (only the Caldas da Rainha daily Praça da Fruta is confirmed); the
+*beijinhos das Caldas* (sources disagree on what they are, so only the name is given); the
+existence of an Adega Cooperativa do Bombarral.
+
+**Deliberately excluded as misattributed** — do not let these back in: *francesinha* (Porto,
+1950s); *bolo-rainha* as a Caldas speciality (it is the nationwide Christmas *bolo-rei*
+variant, a name coincidence); *sável* and *caldeirada de enguias* (Tejo and Aveiro
+respectively); *leitão à moda de Torres* (leitão belongs to Bairrada and Negrais);
+"DOC Bombarral" (does not exist); calling a local
+custard tart a *pastel de Belém* (that name belongs only to the Lisbon original); and the
+claim that Aguardente Lourinhã is "third in the world" — the defensible claim is third in
+**Europe**.
