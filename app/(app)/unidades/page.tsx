@@ -98,8 +98,16 @@ export default async function UnidadesPage() {
         buckets.map((level) => {
           const inLevel = rows.filter((r) => r.cefr === level);
           if (inLevel.length === 0) return null;
+          const isMine = level === myLevel;
           return (
+            /**
+             * Only the learner's own level is open. 126 units listed at once
+             * reads as a mountain; the other levels collapse to one line each
+             * that opens on demand, so nothing is hidden and nothing shouts.
+             */
             <section key={level}>
+              <details open={isMine} className={isMine ? "" : "card px-4 py-3"}>
+                <summary className={isMine ? "list-none" : "cursor-pointer text-sm text-ink-soft"}>
               <h2 className="mb-2 flex flex-wrap items-baseline gap-2 font-display text-lg font-semibold">
                 {level}
                 {level === myLevel ? (
@@ -122,7 +130,10 @@ export default async function UnidadesPage() {
                   </span>
                 )}
               </h2>
-              <div className="grid gap-3 sm:grid-cols-2">
+                </summary>
+              <div
+                className="mt-3 grid gap-3 sm:grid-cols-2"
+              >
                 {inLevel.map((u) => {
                   const p = pctFor.get(u.id);
                   const walked = p && p.total > 0;
@@ -197,6 +208,7 @@ export default async function UnidadesPage() {
                   );
                 })}
               </div>
+              </details>
             </section>
           );
         })

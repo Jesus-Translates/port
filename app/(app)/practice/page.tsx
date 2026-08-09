@@ -27,38 +27,94 @@ export default async function PracticePage(props: PageProps<"/practice">) {
     getMyCefr(),
   ]);
 
-  const MODES = [
+  const REVER = {
+    href: "/practice/rever",
+    emoji: "🔁",
+    title: "Rever",
+    sub: due > 0 ? `${due} cartões à espera` : "spaced repetition",
+    hot: due > 0,
+  };
+
+  /**
+   * Grouped by the SKILL each one trains, because "which of these fourteen
+   * things should I do?" is a question the learner cannot answer and should
+   * not be asked. Pick a skill, then pick a tool.
+   */
+  const GROUPS = [
     {
-      href: "/practice/rever",
-      emoji: "🔁",
-      title: "Rever",
-      sub: due > 0 ? `${due} cartões à espera` : "spaced repetition",
-      hot: due > 0,
+      title: "🗣️ Falar",
+      en: "get the words out of your mouth",
+      items: [
+        { href: "/practice/conversa", emoji: "💬", title: "Conversa", sub: "fala com a Sandra" },
+        { href: "/practice/falar", emoji: "🎙️", title: "Ler em voz alta", sub: "a Sandra ouve-te" },
+        { href: "/missoes", emoji: "🗺️", title: "Missões", sub: "sai à rua e fala" },
+      ],
     },
-    { href: "/practice/conversa", emoji: "💬", title: "Conversa", sub: "fala com a Sandra" },
-    { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "pares e frases" },
-    { href: "/practice/falar", emoji: "🎙️", title: "Falar", sub: "a Sandra ouve-te" },
-    { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
-    { href: "/practice/verbos", emoji: "⚡", title: "Verbos", sub: "conjugação sprint" },
-    { href: "/verbos", emoji: "🔤", title: "Conjugador", sub: "consulta, ouve e treina" },
-    { href: "/escutar", emoji: "👂", title: "Escutar", sub: "diálogos com transcrição" },
-    { href: "/practice/audio", emoji: "📻", title: "Áudio", sub: "sessões para o carro" },
-    { href: "/ouvir", emoji: "🎧", title: "Ouvir", sub: "rádio, podcasts, vídeo" },
-    { href: "/stories", emoji: "📕", title: "Histórias", sub: "ler ao teu nível" },
-    { href: "/missoes", emoji: "🗺️", title: "Missões", sub: "sai à rua e fala" },
-    { href: "/practice/ciple", emoji: "🎓", title: "CIPLE", sub: "preparação do exame" },
-    { href: "/placement", emoji: "🧭", title: "Nível", sub: "descobre o teu CEFR" },
+    {
+      title: "👂 Ouvir",
+      en: "tune your ear",
+      items: [
+        { href: "/escutar", emoji: "👂", title: "Escutar", sub: "diálogos com transcrição" },
+        { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
+        { href: "/practice/audio", emoji: "📻", title: "No carro", sub: "sessões sem mãos" },
+      ],
+    },
+    {
+      title: "📖 Ler e escrever",
+      en: "words on the page",
+      items: [
+        { href: "/stories", emoji: "📕", title: "Histórias", sub: "ler ao teu nível" },
+        { href: "/verbos", emoji: "🔤", title: "Verbos", sub: "consulta, ouve e treina" },
+        { href: "/reference", emoji: "📖", title: "O Livro", sub: "o teu livro de frases" },
+      ],
+    },
+    {
+      title: "🎲 Jogar",
+      en: "the fun half",
+      items: [
+        { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "cinco jogos rápidos" },
+        { href: "/jogos/genero", emoji: "⚖️", title: "O ou A?", sub: "género contra o relógio" },
+        { href: "/jogos/intruso", emoji: "🕵️", title: "O Intruso", sub: "só português no ecrã" },
+      ],
+    },
   ];
 
   const grid = (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      {MODES.map((m) => (
+    <div className="space-y-6">
+      {/* Rever leads on its own: it is the only tool whose value decays if you
+          skip it, so it must not sit as one tile among twelve. */}
+      <Link
+        href={REVER.href}
+        className={`card group flex items-center gap-4 p-4 transition-all hover:border-sage hover:shadow-md ${
+          REVER.hot ? "border-terra/40 bg-terra-pale/30" : ""
+        }`}
+      >
+        <span className="text-3xl" aria-hidden>
+          {REVER.emoji}
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold group-hover:text-olive">
+            {REVER.title}
+          </span>
+          <span className="block text-sm text-ink-soft">{REVER.sub}</span>
+        </span>
+        <span className="shrink-0 text-ink-faint" aria-hidden>
+          →
+        </span>
+      </Link>
+
+      {GROUPS.map((g) => (
+        <section key={g.title}>
+          <h3 className="text-sm font-semibold">
+            {g.title}{" "}
+            <span className="font-normal text-ink-faint">· {g.en}</span>
+          </h3>
+          <div className="mt-2 grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {g.items.map((m) => (
         <Link
           key={m.href}
           href={m.href}
-          className={`card group p-4 transition-all hover:border-sage hover:shadow-md ${
-            m.hot ? "border-terra/40 bg-terra-pale/30" : ""
-          }`}
+          className="card group p-4 transition-all hover:border-sage hover:shadow-md"
         >
           <div className="text-2xl" aria-hidden>
             {m.emoji}
@@ -67,8 +123,25 @@ export default async function PracticePage(props: PageProps<"/practice">) {
             {m.title}
           </div>
           <div className="mt-0.5 text-xs text-ink-soft">{m.sub}</div>
-        </Link>
+            </Link>
+            ))}
+          </div>
+        </section>
       ))}
+
+      {/* Exam prep and the level test are real, but they are not a way to
+          practise — they belong in a footnote, not the main grid. */}
+      <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-faint">
+        <Link href="/practice/ciple" className="hover:text-olive">
+          🎓 CIPLE · preparação do exame
+        </Link>
+        <Link href="/ouvir" className="hover:text-olive">
+          🎧 Rádio e podcasts
+        </Link>
+        <Link href="/placement" className="hover:text-olive">
+          🧭 Refazer o teste de nível
+        </Link>
+      </p>
     </div>
   );
 
@@ -155,7 +228,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       <header>
         <h1 className="text-2xl font-semibold tracking-tight">🎯 Praticar</h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Thirteen ways to train — reviews, live conversation, dictation, verbs,
+          Pick a skill, then pick a tool — reviews, live conversation, dictation, verbs,
           listening, real-world missions, exam prep and more — plus fresh
           quizzes below.
         </p>

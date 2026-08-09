@@ -323,3 +323,51 @@ export async function getCourseProgress(): Promise<CourseProgress> {
       : null,
   };
 }
+
+export type NextDestination =
+  | { kind: "step"; href: string; label: string; index: number; total: number }
+  | { kind: "unit"; href: string; title: string }
+  | { kind: "done"; href: string };
+
+/**
+ * Finish this activity and say where to go next.
+ *
+ * The end of a lesson used to offer one button: back to the unit, to pick the
+ * next thing from a list. That is a decision at exactly the moment the learner
+ * has momentum. This ticks the item off and hands back the NEXT step's href —
+ * within the unit while steps remain, then the next unit, then an honest "you
+ * have finished this level".
+ */
+export async function completeAndNext(
+  itemId: number,
+  score?: number | null
+): Promise<NextDestination> {
+  await completeItem(itemId, score ?? null).catch(() => null);
+
+  const row = await loadItem(itemId);
+  if (row) {
+    const { firstUnfinishedStep } = await import("@/lib/next-step");
+    const step = await firstUnfinishedStep(row.slug).catch(() => null);
+    if (step) {
+      return {
+        kind: "step",
+        href: step.href,
+        label: step.label,
+        index: step.index,
+        total: step.total,
+      };
+    }
+  }
+
+  // Unit finished: move to the next one rather than dead-ending on a page
+  // whose every item is ticked.
+  const course = await getCourseProgress().catch(() => null);
+  if (course?.next && course.next.slug !== row?.slug) {
+    return {
+      kind: "unit",
+      href: `/unidades/${course.next.slug}`,
+      title: course.next.title,
+    };
+  }
+  return { kind: "done", href: "/" };
+}
