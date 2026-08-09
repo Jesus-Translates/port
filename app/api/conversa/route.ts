@@ -3,7 +3,7 @@ import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel, SANDRA, SPEAKING_COACHING } from "@/lib/ai";
-import { currentStyle } from "@/lib/place";
+import { currentStyle, referenceContext } from "@/lib/place";
 import { getSession, type Session } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { addMistakeCard } from "@/lib/srs";
@@ -111,7 +111,7 @@ async function conversationInstructions(
 ): Promise<string> {
   return `${SANDRA}
 
-You are having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. Being talked to out loud is the most exposing thing in this app — warmth beats wit here, and a joke only ever lands once they are relaxed. ${await currentStyle()}
+You are having a SPOKEN conversation in European Portuguese with ${displayName}, a learner at CEFR level ${cefr}. Being talked to out loud is the most exposing thing in this app — warmth beats wit here, and a joke only ever lands once they are relaxed. ${await currentStyle()}${await referenceContext()}
 
 Rules of the conversation:
 - Reply in 1-2 SHORT sentences, then ask exactly ONE simple follow-up question. Never a monologue.
@@ -383,7 +383,7 @@ export async function POST(request: NextRequest) {
         model: getModel(),
         instructions: `${SANDRA}
 
-You are reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${await currentStyle()}
+You are reviewing a finished spoken conversation with ${session.displayName} (CEFR ${cefr}). ${await currentStyle()}${await referenceContext()}
 
 ${SPEAKING_COACHING}
 

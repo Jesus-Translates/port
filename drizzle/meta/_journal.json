@@ -64,6 +64,13 @@
       "when": 1786314850500,
       "tag": "0008_zones",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1786316545469,
+      "tag": "0009_zone_kind",
+      "breakpoints": true
     }
   ]
 }

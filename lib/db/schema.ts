@@ -371,6 +371,13 @@ export const zones = pgTable("zones", {
   namePt: text("name_pt").notNull(),
   nameEn: text("name_en").notNull(),
   emoji: text("emoji").notNull().default("📍"),
+  /**
+   * "zone" — a place a learner can pick.
+   * "reference" — cross-country knowledge (accents, bureaucracy, transport)
+   * that never appears in the picker but is offered to the generators that
+   * invent real-world situations.
+   */
+  kind: text("kind").notNull().default("zone"),
   /** One line for the picker. */
   blurbEn: text("blurb_en"),
   /** The paragraph appended to prompts. Keep it short — it costs tokens on every call. */

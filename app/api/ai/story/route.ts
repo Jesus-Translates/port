@@ -2,7 +2,7 @@ import { generateText, Output } from "ai";
 import { asc, eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, storyGenSchema } from "@/lib/ai";
-import { currentStyle } from "@/lib/place";
+import { currentStyle, referenceContext } from "@/lib/place";
 import { familyList } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { householdMembers } from "@/lib/tenant";
@@ -64,7 +64,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: storyGenSchema }),
-    instructions: `You write serialized graded-reader chapters for a family learning EUROPEAN Portuguese (${familyList(await householdNames())}). ${await currentStyle()}
+    instructions: `You write serialized graded-reader chapters for a family learning EUROPEAN Portuguese (${familyList(await householdNames())}). ${await currentStyle()}${await referenceContext()}
 Set the stories in the learner's own real world — the beach or street they know, the mercado, the escola, neighbours,
 the surrounding countryside: warm, lightly funny slice-of-life with recurring fictional characters (do not put the real family members in awkward
 situations; a fictional neighbour family works well). Strictly control grammar/vocabulary to the target CEFR level.

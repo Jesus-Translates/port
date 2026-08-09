@@ -213,10 +213,11 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   esplanada**, and Lisboetas will cheerfully stand at the counter beside a terrace full of
   visitors. **Livraria Bertrand**, founded **1732**, was certified by Guinness in **2011** as
   the oldest bookshop still trading anywhere in the world. And **Manteigaria**, on Rua do
-  Loreto, sells pastéis de nata from an open kitchen where a bell is rung when a fresh tray
-  comes out — the correct response is to look up, pretend you are not going to have another
-  one, and have another one. Canela e açúcar are at the counter; adding cinnamon is a
-  matter of firm personal doctrine.
+  Loreto, makes pastéis de nata in an open kitchen you watch through the glass while you
+  wait — the whole transaction happens standing at the counter, in about ninety seconds, and
+  the correct behaviour is to declare you are only having one and then not do that. Canela e
+  açúcar em pó sit on the counter, and adding cinnamon is a matter of firm personal doctrine
+  on which no two members of a family agree.
 - **Everyday detail** — Chiado is the one place where a Lisboeta will admit to taking the
   metro one stop: from Baixa-Chiado's lower entrance to its upper entrance without ever
   boarding a train, purely for the escalators. It is free, it is legitimate, and it saves
@@ -317,8 +318,8 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
 - **Landmarks** — **Rua Ferreira Borges** and **Rua Coelho da Rocha** are the two spines.
   The **Cemitério dos Prazeres** at the western end, famous for its funerary architecture
   and its avenues of family mausoleums. **Casa Fernando Pessoa**, the poet's last home, on
-  **Rua Coelho da Rocha** — the same street as the market. **Jardim da Parada** (Praça
-  Duque de Saldanha... locally just *a Parada*) is the bairro's living room.
+  **Rua Coelho da Rocha** — the same street as the market. The **Jardim da Parada**, which
+  everybody calls simply *a Parada*, is the bairro's living room.
 - **Food & institutions** — Two, and they define the place. The **Mercado de Campo de
   Ourique**, **Rua Coelho da Rocha 104–106**, opened in **1934** and was reworked in **2013**
   into a hybrid: the original fishmongers, butchers and greengrocers still trade in the
@@ -337,6 +338,85 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   a pé" about absolutely everything. Parking is the local sport; the streets around the
   Parada fill by seven in the evening and the *dístico de residente* is the difference
   between a two-minute and a twenty-minute walk home.
+
+### Belém
+
+- **Character** — The monumental riverfront to the west, freguesia de Belém (created in 2012
+  by merging Santa Maria de Belém and São Francisco Xavier). Two things at once: the
+  ceremonial face Portugal shows the world — the president's palace is here — and a genuinely
+  residential, rather quiet, comfortably-off bairro of about 16 500 people who walk their
+  dogs past a UNESCO monastery without looking up.
+- **Getting there** — **No metro.** The **15E** tram runs **Praça da Figueira ⇄ Algés
+  (Jardim)** through Belém, stopping at *Belém*, *Mosteiro Jerónimos* and *Centro Cultural
+  Belém*; it was the **first route of the Lisbon network, inaugurated in 1901**, and is the
+  only Carris tram that leaves the concelho de Lisboa. It is worked by the long articulated
+  cars, not the little wooden ones. There is also the CP **Estação de Belém** on the **Linha
+  de Cascais**, and a river ferry from the **Estação Fluvial de Belém** *(ferry destinations
+  unverified)*.
+- **Landmarks** — The **Mosteiro dos Jerónimos**, begun **1502** under D. Manuel I, and the
+  **Torre de Belém**: **jointly inscribed by UNESCO in 1983**. Inside the monastery are the
+  tombs of **Vasco da Gama** and **Luís de Camões**, and **Fernando Pessoa** lies in the lower
+  cloister. Also the **Padrão dos Descobrimentos**, the **Centro Cultural de Belém**, the
+  **MAAT** (its new riverside building opened **5 October 2016**), the **Museu Nacional dos
+  Coches**, the **Palácio Nacional de Belém**, the **Museu de Arte Popular** and the
+  **Jardim Botânico Tropical** (older residents still call it the *Jardim do Ultramar*). The
+  open ground between the monastery and the river held the **Exposição do Mundo Português in
+  1940**, which is why it looks like a parade ground.
+- **Food & institutions** — The **Antiga Confeitaria de Belém**, **Rua de Belém 84–92**. The
+  story is documented by the house itself: a sugar refinery stood next to the Mosteiro dos
+  Jerónimos with a shop attached, and after the **1834 dissolution of the convents** somebody
+  from the monastery began selling sweet pastries there. **Production of the "Pastéis de
+  Belém®" began in 1837.** The recipe came from the monastery, is known only to the master
+  pastry chefs, and the pastries are still made by hand in what the house calls the
+  **"Oficina do Segredo"**. Two rituals worth teaching. First, the **name**: *Pastéis de
+  Belém* is a registered trademark, so a Lisboeta will patiently explain that everywhere else
+  in the world sells **pastéis de nata**, and only these are pastéis de Belém — a distinction
+  delivered with the seriousness of a point of law. Second, the **two doors**: one queue is
+  for the counter and takeaway, one is for the tiled rooms inside, and choosing the wrong one
+  is a rite of passage. Cinnamon and icing sugar are, as everywhere in Portugal, a matter of
+  firm personal doctrine, and no two members of a family agree.
+- **Everyday detail** — Residents do not take the 15E from the middle of town — they get on
+  at a quieter stop, or take the train, because the tram to Belém is one of the busiest
+  vehicles in Portugal. And the standard local instruction for the pastéis is to buy them
+  **para levar**, walk two minutes, and eat them somewhere with a view instead of queueing
+  for a table.
+
+### Ajuda
+
+- **Character** — Up the hill behind Belém, and the two are nothing alike. Ajuda is a
+  compact, steep, densely-populated old bairro of about 14 000 people in under 3 km² — it is
+  actually **denser than Belém next door** — built around a royal palace that was never
+  finished. Traditional, tight-knit, and much less visited than the riverside two hundred
+  metres below.
+- **Getting there** — **Ajuda has no metro station**, and the freguesia says so plainly. The
+  **18E** tram runs **Cais do Sodré ⇄ Cemitério da Ajuda**; Carris buses **729, 732, 742**
+  and **760** serve the bairro. Everything else is the **Calçada da Ajuda**, on foot, upwards.
+- **Landmarks** — The **Palácio Nacional da Ajuda** at **Largo da Ajuda**. Construction began
+  in **1795**, after a fire in **1794** destroyed the wooden Real Barraca; **D. Luís I** made
+  it his permanent residence in **1861** and **D. Maria Pia de Saboia** arrived in **1862** and
+  rebuilt the interiors for 19th-century comfort. It opened as a museum in **1938**. Its
+  **west façade stood unfinished for two centuries and was only completed between 2018 and
+  2020**. Inside, the **Museu do Tesouro Real**, inaugurated in **June 2022**, holds the
+  Portuguese crown jewels — **more than 18 000 stones**, including **31 exceptional emeralds
+  matched for colour**, and the Germain silver service. Also the **Jardim Botânico da Ajuda**,
+  the **Tapada da Ajuda**, the **Igreja da Memória**, the **Convento de Nossa Senhora da Boa
+  Hora** and the **Torre da Ajuda**.
+- **Food & institutions** — The **Jardim Botânico da Ajuda**, at the Cimo da Calçada da Ajuda,
+  is the bairro's treasure: created in **1768**, it is the **oldest botanical garden in
+  Portugal**. **Domingos Vandelli** laid it out on the model of his native Padua, working with
+  **Júlio Mattiazi**, Padua's first head gardener, after D. José I moved the court to Ajuda
+  following the 1755 earthquake — it was built partly to educate the royal children. About
+  four hectares on two Italian terraces, with one of the largest **box hedges in Europe**
+  (some two kilometres of it), the 18th-century **Fonte das 40 Bicas** with its serpents and
+  mythical figures, and a **dragoeiro from Madeira around four hundred years old**. It is run
+  by the Instituto Superior de Agronomia. No long-standing named pastelaria, mercado or tasca
+  could be verified for Ajuda *(unverified — omitted rather than guessed)*, though the
+  bairro's real institution is the same everywhere in old Lisbon: the corner café where the
+  same six people have had the same table since the eighties.
+- **Everyday detail** — The 18E's destination board reads **"Cemitério da Ajuda"**, so
+  residents spend their lives boarding a tram signed for a cemetery and think nothing of it.
+  And the palace at the top of the hill was, in living memory, still visibly half-built —
+  anyone over thirty in Ajuda grew up with an unfinished royal palace as the local landmark.
 
 ### Alvalade
 
@@ -516,6 +596,110 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   literally the **Aeroporto de Lisboa**, TAP's head office included. Residents no longer
   hear the planes and will tell you so with some pride.
 
+### Marvila
+
+- **Character** — Lisbon's old industrial east, and the bairro changing fastest. Wine
+  warehouses, factories and social housing along the river, now with galleries, studios and
+  a genuine craft-brewery cluster among them. Freguesia de Marvila — and note that Marvila is
+  **not** a 2012 creation: it has been a freguesia since **7 February 1959**, which makes it
+  considerably older as an administrative unit than the shiny neighbourhood next door.
+  7,12 km², about 35 500 residents. Long-standing working-class communities and new arrivals
+  live side by side and do not always overlap.
+- **Getting there** — **No metro on the riverside strip.** The **linha vermelha** runs
+  through the inland part of eastern Lisbon — **Bela Vista**, **Chelas**, **Olivais** and
+  **Cabo Ruivo**, all opened on **19 May 1998** *(exactly which of these fall inside Marvila's
+  boundary is unverified)*. In practice people arrive by bus, by car, or on foot from Cabo
+  Ruivo, and the riverside warehouses are a walk from any station.
+- **Landmarks** — The **Palácio do Marquês de Abrantes** on Rua de Marvila and the **Palácio
+  da Mitra** on **Rua do Açúcar**; the **Igreja Paroquial de Santo Agostinho a Marvila**; the
+  **Antigo Mosteiro de Marvila**; **ISEL**, the engineering institute; the **Parque Urbano do
+  Vale Fundão**; and **Braço de Prata**, a historic bairro within Marvila that people use as
+  a place name in its own right.
+- **Food & institutions** — The **armazéns de Abel Pereira da Fonseca**, the great wine
+  warehouses, are the bairro's inherited monument and have been converted to cultural use —
+  the street names still carry the trade, **Rua do Açúcar**, **Rua do Vale Formoso**. Marvila
+  is now the centre of Lisbon craft beer: **Dois Corvos Cervejeira**, at **Rua Capitão Leitão
+  94**, was founded in **2013** and was the **first brewery to set up in Marvila's old
+  industrial area**; **Fábrica Musa** also has its taproom in Marvila *(street address
+  unverified)*. The ritual is a straight inversion of the rest of Lisbon: instead of an
+  imperial poured in nine seconds and drunk standing, you get a tasting flight, a chalkboard,
+  and someone explaining the hops at length — and half the room is quietly wondering whether
+  they could just have had an imperial. Both customs are now completely normal in the same
+  bairro, four hundred metres apart. The **Biblioteca de Marvila** is the civic anchor.
+- **Everyday detail** — Addresses here are given by warehouse, not by street: *"é nos
+  armazéns"*, *"é no Braço de Prata"*. And the river is close but hard to reach — the
+  railway and the old industrial plots sit between the bairro and the water, so residents know
+  the specific crossings that work.
+
+### Beato
+
+- **Character** — Marvila's smaller, older neighbour along the same industrial riverfront —
+  about 12 000 people in under 2,5 km². Convents, a palace, and the vast walled compound
+  where the Portuguese army's bread was baked. The freguesia was **kept in the 2012 reform**,
+  its limits set by Lei n.º 56/2012. Quiet, working, and in the middle of a large-scale
+  transformation.
+- **Getting there** — **No metro station in Beato** *(inferred from the line lists rather
+  than stated by a transport source)*. The nearest stations are uphill on the **linha
+  vermelha** — Bela Vista and Chelas. Buses and the riverside road do the rest. The junta
+  itself sits on **Rua de Xabregas**.
+- **Landmarks** — The **Convento do Beato António**, the **Convento de São Francisco de
+  Xabregas**, the **Palácio do Grilo**, and the **Igreja Paroquial de São Bartolomeu do
+  Beato**.
+- **Food & institutions** — Beato's institution is a bakery on an industrial scale: the
+  **Manutenção Militar**, the army's manufacturing and supply establishment, created by
+  decree of **11 June 1897** and installed in the former **Convento das Agostinhas**. It made
+  the bread for the armed forces — the Padaria Militar dates from **1862** — along with food,
+  fuel and lubricants, and **the bread factory was the last unit to close, in 2011**. That
+  site is now the **Beato Innovation District** (originally the Hub Criativo do Beato), some
+  **35 000 m²** regenerated by the Câmara Municipal de Lisboa with Startup Lisboa and Unicorn
+  Factory Lisboa; it is **opening in phases** and buildings are still being restored one by
+  one. No long-standing named pastelaria, mercado or tasca could be verified in Beato
+  *(unverified — omitted rather than guessed)*.
+- **Everyday detail** — Bread is the bairro's memory, and it is recent: anyone in Beato over
+  about thirty-five remembers when the smell of baking came over the wall every morning and
+  the whole neighbourhood knew what time it was by it. Ask an older resident about the
+  Manutenção and you will get twenty minutes.
+
+### Parque das Nações
+
+- **Character** — The newest bairro in Lisbon and the only one that was designed whole. It is
+  the **Expo '98** site — the world exposition on the theme *"Os Oceanos, um Património para o
+  Futuro"* — built over a derelict industrial waterfront and then handed over as a
+  neighbourhood. Wide pavements, tall glass buildings, cycle lanes, and about 22 000
+  residents, many of them families who moved out here precisely for the space. Older
+  Lisboetas still say *"a Expo"* and always will.
+- **Getting there** — **Oriente**, on the **linha vermelha**, opened **19 May 1998**.
+  Crucially, **Oriente is also a mainline CP station on the Linha do Norte** — so this is
+  where you catch the train to Porto, Coimbra or the Algarve, and the bus terminal is there
+  too. It is the single best-connected point in eastern Lisbon.
+- **Landmarks** — The **Gare do Oriente** by **Santiago Calatrava**, a canopy of concrete
+  palm trees. The **Pavilhão de Portugal** by **Álvaro Siza Vieira**, with its famous
+  suspended concrete canopy. The **Oceanário de Lisboa**, the largest aquarium in Portugal.
+  The **Altice Arena**, which everyone over thirty still calls the **Pavilhão Atlântico**.
+  The **Torre Vasco da Gama**, the tallest building in the country. The **Centro Vasco da
+  Gama** shopping centre, the **Pavilhão do Conhecimento**, the **Casino Lisboa**, and the
+  **Telecabine Lisboa** — a **1 230 m** cable car running between **Passeio de Neptuno**,
+  beside the Oceanário, and **Passeio das Tágides**, beside the tower. Over the water, the
+  **Ponte Vasco da Gama** opened on **29 March 1998**: **17 185 m** including its approaches,
+  and the longest bridge in Europe when it was built.
+- **Food & institutions** — This is a 1998 district, so it genuinely does not have a
+  hundred-year-old pastelaria, and none could be verified *(unverified)*. What it has instead
+  is the **passeio ribeirinho** — the long riverside walk between the Ponte Vasco da Gama and
+  the marina — and the ritual is the evening *volta*: pushchairs, runners, scooters, teenagers
+  on the wall, and a queue at the gelataria that grows in exact proportion to the temperature.
+  The other institution is the **arraial by import**: because half the residents came from
+  older bairros, the Santos Populares here is a self-conscious recreation of the sardines and
+  garlands they grew up with, and everyone agrees it is not the same and does it anyway.
+- **Everyday detail** — The freguesia was only created on **8 November 2012**, and it was
+  assembled from **three** former parishes across **two different concelhos**: Santa Maria dos
+  Olivais in Lisboa, plus **Moscavide** and **Sacavém**, which were in **Loures**. So there
+  are residents in the north of Parque das Nações who did not move house but changed
+  municipality — their council, their taxes and their junta all changed underneath them. It
+  is a live conversation locally and a superb piece of everyday bureaucratic vocabulary.
+  Second detail: the whole eastern metro branch — Olaias, Bela Vista, Chelas, Olivais, Cabo
+  Ruivo, Oriente — opened on **one single day, 19 May 1998**, days before Expo. Moscavide,
+  Encarnação and Aeroporto only followed on **17 July 2012**.
+
 ## Lisbon everyday language
 
 Café and counter:
@@ -611,4 +795,101 @@ Identity and talk:
 
 ## Prompt context
 
+When a learner names a Lisbon bairro, build every example out of that bairro's own furniture
+instead of generic Lisbon. In Alfama, Mouraria and Graça reach for the 28E, the escadinhas, a
+miradouro as a meeting point, the Feira da Ladra on Campo de Santa Clara (terças e sábados),
+and June sardines and arraiais. In Baixa and Chiado use errands — o banco, as finanças, uma
+bica ao balcão — with Rossio, Praça da Figueira, and a ginjinha com elas. For Bairro Alto and
+Príncipe Real use the ascensores da Bica e da Glória, the Saturday mercado biológico, and the
+quiosque. In Estrela insist there is still no metro: it is the 28E, the 25E and the Jardim da
+Estrela. Campo de Ourique is flat, full of children, and organised around the mercado.
+Alvalade and Areeiro are avenidas, two markets with different closing days, and lifelong
+loyalty to one pastelaria. Telheiras, Lumiar and Olivais are parks, planned células and long
+metro rides. Belém and Ajuda are the 15E and the 18E, the mosteiro, the pastéis, and the
+calçada uphill. Marvila, Beato and Parque das Nações are warehouses, taprooms, the passeio
+ribeirinho and Oriente.
+
+Always name a metro line by colour — a amarela, a verde — never by number. Use freguesia for
+paperwork and bairro for identity. Favour concrete nouns: o mercado, a pastelaria, o
+miradouro, a paragem, o dístico de residente. European Portuguese only.
+
 ## Sources
+
+Research conducted August 2026 via web search and direct page retrieval, including two
+parallel verification passes on the northern and eastern bairros. Principal sources:
+
+- Freguesias of Lisbon (24 since the 2012 reform):
+  <https://pt.wikipedia.org/wiki/Lista_de_freguesias_de_Lisboa>, plus the individual
+  pt.wikipedia freguesia articles for Alvalade, Areeiro, Lumiar, Olivais, Benfica, Marvila,
+  Beato, Parque das Nações, Belém and Ajuda
+- Metro lines, colours and station lists: <https://en.wikipedia.org/wiki/Lisbon_Metro>,
+  <https://pt.wikipedia.org/wiki/Metropolitano_de_Lisboa>, and the four individual
+  pt.wikipedia line articles (Linha Azul, Amarela, Verde, Vermelha), which were used to
+  resolve contradictions in the summary articles
+- Linha Circular status (Rato–Cais do Sodré, Estrela and Santos, now targeted for Q1 2027):
+  <https://www.publico.pt/2026/03/31/local/noticia/abertura-linha-circular-metro-lisboa-sera-trimestre-2027-2169843>,
+  <https://www.timeout.pt/lisboa/pt/noticias/atraso-vai-em-tres-anos-e-tres-meses-mas-metro-aponta-abertura-da-linha-circular-para-inicio-de-2027-040126>,
+  <https://projetos.metrolisboa.pt/expansao/>
+- Tram routes and termini: <https://en.wikipedia.org/wiki/Trams_in_Lisbon>,
+  <https://pt.wikipedia.org/wiki/El%C3%A9ctricos_de_Lisboa>, and the pt.wikipedia 15E article
+- Feira da Ladra (Campo de Santa Clara, terças e sábados, on that square since 1882):
+  <https://pt.wikipedia.org/wiki/Feira_da_Ladra>
+- A Ginjinha (Largo de São Domingos 8, 1840): <https://lojascomhistoria.pt/shops/a-ginjinha>,
+  <https://www.comerciocomhistoria.gov.pt/en/listings/a-ginjinha-espinheira-s-domingos-3208/>
+- Confeitaria Nacional (1829, Praça da Figueira): <https://pt.wikipedia.org/wiki/Confeitaria_Nacional>,
+  <https://confeitarianacional.com/en/about-us/>
+- Café A Brasileira (1905) and Livraria Bertrand (1732, Guinness 2011):
+  <https://en.wikipedia.org/wiki/Caf%C3%A9_A_Brasileira>,
+  <https://en.wikipedia.org/wiki/Livraria_Bertrand>
+- Mouraria, Maria Severa and the Casa da Severa:
+  <https://www.museudofado.pt/fado/personalidade/severa>,
+  <https://www.museudofado.pt/en/event/casa-da-severa-en>
+- Graça, the miradouros and Vila Berta: <https://maislisboa.fcsh.unl.pt/graca-estado-graca/>,
+  <https://lisbonlisboaportugal.com/Alfama-Lisbon/miradouro-da-graca-viewpoint-lisbon-sophia-andresen.html>
+- Príncipe Real, the cedro and the Saturday Mercado Biológico (since 2005):
+  <https://lisbonlisboaportugal.com/lisbon-sights/jardim-do-principe-real-garden-lisbon.html>,
+  <https://www.thelisbonconnection.com/saturday-biological-market-principe-real-lisbon-amazing-centuries-old-trees/>
+- Ascensor da Bica (1892) and the Bairro Alto viewpoints:
+  <https://lisbonlisboaportugal.com/Baixa-Lisbon/elevador-da-bica-ascensor-funicular-lisbon.html>,
+  <https://www.lisbonportugaltourism.com/transportation/funiculars.html>
+- Basílica da Estrela (begun 1779) and Mercado de Campo de Ourique (1934, Rua Coelho da Rocha
+  104–106, reworked 2013): <https://www.lisbonportugaltourism.com/guide/mercado-de-campo-de-ourique.html>,
+  <https://descubralisboa.com/basilica-da-estrela/>
+- Pastelaria Aloma (1943, Melhor Pastel de Nata): <https://aloma.pt/>,
+  <https://lojascomhistoria.pt/lojas/pastelaria-aloma>,
+  <https://www.publico.pt/2024/09/30/fugas/noticia/pastelaria-aloma-melhor-pastel-nata-2106018>
+- Pastelaria Mexicana (Av. Guerra Junqueiro 30, 1946, remodelled 1961–62 by Jorge Ferreira
+  Chaves, Monumento de Interesse Público 2014, Querubim Lapa panel):
+  <https://www.comerciocomhistoria.gov.pt/>, pt.wikipedia *Areeiro*
+- Mercados de Alvalade Norte e Sul (days and hours) and the Faria da Costa plan:
+  junta de freguesia de Alvalade, <https://jf-alvalade.pt/>
+- Santo António, marchas populares and arraiais:
+  <https://santosdelisboa.pt/en/santos-populares-em-lisboa/>,
+  <https://www.e-konomista.pt/festas-de-santo-antonio-em-lisboa/>
+- Antiga Confeitaria de Belém / Pastéis de Belém® (1837, Rua de Belém 84–92, Oficina do
+  Segredo): <https://pasteisdebelem.pt/>
+- Mosteiro dos Jerónimos and Torre de Belém (UNESCO 1983): pt.wikipedia
+- Palácio Nacional da Ajuda and the Museu do Tesouro Real (June 2022):
+  <https://palacioajuda.gov.pt/>
+- Jardim Botânico da Ajuda (1768, Domingos Vandelli, oldest in Portugal): pt.wikipedia
+- Marvila breweries: <https://doiscorvos.pt/>; Biblioteca de Marvila and Braço de Prata:
+  <https://jf-marvila.pt/>
+- Manutenção Militar (1897, bread factory closed 2011) and the Beato Innovation District:
+  pt.wikipedia *Manutenção Militar*, <https://jf-beato.pt/>, Unicorn Factory Lisboa
+- Parque das Nações, Expo '98, Gare do Oriente, Ponte Vasco da Gama (17 185 m, 1998):
+  pt.wikipedia; Telecabine Lisboa: <https://telecabinelisboa.pt/>
+- Lisbon vocabulary, *alfacinha*, *imperial* vs *fino*:
+  <https://ciberduvidas.iscte-iul.pt/artigos/rubricas/idioma/diz-se-imperial-ou-fino/5664>,
+  <https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/alfacinha--lisboeta/11602>
+
+**Marked unverified in this pass:** opening days of the Mercado de Benfica; the existence of
+any municipal market in Telheiras, Lumiar, Olivais or Areeiro; named long-standing pastelarias
+or tascas in Telheiras, Lumiar, Beato, Ajuda and Parque das Nações (none could be sourced, so
+none were invented); which freguesia the Bairro dos Actores falls in; which linha vermelha
+stations sit inside Marvila's boundary; the absence of a metro station in Beato and Belém
+(inferred from the line lists, not stated by a transport source); Fábrica Musa's street
+address; Cerveja Lince's presence in Marvila; the Feira do Relógio and its day; Fábrica Braço
+de Prata as a venue; Poço do Bispo; FIL at Parque das Nações; the Belém ferry destinations;
+Praça do Império as a name; the Padrão dos Descobrimentos date; the Jardim Botânico Tropical
+founding year; the MAAT and Museu Nacional dos Coches architects; and whether canela and
+açúcar em pó are served separately at the Antiga Confeitaria de Belém.

@@ -3,7 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel } from "@/lib/ai";
 import { audioKey, putAudio } from "@/lib/blob";
-import { currentStyle } from "@/lib/place";
+import { currentStyle, referenceContext } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import {
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
   const { output, usage } = await generateText({
     model: getModel(),
     output: Output.object({ schema: dialogueSchema }),
-    instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}
+    instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}${await referenceContext()}
 Write it as REAL SPEECH, not a textbook: exactly two speakers with short Portuguese first names, taking turns, 8-14 lines,
 most of them one sentence long. Use the contractions and fillers spoken Portuguese actually has — "'tá" for está when it
 fits, "pois", "então", "olha", "se calhar", "pronto", "'tá bem" — plus everyday politeness (bom dia, faz favor, obrigado/a).

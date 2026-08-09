@@ -187,6 +187,40 @@ export const currentPrefs = cache(async () => {
   return session ? readPrefsFor(session.username) : null;
 });
 
+/**
+ * Cross-country knowledge — accents, bureaucracy, transport, market days.
+ *
+ * Deliberately NOT part of currentStyle(). Seven hundred words about Finanças
+ * and Andante zones is noise on a verb-conjugation prompt, and it is paid for
+ * on every call. It is offered only to the generators that invent real-world
+ * SITUATIONS — homework, conversation, dialogues, stories — where knowing how
+ * a counter or a market actually works is the difference between a useful
+ * exercise and an invented one.
+ *
+ * Only for learners living in Portugal: someone in Ohio does not need the
+ * Loja do Cidadão.
+ */
+export const referenceContext = cache(async (): Promise<string> => {
+  const session = await getSession().catch(() => null);
+  if (!session) return "";
+  try {
+    const place = await getPlace(session.username);
+    if (!place.livesInPortugal) return "";
+    const rows = await getDb()
+      .select({ name: zones.namePt, context: zones.promptContext })
+      .from(zones)
+      .where(eq(zones.kind, "reference"));
+    const usable = rows.filter((r) => r.context);
+    if (usable.length === 0) return "";
+    return (
+      "\n\nPRACTICAL BACKGROUND for inventing realistic situations — use it when the exercise involves errands, services, travel or shopping, and ignore it otherwise:\n" +
+      usable.map((r) => `${r.name}: ${r.context}`).join("\n")
+    );
+  } catch {
+    return "";
+  }
+});
+
 export const currentStyle = cache(async (): Promise<string> => {
   const session = await getSession().catch(() => null);
   return session ? styleFor(session.username) : PT_STYLE;

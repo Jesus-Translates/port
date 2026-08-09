@@ -154,7 +154,11 @@ export async function getZones(): Promise<ZoneOption[]> {
   try {
     const db = getDb();
     const [zoneRows, placeRows] = await Promise.all([
-      db.select().from(zones).orderBy(asc(zones.sortOrder)),
+      db
+        .select()
+        .from(zones)
+        .where(eq(zones.kind, "zone"))
+        .orderBy(asc(zones.sortOrder)),
       db.select().from(zonePlaces).orderBy(asc(zonePlaces.sortOrder)),
     ]);
     // Grouped + Map, never a correlated sub-select.

@@ -1,0 +1,1 @@
+ALTER TABLE "zones" ADD COLUMN IF NOT EXISTS "kind" text DEFAULT 'zone' NOT NULL;

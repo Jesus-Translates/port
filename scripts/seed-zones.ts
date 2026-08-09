@@ -43,6 +43,18 @@ const EXTENDS: Record<string, string> = {
 };
 
 /**
+ * Cross-country dossiers. Never shown in the picker, but their prompt context
+ * is offered to the generators that invent real-world situations — homework,
+ * conversation, dialogues — where knowing how Finanças or a market day works
+ * is the difference between a useful exercise and an invented one.
+ */
+const REFERENCE: Record<string, { pt: string; en: string }> = {
+  sotaques: { pt: "Sotaques", en: "Accents and dialects across Portugal" },
+  servicos: { pt: "Serviços", en: "Public services and everyday bureaucracy" },
+  "transportes-e-mercados": { pt: "Transportes e mercados", en: "Getting around, and market days" },
+};
+
+/**
  * Pull one "## Heading" section out of a dossier.
  *
  * Split rather than regex on purpose. The first version ended its lookahead
@@ -151,9 +163,35 @@ async function main() {
       continue;
     }
 
-    // Anything else (thematic notes) is reference material for humans.
+    // Cross-country reference: stored, never shown in the picker.
+    const ref = REFERENCE[slug];
+    if (!meta && ref) {
+      const md = readFileSync(join(DIR, file), "utf8");
+      const context = section(md, "Prompt context").replace(/\s+/g, " ").trim();
+      if (!context) {
+        console.warn(`  ! ${file}: no "## Prompt context" section — skipped`);
+        continue;
+      }
+      const values = {
+        slug,
+        namePt: ref.pt,
+        nameEn: ref.en,
+        emoji: "📚",
+        kind: "reference",
+        blurbEn: ref.en,
+        promptContext: context,
+        sortOrder: 900,
+      };
+      await db
+        .insert(zones)
+        .values(values)
+        .onConflictDoUpdate({ target: zones.slug, set: values });
+      console.log(`  ✓ ${ref.pt.padEnd(16)} ${context.length} chars (reference)`);
+      continue;
+    }
+
     if (!meta) {
-      console.log(`  – ${file}: reference only, not a pickable zone`);
+      console.log(`  – ${file}: not registered — add it to META or REFERENCE`);
       continue;
     }
 
@@ -171,6 +209,7 @@ async function main() {
       namePt: meta.pt,
       nameEn: meta.en,
       emoji: meta.emoji,
+      kind: "zone",
       blurbEn: meta.en,
       promptContext,
       sortOrder: meta.sort,
