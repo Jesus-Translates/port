@@ -1,7 +1,6 @@
 import "dotenv/config";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { eq } from "drizzle-orm";
 import { getDb, zonePlaces, zones } from "../lib/db";
 
 /**
