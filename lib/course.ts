@@ -98,4 +98,9 @@ export const PATH_RULE = `Build the unit's path as 5-7 items, in this shape:
 3. THEN production in writing: "quiz" or "homework".
 4. LAST, ALWAYS, production out loud: "conversa" for situational units, "falar" for units about pronunciation
    or fixed phrases. The unit is not finished until the learner has said it.
-Never repeat a kind within a unit. Order matters — easiest recognition first, hardest production last.`;
+Never repeat a kind within a unit. Order matters — easiest recognition first, hardest production last.
+
+Each item's "topic" is BOTH the instruction we generate from AND the label the learner reads on the activity.
+Keep it under 70 characters and write it as a title, not a brief: "Nomes de parentes em português europeu",
+not "Relacionar os nomes de parentes em português europeu — cunhado, sogra, sobrinho, primo, madrinha…".
+Put the detail in the item's own titlePt if it is needed at all.`;

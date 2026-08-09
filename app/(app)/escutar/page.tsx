@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { shortTopic } from "@/lib/topic-label";
 import { desc } from "drizzle-orm";
 import { ListeningGenerate } from "@/components/listening-generate";
 import { UnitReturn } from "@/components/unit-return";
@@ -110,7 +111,7 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
               we already have about o mercado, not quietly make a second one. */}
           <section className="card space-y-3 p-5">
             <div>
-              <h2 className="font-semibold">✅ Já existe sobre «{tema}»</h2>
+              <h2 className="font-semibold">✅ Já existe sobre «{shortTopic(tema)}»</h2>
               <p className="mt-0.5 text-sm text-ink-soft">
                 Abre um destes — não é preciso gravar nada de novo.{" "}
                 <span className="text-ink-faint">

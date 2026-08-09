@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { shortTopic } from "@/lib/topic-label";
 import { and, desc, eq, sql } from "drizzle-orm";
 import { FalarModes } from "@/components/falar-modes";
 import { UnitReturn } from "@/components/unit-return";
@@ -157,7 +158,7 @@ export default async function FalarPage(props: PageProps<"/practice/falar">) {
         <p className="mt-1 text-sm text-ink-soft">
           {tema ? (
             <>
-              Fala sobre <strong className="text-ink">«{tema}»</strong> — o tema
+              Fala sobre <strong className="text-ink">«{shortTopic(tema)}»</strong> — o tema
               desta unidade.{" "}
               <span className="text-ink-faint">
                 Answer out loud, or read the sentences and get a pronunciation

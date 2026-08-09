@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { shortTopic } from "@/lib/topic-label";
 import { GamePares } from "@/components/game-pares";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
@@ -53,7 +54,7 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <span className="chip">{level}</span>
-          <span className="chip bg-cream text-ink-soft">{topic}</span>
+          <span className="chip bg-cream text-ink-soft">{shortTopic(topic)}</span>
           <Link
             href={`/jogos?topic=${encodeURIComponent(topic)}`}
             className="text-xs text-ink-faint underline underline-offset-2 hover:text-terra"
