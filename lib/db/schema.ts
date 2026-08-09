@@ -34,6 +34,12 @@ export const users = pgTable("users", {
    * simple: one guided step at a time. Full exposes every feature.
    */
   mode: text("mode").notNull().default("simple"),
+  /**
+   * Answers to the post-placement questionnaire — see lib/learning-path.ts for
+   * the shape. jsonb because every answer drives a different lever and the set
+   * will change as we learn which questions earn their place.
+   */
+  prefs: jsonb("prefs"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

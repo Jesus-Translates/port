@@ -1,9 +1,10 @@
-import { and, asc, eq } from "drizzle-orm";
-import { getDb, homework } from "@/lib/db";
+import { and, asc, eq, inArray, sql } from "drizzle-orm";
+import { activity, getDb, homework, users } from "@/lib/db";
 import { getCourseProgress } from "@/lib/actions/course";
 import { hasBeenPlaced } from "@/lib/data";
 import { countDue } from "@/lib/srs";
 import { firstUnfinishedStep } from "@/lib/next-step";
+import { DEFAULT_PREFS, dailyGoal, readPrefs } from "@/lib/learning-path";
 
 /**
  * "What do I do now?" — resolved on the server, deterministically.
@@ -61,7 +62,7 @@ export async function resolveNextAction(
 ): Promise<NextAction> {
   const db = getDb();
 
-  const [placed, due, openHw] = await Promise.all([
+  const [placed, due, openHw, doneToday, prefs] = await Promise.all([
     hasBeenPlaced(username).catch(() => true),
     countDue(username).catch(() => 0),
     db
@@ -71,6 +72,27 @@ export async function resolveNextAction(
       .orderBy(asc(homework.createdAt))
       .limit(1)
       .catch(() => []),
+    // What counts as "work" today. Kudos and admin notes are not activities the
+    // learner did, so they must not tick the day off on their behalf.
+    db
+      .select({ n: sql<number>`count(*)` })
+      .from(activity)
+      .where(
+        and(
+          eq(activity.username, username),
+          sql`${activity.createdAt} >= date_trunc('day', now())`,
+          inArray(activity.kind, ["review", "jogo", "homework", "quiz", "falar"])
+        )
+      )
+      .then((r) => Number(r[0]?.n ?? 0))
+      .catch(() => 0),
+    db
+      .select({ prefs: users.prefs })
+      .from(users)
+      .where(eq(users.username, username))
+      .limit(1)
+      .then((r) => readPrefs(r[0]?.prefs))
+      .catch(() => null),
   ]);
 
   if (!placed) {
@@ -116,6 +138,19 @@ export async function resolveNextAction(
   // Forward progress along the course spine. Use the SAME resolver the course
   // card uses — selecting by sortOrder alone ignored what you had finished, so
   // the hero could say "continue X" while the card below said "continue Y".
+  // The day's goal is met and nothing is overdue: stop asking for more. The
+  // learner most likely to quit is the one who can never see the end of a day.
+  const goal = dailyGoal(prefs ?? DEFAULT_PREFS);
+  if (doneToday >= goal) {
+    return {
+      href: "/practice/conversa",
+      emoji: "✅",
+      label: "Feito por hoje",
+      why: `${doneToday} ${doneToday === 1 ? "atividade" : "atividades"} hoje, ${displayName} — objetivo cumprido. Queres mais? Fala com a Luna.`,
+      done: true,
+    };
+  }
+
   if (course?.next) {
     return intoUnit(
       course.next.slug,

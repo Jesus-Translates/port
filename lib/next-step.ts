@@ -2,6 +2,8 @@ import { asc, eq } from "drizzle-orm";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 import { getCompletedItemIds } from "@/lib/actions/course";
 import { resolve, type ItemRow } from "@/lib/unit-href";
+import { sortByPath } from "@/lib/learning-path";
+import { getMyPrefs } from "@/lib/actions/profile";
 
 /**
  * The first step of a unit the learner has not finished yet.
@@ -47,11 +49,13 @@ export async function firstUnfinishedStep(
   if (rows.length === 0) return null;
 
   const done = new Set(await getCompletedItemIds(unit.id));
+  // The learner's own ordering decides which activity is "next".
+  const ordered = sortByPath(rows, await getMyPrefs().catch(() => null));
 
   // Only items that resolve to a real screen count as steps — an unresolvable
   // row must not be able to stall the whole path.
   const steps: { id: number; href: string; label: string }[] = [];
-  for (const row of rows) {
+  for (const row of ordered) {
     const target = resolve(row as ItemRow, unit.slug);
     if (!target) continue;
     steps.push({

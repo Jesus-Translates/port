@@ -8,6 +8,8 @@ import { getCompletedItemIds, getCourseProgress } from "@/lib/actions/course";
 import { roleOf, requireSession } from "@/lib/auth";
 import { KIND_META, type ItemKind } from "@/lib/course";
 import { resolve, type ItemRow } from "@/lib/unit-href";
+import { sortByPath } from "@/lib/learning-path";
+import { getMyPrefs } from "@/lib/actions/profile";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 
 export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) {
@@ -48,7 +50,9 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
       ? { slug: course.next.slug, title: course.next.title }
       : null;
 
-  const path: PathItem[] = items.flatMap((item) => {
+  // Same ordering the dashboard used to pick "next", so the two agree.
+  const ordered = sortByPath(items, await getMyPrefs().catch(() => null));
+  const path: PathItem[] = ordered.flatMap((item) => {
     const target = resolve(item, unit.slug);
     if (!target) return [];
     return [

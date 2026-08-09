@@ -6,6 +6,12 @@ import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, users } from "@/lib/db";
 import { cleanLocality, getPlace, type Place } from "@/lib/place";
+import {
+  DEFAULT_PREFS,
+  pathFor,
+  readPrefs,
+  type Prefs,
+} from "@/lib/learning-path";
 
 // Kept module-local: a "use server" file may only export async functions.
 const LEVELS = ["A1", "A2", "B1", "B2"];
@@ -63,6 +69,52 @@ export async function setMyPlace(
 
   // Everything generated from here on is pitched at this place, so drop the
   // cached pages that show generated content.
+  revalidatePath("/", "layout");
+}
+
+/** The questionnaire answers, or null when it has not been taken. */
+export async function getMyPrefs(): Promise<Prefs | null> {
+  const session = await requireSession();
+  try {
+    const [row] = await getDb()
+      .select({ prefs: users.prefs })
+      .from(users)
+      .where(eq(users.username, session.username))
+      .limit(1);
+    return readPrefs(row?.prefs);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Save the questionnaire. Q5 is stored twice on purpose: in prefs as the
+ * answer given, and on users.mode because that is what every surface already
+ * reads to decide how much to show.
+ */
+export async function setMyPrefs(input: Partial<Prefs>): Promise<void> {
+  const session = await requireSession();
+  const prefs = readPrefs({ ...DEFAULT_PREFS, ...input }) ?? DEFAULT_PREFS;
+
+  await getDb()
+    .insert(users)
+    .values({
+      username: session.username,
+      displayName: session.displayName,
+      prefs,
+      mode: prefs.guidance === "escolho" ? "full" : "simple",
+    })
+    .onConflictDoUpdate({
+      target: users.username,
+      set: { prefs, mode: prefs.guidance === "escolho" ? "full" : "simple" },
+    });
+
+  await logActivity(
+    session.username,
+    "review",
+    `Caminho escolhido: ${pathFor(prefs).namePt}`,
+    3
+  ).catch(() => {});
   revalidatePath("/", "layout");
 }
 
