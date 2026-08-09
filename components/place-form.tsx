@@ -41,8 +41,8 @@ export function PlaceForm({
     <section
       className={
         compact
-          ? "rounded-xl border border-line bg-card p-4"
-          : "rounded-2xl border border-line bg-card p-5"
+          ? "rounded-xl border border-sand bg-white/70 p-4"
+          : "rounded-2xl border border-sand bg-white/70 p-5"
       }
     >
       <h2 className="text-sm font-semibold">
@@ -64,8 +64,8 @@ export function PlaceForm({
           aria-pressed={inPt === true}
           className={`rounded-lg border px-3 py-2 text-sm transition disabled:opacity-50 ${
             inPt === true
-              ? "border-accent bg-accent/10 font-medium text-accent"
-              : "border-line hover:border-accent/50"
+              ? "border-sage bg-sage-pale font-medium text-olive"
+              : "border-sand hover:border-sage"
           }`}
         >
           🇵🇹 Vivo em Portugal
@@ -80,8 +80,8 @@ export function PlaceForm({
           aria-pressed={inPt === false}
           className={`rounded-lg border px-3 py-2 text-sm transition disabled:opacity-50 ${
             inPt === false
-              ? "border-accent bg-accent/10 font-medium text-accent"
-              : "border-line hover:border-accent/50"
+              ? "border-sage bg-sage-pale font-medium text-olive"
+              : "border-sand hover:border-sage"
           }`}
         >
           🌍 Vivo noutro país
@@ -105,13 +105,13 @@ export function PlaceForm({
               onChange={(e) => setLocality(e.target.value)}
               maxLength={80}
               placeholder={inPt ? "Ericeira" : "Austin, Texas"}
-              className="mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink"
+              className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm text-ink"
             />
           </label>
           <button
             type="submit"
             disabled={pending}
-            className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+            className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
           >
             {pending ? "A guardar…" : "Guardar"}
           </button>
@@ -119,7 +119,7 @@ export function PlaceForm({
       )}
 
       {saved && !pending && (
-        <p className="mt-2 text-xs text-accent">
+        <p className="mt-2 text-xs text-olive">
           Guardado — a partir de agora os exercícios são sobre a tua zona.
         </p>
       )}

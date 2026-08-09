@@ -23,7 +23,7 @@ export function ChangeMyPassword() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-lg border border-line px-3 py-2 text-sm hover:border-accent/50"
+        className="rounded-lg border border-sand px-3 py-2 text-sm hover:border-sage"
       >
         🔑 Mudar a minha palavra-passe
       </button>
@@ -32,7 +32,7 @@ export function ChangeMyPassword() {
 
   return (
     <form
-      className="space-y-3 rounded-xl border border-line bg-card p-4"
+      className="space-y-3 rounded-xl border border-sand bg-white/70 p-4"
       onSubmit={(e) => {
         e.preventDefault();
         setNote(null);
@@ -70,7 +70,7 @@ export function ChangeMyPassword() {
               value={value}
               autoComplete={ac}
               onChange={(e) => set(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink"
+              className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm text-ink"
             />
           </label>
         ))}
@@ -78,7 +78,7 @@ export function ChangeMyPassword() {
       {note && (
         <p
           className={`text-xs ${
-            note.kind === "ok" ? "text-accent" : "text-red-600"
+            note.kind === "ok" ? "text-olive" : "text-terra-dark"
           }`}
         >
           {note.text}
@@ -88,14 +88,14 @@ export function ChangeMyPassword() {
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
         >
           {pending ? "A guardar…" : "Guardar"}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
-          className="rounded-lg border border-line px-3 py-2 text-sm"
+          className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
           Cancelar
         </button>

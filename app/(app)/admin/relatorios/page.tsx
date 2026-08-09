@@ -17,7 +17,7 @@ export default async function ReportsPage() {
   return (
     <div className="space-y-6">
       <header>
-        <Link href="/admin" className="text-xs text-ink-soft hover:text-accent">
+        <Link href="/admin" className="text-xs text-ink-soft hover:text-olive">
           ← voltar ao painel
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">
@@ -48,7 +48,7 @@ export default async function ReportsPage() {
       </section>
 
       {report.revenueIsEstimate && (
-        <p className="rounded-lg bg-amber-500/10 px-3 py-2 text-xs text-amber-700">
+        <p className="rounded-lg bg-terra-pale px-3 py-2 text-xs text-terra-dark">
           Nenhuma subscrição tem ainda um id do Stripe, por isso a “receita” é o
           preço de tabela do plano, não dinheiro recebido. Assim que o Stripe
           estiver ligado, estes números passam a ser reais.

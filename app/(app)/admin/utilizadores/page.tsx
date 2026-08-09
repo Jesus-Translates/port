@@ -13,7 +13,7 @@ export default async function AccountsPage() {
   return (
     <div className="space-y-6">
       <header>
-        <Link href="/admin" className="text-xs text-ink-soft hover:text-accent">
+        <Link href="/admin" className="text-xs text-ink-soft hover:text-olive">
           ← voltar ao painel
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">

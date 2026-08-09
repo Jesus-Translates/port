@@ -58,8 +58,8 @@ export function AccountsAdmin({
           role="status"
           className={`rounded-lg px-3 py-2 text-sm ${
             note.kind === "ok"
-              ? "bg-accent/10 text-accent"
-              : "bg-red-500/10 text-red-600"
+              ? "bg-sage-pale text-olive"
+              : "bg-terra-pale text-terra-dark"
           }`}
         >
           {note.text}
@@ -73,39 +73,39 @@ export function AccountsAdmin({
           <article
             key={a.username}
             className={`rounded-xl border p-4 ${
-              a.active ? "border-line bg-card" : "border-line/60 bg-card/50"
+              a.active ? "border-sand bg-white/70" : "border-sand/60 bg-white/40"
             }`}
           >
             <header className="flex flex-wrap items-center gap-2">
               <span className="font-medium">{a.displayName}</span>
-              <code className="rounded bg-bg px-1.5 py-0.5 text-xs text-ink-soft">
+              <code className="rounded bg-white/80 px-1.5 py-0.5 text-xs text-ink-soft">
                 @{a.username}
               </code>
-              <span className="rounded-full bg-bg px-2 py-0.5 text-xs text-ink-soft">
+              <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs text-ink-soft">
                 {ROLE_LABEL[a.role] ?? a.role}
               </span>
-              <span className="rounded-full bg-bg px-2 py-0.5 text-xs text-ink-soft">
+              <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs text-ink-soft">
                 {a.mode === "simple" ? "🌱 guiado" : "⚙️ completo"}
               </span>
               {!a.hasOwnPassword && (
-                <span className="rounded-full bg-amber-500/10 px-2 py-0.5 text-xs text-amber-700">
+                <span className="rounded-full bg-terra-pale px-2 py-0.5 text-xs text-terra-dark">
                   palavra-passe partilhada
                 </span>
               )}
               {!a.active && (
-                <span className="rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-600">
+                <span className="rounded-full bg-terra-pale px-2 py-0.5 text-xs text-terra-dark">
                   desativado
                 </span>
               )}
               {a.username === me && (
-                <span className="rounded-full bg-accent/10 px-2 py-0.5 text-xs text-accent">
+                <span className="rounded-full bg-sage-pale px-2 py-0.5 text-xs text-olive">
                   tu
                 </span>
               )}
               <button
                 type="button"
                 onClick={() => setOpen(open === a.username ? null : a.username)}
-                className="ml-auto rounded-lg border border-line px-2.5 py-1 text-xs hover:border-accent/50"
+                className="ml-auto rounded-lg border border-sand px-2.5 py-1 text-xs hover:border-sage"
               >
                 {open === a.username ? "Fechar" : "Gerir"}
               </button>
@@ -116,7 +116,7 @@ export function AccountsAdmin({
             </p>
 
             {open === a.username && (
-              <div className="mt-4 space-y-4 border-t border-line pt-4">
+              <div className="mt-4 space-y-4 border-t border-sand pt-4">
                 <Field
                   label="Nome de utilizador · used to sign in"
                   hint="Muda o nome em todas as tabelas de uma só vez."
@@ -162,7 +162,7 @@ export function AccountsAdmin({
                         "Papel atualizado."
                       )
                     }
-                    className="rounded-lg border border-line bg-bg px-2 py-1.5 text-sm"
+                    className="rounded-lg border border-sand bg-white/80 px-2 py-1.5 text-sm"
                   >
                     <option value="student">Aluno</option>
                     <option value="teacher">Professora</option>
@@ -178,7 +178,7 @@ export function AccountsAdmin({
                         "Modo atualizado."
                       )
                     }
-                    className="rounded-lg border border-line bg-bg px-2 py-1.5 text-sm"
+                    className="rounded-lg border border-sand bg-white/80 px-2 py-1.5 text-sm"
                   >
                     <option value="simple">🌱 Guiado</option>
                     <option value="full">⚙️ Completo</option>
@@ -194,7 +194,7 @@ export function AccountsAdmin({
                           "Voltou à palavra-passe partilhada."
                         )
                       }
-                      className="rounded-lg border border-line px-2.5 py-1.5 text-sm hover:border-accent/50 disabled:opacity-50"
+                      className="rounded-lg border border-sand px-2.5 py-1.5 text-sm hover:border-sage disabled:opacity-50"
                     >
                       Repor palavra-passe partilhada
                     </button>
@@ -212,7 +212,7 @@ export function AccountsAdmin({
                         a.active ? "Conta desativada." : "Conta reativada."
                       )
                     }
-                    className="rounded-lg border border-line px-2.5 py-1.5 text-sm hover:border-accent/50 disabled:opacity-40"
+                    className="rounded-lg border border-sand px-2.5 py-1.5 text-sm hover:border-sage disabled:opacity-40"
                   >
                     {a.active ? "Desativar" : "Reativar"}
                   </button>
@@ -271,13 +271,13 @@ function Field({
           value={value}
           onChange={(e) => setValue(e.target.value)}
           autoComplete="off"
-          className="mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink"
+          className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm text-ink"
         />
       </label>
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg border border-line px-3 py-2 text-sm hover:border-accent/50 disabled:opacity-50"
+        className="rounded-lg border border-sand px-3 py-2 text-sm hover:border-sage disabled:opacity-50"
       >
         {action}
       </button>
@@ -308,15 +308,15 @@ function DangerZone({
         type="button"
         disabled={disabled}
         onClick={() => setArmed(true)}
-        className="text-xs text-red-600 underline underline-offset-2 disabled:opacity-40"
+        className="text-xs text-terra-dark underline underline-offset-2 disabled:opacity-40"
       >
         Apagar definitivamente…
       </button>
     );
   }
   return (
-    <div className="rounded-lg border border-red-500/40 bg-red-500/5 p-3">
-      <p className="text-xs text-red-700">
+    <div className="rounded-lg border border-terra/40 bg-terra-pale/60 p-3">
+      <p className="text-xs text-terra-dark">
         Isto apaga <strong>{account.displayName}</strong> e todo o seu trabalho —
         TPC, cartões, histórico. Não há como voltar atrás. Escreve{" "}
         <code>{account.username}</code> para confirmar.
@@ -326,13 +326,13 @@ function DangerZone({
           value={typed}
           onChange={(e) => setTyped(e.target.value)}
           placeholder={account.username}
-          className="flex-1 min-w-[10rem] rounded-lg border border-line bg-bg px-3 py-2 text-sm"
+          className="flex-1 min-w-[10rem] rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm"
         />
         <button
           type="button"
           disabled={disabled || typed.trim().toLowerCase() !== account.username}
           onClick={() => onConfirm(typed.trim())}
-          className="rounded-lg bg-red-600 px-3 py-2 text-sm font-medium text-white disabled:opacity-40"
+          className="rounded-lg bg-terra px-3 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
           Apagar
         </button>
@@ -342,7 +342,7 @@ function DangerZone({
             setArmed(false);
             setTyped("");
           }}
-          className="rounded-lg border border-line px-3 py-2 text-sm"
+          className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
           Cancelar
         </button>
@@ -372,7 +372,7 @@ function NewAccount({
       <button
         type="button"
         onClick={() => setShow(true)}
-        className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white"
+        className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink"
       >
         + Adicionar pessoa
       </button>
@@ -381,7 +381,7 @@ function NewAccount({
 
   return (
     <form
-      className="space-y-3 rounded-xl border border-line bg-card p-4"
+      className="space-y-3 rounded-xl border border-sand bg-white/70 p-4"
       onSubmit={(e) => {
         e.preventDefault();
         run(async () => {
@@ -418,7 +418,7 @@ function NewAccount({
               placeholder={placeholder}
               autoComplete="off"
               onChange={(e) => setForm({ ...form, [key]: e.target.value })}
-              className="mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm text-ink"
+              className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm text-ink"
             />
           </label>
         ))}
@@ -427,7 +427,7 @@ function NewAccount({
           <select
             value={form.role}
             onChange={(e) => setForm({ ...form, role: e.target.value })}
-            className="mt-1 w-full rounded-lg border border-line bg-bg px-3 py-2 text-sm"
+            className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm"
           >
             <option value="student">Aluno</option>
             <option value="teacher">Professora</option>
@@ -443,14 +443,14 @@ function NewAccount({
         <button
           type="submit"
           disabled={pending}
-          className="rounded-lg bg-accent px-3 py-2 text-sm font-medium text-white disabled:opacity-50"
+          className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
         >
           Criar
         </button>
         <button
           type="button"
           onClick={() => setShow(false)}
-          className="rounded-lg border border-line px-3 py-2 text-sm"
+          className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
           Cancelar
         </button>
