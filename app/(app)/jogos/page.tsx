@@ -50,6 +50,12 @@ const QUICK_GAMES = [
     en: "Judge a form fast — the skill you use listening, not writing.",
   },
   {
+    kind: "jogo-responde" as const,
+    href: "/jogos/responde",
+    pt: "Alguém fala contigo. O que respondes?",
+    en: "Adjacency pairs — knowing what comes back, not just what words mean.",
+  },
+  {
     kind: "jogo-intruso" as const,
     href: "/jogos/intruso",
     pt: "Quatro palavras, três da mesma família. Qual é a intrusa?",

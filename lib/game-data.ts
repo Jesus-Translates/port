@@ -1,4 +1,4 @@
-import { and, eq, sql } from "drizzle-orm";
+import { and, eq, isNotNull, sql } from "drizzle-orm";
 import { categories, getDb, refEntries } from "@/lib/db";
 import { VERBS, type Tense, personLabel } from "@/lib/verbs";
 
@@ -204,4 +204,77 @@ function shuffle<T>(items: T[]): T[] {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+export type ReplyRound = {
+  /** What is said TO the learner. */
+  prompt: string;
+  promptEn: string;
+  /** Three replies; exactly one belongs. */
+  options: { pt: string; en: string }[];
+  correctIndex: number;
+  category: string;
+};
+
+/**
+ * Rounds for "Responde!" — someone speaks to you, pick the reply a real person
+ * would give.
+ *
+ * Conversa trains this open-endedly and costs a model call per turn. This
+ * trains the same instinct — adjacency pairs, the reflex of what follows
+ * "Boa tarde, diga?" — for nothing, from the 133 replyPt rows the phrasebook
+ * has always held and nothing has ever used.
+ *
+ * Wrong options are real replies to OTHER prompts in the same category, so
+ * every one of them is a sentence a Portuguese person would actually say. A
+ * distractor that is obviously wrong teaches nothing.
+ */
+export async function replyRounds(limit = 8): Promise<ReplyRound[]> {
+  const db = getDb();
+  const rows = await db
+    .select({
+      pt: refEntries.pt,
+      en: refEntries.en,
+      replyPt: refEntries.replyPt,
+      replyEn: refEntries.replyEn,
+      categoryId: refEntries.categoryId,
+      catName: categories.namePt,
+    })
+    .from(refEntries)
+    .innerJoin(categories, eq(categories.id, refEntries.categoryId))
+    .where(and(isNotNull(refEntries.replyPt), sql`length(trim(${refEntries.replyPt})) > 0`))
+    .orderBy(sql`random()`);
+
+  const byCat = new Map<number, typeof rows>();
+  for (const r of rows) {
+    const list = byCat.get(r.categoryId) ?? [];
+    list.push(r);
+    byCat.set(r.categoryId, list);
+  }
+
+  const out: ReplyRound[] = [];
+  for (const row of rows) {
+    if (out.length >= limit) break;
+    const siblings = (byCat.get(row.categoryId) ?? []).filter(
+      (s) => s.replyPt !== row.replyPt
+    );
+    // Fall back to any other category rather than dropping the round; a
+    // slightly easier distractor beats no round at all.
+    const pool = siblings.length >= 2 ? siblings : rows.filter((s) => s.replyPt !== row.replyPt);
+    if (pool.length < 2) continue;
+
+    const decoys = shuffle(pool).slice(0, 2);
+    const options = shuffle([
+      { pt: row.replyPt!, en: row.replyEn ?? "" },
+      ...decoys.map((d) => ({ pt: d.replyPt!, en: d.replyEn ?? "" })),
+    ]);
+    out.push({
+      prompt: row.pt,
+      promptEn: row.en,
+      options,
+      correctIndex: options.findIndex((o) => o.pt === row.replyPt),
+      category: row.catName,
+    });
+  }
+  return out;
 }

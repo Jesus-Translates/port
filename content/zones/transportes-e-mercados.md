@@ -208,8 +208,10 @@ every day, that's stated as such rather than forced into a "weekly" box it doesn
 | Funchal (Madeira) | Mercado dos Lavradores | Monday–Saturday, busiest Saturday | Daily, weekly peak |
 | Ponta Delgada (São Miguel, Açores) | Mercado da Graça | Saturday morning | Weekly ritual |
 
-**Scope, honestly stated.** This pass verified 27 markets across nine districts and
-both archipelagos — it did not attempt full national coverage. Sizeable towns not
+**Scope, honestly stated.** This pass verified markets in 27 rows covering eleven
+mainland districts (Braga, Aveiro, Vila Real, Viana do Castelo, Porto, Coimbra,
+Lisboa, Leiria, Évora, Setúbal, Faro) plus both autonomous regions — it did not
+attempt full national coverage. Sizeable towns not
 researched this round — among them Beja, Bragança, Viana do Castelo, Viseu, Vila Real
 and Leiria — almost certainly have their own market days; their absence here means
 "not checked," not "no market exists." No market day was included on a single

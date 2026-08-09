@@ -18,6 +18,7 @@ export type ItemKind =
   | "jogo-genero" // game: o or a — grammatical gender against the clock
   | "jogo-verbo" // game: is this conjugation right or wrong?
   | "jogo-intruso" // game: which word does not belong
+  | "jogo-responde" // game: pick the reply a real person would give
   | "ditado" // dictation — hear it, write it
   | "cloze" // hear it, fill the one missing word
   | "verbos" // conjugation sprint
@@ -35,6 +36,7 @@ export const ITEM_KINDS: ItemKind[] = [
   "jogo-genero",
   "jogo-verbo",
   "jogo-intruso",
+  "jogo-responde",
   "ditado",
   "cloze",
   "verbos",
@@ -56,6 +58,7 @@ export const KIND_META: Record<
   "jogo-genero": { emoji: "⚖️", label: "O ou A?", trains: "noun gender" },
   "jogo-verbo": { emoji: "🎯", label: "Certo ou Errado?", trains: "verb agreement" },
   "jogo-intruso": { emoji: "🕵️", label: "O Intruso", trains: "word families" },
+  "jogo-responde": { emoji: "🗨️", label: "Responde!", trains: "what to say back" },
   ditado: { emoji: "✏️", label: "Ditado", trains: "listening" },
   cloze: { emoji: "🔍", label: "Palavra escondida", trains: "listening" },
   verbos: { emoji: "⚡", label: "Verbos", trains: "conjugation" },
@@ -76,6 +79,7 @@ export const GAME_KINDS: ItemKind[] = [
   "jogo-genero",
   "jogo-verbo",
   "jogo-intruso",
+  "jogo-responde",
 ];
 
 export function isItemKind(v: string): v is ItemKind {

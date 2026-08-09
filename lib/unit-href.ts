@@ -77,7 +77,8 @@ export function resolve(
     // the verb tables, so all they need is the way back to the unit.
     case "jogo-genero":
     case "jogo-verbo":
-    case "jogo-intruso": {
+    case "jogo-intruso":
+    case "jogo-responde": {
       const slug = kind.replace("jogo-", "");
       return {
         kind,

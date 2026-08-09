@@ -673,220 +673,321 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
 
 ### Vila Nova de Gaia
 
-- **Character** — Bigger in population than Porto itself and permanently described as "across
-  the river", which Gaienses find funny for about the first thirty years. It is where the port
-  wine sleeps: the **caves** line the south bank in front of the **Cais de Gaia**.
+- **Character** — The **third most populous município in Portugal**: 303 824 residents in 2021,
+  across fifteen freguesias — comfortably bigger than Porto, and permanently described as
+  "across the river", which **gaienses** find funny for roughly the first thirty years. It is
+  where the port wine sleeps: the **caves** line the south bank behind the **Cais de Gaia**.
 - **Getting there** — The **D (amarela)** crosses the upper deck of the **Ponte Luís I** into
   **Jardim do Morro**, then **General Torres**, **Câmara de Gaia**, **João de Deus**,
   **D. João II**, **Santo Ovídio**, **Manuel Leão**, **Hospital Santos Silva** and **Vila
-  d'Este** (extended 28 June 2024). Buses are **UNIR**, not STCP. On foot, the bridge's lower
-  deck puts you in the Ribeira in five minutes.
+  d'Este** (the extension opened 28 June 2024). Buses are **UNIR**, not STCP. On foot, the
+  bridge's lower deck puts you in the Ribeira in five minutes.
 - **Landmarks** — The **Mosteiro da Serra do Pilar** and its circular cloister, staring straight
   back at Porto; the **teleférico** from Jardim do Morro down to the quay; the **Cais de Gaia**
-  and the **barcos rabelo**; the beaches south towards **Miramar** and **Espinho**.
-- **Food & institutions** — The **caves** are the institution and the **prova** is the ritual:
-  you are walked through a cold, black, arch-roofed store that smells of wood and sugar, you are
-  told the difference between **tawny**, **ruby**, **LBV** and **vintage**, and you are then
-  gently but firmly steered to the shop. Locals do it with visiting relatives roughly twice a
-  year and can recite the tour from memory. The **Jardim do Morro** ritual is younger and free:
+  and the **barcos rabelo**; the **Ponte Luís I** and the **Ponte Maria Pia**; the beaches south
+  at **Granja**, **Miramar** and towards Espinho.
+- **Food & institutions** — The **caves** are the institution and the **prova** is the ritual.
+  Two of the houses can be confirmed from canonical sources as trading here: **Taylor's**
+  (Taylor, Fladgate & Yeatman), founded in Vila Nova de Gaia in **1692**, and **Sandeman**, at
+  Largo Miguel Bombarda 3, owned by Sogrape since 2001; there are many more along the quay, and
+  every family has theirs. The tour is identical everywhere and that is the joy of it: a cold,
+  black, arch-roofed store that smells of oak and sugar, the difference between **tawny**,
+  **ruby**, **LBV** and **vintage** explained slowly, and then a gentle, unmistakable drift
+  towards the shop. Locals do this with visiting relatives about twice a year and can recite the
+  script from memory, including the pauses. The **Jardim do Morro** ritual is younger and free:
   everyone sits on the grass above the bridge at sunset with the whole of Porto laid out in
-  front of them, and the last metro back is the deadline nobody respects.
-- **Everyday detail** — Gaia's best-kept practical secret is that walking home across the top
-  deck of the Ponte Luís I is faster than waiting for the metro, and residents do it in all
-  weathers, single file, with the trains going past at walking pace beside them.
+  front of them, and the last metro back is a deadline nobody respects.
+- **Everyday detail** — **São João**, on **24 June**, is Gaia's municipal holiday too, so the
+  two cities throw the same party on opposite banks and watch each other's fireworks. And the
+  practical secret every gaiense knows: walking home across the **top deck** of the Ponte Luís I
+  is faster than waiting for the metro, and they do it in all weathers, single file, with the
+  trains sliding past at walking pace beside them.
 
 ### Matosinhos
 
-- **Character** — The fishing and port town immediately north-west of Porto, with **Leixões**,
-  the deep-water harbour that took over the commercial shipping in 1895 and effectively ended
-  the Douro's career as a port. Working, industrial, proud, and it does not consider itself
-  Porto.
-- **Getting there** — The **A (azul)** runs the length of it — **Senhora da Hora**, **Sete
+- **Character** — 172 557 residents (2021), ten freguesias, and three cities inside one concelho
+  — Matosinhos, São Mamede de Infesta and Senhora da Hora. A **matosinhense** (or
+  **matosinheiro**) belongs to a fishing and **conservas** town: between 1940 and 1960 there were
+  **54 canning factories** here, and **three** still operate — **Conservas Portugal Norte**,
+  **Fábrica de Conservas Pinhais** and **Conservas Ramirez**. Alongside them is **Leixões**, the
+  late-nineteenth-century artificial harbour at the mouth of the **rio Leça**, now Portugal's
+  second largest — 5 km of quay, about 3 000 ships and 14 million tonnes a year, with a cruise
+  terminal opened **24 July 2015**. Working, salty, proud, and not Porto.
+- **Getting there** — The **A (azul)** runs the length of it: **Senhora da Hora**, **Sete
   Bicas**, **Pedro Hispano**, **Câmara de Matosinhos**, **Mercado**, **Brito Capelo**,
   **Matosinhos Sul**, **Senhor de Matosinhos**, plus **Estádio do Mar**, **Parque Real** and
-  **Vasco da Gama** on the coast branch. STCP **500** from Praça da Liberdade also runs here.
-  Buses within the concelho are **UNIR**.
-- **Landmarks** — The **lota** (the fish auction) and the harbour; **Rua Heróis de França**; the
-  long **praia de Matosinhos**, Porto's default surf beach; the **Mercado de Matosinhos**; the
-  **NorteShopping**; the **Senhor de Matosinhos** church.
-- **Food & institutions** — Grilled fish in the street. The restaurants along **Rua Heróis de
-  França** put the **grelhadores** out on the pavement, and the entire street cooks in the open
-  from midday — **sardinhas**, **robalo**, **dourada**, **polvo**, whatever the lota had. The
-  ritual: you do not order from a menu, you go and look at the fish, you point, it is weighed in
-  front of you and priced by the kilo, and you are told how long it will take. The correct
-  accompaniment is **batata cozida**, **salada** and a bottle of something cold, and the correct
-  behaviour is to eat with your fingers and not apologise. Everyone in Porto has one Matosinhos
-  place they are loyal to and will defend it beyond reason.
-- **Everyday detail** — Matosinhos smells of grilled fish at lunchtime and of the port at night,
-  and residents can tell you the wind direction without going outside.
+  **Vasco da Gama**. STCP **500** comes up from Praça da Liberdade; buses inside the concelho are
+  **UNIR**.
+- **Landmarks** — The **Igreja do Bom Jesus de Matosinhos**, baroque, with Nicolau Nasoni's hand
+  on it, and the **Padrão do Bom Jesus** beside it — a granite monument, National Monument since
+  1971, marking where the crucifix is said to have washed ashore. Janet Echelman's netted
+  sculpture **"She Changes"** (2005) on the roundabout, which everybody uses as a meeting point
+  and nobody calls by its name. The long **praia de Matosinhos**, Porto's default surf beach.
+  The **NorteShopping**. And the harbour.
+- **Food & institutions** — The **Mercado Municipal de Matosinhos**: inaugurated **27 May 1952**
+  to a design by ARS–Arquitectos (Fortunato Cabral, Morais Soares, Cunha Leão), with a ceramic
+  façade panel by Américo Soares Braga, and classified a **Monumento de Interesse Público** in
+  2013. Then the fish. The restaurants along **Rua Heróis de França** put their **grelhadores**
+  out on the pavement and the whole street cooks in the open from midday — **sardinhas**,
+  **robalo**, **dourada**, **polvo**, whatever came in. The ritual is not menu-based: you go and
+  look at the fish, you point, it is weighed in front of you and priced **ao quilo**, and you are
+  told how long it will be. The right accompaniment is **batata cozida**, **salada** and
+  something cold; the right behaviour is to eat with your fingers and not apologise. Everyone in
+  Porto has one Matosinhos place they are loyal to and will defend it well past the point of
+  reason.
+- **Everyday detail** — Matosinhos smells of grilled fish at lunchtime and of the harbour at
+  night, and residents can tell you the wind direction without going outside. The town's founding
+  story is a good one to have: the image of the Bom Jesus is said to have come ashore on the
+  **3rd of May in the year 124**, and locals will give you that date with a completely straight
+  face.
 
 ### Leça da Palmeira
 
-- **Character** — The other side of the Leixões harbour mouth from Matosinhos, and a different
-  town in feel: quieter, greener, more residential, with a long rocky coast. Getting between the
-  two means going round the harbour, which is the single fact that defines local life.
-- **Getting there** — No metro on the Leça side; **UNIR** buses, or the **A (azul)** to
-  Matosinhos and across.
-- **Landmarks** — The **Farol da Boa Nova**; Álvaro Siza Vieira's two early masterpieces on this
-  coast — the **Piscina das Marés**, the tidal pool cut into the rocks, and the **Casa de Chá da
-  Boa Nova** on the headland; the **Molhe** and the harbour entrance; the **Anémona** sculpture
-  at the coast (unverified detail).
-- **Food & institutions** — Coastal seafood and the **esplanada** habit. The ritual here is the
-  **passeio marítimo** walk along the rocks, done at speed by locals and at photograph-pace by
-  everyone else, and the reward at the end is **um café** looking at the Atlantic.
-- **Everyday detail** — The **Piscina das Marés** is filled by the sea and is therefore exactly
-  as cold as the sea, which residents will not warn you about and will watch with interest.
+- **Character** — The far side of the Leixões harbour mouth: quieter, greener and more
+  residential than Matosinhos, along a long rocky coast. About 18 502 inhabitants at the 2011
+  census; a **lecense** will tell you — with feeling — that the freguesia was swallowed by a
+  parish merger in 2013 and **restored as an independent freguesia on 14 March 2025**. Getting
+  to Matosinhos means going round the harbour, and that single geographical fact shapes local
+  life more than anything else.
+- **Getting there** — No metro station on the Leça side; **UNIR** buses, or the **A (azul)** to
+  Matosinhos and round.
+- **Landmarks** — Two early **Álvaro Siza Vieira** works that architecture students arrive to see
+  from all over the world: the **Piscina das Marés** (1959–73), tidal pools cut into the rock,
+  and the **Casa de Chá da Boa Nova** on the headland. The **Farol da Boa Nova**, the second
+  tallest lighthouse in Portugal. The **Forte de Leça da Palmeira**. The **Quinta da Conceição**
+  park, laid out by **Fernando Távora**. The Leixões marina.
+- **Food & institutions** — Coastal fish and the **esplanada** habit. The ritual is the
+  **passeio marítimo** along the rocks, walked briskly by residents and at photograph-pace by
+  everyone else, ending in **um café** facing the Atlantic. In summer, families claim the same
+  patch of rock every year and are quietly territorial about it in the politest possible way.
+- **Everyday detail** — The **Piscina das Marés** is filled by the sea, so it is exactly as cold
+  as the sea. Nobody warns you. Everybody watches. The other thing residents carry is the
+  closure of the **Galp refinery in April 2021**, which took around 400 jobs with it — it comes
+  up in conversation the way a shipyard would in any port town.
 
 ### Maia
 
-- **Character** — North of Porto, around the airport: industrial parks, business, sport and
-  large amounts of new housing. A dormitory and employment concelho at once; **maiatos** commute
-  in both directions.
-- **Getting there** — Very well connected: the **C (verde)** runs to **ISMAI** through
+- **Character** — 134 977 residents (2021), ten freguesias, one city plus the towns of Moreira,
+  Castêlo da Maia and Águas Santas. A **maiato** (or **maiano**) lives in one of the most
+  industrialised concelhos in the Norte that is *also* Porto's northern dormitory belt — people
+  commute in both directions. The **Aeroporto Francisco Sá Carneiro** is inside the concelho, in
+  Moreira parish.
+- **Getting there** — Very well connected. The **C (verde)** runs up to **ISMAI** through
   **Fórum Maia**, **Parque Maia**, **Mandim**, **Castêlo da Maia** and **Zona Industrial**; the
-  **E (violeta)** serves the **Aeroporto Francisco Sá Carneiro** and **Botica**; the **B
-  (vermelha)** passes through **Pedras Rubras** and **Lidador**. Buses are **UNIR**.
-- **Landmarks** — The **Aeroporto Francisco Sá Carneiro**; the **Fórum Maia**; the **Parque
-  Central da Maia**; the **Complexo Desportivo** and the **Zoo da Maia** (unverified as to
-  current operation).
+  **E (violeta)** serves **Botica** and the **Aeroporto**; the **B (vermelha)** passes through
+  **Pedras Rubras** and **Lidador**. Buses are **UNIR**.
+- **Landmarks** — The airport. The **Santuário de Nossa Senhora do Bom Despacho**. The **Fórum
+  da Maia**. The **Castêlo da Maia** hillfort. The **Parque de Avioso–S. Pedro**, 30 hectares.
+  The **Jardim Zoológico da Maia**.
 - **Food & institutions** — The airport is the institution nobody romanticises and everybody
-  uses. The ritual that matters is the arrivals hall in **August**: the **emigrantes** come home,
-  the whole family goes to meet the plane, and the number of people greeting one returning cousin
-  routinely exceeds the number of people on the flight.
-- **Everyday detail** — Maia residents time their journeys by the metro to the airport rather
-  than by road, and know that the **linha E** from Trindade is more reliable than the ring road
-  at any hour that matters.
+  uses, and its ritual is the **August arrivals hall**: the **emigrantes** come home, the entire
+  family drives out to meet one cousin, and the welcoming party regularly outnumbers the row of
+  seats it came from. The other fixture is the **Feira das Cebolas** — the onion fair at the
+  **Santo Ovídio** festivities on the **last Sunday of August** — which is exactly what it
+  sounds like and is taken entirely seriously.
+- **Everyday detail** — The calendar is local and precise: **Nossa Senhora do Bom Despacho** on
+  the **second Sunday of July**, with the following Monday as the municipal holiday; **Santo
+  Ovídio** and the onion fair on the **last Sunday of August**; **Senhor da Agonia** on the
+  **first Sunday of September**. Residents plan around them, and everyone knows the Monday off
+  in July belongs to the Bom Despacho.
 
 ### Gondomar
 
-- **Character** — East of Porto on both banks of the Douro, and the **capital da filigrana** —
-  Portuguese gold filigree has been worked here for generations, in workshops that are still
-  family businesses. Semi-rural at the edges, dense along the river.
-- **Getting there** — The **F (laranja)** ends here, running through **Rio Tinto**, **Levada**,
-  **Campainha**, **Baguim**, **Carreira**, **Venda Nova** and **Fânzeres** after Estádio do
-  Dragão and Contumil. Buses are **UNIR**.
-- **Landmarks** — The **rio Douro** frontage and the **Ponte do Freixo**; the filigree workshops
-  and the **ourivesaria** trade; the **Igreja de São Cosme**.
+- **Character** — 164 257 residents (2021), seven freguesias, east of Porto on both banks of the
+  Douro. A **gondomarense** lives in the **capital da ourivesaria**: the concelho accounts for
+  roughly **42 % of Portugal's jewellery production**, worked in about **445 mostly one-person
+  workshops** employing around 800 people. Semi-rural at the edges, dense along the river.
+- **Getting there** — The **F (laranja)** ends here, running out through **Rio Tinto**,
+  **Baguim** and **Fânzeres** among others, at roughly fifteen-minute intervals at peak. **Rio
+  Tinto** is also a CP railway station. Buses are **UNIR**.
+- **Landmarks** — **Monte Crasto**, the 194 m natural fortress and viewpoint. The **Igreja Matriz
+  de Gondomar**, dedicated to **São Cosme e São Damião**. The **Igreja Matriz de Rio Tinto**. The
+  **Quinta de Montezelo**. The **Museu Municipal da Filigrana**, opened in **May 2022**, and the
+  **Museu Mineiro de São Pedro da Cova** (1989), for the coal.
 - **Food & institutions** — Filigree is the institution. **Filigrana** — gold thread coiled into
-  hearts (**coração de Viana**), earrings and **brincos à rainha** — is what a northern family
-  gives at a christening, a wedding and a twenty-first, and Gondomar is where it is made. The
-  ritual is inheritance rather than purchase: pieces are handed down, cleaned before a **romaria**,
-  worn once a year, and described by whose they were rather than what they are.
-- **Everyday detail** — Gondomar is one of the few places in the metropolitan area where you can
-  still be shown a workshop by the person working in it, and residents distinguish between
-  **filigrana** made locally and filigree-style jewellery made elsewhere with total confidence
-  and about four seconds of inspection.
+  **corações**, **brincos à rainha** and **arrecadas** — is what a northern family gives at a
+  christening, a wedding and a twenty-first, and Gondomar is where it is made. The ritual is
+  inheritance rather than purchase: pieces are handed down, cleaned before a **romaria**, worn
+  once a year, and described by *whose they were* rather than what they are — *"são da minha
+  avó"* is the entire description and no one asks a follow-up question.
+- **Everyday detail** — This is one of the last places in the metropolitan area where you can be
+  shown a workshop by the person actually working in it, on a street of houses, with the radio
+  on. Residents distinguish locally made **filigrana** from filigree-style jewellery made
+  elsewhere with total confidence and about four seconds of inspection, and they are usually
+  right.
 
 ### Valongo
 
-- **Character** — North-east of Porto: **Valongo**, **Ermesinde**, **Alfena** and **Campo/Sobrado**.
-  Historically slate quarries and bread — Valongo is the **terra do pão**, famous for
-  **regueifa** and **biscoito**. Ermesinde is the big commuter town, and its rail link into São
-  Bento is the reason it grew.
-- **Getting there** — No metro. The **Linha do Douro** suburban trains from **São Bento** and
-  **Campanhã** serve **Ermesinde**, **Valongo** and **Susão**; **Ermesinde** is also on the
-  **Linha do Minho** junction. Buses are **UNIR**.
-- **Landmarks** — The **Parque Paleozóico** and the slate quarries; the **Serra de Santa
-  Justa** and **Serra de Pias** with their Roman gold-mining traces; the **Fojo das Pombas**
-  (unverified detail).
-- **Food & institutions** — **Regueifa e biscoito de Valongo**: the ring-shaped wheat loaf and
-  the hard sweet biscuit, both with protected traditional status and both sold at the roadside.
-  The ritual is the drive-through purchase — you stop on the way past, buy far more than you
-  intended, and the **regueifa** is torn by hand at the table, never cut, because a knife makes
-  it a different bread entirely and everyone at the table will say so.
-- **Everyday detail** — Ermesinde runs on the train timetable. Residents know their departure by
-  heart, they know the platform, and the phrase *"apanho o das e vinte"* needs no further
-  explanation to anybody local.
+- **Character** — North-east of Porto: about 98 930 residents across **Valongo**, **Ermesinde**,
+  **Alfena**, **Campo** and **Sobrado**. A **valonguense** comes from slate country — the
+  **ardósia** quarries and the trilobite fossil beds, which won the concelho a European Green
+  Leaf award in 2022. **Ermesinde** (39 076 in 2021) is the commuter capital: **55,7 %** of its
+  population works in another município, fifth highest in the country, and there is a
+  long-running **"Separatistas de Ermesinde"** movement that would like to be its own concelho.
+  **Alfena** (14 438) has been a city since **6 April 2011** and was actually the municipal seat
+  back in 1838.
+- **Getting there** — **No metro at all**, which is the defining transport fact. This belt runs
+  on **CP** trains: **Ermesinde** is a major junction on the **Linha do Minho** and the western
+  end of the **Linha do Douro**, which continues through **Valongo** and São Martinho do Campo
+  towards the Douro valley. Ermesinde also sees Intercidades, Alfa Pendular and the **Celta**
+  Porto–Vigo service. Buses are **UNIR**.
+- **Landmarks** — The **Parque das Serras do Porto**, shared with Gondomar and Paredes, over the
+  **Serra de Santa Justa** and **Serra de Pias**. The **Igreja Matriz de Ermesinde** and the
+  **Capela de São Silvestre**, its oldest monument. The **Parque Urbano Dr. Fernando Melo**,
+  which puts up a 55 m Christmas tree, reportedly the tallest in Portugal. The **Museu
+  Etnográfico de Alfena** and the **Ponte e Capela de São Lázaro**.
+- **Food & institutions** — Valongo's bread claim is **regueifa e biscoito**. The **regueifa** is
+  the ring-shaped wheat loaf of the whole north — a **pão de romaria**, known from the Minho down
+  to Aveiro and adopted as the Sunday bread of Entre-Douro-e-Minho after industrialisation (the
+  specific Valongo speciality and its protected status could not be confirmed this session, so
+  treat the local claim as unverified). The ritual is real regardless: you buy far more than you
+  meant to on the way past, and at the table the regueifa is **torn by hand, never cut**, because
+  a knife makes it a different bread entirely and someone will say so out loud.
+- **Everyday detail** — Ermesinde runs on the railway timetable rather than the clock. Residents
+  know their train by heart and by platform, and *"apanho o das e vinte"* needs no elaboration to
+  anyone local. And the concelho keeps a genuinely unusual festival: the **Bugiada e Mouriscada
+  de Sobrado**, on **24 June**, a day-long ritual battle between *bugios* and *mourisqueiros*
+  that is nothing like a normal romaria and that Sobrado organises for itself, not for visitors.
+  Ermesinde keeps **São Lourenço** in **August**; Alfena has **São Vicente** on **22 January**,
+  **Nossa Senhora do Socorro** on the last Sunday of July with flower-carpet processions, and a
+  biennial **FolkFest** in early August.
 
 ### Póvoa de Varzim
 
-- **Character** — A fishing town turned seaside resort at the top of the metro line, about 30 km
-  north of Porto. **Poveiros** are famously a community apart, with their own boat-building
-  tradition, their own body of superstition and the **siglas poveiras** — the family marks used
-  in place of writing. It fills in July and August and belongs to itself the rest of the year.
-- **Getting there** — The **B (vermelha)** terminates here, at **Póvoa de Varzim**, with **São
-  Brás** and **Portas Fronhas** before it. It is a long ride from Trindade and everybody
-  underestimates it. Buses are **UNIR**.
-- **Landmarks** — The long **praia** and the **Passeio Alegre**; the **Casino da Póvoa**; the
-  fishing harbour; the **Igreja Matriz**.
-- **Food & institutions** — The **francesinha poveira**, made on long baguette-style bread rather
-  than **pão de forma** — and the difference is not a detail here, it is a matter of civic
-  identity. Ask which is the real francesinha in a Póvoa café and you will be given an answer of
-  great length and total confidence. The other institution is fish: the boats, the **lota**, and
-  the plainest possible grilling.
-- **Everyday detail** — Poveiros distinguish between the summer town and the winter town as if
-  they were separate places, and the day the distinction flips — the first properly cold Sunday
-  in September when the esplanades come in — is genuinely noted.
+- **Character** — 64 320 residents (2021), a fishing town and three centuries of bathing resort,
+  at the top of the metro line about 30 km north of Porto. **Poveiros** are famously a community
+  apart, with their own boat-building tradition and their own writing: the **siglas poveiras**,
+  a system of knife-cut marks used to identify boats, nets and gear on a beach where thousands
+  of fishermen dried identical equipment. They were inherited — the father's mark passed
+  **unchanged to the youngest son**, who was the heir and took on the parents, while older sons
+  got the same mark with added strokes called **piques**. Eça de Queirós was born here in 1845.
+- **Getting there** — The **B (vermelha)** terminates at **Póvoa de Varzim**, with **São Brás**
+  and **Portas Fronhas** before it. It is a long ride from Trindade and everyone underestimates
+  it. Buses are **UNIR**.
+- **Landmarks** — The **Passeio Alegre** promenade and the long **praia**; **Praça do Almada**,
+  the civic heart; the **pelourinho manuelino** of **1514**; the **Junqueira**, pedestrianised
+  since **1955**; the **Cine-Teatro Garrett**; the **Casino**; the fishing harbour; the
+  **Cividade de Terroso** hillfort and the **Mosteiro de Rates** outside town.
+- **Food & institutions** — The **francesinha poveira**, built on long baguette-style bread
+  rather than **pão de forma**. This is not a detail here, it is civic identity: ask in a Póvoa
+  café which is the real francesinha and you will get an answer of great length, total confidence
+  and considerable charm. The other institution is the fish — the boats, the auction, and the
+  plainest possible grilling. And the **Rancho Poveiro**, the folk group, now past its ninetieth
+  year, with the striped **camisola poveira** that half the town owns and wears without irony.
+- **Everyday detail** — The town's own ritual is the **rusgas** at **São Pedro**, on **28–29
+  June**: neighbourhood by neighbourhood, streets are decorated and parades are put together, and
+  they are **judged against each other**. Which bairro won is remembered. The rest of the
+  calendar: the **Festas d'Assunção** for the fishermen's patroness, **6–22 August**; **Nossa
+  Senhora das Neves** at Aver-o-Mar, **1–9 August**; the **Procissão de São José** on **13
+  September**, with flower carpets. And the **siglas** are still there — the city has put up 287
+  street-name plaques carrying them, so residents walk past their own family mark on the way to
+  the shops.
 
 ### Vila do Conde
 
-- **Character** — Just south of Póvoa across the **rio Ave**, and its lifelong rival in the way
-  only adjacent towns manage. Older, prettier, more monastic: shipbuilding, **rendas de bilros**
-  (bobbin lace), and a very large convent.
-- **Getting there** — The **B (vermelha)** again — **Vila do Conde**, **Azurara**, **Árvore**,
-  **Santa Clara**, **Varziela**, **Mindelo**, **Vilar do Pinheiro**. Buses are **UNIR**.
-- **Landmarks** — The **Mosteiro de Santa Clara** on its hill and the **aqueduto** that fed it;
-  the replica **nau quinhentista** in the river; the beaches; the **Museu das Rendas de Bilros**.
-- **Food & institutions** — Lace. The **rendilheiras** work bobbins on a cushion at a speed that
-  makes the movement invisible, and the school and museum keep it alive. The ritual is the
-  demonstration: a woman sits at the **almofada**, tells you it is easy, does something with
-  forty bobbins in four seconds, and hands you the cushion so you can find out that it is not.
-  Vila do Conde takes gentle pleasure in this.
-- **Everyday detail** — The Ave mouth divides the two towns and the rivalry is entirely real and
-  entirely affectionate; ask a vilacondense about Póvoa, or a poveiro about Vila do Conde, and
-  you will get a full and unhurried answer, and then both of them will unite instantly against
-  anyone who confuses the two.
+- **Character** — 80 825 residents (2021), just south of Póvoa across the **rio Ave**, and its
+  lifelong rival in the way only adjacent towns manage. A **vilacondense** comes from a
+  shipbuilding town of the Discoveries that is also a lace town, with a very large convent on the
+  hill and, these days, a semiconductor and technology park at **Mindelo**.
+- **Getting there** — The **B (vermelha)**, through **Vila do Conde**, **Azurara**, **Árvore**,
+  **Santa Clara**, **Varziela**, **Mindelo** and **Vilar do Pinheiro**. The metro replaced the
+  old CP line, which was discontinued in **2002** — older residents still say *o comboio* and
+  mean the metro. Buses are **UNIR**.
+- **Landmarks** — The **Mosteiro de Santa Clara**, founded in **1318**, on its hill over the
+  river, and the **aqueduto** that fed it. The **passadiços** along the Ave. The beaches. The
+  **Museu das Rendas de Bilros**.
+- **Food & institutions** — Lace. **Renda de bilros** is worked on a stuffed cylindrical
+  **almofada** mounted on a stand, with pairs of turned wooden **bilros** thrown across a pinned
+  pattern; Vila do Conde and Peniche are the two great centres, and Vila do Conde has the museum.
+  The ritual is the demonstration: a **rendilheira** sits down at the almofada, tells you it is
+  easy, does something with forty bobbins in about four seconds, and then hands you the cushion
+  so that you can discover, in front of witnesses, that it is not. Vila do Conde takes gentle and
+  entirely unmalicious pleasure in this.
+- **Everyday detail** — The town's **São João**, on **23–24 June**, carries a rivalry inside the
+  rivalry: the **Rendilheiras do Monte** and the **Rendilheiras da Praça**, two lacemakers'
+  neighbourhood groups, compete during the festival, and everyone has a side. Every four years
+  the **Corpo de Deus** processions lay flower-petal carpets through the streets. And in summer
+  the town fills up for **Curtas Vila do Conde**, the international short-film festival, which is
+  the one week a year the convent town talks about cinema. Ask a vilacondense about Póvoa, or a
+  poveiro about Vila do Conde, and you will get a full and unhurried answer — and then both will
+  unite instantly against anyone who confuses the two.
 
 ## Porto everyday language
 
-Porto talks faster, flatter and more bluntly than Lisbon, and it is proud of all three. The
-northern accent keeps its diphthongs — *pouco*, *outro*, *dinheiro*, *primeiro* are said with
-the glide intact where Lisbon flattens them — keeps unstressed vowels open, and uses the
-whistly **apical s**. Urban Porto does *not* generally have the **betacismo** (the /v/ → [b]
-merger) of the rural Minho, and Portuenses are quick to point this out.
+Porto talks faster, flatter and more bluntly than Lisbon, and it is proud of all three.
+Northern speech keeps its diphthongs — *pouco*, *outro*, *dinheiro*, *primeiro* said with the
+glide intact where the south flattens them — keeps unstressed vowels open, and uses the whistly
+**apical s** that southern ears pick up immediately. Urban Porto does not generally have the
+**betacismo** (the /v/ → [b] merger) of the rural Minho, and Portuenses will point this out
+before you ask. (That last contrast is the standard local account rather than a documented one:
+the published descriptions cover northern speech as a whole and do not separate Porto from the
+Minho, so treat it as unverified.)
 
 **Register.** **Tu** with family, friends, neighbours, colleagues of the same rank and anyone
-your own age — Porto reaches for *tu* faster than Lisbon does, and staying on *você* too long
-reads as cold rather than polite. **O senhor / a senhora** for older people, officials and
-anyone behind a counter you do not know. Third-person address by name is the warm middle
-ground and is used constantly: *"A Dona Rosa já almoçou?"*, *"O senhor Alberto quer o de
-sempre?"* Diminutives do enormous work — **um cafezinho**, **um bocadinho**, **uma sopinha**,
-**um copito** — and they soften what the bluntness would otherwise leave sharp.
+your own age. **O senhor / a senhora** with older people, officials, and anyone behind a counter
+you do not know — this is the safe default for a learner, and the reference grammars say so
+explicitly. **Você** is the trap: it is poorly received in parts of Portugal, historically
+carried a from-above flavour, and learners are advised to avoid it rather than deploy it as a
+polite middle option. (Whether Porto specifically dislikes it more than Lisbon is the received
+wisdom and is consistent with what the sources say, but is not documented — unverified.)
 
-**Directness.** Porto's reputation is for saying the thing. A shopkeeper will tell you the fish
-you chose is not the one to buy today; a neighbour will tell you the coat is too thin; someone
-will call across a café to correct your Portuguese and then buy you a coffee. None of this is
-rudeness and it is a mistake to hear it as such — the sentence is short, the tone is flat, and
-the warmth is in the fact that they bothered. The classic Porto conversational move is the
-brusque opener followed immediately by generosity, and a tutor can build a lot of dialogue on it.
+The genuinely useful middle register is **third-person address by name**, and the north uses it
+constantly: *"A Dona Rosa já almoçou?"*, *"O senhor Alberto quer o do costume?"*, or simply
+*"Ó João, chegue aqui."* Diminutives carry a lot of the warmth — **um cafezinho**, **um
+bocadinho**, **uma sopinha**, **um copito** — and they soften what the directness would
+otherwise leave bare.
 
-Words and expressions (the zone-level dossier covers the broader northern vocabulary; these are
-the ones tied to the city):
+**Directness.** Porto's reputation is for saying the thing. The shopkeeper tells you today's
+fish is not the one to buy; the neighbour tells you the coat is too thin; a stranger corrects
+your Portuguese across a café and then pays for your coffee. It is a mistake to hear this as
+rudeness: the sentence is short, the tone is flat, and the warmth is in the fact that they
+bothered. The characteristic move is the brusque opener followed straight away by generosity,
+and a tutor can build a great deal of dialogue on it. (The reputation is universal and the
+pattern is easy to observe, but no linguistic study documenting it turned up — treat the
+characterisation as unverified.)
 
-- `cimbalino` — an espresso, in Porto and essentially nowhere else; from the old La Cimbali
-  machines. In Lisbon, `bica`.
-- `fino` — a small draught beer. Ordering an `imperial` marks you instantly as southern.
-- `molete` — a soft wheat roll; the standard Porto breakfast bread.
-- `tripeiro` — a native of Porto, worn as a badge, from the tripe the city kept in 1415.
-- `Invicta` — Porto's epithet, "the unconquered".
-- `a Baixa` — the low commercial centre; *vou à Baixa* is an errand, not an outing.
+Words and expressions. The zone-level Norte dossier carries the broader northern vocabulary;
+these are the ones tied to the city, with a note where the dictionaries decline to confirm that
+a word is actually Porto-specific rather than generally Portuguese:
+
+- `cimbalino` — an espresso, in Porto and essentially nowhere else; from the old **La Cimbali**
+  machines. In Lisbon, `bica`. Well attested, including in the dictionaries.
+- `fino` — a small draught beer in a tall narrow glass. In Lisbon, `imperial`. Ordering an
+  *imperial* in Porto marks you instantly as southern, which is the point of doing it once.
+- `molete` — a small soft wheat roll; dictionary-tagged as northern, and the standard Porto
+  breakfast bread.
+- `sertã` — a frying pan, where most of the country says `frigideira`. Confirmed as northern.
+- `cruzeta` — a coat hanger, where the south says `cabide`. Confirmed as northern; the
+  etymologies are different words entirely, one Latin and one Arabic.
+- `chuço` — an umbrella, informally, in the north (single-source; elsewhere the word means a
+  spiked pole).
+- `tripeiro` — a native of Porto, worn as a badge; also used for an FC Porto supporter.
+- `Invicta` — Porto's epithet, "the unconquered", from the siege of 1832–34.
+- `a Baixa` — the low commercial centre; *vou à Baixa* is an errand, not a night out.
 - `a Foz` — the river mouth; *ir à Foz* means the walk, with or without a destination.
 - `do outro lado` / `lá em Gaia` — the south bank.
-- `a VCI` — the inner ring road; used as a geographic reference, not just a road.
-- `carregar o Andante` — top up the transport card. `Já validaste?` is the follow-up.
+- `a VCI` — the inner ring road, used as a geographic reference rather than a road name.
+- `carregar o Andante` — top up the transport card; *Já validaste?* is the follow-up.
 - `a praxe` — the university initiation season; `capa e batina` is the black student cape.
-- `uma ilha` — the Porto housing typology: a row of tiny houses down a back plot behind a
-  street façade, reached by a single corridor.
-- `um cachorrinho` — the Porto hot-dog sandwich, pressed, cut into fingers and served with a
-  spiced sauce (widely known locally; not confirmed in the sources consulted, so unverified).
-- `uma francesinha` — the city's emblematic dish, and the subject of the city's most reliable
-  argument, which is never about the meat and always about the **molho**.
-- `andor` — "off you go / get on with it", used to end a conversation.
-- `bô` / `bora` — clipped forms of *vamos embora*, extremely common in speech.
-- `faz favor` — the standard way to summon a waiter or open a request; softer and more used
-  than *por favor* in the north.
-- `à minha beira` — beside me, next to me.
-- `carago` — an all-purpose Porto exclamation, more emphatic than polite.
+- `uma ilha` — Porto's own housing typology: a row of very small houses down a back plot behind
+  a street façade, reached by one corridor.
+- `um souto` — a chestnut grove, in the Trás-os-Montes sense; heard whenever castanhas come up.
+- `uma francesinha` — the city's emblematic dish and the subject of its most reliable argument,
+  which is never about the meat and always about the **molho**.
+- `um cachorrinho` — the Porto hot-dog sandwich, pressed and cut into fingers with a spiced
+  sauce (locally universal; not confirmed in any source consulted, so unverified).
+- `carago` / `caraças` — exclamations of surprise or irritation. Strongly associated with Porto
+  in practice, but the dictionaries tag them as generally informal Portuguese rather than
+  Porto-specific.
+- `à minha beira` — beside me, next to me. Common in the north; the dictionary records it as
+  standard Portuguese, so the "Porto word" framing is unverified.
+- `faz favor` — the everyday way to summon a waiter or open a request. Standard Portuguese, very
+  heavily used here.
+
+Two cautions for a tutor. Do not teach `quinar` as "to trick someone" — the dictionaries give it
+quite different meanings, and that sense could not be confirmed. And do not attach *bota-abaixo*
+to Porto's early-twentieth-century demolitions: the term is documented for Rio de Janeiro's
+urban reforms, not for Porto, and the association appears to be a misattribution.
 
 ## Prompt context
 
