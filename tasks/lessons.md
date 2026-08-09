@@ -28,6 +28,27 @@ chrome itself says "Santa Cruz", and the URL fetched wasn't even a real route.
 - **Rule:** when checking what a generator produced, read the stored row, not a
   rendered page. Page chrome contaminates every string match.
 
+## Migrate storage AFTER the new store is live, never before
+
+Moving audio to R2 nulled the base64 column locally while production was
+still running a build without the R2 credentials. For a few minutes Listen &
+Speak returned 404: the new copy was unreachable and the old copy was gone.
+
+- **Rule:** deploy the readers with credentials FIRST, confirm they read from
+  the new store in production, and only then run the migration that drops the
+  old copy. Redeploy after adding env vars — Vercel only picks them up on a
+  new build.
+
+## Never hand someone a placeholder they can paste
+
+Telling the user to run `printf 'KEY=paste_here' >> .env.local` left two
+literal `paste_here` lines above their real values. dotenv happened to take
+the last occurrence so it worked, but a parser that takes the first would
+have failed with a confusing 403.
+
+- **Rule:** have people edit the file, or write the key with an empty value —
+  never a placeholder string that is itself valid syntax.
+
 ## Correlated sub-selects bind to the wrong table
 
 ``sql`(select count(*) from ${a} where ${a.x} = ${b.id})` `` renders `${b.id}`
