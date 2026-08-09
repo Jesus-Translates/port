@@ -20,11 +20,11 @@ covers Torres Vedras, Lourinhã and Mafra; **distrito de Leiria** covers Peniche
 Caldas da Rainha, Bombarral, Nazaré and Alcobaça. A family in Santa Cruz and a family in
 Nazaré are an hour apart and file with different district offices.
 
-Since 2024 six of these municipalities — Bombarral, Cadaval, Caldas da Rainha, Lourinhã,
-Peniche and Torres Vedras — form the **Geoparque Oeste**, a UNESCO Global Geopark of
-about 1 154 km², with over 180 fossil sites and twelve identified dinosaur species.
+Since 2024 eight of these municipalities — Alenquer, Bombarral, Cadaval, Caldas da Rainha,
+Lourinhã, Óbidos, Peniche and Torres Vedras — form the **Geoparque Oeste**, a UNESCO Global
+Geopark of about 1 154 km², with over 180 fossil sites and twelve identified dinosaur species.
 
-The economic spine is fruit and wine (pêra rocha, maçã, vinha), greenhouse horticulture,
+The economic spine is fruit and wine (pêra rocha, maçã, vinha), market gardening,
 fishing out of Peniche and Nazaré, ceramics in Caldas da Rainha, and a surf economy that
 has quietly become a year-round employer in Ericeira, Baleal, Peniche and Santa Cruz.
 Plenty of people also commute to Lisbon down the A8.
@@ -35,16 +35,18 @@ A low, rolling coastal platform cut by short rivers, ending in **arribas** (sea 
 and long exposed beaches. Inland it rises into limestone hills.
 
 - **Serra de Montejunto** — 666 m, between Alenquer and Cadaval, the highest viewpoint in
-  historic Estremadura. Classified a Paisagem Protegida since 2000. Holds the **Real
-  Fábrica do Gelo**, an 18th-century ice factory (National Monument, 1997) that supplied
-  ice to Lisbon for about 120 years. It is the landmark you see inland from most of the zone.
+  historic Estremadura. Classified a **Paisagem Protegida in 1999**, covering some 4 847 ha.
+  Holds the **Real Fábrica do Gelo**, an 18th-century ice factory (National Monument, 1997)
+  that supplied ice to Lisbon for about 120 years. It is the landmark you see inland from
+  most of the zone.
 - **Rio Sizandro** — rises at Sapataria (Sobral de Monte Agraço), runs about 40 km through
   Dois Portos, Runa and Torres Vedras itself, and reaches the sea near Praia Azul.
 - **Rio Alcabrichel** — rises on the Serra de Montejunto near Vila Verde dos Francos, runs
   about 25 km through Maxial, Ramalhal and A dos Cunhados, and meets the Atlantic at
   **Porto Novo** near Maceira.
-- **Lagoa de Óbidos** — roughly 17 km², the most extensive coastal lagoon on the Portuguese
-  coast, shared between the concelhos of Óbidos and Caldas da Rainha. It opens to the sea
+- **Lagoa de Óbidos** — the most extensive coastal lagoon system on the Portuguese coast,
+  shared between the concelhos of Óbidos and Caldas da Rainha *(published areas vary widely,
+  from about 7 km² to 17 km² — better not to quote a figure)*. It opens to the sea
   through a shifting channel locally called the **aberta**, which silts up and has to be
   reopened. Foz do Arelho sits on its northern edge; the western arm is the Braço do Bom
   Sucesso, the eastern the Braço da Barrosa. Bivalve gathering is a real local activity,
@@ -66,14 +68,15 @@ The water is cold enough that wetsuits are worn year-round.
 - **Linhas de Torres Vedras** — the defensive lines built in secrecy under Wellington
   between November 1809 and September 1810 to stop Masséna's advance on Lisbon: a system
   of 152 fortifications completed by 1812. The **Forte de São Vicente** above Torres Vedras
-  is the flagship — three joined redoubts inside a 1.5 km wall, 39 gun positions. The
+  is the flagship, built out of three joined redoubts around a parade ground. The
   waymarked **Rota Histórica das Linhas de Torres** links the surviving forts across
   several municipalities and is a standard school outing.
 - **Castelo de Torres Vedras** and the **Chafariz dos Canos**, the old town fountain.
 - **Palácio Nacional de Mafra** (also *Real Edifício de Mafra*) — inscribed by UNESCO in
   **2019** as a single site comprising the palace, basílica, convento, Jardim do Cerco and
   Tapada. The **Biblioteca** holds around 36 000 volumes; the **Basílica** has six historic
-  pipe organs and two carillons totalling 120 bells, an ensemble with no equivalent anywhere.
+  pipe organs and two carillons totalling **92 bells**, cast in Antwerp and Liège — the
+  largest 18th-century carillons in the world.
 - **Tapada Nacional de Mafra** — 1 187 ha behind a 21 km wall, created in 1747 under
   D. João V as the royal hunting park. Veados, gamos, javalis, raposas, birds of prey;
   walking and BTT trails, guided wildlife visits, and a comboio turístico.
@@ -83,7 +86,7 @@ The water is cold enough that wetsuits are worn year-round.
   after the prisoners were freed; a memorial there carries the names of roughly 3 000
   political prisoners.
 - **Cabo Carvoeiro** and the **Ilhéu da Papôa** at Peniche; the **Arquipélago das Berlengas**
-  six nautical miles offshore, a **Reserva Natural** reached by boat from Peniche harbour.
+  about 10 km offshore, a **Reserva Natural** reached by boat from Peniche harbour.
 - **Muralhas de Óbidos**, the **Porta da Vila** (a double dog-leg gateway, with the Capela
   de Nossa Senhora da Piedade inside it), **Rua Direita** running from gate to castle since
   the 14th century, and the 16th-century **Aqueduto da Usseira**, about 3 km of arches
@@ -94,16 +97,20 @@ The water is cold enough that wetsuits are worn year-round.
 - **Praça da República**, universally called the **Praça da Fruta**, in Caldas da Rainha —
   the country's only daily fruit-and-vegetable market, essentially unchanged since the
   late 19th century.
-- **Mosteiro de Alcobaça** (Santa Maria de Alcobaça) — Cistercian, founded 1148, completed
-  1222, UNESCO-listed **1989**. A church roughly 100 m long, the 18th-century **Cozinha dos
+- **Mosteiro de Alcobaça** (Santa Maria de Alcobaça) — Cistercian, founded by D. Afonso
+  Henriques in **1153**, the church consecrated in 1252, UNESCO-listed **1989**. A church
+  roughly 106 m long, the 18th-century **Cozinha dos
   Monges** with its running-water channel, and the facing tombs of **D. Pedro I** and
   **D. Inês de Castro**, placed opposite one another so the two would meet on rising.
 - **Nazaré**: the **Sítio** on the clifftop, the **Ermida da Memória**, the **Forte de São
   Miguel Arcanjo** with its lighthouse above Praia do Norte, and the **Elevador da Nazaré**
-  funicular linking beach to Sítio. Offshore, the **Canhão da Nazaré** — Europe's largest
-  submarine canyon, around 5 km deep — funnels swell straight into Praia do Norte. Garrett
-  McNamara's 2011 ride held the Guinness record until 2017; the current record is Sebastian
-  Steudtner's 26.2 m (86 ft), set there on 29 October 2020.
+  funicular linking beach to Sítio. Offshore, the **Canhão da Nazaré** — around 211 km long
+  and some 5 000 m deep, widely held to be Europe's largest submarine canyon — funnels swell
+  straight into Praia do Norte. Garrett McNamara's 2011 ride held the Guinness record until
+  Rodrigo Koxa's 24.4 m in 2017; **Sebastian Steudtner's 26.2 m (86 ft) on 29 October 2020**
+  is the ratified mark, with **Maya Gabeira's 22.4 m** the women's record. *(Steudtner is
+  reported to have ridden a larger wave at Nazaré in 2024, pending ratification — check
+  before stating "current record".)*
 - **Museu da Lourinhã** — the largest Iberian collection of Upper Jurassic dinosaur fossils;
   Lourinhã has called itself *Capital Portuguesa dos Dinossauros* since 2004. The
   **Lourinhanosaurus antunesi** and the **ninho de Paimogo** (a nest with egg-embryo
@@ -116,8 +123,8 @@ The water is cold enough that wetsuits are worn year-round.
 
 ## Churches & religious sites
 
-- **Basílica do Palácio Nacional de Mafra** — the six organs and 120 bells make it the
-  region's most important religious building by some distance.
+- **Basílica do Palácio Nacional de Mafra** — the six organs and the 92-bell carillons make
+  it the region's most important religious building by some distance.
 - **Santuário de Nossa Senhora da Nazaré**, at the Sítio. The legend has **D. Fuas Roupinho**
   saved from riding off the cliff in **1182**; the **Ermida da Memória** was raised at the
   cliff edge and held the image from 1182 to 1377, when D. Fernando I founded the present
@@ -143,25 +150,26 @@ chapels (**ermidas**, **capelinhas**) at crossroads are ordinary features of the
 
 **The four protected names — use these exactly**
 
-- `Pêra Rocha do Oeste` **DOP** (recognised 2003) — the pear that defines the region's
-  farming. White, melting, sweet, very juicy, and always showing the **carepa**, the brown
-  russeting on the skin. The variety arose by chance from a seedling near Sintra about 150
-  years ago; the delimited area now runs to 29 concelhos, effectively all of this zone, with
-  the largest plantings in **Cadaval** and **Bombarral**. It supports thousands of families
-  here. Note the registered spelling keeps the circumflex — **Pêra** Rocha — even though
-  modern orthography writes the common noun *pera*.
-- `Maçã de Alcobaça` **IGP** (recognised 1994) — **not one variety but a set** (Casa Nova,
-  Golden, Royal Gala, Fuji, Reineta and others) grown in a delimited area covering Alcobaça,
-  Caldas da Rainha, Bombarral, Óbidos, Peniche, Nazaré, Lourinhã, Torres Vedras and more.
-  Prized for being crunchy and firm with high sugar *and* high acidity — an **agridoce** apple.
+- `Pêra Rocha do Oeste` **DOP** — the pear that defines the region's farming. White,
+  melting, sweet, very juicy, and always showing the **carepa**, the brown russeting on the
+  skin. The variety was found by chance as a seedling at **Ribeira de Sintra in 1836**, on
+  Pedro António Rocha's land; the delimited area now runs to **30 concelhos**, effectively
+  all of this zone, with the largest plantings in **Cadaval** and **Bombarral**. It supports
+  thousands of families here, and **the harvest starts at the end of August** — *a apanha da
+  fruta* is real seasonal work. Note the registered spelling keeps the circumflex —
+  **Pêra** Rocha — even though modern orthography writes the common noun *pera*.
+- `Maçã de Alcobaça` **IGP** — **not one variety but a set** (Casa Nova, Gala, Golden
+  Delicious, Red Delicious, Fuji, Granny Smith, Jonagold, Reineta, Pink) grown in a delimited
+  area covering Alcobaça, Caldas da Rainha, Bombarral, Óbidos, Peniche, Nazaré, Lourinhã,
+  Torres Vedras and more. Prized for being crunchy and firm with high sugar *and* high
+  acidity — an **agridoce** apple.
 - `Ginja de Óbidos e Alcobaça` **IGP** — the *fruit* itself is protected: the **Galega**
   sour cherry, small, red, high sugar and high acid, grown across Óbidos, Alcobaça, Nazaré,
-  Caldas da Rainha, Bombarral and Cadaval.
-- `Aguardente DOC Lourinhã` — demarcated in **1992**, the **first and only region in Portugal
-  demarcated solely for brandy**, and one of only three in Europe alongside Cognac and
-  Armagnac. Roughly 40 ha of vines; distilled in continuous copper columns, aged a minimum
-  of two years in oak and chestnut. Only two producers certify it. The DOC area takes in
-  Lourinhã plus parts of Peniche, Óbidos, Bombarral and Torres Vedras. A real local boast.
+  Caldas da Rainha, Bombarral, Cadaval and parts of Porto de Mós.
+- `Aguardente DOC Lourinhã` — demarcated in **1992** (Decreto-Lei n.º 34/92), the **first and
+  only region in Portugal demarcated solely for brandy**, and one of only three in Europe
+  alongside Cognac and Armagnac. Aged in oak casks of up to 800 litres. Only two producers
+  certify it: the **Adega Cooperativa da Lourinhã** and **Quinta do Rol**. A real local boast.
 
 **Drink**
 
@@ -169,8 +177,10 @@ chapels (**ermidas**, **capelinhas**) at crossroads are ordinary features of the
   it **`com elas`** (with the cherries in the glass) or **`sem elas`** — this is the phrase
   residents actually use. Often served in a small edible **`copinho de chocolate`** along
   Rua Direita.
-- **Wine.** The regional appellation is **Vinho Regional Lisboa** (until recently called
-  *Estremadura*), and its wine commission sits in **Torres Vedras**. Within it the Oeste
+- **Wine.** The regional appellation is **Vinho Regional Lisboa**, renamed from
+  *Estremadura* in 2009. **Torres Vedras is the Portuguese municipality with the highest
+  wine production of all**, and it shared the title of European City of Wine 2018 with
+  Alenquer. Within the region the Oeste
   DOCs are **Óbidos**, **Torres Vedras**, **Alenquer**, **Arruda** and **Lourinhã**. White
   grapes: Arinto, Fernão Pires, Vital, Seara-Nova. Reds: Castelão, Tinta Miúda, Aragonez,
   Touriga Nacional. *(There is no "DOC Bombarral" — Bombarral grows for the regional and
@@ -183,16 +193,18 @@ chapels (**ermidas**, **capelinhas**) at crossroads are ordinary features of the
 
 **Bread, cakes and conventual sweets**
 
-- `Pão-de-ló de Alfeizerão` (Alcobaça) — round, sunken in the middle, deliberately left
-  molten and creamy inside; so fragile it is traditionally sold only where it is made. The
-  texture came from **an error in the baking time**, and the recipe descends from the
+- `Pão-de-ló de Alfeizerão` (Alcobaça) — round and **concave at the centre**, shaped by hand
+  as it rises and deliberately left molten and creamy inside. The recipe descends from the
   **Mosteiro de Santa Maria de Cós** via nuns displaced when the religious orders were
-  suppressed. *(The popular version naming King D. Carlos is not confirmed — leave it out.)*
+  suppressed. *(There is a popular legend that the texture began as an underbaking accident,
+  usually attached to King D. Carlos. The official product description presents the wet
+  centre as deliberate technique, so treat the accident story as folklore, not fact — and
+  don't repeat one half of it while denying the other.)*
 - `Cavacas das Caldas` — Caldas da Rainha's signature: a hollow baked egg pastry under a
   hard white sugar glaze, sold around the Largo do Hospital Termal. Say *cavacas das Caldas*,
   not just "cavacas" — other regions make their own.
 - `Trouxas de ovos` — egg yolks cooked in syrup, rolled into filled cylinders and glazed.
-  Say "as trouxas de ovos das Caldas": Beja claims them too.
+  Say "as trouxas de ovos das Caldas" — the sweet is not exclusive to the town.
 - `Pastel de feijão` — **Torres Vedras's own**: a white-bean-and-almond tartlet made there
   since the late 19th century, with around thirty local producers pursuing IGP status.
 - `Cornucópias de Alcobaça` — crisp cone with egg sweet inside.
@@ -211,12 +223,12 @@ chapels (**ermidas**, **capelinhas**) at crossroads are ordinary features of the
   stew made aboard the boats from the mixed catch: tamboril, safio, cação, raia, cherne,
   robalo. Whether sardines belong in it is a live local argument. Use this name; a bare
   "caldeirada à pescador" is not an attested dish.
-- `Sequinho de robalo` (Peniche) — rustic sea-bass stew from the tascas where crews split
-  the Saturday catch.
 - `Lagosta suada à moda de Peniche` — lobster sweated slowly in onion, tomato and wine
   rather than boiled.
-- `Sardinha assada` — Peniche is **Portugal's leading fish auction by value**, and sardine
-  is the top species landed nationally.
+- `Sopa de peixe` and `sardinha assada` — the other two the Peniche council names itself.
+  Peniche is **one of Portugal's principal fishing ports**, and its landings fetch
+  above-average prices; avoid ranking it first nationally, which is often repeated but not
+  something I could confirm.
 - `Caneja d'infundice` (Ericeira) — the most distinctive dish on this coast. A small shark
   of the cação family, wrapped and hung in the dark for one to two weeks until ammonia-cured,
   then skinned, boned and served with skin-on boiled potatoes, plenty of olive oil and red
@@ -230,12 +242,10 @@ chapels (**ermidas**, **capelinhas**) at crossroads are ordinary features of the
   real and worth teaching.
 - `Frango na púcara` (Alcobaça) — chicken cooked in a clay **púcara** with presunto, tomato,
   baby onions, mustard, garlic, **vinho do Porto**, aguardente velha and raisins. Created in
-  Alcobaça in the **1960s** as partridge grew scarce; it has its own Confraria.
-- `Percebes` — genuinely Peniche and the **Berlengas**. Harvesting is tightly licensed under
-  a co-management plan, the first published in Portugal, with a limited number of licensed
-  **percebeiros** and daily limits.
-- `Amêijoas` — gathered by around a hundred **apanhadores de bivalves** in the **Lagoa de
-  Óbidos**.
+  Alcobaça in the **1960s**, descended from *perdiz na púcara* as partridge grew scarce.
+- `Percebes` — genuinely Peniche and the **Berlengas**. Harvesting is tightly licensed, with
+  a fixed number of **percebeiros** and daily limits.
+- `Amêijoas` — gathered by the **apanhadores de bivalves** who work the **Lagoa de Óbidos**.
 - `Lagosta`, `percebes`, `ouriços-do-mar`, `raia` — the Ericeira and Mafra coast list.
   Ericeira's marisco, particularly from **Ribamar**, is what the town's restaurants sell.
 
@@ -264,49 +274,119 @@ roads off it** (the EN 247-2 and the EN 116), and the EN 247 has a break in its 
 between Ribamar and Bombardeira. Almost every household drives; distances between village,
 school, supermarket and beach are short but not walkable.
 
-**Trains.** The **Linha do Oeste** serves **Torres Vedras**, **Bombarral**, **Óbidos**,
-**Caldas da Rainha** and **Valado** (the station for Nazaré, still a bus ride away), running
-up from the Lisbon side towards Leiria and Figueira da Foz. Crucially, **Peniche, Ericeira
-and Nazaré have no station of their own** — the Peniche branch was never built. The line
-has a long-standing reputation for being slow relative to the motorway, and has been
-through repeated modernisation and electrification works. For most residents the car or the
-express coach beats the train.
+Two more motorways matter locally: the **A21**, 21 km from the A8 at Venda do Pinheiro to
+**Ericeira**, unusual in being financed and run by the **Câmara Municipal de Mafra** itself
+(about €2,10 end to end); and the **IP6**, the fast road from **Peniche** to the A8 near
+A-da-Gorda. Toll vocabulary is everyday here: *portagem*, *saída*, and the local grumble
+that Torres Vedras Sul and Torres Vedras Norte cost different amounts. Two stretches of the
+A8 are free — Lisboa–Loures, and Bombarral to the Caldas da Rainha industrial zone — and
+local traffic between the two Torres Vedras junctions is exempt.
 
-**Buses.** Regional coach services connect the towns to each other and to Lisbon; Santa
-Cruz is a listed stop on the Torres Vedras regional network. Mafra and Ericeira, being in
-the Área Metropolitana de Lisboa, sit on the Lisbon-facing suburban network rather than the
-Oeste one.
+**Trains.** The **Linha do Oeste** runs Agualva-Cacém to Figueira da Foz and serves
+**Torres Vedras**, **Mafra**, **Óbidos**, **Bombarral**, **Caldas da Rainha**, **São Martinho
+do Porto** and **Valado** (billed as Valado–Nazaré–Alcobaça, but several km inland from
+Nazaré town). **Peniche and Ericeira have no station at all**, and Nazaré has none of its
+own. Electrification is only partial, which is why the line's slow reputation is structural
+rather than folklore.
 
-**Markets — this is the weekly rhythm.**
+> **Time-sensitive, as of August 2026.** Storms in late January 2026 took out the southern
+> half of the line, and the stretch serving Torres Vedras and Mafra has been running on
+> **bus substitution** since. Reopening is phased, with full electric services reported as
+> slipping to 2027–28. Prefer `o comboio está suprimido` and `há transbordo rodoviário`
+> over anything timetable-specific.
 
-- **Caldas da Rainha** is the anchor: the **Praça da Fruta** (Praça da República) runs a
-  **produce market every single day**, the only daily horto-frutícola market in Portugal,
-  and has done since the 19th century. Saturday is the big one.
-- Other towns run a **mercado municipal** in a covered hall plus a periodic open-air
-  **feira** on a fixed day. *(The specific weekday for each town was not confirmed in this
-  research pass — see Sources. Treat "market day" generically unless verified: `Vou à
-  praça` / `Vou à feira` works everywhere.)*
-- Roadside fruit stalls and **venda directa** at the farm gate are normal for pears, apples
-  and vegetables in season.
+**Buses — and the fact that most changes daily life.** Since **1 January 2025** the
+**Passe M Oeste** makes travel **free between all twelve OesteCIM municipalities**, with the
+pass to Lisbon cut to **€40 a month** and travel **free for under-23s**. OesteCIM has taken
+a majority stake in **Rodoviária do Oeste**. Torres Vedras has its own town network, **TUT
+(Transportes Urbanos de Torres Vedras)**, run by Barraqueiro Oeste with lines known by
+colour — *a linha amarela*, *a verde*, *a vermelha*, *a azul* — plus a bike share called
+**Agostinhas**, after the cyclist Joaquim Agostinho.
 
-**Shops.** The Portuguese chains are all present in the larger towns — Continente, Pingo
-Doce, Lidl, Intermarché, Aldi, Minipreço — with the **mini-mercado** still doing the daily
-top-up in villages like Baleal and Silveira. In small places shops still shut for lunch and
-much of Sunday; the supermarket in the nearest town does not.
+**Mafra and Ericeira are on a different system entirely**, being Área Metropolitana de
+Lisboa: their buses are **Carris Metropolitana**, and the Lisbon services run to **Campo
+Grande** — lines 2740, 2741, 2751, 2801 and 2803 from Ericeira, 2742 and 2802 from Mafra.
+On line 2801 the trip is **44 minutes**, first bus at **06:20**. That is the literal shape of
+an Ericeira commuter's morning.
 
-**Health and admin.** Hospital care is run by the **Unidade Local de Saúde do Oeste (ULS do
-Oeste)**, whose units include **Caldas da Rainha** and **Torres Vedras**; day-to-day care is
-the **centro de saúde** in your own town, where you are registered with a *médico de
-família*. Council business — *licenças*, *taxas*, planning — is the **Câmara Municipal**;
-smaller certificates and *atestados* go through the **Junta de Freguesia**. National
-paperwork (cartão de cidadão, Finanças, Segurança Social) means an appointment — *marcar
-uma senha* — usually in the concelho seat.
+**Markets — the real weekly and monthly rhythm.** This is the richest vein for everyday
+language, because each town has its own fixed day.
 
-**School and the week.** Children go to an **agrupamento de escolas** in their concelho,
-starting around 08:30–09:00, with **ATL** or *prolongamento* afterwards for working parents.
-The school run plus the drive to work in Torres Vedras, Caldas or Lisbon is the shape of the
-weekday. Weekends: the market in the morning, lunch at the grandparents', the beach or the
-serra in the afternoon, football on the television.
+- **Caldas da Rainha — the Praça da Fruta is open EVERY DAY**, roughly 07h00–14h00, the only
+  daily hortofrutícola market in the country. Caldas also has a **feira semanal on
+  Mondays**, the **Mercado de Santana at Alvorninha on Sundays** (the council calls it the
+  region's biggest weekly market), a daily **Mercado do Peixe**, and an antiques fair on the
+  second Sunday in the Parque D. Carlos I.
+- **Peniche — feira mensal on the LAST THURSDAY of the month**, at the Parque da Feira in
+  the Zona Industrial da Prageira, skipping July, August and December. Its **mercado
+  municipal** is daily but mornings only. Bufarda has its own feira on the third Sunday.
+- **Lourinhã — feira mensal on the FIRST MONDAY of the month**, on the EN 247 near the
+  hypermarkets, with roughly 300 stalls.
+- **Mafra — feira mensal on the THIRD SUNDAY**, at the Parque Intermodal from 08h00.
+- **Bombarral — feira mensal on the SECOND MONDAY** *(single-source)*.
+- **Torres Vedras — the mercado municipal runs Tuesday to Sunday and is CLOSED ON MONDAYS**
+  (07h00–15h00, to 14h00 on Sunday). There is also a **Feira Rural on the first Saturday**,
+  April to October, in the historic centre.
+- **Santa Cruz — a Feira Rural on the THIRD SATURDAY**, 09h00–17h00 at the Largo Jaime
+  Baptista da Costa, April to October but not in July or August; and a **Feira de Verão
+  every Saturday from July to September** in the pedestrian streets *(single-source each)*.
+- **Ericeira — the mercado municipal closes Mondays except from 1 June to 30 September**,
+  and stays open late (to 20h00) on Fridays and Saturdays. Fish and shellfish downstairs.
+- **Alcobaça — mercado municipal daily except Sunday**, busiest on Mondays and Saturdays.
+- **Growers' note**: the wholesale **Mercado Abastecedor de Torres Vedras** trades Mondays,
+  Thursdays and Fridays in the evening.
+- **Not established**: no regular market day was confirmed for **Óbidos** or **Nazaré** —
+  Óbidos residents most likely use Caldas da Rainha, 7 km away, but do not state that as
+  fact. Roadside stalls and **venda direta** at the farm gate are normal in season.
+
+**Shops.** Every larger town has a **Continente** (Modelo 08:00–22:00, the smaller Bom Dia
+08:00–21:00) — Torres Vedras, Caldas da Rainha, Peniche, Alcobaça, Nazaré, Bombarral,
+Óbidos, Ericeira, Mafra and Malveira all have one; **Lourinhã, Silveira and Santa Cruz do
+not**. **Mercadona** arrived late and only in two places: **Caldas da Rainha (2022)** and
+**Torres Vedras (2023)**. **Aldi** opened in **Lourinhã** in 2022. The shopping centre is
+**Arena Shopping** in Torres Vedras. In the villages the **mini-mercado** still does the
+daily top-up. Large supermarkets open **seven days a week including Sunday**. *(The old
+rule about small shops closing for lunch is commonly repeated but was not verifiable —
+don't teach it as a rule.)*
+
+**Health.** Since **1 January 2024** the region's care is run by the **Unidade Local de
+Saúde do Oeste (ULS do Oeste)**, based in Caldas da Rainha and covering over 230 000 people.
+Its three hospitals, by their exact names: **Hospital Distrital das Caldas da Rainha**,
+**Hospital Distrital de Torres Vedras**, and **Hospital São Pedro Gonçalves Telmo** in
+Peniche. Primary care sits in two groupings — **ACeS Oeste Sul** (Cadaval, Lourinhã, Sobral
+de Monte Agraço, Torres Vedras) and **ACeS Oeste Norte** (Bombarral, Caldas da Rainha,
+Óbidos, Peniche). **Alcobaça and Nazaré fall outside it**, under the ULS de Leiria. Day to
+day you go to your **centro de saúde**, where you are registered with a *médico de família*,
+and you *marcar uma consulta*; serious things mean *as urgências*.
+
+**Admin.** Council business — *licenças*, *taxas*, planning — is the **Câmara Municipal**;
+certificates and *atestados* go through the **Junta de Freguesia**. Worth knowing: the 2013
+parish mergers were partly **undone at the October 2025 local elections**, so **A dos
+Cunhados and Maceira are separate freguesias again**, as are Ventosa and Runa — Torres
+Vedras now has fifteen. National paperwork (cartão de cidadão, Finanças, Segurança Social)
+means an appointment and *tirar uma senha*, usually in the concelho seat.
+
+**School and the week.** Children belong to an **agrupamento de escolas**. Torres Vedras has
+four — **São Gonçalo**, **Henriques Nogueira**, **Padre Vítor Melícias** and **Madeira
+Torres**; a Santa Cruz or Silveira family is in **São Gonçalo**, which runs EB1 Silveira and
+EB1 Santa Cruz. Ericeira has its own agrupamento, as do Nazaré, Óbidos (Josefa de Óbidos),
+Bombarral (Fernão do Pó) and Lourinhã.
+
+Get the after-school vocabulary right, because it is easy to muddle: **AEC** (Atividades de
+Enriquecimento Curricular) is the enrichment programme in the 1.º ciclo; **CAF** (Componente
+de Apoio à Família) is the wraparound care for the 1.º ciclo, including holidays; **AAAF**
+is the pré-escolar equivalent. **"ATL" is colloquial only** and appears in no official
+document. In Torres Vedras the CAF is delivered by juntas de freguesia and IPSS rather than
+the council. Other real terms: *prolongamento de horário*, *transportes escolares*, *Ação
+Social Escolar*, *refeitório*.
+
+One genuine local divergence: **Torres Vedras schools run semesters, not the national three
+periods**, with their own *pausa intersemestral* in February and a Christmas break starting
+later than the national one. Nationally the breaks are Christmas, **Carnaval** and Easter.
+
+The week's shape: the school run, the drive to work in Torres Vedras, Caldas or Lisbon, the
+market on its day, lunch at the grandparents' on Sunday, the beach or the serra in the
+afternoon, football on the television.
 
 **Seasonality.** This is the single most important everyday fact. In August the coastal
 villages fill with Lisbon families and returning **emigrantes**; parking in Santa Cruz,
@@ -332,27 +412,40 @@ long weekend:
 
 Its signature elements: the **matrafonas**, men parading in women's clothes, wigs and
 make-up; the **cabeçudos**, oversized papier-mâché heads; the **carros alegóricos**, floats
-up to five metres tall and famously savage about politicians; the **Zés Pereiras** drumming
-groups; and the **cocotes**, the little paper balls thrown from the floats into the crowd.
+up to five metres tall and famously savage about politicians; the **Zés-Pereiras** drumming
+groups; and the **cocotes**, small ribboned balls — once made of grape seeds, now sawdust
+and rubber scraps — thrown back and forth between the masked participants and the crowd.
 Participation is mass and largely spontaneous; some events are ticketed and some are free.
 
 **Other fixed points in the year**
 
 - **Feira Nacional do Vinho e da Pêra Rocha**, Bombarral — August, celebrating exactly the
   two things the concelho lives on.
-- **Festas da Nazaré** — **8 September**, the Nativity of the Virgin, centred on the
-  Santuário de Nossa Senhora da Nazaré at the Sítio.
-- **Nossa Senhora da Boa Viagem**, Peniche — the **Monday after the first Sunday in August**,
-  the fishing town's patronal feast, with the image carried out onto the water.
+- **Festas em Honra de Nossa Senhora da Nazaré** — a multi-day romaria at the Sítio, running
+  roughly **4 to 13 September**, built around the feast of the Nativity of the Virgin on
+  **8 September**. Do not describe it as a single-day event.
+- **Nossa Senhora da Boa Viagem**, Peniche — the fishing town's patronal feast, on the
+  **Monday after the first Sunday in August** *(single-source)*, with the image carried out
+  onto the water.
 - **Óbidos** runs an unusually full calendar: the **Festival Internacional de Chocolate**
   (spring), the **Mercado Medieval** inside the walls (summer), **FOLIO — Festival Literário
   Internacional de Óbidos** (autumn; the town has been a UNESCO Creative City of Literature
   since December 2015), and **Óbidos Vila Natal** at Christmas.
-- **Mostra de Doces Conventuais**, at the Mosteiro de Alcobaça — **November**, the
-  conventual-sweets fair, held inside the monastery itself.
-- **Festival do Pão de Mafra** — **July**, built around the town's wheat-and-rye bread.
-- **Ocean Spirit**, Santa Cruz — the town's annual water-sports festival, hosting official
-  international-circuit competitions.
+- **Mostra de Doces Conventuais**, at the Mosteiro de Alcobaça — the conventual-sweets fair,
+  held inside the monastery, reported as November *(month single-source)*.
+- **Festival do Pão de Mafra** — built around the town's wheat-and-rye bread, reported as
+  July *(month single-source)*.
+- **Ocean Spirit**, Santa Cruz — **July**, the village's wave-sports festival, with the
+  **Santa Cruz Bodyboard Open** and **Santa Cruz Bodysurf Pro** among its competitions
+  (national-circuit events, despite the festival's international billing). Santa Cruz also
+  runs a **Carnaval de Verão**.
+- **MEO Rip Curl Pro Portugal**, Supertubos (Praia do Medão), Peniche — **October**, the
+  World Surf League's only European championship-tour stop. The town fills for it.
+- **Feira de São Pedro**, Torres Vedras — late June into early July, at the Parque Regional
+  de Exposições.
+- **Tasquinhas das Caldas** and the **Feira de 15 de Agosto**, Caldas da Rainha — August.
+- **Feira de São Simão**, Alcobaça — 26 October to 1 November, at the Mercado Municipal, a
+  tradition traced to D. Manuel I.
 - **Big-wave season at Nazaré** — roughly October to March, when the Canhão delivers.
   Crowds gather at the Forte de São Miguel Arcanjo to watch on the big days.
 
@@ -389,25 +482,32 @@ Vinhos and Alenquer inside it.
 - `matrafona` — a man dressed as a woman at Carnaval.
 - `cabeçudo` — a giant papier-mâché head worn in the corso.
 - `corso` — the carnival parade itself.
-- `cocote` — the small paper ball thrown from the floats into the crowd.
-- `Zés Pereiras` — the traditional drumming groups that walk with the parade.
+- `cocote` — the small ribboned ball (sawdust and rubber now, grape seeds once) thrown
+  between maskers and crowd during the corso.
+- `Zés-Pereiras` — the traditional drumming groups that walk with the parade.
 - `Entrudo` — the older word for Carnival, kept in *Enterro do Entrudo*.
 - `pêra rocha` — the region's pear; said constantly, in shops and in the fields.
-- `estufa` — greenhouse (horticulture is everywhere inland).
+- `horta` — vegetable plot. `quinta` — smallholding/farm. (`estufa`, greenhouse, is the
+  general word, but I could not source greenhouse farming as characteristic of any
+  particular village here — don't place them.)
 - `pomar` — orchard. `vinha` — vineyard. `vindima` — the grape harvest.
 - `carepa` — the brown russeting on a pêra rocha's skin; the mark of the real thing.
 - `rendas de bilros` — Peniche's bobbin lace, medalled in Paris and London in 1851.
 - `sete saias` — the seven layered skirts of Nazaré's traditional women's dress.
 - `louça das Caldas` — Caldas da Rainha faience.
-- `Zé Povinho` — Bordalo Pinheiro's everyman figure, born in Caldas and now a national icon.
-- `jagoz` (pl. `jagozes`) — what people from Ericeira call themselves.
+- `Zé Povinho` — Rafael Bordalo Pinheiro's sardonic everyman, drawn in 1875 and later made
+  in Caldas faience; now a national icon.
+- `jagoz` — what people from Ericeira call themselves; the plural is written both `jagozes`
+  and `jagoses`.
 - `praça` — the produce market (going to it: *ir à praça*).
 - `feira` — the periodic open-air market.
 - `mariscar` — to gather shellfish. `apanhador de bivalves` — the licensed clam gatherer on
   the Lagoa de Óbidos. `percebeiro` — the licensed goose-barnacle harvester at Peniche.
 - `quinhão` — the crew's share of the catch, taken home; the origin of Nazaré's caldeirada.
-- `escalado` — split open for salting. `paneiros` — the racks fish is sun-dried on at Nazaré.
-  `enjoado` — fish only half-dried. And the idiom: *seco que nem um carapau da Nazaré*.
+- `amanhar` — to gut and clean fish. `escalado` — split open for salting. `paneiros` — the
+  wicker trays fish is sun-dried on at Nazaré. `enjoado` — fish only half-dried. And the
+  reported idiom *seco que nem um carapau da Nazaré*.
+- `arte xávega` — the beach-seine fishery, net hauled ashore; oxen once, tractors now.
 - `púcara` — the clay pot the Alcobaça chicken is cooked in.
 - `com elas` / `sem elas` — with or without the cherries in your ginjinha.
 - `época` / `fora de época` — in season / out of season, the coastal calendar in two words.
@@ -437,9 +537,12 @@ gave the town its place in European history.
 ### Santa Cruz
 
 A surf-and-summer village on the Torres Vedras coast, spread across the freguesias of
-**Silveira** and **A dos Cunhados**. Neighbouring **Silveira** itself is the inland farming
-village — greenhouses, small holdings, the everyday services — while Santa Cruz is the
-seafront. The two work as one place.
+**Silveira** and **A dos Cunhados** — it is a locality, not a freguesia of its own, though
+its centre and its schools sit in Silveira. Neighbouring **Silveira** is the inland farming
+village — small holdings, orchards, the everyday services — while Santa Cruz is the
+seafront. The two work as one place. Since the 2025 parish changes, **A dos Cunhados and
+Maceira are separate freguesias again**, which matters when someone tells you which junta
+they belong to.
 
 The beach runs roughly **5 km** of fine sand, dunes and rock, and is one of the most
 consistent surf, bodyboard and kitesurf beaches on the coast. The named stretches include
@@ -459,7 +562,7 @@ beach". The **Rio Sizandro** reaches the sea just up the coast at **Praia Azul**
 - **Everyday**: the seasonal swing is extreme. In August the place is packed with Lisbon
   families, the campsite is full and there is nowhere to park; in January it is a windy
   village where you drive to Torres Vedras for anything substantial. The **Ocean Spirit**
-  festival brings international competitions each year.
+  wave-sports festival takes over in July, and there is a **Carnaval de Verão** too.
 
 ### Ericeira
 
@@ -498,7 +601,7 @@ A concelho of around 86 500 people, distrito de Lisboa, dominated by one buildin
 **Palácio Nacional de Mafra** — the *Real Edifício de Mafra* — was **UNESCO-listed in 2019**
 as palace, basílica, convento, Jardim do Cerco and Tapada together. The **Biblioteca** holds
 about 36 000 volumes; the **Basílica** has **six historic organs** and two carillons with
-**120 bells**, an ensemble unmatched anywhere in the world.
+**92 bells**, the largest 18th-century carillons anywhere.
 
 - **Landmarks**: the palace and basílica; the **Tapada Nacional de Mafra**, 1 187 ha behind a
   21 km wall, created in 1747 under D. João V, with deer, wild boar and birds of prey, plus
@@ -520,18 +623,18 @@ Peniche, Atouguia da Baleia, Ferrel and Serra d'El-Rei — in the distrito de Le
 
 **Supertubos** is the famous wave, a heavy beach break that has hosted international
 competition. **Baleal**, about 3 km north in the freguesia de Ferrel, is the other half of
-the story: another former island tied on by a sand isthmus, with **Prainha**, **Lagide**,
-**Praia dos Barcos** and **Praia das Cebolas** around it. From the late 1990s Baleal filled
+the story: another former island tied on by a sand isthmus, with **Prainha**, **Lajido** (the
+surf-media spelling is *Lagide*), **Praia dos Barcos** and **Praia das Cebolas** around it. From the late 1990s Baleal filled
 with hostels, surf schools, board-hire shops, a mini-mercado and bars — it is now
 overwhelmingly a surf village, though the fishing heritage is in the name (whale and tuna).
 
 - **Landmarks**: the **Fortaleza de Peniche**, Estado Novo political prison and now the
   **Museu Nacional Resistência e Liberdade**; **Cabo Carvoeiro** at the western tip; the
-  **Ilhéu da Papôa**; and the **Berlengas**, six nautical miles out, a **Reserva Natural**
+  **Ilhéu da Papôa**; and the **Berlengas**, about 10 km out, a **Reserva Natural**
   reached by boat in summer.
-- **Food**: this is **Portugal's leading fish auction by value**, and the port that was built
-  on **sardinha** and canning still lands what the town eats. The named dishes are
-  **caldeirada de Peniche**, **sequinho de robalo** and **lagosta suada à moda de Peniche**;
+- **Food**: one of **Portugal's principal fishing ports**, built on **sardinha** and canning,
+  still landing what the town eats. The dishes the council names are **caldeirada de
+  Peniche**, **sardinha assada**, **sopa de peixe** and **lagosta suada à moda de Peniche**;
   **percebes** off the Berlengas are harvested under a strictly licensed co-management plan.
   The pastries the council itself names are **pastéis de Peniche**, **amigos de Peniche** and
   **esses**, almond biscuits *(sold and eaten here, though Setúbal also claims their origin —
@@ -558,15 +661,20 @@ the world**.
   19th century. This is where the town buys its food. The sweets are **cavacas das Caldas**,
   hollow egg pastries under a hard white glaze sold near the Largo do Hospital Termal, and
   **trouxas de ovos**.
-- **Everyday**: the other identity is **ceramics**. Rafael Bordalo Pinheiro's **Fábrica de
-  Faianças** (1884–1907) made the town synonymous with **louça das Caldas** and created
-  **Zé Povinho**, the sardonic Portuguese everyman. The art school and studios keep the
-  trade alive. **Foz do Arelho**, on the Lagoa de Óbidos, is the town's beach.
+- **Everyday**: the other identity is **ceramics**. **Rafael Bordalo Pinheiro** ran the
+  **Fábrica de Faianças** here from the mid-1880s and made the town synonymous with
+  **louça das Caldas**. He had created **Zé Povinho**, the sardonic Portuguese everyman, in
+  **1875** for a Lisbon periodical — the figure was only later reproduced in Caldas faience,
+  which is how the two became inseparable. Note the spelling split: the man is **Bordalo**
+  Pinheiro with one *l*, the surviving brand is **Bordallo** Pinheiro with two. The art
+  school and studios keep the trade alive. **Foz do Arelho**, on the Lagoa de Óbidos, is the
+  town's beach.
 
 ### Óbidos
 
-The walled town, distrito de Leiria — around 11 900 people in the concelho but only about
-2 200 inside the walls. Historically part of the dowry of a succession of Portuguese queens.
+The walled town, distrito de Leiria — around 11 900 people in the concelho, of whom only a
+small fraction live inside the walls. Historically part of the dowry of a succession of
+Portuguese queens.
 It is also, since **December 2015**, a **UNESCO Creative City of Literature**, with bookshops
 installed in converted buildings around the town.
 
@@ -588,46 +696,52 @@ installed in converted buildings around the town.
 
 A fishing town in three parts — the **Praia**, the **Sítio** on the clifftop, and **Pederneira**
 — in the distrito de Leiria, with the freguesias of Nazaré, Famalicão and Valado dos Frades.
-Now world-famous for waves: the **Canhão da Nazaré**, Europe's largest submarine canyon at
-around **5 km** deep, funnels Atlantic swell directly into **Praia do Norte**. Garrett
-McNamara's 2011 ride held the Guinness record until 2017; **Sebastian Steudtner**'s **26.2 m
-(86 ft)** on **29 October 2020** is the current mark.
+Now world-famous for waves: the **Canhão da Nazaré**, some **211 km** long and **5 000 m**
+deep and widely called Europe's largest submarine canyon, funnels Atlantic swell directly
+into **Praia do Norte**. Garrett McNamara's 2011 ride held the Guinness record until Rodrigo
+Koxa's in 2017; **Sebastian Steudtner**'s **26.2 m (86 ft)** on **29 October 2020** is the
+ratified mark. Visitor numbers at the lighthouse went from about 80 000 in 2015 to 174 000
+in 2017 — the wave rebuilt the town's economy.
 
 - **Landmarks**: the **Elevador da Nazaré** funicular up to the Sítio; the **Forte de São
   Miguel Arcanjo** and its lighthouse overlooking Praia do Norte; the **Ermida da Memória**
   at the cliff edge; and the **Santuário de Nossa Senhora da Nazaré**, founded by D. Fernando I
   in 1377, holding a wooden **Virgem Negra** said to have come from Mérida in 711.
 - **Food**: **caldeirada à moda da Nazaré**, descended from the *quinhão* — the crew's share
-  of small or damaged fish, boiled up at home. And the **carapau seco**: fish gutted, salted,
-  split open and laid out on **paneiros** to dry two or three days in the sun on the sand,
-  still done in the open. Half-dried fish is **enjoado**. The sweets are **támares**, small
-  boat-shaped cakes filled with egg sweet.
+  of small or damaged fish, boiled up at home. And the **carapau seco**: fish *amanhado*
+  (gutted), brined, *escalado* (split open) and spread on **paneiros**, the wicker trays, to
+  dry two or three days in the sun on the sand — still done in the open. Half-dried fish is
+  **enjoado**. The sweets are **támares**, small boat-shaped cakes filled with egg sweet,
+  plus **sardinha doce** and **nazarenos**.
 - **Everyday**: tradition is unusually visible here. Older women still wear the **sete saias**,
-  the seven layered skirts worn while waiting for the boats. The **Festas da Nazaré** fall on
-  **8 September**. In big-wave season the whole town reorganises around the forecast and the
-  crowds at the fort; the rest of the winter it is quiet.
+  the seven layered skirts worn while waiting for the boats, and the beach-seine fishery
+  **arte xávega** survives — once hauled by oxen, now by two tractors. The **Festas em Honra
+  de Nossa Senhora da Nazaré** run over several days in early September. In big-wave season
+  the whole town reorganises around the forecast and the crowds at the fort; the rest of the
+  winter it is quiet.
 
 ### Alcobaça
 
 A monastery town in the distrito de Leiria, about 55 000 people across 13 freguesias,
-including the coastal ones. The **Mosteiro de Alcobaça** — Cistercian, founded 1148,
-completed 1222, **UNESCO-listed 1989** — is one of the largest and best-preserved abbey
-complexes of the order in Europe: a church roughly 100 m long, the cloister, the chapter
+including the coastal ones. The **Mosteiro de Alcobaça** — Cistercian, founded by D. Afonso
+Henriques in **1153**, its church consecrated 1252, **UNESCO-listed 1989** — is one of the
+largest and best-preserved abbey complexes of the order in Europe: a church roughly 106 m
+long, the cloister, the chapter
 house, the dormitory, and the 18th-century **Cozinha dos Monges** with water running through
 it. Inside lie the facing tombs of **D. Pedro I** and **D. Inês de Castro**.
 
 - **Landmarks**: the monastery; and on the coast, **São Martinho do Porto**, a scallop-shell
   bay opening to the sea through a gap of only a few metres — calm, shallow and the family
   beach of the whole region. The **Duna de Salir** nearby reaches around 50 m.
-- **Food**: **pão-de-ló de Alfeizerão** from the neighbouring freguesia — sunken in the
-  middle and deliberately left molten, the texture born of an error in the baking time;
+- **Food**: **pão-de-ló de Alfeizerão** from the neighbouring freguesia — concave at the
+  centre and deliberately left molten inside;
   **cornucópias de Alcobaça**; **frango na púcara**, chicken cooked in a clay pot with
   presunto, port and aguardente, invented here in the 1960s; the **Maçã de Alcobaça IGP**;
   and the **doçaria conventual** the monastery gave its name to, celebrated at the
   **Mostra de Doces Conventuais** each November.
 - **Everyday**: beyond the monastery, this is a working concelho — ceramics, red clay,
-  plastic moulds and cement are real local industries, alongside the apple orchards. Valado
-  dos Frades has the nearest railway station to Nazaré.
+  plastic moulds and cement are real local industries, alongside the apple orchards.
+  **Alfeizerão** and **São Martinho do Porto** are both freguesias of this concelho.
 
 **Also in the zone.** **Lourinhã** (distrito de Lisboa, ~26 200 people) is the dinosaur
 capital — the **Museu da Lourinhã** holds the largest Iberian collection of Upper Jurassic
@@ -731,18 +845,62 @@ Research conducted August 2026 via web search and direct page retrieval. Princip
 - Linha do Oeste: <https://pt.wikipedia.org/wiki/Linha_do_Oeste>
 - EN 247 route: <https://pt.wikipedia.org/wiki/EN_247>
 - District assignments: <https://pt.wikipedia.org/wiki/Distrito_de_Leiria>
-- ULS do Oeste: <https://www.choeste.min-saude.pt/unidade-de-caldas-da-rainha/>
+- ULS do Oeste (created 1 Jan 2024; its three hospitals and two ACeS):
+  <https://pt.wikipedia.org/wiki/Unidade_Local_de_Sa%C3%BAde_do_Oeste>,
+  <https://www.sns.gov.pt/entidades-de-saude/unidade-local-de-saude-do-oeste/>
+- Markets and feiras: <https://www.mcr.pt/conhecer/pracas-e-mercados> (Caldas da Rainha),
+  <https://www.cm-peniche.pt/cmpeniche/uploads/document/file/6276/regulamento_feira_mensal.pdf>,
+  <https://cm-lourinha.pt/menu/368/mercados-e-feiras>,
+  <https://www.cm-mafra.pt/pages/1144>, <https://promotorres.pt/equipamentos/feira-rural/>,
+  <https://promotorres.pt/equipamentos/feira-de-verao/>,
+  <https://gostodomeumercado.pt/mercado-municipal-torres-vedras/>,
+  <https://gostodomeumercado.pt/mercado-municipal-da-ericeira/>,
+  <https://gostodomeumercado.pt/mercado-municipal-de-alcobaca/>,
+  <https://www.reformaagraria.pt/feiras-mercados/lisboa/torres-vedras/>
+- Passe M Oeste (free travel inside OesteCIM from 1 Jan 2025, €40 to Lisbon):
+  <https://www.tsf.pt/sociedade/artigo/municipios-do-oeste-lancam-transportes-gratuitos-na-regiao-e-passe-para-lisboa-a-40-euros/17998093>,
+  <https://www.jn.pt/nacional/artigo/transporte-gratis-na-regiao-do-oeste-e-passes-ate-lisboa-por-40-euros/17839510>
+- Ericeira and Mafra bus lines to Campo Grande (operator's live API):
+  <https://api.carrismetropolitana.pt/lines>
+- Motorways: <https://pt.wikipedia.org/wiki/A8_(autoestrada)>,
+  <https://pt.wikipedia.org/wiki/A15_(autoestrada)>, <https://pt.wikipedia.org/wiki/A21_(autoestrada)>
+- Agrupamentos de escolas (DGAE school-network list, 28/10/2025):
+  <https://www.dgae.medu.pt/download/202526-outros-recrutamento/rede-ae-2526xlsx.pdf>,
+  <https://ag-sg.net/escolas/> (Agrupamento de Escolas de São Gonçalo, which covers Silveira
+  and Santa Cruz)
+- AEC / CAF / AAAF definitions:
+  <https://www.sec-geral.mec.pt/pt-pt/pagina/atividades-de-enriquecimento-curricular-aec>
+- Torres Vedras semester calendar:
+  <https://www.cm-tvedras.pt/educacao/educacao-no-concelho/calendario-escolar>
+- Geoparque Oeste member municipalities:
+  <https://www.geoparqueoeste.com/menu/650/municipios-integrantes>
+- Paisagem Protegida da Serra de Montejunto (1999):
+  <https://pt.wikipedia.org/wiki/Paisagem_Protegida_da_Serra_de_Montejunto>
+- WSL 2026 championship tour (MEO Rip Curl Pro Portugal, Supertubos):
+  <https://www.worldsurfleague.com/events?all=1&year=2026>
+- Ocean Spirit, Santa Cruz: <http://www.oceanspirit.pt/>
 
-**Marked unverified in this pass:** the Aldeia Típica José Franco at Sobreiro; per-town
-weekday market days (only the Caldas da Rainha daily Praça da Fruta is confirmed); the
-*beijinhos das Caldas* (sources disagree on what they are, so only the name is given); the
-existence of an Adega Cooperativa do Bombarral.
+**Marked unverified in this pass**, and flagged inline where they appear: the Aldeia Típica
+José Franco at Sobreiro; the months of the Mostra de Doces Conventuais and the Festival do
+Pão de Mafra; the date of the Peniche patronal feast; the Torres Vedras *mercado mensal*
+(it may have been discontinued — the council's current pages no longer list it); market days
+for **Óbidos** and **Nazaré** (none found — do not invent one); the exact area of the Lagoa
+de Óbidos; the details of the Aqueduto da Usseira; school-day clock times; the founding year
+of the Bordallo Pinheiro factory (1884 and 1885 both circulate); and the rule about small
+shops closing at lunchtime.
+
+**Items investigated and dropped for lack of a source:** *sequinho de robalo* as a Peniche
+dish (not on the council's own gastronomy page); a *confraria* for frango na púcara;
+greenhouse horticulture as characteristic of Silveira; wind energy as a regional industry;
+an Adega Cooperativa do Bombarral; commuter-flow percentages to Lisbon; and Rede Expressos'
+coverage of the region.
 
 **Deliberately excluded as misattributed** — do not let these back in: *francesinha* (Porto,
 1950s); *bolo-rainha* as a Caldas speciality (it is the nationwide Christmas *bolo-rei*
 variant, a name coincidence); *sável* and *caldeirada de enguias* (Tejo and Aveiro
 respectively); *leitão à moda de Torres* (leitão belongs to Bairrada and Negrais);
 "DOC Bombarral" (does not exist); calling a local
-custard tart a *pastel de Belém* (that name belongs only to the Lisbon original); and the
-claim that Aguardente Lourinhã is "third in the world" — the defensible claim is third in
-**Europe**.
+custard tart a *pastel de Belém* (that name belongs only to the Lisbon original); the claim
+that Aguardente Lourinhã is "third in the world" (the defensible claim is third in
+**Europe**); ranking Peniche first among Portuguese fish auctions; and putting **Valado dos
+Frades** in the concelho de Alcobaça — it is a freguesia of **Nazaré**.
