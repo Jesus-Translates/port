@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Português · the family hub",
     description:
-      "A shared European Portuguese phrasebook, workbook, quizzes and an AI tutor — for the family in Santa Cruz.",
+      "European Portuguese for your whole family — a course each, pitched at what they can actually do, with Sandra as your tutor.",
     type: "website",
     locale: "pt_PT",
   },

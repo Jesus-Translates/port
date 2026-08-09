@@ -87,7 +87,7 @@ export default async function Image() {
                 }}
               />
             </div>
-            Santa Cruz · Portugal
+            Aprende com a Sandra
           </div>
 
           <div

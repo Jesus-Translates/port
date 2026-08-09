@@ -54,7 +54,7 @@ export function Nav({
               Português
             </span>
             <span className="hidden text-xs text-ink-faint sm:inline">
-              · Santa Cruz
+              · com a Sandra
             </span>
           </Link>
           <div className="min-w-0 flex-1" />

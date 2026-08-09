@@ -11,7 +11,7 @@ export const metadata = { title: "Bem-vindo" };
 
 const STEP_TITLE: Record<string, { pt: string; en: string }> = {
   place: { pt: "Onde vives?", en: "So your lessons happen where you do." },
-  level: { pt: "Que português já sabes?", en: "Sixteen questions. No preparation, no marks." },
+  level: { pt: "Que português já sabes?", en: "Ten quick questions. No preparation, no marks." },
   prefs: { pt: "Como gostas de aprender?", en: "Five taps. It shapes what comes first." },
 };
 
