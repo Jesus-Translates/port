@@ -73,6 +73,24 @@ function section(md: string, heading: string): string {
   return "";
 }
 
+/**
+ * Every "## " heading whose title looks like a list of places.
+ *
+ * Matching one exact heading was too brittle: the Porto dossier heads its list
+ * "## Bairros do Porto" and keeps a second list under "## The belt: living
+ * just outside the city", so an exact "Bairros" lookup imported ZERO and still
+ * printed a tick. Prefix-match instead, and take every matching section.
+ */
+function placeSections(md: string): string[] {
+  const out: string[] = [];
+  for (const part of md.split(/^## /m).slice(1)) {
+    const nl = part.indexOf("\n");
+    const title = (nl === -1 ? part : part.slice(0, nl)).trim();
+    if (/^(towns|bairros|the belt)/i.test(title)) out.push(title);
+  }
+  return out;
+}
+
 /** The "### Name" subsections under a given heading become the place list. */
 function towns(md: string, heading = "Towns"): { name: string; context: string }[] {
   const block = section(md, heading);
@@ -135,10 +153,11 @@ async function main() {
         console.log(`  – ${file}: waiting for the ${parent} zone to be seeded`);
         continue;
       }
-      // Bairros files head their list "## Bairros"; fall back to "## Towns".
-      const list = towns(md, "Bairros").length
-        ? towns(md, "Bairros")
-        : towns(md, "Towns");
+      const list = placeSections(md).flatMap((h) => towns(md, h));
+      if (list.length === 0) {
+        console.warn(`  ! ${file}: no place sections found — nothing imported`);
+        continue;
+      }
       let n = 0;
       for (const t of list) {
         const row = {

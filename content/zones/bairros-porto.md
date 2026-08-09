@@ -120,107 +120,144 @@ leaving the region; *"em São Bento"* means they are not.
 ## Sub-regions of the Norte
 
 The Norte is not one place, and the divisions residents use are older than the current
-administrative map. Between 1936 and the 1976 Constitution Portugal was divided into
-**províncias**; they were never a functioning tier of government and they were quietly dropped,
-but they are still exactly how people describe where they are from. Three of them cover the
-north: **Minho**, **Douro Litoral**, and **Trás-os-Montes e Alto Douro**. Today's statistical
-sub-regions (Alto Minho, Cávado, Ave, Área Metropolitana do Porto, Tâmega e Sousa, Douro,
-Terras de Trás-os-Montes, Alto Tâmega) map onto them loosely and nobody says them out loud.
+administrative map.
+
+In **1936** Portugal was reorganised into eleven **províncias**, drawn on the regional studies
+the geographer **Amorim Girão** published between 1927 and 1930. They were never a real tier of
+government — power stayed with the distritos and concelhos — and they were formally swept away
+by the **1976 Constitution**. Both Portuguese and English Wikipedia make the same point about
+what happened next: the províncias are still the regional units Portuguese people, especially
+older ones, identify with. Dead in law, alive in speech.
+
+Three of them cover the north: **Minho**, **Douro Litoral**, and — as a single unit, which
+surprises people — **Trás-os-Montes e Alto Douro**. The modern statistical sub-regions map onto
+them roughly (Alto Minho, Cávado and part of Ave ≈ Minho; Área Metropolitana do Porto plus most
+of Tâmega e Sousa ≈ Douro Litoral; the Douro sub-region ≈ Alto Douro; Terras de Trás-os-Montes
+and Alto Tâmega ≈ Trás-os-Montes), and nobody says any of those names out loud.
 
 ### Minho
 
 Between the **rio Minho** on the Spanish border and the **rio Douro**, though in everyday
 speech "o Minho" means the green north-west: Braga, Viana do Castelo, Barcelos, Ponte de Lima,
-Guimarães, Vila Verde, Ponte da Barca.
+Guimarães, Vila Verde, Ponte da Barca. The 1936 province held 23–24 concelhos.
 
 A **minhoto** describes home as *verde* and *cheio de gente*. This is the wettest, most densely
-populated countryside in Portugal, cut into extraordinarily small plots — the **minifúndio** —
-so the landscape reads as a mosaic of vine-edged fields, granite walls, **espigueiros** and
-villages that run into each other. Land is divided and re-divided between heirs until a family
-farms six scattered pieces, which is why so many minhotos emigrated to France, Luxembourg and
-Switzerland from the 1960s on and why August is when the villages fill up again.
+populated countryside in Portugal, worked in extraordinarily small holdings — the
+**minifúndio**, with nearly every minhoto owning some land — so the valleys read as a mosaic of
+vine-edged plots, granite walls, **espigueiros** and villages that run into each other. The
+region's own epithet for itself is *o jardim de Portugal*, and the standard description of the
+landscape is that it is tended like a garden rather than farmed. Land is divided and re-divided
+between heirs until a family works six scattered pieces, which is a large part of why so many
+minhotos emigrated to France, Luxembourg and Switzerland from the 1960s on — and why August is
+when the villages fill back up.
 
 Self-image: hospitable, devout, festive, stubborn. The Minho owns the calendar — **romarias**,
 **bandas filarmónicas**, **ranchos folclóricos**, **concertinas** — and the rest of the country
-concedes it. Minhotos see Porto as *a cidade*, useful and slightly hard-faced; they see
-transmontanos as tougher and further away than the map suggests.
+concedes it.
 
 Speech: the most marked accent in the country. **Betacismo** — /v/ realised as [b], so *vaca*
-sounds like *baca* and *vinho* like *binho* — is strongest here, especially in older and rural
-speakers, and minhotos are used to being teased for it and mostly enjoy it. The **ou** and
-**ei** diphthongs are preserved fully (*pouco*, *dinheiro*), unstressed vowels stay open, and
-the **apical s** gives the whistling sibilant that Lisbon ears notice immediately. Braga's
-cadence is more sung than Porto's.
+sounds like *baca* and *vinho* like *binho* — is anchored by the sources specifically to the
+old **Entre-Douro-e-Minho**, argued back to the sixteenth century. It is strongest in older and
+rural speakers; minhotos are used to being teased for it and mostly enjoy it. The **ou** and
+**ei** diphthongs survive intact (*pouco*, *dinheiro*), unstressed vowels stay open, and the
+**Alto Minho** — like Trás-os-Montes — still has the affricate **ch** [tʃ] distinct from
+**x** [ʃ], so *chave* does not rhyme with *xaile*. Northern dialects also keep **vós** forms
+alive. Braga's cadence is more sung than Porto's.
 
 ### Douro Litoral
 
 The old província containing Porto itself, plus Vila Nova de Gaia, Matosinhos, Maia, Gondomar,
-Valongo, Póvoa de Varzim, Vila do Conde, Penafiel, Amarante, Baião and Marco de Canaveses. It
-is the only one of the three that lost its name in ordinary use, because it was swallowed by
-another word: **o Grande Porto**, and now the **Área Metropolitana do Porto**.
+Valongo, Póvoa de Varzim, Vila do Conde, Penafiel, Amarante, Baião, Marco de Canaveses and
+fourteen others — 24 concelhos across the Porto, Aveiro and Viseu districts. It is the one of
+the three that lost its name in ordinary use, because a bigger word swallowed it: **o Grande
+Porto**, and now the **Área Metropolitana do Porto** with its seventeen municípios.
 
 Identity here is city-shaped rather than province-shaped. A **portuense** — or, proudly, a
-**tripeiro** — is defined by work, bluntness and not being from Lisbon. The belt towns each
-keep their own identity fiercely (a **matosinhense** is not a portuense, and will say so), but
-they share the commute, the metro, the Andante and FC Porto.
+**tripeiro** — is defined by work, bluntness and not being from Lisbon. The tripe story (1415,
+Porto giving up all its meat to provision the fleet for Ceuta and keeping only the offal) is
+told everywhere and is presented by every serious source as **lenda**, not documented history;
+tell it as a legend and a Portuguese person will nod. Porto's other title, **a Invicta**, is not
+a legend: the full ceremonial form is *Antiga, Mui Nobre, Sempre Leal e Invicta*, and the
+"unconquered" was granted after the city withstood the Miguelist siege of **1832–34**.
 
+The belt towns each keep their own identity fiercely — a **matosinhense** is not a portuense and
+will say so — but they share the commute, the metro, the Andante and, mostly, FC Porto.
 Landscape: Atlantic, damp, grey granite, mild winters, cold sea all year. Inland the province
-climbs quickly into the **Vale do Sousa** and **Tâmega** — Penafiel, Amarante, Marco — which is
-green, Romanesque-church country and reads far more Minho than Porto. Speech in urban Porto is
-the northern accent with the edges knocked off: the **ou/ei** diphthongs and the apical s
-survive, betacismo mostly does not.
+climbs into the **Vale do Sousa** and the **Tâmega** — Penafiel, Amarante, Marco — which is
+green Romanesque-church country and reads far more Minho than Porto. (Sources describe northern
+speech as a whole but do not document how urban Porto differs from the rural Minho; the common
+observation that Porto has the diphthongs and the apical s but not the betacismo is consistent
+with everything published, but treat it as unverified.)
 
 ### Alto Douro
 
-Administratively the eastern half of the old **Trás-os-Montes e Alto Douro** province, but
-lived as its own country: the schist gorge of the Douro from roughly Mesão Frio east through
-**Peso da Régua**, **Pinhão**, **São João da Pesqueira** and **Vila Nova de Foz Côa**, with
-**Lamego** on the south bank and **Vila Real** on the plateau above.
+Not a province in its own right — it was the second half of the name **Trás-os-Montes e Alto
+Douro**. Today "Alto Douro" means the wine country: the schist gorge from around Mesão Frio east
+through **Peso da Régua**, **Pinhão**, **São João da Pesqueira** and **Vila Nova de Foz Côa**,
+with **Lamego** on the south bank and **Vila Real** on the plateau. The modern **Douro**
+sub-region covers 19 municípios and about 183 886 residents (2021), with Vila Real as its seat.
 
 A **duriense** lives by the vine and by the calendar of the **vindima**. The **socalcos** —
-terraces cut by hand into schist — are the defining landscape, UNESCO-listed as the **Alto
-Douro Vinhateiro** since 2001, in a region demarcated in 1756. Summers are punishing: the
-Serra do Marão blocks the Atlantic and the dark schist stores the heat, so the same country
-that is green in April is scorched in August.
+terraces cut by hand into schist over centuries — are the defining landscape, UNESCO-listed as
+the **Alto Douro Vinhateiro** since 2001, in a region demarcated in 1756 and now running to more
+than 26 000 hectares. Summers are punishing: the Serra do Marão blocks the Atlantic and the dark
+schist stores the heat, so country that is green in April is scorched by August.
 
-Self-image: hard work in vertical fields, and quiet resentment that the wine is called
-*Porto* and aged in Gaia. Durienses distinguish sharply between the **Baixo Corgo** (wetter,
-west of Régua), the **Cima Corgo** (Pinhão, the classic quintas) and the **Douro Superior**
-(hot, empty, towards Spain). They regard themselves as neither transmontano nor litoral.
+Self-image: hard work on vertical ground, and a quiet, permanent awareness that the wine is
+called *Porto* and matured in Gaia. Durienses distinguish sharply between the **Baixo Corgo**
+(wetter, west of Régua), the **Cima Corgo** (Pinhão, the classic quintas) and the **Douro
+Superior** (hot, empty, towards Spain), and regard themselves as neither transmontano nor
+litoral.
 
 ### Trás-os-Montes
 
-*Behind the mountains* — the high north-east: Bragança, Chaves, Mirandela, Miranda do Douro,
-Macedo de Cavaleiros, Vinhais, Montalegre, Boticas. Continental rather than Atlantic, and split
-by residents into two halves they will name unprompted:
+*Behind the mountains* — the high north-east. Worth knowing that the modern map cuts across the
+old one: **Terras de Trás-os-Montes** covers Alfândega da Fé, Bragança, Macedo de Cavaleiros,
+Miranda do Douro, Mirandela, Mogadouro, Vila Flor, Vimioso and Vinhais (about 107 000 people),
+while **Chaves**, **Montalegre**, **Boticas**, **Valpaços**, **Ribeira de Pena** and **Vila
+Pouca de Aguiar** sit in **Alto Tâmega**, and **Vila Real** is counted with the Douro. Every one
+of those places calls itself transmontano anyway.
 
-- **Terra Fria** — the exposed high plateaux. Chestnuts (**castanhas**), walnuts, rye
-  (**centeio**), long winters. *Nove meses de inverno e três de inferno.*
+Residents split the region into two halves and will name them unprompted:
+
+- **Terra Fria** — the eastern border uplands: **Vinhais, Bragança, Vimioso, Miranda do Douro,
+  Mogadouro**. Cereals, livestock and above all **castanhas**, "the gold of the Terra Fria",
+  grown in groves called **soutos**; Vinhais, Bragança and Valpaços account for roughly 90 % of
+  a national crop of some 40 000 tonnes, most of it exported. *Nove meses de inverno e três de
+  inferno.*
 - **Terra Quente** — the sheltered lower schist valleys around Mirandela and Alfândega da Fé.
   Olives, almonds, ferocious summers.
 
-A **transmontano** is understood — including by transmontanos — as the most self-sufficient
-Portuguese there is: **fumeiro** hanging in the chimney, the **matança do porco**, stone
-villages, communal ovens, cattle with names. The province has emptied hardest of anywhere in
-Portugal, so the August return of the **emigrantes** is not a nice detail here, it is the year's
-main event; a village of eighty people becomes a village of four hundred, and every wedding and
-**festa** is scheduled for it.
+The nuance a tutor can use: the two are not actually very different in average temperature. The
+split is about **altitude and terrain**, not the thermometer — though Terra Fria's mountains do
+record the coldest readings in the north-east. Locals will insist on the difference regardless,
+and they are describing wind and stone, not a number.
 
-Speech is conservative. Inland Trás-os-Montes preserves the affricate **ch** [tʃ] distinct from
-**x** [ʃ] — *chave* does not rhyme with *xaile* — and older rural speakers still use **vós**
-forms (*vós ides*, *vós fazeis*) (both features are widely reported but treat the geographic
-detail as unverified). And in the concelho de **Miranda do Douro** and three villages of
-**Vimioso**, the language is **mirandês**, Asturian-Leonese and not Portuguese at all, official
-since Lei 7/99 of 29 January 1999.
+A **transmontano** is understood — including by transmontanos — as the most self-sufficient
+Portuguese there is: **fumeiro** in the chimney, the **matança do porco**, stone villages,
+communal ovens, cattle with names. The province has emptied hardest of anywhere in Portugal —
+the sources call out both the emigration and the depopulation, and note that the same "secular
+isolation" is what preserved the traditions. So the August return of the **emigrantes** is not
+a charming detail here, it is the year's main event: a village of eighty becomes a village of
+four hundred, and every wedding and **festa** is scheduled around it.
+
+Speech is conservative: the **ch** [tʃ] affricate survives here as in the Alto Minho, and older
+rural speakers still use **vós** forms (*vós ides*, *vós fazeis*). And in the concelho de
+**Miranda do Douro** and part of **Vimioso** — roughly 550 km² — the language is **mirandês**,
+Astur-Leonese and not a dialect of Portuguese, co-official under **Lei n.º 7/99**. A 2020
+University of Vigo study counted about **3 500** people with some knowledge of it and only
+about **1 500** regular speakers, with sharp generational decline. It is a living language and
+a fragile one, and mirandeses know it.
 
 ### How they see each other
 
-Gently, and with the same three jokes. The minhoto thinks the transmontano lives at the end of
-the world and eats better than he does. The transmontano thinks the minhoto talks too much and
-that the coast is soft. The duriense thinks both of them have flat land and no idea. And every
-one of them agrees, immediately and without needing to discuss it, that Lisbon gets too much of
-everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will tell you the
-rest.
+Gently, and always in the same directions. The minhoto thinks the transmontano lives at the end
+of the world and eats better than he does. The transmontano thinks the coast is soft. The
+duriense thinks both of them have flat land and no idea. The portuense thinks all three should
+come and work. (These are the observable attitudes rather than quotable sayings — a targeted
+search turned up no verifiable inter-regional proverbs, so none are invented here.) The one
+thing all four agree on instantly, without discussion, is that Lisbon gets too much of
+everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will supply the rest.
 
 ## Bairros do Porto
 
