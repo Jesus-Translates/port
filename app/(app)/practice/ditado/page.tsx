@@ -1,11 +1,12 @@
 import Link from "next/link";
-import { eq, sql, type SQL } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { ClozePlayer } from "@/components/cloze-player";
 import { DitadoPlayer } from "@/components/ditado-player";
 import { UnitReturn } from "@/components/unit-return";
 import { requireSession } from "@/lib/auth";
 import { categories, getDb, refEntries } from "@/lib/db";
 import { normalizeWord } from "@/lib/ditado";
+import { sortByTopic } from "@/lib/topic-match";
 import { unitContextFrom } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
@@ -14,55 +15,6 @@ export const metadata = { title: "Ditado" };
 /** Read one value out of async searchParams. */
 function one(v: string | string[] | undefined): string {
   return (Array.isArray(v) ? v[0] : (v ?? "")).trim();
-}
-
-/**
- * Words that would match half the phrasebook, so they carry no topic signal:
- * the ordinary glue of Portuguese, plus the instruction verbs every unit topic
- * is written with ("Ouvir e completar frases sobre…"). Those describe the
- * exercise, not the vocabulary.
- */
-const TOPIC_STOP = new Set([
-  "que", "dos", "das", "com", "por", "para", "mais", "muito", "também",
-  "como", "quando", "antes", "depois", "sobre", "entre", "numa", "sem",
-  "pelo", "pela", "uma", "uns", "umas", "este", "esta", "isso",
-  "the", "and", "with", "for", "your", "you", "about",
-  "ouvir", "escutar", "completar", "completando", "praticar", "praticando",
-  "treinar", "usar", "usando", "escrever", "dizer", "frase", "frases",
-  "palavra", "palavras", "expressão", "expressões", "curta", "curtas",
-  "curto", "curtos", "incluindo", "exemplo", "exemplos", "tema", "nível",
-  "contraste", "forma", "formas", "habitual",
-  // modals and fillers: they are in half the phrasebook, so a hit on one says
-  // nothing about the topic
-  "pode", "podes", "posso", "podia", "dava", "será", "quero", "queres",
-  "preciso", "precisas", "algum", "alguma", "alguns", "algumas", "coisa",
-  "coisas", "outro", "outra", "outros", "outras", "tudo", "nada", "aqui",
-  "onde",
-]);
-
-/**
- * The handful of words in a unit topic worth searching the book for. Longest
- * first: in Portuguese the content words (*eletrodomésticos*, *frigorífico*)
- * are the long ones — the glue that survived the stop list is short.
- */
-function topicTerms(tema: string): string[] {
-  const words = tema
-    .toLowerCase()
-    .split(/[^\p{L}\p{N}]+/u)
-    .filter((w) => w.length >= 4 && !TOPIC_STOP.has(w));
-  return [...new Set(words)].sort((a, b) => b.length - a.length).slice(0, 12);
-}
-
-/** How many topic words a row hits, across its text, its section and its
- *  category — 0 for a row that has nothing to do with the topic. */
-function topicScore(terms: string[]): SQL {
-  return sql.join(
-    terms.map((t) => {
-      const like = `%${t}%`;
-      return sql`(case when ${refEntries.pt} ilike ${like} or ${refEntries.en} ilike ${like} or ${refEntries.section} ilike ${like} or ${categories.namePt} ilike ${like} or ${categories.nameEn} ilike ${like} then 1 else 0 end)`;
-    }),
-    sql` + `
-  );
 }
 
 /** The little words that vanish in fast pt-PT — the ones worth hiding. */
@@ -104,10 +56,17 @@ function makeCloze(
   return { masked, blankIndex };
 }
 
-/** Sentences per round, and how many we fetch to get there (cloze throws away
- *  anything too short to hide a word in). */
+/** Sentences per round. */
 const ROUND = 5;
-const POOL = 8;
+
+/**
+ * How much of the phrasebook to rank in memory. Spoken-size phrases number ~130
+ * today, so this takes the whole eligible set — which is the point: the topic
+ * ranking sees every candidate, so a step whose only two matching phrases sit
+ * anywhere in the book still finds them. If the book ever outgrows this the
+ * ranking degrades to "the best of a random 500", not to nothing.
+ */
+const CANDIDATES = 500;
 
 export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
   await requireSession();
@@ -116,32 +75,45 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
   const tema = one(sp.tema).slice(0, 300);
   const unit = await unitContextFrom(sp);
 
-  // Spoken-size phrases, the ones about the topic first. In full dictation ONLY
-  // ids and glosses go to the client; in cloze the client also gets the
-  // sentence minus one word — that missing word stays server-side until it is
-  // graded.
-  //
-  // The topic only RANKS, it never filters: a grammar step ("o artigo definido
-  // antes do possessivo") matches nothing in the phrasebook, and a round of
-  // five ordinary phrases is infinitely better than an empty screen.
-  const terms = topicTerms(tema);
+  // Spoken-size phrases in random order. In full dictation ONLY ids and glosses
+  // go to the client; in cloze the client also gets the sentence minus one word
+  // — that missing word stays server-side until it is graded.
   const rows = await getDb()
-    .select({ id: refEntries.id, en: refEntries.en, pt: refEntries.pt })
+    .select({
+      id: refEntries.id,
+      en: refEntries.en,
+      pt: refEntries.pt,
+      section: refEntries.section,
+      categoryPt: categories.namePt,
+      categoryEn: categories.nameEn,
+    })
     .from(refEntries)
     .innerJoin(categories, eq(categories.id, refEntries.categoryId))
     .where(sql`${refEntries.kind} = 'phrase' and length(${refEntries.pt}) between 15 and 90`)
-    .orderBy(
-      ...(terms.length > 0 ? [sql`(${topicScore(terms)}) desc`] : []),
-      sql`random()`
-    )
-    .limit(POOL);
+    .orderBy(sql`random()`)
+    .limit(CANDIDATES);
+
+  // Now the ones about the topic first. `sortByTopic` keeps every row and is a
+  // stable sort, so the random order above survives as the tiebreak — the topic
+  // only RANKS, it never filters. A grammar step ("o artigo definido antes do
+  // possessivo") matches nothing in the phrasebook, and a round of five ordinary
+  // phrases is infinitely better than an empty screen.
+  //
+  // The category name is matched alongside the sentence because it turned out to
+  // be the strongest signal in the book: the phrases filed under "Cozinha" are
+  // about the kitchen whether or not any one of them says so.
+  const ranked = sortByTopic(
+    rows,
+    tema,
+    (r) => `${r.pt} ${r.en} ${r.section} ${r.categoryPt} ${r.categoryEn}`
+  );
 
   // Dedupe by the sentence itself, not the row id. The book genuinely holds
   // the same phrase twice in places, and topic ranking scores identical text
-  // identically — so duplicates now sort ADJACENTLY where random ordering used
+  // identically — so duplicates sort ADJACENTLY where random ordering used
   // to scatter them. Frase 1 and frase 2 came out the same sentence.
   const seen = new Set<string>();
-  const unique = rows.filter((r) => {
+  const unique = ranked.filter((r) => {
     const key = r.pt.trim().toLowerCase();
     if (seen.has(key)) return false;
     seen.add(key);
