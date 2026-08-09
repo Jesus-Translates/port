@@ -116,10 +116,39 @@ export function ZonePicker({
           <div>
             <p className="label">Em que zona?</p>
             {zones.length === 0 ? (
-              <p className="text-xs text-ink-faint">
-                As zonas ainda não foram carregadas — corre{" "}
-                <code>npm run db:zones</code>.
-              </p>
+              /* No zones seeded yet: fall back to free text rather than
+                 trapping someone on step one of onboarding with nothing to
+                 click. A half-built feature must never block the front door. */
+              <form
+                className="flex flex-wrap items-end gap-2"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  setSaved(false);
+                  start(async () => {
+                    await setMyPlace(true, abroad);
+                    setSaved(true);
+                    router.refresh();
+                  });
+                }}
+              >
+                <label className="min-w-[12rem] flex-1 text-xs text-ink-soft">
+                  Em que terra? (ex.: Ericeira)
+                  <input
+                    value={abroad}
+                    onChange={(e) => setAbroad(e.target.value)}
+                    maxLength={80}
+                    placeholder="Ericeira"
+                    className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm text-ink"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  disabled={pending}
+                  className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
+                >
+                  {pending ? "A guardar…" : "Guardar"}
+                </button>
+              </form>
             ) : (
               <div className="grid gap-2 sm:grid-cols-2">
                 {zones.map((z) => (
