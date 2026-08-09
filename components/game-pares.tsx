@@ -171,9 +171,8 @@ export function GamePares({
       // back to the unit and tick a box they already earned.
       if (unitItemId) void completeItem(unitItemId, score).catch(() => {});
       await finishGame(
-        "pares",
+        "jogo-pares",
         score,
-        100,
         missedPairs
           .slice(0, 10)
           .map((i) => ({ prompt: pairs[i].en, answer: pairs[i].pt }))

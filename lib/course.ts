@@ -15,6 +15,9 @@ export type ItemKind =
   | "quiz" // AI test on this unit's point
   | "jogo-pares" // game: match PT ↔ EN against the clock
   | "jogo-frase" // game: rebuild the sentence from word tiles
+  | "jogo-genero" // game: o or a — grammatical gender against the clock
+  | "jogo-verbo" // game: is this conjugation right or wrong?
+  | "jogo-intruso" // game: which word does not belong
   | "ditado" // dictation — hear it, write it
   | "cloze" // hear it, fill the one missing word
   | "verbos" // conjugation sprint
@@ -29,6 +32,9 @@ export const ITEM_KINDS: ItemKind[] = [
   "quiz",
   "jogo-pares",
   "jogo-frase",
+  "jogo-genero",
+  "jogo-verbo",
+  "jogo-intruso",
   "ditado",
   "cloze",
   "verbos",
@@ -47,6 +53,9 @@ export const KIND_META: Record<
   quiz: { emoji: "🎯", label: "Teste", trains: "recall" },
   "jogo-pares": { emoji: "🃏", label: "Jogo dos pares", trains: "recognition" },
   "jogo-frase": { emoji: "🧱", label: "Constrói a frase", trains: "word order" },
+  "jogo-genero": { emoji: "⚖️", label: "O ou A?", trains: "noun gender" },
+  "jogo-verbo": { emoji: "🎯", label: "Certo ou Errado?", trains: "verb agreement" },
+  "jogo-intruso": { emoji: "🕵️", label: "O Intruso", trains: "word families" },
   ditado: { emoji: "✏️", label: "Ditado", trains: "listening" },
   cloze: { emoji: "🔍", label: "Palavra escondida", trains: "listening" },
   verbos: { emoji: "⚡", label: "Verbos", trains: "conjugation" },
@@ -61,7 +70,13 @@ export const KIND_META: Record<
 export const SPEAKING_KINDS: ItemKind[] = ["falar", "conversa"];
 
 /** Kinds that are games — a unit path should carry at least one most of the time. */
-export const GAME_KINDS: ItemKind[] = ["jogo-pares", "jogo-frase"];
+export const GAME_KINDS: ItemKind[] = [
+  "jogo-pares",
+  "jogo-frase",
+  "jogo-genero",
+  "jogo-verbo",
+  "jogo-intruso",
+];
 
 export function isItemKind(v: string): v is ItemKind {
   return (ITEM_KINDS as string[]).includes(v);

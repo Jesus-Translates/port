@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { KIND_META } from "@/lib/course";
@@ -32,6 +33,27 @@ const GAMES = [
     action: "/jogos/frase",
     pt: "Monta a frase palavra a palavra — com duas palavras a mais só para te enganar.",
     en: "Word order — the decoy tiles are what make you read, not just unscramble.",
+  },
+];
+
+const QUICK_GAMES = [
+  {
+    kind: "jogo-genero" as const,
+    href: "/jogos/genero",
+    pt: "O ou A? Vinte substantivos, seis segundos cada.",
+    en: "Gender — the mistake nobody corrects out loud, so it sticks for years.",
+  },
+  {
+    kind: "jogo-verbo" as const,
+    href: "/jogos/verbo",
+    pt: "“tu fazes” ou “tu fazem”? Diz se está certo antes de pensar demais.",
+    en: "Judge a form fast — the skill you use listening, not writing.",
+  },
+  {
+    kind: "jogo-intruso" as const,
+    href: "/jogos/intruso",
+    pt: "Quatro palavras, três da mesma família. Qual é a intrusa?",
+    en: "No English on screen — group the words in Portuguese.",
   },
 ];
 
@@ -127,6 +149,43 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
       <p className="text-center text-xs text-ink-faint">
         Sem tema? Deixa em branco — a Luna escolhe coisas do dia a dia.
       </p>
+
+      {/* These three deal from the phrasebook and the verb tables instead of
+          asking a model, so they start instantly and cost nothing to replay —
+          which is what you want from the part of the app meant to be fun. */}
+      <section>
+        <h2 className="mb-1 text-lg font-semibold">Começar já</h2>
+        <p className="mb-3 text-sm text-ink-soft">
+          Sem tema, sem espera.{" "}
+          <span className="text-ink-faint">
+            No setup — these run straight from your phrasebook and verb tables.
+          </span>
+        </p>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {QUICK_GAMES.map((g) => {
+            const meta = KIND_META[g.kind];
+            return (
+              <Link
+                key={g.kind}
+                href={g.href}
+                className="card group p-5 transition-all hover:border-sage hover:shadow-md active:scale-[0.99]"
+              >
+                <div className="text-3xl" aria-hidden>
+                  {meta.emoji}
+                </div>
+                <div className="mt-2 font-display text-lg font-semibold group-hover:text-olive">
+                  {meta.label}
+                </div>
+                <p className="mt-1 text-sm text-ink-soft">{g.pt}</p>
+                <p className="mt-1 text-xs text-ink-faint">{g.en}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-terra">
+                  Jogar →
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
     </div>
   );
 }

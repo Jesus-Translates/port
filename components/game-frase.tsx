@@ -15,18 +15,16 @@ const DECOYS = 2;
 
 /** Safe fillers: common pt-PT adverbs, used only when the other sentences in
  *  the round can't supply a decoy that is absent from this one. */
-const FALLBACK_DECOYS = [
-  "também",
-  "muito",
-  "já",
-  "depois",
-  "sempre",
-  "ainda",
-  "logo",
-  "amanhã",
-  "ontem",
-  "aqui",
-];
+/*
+ * There is deliberately NO fallback decoy list.
+ *
+ * It used to hold "também", "já", "sempre" and friends — adverbs that slot
+ * grammatically into almost any Portuguese sentence. A learner who built a
+ * perfectly correct sentence containing one was still marked wrong, because
+ * the check is an exact match against the target. A round with fewer tiles is
+ * strictly better than a round that punishes correct Portuguese, so when the
+ * pool of real words from other sentences runs short we simply use fewer.
+ */
 
 function shuffle<T>(items: T[]): T[] {
   const out = [...items];
@@ -80,14 +78,7 @@ function decoysFor(index: number, items: Item[]): string[] {
     }
   });
 
-  const picked = shuffle(pool).slice(0, DECOYS);
-  for (const w of shuffle(FALLBACK_DECOYS)) {
-    if (picked.length >= DECOYS) break;
-    const k = norm(w);
-    if (own.has(k) || picked.some((p) => norm(p) === k)) continue;
-    picked.push(w);
-  }
-  return picked;
+  return shuffle(pool).slice(0, DECOYS);
 }
 
 function tilesFor(index: number, items: Item[]): Tile[] {
@@ -269,13 +260,13 @@ export function GameFrase({
     try {
       // Finishing the activity IS the completion — don't make the learner walk
       // back to the unit and tick a box they already earned.
-      if (unitItemId) {
-        const pct = items.length
-          ? Math.round((score / items.length) * 100)
-          : null;
-        void completeItem(unitItemId, pct).catch(() => {});
-      }
-      await finishGame("frase", score, items.length, misses);
+      const pct = items.length
+        ? Math.round((score / items.length) * 100)
+        : 0;
+      if (unitItemId) void completeItem(unitItemId, pct).catch(() => {});
+      // Report the same 0-100 accuracy every other game reports, so two
+      // results on the family board mean the same thing.
+      await finishGame("jogo-frase", pct, misses);
     } catch {
       setSaveError("Fizeste o teu resultado, mas não deu para o guardar.");
     } finally {

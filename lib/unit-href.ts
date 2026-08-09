@@ -73,6 +73,18 @@ export function resolve(
         href: `/jogos/frase?${topic ? `topic=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
+    // The no-AI games do not take a topic — they deal from the phrasebook and
+    // the verb tables, so all they need is the way back to the unit.
+    case "jogo-genero":
+    case "jogo-verbo":
+    case "jogo-intruso": {
+      const slug = kind.replace("jogo-", "");
+      return {
+        kind,
+        href: `/jogos/${slug}?unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
+        hint: about,
+      };
+    }
     case "ditado":
       return {
         kind,
