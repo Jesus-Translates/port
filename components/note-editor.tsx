@@ -88,7 +88,7 @@ export function NoteEditor({
           setSaved(false);
         }}
         className="input"
-        placeholder="tags, separadas, por vírgulas"
+        placeholder="tags separadas por vírgulas"
       />
 
       <section className="card p-4">

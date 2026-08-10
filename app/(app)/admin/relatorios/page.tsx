@@ -88,8 +88,8 @@ export default async function ReportsPage() {
             </header>
 
             <div className="mt-3 grid gap-3 sm:grid-cols-4">
-              <Mini label="Custo mês" value={formatEur(h.costMonth)} />
-              <Mini label="Receita mês" value={formatEur(h.revenueMonth)} />
+              <Mini label="Custo do mês" value={formatEur(h.costMonth)} />
+              <Mini label="Receita do mês" value={formatEur(h.revenueMonth)} />
               <Mini
                 label="Margem"
                 value={formatEur(h.marginMonth)}

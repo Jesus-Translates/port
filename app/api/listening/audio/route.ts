@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     if (fromBlob) return audioResponse(fromBlob);
   }
   if (!clip?.audioB64) {
-    return NextResponse.json({ error: "Clip não encontrado." }, { status: 404 });
+    return NextResponse.json({ error: "Clipe não encontrado." }, { status: 404 });
   }
 
   return audioResponse(Buffer.from(clip.audioB64, "base64"));

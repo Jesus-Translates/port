@@ -18,7 +18,7 @@ const GROUPS: { title: string; blurb: string; items: Resource[] }[] = [
       {
         name: "Practice Portuguese — Shorties & Podcast",
         href: "https://www.practiceportuguese.com/podcasts/",
-        why: "Diálogos curtinhos gravados por portugueses, sobre a vida cá. O áudio é grátis; as transcrições, legendas e exercícios pedem membership paga.",
+        why: "Diálogos curtinhos gravados por portugueses, sobre a vida cá. O áudio é grátis; as transcrições, legendas e exercícios exigem uma subscrição paga.",
         level: "A1–A2",
         cost: "áudio grátis",
       },

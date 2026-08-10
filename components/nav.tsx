@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { href: "/", emoji: "🏠", label: "Hoje", short: "Hoje" },
   { href: "/unidades", emoji: "🎓", label: "Curso", short: "Curso" },
-  { href: "/practice", emoji: "🧭", label: "Explorar", short: "Explorar" },
+  { href: "/practice", emoji: "🧭", label: "Praticar", short: "Praticar" },
   { href: "/tutor", emoji: "👩‍🏫", label: "Sandra", short: "Sandra" },
   { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
 ];

@@ -20,7 +20,7 @@ export async function GET() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
   if (!azureConfigured()) {
-    return NextResponse.json({ error: "Azure não está configurado." }, { status: 503 });
+    return NextResponse.json({ error: "O Azure não está configurado." }, { status: 503 });
   }
 
   const voices = azureVoices();

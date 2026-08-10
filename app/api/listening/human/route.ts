@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     .where(eq(listeningClips.id, id))
     .limit(1);
   if (!clip) {
-    return NextResponse.json({ error: "Clip não encontrado." }, { status: 404 });
+    return NextResponse.json({ error: "Clipe não encontrado." }, { status: 404 });
   }
   const existing = parseTranscript(clip.transcript);
   if (existing.lines.length === 0) {

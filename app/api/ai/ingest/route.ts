@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
   raw = raw.replace(/\s+\n/g, "\n").trim();
   if (raw.length < 2) {
     return NextResponse.json(
-      { error: "Não há nada para ingerir — escreve ou anexa alguma coisa." },
+      { error: "Não há nada para importar — escreve ou anexa alguma coisa." },
       { status: 400 }
     );
   }

@@ -56,7 +56,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       items: [
         { href: "/escutar", emoji: "👂", title: "Escutar", sub: "diálogos com transcrição" },
         { href: "/practice/ditado", emoji: "✏️", title: "Ditado", sub: "ouve e escreve" },
-        { href: "/practice/audio", emoji: "📻", title: "No carro", sub: "sessões sem mãos" },
+        { href: "/practice/audio", emoji: "📻", title: "No carro", sub: "sessões mãos-livres" },
       ],
     },
     {
@@ -72,7 +72,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       title: "🎲 Jogar",
       en: "the fun half",
       items: [
-        { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "cinco jogos rápidos" },
+        { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "seis jogos rápidos" },
         { href: "/jogos/genero", emoji: "⚖️", title: "O ou A?", sub: "género contra o relógio" },
         { href: "/jogos/intruso", emoji: "🕵️", title: "O Intruso", sub: "só português no ecrã" },
       ],

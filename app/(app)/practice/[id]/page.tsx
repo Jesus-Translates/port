@@ -141,7 +141,7 @@ function CompletedView({
           <div className="text-sm text-ink-soft">
             {isOwner
               ? score / total >= 0.8
-                ? "Fantástico! Estás em chamas."
+                ? "Fantástico! Estás em grande!"
                 : score / total >= 0.5
                   ? "Bom trabalho — continua!"
                   : "Tudo bem — errar faz parte de aprender."

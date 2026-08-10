@@ -114,7 +114,7 @@ export default async function SystemPage() {
             <span className="text-sm text-ink-soft">
               {azure
                 ? "Vozes neurais pt-PT nativas."
-                : "A síntese cai para a OpenAI."}
+                : "A síntese passa para a OpenAI."}
             </span>
           </div>
           {azure ? (

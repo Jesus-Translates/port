@@ -219,7 +219,7 @@ function KudosForm({
         className="input resize-y"
         placeholder={
           isStar
-            ? "Porque estás orgulhoso? (opcional)"
+            ? "Porquê? (opcional) (opcional)"
             : "Escreve algo encorajador…"
         }
       />

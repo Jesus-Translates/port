@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
 
   if (!(await verifyTurnstile(body.turnstileToken))) {
     return NextResponse.json(
-      { error: "Verificação anti-robô falhou. Tenta outra vez." },
+      { error: "A verificação anti-robô falhou. Tenta outra vez." },
       { status: 403 }
     );
   }
