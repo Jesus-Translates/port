@@ -1,5 +1,6 @@
 import { SignJWT, jwtVerify } from "jose";
 import { pickVoice, ssmlSegmentDocs } from "@/lib/tts";
+import { isPortuguese } from "@/lib/lang-detect";
 
 /**
  * Listen & Speak — Pimsleur-style hands-free sessions built from the learner's
@@ -41,10 +42,16 @@ export function buildSessionSsml(
     { text: INTRO, voice: pickVoice(INTRO), breakAfterMs: 1000 },
   ];
   for (const card of usable) {
+    // The front is USUALLY the English prompt — but mistake cards are built
+    // from what the learner got wrong, so theirs are often Portuguese. Handing
+    // those to an American voice taught the pronunciation the session exists
+    // to correct, so the language is detected rather than assumed.
+    const frontIsPt = isPortuguese(card.front);
     segments.push({
       text: card.front,
-      voice: EN_VOICE,
-      rate: "1.0",
+      voice: frontIsPt ? pickVoice(card.front) : EN_VOICE,
+      // Portuguese prompts get the slower teaching rate the answers use.
+      rate: frontIsPt ? "0.9" : "1.0",
       breakAfterMs: 4500,
     });
     segments.push({

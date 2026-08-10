@@ -61,13 +61,26 @@ all, which shapes daily life there. Do not put a character on a metro at Estrela
   get a seat on.
 - **15E** — Praça da Figueira ↔ Belém ↔ Algés. The modern articulated tram to Belém.
 - **18E** — Cais do Sodré ↔ Cemitério da Ajuda.
-- **12E** — a short clockwise loop from Praça da Figueira past Miradouro de Santa Luzia.
+- **12E** — a short circular route from **Martim Moniz** round the Castelo hill, past the
+  Sé and the Miradouro de Santa Luzia.
 - **24E** — Praça Luís de Camões ↔ Campolide.
 
-And the **ascensores**: the **Glória** (Restauradores up to the Miradouro de São Pedro de
-Alcântara), the **Bica** (Rua de São Paulo up to Largo do Calhariz, opened 28 June 1892,
-through Rua da Bica de Duarte Belo), and the **Lavra**. The **Elevador de Santa Justa**
-lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
+And the **ascensores** — as of August 2026 **all three funiculars are out of service**, so
+treat them as vocabulary and as landmarks, never as a way of getting somewhere:
+
+- **Glória** (Restauradores up to the Miradouro de São Pedro de Alcântara) — closed since
+  the **fatal accident of 3 September 2025**. Carris runs the **51E** minibus, circulating
+  by the Largo do Carmo, in its place.
+- **Bica** (Rua de São Paulo up to Largo do Calhariz, opened **28 June 1892**, through Rua
+  da Bica de Duarte Belo) — closed. Bus **22B** covers Cais do Sodré ↔ Largo do Calhariz ↔
+  Príncipe Real instead.
+- **Lavra** — suspended. Bus **19B** was rerouted with extra stops to cover it.
+
+The one cable service running is the **Funicular da Graça (55E)**, which resumed regular
+operation on **2 August 2026**. The **Elevador de Santa Justa** is a vertical lift rather
+than a funicular — it lifts you from Rua do Ouro in the Baixa to the level of the Chiado,
+and it is not on the closure list; Carris was still selling its on-board fare at the 2026
+tariff. **Do not send a learner to ride the Glória, the Bica or the Lavra.**
 
 ## Bairros
 
@@ -121,8 +134,10 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   the **Centro Comercial da Mouraria** for everyday shopping.
 - **Food & institutions** — Mouraria is the accepted **berço do fado** — the cradle. **Maria
   Severa Onofriana** (1820–1846), the first named fadista, lived and died on **Rua do
-  Capelão**; the **Casa da Severa** stands on the house tradition assigns to her, rebuilt
-  by the architect José Adrião and run in connection with the Museu do Fado. The bairro's
+  Capelão**; the house tradition assigns to her was rebuilt
+  by the architect José Adrião and now trades as **Maria da Mouraria – Casa de Fados** at
+  **Largo da Severa 2**, in connection with the Museu do Fado — there is no "Casa da Severa"
+  sign to look for. It opens evenings only, closed Mondays and Tuesdays, and you book. The bairro's
   everyday institution is the tasca lunch: a **prato do dia** chalked on a board, a
   **meia-dose** if you are sensible, and a queue at the door of the best-known places
   before 12h30 that regulars beat by arriving at 12h00 and pretending they always eat
@@ -183,7 +198,8 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   *com elas* is the point or an obstacle. Round the corner, **Confeitaria Nacional** on
   **Praça da Figueira** has been going since **1829**, founded by Balthazar Roiz Castanheiro,
   took a medal at the 1878 Paris Universal Exhibition, and was made supplier to the royal
-  house by D. Luís I in **1873**. It is the traditional address for **bolo-rei** at
+  house by D. Luís I in **1873**. The founder's son, **Balthazar Castanheiro Júnior**,
+  introduced the **bolo-rei** to Portugal there in **1875**. It is the traditional address for **bolo-rei** at
   Christmas, and the December queue out of the door is an annual Lisbon news item — people
   arrive with a list of who else in the family needs one.
 - **Everyday detail** — The Baixa street names are the old trades and residents use them
@@ -211,7 +227,7 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   more than any other Portuguese writer. The local ritual is the two-tier price: a **bica ao
   balcão** drunk standing in ninety seconds costs a fraction of the same coffee **na
   esplanada**, and Lisboetas will cheerfully stand at the counter beside a terrace full of
-  visitors. **Livraria Bertrand**, founded **1732**, was certified by Guinness in **2011** as
+  visitors. **Livraria Bertrand**, founded **1732**, holds the Guinness record as
   the oldest bookshop still trading anywhere in the world. And **Manteigaria**, on Rua do
   Loreto, makes pastéis de nata in an open kitchen you watch through the glass while you
   wait — the whole transaction happens standing at the counter, in about ninety seconds, and
@@ -230,10 +246,15 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   by day it is quiet, residential and full of grandmothers and print-shop history — this
   was the newspaper district — and after about 22h it becomes the city's oldest going-out
   quarter, with people drinking in the street between tiny bars.
-- **Getting there** — **Baixa-Chiado** (azul + verde) then up, or the **Ascensor da Glória**
-  from Restauradores, or the **Ascensor da Bica** from Rua de São Paulo up to **Largo do
-  Calhariz** — inaugurated **28 June 1892** and running through Rua da Bica de Duarte Belo.
-- **Landmarks** — **Miradouro de São Pedro de Alcântara**, at the top of the Glória, the
+- **Getting there** — **Baixa-Chiado** (azul + verde) and then up on foot. **Both funiculars
+  that serve this hill are out of service.** The **Ascensor da Glória** from Restauradores
+  has been closed since the **fatal accident of 3 September 2025**, replaced by the **51E**
+  minibus; the **Ascensor da Bica** (Rua de São Paulo up to **Largo do Calhariz**,
+  inaugurated **28 June 1892**, through Rua da Bica de Duarte Belo) is also closed, with bus
+  **22B** running Cais do Sodré ↔ Largo do Calhariz ↔ Príncipe Real in its place. On foot it
+  is the Calçada da Glória or the Rua do Alecrim.
+- **Landmarks** — **Miradouro de São Pedro de Alcântara**, at the top of the Calçada da
+  Glória (the ascensor that serves it is out of service — see above), the
   standard meeting point. **Largo do Calhariz**, **Praça das Flores** on the Príncipe Real
   side, and the grid streets everyone names directly: **Rua da Atalaia**, **Rua do Diário
   de Notícias**, **Rua da Rosa**, **Rua do Norte**.
@@ -326,9 +347,10 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   morning, and the central aisle fills with long shared tables at night. The ritual is
   generational — the older neighbours do the real shopping before eleven and are gone by
   the time the tables fill up, and both halves of the market are quietly convinced they are
-  the real one. And **Pastelaria Aloma**, opened on Christmas Eve **1943** and the second
-  pastelaria ever to open in the bairro, which won the national **Melhor Pastel de Nata**
-  competition and makes them entirely by hand — the pastry is opened by hand and there are
+  the real one. And **Pastelaria Aloma**, opened on Christmas Eve **1943** and the second-oldest surviving
+  pastelaria in the bairro, which has won the **Melhor Pastel de Nata** competition for the
+  Área Metropolitana de Lisboa five times — and, nationally, **Melhor Bolo-Rei de Portugal**
+  in **2024** and **2025** — and makes them entirely by hand — the pastry is opened by hand and there are
   no industrial machines in the workshop. The consequence is a genuinely serious Lisbon
   argument about who makes the best pastel de nata, in which a Campo de Ourique resident
   will name Aloma before you have finished the question, and there is no known way to end
@@ -351,8 +373,8 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   Belém*; it was the **first route of the Lisbon network, inaugurated in 1901**, and is the
   only Carris tram that leaves the concelho de Lisboa. It is worked by the long articulated
   cars, not the little wooden ones. There is also the CP **Estação de Belém** on the **Linha
-  de Cascais**, and a river ferry from the **Estação Fluvial de Belém** *(ferry destinations
-  unverified)*.
+  de Cascais**, and the Transtejo ferry from the **Estação Fluvial de Belém** across to
+  **Porto Brandão** and **Trafaria** on the south bank.
 - **Landmarks** — The **Mosteiro dos Jerónimos**, begun **1502** under D. Manuel I, and the
   **Torre de Belém**: **jointly inscribed by UNESCO in 1983**. Inside the monastery are the
   tombs of **Vasco da Gama** and **Luís de Camões**, and **Fernando Pessoa** lies in the lower
@@ -394,11 +416,12 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
 - **Landmarks** — The **Palácio Nacional da Ajuda** at **Largo da Ajuda**. Construction began
   in **1795**, after a fire in **1794** destroyed the wooden Real Barraca; **D. Luís I** made
   it his permanent residence in **1861** and **D. Maria Pia de Saboia** arrived in **1862** and
-  rebuilt the interiors for 19th-century comfort. It opened as a museum in **1938**. Its
-  **west façade stood unfinished for two centuries and was only completed between 2018 and
-  2020**. Inside, the **Museu do Tesouro Real**, inaugurated in **June 2022**, holds the
-  Portuguese crown jewels — **more than 18 000 stones**, including **31 exceptional emeralds
-  matched for colour**, and the Germain silver service. Also the **Jardim Botânico da Ajuda**,
+  rebuilt the interiors for 19th-century comfort. It opened to the public as a museum in
+  **1968**. Its **west façade stood unfinished for two centuries and was only completed
+  between 2018 and 2020**. Inside, the **Museu do Tesouro Real**, inaugurated on **1 June
+  2022**, holds the Portuguese crown jewels — **more than 18 000 stones** — and the Germain
+  silver service; its showpiece is the emerald **laça**, a bodice ornament of 216 diamonds
+  and **31 emeralds matched for colour**. Also the **Jardim Botânico da Ajuda**,
   the **Tapada da Ajuda**, the **Igreja da Memória**, the **Convento de Nossa Senhora da Boa
   Hora** and the **Torre da Ajuda**.
 - **Food & institutions** — The **Jardim Botânico da Ajuda**, at the Cimo da Calçada da Ajuda,
@@ -406,9 +429,10 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   Portugal**. **Domingos Vandelli** laid it out on the model of his native Padua, working with
   **Júlio Mattiazi**, Padua's first head gardener, after D. José I moved the court to Ajuda
   following the 1755 earthquake — it was built partly to educate the royal children. About
-  four hectares on two Italian terraces, with one of the largest **box hedges in Europe**
-  (some two kilometres of it), the 18th-century **Fonte das 40 Bicas** with its serpents and
-  mythical figures, and a **dragoeiro from Madeira around four hundred years old**. It is run
+  four hectares on two Italian terraces, with some **two kilometres of clipped box hedging**
+  in geometric parterres, the 18th-century **Fonte das 40 Bicas** with its serpents and
+  mythical figures, and a **dragoeiro from Madeira estimated at around four hundred years
+  old**. It is run
   by the Instituto Superior de Agronomia. No long-standing named pastelaria, mercado or tasca
   could be verified for Ajuda *(unverified — omitted rather than guessed)*, though the
   bairro's real institution is the same everywhere in old Lisbon: the corner café where the
@@ -471,9 +495,9 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   was remodelled in **1961–62** by the modernist architect **Jorge Ferreira Chaves**; it was
   classified a **Monumento de Interesse Público in 2014**. Inside, intact from the sixties:
   the **"Sol Mexicano" ceramic panel by Querubim Lapa**, the original interior telephone
-  booth, and a glass **birdcage with live birds** — which means you take your galão to the
-  sound of birdsong under a ceramic sun, in a room where Surrealist and Neo-Realist painters
-  and modernist architects used to argue. The ritual is that regulars have a table and
+  booth, and the glass **birdcage** — live birds were still in it as recently as January
+  2024, so ask rather than promise. You take your galão under a ceramic sun, in a room where
+  Surrealist and Neo-Realist painters and modernist architects used to argue. The ritual is that regulars have a table and
   visitors have the counter, and everyone under the birdcage lowers their voice slightly
   without knowing why.
 - **Everyday detail** — Nobody says "Praça Francisco Sá Carneiro" out loud. It is *Praça do
@@ -499,7 +523,8 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   calls the **Mata de Benfica**, in the Bairro de Santa Cruz. And about **two-thirds of the
   Parque Florestal de Monsanto**, the city's green lung, lies inside Benfica.
 - **Food & institutions** — The **Mercado de Benfica**, beside the Estrada de Benfica, is
-  the bairro's market *(opening days unverified)*. Benfica's other institution is not
+  the bairro's market: **terça a sábado, 07:00–14:00**, closed Sundays and Mondays.
+  Benfica's other institution is not
   edible: it is football, and specifically the fact that a Benfiquista from Benfica
   considers this a meaningful coincidence and will tell you so. The ritual around a match
   is the whole point — the café fills an hour early, the volume goes up, the same three men
@@ -573,10 +598,11 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   a model that architects still come to study. In the 2012 reform the freguesia **lost about
   a quarter of its territory**, the riverside Expo '98 zone, to the new Parque das Nações.
   It remains a mixed, unshowy, strongly rooted bairro.
-- **Getting there** — All on the **linha vermelha**: **Olivais**, **Cabo Ruivo**,
-  **Oriente**, **Moscavide**, **Encarnação** and **Aeroporto**, with Chelas and Bela Vista
-  on the inland edge. Six red-line stations makes Olivais one of the best-connected
-  freguesias in the city.
+- **Getting there** — The **linha vermelha** does the work: **Olivais**, **Cabo Ruivo**,
+  **Moscavide**, **Encarnação** and **Aeroporto** all serve the freguesia and its edges,
+  with Chelas and Bela Vista inland and **Oriente** just beyond the boundary in Parque das
+  Nações. That run of red-line stations makes Olivais one of the best-connected freguesias
+  in the city.
 - **Landmarks** — The **Igreja de Santa Maria dos Olivais**, rebuilt after 1755 and the
   origin of the parish's old name. **Praça da Viscondessa dos Olivais**, which was simply
   called *o Rossio* until 1896. **Praça José Queirós**, **Praça Baden-Powell**, **Largo de
@@ -619,9 +645,9 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
   warehouses, are the bairro's inherited monument and have been converted to cultural use —
   the street names still carry the trade, **Rua do Açúcar**, **Rua do Vale Formoso**. Marvila
   is now the centre of Lisbon craft beer: **Dois Corvos Cervejeira**, at **Rua Capitão Leitão
-  94**, was founded in **2013** and was the **first brewery to set up in Marvila's old
-  industrial area**; **Fábrica Musa** also has its taproom in Marvila *(street address
-  unverified)*. The ritual is a straight inversion of the rest of Lisbon: instead of an
+  94**, was founded in **2015** and was the **first brewery to set up in Marvila's old
+  industrial area**; **Musa** has its taproom at **Rua do Vale Formoso 9** — note that the
+  old Rua do Açúcar address, still printed in most guides, closed in **March 2022**. The ritual is a straight inversion of the rest of Lisbon: instead of an
   imperial poured in nine seconds and drunk standing, you get a tasting flight, a chalkboard,
   and someone explaining the hops at length — and half the room is quietly wondering whether
   they could just have had an imperial. Both customs are now completely normal in the same
@@ -675,7 +701,8 @@ lifts you from Rua do Ouro in the Baixa to the level of the Chiado.
 - **Landmarks** — The **Gare do Oriente** by **Santiago Calatrava**, a canopy of concrete
   palm trees. The **Pavilhão de Portugal** by **Álvaro Siza Vieira**, with its famous
   suspended concrete canopy. The **Oceanário de Lisboa**, the largest aquarium in Portugal.
-  The **Altice Arena**, which everyone over thirty still calls the **Pavilhão Atlântico**.
+  The **MEO Arena** — renamed back from Altice Arena on **1 February 2024**, so do not write
+  "Altice" — which everyone over thirty still calls the **Pavilhão Atlântico**.
   The **Torre Vasco da Gama**, the tallest building in the country. The **Centro Vasco da
   Gama** shopping centre, the **Pavilhão do Conhecimento**, the **Casino Lisboa**, and the
   **Telecabine Lisboa** — a **1 230 m** cable car running between **Passeio de Neptuno**,
@@ -758,7 +785,8 @@ Streets and buildings — Lisbon has an unusually rich vocabulary for "small str
 Getting about:
 
 - `o elétrico` — the tram. Residents say `o 28`, `o 25`, `o 15`.
-- `o ascensor` / `o elevador` — the funicular (Glória, Bica, Lavra).
+- `o ascensor` / `o elevador` — the funicular (Glória, Bica, Lavra). The word is current
+  even though all three are out of service; the one running is `o Funicular da Graça`.
 - `a paragem` — the stop. `a carreira` — the bus route.
 - `o passe Navegante` — the monthly transport pass.
 - `a Carris` — the bus and tram operator. `a CP` — the trains.
@@ -800,7 +828,8 @@ instead of generic Lisbon. In Alfama, Mouraria and Graça reach for the 28E, the
 miradouro as a meeting point, the Feira da Ladra on Campo de Santa Clara (terças e sábados),
 and June sardines and arraiais. In Baixa and Chiado use errands — o banco, as finanças, uma
 bica ao balcão — with Rossio, Praça da Figueira, and a ginjinha com elas. For Bairro Alto and
-Príncipe Real use the ascensores da Bica e da Glória, the Saturday mercado biológico, and the
+Príncipe Real the ascensores are all closed — walk, or use the 22B — plus the Saturday
+mercado biológico, and the
 quiosque. In Estrela insist there is still no metro: it is the 28E, the 25E and the Jardim da
 Estrela. Campo de Ourique is flat, full of children, and organised around the mercado.
 Alvalade and Areeiro are avenidas, two markets with different closing days, and lifelong
@@ -849,6 +878,12 @@ parallel verification passes on the northern and eastern bairros. Principal sour
 - Príncipe Real, the cedro and the Saturday Mercado Biológico (since 2005):
   <https://lisbonlisboaportugal.com/lisbon-sights/jardim-do-principe-real-garden-lisbon.html>,
   <https://www.thelisbonconnection.com/saturday-biological-market-principe-real-lisbon-amazing-centuries-old-trees/>
+- Ascensor service status (Glória, Bica and Lavra all out of service; substitute routes 51E,
+  22B and 19B; Funicular da Graça resumed regular operation 2 August 2026): <https://www.carris.pt/>
+  service notices, retrieved August 2026; Elevador de Santa Justa not on the closure list and
+  still tariffed at <https://www.carris.pt/compre/viagens-ocasionais/>
+- Tram termini cross-checked against the Carris route list, <https://www.carris.pt/viaje/carreiras/>
+  (12E runs from Martim Moniz, not Praça da Figueira)
 - Ascensor da Bica (1892) and the Bairro Alto viewpoints:
   <https://lisbonlisboaportugal.com/Baixa-Lisbon/elevador-da-bica-ascensor-funicular-lisbon.html>,
   <https://www.lisbonportugaltourism.com/transportation/funiculars.html>
@@ -882,14 +917,21 @@ parallel verification passes on the northern and eastern bairros. Principal sour
   <https://ciberduvidas.iscte-iul.pt/artigos/rubricas/idioma/diz-se-imperial-ou-fino/5664>,
   <https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/alfacinha--lisboeta/11602>
 
-**Marked unverified in this pass:** opening days of the Mercado de Benfica; the existence of
-any municipal market in Telheiras, Lumiar, Olivais or Areeiro; named long-standing pastelarias
-or tascas in Telheiras, Lumiar, Beato, Ajuda and Parque das Nações (none could be sourced, so
-none were invented); which freguesia the Bairro dos Actores falls in; which linha vermelha
-stations sit inside Marvila's boundary; the absence of a metro station in Beato and Belém
-(inferred from the line lists, not stated by a transport source); Fábrica Musa's street
-address; Cerveja Lince's presence in Marvila; the Feira do Relógio and its day; Fábrica Braço
-de Prata as a venue; Poço do Bispo; FIL at Parque das Nações; the Belém ferry destinations;
-Praça do Império as a name; the Padrão dos Descobrimentos date; the Jardim Botânico Tropical
-founding year; the MAAT and Museu Nacional dos Coches architects; and whether canela and
-açúcar em pó are served separately at the Antiga Confeitaria de Belém.
+**Resolved in the August 2026 correction pass:** all three ascensores (Glória, Bica and
+Lavra) are out of service and the Funicular da Graça resumed on 2 August 2026 (carris.pt
+service notices); Mercado de Benfica opens terça a sábado 07:00–14:00; Musa's taproom is at
+Rua do Vale Formoso 9, the Rua do Açúcar address having closed in March 2022; Dois Corvos
+was founded in 2015; the Casa da Severa trades as Maria da Mouraria – Casa de Fados; the
+Belém ferry serves Porto Brandão and Trafaria; Oriente station is in Parque das Nações, not
+Olivais; the Palácio da Ajuda opened as a museum in 1968, not 1938.
+
+**Still unverified, and deliberately left unnamed:** the existence of any municipal market
+in Telheiras, Lumiar, Olivais or Areeiro; named long-standing pastelarias or tascas in
+Telheiras, Lumiar, Beato, Ajuda and Parque das Nações (none could be sourced, so none were
+invented — do not let a later pass invent one); which freguesia the Bairro dos Actores falls
+in; which linha vermelha stations sit inside Marvila's boundary; the absence of a metro
+station in Beato and Belém (inferred from the line lists, not stated by a transport source);
+Cerveja Lince's presence in Marvila; the Feira do Relógio and its day; Fábrica Braço de Prata
+as a venue; Poço do Bispo; FIL at Parque das Nações; Praça do Império as a name; the Jardim
+Botânico Tropical founding year; the MAAT and Museu Nacional dos Coches architects; and
+whether canela and açúcar em pó are served separately at the Antiga Confeitaria de Belém.
