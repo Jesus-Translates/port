@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { AccountsAdmin } from "@/components/accounts-admin";
-import { requireSession } from "@/lib/auth";
+import { envRole, requireSession } from "@/lib/auth";
 import { orphanUsernames } from "@/lib/tenant";
+import { listHouseholds } from "@/lib/actions/households";
 import { listAccounts } from "@/lib/actions/users";
 import { ChangeMyPassword } from "@/components/change-my-password";
 
@@ -11,9 +12,14 @@ export default async function AccountsPage() {
   // listAccounts() does the real gating and scoping — a family admin lands
   // here for their own household, an instance admin for every household.
   const session = await requireSession();
-  const [accounts, orphans] = await Promise.all([
+  const [accounts, orphans, households] = await Promise.all([
     listAccounts(),
     orphanUsernames(),
+    // Only an instance operator gets a list; for a family admin this is empty
+    // and the picker never appears.
+    envRole(session.username) === "admin"
+      ? listHouseholds().catch(() => [])
+      : Promise.resolve([]),
   ]);
 
   return (
@@ -37,6 +43,7 @@ export default async function AccountsPage() {
         accounts={accounts}
         me={session.username}
         orphans={orphans}
+        households={households.map((h) => ({ id: h.id, name: h.name }))}
       />
     </div>
   );

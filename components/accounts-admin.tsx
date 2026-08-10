@@ -28,11 +28,17 @@ export function AccountsAdmin({
   accounts,
   me,
   orphans = [],
+  households = [],
 }: {
   accounts: Account[];
   me: string;
   /** Usernames with no household — shown so they cannot stay invisible. */
   orphans?: string[];
+  /**
+   * Every family, for instance operators only. Empty for a family's own
+   * admin, whose new people always join their own household.
+   */
+  households?: { id: number; name: string }[];
 }) {
   const router = useRouter();
   const [pending, start] = useTransition();
@@ -102,7 +108,7 @@ export function AccountsAdmin({
         </section>
       )}
 
-      <NewAccount pending={pending} run={run} />
+      <NewAccount pending={pending} run={run} households={households} />
 
       <div className="space-y-3">
         {accounts.map((a) => (
@@ -390,9 +396,11 @@ function DangerZone({
 function NewAccount({
   pending,
   run,
+  households = [],
 }: {
   pending: boolean;
   run: (fn: () => Promise<Result | void>, okText: string) => void;
+  households?: { id: number; name: string }[];
 }) {
   const [show, setShow] = useState(false);
   const [form, setForm] = useState({
@@ -401,6 +409,7 @@ function NewAccount({
     email: "",
     password: "",
     role: "student",
+    accountId: 0,
   });
 
   if (!show) {
@@ -423,13 +432,16 @@ function NewAccount({
         run(async () => {
           const r = await createAccount(form);
           if (r.ok) {
-            setForm({
+            // Keep the chosen family: adding three children to the same
+            // household should not mean re-picking it three times.
+            setForm((f) => ({
               displayName: "",
               username: "",
               email: "",
               password: "",
               role: "student",
-            });
+              accountId: f.accountId,
+            }));
             setShow(false);
           }
           return r;
@@ -470,6 +482,28 @@ function NewAccount({
             <option value="admin">Administrador</option>
           </select>
         </label>
+
+        {/* Only an instance operator sees more than one family, and only then
+            is there a choice to make. A new family starts empty; this is where
+            its first person comes from, without a create-then-move dance. */}
+        {households.length > 1 ? (
+          <label className="text-xs text-ink-soft">
+            Família
+            <select
+              value={form.accountId || households[0].id}
+              onChange={(e) =>
+                setForm({ ...form, accountId: Number(e.target.value) })
+              }
+              className="mt-1 w-full rounded-lg border border-sand bg-white/80 px-3 py-2 text-sm"
+            >
+              {households.map((h) => (
+                <option key={h.id} value={h.id}>
+                  {h.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        ) : null}
       </div>
       <p className="text-xs text-ink-faint">
         Sem palavra-passe própria, a pessoa entra com a palavra-passe partilhada

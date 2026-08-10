@@ -184,6 +184,15 @@ export async function createAccount(input: {
   email?: string;
   password?: string;
   role?: string;
+  /**
+   * Put the new person in THIS household instead of the caller's.
+   *
+   * Instance operators only. Without it, a family created in /admin/familias
+   * could only ever be filled by creating someone in your own household and
+   * then moving them — two steps and a moment where a stranger's child sits
+   * in your family. A household admin passing this is ignored, not obeyed.
+   */
+  accountId?: number;
 }): Promise<{ ok: true } | { ok: false; error: string }> {
   const scope = await manageScope();
   const username = cleanUsername(input.username);
@@ -218,7 +227,10 @@ export async function createAccount(input: {
   // A new person must JOIN a household, not float free. Without the
   // membership row they would be a household of one — invisible on the family
   // board, unassignable homework, and counted against nobody's seats.
-  const accountId = scope.accountId;
+  const accountId =
+    scope.superadmin && Number.isInteger(input.accountId) && Number(input.accountId) > 0
+      ? Number(input.accountId)
+      : scope.accountId;
   if (accountId === null) {
     return {
       ok: false,
