@@ -654,7 +654,7 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   with the confidence of animals who have never been challenged (widely known locally, though
   not documented in the sources consulted, so treat as unverified). Every Porto family has a
   photograph of a small child either delighted or appalled by one. The other tradition is the
-  **desfile de carros eléctricos** from Massarelos out to the Passeio Alegre, when the museum's
+  **desfile de carros elétricos** from Massarelos out to the Passeio Alegre, when the museum's
   historic trams run the coast road in convoy.
 - **Everyday detail** — The Palácio's best view is not from the obvious terrace but from the
   path below the library, and residents will steer you there without being asked. And because

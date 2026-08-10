@@ -58,7 +58,7 @@ prices are revised at least yearly. Check cp.pt.)*
 never by number: **Azul** (Santa Apolónia ↔ Reboleira), **Amarela** (Rato ↔
 Odivelas), **Verde** (Cais do Sodré ↔ Telheiras), and **Vermelha** (São Sebastião ↔
 Aeroporto Humberto Delgado, via Saldanha, Alameda and Oriente). 56 stations across
-roughly 44 km. **Carris** runs the buses, the historic **eléctricos** — the **28E**, which runs
+roughly 44 km. **Carris** runs the buses, the historic **elétricos** — the **28E**, which runs
 **Martim Moniz ↔ Graça ↔ Estrela ↔ Campo de Ourique (Prazeres)**, and the 15E out to
 Belém are the two anyone mentions — and the funiculars/**ascensores** that climb the
 steepest streets (Glória, Bica, Lavra). The **cacilheiros** — the Tejo ferries — are run by **Transtejo/Soflusa
@@ -247,7 +247,7 @@ unconfirmed source, and none was invented to fill a gap.
   Torres Vedras?
 - *A que horas é o próximo para Peniche?* — What time's the next one to Peniche?
 - *O comboio vem atrasado?* — Is the train running late?
-- *Dá-me um retorno para o Porto, por favor.* — A return to Porto, please.
+- *Queria um bilhete de ida e volta para o Porto, por favor.* — A return to Porto, please.
 
 **At the market**
 
@@ -308,7 +308,7 @@ learner's mouth as fact.
 - https://pt.wikipedia.org/wiki/Linha_Vermelha_do_Metropolitano_de_Lisboa
 - https://en.wikipedia.org/wiki/Porto_Metro
 - https://www.ttsl.pt/ (Transtejo/Soflusa routes)
-- https://www.carris.pt/ (eléctricos, funiculares). **Correction this pass:** the 28E
+- https://www.carris.pt/ (elétricos, funiculares). **Correction this pass:** the 28E
   was previously described here as "Graça–Estrela via Alfama and the Baixa", which is
   wrong at both ends. Its termini are **Martim Moniz and Campo de Ourique (Prazeres)**,
   as recorded consistently in content/zones/bairros-lisboa.md and content/zones/lisboa.md.

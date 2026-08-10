@@ -54,7 +54,7 @@ at **Estrela** and **Santos** — is **not open**. As of 2026 the Metro is targe
 first quarter of **2027**, more than three years late. Until then, Estrela has no metro at
 all, which shapes daily life there. Do not put a character on a metro at Estrela.
 
-**Trams (eléctricos)** matter as transport, not just as postcards:
+**Trams (elétricos)** matter as transport, not just as postcards:
 
 - **28E** — Martim Moniz ↔ Graça ↔ Estrela ↔ Campo de Ourique (Prazeres). The famous one.
 - **25E** — Praça da Figueira ↔ Campo de Ourique (Prazeres). The one residents actually

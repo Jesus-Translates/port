@@ -129,3 +129,70 @@ export async function presignAudio(
     return null;
   }
 }
+
+export type BlobUsage = {
+  configured: boolean;
+  objects: number;
+  bytes: number;
+  /** Bytes per prefix: tts / ls / clip. */
+  byKind: { kind: string; objects: number; bytes: number }[];
+};
+
+/**
+ * What is actually sitting in the bucket.
+ *
+ * The admin panel used to report base64 length in Postgres, which stopped
+ * being the truth the moment audio moved out — it kept showing a number that
+ * only shrank because the data had left, which reads like everything is fine
+ * when it would equally read like everything is fine if uploads were broken.
+ */
+export async function blobUsage(): Promise<BlobUsage> {
+  const empty: BlobUsage = { configured: false, objects: 0, bytes: 0, byKind: [] };
+  if (!blobConfigured()) return empty;
+
+  try {
+    const totals = new Map<string, { objects: number; bytes: number }>();
+    let objects = 0;
+    let bytes = 0;
+    let token: string | undefined;
+
+    // ListObjectsV2 pages at 1000; a language app's audio will not exceed a
+    // few pages for a long time, but paginate anyway rather than under-report.
+    for (let page = 0; page < 20; page++) {
+      const url = new URL(`${endpoint()}/${bucket()}`);
+      url.searchParams.set("list-type", "2");
+      url.searchParams.set("max-keys", "1000");
+      if (token) url.searchParams.set("continuation-token", token);
+
+      const res = await client().fetch(url.toString());
+      if (!res.ok) break;
+      const xml = await res.text();
+
+      for (const m of xml.matchAll(/<Key>([^<]+)<\/Key>\s*<LastModified>[^<]*<\/LastModified>\s*<ETag>[^<]*<\/ETag>\s*<Size>(\d+)<\/Size>/g)) {
+        const kind = m[1].split("/")[0] || "outro";
+        const size = Number(m[2]);
+        const at = totals.get(kind) ?? { objects: 0, bytes: 0 };
+        at.objects++;
+        at.bytes += size;
+        totals.set(kind, at);
+        objects++;
+        bytes += size;
+      }
+
+      const truncated = /<IsTruncated>true<\/IsTruncated>/.test(xml);
+      token = xml.match(/<NextContinuationToken>([^<]+)</)?.[1];
+      if (!truncated || !token) break;
+    }
+
+    return {
+      configured: true,
+      objects,
+      bytes,
+      byKind: [...totals.entries()]
+        .map(([kind, v]) => ({ kind, ...v }))
+        .sort((a, b) => b.bytes - a.bytes),
+    };
+  } catch {
+    return { ...empty, configured: true };
+  }
+}
