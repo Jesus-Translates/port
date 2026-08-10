@@ -144,7 +144,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
         <Link href="/escutar#fora" className="hover:text-olive">
           🎧 Rádio e podcasts
         </Link>
-        <Link href="/placement" className="hover:text-olive">
+        <Link href="/bem-vindo" className="hover:text-olive">
           🧭 Refazer o teste de nível
         </Link>
       </p>

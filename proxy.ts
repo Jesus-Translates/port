@@ -31,6 +31,9 @@ const PUBLIC_PATHS = [
 const RETIRED: Record<string, string> = {
   "/practice/verbos": "/verbos?tab=treinar",
   "/ouvir": "/escutar",
+  // Rendered the same three components as /bem-vindo, stacked instead of
+  // sequenced. One surface for where I live, what level I am, how I learn.
+  "/placement": "/bem-vindo",
 };
 
 export async function proxy(request: NextRequest) {

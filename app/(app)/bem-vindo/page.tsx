@@ -76,6 +76,37 @@ export default async function WelcomePage() {
         <Link href="/" className="block text-xs text-ink-soft hover:text-olive">
           ou vai para o início
         </Link>
+
+        {/*
+         * Everything above is the celebration; everything below is the same
+         * three answers, editable. /placement used to be a second page that
+         * stacked these identical components — one surface for "where I live,
+         * what level I am, how I learn" is enough.
+         */}
+        <section className="space-y-5 pt-6 text-left">
+          <div className="border-t border-sand pt-6">
+            <h2 className="font-display text-lg font-semibold">
+              Mudar as tuas respostas
+            </h2>
+            <p className="mt-1 text-sm text-ink-soft">
+              Mudaste de terra, ou o nível já não encaixa? Muda aqui — vale para
+              tudo o que a Sandra escrever a partir de agora.
+            </p>
+          </div>
+
+          <ZonePicker initial={place} zones={zoneList} />
+          <PlacementQuiz savedLevel={level} />
+
+          <div className="space-y-2">
+            <h3 className="font-semibold">🧩 Como aprendes melhor?</h3>
+            <LearningQuestionnaire initial={prefs} />
+          </div>
+
+          <p className="text-2xs text-ink-faint">
+            O teste são dezasseis perguntas escritas à mão, sem IA — gramática,
+            vocabulário do dia a dia e uma expressão, tudo no português daqui.
+          </p>
+        </section>
       </div>
     );
   }
