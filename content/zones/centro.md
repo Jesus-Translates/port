@@ -664,24 +664,6 @@ and the **Linha da Beira Baixa** are the two ways out — Covilhã and Guarda to
 north, Lisboa to the south. Note the frequent mix-up: Delphi was in **Guarda**, not
 here.
 
-### Tomar
-
-Administratively in the **Médio Tejo** and the distrito de Santarém, so never call it
-"na Região Centro" — but culturally and for everyday purposes it belongs with this
-zone. A town of 14,123 in a município of 36,413 on the **Rio Nabão**, defined by the
-Templars and the Order of Christ. The **Castelo de Tomar** was founded in 1160 by
-**Gualdim Pais**; the **Convento de Cristo**, UNESCO-listed since 1983, is the
-economic engine; the town also keeps its **Sinagoga** (Museu Luso-Hebraico) and the
-**Igreja de Santa Maria dos Olivais**, where Gualdim Pais is buried. Beyond tourism it
-farms irrigated maize, olives and vines, with a shrinking legacy of paper, textiles
-and wood. *Landmark*: the Convento above the town and the **Aqueduto dos Pegões**,
-six kilometres of arches by Filipe Terzi, running water to it. (**Almourol** is *not*
-Tomar's castle — it is 40 km away at Vila Nova da Barquinha.) *Food*: `fatias de
-Tomar`, egg and sugar in syrup, cooked in a pan made nowhere else. *Everyday*: life
-orbits the **Praça da República** and the **Igreja de São João Baptista**, and every
-fourth year the whole town rebuilds itself around the **Festa dos Tabuleiros** — next
-**3–12 July 2027**.
-
 ## Prompt context
 
 The learner lives in Portugal's Centro, between the Atlantic and the Serra da

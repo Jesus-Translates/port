@@ -541,6 +541,25 @@ Vinhos and Alenquer inside it.
 
 ## Towns
 
+### Lourinhã
+
+A municipality of about 26 000 between Torres Vedras and Peniche, distrito de Lisboa, CIM
+Oeste. Known for **Praia da Areia Branca**, a long west-facing beach with a small resident
+foreign community, and for dinosaurs: the Jurassic cliffs here are among Europe's richest
+fossil sites, with the **Museu da Lourinhã** and the *Lourinhanosaurus* named after the town.
+Pear orchards inland; the **Feira Nacional da Pêra Rocha** is the town's agricultural fixture.
+
+### Alenquer
+
+Inland from Torres Vedras, about 43 000 people, distrito de Lisboa, CIM Oeste. Wine country
+on the Serra de Montejunto's western slope; the birthplace of Damião de Góis and the town
+Pêro de Alenquer sailed from with Bartolomeu Dias.
+
+### Bombarral
+
+A small wine and pear municipality of about 13 000 between Óbidos and Cadaval, CIM Oeste.
+The **Buddha Eden** garden nearby is the largest oriental garden in Europe.
+
 ### Torres Vedras
 
 The administrative and commercial capital of the southern half of the zone — about 83 000
