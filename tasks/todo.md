@@ -300,6 +300,7 @@ Verified against the live DB, not by inspection:
   Removed now that matching is in memory; one topic went from 0 matches to 27.
 - Every Escutar/Histórias diff is an improvement: 6 false positives gone (the
   "A família da Sandra" clip was matching butcher and condominium topics on the
+  "A família da Luna" clip was matching butcher and condominium topics on the
   boilerplate "diálogo"/"frases"/"português"), 3 true positives gained via
   singular/plural matching (vizinho → "Os Vizinhos e o Mercado…").
 - Grammar-only topics ("o artigo definido antes de possessivos") still score 0
