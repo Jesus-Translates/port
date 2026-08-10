@@ -5,7 +5,7 @@ import { getSession, getValidUsers } from "@/lib/auth";
 import { accounts, getDb, users } from "@/lib/db";
 import { LoginForm } from "@/components/login-form";
 
-export const metadata = { title: "Entrar" };
+export const metadata = { title: "Sign in" };
 
 /**
  * Tap-your-face sign-in is lovely for one family and unacceptable for many:
@@ -62,11 +62,20 @@ export default async function LoginPage() {
           <div className="mb-3 text-5xl" aria-hidden>
             🇵🇹
           </div>
+          {/*
+            The door is in ENGLISH, on purpose.
+            Everything past it is European Portuguese, including the immersion
+            setting a family can turn on — but nobody has opted into anything
+            yet at this point. Someone locked out of their account should not
+            have to parse a second language to get back in, and a new adult
+            arriving from an invite has no idea what "Bem-vindos de volta"
+            means. The Portuguese starts once you are through.
+          */}
           <h1 className="font-display text-3xl font-semibold tracking-tight">
-            Bem-vindos de volta!
+            Welcome back
           </h1>
           <p className="mt-2 text-sm text-ink-soft">
-            European Portuguese, com a Sandra
+            European Portuguese, with Sandra
           </p>
         </div>
         {/* A login page with no way to sign up is a door with no handle. */}
@@ -75,12 +84,12 @@ export default async function LoginPage() {
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
         />
         <p className="mt-6 text-center text-sm text-ink-soft">
-          Ainda não tens conta?{" "}
+          No account yet?{" "}
           <Link
             href="/registar"
             className="font-medium text-olive underline underline-offset-2"
           >
-            Criar a tua família
+            Create your family
           </Link>
         </p>
       </div>

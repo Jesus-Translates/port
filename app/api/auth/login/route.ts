@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     "unknown";
   if (rateLimited(ip)) {
     return NextResponse.json(
-      { error: "Demasiadas tentativas. Espera uns minutos." },
+      { error: "Too many attempts. Wait a few minutes and try again." },
       { status: 429 }
     );
   }
@@ -42,13 +42,13 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ error: "Pedido inválido." }, { status: 400 });
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
   const human = await verifyTurnstile(body.turnstileToken);
   if (!human) {
     return NextResponse.json(
-      { error: "A verificação anti-robô falhou. Tenta outra vez." },
+      { error: "The anti-robot check failed. Please try again." },
       { status: 403 }
     );
   }
@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
   );
   if (!session) {
     return NextResponse.json(
-      { error: "Nome ou palavra-passe errados. Tenta outra vez!" },
+      { error: "Wrong username or password. Please try again." },
       { status: 401 }
     );
   }

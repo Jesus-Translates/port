@@ -37,7 +37,7 @@ function LoginFormInner({
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.error ?? "Algo correu mal. Tenta outra vez.");
+        setError(data.error ?? "Something went wrong. Please try again.");
         setBusy(false);
         return;
       }
@@ -46,7 +46,7 @@ function LoginFormInner({
       router.push(next && /^\/(?!\/)/.test(next) ? next : "/");
       router.refresh();
     } catch {
-      setError("Sem ligação. Tenta outra vez. (Connection problem.)");
+      setError("No connection. Please try again.");
       setBusy(false);
     }
   }
@@ -54,7 +54,7 @@ function LoginFormInner({
   return (
     <form onSubmit={submit} className="card space-y-5 p-6">
       <div>
-        <span className="label">Quem és tu? · Who are you?</span>
+        <span className="label">Who are you?</span>
         {/* No picker means more than one household shares this front door, so
             there is no safe list to show — type who you are instead. The field
             accepts either a username or an email, same as the server. */}
@@ -63,7 +63,7 @@ function LoginFormInner({
             name="username"
             value={username ?? ""}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="nome de utilizador ou email"
+            placeholder="username or email"
             autoCapitalize="off"
             autoCorrect="off"
             autoComplete="username"
@@ -98,7 +98,7 @@ function LoginFormInner({
 
       <div>
         <label className="label" htmlFor="password">
-          Palavra-passe · Password
+          Password
         </label>
         <input
           id="password"
@@ -128,7 +128,7 @@ function LoginFormInner({
       ) : null}
 
       <button type="submit" disabled={busy} className="btn-primary w-full">
-        {busy ? "A entrar…" : "Entrar"}
+        {busy ? "Signing in…" : "Sign in"}
       </button>
     </form>
   );
