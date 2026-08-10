@@ -168,9 +168,15 @@ export async function blobUsage(): Promise<BlobUsage> {
       if (!res.ok) break;
       const xml = await res.text();
 
-      for (const m of xml.matchAll(/<Key>([^<]+)<\/Key>\s*<LastModified>[^<]*<\/LastModified>\s*<ETag>[^<]*<\/ETag>\s*<Size>(\d+)<\/Size>/g)) {
-        const kind = m[1].split("/")[0] || "outro";
-        const size = Number(m[2]);
+      // Parse each <Contents> block and pull Key and Size independently —
+      // R2 orders them Key, Size, LastModified where S3 documents a different
+      // order, and a regex that assumed one sequence silently matched nothing
+      // and reported an empty bucket.
+      for (const block of xml.matchAll(/<Contents>([\s\S]*?)<\/Contents>/g)) {
+        const key = block[1].match(/<Key>([^<]+)<\/Key>/)?.[1];
+        const size = Number(block[1].match(/<Size>(\d+)<\/Size>/)?.[1] ?? 0);
+        if (!key) continue;
+        const kind = key.split("/")[0] || "outro";
         const at = totals.get(kind) ?? { objects: 0, bytes: 0 };
         at.objects++;
         at.bytes += size;
