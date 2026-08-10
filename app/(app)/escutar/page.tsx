@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ListeningElsewhere } from "@/components/listening-elsewhere";
 import { shortTopic } from "@/lib/topic-label";
 import { desc } from "drizzle-orm";
 import { ListeningGenerate } from "@/components/listening-generate";
@@ -194,6 +195,8 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
           ))}
         </div>
       )}
+      <ListeningElsewhere />
+
     </div>
   );
 }

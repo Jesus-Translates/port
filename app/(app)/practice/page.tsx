@@ -141,7 +141,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
         <Link href="/practice/ciple" className="hover:text-olive">
           🎓 CIPLE · preparação do exame
         </Link>
-        <Link href="/ouvir" className="hover:text-olive">
+        <Link href="/escutar#fora" className="hover:text-olive">
           🎧 Rádio e podcasts
         </Link>
         <Link href="/placement" className="hover:text-olive">

@@ -1,6 +1,4 @@
-import { requireSession } from "@/lib/auth";
-
-export const metadata = { title: "Ouvir" };
+import Link from "next/link";
 
 type Resource = {
   name: string;
@@ -80,53 +78,69 @@ const GROUPS: { title: string; blurb: string; items: Resource[] }[] = [
   },
 ];
 
-export default async function OuvirPage() {
-  await requireSession();
 
+/**
+ * Portuguese from outside the app — radio, podcasts, TV.
+ *
+ * This used to be its own route, /ouvir, sitting beside /escutar. Two
+ * Portuguese verbs for "listen" naming two different pages is unguessable,
+ * and /ouvir was reachable only from a hub footnote, so its six genuinely
+ * useful resources were effectively hidden. They belong at the bottom of the
+ * listening page: finish the app's own dialogues, then here is where to go
+ * next.
+ */
+export function ListeningElsewhere() {
   return (
-    <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          🎧 Ouvir — ouvido de português
-        </h1>
+    <section className="space-y-4">
+      <div>
+        <h2 className="font-display text-lg font-semibold">
+          🎧 Fora da app — rádio, podcasts e TV
+        </h2>
         <p className="mt-1 text-sm text-ink-soft">
-          Sandra speaks clearly on purpose; real Portuguese does not. Nothing
-          trains the ear like native audio — the swallowed vowels, the speed,
-          two people talking over each other. Everything below lives outside
-          this app, and most of it is free.
+          Quando os diálogos daqui já forem fáceis, o passo seguinte é ouvir
+          português feito para portugueses.
         </p>
-      </header>
+      </div>
 
-      {GROUPS.map((group) => (
-        <section key={group.title}>
-          <h2 className="font-display text-lg font-semibold">{group.title}</h2>
-          <p className="mt-0.5 mb-3 text-sm text-ink-soft">{group.blurb}</p>
-          <div className="grid gap-3 sm:grid-cols-2">
-            {group.items.map((item) => (
-              <article key={item.name + item.level} className="card flex flex-col p-4">
-                <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="chip">{item.level}</span>
-                  <span className="chip bg-cream text-ink-soft">{item.cost}</span>
-                </div>
-                <h3 className="mt-2 font-semibold">{item.name}</h3>
-                <p className="mt-1 flex-1 text-sm text-ink-soft">{item.why}</p>
-                <a
-                  href={item.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-ghost mt-3 self-start"
-                >
-                  Abrir ↗
-                </a>
-              </article>
+      {GROUPS.map((g) => (
+        <div key={g.title}>
+          <h3 className="text-sm font-semibold">{g.title}</h3>
+          <p className="mb-2 text-xs text-ink-soft">{g.blurb}</p>
+          <div className="grid gap-2 sm:grid-cols-2">
+            {g.items.map((r) => (
+              <a
+                key={r.href}
+                href={r.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card group p-3 transition-all hover:border-sage hover:shadow-md"
+              >
+                <span className="block text-sm font-medium group-hover:text-olive">
+                  {r.name}
+                </span>
+                <span className="mt-0.5 block text-xs text-ink-soft">{r.why}</span>
+                <span className="mt-1.5 flex gap-2">
+                  <span className="chip bg-cream text-ink-soft">{r.level}</span>
+                  <span className="chip bg-cream text-ink-soft">{r.cost}</span>
+                </span>
+              </a>
             ))}
           </div>
-        </section>
+        </div>
       ))}
 
-      <p className="card p-4 text-sm text-ink-soft">
-        Ouviste algo bom? Guarda as palavras novas no Livro ou no baralho.
+      {/* The old tip named Livro and baralho and linked neither. */}
+      <p className="text-xs text-ink-faint">
+        Ouviste uma palavra nova? Guarda-a n{"\u2019"}
+        <Link href="/reference" className="underline underline-offset-2 hover:text-olive">
+          O Livro
+        </Link>{" "}
+        ou manda-a direta para o{" "}
+        <Link href="/practice/rever" className="underline underline-offset-2 hover:text-olive">
+          teu baralho
+        </Link>
+        .
       </p>
-    </div>
+    </section>
   );
 }
