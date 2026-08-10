@@ -23,7 +23,16 @@ export type NextStep = {
 };
 
 export async function firstUnfinishedStep(
-  unitSlug: string
+  unitSlug: string,
+  /**
+   * Treat this item as finished even if it is not yet.
+   *
+   * Lets the hand-off card name the NEXT step before the current one has been
+   * ticked off — the redesign shows "A seguir: 6 palavras para rever" while
+   * you are still on the completion screen, so the destination has to be
+   * known before the button is pressed, not after.
+   */
+  alsoDone?: number | null
 ): Promise<NextStep | null> {
   const db = getDb();
   const [unit] = await db
@@ -49,6 +58,7 @@ export async function firstUnfinishedStep(
   if (rows.length === 0) return null;
 
   const done = new Set(await getCompletedItemIds(unit.id));
+  if (alsoDone) done.add(alsoDone);
   // The learner's own ordering decides which activity is "next".
   const ordered = sortByPath(rows, await getMyPrefs().catch(() => null));
 

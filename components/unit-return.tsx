@@ -2,9 +2,14 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
-import { completeAndNext, type NextDestination } from "@/lib/actions/course";
+import { useEffect, useState, useTransition } from "react";
+import {
+  completeAndNext,
+  peekNextStep,
+  type NextDestination,
+} from "@/lib/actions/course";
 import type { UnitContext } from "@/lib/unit-context";
+import { cn } from "@/lib/utils";
 
 /**
  * "You are here because of this unit" — shown at the top of any activity
@@ -54,6 +59,28 @@ export function UnitContinue({
   const itemId = unit?.itemId ?? null;
   const slug = unit?.slug ?? "";
 
+  /*
+   * Name the next session before the button is pressed.
+   *
+   * A lesson that ends on "Concluir e seguir →" still ends on a mystery: you
+   * are agreeing to something unnamed. Naming it — "A seguir: 6 palavras para
+   * rever · 2 min" — is the difference between finishing a lesson and starting
+   * the next one, which is the whole reason this redesign exists.
+   */
+  const [ahead, setAhead] = useState<NextDestination | null>(null);
+  useEffect(() => {
+    if (!itemId) return;
+    let live = true;
+    peekNextStep(itemId)
+      .then((d) => {
+        if (live) setAhead(d);
+      })
+      .catch(() => {});
+    return () => {
+      live = false;
+    };
+  }, [itemId]);
+
   if (!unit) return null;
 
   // No item id means this activity was not opened as a path step; the honest
@@ -83,22 +110,54 @@ export function UnitContinue({
     });
   }
 
+  const shown = dest ?? ahead;
+  const title =
+    shown?.kind === "step"
+      ? shown.label
+      : shown?.kind === "unit"
+        ? shown.title
+        : shown?.kind === "done"
+          ? "Terminaste o teu nível"
+          : null;
+  const meta =
+    shown?.kind === "step"
+      ? `${minutesFor(shown.label)} · passo ${shown.index} de ${shown.total}`
+      : shown?.kind === "unit"
+        ? "Nova unidade · desbloqueada"
+        : shown?.kind === "done"
+          ? "Não há mais passos por agora"
+          : null;
+
   return (
     <div className="space-y-2">
-      <button
-        type="button"
-        onClick={go}
-        disabled={pending}
-        className="btn-primary w-full"
-      >
-        {pending
-          ? "A guardar…"
-          : dest?.kind === "unit"
-            ? `Próxima unidade: ${dest.title} →`
-            : dest?.kind === "done"
-              ? "Terminaste! →"
-              : "Concluir e seguir →"}
-      </button>
+      {/*
+        The hand-off. Olive, pinned at the end of the lesson, naming what comes
+        next and how long it takes — then one button that starts it. A lesson
+        that ends on a list is a lesson nobody follows with another.
+      */}
+      <div className="rounded-[20px] bg-olive p-[18px_18px_16px] text-paper">
+        <p className="text-[10.5px] font-semibold tracking-[.14em] text-paper/65 uppercase">
+          A seguir
+        </p>
+        <p className="mt-1 font-display text-[21px] leading-tight font-semibold">
+          {title ?? "Concluir esta lição"}
+        </p>
+        {meta ? (
+          <p className="mt-1 text-[13px] text-paper/70">{meta}</p>
+        ) : null}
+
+        <button
+          type="button"
+          onClick={go}
+          disabled={pending}
+          className={cn(
+            "mt-3.5 flex min-h-12 w-full items-center justify-center rounded-[14px] bg-paper",
+            "text-[15px] font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-60"
+          )}
+        >
+          {pending ? "A guardar…" : "Continuar →"}
+        </button>
+      </div>
 
       {failed && (
         <p className="text-center text-xs text-terra-dark">
@@ -106,12 +165,30 @@ export function UnitContinue({
         </p>
       )}
 
+      {/* The quiet way out. Deliberately low-contrast: stopping is always
+          allowed, but it should not compete with continuing. */}
       <Link
         href={`/unidades/${slug}#caminho`}
-        className="block text-center text-xs text-ink-soft hover:text-olive"
+        className="flex min-h-11 items-center justify-center text-center text-[13.5px] text-ink-faint hover:text-olive"
       >
-        ou volta à unidade {unit.title}
+        Parar por hoje
       </Link>
     </div>
   );
+}
+
+/**
+ * A rough minute estimate from the step's own name.
+ *
+ * No activity records its expected length, and inventing a per-kind table
+ * would be a lie with more decimal places. These are the honest brackets: a
+ * game is short, a conversation is not.
+ */
+function minutesFor(label: string): string {
+  const l = label.toLowerCase();
+  if (/(jogo|pares|intruso|género|genero|frase)/.test(l)) return "2 min";
+  if (/(conversa|falar|sandra)/.test(l)) return "8 min";
+  if (/(hist|escuta|ouvir|diálogo|dialogo)/.test(l)) return "6 min";
+  if (/(tpc|trabalho)/.test(l)) return "10 min";
+  return "5 min";
 }

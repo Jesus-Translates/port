@@ -356,3 +356,37 @@ export function slotPrompt(slot: Slot): string {
   const who = personLabel(slot.tense, slot.personIndex);
   return `${who} · ${slot.inf} · ${TENSE_LABEL[slot.tense].toLowerCase()}`;
 }
+
+/**
+ * Conjugate a verb that is NOT in the curated list.
+ *
+ * The list is 90-odd hand-checked verbs, which is plenty for a course and
+ * useless the moment a learner meets `arrumar` in the wild and wants to see it
+ * laid out. Every regular verb in Portuguese is fully derivable, and
+ * regularForms() above already does it correctly — including the
+ * sound-preserving respellings (fiquei, comecei, conheço) that look like
+ * irregularities and are not.
+ *
+ * IMPORTANT, and surfaced in the UI rather than buried here: this is the
+ * REGULAR paradigm. Feed it an irregular verb that is not on the list and the
+ * forms will be wrong — confidently, plausibly wrong, which is the dangerous
+ * kind. The conjugator labels anything generated this way and says so.
+ *
+ * Returns null for pôr-class verbs and anything that is not an infinitive:
+ * there is no regular paradigm to derive, and inventing one would be worse
+ * than declining.
+ */
+export function regularVerb(input: string): Verb | null {
+  const inf = input.trim().toLowerCase();
+  // Letters only (accents allowed), at least three, ending in a theme vowel.
+  if (!/^[a-zà-ÿ]{3,24}$/.test(inf)) return null;
+  if (!/(ar|er|ir)$/.test(inf)) return null;
+  if (inf.endsWith("pôr")) return null;
+
+  const forms: Verb["forms"] = {};
+  for (const tense of TENSES) {
+    const f = regularForms(inf, tense);
+    if (f) forms[tense] = f;
+  }
+  return Object.keys(forms).length > 0 ? { inf, en: "", forms } : null;
+}

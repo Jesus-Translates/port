@@ -6,12 +6,19 @@ import {
   CLASS_LABEL,
   findVerb,
   isRegular,
+  regularVerb,
   stripAccents,
   tensesOf,
   verbClass,
 } from "@/lib/verb-filter";
 import { cn } from "@/lib/utils";
-import { personLabel, TENSE_LABEL, type Tense, VERBS } from "@/lib/verbs";
+import {
+  personLabel,
+  TENSE_LABEL,
+  type Tense,
+  type Verb,
+  VERBS,
+} from "@/lib/verbs";
 
 /**
  * Consultar — the full paradigm of one verb, every form with its own play
@@ -39,7 +46,25 @@ export function VerbConjugator({
       )
     : VERBS;
 
-  const verb = findVerb(inf);
+  /*
+   * A verb the list does not have.
+   *
+   * The curated list is ~90 hand-checked verbs — plenty for the course, and
+   * useless the moment someone meets `arrumar` on a form at the Finanças and
+   * wants to see it laid out. Anything regular is fully derivable, so a typed
+   * infinitive gets conjugated by rule rather than met with "no match".
+   *
+   * `custom` is only ever set from the button below, never guessed while
+   * typing: silently conjugating a half-typed word would flash wrong tables.
+   */
+  const [custom, setCustom] = useState<Verb | null>(null);
+  const typed = query.trim().toLowerCase();
+  const canGenerate =
+    matches.length === 0 && typed.length >= 3 && regularVerb(typed) !== null;
+
+  const listed = findVerb(inf);
+  const verb = listed ?? (custom?.inf === inf ? custom : undefined);
+  const generated = !listed && Boolean(verb);
   const tenses = verb ? tensesOf(verb) : [];
   // Switching verbs can strand the tense filter — plenty of verbs have no
   // imperativo or conjuntivo — so a filter this verb cannot honour falls back
@@ -67,10 +92,34 @@ export function VerbConjugator({
           />
         </div>
         {matches.length === 0 ? (
-          <p className="text-sm text-ink-soft">
-            Nenhum verbo com «{query}».{" "}
-            <span className="text-ink-faint">No match — try the English.</span>
-          </p>
+          canGenerate ? (
+            <div className="space-y-2">
+              <p className="text-sm text-ink-soft">
+                «{typed}» não está na lista — mas dá para conjugar.
+              </p>
+              <button
+                type="button"
+                className="btn-primary w-full"
+                onClick={() => {
+                  const v = regularVerb(typed);
+                  if (!v) return;
+                  setCustom(v);
+                  setInf(v.inf);
+                  setQuery("");
+                }}
+              >
+                Conjugar «{typed}» →
+              </button>
+            </div>
+          ) : (
+            <p className="text-sm text-ink-soft">
+              Nenhum verbo com «{query}».{" "}
+              <span className="text-ink-faint">
+                No match — try the English, or type a full infinitive ending in
+                -ar, -er or -ir.
+              </span>
+            </p>
+          )
         ) : (
           <div className="max-h-48 overflow-y-auto">
             <div className="flex flex-wrap gap-1.5 pr-1">
@@ -113,7 +162,11 @@ export function VerbConjugator({
             </div>
             <div className="flex flex-wrap items-center gap-1.5">
               <span className="chip">verbo em {CLASS_LABEL[verbClass(verb)]}</span>
-              {irregulars.length === 0 ? (
+              {generated ? (
+                <span className="chip bg-azul-pale text-azul">
+                  conjugado pela regra
+                </span>
+              ) : irregulars.length === 0 ? (
                 <span className="chip">regular em tudo</span>
               ) : (
                 irregulars.map((t) => (
@@ -123,11 +176,28 @@ export function VerbConjugator({
                 ))
               )}
             </div>
-            <p className="text-xs text-ink-faint">
-              Regularity is worked out by rebuilding the form from the
-              infinitive — spelling shifts like <em>fiquei</em> and{" "}
-              <em>comecei</em> still count as regular.
-            </p>
+
+            {/*
+              Say plainly that this one was derived.
+              A generated paradigm is BY CONSTRUCTION regular, so the usual
+              "regular em tudo" chip would be a tautology dressed as a fact —
+              and if the verb is actually irregular, every form here is
+              confidently wrong. That is the dangerous kind of wrong, so it
+              gets a banner rather than a footnote.
+            */}
+            {generated ? (
+              <p className="rounded-xl bg-azul-pale px-3 py-2 text-xs text-azul">
+                Este verbo não está na lista revista — as formas acima foram
+                construídas pela regra. Para os verbos regulares está certo;
+                se «{verb.inf}» for irregular, confirma antes de decorares.
+              </p>
+            ) : (
+              <p className="text-xs text-ink-faint">
+                Regularity is worked out by rebuilding the form from the
+                infinitive — spelling shifts like <em>fiquei</em> and{" "}
+                <em>comecei</em> still count as regular.
+              </p>
+            )}
           </div>
 
           {tenses.length > 1 ? (

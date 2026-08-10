@@ -429,3 +429,44 @@ export async function getCaminho(
     };
   });
 }
+
+/**
+ * Where "Concluir e seguir" WILL go, without completing anything.
+ *
+ * The hand-off card names the next session before you press the button —
+ * "A seguir: 6 palavras para rever · 2 min" — so the destination has to be
+ * resolvable up front. The current item is treated as already finished,
+ * because from the learner's point of view it is: they are looking at its
+ * completion screen.
+ *
+ * Read-only. It must never tick anything off, or opening a completion screen
+ * would complete the step by merely rendering.
+ */
+export async function peekNextStep(
+  itemId: number
+): Promise<NextDestination | null> {
+  await requireSession();
+  const row = await loadItem(itemId);
+  if (row) {
+    const { firstUnfinishedStep } = await import("@/lib/next-step");
+    const step = await firstUnfinishedStep(row.slug, itemId).catch(() => null);
+    if (step) {
+      return {
+        kind: "step",
+        href: step.href,
+        label: step.label,
+        index: step.index,
+        total: step.total,
+      };
+    }
+  }
+  const course = await getCourseProgress().catch(() => null);
+  if (course?.next && course.next.slug !== row?.slug) {
+    return {
+      kind: "unit",
+      href: `/unidades/${course.next.slug}`,
+      title: course.next.title,
+    };
+  }
+  return { kind: "done", href: "/" };
+}
