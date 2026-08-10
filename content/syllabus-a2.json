@@ -394,5 +394,32 @@
     "blurbEn": "You will be able to recognise and use the written future — falarei, comerás, partiremos — and know when Portuguese speakers actually say it.",
     "grammarFocus": "futuro do indicativo (futuro simples)",
     "notePrompt": "Teach the one set of endings bolted onto the whole infinitive (-ei, -ás, -á, -emos, -ão: falarei, comerás, partiremos, serão) and the only three irregulars, which lose a syllable: dizer → direi, fazer → farei, trazer → trarei. The essential point is register, not morphology: in speech the Portuguese overwhelmingly say 'vou falar', so this tense lives in writing, notices, contracts and the news — and, crucially, in expressing present probability ('serão oito horas' = it must be about eight; 'estará em casa' = he's probably home). English speakers assume this is the ordinary way to say 'will' and end up sounding bookish. Close the level by contrasting 'amanhã vou trabalhar' with 'amanhã trabalharei'."
+  },
+  {
+    "slug": "o-verbo-ficar",
+    "titleEn": "The Verb Ficar",
+    "titlePt": "O Verbo Ficar",
+    "category": "grammar",
+    "grammarFocus": "ficar",
+    "blurbEn": "You will be able to say where things are, how you felt, what you kept, and what you agreed to do.",
+    "notePrompt": "Ficar maps onto no single English verb, which is exactly why it is never acquired incidentally. Teach its four everyday senses separately, each with examples: LOCATION, permanent — 'a farmácia fica ao lado do talho' (where 'ser' would be wrong and 'estar' would suggest temporary); BECOMING — 'fiquei doente', 'fica caro', 'ficou contente' (a change of state, contrast with the English 'get'); STAYING — 'fico em casa', 'ficas mais um bocadinho?'; ARRANGING — 'ficamos assim', 'fica combinado', 'em que ficamos?' which closes a negotiation. Add 'ficar com' = to keep ('fico com este') and 'ficar de' = to undertake ('ficou de telefonar'). The English-speaker error to flag: using estar for permanent location."
+  },
+  {
+    "slug": "no-aeroporto-e-no-aviao",
+    "titleEn": "At the Airport and on the Plane",
+    "titlePt": "No Aeroporto e no Avião",
+    "category": "situational",
+    "grammarFocus": null,
+    "blurbEn": "You will be able to check in, get through security, find your gate and handle a delay, in Portuguese.",
+    "notePrompt": "A practical situational unit for anyone with relatives abroad. Cover the whole sequence in the order it happens: check-in ('o balcão', 'a bagagem de porão', 'a bagagem de mão', 'o excesso de peso', 'o cartão de embarque'), security ('o controlo de segurança', 'tire o cinto e o computador', 'os líquidos'), the gate ('a porta de embarque', 'o embarque prioritário', 'a hora prevista'), on board ('a janela ou a coxia', 'o cinto apertado', 'a turbulência'), and arrival ('a recolha de bagagens', 'o tapete', 'nada a declarar'). Include the announcements they will actually hear and the two problems worth rehearsing: a delayed flight ('o voo está atrasado') and lost luggage ('a minha mala não chegou'). Note the European terms where they differ: 'coxia' not 'corredor', 'autocarro' for the shuttle."
+  },
+  {
+    "slug": "cognatos",
+    "titleEn": "Cognates: the Vocabulary Shortcut",
+    "titlePt": "Cognatos: o Atalho para o Vocabulário",
+    "category": "vocabulary",
+    "grammarFocus": null,
+    "blurbEn": "You will be able to guess hundreds of Portuguese words from English — and dodge the ones that lie.",
+    "notePrompt": "The cheapest vocabulary multiplier in the course, so it belongs early. Teach the reliable ENDING patterns that convert English to Portuguese: -tion→-ção (nation/nação, information/informação), -ty→-dade (city/cidade, university/universidade), -ly→-mente (exactly/exatamente), -ous→-oso (famous/famoso), -ist→-ista, -ment→-mento, -ble→-vel (possible/possível). Give the rule that these are almost always feminine for -ção and -dade. Then the false friends that matter, each with both meanings: 'parentes' (relatives, not parents), 'constipado' (having a cold, NOT the English), 'puxar' (to pull, not push), 'esquisito' (odd, not exquisite), 'livraria' (bookshop, not library), 'actualmente' (currently, not actually), 'assistir' (to watch), 'pretender' (to intend). Make clear the patterns are a first guess to be confirmed, not a licence."
   }
 ]

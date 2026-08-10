@@ -250,5 +250,32 @@
     "blurbEn": "You'll be able to understand your actual neighbours — the Estremadura and Oeste speech that no course records and that defeats you at the talho counter.",
     "grammarFocus": null,
     "notePrompt": "Train comprehension on real regional features rather than studio Portuguese: vowel reduction pushed to disappearance ('está bem' to 'tá bem' to something near 'tâim'), swallowed final syllables, 'p'ra' for 'para', 'tou' for 'estou', 'num' for 'não', 'ó' for 'olha', 'pá' as a filler, and the very closed 'e' of rural Estremadura. Contrast the Lisbon-standard audio the learner has trained on with an older speaker from Torres Vedras or Santa Cruz saying the identical sentence. Address the false conclusion English speakers draw — that they need more vocabulary — when the real gap is that the words they know are stored unreduced; teach 'Desculpe, importa-se de repetir mais devagar?' and train prediction from context."
+  },
+  {
+    "slug": "natal-ano-novo-e-os-reis",
+    "titleEn": "Christmas, New Year and Kings' Day",
+    "titlePt": "Natal, Ano Novo e os Reis",
+    "category": "culture",
+    "grammarFocus": null,
+    "blurbEn": "You will be able to take part in the Portuguese festive season instead of watching it.",
+    "notePrompt": "The biggest family season of the year, and the moment neighbours and school expect participation. Teach the Portuguese shape of it, which differs from the English-speaking one: the main meal is the CONSOA on the night of 24 December, and it is bacalhau cozido com couves and batatas, not a roast; presents are opened at midnight, not on the morning of the 25th; the 25th is the lunch, often carne. Cover the sweets by name — rabanadas, filhoses, sonhos, aletria, bolo-rei with its fava and the tradition attached to it. Then Ano Novo: the twelve raisins at midnight, one wish each, and 'Feliz Ano Novo'. Then Dia de Reis on 6 January, when the tree comes down and the bolo-rei is finished. Include the greetings people actually exchange ('Boas Festas', 'Feliz Natal', 'um santo Natal') and what to say to a neighbour on the stairs. Do not name specific shops or brands."
+  },
+  {
+    "slug": "conversa-a-serio",
+    "titleEn": "Real Conversation: pois, pronto, então",
+    "titlePt": "Conversa a Sério: pois, pronto, então",
+    "category": "grammar",
+    "grammarFocus": "discourse markers",
+    "blurbEn": "You will be able to sound like you belong in the conversation, not like you are reciting it.",
+    "notePrompt": "Discourse markers — the highest fluency payoff per unit in the whole course, with no grammatical prerequisite. Teach what each one DOES, because none translates cleanly: 'pois' (agreement, acknowledgement, or gentle doubt depending entirely on intonation — the single most Portuguese word there is); 'pronto' (that's that, right then, closing a topic or filling a pause); 'então' (so, well then, and also a greeting: 'então, tudo bem?'); 'olha' (look, opening a point); 'se calhar' (maybe — European, where Brazilians say 'talvez'); 'lá está' (there you go, exactly); 'epá' (mild exclamation, informal); 'ora bem' (right, let's begin); 'quer dizer' (I mean, self-correcting). Give each in a two-line exchange so the learner hears the function. Warn that overusing them sounds like performance — one or two per conversation is what a real speaker does."
+  },
+  {
+    "slug": "ferramentas-e-avarias",
+    "titleEn": "Tools, Electricity and Breakdowns",
+    "titlePt": "Ferramentas, Eletricidade e Avarias",
+    "category": "vocabulary",
+    "grammarFocus": null,
+    "blurbEn": "You will be able to name what broke, what you need, and what the tradesman is asking for.",
+    "notePrompt": "The nouns that a call to a canalizador or eletricista actually needs. Tools: o berbequim, a chave de fendas, a chave inglesa, o martelo, o alicate, a fita-cola, a fita isoladora, o parafuso, a bucha, a serra, a escada. Electrical: o quadro elétrico, o disjuntor (and 'saltou o disjuntor'), a tomada, o interruptor, a lâmpada, o fio, a extensão, o contador. Plumbing: a torneira, o sifão, a canalização, o esquentador, a caldeira, o autoclismo, o ralo, a fuga de água. Then the phrases that carry a call: 'está avariado', 'não funciona', 'faz um barulho estranho', 'está a pingar', 'foi-se a luz', 'pode vir ver?', 'quanto fica o orçamento?'. Note 'avaria' is the everyday word for a breakdown of any machine."
   }
 ]

@@ -286,5 +286,23 @@
     "blurbEn": "You'll be able to use the infinitive after prepositions and impersonal expressions, which is how Portuguese says most of what English says with -ing.",
     "grammarFocus": "infinitivo impessoal",
     "notePrompt": "Show the infinitive doing the work English hands to '-ing' or to a full clause: after prepositions ('antes de sair', 'depois de comer', 'em vez de pagar', 'para aprender português', 'sem falar'), after impersonal frames ('É preciso levar guarda-chuva', 'É proibido fumar', 'É melhor ir a pé', 'É fácil chegar lá'), and on signs and instructions ('Empurrar', 'Não pisar a relva'). State the rule bluntly, because it is the single most persistent English habit: after a preposition Portuguese uses the infinitive and NEVER a gerund — 'antes de sair', not 'antes de saindo'. Tie it back to estar a + infinitivo so the family sees one consistent system, and flag that this opens the door to the personal infinitive at A2."
+  },
+  {
+    "slug": "comeca-aqui",
+    "titleEn": "Start Here",
+    "titlePt": "Começa Aqui",
+    "category": "vocabulary",
+    "blurbEn": "How this course works, why European Portuguese specifically, and one easy win you can use today.",
+    "grammarFocus": null,
+    "notePrompt": "The opening unit. Explain how the course works: a Learning Note, then a short path of activities, and everything you get wrong comes back as a review card. Say plainly why this course teaches EUROPEAN Portuguese and how it differs from the Brazilian Portuguese most apps and films use — 'estou a falar' not 'estou falando', 'tu' not 'você', 'autocarro' not 'ônibus' — and that a learner who mixes them is understood but marked as a foreigner immediately. Then give ONE thing they can say correctly today: 'Bom dia, faz favor' plus 'obrigado/obrigada' with the gender rule (the speaker's gender, not the listener's), because a first win that works in a real café is worth more than a grammar table."
+  },
+  {
+    "slug": "dizer-que-nao",
+    "titleEn": "Saying No: Negatives",
+    "titlePt": "Dizer que Não: as Negativas",
+    "category": "grammar",
+    "grammarFocus": "negation",
+    "blurbEn": "You will be able to say what you did not do, what you have never done, and that you saw nobody at all.",
+    "notePrompt": "Teach negation properly, because English speakers get it wrong for months. The core rule: 'não' goes before the verb ('não gosto', 'não vi'). Then the double negative, which English forbids and Portuguese REQUIRES: 'não vi ninguém' (I saw nobody), 'não há nada' (there is nothing), 'nunca fui a lado nenhum' (I have never been anywhere). Give the pairs — ninguém/alguém, nada/alguma coisa, nunca/sempre, nenhum/algum, nem…nem. Flag that when the negative word comes FIRST the 'não' disappears: 'ninguém veio', not 'ninguém não veio'. Also teach the everyday short answers: 'ainda não', 'já não', 'nem por isso', 'agora não'."
   }
 ]
