@@ -368,7 +368,7 @@ know *autocarro* and still not catch it when a Brazilian-trained ear is waiting 
 | morada, apelido | endereço, sobrenome |
 | ementa, empregado de mesa, sumo | cardápio, garçom, suco |
 | frigorífico, rebuçado, fato | geladeira, bala, terno |
-| senha (queue ticket), guichê/balcão | senha = password |
+| senha (queue ticket), guiché/balcão | senha = password |
 | multibanco, levantar dinheiro | caixa eletrônico, sacar |
 | propina (tuition fee) | propina = bribe |
 | talho, peixaria, papelaria | açougue, … |

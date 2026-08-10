@@ -532,7 +532,7 @@ built to catch you*, and the key names which:
 
 - **Tipo:** aviso público, uma voz · **Espaço:** estação (transportes)
 - **Domínio A2:** 5. Viagens (5.1, 5.6); 9. Serviços (9.2) · **Duração estimada:** ≈ 45 s
-- **Foco:** **linha** (pt-PT; *plataforma* é brasileiro), *suprimido*, *validar*, *devolução do
+- **Foco:** **linha** (é a palavra dos comboios em Portugal; *plataforma* usa-se nos terminais rodoviários, não na ferrovia), *suprimido*, *validar*, *devolução do
   bilhete*, horas em formato de vinte e quatro horas. Fonética: *linha* /ʎ/, nasal em *supressão*.
 
 **Guião:**

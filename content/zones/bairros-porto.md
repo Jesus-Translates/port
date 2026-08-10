@@ -11,9 +11,10 @@ mid-sentence without noticing.
 the city has **seven** civil parishes, down from fifteen:
 
 1. **União das Freguesias de Cedofeita, Santo Ildefonso, Sé, Miragaia, São Nicolau e Vitória**
-   — six old parishes fused into one, and universally shortened in speech to *a União de
-   Freguesias do Centro* or just *o centro histórico*, because nobody is going to say the
-   whole thing twice.
+   — six old parishes fused into one. It brands itself **União de Freguesias Centro Histórico
+   do Porto**, and in speech it is just *o centro histórico*, because nobody is going to say
+   the whole thing twice. A learner may meet either the working name or the six-name legal one
+   on a form.
 2. **Bonfim** — 3,05 km², about 22 978 residents (Censos 2021).
 3. **Campanhã** — 8,13 km², about 29 666 residents; the largest parish by area and the one
    losing population fastest (down roughly 9 % between 2011 and 2021).
@@ -71,9 +72,13 @@ warning about your knees. The **Funicular dos Guindais** exists precisely becaus
 of track (90 m of it in tunnel), a 61 m drop and gradients up to 55 %, linking **Rua Augusto
 Rosa** at the Batalha with **Avenida Gustave Eiffel** at the Ribeira. It first opened on
 4 June 1891, closed after an accident in 1893, and reopened on 19 February 2004. It was run by
-**Metro do Porto** for most of that second life, and has been operated by **STCP since 2022** —
-worth knowing, because older descriptions (including the zone-level Norte dossier) still credit
-Metro do Porto.
+**Metro do Porto** for most of that second life, then MobT, and has been operated by **STCP
+Serviços since 2022**.
+
+**It is not running.** The funicular has been **closed since 18 July 2026**, with no reopening
+date, while the IMT completes a certification review begun after the Elevador da Glória disaster
+in Lisbon. Treat it as a landmark and a piece of vocabulary, not as a way of getting up the
+hill — send a learner to the **Escadas dos Guindais** or round by the Batalha instead.
 
 **The metro, by letter and by colour.** Six lines, about 85 stations, roughly 70 km. Residents
 say the letter and the colour interchangeably — *a linha D*, *a amarela*, *o metro para Gaia*
@@ -84,13 +89,15 @@ are all the same sentence:
 - **C — verde** · ISMAI ↔ Campanhã
 - **D — amarela** · Hospital de São João ↔ Vila d'Este (the only line that crosses the Douro,
   over the top deck of the Ponte Luís I)
-- **E — violeta** · Trindade ↔ Aeroporto
+- **E — violeta** · Estádio do Dragão ↔ Aeroporto
 - **F — laranja** · Senhora da Hora ↔ Fânzeres
 
 Five of the six (**A, B, C, E, F**) share one central trunk, which is why Porto feels
 better-connected than its map suggests: **Senhora da Hora – Sete Bicas – Viso – Ramalde –
 Francos – Casa da Música – Carolina Michaelis – Lapa – Trindade – Bolhão – Campo 24 de Agosto –
-Heroísmo – Campanhã**, with A, B, E and F continuing one stop to **Estádio do Dragão**. The
+Heroísmo – Campanhã**. **C** terminates at Campanhã; **A**, **B** and **E** run one stop further
+to **Estádio do Dragão** and end there; **F** carries on through the Dragão and out east to
+Fânzeres. The
 **D (amarela)** is the odd one out: it runs north–south through **Hospital de São João, IPO,
 Pólo Universitário, Salgueiros, Combatentes, Marquês, Faria Guimarães, Trindade, Aliados,
 São Bento**, then over the bridge to **Jardim do Morro** and down through Gaia.
@@ -98,8 +105,9 @@ São Bento**, then over the bridge to **Jardim do Morro** and down through Gaia.
 **Trindade** is the only station where all six lines meet, and it is the default *"encontramo-nos
 no Trindade"*. **Casa da Música** is the second interchange, and will grow when the new
 **linha G (rosa)** — São Bento, Hospital de Santo António, Galiza, Casa da Música — opens; the
-**linha H (rubi)** to Santo Ovídio via a new Douro bridge is later still. Both are under
-construction and both have slipped before (unverified as to dates).
+**linha H (rubi)** to Santo Ovídio via a new Douro bridge is later still. The Rosa was first
+promised for 2024 and has slipped repeatedly; the current date from Metro do Porto is **operation
+by March 2027**.
 
 **Andante, buses and trams.** Everything runs on the **Andante** card: you **carregar o
 Andante** at a machine and **validar** at the yellow validator. **STCP** runs the buses inside
@@ -108,10 +116,12 @@ the city of Porto and holds exclusivity there — around 70 lines plus a night n
 metropolitan **UNIR** network took over on 1 December 2023, on the same Andante ticket. Useful
 STCP lines to know by number: **200** (Bolhão ↔ Castelo do Queijo, the whole Boavista axis),
 **500** (Praça da Liberdade ↔ Matosinhos Mercado, along the river and up the coast) and
-**900** (Cordoaria ↔ Santo Ovídio). Three historic **elétricos** survive: **linha 1** (Infante
-↔ Passeio Alegre, hugging the river out to Foz), **linha 18** (Carmo ↔ Passeio Alegre, extended
-from Massarelos in November 2021) and **linha 22**, the Carmo–Batalha circular through the
-Baixa (sources disagree on whether 22 is currently running — treat as unverified).
+**900**, which since 12 January 2026 no longer stops at Santo Ovídio but runs on from Cordoaria
+through Gaia to the beach at **Francelos**. Three historic **elétricos** survive: **linha 1**
+(Infante ↔ Passeio Alegre, hugging the river out to Foz), **linha 18** (Massarelos ↔ Carmo,
+back on its traditional route since 1 July 2026) and **linha 22**, the Carmo–Batalha circular
+through the Baixa, which returned to service on **1 August 2026** after nearly five years
+suspended for the Linha Rosa works — it runs daily, every 30 minutes, from 09:15 to 19:45.
 
 **Trains.** **Porto-Campanhã** (opened 21 May 1875) is the long-distance station — Linha do
 Norte and Linha do Minho, Alfa Pendular and Intercidades, plus the big bus interchange for
@@ -245,7 +255,8 @@ four hundred, and every wedding and **festa** is scheduled around it.
 
 Speech is conservative: the **ch** [tʃ] affricate survives here as in the Alto Minho, and older
 rural speakers still use **vós** forms (*vós ides*, *vós fazeis*). And in the concelho de
-**Miranda do Douro** and part of **Vimioso** — roughly 550 km² — the language is **mirandês**,
+**Miranda do Douro** and part of **Vimioso** — roughly **500–550 km²**, sources vary — the
+language is **mirandês**,
 Astur-Leonese and not a dialect of Portuguese, co-official under **Lei n.º 7/99**. A 2020
 University of Vigo study counted about **3 500** people with some knowledge of it and only
 about **1 500** regular speakers, with sharp generational decline. It is a living language and
@@ -275,9 +286,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   *deles*, but they mostly go there when someone visits.
 - **Getting there** — No metro. **São Bento** (linha D, amarela) is the nearest station, then
   you walk **downhill** — everyone underestimates the walk back. The **Funicular dos Guindais**
-  drops you from the Batalha to **Avenida Gustave Eiffel** at the eastern end. **Elétrico 1**
-  starts at **Infante** and runs along the river to Foz. STCP **500** passes above along the
-  riverside road.
+  would drop you from the Batalha to **Avenida Gustave Eiffel** at the eastern end, but it has
+  been closed since 18 July 2026, so the way back up is the **Escadas dos Guindais** on foot.
+  **Elétrico 1** starts at **Infante** and runs along the river to Foz. STCP **500** passes above
+  along the riverside road.
 - **Landmarks** — **Praça da Ribeira**, also called *a praça do Cubo* after the modern cube
   fountain in it, is the meeting point: *"logo à noite na Ribeira"* means here. The **Muro dos
   Bacalhoeiros** with its neoclassical arches; **Cais da Ribeira** along the water; the
@@ -310,9 +322,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   The old freguesia was tiny — 0,48 km² — and hollowed out spectacularly, from about **11 793**
   residents in 1864 to **3 460** in 2011. Residents who remain are older, deeply local, and
   know every alley; the register is *bairro a sério*.
-- **Getting there** — **São Bento** (linha D, amarela) below, then up. The **Funicular dos
-  Guindais** from the Batalha. **Elétrico 22** through the Baixa (status unverified). Otherwise
-  it is stairs: **Escadas do Codeçal**, **Rua Escura**, the **Calçada de Vandoma**.
+- **Getting there** — **São Bento** (linha D, amarela) below, then up. **Elétrico 22** through
+  the Baixa, running again since 1 August 2026. The **Funicular dos Guindais** from the Batalha
+  is closed. Otherwise it is stairs: **Escadas do Codeçal**, **Rua Escura**, the **Calçada de
+  Vandoma**.
 - **Landmarks** — The **Sé Catedral**, fortress-like, a National Monument since 1910, with
   Nasoni's baroque **loggia** (about 1736) on the flank and a Gothic cloister from the reign of
   D. João I. In front, the **Terreiro da Sé** with the **pelourinho** — the standard meeting
@@ -329,10 +342,11 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   from Lisbon. Do it once for the reaction; it is affectionate.
 - **Everyday detail** — The **Feira da Vandoma**, Porto's flea market, began spontaneously here
   in the 1970s beside the cathedral on the **Calçada de Vandoma**, and has been moved ever since
-  — to the Cordoaria, to the Fontainhas, to Avenida 25 de Abril in Campanhã (January 2016 to
-  July 2025), and since **12 July 2025** to a site beside **Estação Nasoni**. It is still on
-  **Saturdays**, and older Portuenses still call the whole thing "a Vandoma" after a street it
-  left fifty years ago.
+  — to the Cordoaria, to the Fontainhas, to Avenida 25 de Abril in Campanhã, and since
+  **12 July 2025** to a purpose-built site beside **Estação Nasoni** on Rua Estação de Contumil,
+  named **Praça Vandoma** by public vote. It is still on **Saturdays**, **08:00–13:00** — arrive
+  at two in the afternoon and there is nothing there. Older Portuenses still call the whole thing
+  "a Vandoma" after a street it left fifty years ago.
 
 ### Miragaia
 
@@ -374,8 +388,8 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   the Baixa is for.
 - **Getting there** — The best-connected square kilometre in the north. **Trindade** (all six
   lines) at the top; **Bolhão** (A/B/C/E/F); **Aliados** and **São Bento** (D, amarela). The
-  **elétrico 22** circles Carmo–Batalha through it (status unverified) and the **Funicular dos
-  Guindais** drops from the Batalha to the river.
+  **elétrico 22** circles Carmo–Batalha through it, back in service since 1 August 2026; the
+  **Funicular dos Guindais** down to the river is closed.
 - **Landmarks** — The **Avenida dos Aliados**, the civic room of the city, where Porto gathers
   when something is won. The **Torre dos Clérigos**, which is how you know where you are from
   anywhere. The **Igreja do Carmo** at Praça de Carlos Alberto, whose entire side wall is one
@@ -391,8 +405,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   Correia da Silva's design in reinforced concrete, granite and steel, on two levels between Rua
   Formosa, Rua de Sá da Bandeira, Rua Fernandes Tomás and Rua Alexandre Braga; restored from
   2018 and reopened on **15 September 2022** with 81 **bancas**, 38 **lojas** and 10 restaurants.
-  Open **Monday to Friday 08:00–20:00, Saturday until 18:00, closed Sundays** — which is why
-  Saturday morning is a fixed appointment for half the city. The ritual is not shopping, it is
+  The **bancas and lojas** open **Monday to Friday 08:00–20:00, Saturday 08:00–18:00, closed
+  Sundays** — which is why Saturday morning is a fixed appointment for half the city. The
+  **restauração** keeps its own longer hours, **Monday to Saturday 08:00–00:00**, so the eating
+  half of the building is still going long after the stalls have shut. The ritual is not shopping, it is
   being known: you go to *your* **peixeira** and *your* fruit stall, you are told what is good
   today and, more usefully, what is not, and you buy that instead of what you came for. The
   going-home custom is a free bunch of **salsa** tucked in on top, which nobody charges for and
@@ -502,9 +518,10 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   wall of blue and white and the word you will hear most is *"força"*. **Quinta do Freixo** and
   **Quinta de Bonjóia**, eighteenth-century estates. **Parque Oriental** and **Parque de São
   Roque**, the green lungs. The **Igreja de Campanhã**.
-- **Food & institutions** — The **Feira da Vandoma** has been Campanhã's since 2016 — first on
-  **Avenida 25 de Abril**, and since **12 July 2025** beside **Estação Nasoni**. Every
-  **Saturday** morning, second-hand everything: clothes, crockery, furniture, records, books,
+- **Food & institutions** — The **Feira da Vandoma** has been Campanhã's for a decade — first on
+  **Avenida 25 de Abril**, and since **12 July 2025** beside **Estação Nasoni**, on the site the
+  city named **Praça Vandoma**. Every **Saturday**, **08:00–13:00**, second-hand everything:
+  clothes, crockery, furniture, records, books,
   radios that may or may not work. The ritual is fixed and worth teaching: you arrive early
   because *o bom vai cedo*, you walk the whole length once without buying, you come back for the
   thing you decided on, and it is gone. Haggling opens not with a number but with a long look
@@ -553,7 +570,9 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
 - **Getting there** — **Casa da Música** (A/B/C/E/F, and the future G) sits under the Rotunda —
   the second-busiest interchange after Trindade. STCP **200** runs the length of the avenue from
   **Bolhão** to the **Castelo do Queijo**, which is the single most useful bus in Porto for a
-  newcomer.
+  newcomer. Since 2026 the hydrogen **Metrobus** also runs its own segregated lane down the
+  avenue from **Casa da Música** to **Praça do Império**, which is the thing everyone on the
+  Boavista has an opinion about.
 - **Landmarks** — The **Rotunda da Boavista**, officially **Praça de Mouzinho de Albuquerque**,
   with its column to the heroes of the Peninsular War in the middle of the garden. **Casa da
   Música**, Rem Koolhaas's white polyhedron, opened **15 April 2005** as a leftover of Porto
@@ -562,7 +581,8 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   Ramalde) and, at the end of the line, the **Castelo do Queijo**.
 - **Food & institutions** — The **Mercado do Bom Sucesso** sits just off the Rotunda at
   **Praça do Bom Sucesso** — built to a 1949 ARS Arquitectos design, inaugurated in **1952**,
-  and reopened as a covered food hall on **14 June 2013** with around 44 stalls. The ritual is
+  and reopened as a covered food hall on **14 June 2013**. It is not purely a market: the
+  building also holds a hotel, offices and a supermarket. The ritual is
   the Saturday lunch that begins as one thing and ends as five: everybody queues at a different
   counter and reconvenes at a shared table with an entirely uncoordinated meal, and there is
   always one person who went back for a second **pastel de nata** and pretends they did not.
@@ -588,8 +608,8 @@ everything. *Braga reza, Porto trabalha* is the polite version; a nortenho will 
   Sousa, Vasco Graça Moura.
 - **Getting there** — **No metro at all**, which shapes everything. The **elétrico 1** runs the
   whole way from **Infante** along the river to **Passeio Alegre** and is genuinely how people
-  travel, not a novelty; the **elétrico 18** also terminates at Passeio Alegre. STCP **500** from
-  Praça da Liberdade. Everyone else drives and then circles for twenty minutes.
+  travel, not a novelty. (**Elétrico 18** does not come out here — it turns back at Massarelos.)
+  STCP **500** from Praça da Liberdade. Everyone else drives and then circles for twenty minutes.
 - **Landmarks** — The **Jardim do Passeio Alegre**, 4,19 hectares laid out by Émile David and
   classified as **Imóvel de Interesse Público** since 1993, with the eighteenth-century obelisks
   brought from the **Quinta da Prelada** by Nasoni. The **Farolim de Felgueiras**, the hexagonal
@@ -772,9 +792,13 @@ identity it will defend. Same five fields.
 
 ### Vila Nova de Gaia
 
-- **Character** — The **third most populous município in Portugal**: 303 824 residents in 2021,
-  across fifteen freguesias — comfortably bigger than Porto, and permanently described as
-  "across the river", which **gaienses** find funny for roughly the first thirty years. It is
+- **Character** — The **third most populous município in Portugal**: 303 824 residents in 2021 —
+  comfortably bigger than Porto, and permanently described as "across the river", which
+  **gaienses** find funny for roughly the first thirty years. Gaia had fifteen freguesias from
+  the 2013 reform until **Lei n.º 25-A/2025** split seven of its unions back into sixteen
+  separate parishes, effective when the bodies elected on 12 October 2025 were installed — so if
+  a gaiense names a parish that "did not exist" a couple of years ago, they are right and the
+  older maps are wrong. It is
   where the port wine sleeps: the **caves** line the south bank behind the **Cais de Gaia**.
 - **Getting there** — The **D (amarela)** crosses the upper deck of the **Ponte Luís I** into
   **Jardim do Morro**, then **General Torres**, **Câmara de Gaia**, **João de Deus**,
@@ -788,7 +812,7 @@ identity it will defend. Same five fields.
 - **Food & institutions** — The **caves** are the institution and the **prova** is the ritual.
   Two of the houses can be confirmed from canonical sources as trading here: **Taylor's**
   (Taylor, Fladgate & Yeatman), founded in Vila Nova de Gaia in **1692**, and **Sandeman**, at
-  Largo Miguel Bombarda 3, owned by Sogrape since 2001; there are many more along the quay, and
+  Largo Miguel Bombarda 3, in the Sogrape group since the early 2000s; there are many more, and
   every family has theirs. The tour is identical everywhere and that is the joy of it: a cold,
   black, arch-roofed store that smells of oak and sugar, the difference between **tawny**,
   **ruby**, **LBV** and **vintage** explained slowly, and then a gentle, unmistakable drift
@@ -807,9 +831,11 @@ identity it will defend. Same five fields.
 - **Character** — 172 557 residents (2021), ten freguesias, and three cities inside one concelho
   — Matosinhos, São Mamede de Infesta and Senhora da Hora. A **matosinhense** (or
   **matosinheiro**) belongs to a fishing and **conservas** town: between 1940 and 1960 there were
-  **54 canning factories** here, and the sources consulted record **three** still working —
-  **Conservas Portugal Norte**, **Fábrica de Conservas Pinhais** and **Conservas Ramirez** (a
-  count that can only go one way, so treat it as of the date of the source). Alongside them is
+  **54 canning factories** here, and only a handful survive. Three still open their doors to
+  visitors — **Fábrica de Conservas Pinhais** (brand *Nuri*) and **Conservas Portugal Norte**,
+  both still in the old conserveira quarter by the port, and **Conservas Ramirez**, which left
+  the town for a new plant at **Lavra**, still in the concelho but some ten kilometres north
+  of it. Alongside them is
   **Leixões**, the
   late-nineteenth-century artificial harbour at the mouth of the **rio Leça**, now Portugal's
   second largest — 5 km of quay, about 3 000 ships and 14 million tonnes a year, with a cruise
@@ -847,7 +873,9 @@ identity it will defend. Same five fields.
 - **Character** — The far side of the Leixões harbour mouth: quieter, greener and more
   residential than Matosinhos, along a long rocky coast. About 18 502 inhabitants at the 2011
   census; a **lecense** will tell you — with feeling — that the freguesia was swallowed by a
-  parish merger in 2013 and **restored as an independent freguesia on 14 March 2025**. Getting
+  parish merger in 2013 and **restored as an independent freguesia** under Lei n.º 25-A/2025,
+  de 13 de março, taking effect when its own elected bodies were installed after the local
+  elections of **12 October 2025**. Getting
   to Matosinhos means going round the harbour, and that single geographical fact shapes local
   life more than anything else.
 - **Getting there** — No metro station on the Leça side; **UNIR** buses, or the **A (azul)** to
@@ -1093,28 +1121,33 @@ urban reforms, not for Porto, and the association appears to be a misattribution
 ## Prompt context
 
 When a learner names a Porto bairro or a Norte sub-region, make every example local to it, not
-generic. Someone in Bonfim shops at o talho by o Campo 24 de Agosto and takes
-linhas A, B, C, E ou F; someone in Paranhos lives among students in Asprela beside o Hospital de
-São João and rides a linha D (amarela); someone in Campanhã meets people at a estação and hears
-o Estádio do Dragão on match days; someone in Foz has no metro at all, takes o elétrico 1 to o
-Passeio Alegre and walks o molhe past o Farolim de Felgueiras. Transport words: carregar o
-Andante, validar, apanhar o metro, o funicular dos Guindais, a STCP dentro do Porto e a UNIR
-fora dele. Use the mental map — vou à Baixa for errands, à Ribeira to go out, à Foz to walk, à
-Boavista for work, do outro lado for Gaia. Prefer real nouns: o Mercado do Bolhão (fechado ao
-domingo), o Mercado do Bom Sucesso, a Feira da Vandoma ao sábado, os jardins do Palácio de
-Cristal, o Parque da Cidade, Serralves. Foods: a francesinha and the argument about o molho, um
-cimbalino, um fino, um molete, tremoços, grilled fish in Matosinhos. Outside the city keep the
-sub-regions distinct: o Minho green, wet and festive; Trás-os-Montes high, cold and emptying; o
+generic. Someone in Bonfim shops at o talho by o Campo 24 de Agosto and takes linhas A, B, C, E
+ou F; someone in Paranhos lives among students in Asprela beside o Hospital de São João and
+rides a linha D (amarela); someone in Campanhã meets people at a estação and hears o Dragão on
+match days; someone in Foz has no metro at all and takes o elétrico 1 ao Passeio Alegre.
+Transport words: carregar o Andante, validar, apanhar o metro, o elétrico 22
+pela Baixa, a STCP dentro do Porto e a UNIR fora dele. O funicular dos Guindais está encerrado —
+fala-se dele, não se anda nele. Use the mental map — vou à Baixa for errands, à Ribeira to go
+out, à Foz to walk, à Boavista for work, do outro lado for Gaia. Prefer real nouns: o Mercado do
+Bolhão (fechado ao domingo), o Mercado do Bom Sucesso, a Feira da Vandoma ao sábado, os jardins
+do Palácio de Cristal, o Parque da Cidade, Serralves. Foods: a francesinha and the argument about
+o molho, um cimbalino, um fino, um molete, tremoços, grilled fish in Matosinhos. Keep the
+sub-regions distinct: o Minho green and festive; Trás-os-Montes high, cold and emptying; o
 Alto Douro socalcos and a vindima; o Douro Litoral Porto and its belt. Keep everything European
 Portuguese — tu, pequeno-almoço, estar a + infinitive, autocarro.
 
 ## Sources
 
-- Freguesias of Porto after the 2013 reform — https://pt.wikipedia.org/wiki/Porto
-- Metro do Porto network, lines and station list — https://pt.wikipedia.org/wiki/Metro_do_Porto and https://pt.wikipedia.org/wiki/Anexo:Lista_de_esta%C3%A7%C3%B5es_do_Metro_do_Porto
-- STCP: bus lines, night network, historic trams — https://pt.wikipedia.org/wiki/Sociedade_de_Transportes_Colectivos_do_Porto
-- Porto trams (linhas 1, 18, 22) and the Museu do Carro Eléctrico — https://pt.wikipedia.org/wiki/El%C3%A9ctrico_do_Porto
-- Funicular dos Guindais — https://pt.wikipedia.org/wiki/Funicular_dos_Guindais
+- Freguesias of Porto — still the seven of the 2013 reform; Lei n.º 25-A/2025 does NOT touch the concelho do Porto (its annex has no Porto row) — https://www.cm-porto.pt/municipio/freguesias and https://files.diariodarepublica.pt/1s/2025/03/05102/0000200014.pdf
+- Lei n.º 25-A/2025: restorations take effect on installation of the bodies elected 12 October 2025 (art. 14.º), not on the law's entry into force. Affects Matosinhos, Gaia, Vila do Conde, Póvoa de Varzim and Valongo; not Porto, Maia or Gondomar — https://files.diariodarepublica.pt/1s/2025/03/05102/0000200014.pdf
+- Metro lines and termini — checked line by line, NOT from summary maps (which contradict themselves on line E): https://pt.wikipedia.org/wiki/Linha_A_do_Metropolitano_do_Porto through https://pt.wikipedia.org/wiki/Linha_F_do_Metropolitano_do_Porto
+- Linha Rosa operational by March 2027 — https://www.jn.pt/pais/artigo/linha-rosa-entra-em-funcionamento-ate-marco-de-2027/18042671
+- STCP bus 200 (Bolhão ↔ Castelo do Queijo) and bus 900, extended past Santo Ovídio to Francelos on 12 January 2026 — https://www.jn.pt/pais/artigo/linha-900-da-stcp-passa-a-ligar-centro-do-porto-as-praias-de-gaia/18039348
+- Porto trams — line 1 Infante↔Passeio Alegre, line 18 Massarelos↔Carmo, line 22 Carmo↔Batalha circular — https://mobilidade.cm-porto.pt/transportes-publicos/eletrico
+- Elétrico 22 back in service 1 August 2026 after suspension since November 2021; line 18 back on its traditional route 1 July 2026 — https://eco.sapo.pt/2026/07/27/eletrico-22-volta-a-circular-entre-o-carmo-e-a-batalha-no-porto-a-partir-de-sabado/
+- Funicular dos Guindais: STCP Serviços since 2022, CLOSED since 18 July 2026 pending IMT certification — https://www.porto.pt/pt/noticia/funicular-dos-guindais-fecha-para-obras-de-manutencao and https://www.stcpservicos.pt/transporte-publico/funicular-dos-guindais
+- Feira da Vandoma: Saturdays 08h00–13h00, Praça Vandoma / Rua Estação de Contumil, since 12 July 2025 — https://atividadeseconomicas.cm-porto.pt/feiras-e-mercados/feira-da-vandoma
+- Mercado do Bolhão: stalls Mon–Fri 08h–20h, Sat 08h–18h, closed Sundays; restauração Mon–Sat to midnight — https://mercadobolhao.pt/contactos/ and https://goporto.pt/grandes-intervencoes/mercado-do-bolhao-5
 - Porto-Campanhã station — https://pt.wikipedia.org/wiki/Esta%C3%A7%C3%A3o_Ferrovi%C3%A1ria_de_Porto-Campanh%C3%A3
 - Bonfim (area, population, streets, institutions) — https://pt.wikipedia.org/wiki/Bonfim_(Porto)
 - Campo 24 de Agosto — https://pt.wikipedia.org/wiki/Campo_de_Vinte_e_Quatro_de_Agosto
@@ -1179,8 +1212,9 @@ Portuguese — tu, pequeno-almoço, estar a + infinitive, autocarro.
 
 - STCP exclusivity inside Porto; UNIR across the rest of the AMP since 1 December 2023 — https://www.stcp.pt/ and https://www.unirmobilidade.pt/
 - Vila Nova de Gaia — https://pt.wikipedia.org/wiki/Vila_Nova_de_Gaia and https://en.wikipedia.org/wiki/Vila_Nova_de_Gaia
-- Taylor's (founded 1692 in Gaia) and Sandeman (Largo Miguel Bombarda 3) — https://en.wikipedia.org/wiki/Taylor%27s_Port and https://en.wikipedia.org/wiki/Sandeman_(wine)
-- Matosinhos (population, canning factories, freguesias) — https://pt.wikipedia.org/wiki/Matosinhos and https://en.wikipedia.org/wiki/Matosinhos
+- Taylor's (founded 1692 in Gaia, cellars open year round) and Sandeman (Largo Miguel Bombarda 3) — both confirmed trading and visitable — https://www.taylor.pt/en/visit-taylors/port-cellars and https://www.cavesvinhodoporto.com/sandeman.html. Sogrape's purchase of Sandeman was agreed December 2001 and completed 2002, hence "the early 2000s".
+- Matosinhos (population, freguesias) — https://pt.wikipedia.org/wiki/Matosinhos and https://en.wikipedia.org/wiki/Matosinhos
+- Matosinhos canneries still trading — Pinhais https://visitar.conservaspinhais.com/en/, Portugal Norte https://portugalnorte.com/en/visit-our-store, Ramirez https://www.ramirez.pt/ (now at Rua do Passadouro 135, Lavra, not Matosinhos town). A precise surviving-factory count could not be verified, so none is given.
 - Mercado Municipal de Matosinhos (1952, ARS–Arquitectos) — https://pt.wikipedia.org/wiki/Mercado_Municipal_de_Matosinhos
 - Padrão do Bom Jesus de Matosinhos — https://pt.wikipedia.org/wiki/Padr%C3%A3o_do_Bom_Jesus_de_Matosinhos
 - Porto de Leixões (scale, cruise terminal 2015) — https://pt.wikipedia.org/wiki/Porto_de_Leix%C3%B5es

@@ -1,8 +1,8 @@
-# CIPLE — Simulado 2 (exame completo)
+# CIPLE — Simulacro 2 (exame completo)
 
 > A full three-component CIPLE mock, built to the shape of CAPLE's published model exam but
 > with entirely new material. Vocabulary domains: **saúde, trabalho, transportes**
-> (Simulado 1 covers compras, casa and daily life).
+> (Simulacro 1 covers compras, casa and daily life).
 
 **What this is.** An original practice exam written for this app. Every text, item and answer
 below is ours.
@@ -20,7 +20,7 @@ CAPLE's own site or in its published model. **[NOSSO]** = our content or our inf
 
 ---
 
-## How to run this simulado
+## How to run this simulacro
 
 Do it in the real order, on one day, with a real clock. **[FORMATO OFICIAL]**
 
@@ -44,7 +44,7 @@ dicionário, sem corretor. **[FORMATO OFICIAL — Normas 11, 12]**
 O Texto 2 pede uma assinatura — assina com um nome inventado, sempre o mesmo, para ficar
 automático. **[FORMATO OFICIAL — Norma 14]**
 
-**This simulado needs a partner** for two of the three components: someone to read the
+**This simulacro needs a partner** for two of the three components: someone to read the
 listening scripts aloud (Componente 2) and someone to play examiner and second candidate
 (Componente 3). The speaking test is run in pairs whenever possible, so practising it solo
 rehearses the wrong exam. **[FORMATO OFICIAL]**
@@ -322,7 +322,7 @@ menciona *«produção de uma carta»*, e é barato treinar. **[NOSSO]**
 
 **Duração: 30 minutos. 25 questões. 2 partes.** **[FORMATO OFICIAL]**
 
-### Como gravar ou ler este simulado
+### Como gravar ou ler este simulacro
 
 CAPLE's real audio is a single 30-minute MP3 with no pauses; the whole component *is* the
 recording. Reproduce it as follows — these timings were measured off CAPLE's own file and are
@@ -603,7 +603,7 @@ O examinador pergunta a cada candidato, à vez:
 9. O que gosta de fazer para se manter em forma?
 10. Porque está a fazer este exame?
 
-*As perguntas 6, 7 e 8 são o coração deste simulado — trabalho e transportes. Prepara três
+*As perguntas 6, 7 e 8 são o coração deste simulacro — trabalho e transportes. Prepara três
 frases para cada uma, não uma.*
 
 ## Parte II — Simulação de situações (≈ 4–6 min)
@@ -919,7 +919,7 @@ há indício de penalização por resposta errada e um palpite entre três opç�
 
 ## Fontes
 
-Este simulado é **material original**. Nenhum texto, item ou resposta foi copiado de uma prova
+Este simulacro é **material original**. Nenhum texto, item ou resposta foi copiado de uma prova
 do CAPLE. As fontes abaixo justificam o **formato** — número de itens, tipos de tarefa,
 durações, pesos, regras de sala e bandas de classificação.
 
@@ -977,7 +977,7 @@ durações, pesos, regras de sala e bandas de classificação.
 
 ## Prompt context
 
-O simulado 2 do CIPLE treina as três componentes com vocabulário de saúde, trabalho e
+O simulacro 2 do CIPLE treina as três componentes com vocabulário de saúde, trabalho e
 transportes. Na leitura (20 questões, 1h15, 45%) lês mensagens de telemóvel, um aviso do centro
 de saúde, um horário de autocarros, um anúncio de emprego, um aviso de obras na linha, uma
 posologia de medicamento, uma carta a pedir mudança de turno e um texto sobre quem deixou o

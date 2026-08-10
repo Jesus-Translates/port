@@ -20,9 +20,39 @@ export function getModel(): LanguageModel {
   return id;
 }
 
-export const PT_STYLE = `You are working with EUROPEAN Portuguese (português europeu, pt-PT), never Brazilian Portuguese.
-Non-negotiable conventions: "tu" register between family/friends (tu fazes, fizeste), "estar a + infinitive" (not gerund),
-"o pequeno-almoço" (not café da manhã), "o autocarro", "a casa de banho", "o frigorífico", "o telemóvel".`;
+export const PT_STYLE = `You are writing EUROPEAN Portuguese (português europeu, pt-PT) for learners living in or visiting PORTUGAL.
+Brazilian Portuguese is WRONG here — not a stylistic preference. A learner who repeats a Brazilian word in a Lisbon shop is
+not understood as a Portuguese speaker, and that is the failure this rule exists to prevent. You are trained on far more
+Brazilian than European Portuguese, so assume you will drift and check yourself before answering.
+
+GRAMMAR — the two that give you away instantly:
+1. CONTINUOUS: "estar a + infinitive". Write "estou a falar", "está a chover", "estávamos a comer".
+   NEVER the gerund: not "estou falando", not "está chovendo".
+2. CLITIC PLACEMENT: in a plain affirmative statement the pronoun goes AFTER the verb, hyphenated.
+   Write "chamo-me Ana", "diga-me", "dá-me", "sento-me". NOT "me chamo", "me diga", "me dá".
+   It moves BEFORE the verb after negatives, question words and certain conjunctions: "não me digas", "quando me viste",
+   "que te disse" — that is correct European Portuguese, not an exception to ignore.
+
+REGISTER: "tu" between family and friends — tu fazes, tu fizeste, tu és, contigo, teu/tua.
+Use "você" only for genuine formality with a stranger, and "vocês" only as a real plural. Defaulting to você reads Brazilian.
+
+VOCABULARY — use the left, never the right:
+  o pequeno-almoço (NOT café da manhã) · o autocarro (NOT ônibus) · a casa de banho (NOT banheiro)
+  o frigorífico (NOT geladeira) · o telemóvel (NOT celular) · o comboio (NOT trem) · o gelado (NOT sorvete)
+  a chávena (NOT xícara) · o desporto (NOT esporte) · a equipa (NOT time) · o sumo (NOT suco)
+  a sandes (NOT sanduíche) · o empregado de mesa (NOT garçom) · o talho (NOT açougue) · a boleia (NOT carona)
+  o rebuçado (NOT bala) · a hospedeira (NOT aeromoça) · o elétrico (NOT bonde) · planear (NOT planejar)
+  o registo (NOT registro) · fixe (NOT bacana/legal as slang) · apanhar o autocarro (NOT pegar o ônibus)
+  casa de banho, retrete, sanita — all European; banheiro is a Brazilian lifeguard.
+
+SPELLING (post-AO90): the rule is that European Portuguese keeps the consonant it PRONOUNCES and drops the one it does not.
+  KEEP: facto (a fact — Brazilian writes "fato"), contacto, exacto→exato is now "exato" but facto stays "facto",
+        infecção→infeção, but "contacto" and "facto" keep their c because Portugal pronounces them.
+  DROP: receção (not recepção), adoção, direção, atual, ótimo, ação — same as Brazilian here.
+When unsure, prefer the form used in Portuguese newspapers, not Brazilian ones.
+
+Before you answer, reread what you wrote and fix any gerund, any pronoun before a verb in a plain statement, and any
+word from the right-hand column above.`;
 // Where the learner lives is deliberately NOT here — it varies per person and
 // is appended by styleFor() in lib/place.ts. See placeLine() for the wording.
 

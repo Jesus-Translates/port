@@ -14,10 +14,11 @@ and 803 freguesias, with 2,227,239 inhabitants over 28,202 km². The sub-regions
 Região de Aveiro, Região de Coimbra, Região de Leiria, Viseu Dão-Lafões, Beira Baixa
 and Beiras e Serra da Estrela.
 
-**Scope warning for the tutor.** Since the NUTS revision of 2024, **Tomar and
-Fátima/Ourém are no longer administratively in the Região Centro** — they sit in
-Médio Tejo, which moved into the new NUTS II region **Oeste e Vale do Tejo** (both are
-in the distrito de Santarém). The tourism brand *Centro de Portugal* still markets
+**Scope warning for the tutor.** Under the current NUTS revision — Decreto-Lei
+n.º 24-A/2022, carried into the EU's NUTS 2024 version — **Tomar and Fátima/Ourém are no
+longer administratively in the Região Centro**. They sit in **Médio Tejo**, which moved,
+with **Oeste**, out of Centro and into the NUTS II region **Oeste e Vale do Tejo**
+(Lezíria do Tejo joined it from the Alentejo). Both towns are in the distrito de Santarém. The tourism brand *Centro de Portugal* still markets
 them as Centro and residents say *o Centro* loosely, so keep them in lessons — but
 never write "Tomar, na Região Centro" as a statement of fact. Say *no Médio Tejo*, or
 just *perto de Leiria*. Conversely, **Ovar is in the Centro** (Região de Aveiro), not
@@ -158,15 +159,17 @@ the **Basílica da Santíssima Trindade** and the vast open **Recinto de Oraçã
 The **Basílica de Nossa Senhora do Rosário** (begun 13 May 1928, consecrated 1953)
 holds the tombs of **Jacinta**, **Francisco Marto** and **Irmã Lúcia**. Outside the
 recinto are **Aljustrel**, the shepherds' home village, **Valinhos**, and the **Loca
-do Cabeço**. Note the common error: Fátima *is* a **cidade** (10,533 people) but it is
-**not its own concelho** — it is a freguesia of **Ourém**, and the **Castelo de Ourém**
+do Cabeço**. Note the common error: Fátima *is* a **cidade** but it is
+**not its own concelho** — it is a freguesia of **Ourém**. Two 2021 census figures are both
+right and get mixed up: the **cidade** has **10,533** people, the wider **freguesia**
+**13,212**. The **Castelo de Ourém**
 and its medieval village 10 km away are a quiet local weekend outing.
 
 What matters for residents: the **peregrinações aniversárias fall on the 13th of the
 month**, biggest from May to October, with 13 May and 13 October the peaks. In the
 days before, pilgrims walk the national roads on foot in reflective vests, and drivers
 slow behind them for kilometres. The **procissão das velas** fills the recinto at
-night. Fátima's 13,212 residents work in hotels, restaurants and shops selling
+night. The freguesia's 13,212 residents work in hotels, restaurants and shops selling
 *artigos religiosos*; the A1 has an exit that reaches the sanctuary in under five
 minutes, the IC9 feeds it, and the coach terminal runs mostly Rede Expressos. People
 genuinely do say *vou à Cova da Iria* the way others say *vou ao centro*. Two
@@ -223,6 +226,11 @@ its *procissão* and *arraial*, *baptizados* and *casamentos*, and the local
   here.** Espumante with leitão is *the* regional pairing.
 - `Bairrada DOC` — red built on **Baga**; white built on **Fernão Pires, known locally
   as Maria Gomes**, with Bical and Arinto.
+- `bolo de Ançã` — from **Ançã, município de Cantanhede** (distrito de Coimbra): eggs,
+  wheat flour, sugar, butter, cinnamon and lemon, kneaded by hand and baked in a wood oven,
+  made in the village since the turn of the 20th century. Get the name right — it is a
+  **bolo**, from **Ançã**. There is no "broa de Ancã"; that spelling and that pastry do not
+  exist, and asking for one in Cantanhede will get you corrected.
 - `água do Luso` — the spa town of Luso, in Mealhada município, below the Buçaco
   forest. (This, not Água das Pedras, is the Centro's mineral water — Pedras Salgadas
   is in Vila Real, in the north.)
@@ -280,8 +288,10 @@ its *procissão* and *arraial*, *baptizados* and *casamentos*, and the local
   smoked. `morcela` here carries **pumpkin**. `farinheiros à moda da Guarda` come out
   of the **matança do porco**.
 - `broa` (maize and wheat) and `pão de Seia` are the mountain breads.
-- `Dão DOC` — demarcated in **1908**, Portugal's first demarcated *unfortified* wine
-  region, on granite around Viseu across the Viseu, Coimbra and Guarda districts.
+- `Dão DOC` — demarcated in **1908**, on granite around Viseu across the Viseu, Coimbra and
+  Guarda districts. Say *one of the regions demarcated in 1908*, **not** "Portugal's first
+  demarcated unfortified region": the 1908 legislation demarcated several at once, Vinho
+  Verde and Colares among them.
   **Touriga Nacional**, Alfrocheiro and Jaen in red; **Encruzado** in white.
 
 **Beira Baixa (Castelo Branco, Covilhã, Fundão)**
@@ -329,13 +339,14 @@ to **Vilar Formoso** on the Spanish border; the **Linha da Beira Baixa** climbs 
 Lisboa through Castelo Branco and Covilhã to Guarda; the **Linha do Oeste** serves
 Leiria.
 
-In Coimbra, **SMTUC** runs the buses and the **Elevador do Mercado** (07:30 on
-weekdays, 10:00 weekends and holidays, until 21:00) which lifts you from the market
-in the Baixa up towards Rua Padre António Vieira — an ordinary SMTUC ticket is valid.
+In Coimbra, **SMTUC** runs the buses and the **Elevador do Mercado** — **Monday to
+Saturday 07:30–21:00, Sundays and holidays 10:00–21:00** — which lifts you from the market
+in the Baixa up towards Rua Padre António Vieira; an ordinary SMTUC ticket is valid.
 **Metro Mondego** — a *metrobus* of 18.75 m electric articulated buses on the channel
-of the old **Ramal da Lousã** — began preliminary operation on **30 August 2025**
-between **Largo da Portagem and Vale das Flores**, with Miranda do Corvo, Lousã and
-Serpins to follow; monthly *passes* work on both Metro Mondego and SMTUC.
+of the old **Ramal da Lousã** — began preliminary operation on **29 August 2025**
+between Largo da Portagem and Vale das Flores, and **since 16 December 2025 runs the full
+36 km and 27 stations from Coimbra out to Serpins**, through **Miranda do Corvo** and
+**Lousã**; monthly *passes* work on both Metro Mondego and SMTUC.
 
 Aveiro is flat and cycled: **MoveAveiro** runs the buses and the **BUGA** bikes
 (*Bicicleta de Utilização Gratuita de Aveiro* — free no longer, paid since 2023).
@@ -343,17 +354,19 @@ Aveiro is flat and cycled: **MoveAveiro** runs the buses and the **BUGA** bikes
 By road: the **A1** north–south, the **A17** along the coast, the **A14** from
 Figueira to Coimbra, the **A8/A19** into Leiria, the **IC9** to Fátima and Tomar. Two
 big interior motorways, both former SCUT, are now **toll-free**: the **A23**
-(Torres Novas–Castelo Branco–Covilhã–Guarda, 217 km) and the **A25**
-(Aveiro–Viseu–Guarda–Vilar Formoso, 199 km — free from Albergaria-a-Velha eastward
-since 1 January 2025). The **IP3** between Coimbra and Viseu is the road everyone
+(Torres Novas–Castelo Branco–Covilhã–Guarda, 214 km), free since 1 January 2025 under a
+2024 law, and the **A25** (Aveiro–Viseu–Guarda–Vilar Formoso, 199 km) — free from
+Albergaria-a-Velha eastward from 1 January 2025 and **free over its whole length since
+1 January 2026**, when the last western gantries came down. The **IP3** between Coimbra and Viseu is the road everyone
 complains about: at least 153 people have died on it since it opened in 1991.
 *Portagens* and *Via Verde* still apply on the A1, A14 and A17. **Rede Expressos**
 coaches fill in everywhere the train does not.
 
-**Shopping.** The **Mercado Municipal D. Pedro V** in Coimbra opened in 1867 on the
+**Shopping.** The **Mercado Municipal D. Pedro V** in Coimbra opened in 1868 on the
 old vegetable garden of the Mosteiro de Santa Cruz; the ground floor trades
-**Monday to Saturday, 06:00 to 19:00**, with around 470 registered producers across
-190 stalls on three floors, and the upper floors now a late-opening food court.
+**Monday to Saturday, 06:00 to 19:00**, closed Sundays, and the upper floors are now the
+**Praça da Restauração**, a food court open late — to midnight Monday to Wednesday and
+to 02:00 Thursday to Saturday.
 Every town has its **feira semanal** or **feira mensal** with *feirantes* selling
 clothes, tools, plants and *hortaliça*. Otherwise it is **Continente, Pingo Doce,
 Lidl, Intermarché, Aldi** or **Minipreço**, plus the *talho*, the *peixaria*, the
@@ -419,8 +432,8 @@ Académica, Beira-Mar, União de Leiria, Académico de Viseu, Sporting da Covilh
   Velha**; the **Cortejo** parades faculty-coloured floats through the city.
   In 2026 it ran **22–30 May**.
 - **Early July, every four years** — the **Festa dos Tabuleiros** in Tomar. The next
-  is **3–12 July 2027**; the town voted yes in 2026 and elected Mário Formiga as
-  *mordomo*. Women carry *tabuleiros* of bread and paper flowers, crowned with a dove
+  is **3–12 July 2027**; the town voted yes on 18 April 2026 and re-elected Mário Formiga
+  as *mordomo* for a second term. Women carry *tabuleiros* of bread and paper flowers, crowned with a dove
   or the cross of the Order of Christ, along a 5 km procession, with carts of bread,
   meat and wine behind.
 - **Mid-August** — the **Festival do Bacalhau** at the Jardim Oudinot, Gafanha da
@@ -523,7 +536,8 @@ the river. *Landmark*: the **Paço das Escolas** with the **Porta Férrea**, the
 **"a cabra"**. *Food*: `arrufada de Coimbra`, the dry double-risen sweet bread from
 the Convento de Sant'Ana, and `chanfana` from the villages just east. *Everyday*:
 since Coimbra-A closed in January 2025 everyone catches trains at **Coimbra-B**, and
-the new Metro Mondego metrobus runs from Largo da Portagem out to Vale das Flores.
+the Metro Mondego metrobus runs from Largo da Portagem out through Miranda do Corvo and
+Lousã to Serpins.
 
 ### Aveiro
 
@@ -672,7 +686,7 @@ fourth year the whole town rebuilds itself around the **Festa dos Tabuleiros** �
 
 The learner lives in Portugal's Centro, between the Atlantic and the Serra da
 Estrela. Reach for concrete local things: the Ria de Aveiro with its moliceiros,
-salinas and marnotos; the striped palheiros of Costa Nova; the burnt and replanted
+salinas and marnotos; the striped palheiros of Costa Nova; the replanted
 Pinhal de Leiria; the Mondego running through Coimbra to Figueira da Foz; the Torre
 under snow. Transport: the comboio on the Linha do Norte from Coimbra-B (the
 city-centre station closed in 2025), the Linha da Beira Alta to Guarda, SMTUC buses,
@@ -775,3 +789,25 @@ pilgrims walking to Fátima on the thirteenth.
 - https://www.visitecoimbra.pt/
 - https://winesofportugal.com/pt/descobrir/regioes-vitivinicolas/beira-interior/
 - https://www.compete2020.gov.pt/detalhe/detalhe/Licor-Beirao-Uma-historia-magica-e-secular
+
+**Re-verified August 2026** (corrections applied in this pass):
+
+- https://pt.wikipedia.org/wiki/NUTS_de_Portugal — Centro's 6 sub-regions; Médio Tejo and
+  Oeste moved to Oeste e Vale do Tejo, Lezíria do Tejo from the Alentejo
+- https://www.smtuc.pt/elevador-do-mercado/ — Elevador do Mercado is **Mon–Sat 07:30–21:00**,
+  Sundays and holidays 10:00–21:00 (the old "10:00 at weekends" was wrong about Saturday)
+- https://visitavirtual.coimbra.pt/patrimonio/mercado-municipal-d-pedro-v/ — market inaugurated
+  **1868**, on the old horta de Santa Cruz
+- https://www.coimbra.pt/2022/03/praca-da-restauracao-do-mercado-municipal-d-pedro-v-abre-segunda-feira/
+- https://www.infraestruturasdeportugal.pt/pt-pt/sistema-de-mobilidade-do-mondego-entra-ao-servico-entre-serpins-e-coimbra
+  — Metro Mondego reached **Serpins on 16 December 2025**: 36 km, 27 stations
+- https://pt.wikipedia.org/wiki/A25_(autoestrada) — whole A25 toll-free from 1 January 2026
+- https://pt.wikipedia.org/wiki/Auto-estrada_da_Beira_Interior — A23 is **214 km**
+- https://pt.wikipedia.org/wiki/An%C3%A7%C3%A3 — `bolo de Ançã`, Cantanhede
+- https://turismodocentro.pt/evento/queima-das-fitas-coimbra/ — Queima 22–30 May 2026
+- https://mediotejo.net/tomar-confirma-festa-dos-tabuleiros-2027-e-elege-mario-formiga-como-mordomo/
+
+**Fetch failures in this pass:** `cm-coimbra.pt` returned HTTP 403 (so the "470 producers /
+190 stalls" figure could not be stood up and has been **removed**); `tradicional.dgadr.gov.pt`
+returned HTTP 500. **Do not cite `queimadasfitas.org`** — the domain no longer belongs to the
+festival and now serves gambling content.

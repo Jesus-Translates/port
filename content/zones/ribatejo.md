@@ -18,8 +18,13 @@ ribatejana*, *Feira do Ribatejo*. Sources differ on the exact number of concelho
 1936 province — figures of 21 and 25 both circulate — so avoid stating a count.
 
 **What replaced it on paperwork.** Almost all of this zone is the **distrito de Santarém**,
-which is what a resident actually writes down. In NUTS III / intermunicipal terms the zone
-splits in two, and locals know the split because it decides which body funds what:
+which is what a resident actually writes down. At NUTS II level the whole zone now sits in
+**Oeste e Vale do Tejo** — under the current NUTS revision (Decreto-Lei n.º 24-A/2022,
+carried into the EU's NUTS 2024 version) Médio Tejo moved out of the Região Centro and
+Lezíria do Tejo out of the Alentejo. So **Tomar is in the Médio Tejo, not in the Região
+Centro**; never write "Tomar, na Região Centro" as current fact. Below that, in NUTS III /
+intermunicipal terms the zone splits in two, and locals know the split because it decides
+which body funds what:
 
 - **Lezíria do Tejo (CIMLT)** — the downstream, flat, riverine half: Santarém, Almeirim,
   Cartaxo, Alpiarça, Chamusca, Golegã, Rio Maior, Salvaterra de Magos, Benavente, Coruche,
@@ -111,8 +116,10 @@ keep climate language qualitative.)*
   1983**. Founded as the Templar headquarters; the castle was begun in **1160** by
   **Gualdim Pais**. Its heart is the **Charola**, the round oratory modelled on the Church
   of the Holy Sepulchre in Jerusalem, built in two campaigns (Romanesque c. 1160–1190,
-  finished Gothic c. 1230–1250). The **Janela do Capítulo** — the great Manueline window by
-  **Diogo de Arruda** — is the single most reproduced image in the region. Also the
+  finished Gothic c. 1230–1250). The **Janela do Capítulo** — the great Manueline window,
+  begun under **Diogo de Arruda** in 1510–13 and completed by **João de Castilho** in 1515;
+  crediting Arruda alone is the standard error — is the single most reproduced image in the
+  region. Also the
   **Claustro de D. João III** by Diogo de Torralva, and the **Claustro da Lavagem**, built
   c. **1420** under the **Infante D. Henrique**, who was made governor of the **Ordem de
   Cristo** (founded **1357** after the Templars were suppressed) and turned its revenues
@@ -301,23 +308,28 @@ patronal feast, the *arraial* and the *largada de toiros* frequently share a wee
 Genuinely long-standing houses, verified as trading during this research pass. Where a place
 could not be confirmed, it is not listed.
 
-- **Taberna do Quinzena**, Rua Pedro de Santarém, Santarém — over **150 years** in the same
-  family, currently run by **Fernando Batista**, whose great-grandfather started it. Long
-  shared tables, checked tablecloths, and walls solid with *tauromaquia* — photographs,
-  posters, heads, capes. The house grew up watching bulls go past its door on the way to
-  the ring on Avenida Laurentino, and the decoration is a family archive rather than a
-  theme. The ritual is the sharing: you sit down the table from people you did not arrive
-  with, and the *porco preto* and the *bacalhau frito com cebolada* come to be split. There
-  is now a **Taberna do Quinzena II** and a **Quinzena Hotel**, which the town treats as a
-  running joke about the tavern having got above itself.
-- **O Toucinho**, Almeirim — opened **1962**, the **first restaurant in Almeirim** and the
-  house where **sopa da pedra** first went on a menu: the owner **João Simões** served two
-  passing travellers the soup he normally made for the farm workers, and the rest of the
-  town's economy followed. It still cooks to the certified recipe, still puts the stone in
-  the bottom of the bowl, and still bakes its own **caralhotas** in its own wood oven.
-  The ordering ritual is fixed: the soup arrives, you fish for the stone, someone at the
-  table makes the joke about it being the same stone since 1962, and everyone agrees that
-  their own family's version is better while eating a second bowl.
+- **Taberna do Quinzena**, Rua Pedro de Santarém 93-95, Santarém — trading since **1870**,
+  four generations of the same family, currently run by **Fernando Batista** (whose father
+  was also Fernando — do not attach the father's doings to the son). The name comes from
+  the field workers who settled their slate *à quinzena*, fortnightly. Walls solid with
+  *tauromaquia* — **cartazes**, **capotes**, **farpas** and **barretes de campino** — a
+  family archive rather than a theme. The ritual is the sharing: you sit down the table
+  from people you did not arrive with, and the *porco preto* and the *bacalhau frito com
+  cebolada* come to be split. The family now runs several houses in Santarém, including
+  **Taberna do Quinzena Mercado** (opened 2006) and **Taberna do Quinzena II** at Mecheira.
+  *(Do not say "Quinzena Hotel" — no such thing. They run the restaurant side of the
+  **Hotel Verdi Santarém**, which is somebody else's hotel.)*
+- **O Toucinho**, Almeirim — opened in **1962** as a *taberna e mercearia*, the first eating
+  house in Almeirim, and the place where **sopa da pedra** first went on a menu. The founder
+  was **José Manuel Toucinho**; two travelling suppliers passing through asked the family to
+  serve them some of the soup, came back weeks later unable to name it, and described it by
+  the colour of the pavement — and the rest of the town's economy followed. It is run today
+  by his daughter and son-in-law, **Hélia and João Simões**, with their sons in the kitchen;
+  **do not credit João Simões with the 1962 story**. It still puts the stone in the bottom
+  of the bowl and still bakes its own **caralhotas** in its own wood oven. It is **closed on
+  Thursdays**. The ordering ritual is fixed: the soup arrives, you fish for the stone,
+  someone at the table makes the joke about it being the same stone since 1962, and everyone
+  agrees that their own family's version is better while eating a second bowl.
 
 **The argument you will hear.** Almeirim has a whole avenue of houses serving sopa da pedra
 and the town takes the comparison seriously. Asking a Ribatejano which one is best is a
@@ -383,16 +395,17 @@ Ribatejo, and residents plan their lives on it.
 
 **Markets and shopping**
 
-- **Mercado Municipal de Santarém**, Rua Cidade da Covilhã — **Tuesday to Saturday, 07:00 to
-  13:00**, closed Sunday and Monday. It **reopened on 19 March 2025** after nearly six years
+- **Mercado Municipal de Santarém** — **Tuesday to Friday, 07:00 to 15:00, and Saturday
+  07:00 to 14:00**, closed Sunday and Monday. It **reopened on 19 March 2025** after nearly six years
   shut for rebuilding, which was a genuine civic event; people had been complaining about
   the closure for years and now compare the new stalls with the old ones.
 - Santarém also runs a **Mercado Quinzenal**, a fortnightly market on the edge of town
   *(exact days unverified — do not name a day)*.
-- **Ourém** holds its municipal market on **Thursdays and Saturdays**.
+- **Ourém** holds its municipal market — the **Mercado Municipal Manuel Prazeres Durão** —
+  on **Thursday and Saturday mornings**.
 - Most other concelhos run a monthly or fortnightly *feira* on a fixed day. **Do not invent
   one.** If a lesson needs a market day, use Santarém's Tuesday-to-Saturday indoor market or
-  Ourém's Thursday and Saturday, both of which are documented.
+  Ourém's Thursday and Saturday mornings, both of which are documented.
 
 **Bureaucracy.** **Santarém is the capital de distrito**, so district-level offices sit
 there and a resident of Golegã or Chamusca expects to drive in for anything above municipal
@@ -598,8 +611,8 @@ the Igreja de Santo Estêvão.
 with its own gastronomic festival; **fataça na telha** from the avieiro village of
 **Caneiras** just downstream.
 
-**Everyday life:** the **Mercado Municipal** on Rua Cidade da Covilhã, Tuesday to Saturday
-07:00–13:00, reopened in March 2025 after nearly six years of works. The railway station is
+**Everyday life:** the **Mercado Municipal**, Tuesday to Friday 07:00–15:00 and Saturday
+07:00–14:00, reopened in March 2025 after nearly six years of works. The railway station is
 down in the valley at **Santa Iria da Ribeira de Santarém**, reached from town by
 **Scalabus** 2, 3 or 4. In June the entire city bends around **CNEMA**.
 
@@ -741,7 +754,7 @@ Santíssima Trindade** (opened October 2007).
 **Food:** `vinho medieval de Ourém`, holding VQPRD status since **11 February 2005**, with
 hundreds of registered growers in the concelho.
 
-**Everyday life:** the municipal market runs **Thursdays and Saturdays**. Around **12–13 May**
+**Everyday life:** the municipal market runs **Thursday and Saturday mornings**. Around **12–13 May**
 and **12–13 October** the roads fill with walking pilgrims, and residents plan journeys,
 deliveries and school runs accordingly — offering water and a chair to *peregrinos* is an
 ordinary neighbourly act here.
@@ -803,8 +816,12 @@ two sources where possible; single-source claims are marked in the text.
 - tauromaquiapatrimonio.pt — Campino; Esperas e Largadas de Toiros (costume, pampilho
   dimensions, cabrestos, apartação/ferra/tenta vocabulary)
 - ciberduvidas.iscte-iul.pt — Palavras, expressões e provérbios da lezíria ribatejana
-- visitportugal.com / lifecooler.com / tabernadoquinzena.com — Taberna do Quinzena
-- omirante.pt / nit.pt / lifecooler.com — Restaurante O Toucinho, Almeirim
+- https://tabernadoquinzena.com/restaurantes-tradicionais/ and omirante.pt (02-07-2026
+  interview with Fernando Batista) — Taberna do Quinzena: trading, founded 1870, four
+  generations, the houses it actually runs
+- https://www.toucinho.com/ (live, closed Thursdays) plus nit.pt (27-08-2024) and
+  omirante.pt (25-07-2021, 25-08-2023) — O Toucinho: founder **José Manuel Toucinho**,
+  1962, first sopa da pedra on a menu, run today by Hélia and João Simões
 - viagens.sapo.pt / cm-salvaterrademagos.pt — aldeias avieiras
 - cp.pt — Linha do Norte, Urbanos de Lisboa (Azambuja terminus), Lisboa–Tomar timetables
 
@@ -817,3 +834,26 @@ group. **Corrected here:** Entroncamento is the second — not the first — lea
 mainland municipality; *magusto* in Santarém is a bacalhau dish, not a chestnut roast; the
 wine region has been called *Tejo*, not *Ribatejo*, since 2009; the Golegã fair's supposed
 Marquês de Pombal connection fails a date check.
+
+**Corrected in the August 2026 re-verification pass:**
+
+- The Mercado Municipal de Santarém runs **Tuesday to Friday 07:00–15:00 and Saturday
+  07:00–14:00** — the previously stated "Tuesday to Saturday 07:00–13:00" was wrong on
+  every day (omirante.pt, 18-03-2025). The street name could not be confirmed against a
+  primary source and has been dropped.
+- **There is no "Quinzena Hotel."** The family runs the restaurant side of the
+  **Hotel Verdi Santarém**, which they do not own (https://tabernadoquinzena.com/hotel/).
+- O Toucinho was founded by **José Manuel Toucinho**, not by João Simões, who is the
+  son-in-law running it today. The two who asked for the soup were travelling
+  **suppliers**, not "passing travellers", and the claim that it was the soup "he normally
+  made for the farm workers" was **unsourced and has been deleted**.
+- Ourém's market is **Thursday and Saturday mornings**, at the Mercado Municipal Manuel
+  Prazeres Durão (https://www.ourem.pt/viver/feiras-e-mercados/ — note that
+  **cm-ourem.pt fails TLS validation; use www.ourem.pt**).
+- Tomar's NUTS II position is now stated explicitly (Oeste e Vale do Tejo) so this file and
+  `centro.md` cannot be read as disagreeing.
+
+**Still unresolved:** the delimited area of the `Arroz Carolino das Lezírias Ribatejanas`
+IGP could not be re-read first-hand — `tradicional.dgadr.gov.pt` returned HTTP 500 again —
+so the exclusion of Santarém, Almeirim and Tomar stands on the earlier pass. Do not print a
+founder's first name for the Taberna do Quinzena: sources disagree.

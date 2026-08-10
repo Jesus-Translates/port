@@ -148,7 +148,60 @@ Then run the INPI/EUIPO screen before any branding spend.**
    300–600-member (Oeste) groups that punish ads. CAC must stay under ~€40 on
    €119 ARPU → community seeding, SEO, partnerships; paid social is not the engine.
 
-## 8. Open verification gaps
+## 8. Appendix — all 45 raw name candidates (4 lenses, verbatim from the panel)
+
+### Lens: portuguese-word
+- **Tasca** — *Portuguese, the way it's actually spoken.*: A tasca is the small, unpretentious neighbourhood tavern where Portuguese people actually eat, argue and talk — an institution in Portugal and a word Brazil does not use, so it silently certifies the dialect. Two syllables, spells itself after one hearing; the Spanish and Italian senses (tavern, pocket) are harmless.
+- **Bica** — *One bica a day.*: The small strong espresso you order in Lisbon — Brazil says cafezinho, so the word is a hard pt-PT marker. Perfect metaphor for a short daily lesson; four letters; doubles as a tutor-persona name.
+- **Farol** — *Find your bearings in Portuguese.*: Lighthouse — incl. Cabo Carvoeiro, minutes from the family's coast. Guidance, orientation, a fixed point you steer by; ready-made logo mark.
+- **Ponte** — *Cross into Portuguese.*: Bridge — cleanest metaphor, but the most exhausted one in language learning.
+- **Passo** — *Passo a passo.*: Step — names the lesson-path mechanic; English eye sees "pass" next to CIPLE prep.
+- **Petisco** — *Small plates of Portuguese, every day.*: Small shared plates → bite-sized daily lessons + family table in one image.
+- **Aldeia** — *Learn Portuguese together.*: Village — belonging, neighbours; every family account is "your aldeia".
+- **Ainda** — *Ainda não. Not yet — but soon.*: Growth mindset as a real Portuguese word; best as tutor voice/in-app copy.
+- **Marco** — *Mark how far you've come.*: Milestone marker; navigators' stone pillars; risk: reads as a man's first name.
+- **Sotaque** — *Get the accent right.*: Accent — names the buyer's core fear (being taught Brazilian by accident) and the product's pronunciation differentiator.
+- **Devagar** — *Devagar se vai ao longe.*: Anti-streak stance; wrong promise for a deadline-driven CIPLE buyer.
+- **Encontro** — *Every lesson is a conversation.*: Meeting/encounter; reads pan-Romance.
+
+### Lens: coined-brandable
+- **Petisco** (dup) — bite-sized lessons framing; App Store lockup "Petisco: European Portuguese".
+- **Comboio** — *Every lesson connects to the next.*: Train (Brazil says *trem*) — a dialect shibboleth mapping onto 126 linked units. "com-BOY-o".
+- **Percebo** — *The moment it clicks.*: "I understand" — perceber vs Brazil's entender; English "perceive" assist.
+- **Bica** (dup) — daily-habit espresso; four letters, domains long gone.
+- **Sotaque** (dup) — exists only in Portuguese (Spanish uses acento).
+- **Morada** — *Portuguese for the people who live here.*: Address/dwelling where Brazil says endereço — settling, residency. Namespace dead (Morada Senior Living etc.).
+- **Miradouro** — *See how the whole language fits together.*: The hilltop viewpoint — the whole A1–B2 map at once; longest name, Portugal-coded.
+- **Nortada** — *The wind at your back.*: The afternoon north wind over Santa Cruz/Torres Vedras itself; meaning invisible to buyers; Porto brewery collision.
+- **Levada** — *A clear path through European Portuguese.*: Madeira's water-channel paths; Madeiran not mainland; Brazilian music-slang bleed.
+- **Rossio** — *Where the family meets Portuguese.*: Lisbon's central square / common ground; too narrowly local.
+- **Portugal Fluente** — literal SEO fallback; nearly unregisterable as a mark — keep as a landing page.
+
+### Lens: descriptive-seo
+- **Farol** (dup) — *Steady light, safe passage.* Coastal imagery with zero colonial reference; ES slang "echar un farol" (to bluff) noted, harmless.
+- **Roteiro** — *Your route through European Portuguese.*: The pilots' written sailing-guide → itinerary; Brazil reads "screenplay"; close to Practice Portuguese's territory.
+- **Nortada** (dup), **Bica** (dup — bica.app the realistic target), **Levada** (dup).
+- **Varanda** — *Portuguese that feels like home.*: Balcony; best etymology story in the set — English "veranda" was borrowed FROM Portuguese, so the brand is a familiar English word spelled back into its original language. Family-coded.
+- **Tasca** (dup) — restaurant-trademark magnet, also a Spanish word.
+- **Leme** — *Take the helm.*: estar ao leme — agency not conquest; killed by Anglophone "lemme" reading.
+- **Gaivota** — *Portuguese the way it sounds on the Atlantic.*: Seagull + the Amália fado; British chip-stealing baggage.
+- **Horta** — *Tend a little every day.*: The family vegetable plot = spaced repetition; also the Azorean mid-Atlantic harbour; two meanings pull apart.
+- **Ladeira** — *Every climb ends in a view.*: The steep cobbled street, always paid off with a miradouro — honest about effort; hard to spell from hearing.
+
+### Lens: place-culture (coined blends)
+- **Sotaqui** — *The accent from here.*: sotaque + aqui — THE SLEEPER. Entire positioning in one coined word; pristine namespace (sotaqui.com $11.25, sotaqui.app $9.99 both free at check). Cut ONLY for duplicating Sotaque's territory; judge explicitly flagged "veto me here first".
+- **Azulei** — *Portugal, one tile at a time.*: azul + azulejo + -ei verb ending; ready-made visual system (126 units as a tile wall); azulei.com AND .app already taken.
+- **Acertei** — *Get it right, out loud.*: "I got it right!" — the grading loop as a name; Brazilian quiz-site collisions.
+- **Percebi** (variant of Percebo) — dialect fingerprint; first-person verb reads clinical.
+- **Petisca** — coined petisco variant; English eyes see "pet".
+- **Alvora** — from alvorada (daybreak); Brazilian register bleed (Palácio da Alvorada).
+- **Farola** — farol coinage; real Spanish noun (streetlamp) dilutes the signal.
+- **Falamos** — *We speak. All of us.*: family plan in one word; sits in the -talk/-speak swamp, contested namespace.
+- **Daqui** — *Sou daqui. I'm from here.*: names the emotional endpoint — belonging, not fluency. The judge's #1.
+- **Lareira** — *Where the family learns.*: the hearth (from lar, home); restaurant-heavy domain field.
+- **Comboio** (dup) — *One line, 126 stops.*
+
+## 9. Open verification gaps
 
 - Trademark screens (EUIPO/TMview, USPTO, INPI) — blocked by 403s/budget; **do manually**.
 - CAPLE exam fee + official candidate volumes (site returned malformed HTTP;

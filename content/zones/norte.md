@@ -124,10 +124,10 @@ a navigable river.
 The baroque **escadório** climbs the hillside in three flights: the **Escadório do Pórtico**, the
 **Escadório dos Cinco Sentidos** (each landing a fountain for one of the senses) and the
 **Escadório das Três Virtudes**, 581 steps in all, up to the **Terreiro de Moisés** and the
-church. Alongside runs the **Elevador do Bom Jesus**, inaugurated in 1882 to a design by Niklaus
-Riggenbach — the oldest water-counterweight funicular in the world and the first funicular built
-in the Iberian Peninsula: the upper cabin fills its tank, the brake is released, and gravity does
-the rest. For Braga residents this is not a monument, it is a Sunday. People drive or take the
+church. Alongside runs the **Elevador do Bom Jesus**, inaugurated on 25 March 1882 to a design by
+**Raoul Mesnier du Ponsard**, built under the direction of the Swiss engineer Niklaus Riggenbach
+— the oldest water-counterweight funicular in the world: the upper cabin fills its tank, the
+brake is released, and gravity does the rest. For Braga residents this is not a monument, it is a Sunday. People drive or take the
 funicular up, walk the escadório for exercise or for a promise, sit under the trees, eat, get
 married and christen their children there. The **Santuário do Sameiro** is on the next hill and
 draws its own pilgrimages.
@@ -171,9 +171,10 @@ church where everyone stands and talks afterwards, **um baptizado**, **um casame
 **salsicha fresca**, **fiambre** and a **bife** or **lombo de porco**, sealed under melted cheese
 and drowned in a hot, dense sauce built on tomato, beer and **piri-piri**, with **batata frita**
 on the side. Ask for a **francesinha especial** and it arrives with a fried egg on top. It was
-created around 1952–53 by Daniel David Silva, a cook from Terras de Bouro who had worked in
-France and Belgium, at the restaurant **A Regaleira** on Rua do Bonjardim — a Portuguese
-re-engineering of the croque-monsieur. Póvoa de Varzim makes its own **francesinha poveira** on
+created around 1952 by **Daniel David Silva**, a cook who had worked in France and Belgium, at
+the restaurant **A Regaleira** on Rua do Bonjardim — a Portuguese re-engineering of the
+croque-monsieur. A Regaleira closed in 2018 when its building was sold, and reopened in 2021 a
+few doors down the same street at no. 83, still run by the founding family. Póvoa de Varzim makes its own **francesinha poveira** on
 long baguette-style bread. Every family has an opinion about whose sauce is best.
 
 **Tripas à moda do Porto** — veal tripe slow-cooked with **mão de vitela**, **chouriço**,
@@ -218,7 +219,8 @@ Amarante's **doces conventuais**, from the recipes of the Convento de Santa Clar
 **foguetes**, **lérias**, **brisas do Tâmega**, **papos de anjo** and the frankly phallic
 **bolos de São Gonçalo**, banned as obscene around 1926 and openly made again after 1974.
 Confeitaria da Ponte in Amarante, open since 1930, is the classic address. In Viana do Castelo
-people queue at **Confeitaria Manuel Natário** for **bolas de Berlim**.
+people queue at the old **confeitarias** for **bolas de Berlim**, still warm, split and filled to
+order — ask locally which counter is the one, because they will have a view.
 
 **Drink.**
 
@@ -247,13 +249,14 @@ people queue at **Confeitaria Manuel Natário** for **bolas de Berlim**.
 - **D (amarela)** — Hospital de São João ↔ Vila d'Este, crossing the upper deck of the Ponte
   Luís I into Gaia; extended past Santo Ovídio to Manuel Leão, Hospital Santos Silva and
   Vila d'Este on 28 June 2024
-- **E (violeta)** — Trindade ↔ Aeroporto (Francisco Sá Carneiro)
+- **E (violeta)** — Estádio do Dragão ↔ Aeroporto (Francisco Sá Carneiro)
 - **F (laranja)** — Senhora da Hora ↔ Fânzeres
 
-The **Linha Rosa** (G), 2.7 km from São Bento to Casa da Música via Hospital de Santo António and
-Galiza, is expected around 2027, and the **Linha Rubi** (H) to Santo Ovídio across a new Douro
-bridge later still. A hydrogen **Metrobus** corridor began operating in 2026. (dates unverified —
-they slip)
+The **Linha Rosa** (G), underground from São Bento to Casa da Música via Hospital de Santo
+António and Galiza, is due to open by March 2027, and the **Linha Rubi** (H) to Santo Ovídio
+across a new Douro bridge later still. The hydrogen **Metrobus** — a segregated BRT corridor
+along the Avenida da Boavista between **Casa da Música** and **Praça do Império** — ran free from
+28 February 2026 and has been in paid commercial service since 20 April 2026.
 
 **Ticketing.** Everything runs on the **Andante** card. You **carregar o Andante** at a machine
 or kiosk, then **validar** it at the yellow validator on the platform or as you board — a
@@ -265,7 +268,7 @@ paper card for one-offs.
 **Buses.** **STCP** runs inside the city of Porto and holds exclusivity there. Since 1 December
 2023 the rest of the metropolitan area — Gaia, Matosinhos, Maia, Gondomar, Valongo, Vila do
 Conde, Póvoa de Varzim, Santo Tirso, Trofa, Espinho and more — is served by the **UNIR** network,
-around 439 lines, all on the same Andante ticketing.
+around 440 lines across the seventeen municípios of the AMP, all on the same Andante ticketing.
 
 **Trains.** Porto has two stations and they do different jobs. **Porto Campanhã** is the
 long-distance station: **Alfa Pendular** and **Intercidades** to Lisbon and Braga, and the start
@@ -276,11 +279,16 @@ scenic run every family does once a year), the **Linha do Minho** north through 
 to Viana do Castelo and **Valença** on the Spanish border, and the **Linha de Guimarães**.
 
 **Trams and funicular.** Three historic **elétricos** survive, run by STCP: **linha 1**
-(Infante ↔ Passeio Alegre, along the river to Foz), **linha 18** (Carmo ↔ Passeio Alegre) and
-**linha 22** (a circular between Carmo and Batalha) — though sources disagree on whether
-linha 22 is currently running, so do not put a learner on it as though it certainly is.
-The **Funicular dos Guindais** drops from Batalha to the Ribeira; it has been operated by
-**STCP since 2022**, not by Metro do Porto.
+(Infante ↔ Passeio Alegre, along the river to Foz), **linha 18** (Massarelos ↔ Carmo, which
+returned to its traditional route on 1 July 2026) and **linha 22**, the Carmo–Batalha circular
+through the Baixa, which went back into service on **1 August 2026** after nearly five years
+suspended for the Linha Rosa works.
+
+The **Funicular dos Guindais** drops from Batalha (Rua Augusto Rosa) to the Ribeira (Avenida
+Gustave Eiffel). It has been run by **STCP Serviços since 2022**, not by Metro do Porto — but it
+has been **closed since 18 July 2026**, with no reopening date announced, while the IMT works
+through a certification review. Do not send a learner to ride it; talk about it, or use the
+stairs and the elétrico instead.
 
 **Driving.** The **A1** to Lisbon, **A3** to Braga and Valença, **A4** over the Marão to Vila
 Real and Bragança, **A28** up the coast, **IP4** across Trás-os-Montes. **Portagens** and
@@ -288,12 +296,14 @@ Real and Bragança, **A28** up the coast, **IP4** across Trás-os-Montes. **Port
 morning **trânsito**.
 
 **Markets and shopping.** The **Mercado do Bolhão** reopened on 15 September 2022 after a long
-restoration — 81 **bancas**, 38 **lojas** and 10 restaurants, open Monday to Friday 08:00–20:00,
-Saturday until 18:00, **closed Sundays**. The **Mercado do Bom Sucesso** near Boavista is the
+restoration — 81 **bancas**, 38 **lojas** and 10 restaurants. The stalls open Monday to Friday
+08:00–20:00 and Saturday 08:00–18:00, **closed Sundays**; the restaurants run Monday to Saturday
+until midnight. The **Mercado do Bom Sucesso** near Boavista is the
 modern food hall. Matosinhos has its **lota** and its fish. The **Feira de Barcelos** fills the
-Campo da República **every Thursday** and has done since the seventeenth or eighteenth century —
+Campo da República — which everyone in Barcelos calls the **Campo da Feira** — **every Thursday**,
+and has done since the seventeenth or eighteenth century —
 vegetables and livestock alongside **louça de Barcelos**, the painted **galos**, baskets, linen
-and ironwork. Bragança holds the **Feira das Cantarinhas** in the first days of May.
+and ironwork. Bragança holds the **Feira das Cantarinhas** around 3 May.
 
 Everyday shops, with the words a resident uses: **o talho** (butcher), **a peixaria**
 (fishmonger), **a padaria** and **a pastelaria**, **a frutaria**, **a mercearia** or
@@ -308,7 +318,7 @@ The **Loja do Cidadão** puts many services under one roof. **As Finanças** (th
 Tributária**) issue the **NIF**, the **número de contribuinte**, which you are asked for at every
 till — *Quer fatura com contribuinte?* — and where **IRS** is filed each spring on the
 **Portal das Finanças**. The **Centro de Saúde** holds your **número de utente**; you
-**marcar uma consulta** there, or ring **SNS 24** (unverified: 808 24 24 24). **Segurança
+**marcar uma consulta** there, or ring **SNS 24** on **808 24 24 24**. **Segurança
 Social** and the **Segurança Social Direta** portal handle contributions and benefits. The
 **CTT** post office is where you send a **carta registada** or **levantar uma encomenda**. The
 **IMT** deals with the **carta de condução**. Residence permits for foreigners are now handled by
@@ -336,8 +346,9 @@ a **palco** with a band until three in the morning, and **foguetes** fired at da
 ## Festivals & calendar
 
 **Fevereiro** — **Entrudo**/**Carnaval**. The **Caretos de Podence** (Macedo de Cavaleiros) run
-through the village in fringed wool suits and brass masks (UNESCO intangible heritage, 2019 —
-unverified). Bragança holds the **Festa do Butelo e das Casulas** in mid-February. **Feiras do
+through the village in fringed wool suits and brass masks; the **Entrudo Chocalheiro** they
+belong to was inscribed on UNESCO's intangible cultural heritage list on 12 December 2019.
+Bragança holds the **Festa do Butelo e das Casulas** in mid-February. **Feiras do
 fumeiro** across Trás-os-Montes.
 
 **Março/Abril** — **Semana Santa de Braga**: **Senhor dos Passos** on Palm Sunday, the
@@ -345,9 +356,10 @@ fumeiro** across Trás-os-Montes.
 Friday, the **Ressurreição** at Easter. **Folar** is eaten at Easter and godchildren visit
 godparents.
 
-**Maio** — **Feira das Cantarinhas**, Bragança, the first days of May: three days of the biggest
-traditional craft street fair in the region, named for the clay water jugs sold there. Barcelos
-holds its **Festa das Cruzes** in early May (unverified date).
+**Maio** — **Feira das Cantarinhas**, Bragança: the biggest traditional craft street fair in the
+region, named for the clay water jugs sold there. The dates move year to year around its
+traditional anchor of **3 May** — it was once called the *Feira do 3 de Maio* — so check before
+promising anyone a date. Barcelos holds its **Festa das Cruzes** in early May (unverified date).
 
 **Junho** — the **Santos Populares**, and above all **São João do Porto** on the night of 23 to
 24 June, the biggest street party in northern Portugal. People hit each other on the head with
@@ -411,9 +423,10 @@ second-person plural **vós** forms (*vós ides*, *vós fazeis*) survive in olde
 (both unverified)
 
 **Mirandês.** Portugal's second official language, recognised by Lei 7/99 of 29 January 1999. It
-is Asturian-Leonese, not a dialect of Portuguese, spoken across roughly 500 km² in almost all the
-villages of the concelho of **Miranda do Douro** and in three villages of **Vimioso** (Vilar
-Seco, Angueira, Caçarelhos), on the Zamora border. The **Pauliteiros de Miranda** dance the stick
+is Asturian-Leonese, not a dialect of Portuguese, spoken across roughly **500–550 km²** (sources
+vary) in almost all the villages of the concelho of **Miranda do Douro** and in villages of
+**Vimioso** on the Zamora border — the lists differ, with **Angueira** and **Vilar Seco** in all
+of them and **Caçarelhos** in some. The **Pauliteiros de Miranda** dance the stick
 dance to **gaita-de-foles**, **caixa** and **bombo**.
 
 **Register.** *Tu* with family, friends and neighbours. *O senhor* / *a senhora* with older
@@ -474,7 +487,7 @@ Landmarks: **Torre dos Clérigos** and **Estação de São Bento**. Food: the **
 ### Vila Nova de Gaia
 
 Across the river from Porto and a bigger city than most people realise. Known for the port wine
-**caves** — Sandeman, Ferreira and dozens more — lining the **Cais de Gaia**, with **barcos
+**caves** — Sandeman, Taylor's and dozens more — lining the **Cais de Gaia**, with **barcos
 rabelo** moored in front. Landmarks: the **Mosteiro da Serra do Pilar** and the **teleférico**.
 Food: port wine itself, tasted in the lodges; the Gaia coast eats grilled fish. Everyday life:
 metro line D crosses the top deck of the Ponte Luís I and runs down through Santo Ovídio to
@@ -504,7 +517,7 @@ fills the Estádio D. Afonso Henriques.
 Where the Lima meets the Atlantic — a shipbuilding town with the most photogenic traditional
 costume in Portugal. Landmarks: the **Santuário de Santa Luzia** on the hill, reached by
 funicular, and the hospital ship **Gil Eannes** in the harbour. Food: **bolas de Berlim** from
-Confeitaria Manuel Natário, and fish off the Atlantic. Everyday life: the **estaleiros navais**
+the town's old confeitarias, and fish off the Atlantic. Everyday life: the **estaleiros navais**
 are still a major employer, the goldsmiths still make **filigrana**, and the whole town takes 20
 August off for the **Romaria de Nossa Senhora da Agonia**.
 
@@ -534,8 +547,8 @@ The far north-east, up against the Spanish border, high and cold. Known for its 
 **Castelo** keep and the twelfth-century **Domus Municipalis**, unique in Portugal. Food:
 **butelo com casulas** (celebrated at a February festival), **posta mirandesa**, **alheira**,
 **folar** and the whole world of **fumeiro**. Everyday life: winter is long — *nove meses de
-inverno e três de inferno* — the **Feira das Cantarinhas** opens May, and Mirandês is still
-spoken in the villages towards Miranda do Douro.
+inverno e três de inferno* — the **Feira das Cantarinhas** fills the streets around 3 May, and
+Mirandês is still spoken in the villages towards Miranda do Douro.
 
 ### Peso da Régua e Pinhão
 
@@ -565,15 +578,24 @@ vindima in September, magusto at São Martinho.
 
 ## Sources
 
-- Metro do Porto network, lines and expansion — https://mapa-metro.com/en/Portugal/Oporto/Oporto-Metro-map.htm
+- Metro lines and termini — checked line by line, NOT from summary maps (which contradict themselves on line E): https://pt.wikipedia.org/wiki/Linha_A_do_Metropolitano_do_Porto, https://pt.wikipedia.org/wiki/Linha_B_do_Metropolitano_do_Porto, https://pt.wikipedia.org/wiki/Linha_C_do_Metropolitano_do_Porto, https://pt.wikipedia.org/wiki/Linha_D_do_Metropolitano_do_Porto, https://pt.wikipedia.org/wiki/Linha_E_do_Metropolitano_do_Porto, https://pt.wikipedia.org/wiki/Linha_F_do_Metropolitano_do_Porto
+- Metro em números (6 lines, 85 stations, ~70 km) — https://www.metrodoporto.pt/pages/307
 - Linha Amarela extension to Vila d'Este (28 June 2024) — https://www.metrodoporto.pt/pages/834?news_id=572 and https://www.jn.pt/pais/artigo/e-oficial-o-metro-chegou-a-vila-deste/17797655
+- Linha Rosa operational by March 2027 — https://www.jn.pt/pais/artigo/linha-rosa-entra-em-funcionamento-ate-marco-de-2027/18042671 and https://www.rtp.pt/noticias/economia/linha-rosa-do-metro-do-porto-estara-operacional-ate-marco-de-2027_n1711683
+- Metrobus (hydrogen BRT, Casa da Música ↔ Praça do Império; free from 28 Feb 2026, commercial from 20 Apr 2026) — https://recuperarportugal.gov.pt/2026/02/25/metrobus-liga-praca-do-imperio-a-casa-da-musica-ja-este-sabado-com-apoio-prr/ and https://observador.pt/2026/04/20/metrobus-do-porto-deixa-de-ser-gratuito-esta-segunda-feira-e-arranca-servico-comercial/
 - UNIR metropolitan bus network — https://www.unirmobilidade.pt/ and https://www.cm-gaia.pt/pt/informacao/unir/
-- Porto historic trams and Funicular dos Guindais — https://pt.wikipedia.org/wiki/El%C3%A9ctrico_do_Porto
+- Andante Z2 held at €1,40 for 2026 — https://www.rtp.pt/noticias/economia/precos-dos-bilhetes-ocasionais-andante-da-amp-aumentam-em-2026-a-partir-do-titulo-z3_n1705995
+- Porto historic trams — line 1 Infante↔Passeio Alegre, line 18 Massarelos↔Carmo, line 22 Carmo↔Batalha circular — https://mobilidade.cm-porto.pt/transportes-publicos/eletrico
+- Elétrico 22 back in service 1 August 2026 after suspension since November 2021 for the Linha Rosa works; line 18 back on its traditional route 1 July 2026 — https://eco.sapo.pt/2026/07/27/eletrico-22-volta-a-circular-entre-o-carmo-e-a-batalha-no-porto-a-partir-de-sabado/ and https://www.jn.pt/pais/artigo/carros-eletricos-da-linha-22-voltam-a-circular-na-baixa-do-porto/18110420
+- Funicular dos Guindais: operated by STCP Serviços since 2022, CLOSED since 18 July 2026 pending IMT certification — https://www.porto.pt/pt/noticia/funicular-dos-guindais-fecha-para-obras-de-manutencao, https://www.stcpservicos.pt/transporte-publico/funicular-dos-guindais and https://www.jn.pt/pais/artigo/funicular-dos-guindais-no-porto-fecha-sabado-por-tempo-indeterminado-para-obras/18107289
+- SNS 24 on 808 24 24 24 — https://www.sns.gov.pt/sns-saude-mais/linhas-de-atendimento-gerais/
+- Caretos de Podence / Entrudo Chocalheiro inscribed by UNESCO 12 December 2019 — https://unescoportugal.mne.gov.pt/pt/temas/proteger-o-nosso-patrimonio-e-promover-a-criatividade/patrimonio-cultural-imaterial-em-portugal/carnaval-de-podence
 - Linha do Douro — https://pt.wikipedia.org/wiki/Linha_do_Douro
 - Mercado do Bolhão hours and reopening — https://mercadobolhao.pt/ and https://mercadobolhao.pt/noticias/2022/09/14/informacao-sobre-o-horario-de-funcionamento/
 - Feira de Barcelos (Thursdays) — https://www.cm-barcelos.pt/visitar/festas-feiras-e-romarias/feira-semanal-mercados-e-feiras-quinta-feira/ and http://www.portoenorte.pt/pt/o-que-fazer/feira-de-barcelos/
 - AIMA replacing SEF — https://pt.wikipedia.org/wiki/Ag%C3%AAncia_para_a_Integra%C3%A7%C3%A3o,_Migra%C3%A7%C3%B5es_e_Asilo
-- Francesinha origin and composition — https://pt.wikipedia.org/wiki/Francesinha
+- Francesinha origin and composition — https://pt.wikipedia.org/wiki/Francesinha. A Regaleira still trades, but moved: it closed in 2018 and reopened 1 July 2021 at Rua do Bonjardim 83 under the founding family — https://aregaleira.pt/ and https://www.comerciocomhistoria.gov.pt/en/listings/restaurante-a-regaleira-4204/. The house dates the dish to 1952 (not 1953), and the often-repeated "from Terras de Bouro" rests on a single blog, so it has been dropped.
+- Viana do Castelo bolas de Berlim — NO shop is named here on purpose. Confeitaria Manuel Natário could not be confirmed as still trading (its own site is stale and sources conflict), so per the no-unconfirmed-business rule the name was removed rather than hedged. Do not reinstate it without a fresh check.
 - Tripas à moda do Porto — https://pt.wikipedia.org/wiki/Tripas_%C3%A0_moda_do_Porto and https://tradicional.dgadr.gov.pt/pt/cat/pratos-a-base-de-carne/997-tripas-a-moda-do-porto
 - Minho dishes (rojões, papas de sarrabulho, bacalhau à Braga) — https://www.cm-vilaverde.pt/visitar/cultura/patrimonio-imaterial/gastronomia-tradicional/ and https://www.portugalthings.com/pt/o-que-comer-no-minho/
 - Trás-os-Montes gastronomy (posta mirandesa, alheira, folar, butelo) — https://amontesinho.pt/braganca/a-gastronomia-da-terra-fria-transmontana/ and https://www.e-konomista.pt/gastronomia-tras-montes-alto-douro/

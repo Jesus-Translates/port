@@ -1,23 +1,23 @@
-# CIPLE — Simulado 1 (exame completo)
+# CIPLE — Simulacro 1 (exame completo)
 
 > A full A2 mock exam built to the shape of the real CIPLE: 20 reading items in four tasks of
 > five, two written texts, 25 listening items across ten dialogues and ten sentences, and a
 > paired oral with a complete examiner script. Answer key, model answers and an oral
 > assessment checklist at the end.
 
-**Este simulado não é um exame do CAPLE.** Foi escrito de raiz para treino. A **estrutura**
+**Este simulacro não é um exame do CAPLE.** Foi escrito de raiz para treino. A **estrutura**
 (número de tarefas, número de itens, tipos de item, durações, pesos, instruções) segue o modelo
 oficial publicado pelo CAPLE; os **textos, avisos, anúncios, horários, preços e diálogos são
 todos inventados**. Nada aqui é informação real sobre serviços públicos, farmácias, escolas,
-horários de transportes ou preços. Não uses este simulado como fonte de informação prática.
+horários de transportes ou preços. Não uses este simulacro como fonte de informação prática.
 
-Português europeu em todo o simulado: *tu/vocês* entre amigos, tratamento formal pelo
+Português europeu em todo o simulacro: *tu/vocês* entre amigos, tratamento formal pelo
 examinador, *estar a* + infinitivo, clíticos depois do verbo, Acordo Ortográfico de 1990 como se
 aplica em Portugal.
 
 ---
 
-## Como usar este simulado
+## Como usar este simulacro
 
 Sit it in the real order, with the real clocks, in one morning. That is the whole point of a
 mock — the CIPLE's structural danger is not difficulty, it is time.
@@ -765,7 +765,7 @@ telemóvel · o turismo na vossa terra · aprender uma língua depois dos quaren
 
 > **EXAMINADOR:** Muito bem, está terminado. Obrigado aos dois. Bom dia.
 
-**FIM DO SIMULADO 1**
+**FIM DO SIMULACRO 1**
 
 ---
 
@@ -876,7 +876,7 @@ vale um terço.
 **Cada letra é usada uma só vez** — como no modelo oficial do CAPLE. Risca a letra assim que a
 usares. Se duas frases estiverem a lutar pelo mesmo espaço, uma delas está errada; volta atrás. As
 duas últimas podem sair só por eliminação. **Ressalva honesta:** o CAPLE não escreve na rubrica que
-cada opção se usa uma só vez — é verdade no modelo publicado, e é assim que este simulado foi
+cada opção se usa uma só vez — é verdade no modelo publicado, e é assim que este simulacro foi
 construído, mas usa a eliminação para **conferir**, não para deixar de ouvir.
 
 ---
@@ -1000,7 +1000,7 @@ pode acontecer é **parar**. Silêncio não produz prova nenhuma, e o que não �
       *«Desculpe, não percebi.»* — isto ganha pontos, não perde.
 - [ ] Quando faltou a palavra, contornou: *«Não sei a palavra, mas é uma coisa para…»*.
 - [ ] Não passou para inglês.
-- [ ] Zero formas brasileiras: **autocarro** (não ónibus), **comboio** (não trem), **telemóvel**
+- [ ] Zero formas brasileiras: **autocarro** (não ônibus), **comboio** (não trem), **telemóvel**
       (não celular), **pequeno-almoço** (não café da manhã), **casa de banho**, **estou a falar**
       (não estou falando).
 - [ ] Olhou para o examinador e para o colega.
@@ -1014,7 +1014,7 @@ exatamente o que um candidato descreveu como sendo a sua nota de *Bom* na oral, 
 
 ---
 
-## 5. Ficha de pontuação do simulado
+## 5. Ficha de pontuação do simulacro
 
 | Componente | Bruto | → % | Peso | Contributo |
 |---|---|---|---|---|
@@ -1032,7 +1032,7 @@ aproximadamente a linha dos 55 % dessa componente.
 
 > **Três avisos honestos sobre esta ficha.**
 > 1. O CAPLE **não publica** como reparte os 45 % entre a leitura e a escrita. A média simples usada
->    acima é **convenção nossa**, para o simulado poder ser corrigido. **NÃO VERIFICADO.**
+>    acima é **convenção nossa**, para o simulacro poder ser corrigido. **NÃO VERIFICADO.**
 > 2. O CAPLE **não publica** a cotação de cada item, nem se todos valem o mesmo. **NÃO VERIFICADO.**
 > 3. O CAPLE **não publica** nenhuma nota mínima por componente. Vários sites de preparação afirmam
 >    que existe (uns dizem 25 %, outros 45 %), sem citar o CAPLE, e contradizem-se entre si.
@@ -1052,7 +1052,7 @@ aproximadamente a linha dos 55 % dessa componente.
   opção, as palavras exatas que a tornam verdadeira ou falsa.
 - **Sobraram-te opções a mais ou a menos na Tarefa C?** Treina a eliminação: só as certezas
   primeiro, riscar à medida que usas, contar as três que sobram.
-- **Não acabaste os textos da Parte 2?** O problema é o relógio, não a escrita. Repete o simulado só
+- **Não acabaste os textos da Parte 2?** O problema é o relógio, não a escrita. Repete o simulacro só
   com a Parte 2, a 25 minutos, três vezes.
 - **Compreensão do oral abaixo de 14/25?** O problema é quase sempre fonético, não de vocabulário.
   Ditado: 30–60 segundos de áudio pt-PT por dia, escrito à mão e conferido. Mais cinco minutos
@@ -1072,10 +1072,10 @@ Consultado e verificado a 10 de agosto de 2026.
    fetched directly for this file to re-confirm, verbatim and live: o «Formato da componente» das
    três componentes, as durações (1h15 / 30 m / 15 m por par), os pesos (45 % / 30 % / 25 %), as
    bandas Muito Bom 85–100 %, Bom 70–84 %, Suficiente 55–69 %, e a taxa de 95,00 €. A estrutura
-   deste simulado segue esta especificação.
+   deste simulacro segue esta especificação.
 2. **`content/ciple/exame.md`** (dossiê deste repositório) — componentes, pesos, regra dos 55 %,
    bandas de classificação, calendário 2026, LAPE, regras do dia do exame, e os pontos marcados
-   NÃO VERIFICADO que este simulado repete em vez de contradizer.
+   NÃO VERIFICADO que este simulacro repete em vez de contradizer.
 3. **`content/ciple/leitura-escrita.md`** (dossiê deste repositório) — a fonte estrutural principal
    da Componente 1: 20 itens em quatro tarefas de cinco (mensagens de telemóvel; cinco avisos e
    anúncios; correspondência 5 frases → 8 opções com três a mais; texto longo com cinco itens de
@@ -1114,9 +1114,9 @@ Consultado e verificado a 10 de agosto de 2026.
 ### O que este ficheiro não pode garantir
 
 - **Todo o conteúdo é inventado.** Nenhum texto, aviso, anúncio, horário, preço ou diálogo deste
-  simulado vem de um exame do CAPLE. A fidelidade que se reclama é **de formato**, não de conteúdo.
+  simulacro vem de um exame do CAPLE. A fidelidade que se reclama é **de formato**, não de conteúdo.
 - **A dificuldade não está calibrada** contra nenhum exame real. Uma boa nota aqui não prevê a nota
-  no CIPLE. Só existe **um** modelo oficial publicado por componente, e este simulado imita-o.
+  no CIPLE. Só existe **um** modelo oficial publicado por componente, e este simulacro imita-o.
 - **A repartição dos 45 %** entre leitura e escrita, a **cotação por item**, o **desconto por erro**
   e a **nota mínima por componente** não são publicados pelo CAPLE — a ficha de pontuação usa
   convenções nossas, assinaladas como tal.
@@ -1129,7 +1129,7 @@ Consultado e verificado a 10 de agosto de 2026.
 
 ## Prompt context
 
-Um simulado completo do CIPLE tem três componentes. Na primeira, com 75 minutos e 45% da nota, há
+Um simulacro completo do CIPLE tem três componentes. Na primeira, com 75 minutos e 45% da nota, há
 vinte questões de leitura em quatro tarefas de cinco: associar frases a mensagens de telemóvel;
 ler cinco avisos e anúncios — farmácia, horários, emprego, piscina, inscrições escolares — e
 escolher A, B ou C; ligar cinco frases a oito opções, usando cada

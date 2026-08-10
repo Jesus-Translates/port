@@ -297,8 +297,9 @@ work. The ritual: you do not walk in and buy; you walk the fish aisle *twice*, o
 and once to decide, and everyone claims to have "a minha peixeira" — my fishwoman — whom they
 have used for years and who will tell them what is good today and quietly steer them away from
 what is not. Prices are argued about affectionately and never seriously. Go late and you get
-the end-of-morning deal; go early and you get the choice. *(Exact opening days and hours could
-not be verified — do not state them.)*
+the end-of-morning deal; go early and you get the choice. It runs **Tuesday to Sunday and is
+closed on Mondays** — the Monday closure is the thing visitors get wrong and residents never do.
+*(The precise opening hours were not verified; give the days, not the times.)*
 
 **The choco frito argument.** Every family in Setúbal has a place, and every family is certain
 that the other families are wrong. The argument is conducted with total conviction and
@@ -381,13 +382,26 @@ Foros de Amora, Fogueteiro, Coina, Penalva, Pinhal Novo, Venda do Alcaide, Palme
 For anyone in Almada, Seixal or Setúbal with a Lisbon job, Fertagus and the boat are the two
 options and people are loyal to one or the other.
 
-**Metro Sul do Tejo (MST)** — properly the **Metropolitano Sul do Tejo**, a surface light-rail
-network in **Almada and Seixal** with three lines: **Linha 1 Laranjeiro–Universidade**,
-**Linha 2 Santo Amaro–Laranjeiro**, **Linha 3 Casa do Povo–Corroios**. Cacilhas, Corroios,
-Universidade, Pragal and Almada are all served. **It does not reach Costa da Caparica** —
-phases 2 and 3 have been planned but suspended since 2008, and an extension from Universidade
-to Trafaria via Costa da Caparica is projected for 2029. Getting this wrong is one of the
-easiest ways to sound like you have never lived here.
+**Metro Sul do Tejo (MST)** — this is the name to use; it is what residents say. Formally the
+**Metropolitano Sul do Tejo**, and the company that operates it is **MTS, Metro Transportes do
+Sul**, whose initials you will see on the tickets and the trams without anyone ever saying them
+out loud. A surface light-rail network in **Almada and Seixal**, three lines over nineteen
+stops. The names that matter are the stops people give as destinations: **Cacilhas** (for the
+boat), **Almada**, **Pragal** (interchange with Fertagus), **Universidade** (the FCT NOVA
+campus at Monte de Caparica), **Corroios**,
+**Laranjeiro**, **Santo Amaro** and **Casa do Povo**. **It does not reach Costa da Caparica** —
+the second and third construction phases, which would carry it across the Seixal concelho and on
+to the Moita (Baixa da Banheira) and Barreiro, have been **suspended since 2008**; a separate
+extension of the line from Universidade to Trafaria, through Costa da Caparica, is projected for
+2029. Getting this wrong is one of the easiest ways to sound like you have never lived here.
+
+**Crossing to Tróia.** The other boat in this zone is the **Setúbal–Tróia** crossing, run by
+**Atlantic Ferries** under a public-service concession, every day of the year. Two kinds of
+vessel, and the difference is the whole planning decision: the **ferries** take cars, sailing
+from the **Doca do Comércio** on Avenida Jaime Rebelo across to **Cais Sul** at Tróia in about
+**25 minutes**; the **catamarãs** are foot passengers only, from **Rua Teotónio Banha** to the
+**Marina de Tróia** in about **15 minutes**. Worth holding on to: the moment you step off, you
+are in **Grândola**, in the Alentejo — not on the peninsula at all.
 
 **The bridges.** The **25 de Abril** is tolled **northbound only** (2,15 €) and jams
 predictably at peak. The **Vasco da Gama** lands at Alcochete and is tolled only in the
@@ -429,14 +443,18 @@ run of named praias — **Nova Praia, Praia do Castelo, Praia da Sereia, Praia d
 do CDS** — down to **Fonte da Telha**, which is shared between Almada and Sesimbra, sits in a
 hollow of the **Mata Nacional dos Medos**, was founded by *xávega* net-fishing masters in the
 late 19th century, and still runs nine monitored beach sections. Correct a common myth: the
-**Transpraia** mini-train that used to run the length of the sand **stopped in 2020 and has not
-returned**.
+**Transpraia** mini-train that used to run the length of the sand was pushed out of the town
+centre in **2007** by the Polis works, moved its terminus to Praia Nova, and then **stopped in
+2020** with the pandemic and **has not returned**. People still talk about it as though it might
+come back, and it may — but it does not run now.
 
 **Shops and markets.** The chains are everywhere — Continente, Pingo Doce, Lidl, Minipreço —
-alongside the Alegro at Setúbal and the Almada Fórum. Setúbal has the Livramento; Azeitão has a
-**feira mensal**; the smaller towns each run a *mercado municipal* and a periodic *feira*.
-*(Specific market weekdays were not verifiable in this pass — use "vou à praça" or "vou à
-feira" generically rather than naming a day.)*
+alongside the Alegro at Setúbal and the Almada Fórum. Setúbal has the Livramento. **Azeitão
+holds its *mercado mensal* on the first Sunday of every month**, roughly 9h00–17h00, on the
+market ground at Brejos de Azeitão — produce, plants, clothes, cakes and handicraft, and one of
+the best-attended open-air markets in the region. The smaller towns each run a *mercado
+municipal* and a periodic *feira*; *(their individual weekdays were not verifiable in this pass —
+say "vou à praça" or "vou à feira" rather than naming a day you have not checked.)*
 
 **Admin.** Council business goes to the **Câmara Municipal**; *atestados* and small
 certificates to the **Junta de Freguesia**; cartão de cidadão, Finanças and Segurança Social
@@ -578,9 +596,9 @@ in living memory, the **Lisnave** yard at **Margueira**, which opened in 1967 an
 
 ### Costa da Caparica
 
-A **cidade** and freguesia of Almada since **2004**, with about **14 000 permanent residents**
-and a summer population many times that. Thirteen kilometres of Atlantic sand backed by the
-**Arriba Fóssil** and the pine of the **Mata dos Medos**.
+A **cidade** and freguesia of Almada since **2004**, with about **14 000 permanent residents
+(2021)** and a summer population many times that. Thirteen kilometres of Atlantic sand backed
+by the **Arriba Fóssil** and the pine of the **Mata dos Medos**.
 
 - **Landmarks**: the **Convento dos Capuchos** (1558) above the cliff; the fossil cliff itself;
   the named beaches running south — Nova Praia, Praia do Castelo, Praia da Sereia, Praia de São
@@ -700,8 +718,9 @@ kilometre on the peninsula.
 - **Food**: **queijo de Azeitão DOP**, **torta de Azeitão**, and **Moscatel de Setúbal** — the
   demarcated region is centred here. The two verified adegas, **José Maria da Fonseca** (1834)
   and **Bacalhôa** (1922), are both open for booked visits.
-- **Everyday**: the **feira mensal** and the **Mercado de Azeitão** — which doubles as one of
-  the free park-and-ride points for the Arrábida beach shuttle in summer. Azeitão faience
+- **Everyday**: the **mercado mensal** on the **first Sunday of the month** at Brejos de
+  Azeitão, and the **Mercado de Azeitão** — which doubles as one of the free park-and-ride
+  points for the Arrábida beach shuttle in summer. Azeitão faience
   azulejos are still made here by traditional methods. Bus line **4470** runs Setúbal–Creiro
   through the village.
 
@@ -759,13 +778,17 @@ text above, and no business has been named that could not be confirmed as tradin
 - Transport: <https://www.ttsl.pt/>,
   <https://pt.wikipedia.org/wiki/Transtejo_e_Soflusa>,
   <https://pt.wikipedia.org/wiki/Cacilheiro>, <https://pt.wikipedia.org/wiki/Fertagus>,
-  <https://pt.wikipedia.org/wiki/Metropolitano_Sul_do_Tejo>,
+  <https://pt.wikipedia.org/wiki/Metropolitano_Sul_do_Tejo>, <https://www.mts.pt/>,
   <https://pt.wikipedia.org/wiki/Ponte_25_de_Abril>,
   <https://pt.wikipedia.org/wiki/Ponte_Vasco_da_Gama>,
   <https://pt.wikipedia.org/wiki/Carris_Metropolitana>,
   <https://pt.wikipedia.org/wiki/Transportes_Sul_do_Tejo>,
   <https://pt.wikipedia.org/wiki/IC32>,
-  <https://pt.wikipedia.org/wiki/Bilhética_na_Área_Metropolitana_de_Lisboa>
+  <https://pt.wikipedia.org/wiki/Bilhética_na_Área_Metropolitana_de_Lisboa>,
+  <https://www.atlanticferries.pt/> (Setúbal–Tróia operator, ferry 25 min / catamarã 15 min,
+  terminals, 365-day operation)
+- Markets: <https://www.freguesiadeazeitao.com/portfolio_page/mercado-mensal-de-azeitao/>
+  (Azeitão monthly market, first Sunday, Brejos de Azeitão)
 - Municipal sites: <https://www.mun-setubal.pt/>,
   <https://www.mun-setubal.pt/arrabida-sem-carros/> (Arrábida Sem Carros 2026 dates, zones,
   bus lines and parking), <https://www.cm-alcochete.pt/> (Barrete Verde 2026 dates)
@@ -798,9 +821,20 @@ text above, and no business has been named that could not be confirmed as tradin
   <https://www.visitsetubal.com/pt/agenda/feira-de-santiago>
 - Language classification: <https://pt.wikipedia.org/wiki/Dialetos_da_língua_portuguesa>
 
-**Known gaps, recorded honestly.** Market weekdays for the individual towns; Mercado do
-Livramento's opening hours; the size of the Sado dolphin population; the Setúbal–Tróia ferry
-operator's name; whether Cristo Rei has a visitor lift; the exact Lisbon-side terminal of the
-Trafaria–Porto Brandão crossing, which the operator appears to have moved in 2026; the Carris
-Metropolitana livery colour for this area; and the origin story of the "Periquita" name. None
-of these should be asserted until checked.
+**Known gaps, recorded honestly.** Market weekdays for the individual towns other than Azeitão;
+Mercado do Livramento's exact opening hours (its days are known: Tuesday–Sunday, closed Monday);
+the size of the Sado dolphin population; which MST line
+runs between which pair of termini (three sources gave three different answers, so the line
+numbers have been left out deliberately — name your stop, not a line); whether Cristo Rei has a
+visitor lift; the exact Lisbon-side terminal of the Trafaria–Porto Brandão crossing, which the
+operator appears to have moved in 2026; the Carris Metropolitana livery colour for this area;
+and the origin story of the "Periquita" name. None of these should be asserted until checked.
+
+**Closed since the last pass.** The Setúbal–Tróia operator is **Atlantic Ferries** (confirmed
+against the operator's own site); the Azeitão monthly market is the **first Sunday**; the
+Mercado do Livramento runs **Tuesday–Sunday, closed Monday** (mun-setubal.pt); and the MST line
+termini previously listed here were wrong and have been removed.
+
+**A naming note for consistency across the corpus.** The system is **Metro Sul do Tejo (MST)**,
+which is what residents say and what this file uses. **MTS (Metro Transportes do Sul)** is the
+operating company. Both are correct; do not present them as two different networks.

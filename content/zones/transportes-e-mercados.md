@@ -25,11 +25,11 @@ in advance (online, in the app, at a station machine, or at the counter) rather 
 picked up on board.
 
 **Bilhete vs. passe.** A *bilhete* is a ticket for one journey. A *passe* is a season
-pass for repeated travel. Since **21 October 2024**, CP has sold a **Passe Ferroviário
-Verde** at **20 €/month**, valid on every CP service *except* Alfa Pendular (and
-separate from the city passes below) — a flat-rate option for anyone commuting by
-train regularly. *(Price correct for 2026; fares and passes change — check cp.pt
-before relying on a figure.)*
+pass for repeated travel. CP sells a national **Passe Ferroviário Verde**, a single
+flat monthly rate valid on every CP service *except* Alfa Pendular, and separate from
+the city passes below — the point of it is that one price covers the whole network for
+a regular commuter, however far they go. *(Deliberately no figure: rail fares and pass
+prices are revised at least yearly. Check cp.pt.)*
 
 **The lines that matter most:**
 
@@ -43,7 +43,10 @@ before relying on a figure.)*
   to Barca d'Alva closed in **1988** and has not reopened.
 - **Linha do Oeste** — serves Torres Vedras, Bombarral, Óbidos and Caldas da Rainha,
   but **not** Peniche, Ericeira or Nazaré, which have no railway at all and depend on
-  road transport.
+  road transport. The line has been through a long modernisation programme with
+  stretches closed and replaced by buses, so check the day's service before promising
+  anyone a train — the *stations it serves* is a stable fact, the *trains running
+  today* is not.
 - **Linha do Algarve** — Lagos to Vila Real de Santo António, **139.5 km**, calling at
   Lagos, Portimão, Tunes (the junction for Faro-bound trains), Albufeira, Faro,
   Olhão, Tavira and VRSA. Alfa Pendular and Intercidades run between Faro and Tunes;
@@ -55,21 +58,26 @@ before relying on a figure.)*
 never by number: **Azul** (Santa Apolónia ↔ Reboleira), **Amarela** (Rato ↔
 Odivelas), **Verde** (Cais do Sodré ↔ Telheiras), and **Vermelha** (São Sebastião ↔
 Aeroporto Humberto Delgado, via Saldanha, Alameda and Oriente). 56 stations across
-roughly 44 km. **Carris** runs the buses, the historic **eléctricos** — tram 28
-(Graça–Estrela via Alfama and the Baixa) and tram 15E out to Belém are the two anyone
-mentions — and the funiculars/**ascensores** that climb the steepest streets (Glória,
-Bica, Lavra). The **cacilheiros** — the Tejo ferries — are run by **Transtejo/Soflusa
+roughly 44 km. **Carris** runs the buses, the historic **eléctricos** — the **28E**, which runs
+**Martim Moniz ↔ Graça ↔ Estrela ↔ Campo de Ourique (Prazeres)**, and the 15E out to
+Belém are the two anyone mentions — and the funiculars/**ascensores** that climb the
+steepest streets (Glória, Bica, Lavra). The **cacilheiros** — the Tejo ferries — are run by **Transtejo/Soflusa
 (TTSL)**: Cais do Sodré↔Cacilhas, Terreiro do Paço↔Barreiro, Montijo↔Cais do Sodré,
 Seixal↔Cais do Sodré, and a newer Trafaria–Porto Brandão–Pedrouços/Algés route.
 
-Fares run on the **Navegante** system. For occasional trips there's the **cartão
-Navegante ocasional** (a 0,50 € reloadable card, valid a year, topped up with a single
-ticket, a 24-hour ticket, or pay-as-you-go **Zapping** credit). For regular travel
-there's the **passe Navegante**: **Municipal** (one concelho) or **Metropolitano**
-(the whole Área Metropolitana de Lisboa), plus a discounted **Navegante +65**; it's
-free for anyone up to 23 inclusive, student or not. One card, one validation, works
-across metro, Carris, CP urban trains and the ferries. *(Figures correct for 2026 —
-these prices are reviewed yearly.)*
+Fares run on the **Navegante** system, and the mechanism matters more than any price.
+For occasional trips you buy a cheap reloadable **cartão Navegante ocasional**, valid
+about a year, and load it with a single ticket, a 24-hour ticket, or pay-as-you-go
+**Zapping** credit. For regular travel there's the **passe Navegante**: **Municipal**
+(one concelho) or **Metropolitano** (the whole Área Metropolitana de Lisboa), plus a
+discounted **Navegante +65**; travel is free for young people up to 23 inclusive,
+student or not. One card, one validation, works across metro, Carris, CP urban trains
+and the ferries. *(No euro figures here on purpose — Navegante prices are reviewed
+every year.)*
+
+A long-running **linha circular** project is rebuilding the Verde and Amarela lines
+into a loop, with new stations at Estrela and Santos between Rato and Cais do Sodré,
+so the terminus pairs above are the ones to check before quoting them.
 
 **Porto.** The **Metro do Porto** runs as a light-rail network — several lines share
 the same central trunk track and branch apart further out, which is why two different
@@ -118,17 +126,25 @@ Norte (A24)** and **Beira Litoral/Beira Alta (A25)** concessions — were built 
 the **SCUT** model (*Sem Custos para o Utilizador*): free to drivers, paid for by the
 state on a shadow-toll basis. Real tolls were introduced on Costa de Prata, Grande
 Porto and Norte Litoral in October 2010, and on the rest in December 2011 — hugely
-unpopular, and blamed by some studies for business closures in the interior. **Since 1
-January 2025**, tolls have been abolished again on the interior and Algarve
-ex-SCUT roads (broadly: A4 Transmontana and the Marão tunnel, A13/A13-1 Pinhal
-Interior, A22, A23, A24, A25, and part of A28), while **Costa de Prata, Grande Porto
-and the rest of Norte Litoral remain tolled**. *(This is a live policy area — confirm
-current status before a trip.)*
+unpopular, and blamed by some studies for business closures in the interior. **From 1
+January 2025 a large share of them came off again**, concentrated on the interior and
+the Algarve, while the motorways around Porto and the northern coastal strip stayed
+tolled.
+
+**Deliberately no road-number list here.** Sources contradict each other on exactly
+which concessions and which stretches were freed, several of the roads usually named
+in the same breath (the A4 Transmontana, the A13 Pinhal Interior) were subconcessions
+rather than true SCUTs, and the policy has moved more than once. A learner planning a
+route should check the road itself before driving; a generated scene should say "this
+one has tolls" or "this one doesn't" only about a road the learner has already
+confirmed.
 
 **No Via Verde device?** These roads have no toll booths at all — payment is
-electronic-only. You have roughly two weeks (commonly cited as 15 business days) after
-passing to pay at a **CTT** post office or a **Payshop** agent, or online, and a small
-per-passage surcharge applies (on the order of 0,32 € per passage, capped). Rental
+electronic-only. You get a window of a couple of weeks after passing to pay at a
+**CTT** post office or a **Payshop** agent, or online, and a small per-passage
+administrative surcharge is added. Miss the window and it escalates into a fine, which
+is the part worth remembering; the exact grace period and surcharge are set by
+regulation and change, so check rather than quote. Rental
 cars usually come with their own device or billing arrangement — always confirm with
 the rental company before driving on a portagem-only road.
 
@@ -191,9 +207,9 @@ every day, that's stated as such rather than forced into a "weekly" box it doesn
 | Coimbra | Mercado Municipal D. Pedro V | Monday–Saturday | Daily |
 | Lisboa | Feira da Ladra, Campo de Santa Clara | Tuesday and Saturday | Weekly (twice) |
 | Sintra | Feira de São Pedro, Praça D. Fernando II | 2nd and 4th Sunday | Twice monthly |
-| Torres Vedras | Feira Rural, Parque Regional de Exposições | First Saturday (Apr–Oct, not Aug/Sep) | Monthly, seasonal |
-| Peniche | Feira mensal (da Bufarda), Zona Industrial da Prageira | Last Thursday (not Jul/Aug/Dec) | Monthly |
-| Nazaré | Feira semanal | Friday | Weekly |
+| Torres Vedras | Feira Rural, streets of the centro histórico | First Saturday, Apr–Oct (check Aug/Sep before promising one) | Monthly, seasonal |
+| Peniche | Feira mensal | Last Thursday (not Jul or Dec) | Monthly |
+| Nazaré | Feira semanal, Bairro dos Pescadores car park, 08h00–13h00 (moves for the summer) | Friday | Weekly |
 | Caldas da Rainha | Praça da Fruta | Every day | Daily — the country's only daily produce market |
 | Estremoz | Mercado Tradicional, Rossio Marquês de Pombal | Saturday | Weekly |
 | Évora | Mercado Municipal 1º de Maio | Tuesday–Sunday | Daily (closed Monday) |
@@ -268,9 +284,10 @@ Barcelos on Thursday, Ponte de Lima's fortnightly Monday feira (documented since
 1125), Torres Vedras's first-Saturday Feira Rural, Caldas da Rainha's daily Praça da
 Fruta — since the family lives near Santa Cruz and Torres Vedras, lean on those two
 towns' real rhythms for local colour, and never state a market day for a town not on
-that list. Keep prices as mechanisms ("a Navegante pass" rather than "a 40€ pass")
-unless quoting one of the figures given here, and note that any figure could be a year
-out of date.
+that list. Keep prices as mechanisms ("a Navegante pass" rather than "a 40€ pass") —
+this file deliberately quotes no fares, pass prices or toll surcharges, because they
+are revised yearly, so Sandra should never put a euro figure for transport in a
+learner's mouth as fact.
 
 ## Sources
 
@@ -291,7 +308,17 @@ out of date.
 - https://pt.wikipedia.org/wiki/Linha_Vermelha_do_Metropolitano_de_Lisboa
 - https://en.wikipedia.org/wiki/Porto_Metro
 - https://www.ttsl.pt/ (Transtejo/Soflusa routes)
-- https://www.carris.pt/ (eléctricos, funiculares)
+- https://www.carris.pt/ (eléctricos, funiculares). **Correction this pass:** the 28E
+  was previously described here as "Graça–Estrela via Alfama and the Baixa", which is
+  wrong at both ends. Its termini are **Martim Moniz and Campo de Ourique (Prazeres)**,
+  as recorded consistently in content/zones/bairros-lisboa.md and content/zones/lisboa.md.
+- Lisbon Metro line termini, 56 stations / 44.2 km, and the linha circular works
+  (Estrela and Santos, Rato–Cais do Sodré) — pt.wikipedia Metropolitano de Lisboa,
+  re-checked this pass; the four termini pairs given above were confirmed correct.
+- Porto Metro line letters, colours and termini (A Senhor de Matosinhos–Estádio do
+  Dragão, B Póvoa de Varzim–Estádio do Dragão, C ISMAI–Campanhã, D Hospital São
+  João–Vila d'Este, E Aeroporto–Trindade, F Senhora da Hora–Fânzeres; G and H still
+  under construction) — en.wikipedia Porto Metro, re-checked and confirmed this pass.
 - https://www.metrolisboa.pt/comprar/cartao-navegante-ocasional/
 - https://www.cp.pt/passageiros/pt/consultar-horarios/precos/cartoes-recarregaveis-viva-viagem
 - Navegante 2026 pricing — rr.pt, publico.pt, jornaldenegocios.pt (Dec 2025 coverage
@@ -353,23 +380,49 @@ out of date.
   sintraromantica.net, correiodesintra.pt (no single official câmara page fetched
   directly this pass — treat the "2nd and 4th Sunday" claim as multiply-sourced but
   not primary-sourced)
-- Torres Vedras Feira Rural: https://www.cm-tvedras.pt/agenda/programa/130,
+- Torres Vedras Feira Rural: https://www.cm-tvedras.pt/agenda/programa/130 (re-fetched
+  this pass — the câmara places it **in the streets of the centro histórico**, first
+  Saturday, 08h–16h, April to October; the venue previously recorded here, "Parque
+  Regional de Exposições", was **wrong and has been corrected**. The Aug/Sep exception
+  is left as a "check" because the source sentence truncates),
   https://www.cm-tvedras.pt/documentos/regulamentos/?r=regulamento-geral-de-mercados-e-feiras
-- Peniche Feira mensal/da Bufarda: https://www.cm-peniche.pt/municipio/noticias/noticia-58/feira-da-bufarda-mercado-mensal-camara-municipal-de-peniche-vai-levar-a-efeito-esta-obra-a-partir-de-18-de-fevereiro,
-  https://www.cm-peniche.pt/visitar/agenda-de-eventos/feiras-mercados-e-romarias
+- Peniche Feira mensal: https://www.cm-peniche.pt/municipio/noticias/noticia-58/feira-da-bufarda-mercado-mensal-camara-municipal-de-peniche-vai-levar-a-efeito-esta-obra-a-partir-de-18-de-fevereiro,
+  https://www.cm-peniche.pt/visitar/agenda-de-eventos/feiras-mercados-e-romarias —
+  skip-months corrected to **July and December only**, and the venue "Zona Industrial
+  da Prageira" **deleted as unsourced**. Note for whoever owns `oeste.md`: the câmara's
+  own news item uses "Feira da Bufarda" and "mercado mensal" for what reads as a single
+  event, so the name may yet be recoverable, but it is not stated here without a source.
 - Nazaré Feira semanal: https://www.cm-nazare.pt/autarquia/noticias/noticia/feira-semanal-muda-de-local-durante-o-verao
+  (Friday 08h00–13h00, Bairro dos Pescadores car park, relocated for the summer)
 - Caldas da Rainha Praça da Fruta (reused with citation from content/zones/oeste.md)
 - Estremoz Mercado Tradicional: https://www.cm-estremoz.pt/noticias/sabado-ha-mercado-tradicional-em-estremoz,
   https://www.cm-estremoz.pt/pagina/turismo/mercados/ — this resolves the
   "(unverified)" flag left on Estremoz's market day in content/zones/alentejo.md
 - Évora Mercado Municipal: https://www.cm-evora.pt/investidor/infraestruturas/mercado-municipal/
-- Setúbal Mercado do Livramento: https://www.mun-setubal.pt/mercado-do-livramento/
+- Setúbal Mercado do Livramento: https://www.mun-setubal.pt/mercado-do-livramento/ —
+  this resolves the "unverifiable" flag still standing on the Livramento's days in
+  content/zones/setubal.md
 - Algarve markets (Olhão, Loulé, Portimão, Faro, Tavira, Silves, São Brás de
   Alportel, Monte Gordo) — reused with citation from content/zones/algarve.md,
   sourced there via mercadosdeolhao.cm-olhao.pt and other Algarve municipal/tourism
   sources listed in that file's own Sources section
 - Funchal Mercado dos Lavradores: https://visit.funchal.pt/farmers-market/?lang=en
 - Ponta Delgada Mercado da Graça — reused with citation from content/zones/acores.md
+
+**Sibling gaps this table closes.** Three rows here are primary-sourced where another
+zone file still records the same market as unverified or forbidden to state, and are
+flagged so the other owners can adopt them: **Estremoz** Saturday (vs the "(unverified)"
+flag in `alentejo.md`), **Setúbal**'s Mercado do Livramento Tuesday–Sunday (vs
+"unverifiable" in `setubal.md`), and **Nazaré** Friday (vs the instruction in `oeste.md`
+that no day be stated). Conversely, two rows here were corrected *against* this file
+this pass — Torres Vedras's venue and Peniche's skip-months — both noted above.
+
+**Removed this pass.** The per-motorway list of which ex-SCUT roads lost their tolls in
+January 2025 has been **deleted**, not corrected: no official source could be reached
+that settles it, published lists disagree, and two of the roads normally named were
+subconcessions rather than SCUTs. Euro figures for the Passe Ferroviário Verde, the
+Navegante ocasional card, and the no-device toll surcharge have likewise been removed
+in favour of the mechanism, per this file's own rule about yearly revisions.
 
 **Note on this file's own limits:** cp.pt, viaverde.pt, rede-expressos.pt,
 atlanticoline.pt and metrolisboa.pt/metrodoporto.pt subpages largely would not render

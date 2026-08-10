@@ -20,7 +20,7 @@ It is rarely cold. Funchal winters sit around comfortable jumper weather; summer
 
 Wind is the single most consequential fact of Madeiran life, because of the airport. **Aeroporto Internacional da Madeira — Cristiano Ronaldo**, at Santa Cruz, has a runway extended out over the sea on **180 pillars**, some 60 m tall — an engineering job that won the 2004 IABSE Outstanding Structure Award. It is widely described as one of the most demanding approaches in the world; pilots need a **special licence** to operate there, and crosswind gusts routinely cause go-arounds and diversions. "O avião foi desviado" is a normal sentence here.
 
-**Porto Santo**, 40-odd km northeast, is the opposite island: flat, dry, semi-arid, with a single golden beach nine kilometres long and about 5,149 residents. Madeirans go there to be flat for a weekend.
+**Porto Santo**, 40-odd km northeast, is the opposite island: flat, dry, semi-arid, with a single golden beach nine kilometres long and about 5,149 residents (2021). Madeirans go there to be flat for a weekend.
 
 ## Landmarks & buildings
 
@@ -44,7 +44,7 @@ The **Diocese do Funchal** is one of the oldest Portuguese dioceses. Beyond the 
 
 - **Igreja e Convento de Santa Clara** (1492–1497), in a Hispano-Arab style, holding the tomb of João Gonçalves Zarco.
 - **Igreja do Colégio** — the Jesuit church on Praça do Município, tiled floor to ceiling.
-- **Nossa Senhora do Monte** — the pilgrimage church above Funchal, reached by 74 steps that some climb on their knees on 15 August, and the resting place of the last Austro-Hungarian emperor, Carlos I, who died in exile in Madeira.
+- **Nossa Senhora do Monte** — the pilgrimage church above Funchal, reached by a long flight of steps that some pilgrims climb on their knees on 15 August, and the resting place of the last Austro-Hungarian emperor, Carlos I, who died in exile in Madeira. The 15 August *romaria* is the island's biggest religious day; it is also remembered for the day in 2017 when a centuries-old oak came down on the crowd at the Largo da Fonte and killed thirteen people, which is why the trees there are now watched closely.
 - **Capela dos Milagres**, Machico — the Chapel of Miracles, built in the mid-15th century, rebuilt in the 16th and again in 1883, damaged by the 1956 flood and restored in 1957. Its festival on 8/9 October is Machico's biggest day.
 - **Igreja de São Bento**, Ribeira Brava, and the parish churches of Santana, Porto Moniz and Calheta.
 
@@ -84,19 +84,19 @@ Local soft drinks and beer: **Coral** (brewed on the island), **Brisa** (maracuj
 
 **Noite do Mercado.** On the night of 23 December the market and the streets around it stay open all night and the whole of Funchal turns up (unverified: exact date varies in reporting). People buy the Christmas fruit and meat at two in the morning, drink poncha, and sing *Missa do Parto* songs badly. Nobody sleeps and nobody minds.
 
-**Espetada houses of Estreito de Câmara de Lobos and Santo António** — the traditional espetada is a Sunday-lunch institution up in the hills above Câmara de Lobos, and **As Vides** in Estreito is the name most often given when you ask a local where to go (unverified). The ritual: you order by the number of skewers, not by person; the bread and *milho frito* land before you have decided anything; and there is always one person at the table who insists the laurel wood makes the difference and one who insists it does not.
+**Espetada houses of Estreito de Câmara de Lobos and Santo António** — the traditional espetada is a Sunday-lunch institution up in the hills above Câmara de Lobos. **As Vides**, on Rua da Achada in Estreito, has been doing it since **1950** and is generally described as the oldest espetada house on the island; it is the name most locals give when you ask where to go, and it is still trading. The ritual: you order by the number of skewers, not by person; the bread and *milho frito* land before you have decided anything; and there is always one person at the table who insists the laurel wood makes the difference and one who insists it does not.
 
 **Câmara de Lobos poncha bars.** Small, tiled, loud, standing room. You order at the counter, the *poncheiro* works the *caralhinho* in a fast wrist-flick that everyone watches and nobody can reproduce, and the glass arrives without ice. The nikita comes in a jug for the table.
 
-**Blandy's Wine Lodge**, Funchal — the Madeira Wine Company's lodge on Avenida Arriaga, with casks ageing *ao canteiro* in the roof space.
+**Blandy's Wine Lodge**, Funchal — the Madeira Wine Company's lodge in the centre of town, with more than 650 casks and vats ageing *ao canteiro*, a shop, and tours and tastings daily.
 
-**Fábrica Santo António** — the old Funchal confectioner where the *bolo de mel* and *rebuçados de funcho* have been made for generations (unverified as to founding date).
+**Fábrica Santo António**, Travessa do Forno — the Funchal confectioner founded in **1893**, the island's first fine-biscuit works, where the *bolo de mel de cana*, the *broas* and the *rebuçados de funcho* are still made. Open Monday to Friday and Saturday mornings; shut on Sundays.
 
 **Teleférico do Monte / Carreiros do Monte** — the *carros de cesto* are worked by the **carreiros**, in white cotton and straw hats, with rubber-soled boots for braking.
 
 **Santo da Serra market**, Sunday mornings, and **Camacha** for wickerwork — the Sunday drive with a purpose.
 
-**Café Ritz** and the Avenida Arriaga cafés — the *bica* and the *pastel de nata* at eleven, the newspaper, the same table.
+**The Ritz Madeira** at Avenida Arriaga 33 — one of the oldest of the grand Funchal cafés, over a century in business, open every day, its tiled façade and terrace facing the municipal gardens. This and the other Avenida Arriaga cafés are where the *bica* and the *pastel de nata* at eleven happen: the newspaper, the same table, the same waiter.
 
 Affectionate observations worth reusing in dialogue: the eternal debate over how much *mel de cana* belongs in a poncha and whether stirring it hard "kills" it; the seriousness with which someone breaks the *bolo de mel* with their hands and the scandal if you reach for a knife; the fact that everyone claims their grandmother's *vinha d'alhos* needed exactly one more day.
 
@@ -140,15 +140,17 @@ Madeiran Portuguese is European Portuguese — everything a learner needs (tu re
 
 **Phonology — the reliable markers:**
 
-- `família` → *famílhia* — /l/ palatalises after /i/. Same in `vila` → *vilha*, `aquilo` → *aquilho*, `Filipe` → *Filhipe*.
-- `fazer` → *fazêre / fazêri* — the final -e of infinitives is kept and pronounced, where Lisbon drops it. Also `comer` → *comêre*, `falar` → *falare*.
-- `olho` → *uôlho* — a /u/ glide slipped in before a stressed vowel. Also `formiga` → *formúiga*, `livro` → *lúivro*. This is the single most caricatured Madeiran trait on the mainland.
+- `família` → *famílhia* — /l/ palatalises after /i/. Same in `vila` → *vilha*, `aquilo` → *aquilho*, `Filipe` → *Filhipe*. This one is shared with the **Açores**, and it is the quickest reliable way to place a speaker as an islander.
+- `fazer` → *fazêre / fazêri* — the final -e of infinitives is kept and pronounced, where Lisbon drops it. Also `comer` → *comêre*, `falar` → *falare*. **This is the single most caricatured island trait on the mainland**; a learner producing it in Lisbon would be heard as doing an impression.
+- `olho` → *uôlho* — a /u/ glide slipped in before a stressed vowel. Also `formiga` → *formúiga*, `livro` → *lúivro*. Instantly recognisable, and the one visitors notice first.
 - `osso` → *osse* — final -o closing to -e. Also `macaco` → *macaque*, `carro` → *carre*.
 - `paragem` → *parage* — -agem reduced to -age. Also `viagem` → *viage*.
 - `ficaram` → *ficáru* — third-person plural preterite -am reduced. Also `foram` → *fôru*.
 - `os` / `as` → *ui* / *ai* in rapid speech.
 
-**Grammar:** Madeiran speech shows a marked preference for the **gerúndio** (*estou fazendo*) where Lisbon uses *estar a + infinitivo* (*estou a fazer*), and for **a gente** over *nós*. Learners should be told this exists and should still be taught *estou a fazer* and *nós* as the forms to produce.
+**Grammar:** Madeiran speech shows a marked preference for the **gerúndio** (*estou fazendo*) where Lisbon uses *estar a + infinitivo* (*estou a fazer*), and for **a gente** over *nós*. This is the one that carries a trap, because *estou fazendo* is **also** the standard Brazilian form. It is not a Brazilianism when a Madeiran says it — it is an independent southern European Portuguese feature with its own history, and it must never be corrected in a local speaker. But the learner should produce *estar a + infinitivo* and *nós*, because in a foreign mouth the gerund will be heard as Brazilian.
+
+Everything above is **recognition, not production**. The learner's target is one neutral European Portuguese; copying these features reads as mimicry, while using the local *vocabulary* below reads as belonging. The cross-zone atlas in `sotaques.md` carries the full picture.
 
 **Lexicon:**
 
@@ -229,3 +231,9 @@ The learner lives in Madeira, an autonomous Atlantic region where mainland Portu
 - https://pt.wikipedia.org/wiki/Dialeto_madeirense
 - https://pt.wikipedia.org/wiki/Dialetos_da_l%C3%ADngua_portuguesa
 - https://en.wikipedia.org/wiki/Portuguese_dialects
+- https://pt.wikipedia.org/wiki/Monte_(Funchal) — Monte, the carros de cesto descent, the 2017 Largo da Fonte accident
+- As Vides, Estreito de Câmara de Lobos (trading, Rua da Achada, espetada house since 1950) — Lifecooler; Tripadvisor; the restaurant's own Facebook page
+- Fábrica Santo António (founded 1893, Travessa do Forno, opening hours) — fabricastoantonio.com
+- The Ritz Madeira, Avenida Arriaga 33 (open daily, over a century old) — theritzmadeira.com
+- Blandy's Wine Lodge (650+ casks, canteiro ageing, tours and tastings) — blandyswinelodge.com
+- Accent claims reconciled against this repo's cross-zone atlas, `sotaques.md`

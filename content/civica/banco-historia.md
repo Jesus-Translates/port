@@ -1,6 +1,6 @@
 # Banco de perguntas — História de Portugal
 
-> ESTADO: PROVISORIO — a regulamentacao do exame ainda nao foi publicada; conteudo baseado no ambito definido na lei
+> ESTADO: PROVISÓRIO — a regulamentação do exame ainda não foi publicada; conteúdo baseado no âmbito definido na lei
 
 Este banco cobre a História de Portugal, da fundação do reino à democracia e à União Europeia. Cada pergunta tem quatro opções e uma só resposta certa, no grau de dificuldade que um teste de cidadania costuma ter: datas, nomes, lugares e a razão de ser dos feriados nacionais. Não existe ainda um programa oficial — o âmbito vem da lei, que exige conhecer «suficientemente a língua e a cultura portuguesas, a história e os símbolos nacionais». Estuda por blocos cronológicos e repete as datas em voz alta; é assim que elas ficam. As explicações estão em inglês de propósito, porque quem prepara o exame de língua está no nível A2.
 
@@ -13,7 +13,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1143
 - [ ] 1179
 
-**Explicacao:** In 1128 Afonso Henriques won at São Mamede and took control of the county of Portucale. This battle is the traditional starting point of Portugal as a separate country. Do not confuse it with 1143, the year he began to use the title of king.
+**Explicação:** In 1128 Afonso Henriques won at São Mamede and took control of the county of Portucale. This battle is the traditional starting point of Portugal as a separate country. Do not confuse it with 1143, the year he began to use the title of king.
 
 **Fonte:** historia.md §1 (fundação do reino, 1128–1249).
 
@@ -26,7 +26,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Braga
 - [ ] Porto
 
-**Explicacao:** São Mamede was fought near Guimarães, in the north of the country. For this reason Guimarães is often called "o berço da nação" — the cradle of the nation. The castle there is one of Portugal's best-known monuments.
+**Explicação:** São Mamede was fought near Guimarães, in the north of the country. For this reason Guimarães is often called "o berço da nação" — the cradle of the nation. The castle there is one of Portugal's best-known monuments.
 
 **Fonte:** historia.md §1.
 
@@ -39,7 +39,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] D. João I
 - [x] D. Afonso Henriques
 
-**Explicacao:** Afonso Henriques is the first king of Portugal and the name every citizenship test expects here. The other three kings all come much later. Remember the pair: Afonso Henriques and 1128.
+**Explicação:** Afonso Henriques is the first king of Portugal and the name every citizenship test expects here. The other three kings all come much later. Remember the pair: Afonso Henriques and 1128.
 
 **Fonte:** historia.md §1.
 
@@ -52,7 +52,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1147
 - [ ] 1179
 
-**Explicacao:** Ourique was fought in 1139 against the Moors. The three early dates run in a short sequence: 1128 São Mamede, 1139 Ourique, 1147 the conquest of Lisbon. Learning them as a chain is easier than learning them one by one.
+**Explicação:** Ourique was fought in 1139 against the Moors. The three early dates run in a short sequence: 1128 São Mamede, 1139 Ourique, 1147 the conquest of Lisbon. Learning them as a chain is easier than learning them one by one.
 
 **Fonte:** historia.md §1.
 
@@ -65,7 +65,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] D. Afonso Henriques passou a usar o título de rei
 - [ ] Lisboa foi conquistada aos mouros
 
-**Explicacao:** At the meeting of Zamora, on 5 October 1143, Afonso Henriques began to use the title of king. This is the answer a test expects for "when was Portugal born?". The papal recognition is a different event, in 1179.
+**Explicação:** At the meeting of Zamora, on 5 October 1143, Afonso Henriques began to use the title of king. This is the answer a test expects for "when was Portugal born?". The papal recognition is a different event, in 1179.
 
 **Fonte:** historia.md §1; Wikipédia (pt), «Tratado de Zamora».
 
@@ -78,7 +78,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O Tratado de Alcanizes
 - [ ] O Tratado de Tordesilhas
 
-**Explicacao:** In 1179 the Pope issued the bull *Manifestis Probatum*, which recognised Portugal as an independent kingdom. This was the legal recognition; 1143 was only the title. Know both dates and what each one means.
+**Explicação:** In 1179 the Pope issued the bull *Manifestis Probatum*, which recognised Portugal as an independent kingdom. This was the legal recognition; 1143 was only the title. Know both dates and what each one means.
 
 **Fonte:** historia.md §1.
 
@@ -91,7 +91,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Alexandre III
 - [ ] João XXI
 
-**Explicacao:** Pope Alexander III issued the bull in 1179. At the time, recognition by the Pope was what made a new kingdom legitimate in the eyes of the rest of Europe. Link the three words together: 1179, Alexandre III, *Manifestis Probatum*.
+**Explicação:** Pope Alexander III issued the bull in 1179. At the time, recognition by the Pope was what made a new kingdom legitimate in the eyes of the rest of Europe. Link the three words together: 1179, Alexandre III, *Manifestis Probatum*.
 
 **Fonte:** historia.md §1.
 
@@ -104,7 +104,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1143
 - [x] 1147
 
-**Explicacao:** Lisbon was taken in 1147, with help from crusaders sailing from northern Europe to the Holy Land. Lisbon only became the capital later; at this point the centre of the kingdom was still in the north.
+**Explicação:** Lisbon was taken in 1147, with help from crusaders sailing from northern Europe to the Holy Land. Lisbon only became the capital later; at this point the centre of the kingdom was still in the north.
 
 **Fonte:** historia.md §1.
 
@@ -117,7 +117,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Cavaleiros vindos do Brasil
 - [ ] O exército do papa
 
-**Explicacao:** Crusader fleets from northern Europe stopped in Portugal on their way to the Holy Land and joined the siege of Lisbon. This kind of foreign help was common in the Reconquest. Note the trap: Brazil was only reached in 1500, more than three centuries later.
+**Explicação:** Crusader fleets from northern Europe stopped in Portugal on their way to the Holy Land and joined the siege of Lisbon. This kind of foreign help was common in the Reconquest. Note the trap: Brazil was only reached in 1500, more than three centuries later.
 
 **Fonte:** historia.md §1.
 
@@ -130,7 +130,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] D. Afonso III
 - [ ] D. João I
 
-**Explicacao:** Afonso III took the Algarve in 1249, which completed the Reconquest and fixed Portugal's territory in the south. From that year the country had roughly the shape you see on the map today.
+**Explicação:** Afonso III took the Algarve in 1249, which completed the Reconquest and fixed Portugal's territory in the south. From that year the country had roughly the shape you see on the map today.
 
 **Fonte:** historia.md §1.
 
@@ -143,7 +143,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A monarquia
 - [ ] A Guerra da Restauração
 
-**Explicacao:** The Reconquest — the long process of taking the territory from Moorish rule — ended in 1249. Portugal finished it earlier than its neighbours in the peninsula. The other three events belong to much later centuries.
+**Explicação:** The Reconquest — the long process of taking the territory from Moorish rule — ended in 1249. Portugal finished it earlier than its neighbours in the peninsula. The other three events belong to much later centuries.
 
 **Fonte:** historia.md §1.
 
@@ -156,7 +156,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A divisão do mundo com Castela
 - [ ] A entrada de Portugal na Europa
 
-**Explicacao:** The Treaty of Alcanizes, in 1297, set the border between Portugal and Castile. That is why Portugal has one of the oldest borders in Europe — over seven hundred years old and almost unchanged. Do not mix it up with Tordesillas (1494), which divided lands overseas.
+**Explicação:** The Treaty of Alcanizes, in 1297, set the border between Portugal and Castile. That is why Portugal has one of the oldest borders in Europe — over seven hundred years old and almost unchanged. Do not mix it up with Tordesillas (1494), which divided lands overseas.
 
 **Fonte:** historia.md §2 (consolidação e crise de 1383–85).
 
@@ -169,7 +169,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] A Batalha de Aljubarrota
 - [ ] A Batalha de Alcácer-Quibir
 
-**Explicacao:** Aljubarrota, in 1385, stopped the Castilian claim to the Portuguese throne and kept the country independent. It is one of the most famous battles in Portuguese history. Alcácer-Quibir (1578) and Alcântara (1580) are later defeats — do not confuse them.
+**Explicação:** Aljubarrota, in 1385, stopped the Castilian claim to the Portuguese throne and kept the country independent. It is one of the most famous battles in Portuguese history. Alcácer-Quibir (1578) and Alcântara (1580) are later defeats — do not confuse them.
 
 **Fonte:** historia.md §2.
 
@@ -182,7 +182,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A Dinastia de Bragança
 - [ ] A Dinastia Filipina
 
-**Explicacao:** John I, Master of the Order of Avis, became king and started the second dynasty, the House of Avis. This is the dynasty of the Discoveries. Braganza comes only in 1640, after the Spanish period.
+**Explicação:** John I, Master of the Order of Avis, became king and started the second dynasty, the House of Avis. This is the dynasty of the Discoveries. Braganza comes only in 1640, after the Spanish period.
 
 **Fonte:** historia.md §2.
 
@@ -195,7 +195,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A conquista do Brasil
 - [x] A conquista de Ceuta
 
-**Explicacao:** In 1415 the forces of John I took Ceuta, in North Africa. Tests treat this as the starting date of the Portuguese overseas expansion. Goa and Brazil came later, once the sea routes were open.
+**Explicação:** In 1415 the forces of John I took Ceuta, in North Africa. Tests treat this as the starting date of the Portuguese overseas expansion. Goa and Brazil came later, once the sea routes were open.
 
 **Fonte:** historia.md §3 (Descobrimentos, 1415–1580).
 
@@ -208,7 +208,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] No Brasil
 - [ ] Nos Açores
 
-**Explicacao:** Ceuta is on the North African coast, just across from the Strait of Gibraltar. Taking it gave Portugal a foothold outside Europe for the first time. Today Ceuta is Spanish territory.
+**Explicação:** Ceuta is on the North African coast, just across from the Strait of Gibraltar. Taking it gave Portugal a foothold outside Europe for the first time. Today Ceuta is Spanish territory.
 
 **Fonte:** historia.md §3.
 
@@ -221,7 +221,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] As colónias africanas entre Portugal e França
 - [ ] O Algarve entre cristãos e mouros
 
-**Explicacao:** The Treaty of Tordesillas, in 1494, split the yet-undiscovered world between Portugal and Castile along a meridian in the Atlantic. It is the reason Brazil later became Portuguese and the rest of South America Spanish. The line was drawn before anyone knew what was actually there.
+**Explicação:** The Treaty of Tordesillas, in 1494, split the yet-undiscovered world between Portugal and Castile along a meridian in the Atlantic. It is the reason Brazil later became Portuguese and the rest of South America Spanish. The line was drawn before anyone knew what was actually there.
 
 **Fonte:** historia.md §3.
 
@@ -234,7 +234,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Fernão de Magalhães
 - [ ] Bartolomeu Dias
 
-**Explicacao:** Vasco da Gama reached Calicut, in India, in 1498, opening the sea route around Africa. It was the commercial goal behind decades of Portuguese voyages. Cabral is the name for Brazil, two years later.
+**Explicação:** Vasco da Gama reached Calicut, in India, in 1498, opening the sea route around Africa. It was the commercial goal behind decades of Portuguese voyages. Cabral is the name for Brazil, two years later.
 
 **Fonte:** historia.md §3.
 
@@ -247,7 +247,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Calecute
 - [ ] Diu
 
-**Explicacao:** He landed at Calicut (Calecute in Portuguese), on the south-west coast of India. Goa, Daman and Diu became Portuguese territories later and stayed Portuguese until 1961. Keep 1498 and Calecute together.
+**Explicação:** He landed at Calicut (Calecute in Portuguese), on the south-west coast of India. Goa, Daman and Diu became Portuguese territories later and stayed Portuguese until 1961. Keep 1498 and Calecute together.
 
 **Fonte:** historia.md §3.
 
@@ -260,7 +260,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Afonso de Albuquerque
 - [x] Pedro Álvares Cabral
 
-**Explicacao:** Pedro Álvares Cabral reached Brazil in 1500, while sailing towards India. Brazil then stayed linked to Portugal until it declared independence in 1822. The pair to memorise is Cabral–1500–Brasil.
+**Explicação:** Pedro Álvares Cabral reached Brazil in 1500, while sailing towards India. Brazil then stayed linked to Portugal until it declared independence in 1822. The pair to memorise is Cabral–1500–Brasil.
 
 **Fonte:** historia.md §3.
 
@@ -273,7 +273,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Deu o Algarve a Castela
 - [ ] Criou a União Ibérica
 
-**Explicacao:** The Treaty of Zaragoza, of 22 April 1529, extended the Tordesillas line into the other half of the globe and settled the dispute over the Moluccas. Portugal paid Charles V 350,000 gold ducats. Think of it as "Tordesillas, part two".
+**Explicação:** The Treaty of Zaragoza, of 22 April 1529, extended the Tordesillas line into the other half of the globe and settled the dispute over the Moluccas. Portugal paid Charles V 350,000 gold ducats. Think of it as "Tordesillas, part two".
 
 **Fonte:** historia.md §3; Wikipédia (pt), «Tratado de Saragoça».
 
@@ -286,7 +286,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Espanha reconheceu a independência portuguesa
 - [x] O rei D. Sebastião morreu, sem deixar herdeiros
 
-**Explicacao:** King Sebastian died at Alcácer-Quibir, in Morocco, leaving no heir. The succession crisis that followed put Portugal under Spanish kings two years later. This defeat is the hinge between the age of expansion and the loss of independence.
+**Explicação:** King Sebastian died at Alcácer-Quibir, in Morocco, leaving no heir. The succession crisis that followed put Portugal under Spanish kings two years later. This defeat is the hinge between the age of expansion and the loss of independence.
 
 **Fonte:** historia.md §3; Wikipédia (pt), «Batalha de Alcácer-Quibir».
 
@@ -299,7 +299,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Um imposto criado pelo Marquês de Pombal
 - [x] A crença de que D. Sebastião havia de voltar para salvar o país
 
-**Explicacao:** After 1578 many people refused to accept that the king was dead and believed he would return one misty morning to save the country. This belief is called *sebastianismo*, and it is still a living cultural reference in books and everyday speech. If someone says a plan is "sebastianista", they mean it is wishful thinking.
+**Explicação:** After 1578 many people refused to accept that the king was dead and believed he would return one misty morning to save the country. This belief is called *sebastianismo*, and it is still a living cultural reference in books and everyday speech. If someone says a plan is "sebastianista", they mean it is wishful thinking.
 
 **Fonte:** historia.md §3.
 
@@ -312,7 +312,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Portugal esteve ocupado por França
 - [ ] Portugal não teve rei nem governo
 
-**Explicacao:** Between 1580 and 1640 the kings of Spain were also kings of Portugal. This period is called the *período filipino* or the Iberian Union. Portugal kept its own laws and institutions, but lost control of its foreign policy.
+**Explicação:** Between 1580 and 1640 the kings of Spain were also kings of Portugal. This period is called the *período filipino* or the Iberian Union. Portugal kept its own laws and institutions, but lost control of its foreign policy.
 
 **Fonte:** historia.md §4 (União Ibérica e Restauração).
 
@@ -325,7 +325,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] D. António, Prior do Crato
 - [ ] D. Miguel
 
-**Explicacao:** António, Prior of Crato, was the Portuguese candidate to the throne and was defeated at Alcântara in 1580. After that, Philip II of Spain became Philip I of Portugal, accepted at the Cortes of Tomar in 1581. This is how the Iberian Union began.
+**Explicação:** António, Prior of Crato, was the Portuguese candidate to the throne and was defeated at Alcântara in 1580. After that, Philip II of Spain became Philip I of Portugal, accepted at the Cortes of Tomar in 1581. This is how the Iberian Union began.
 
 **Fonte:** historia.md §4.
 
@@ -338,7 +338,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A proclamação da República
 - [ ] A adesão à Comunidade Económica Europeia
 
-**Explicacao:** On 1 December 1640 a group of noblemen overthrew Spanish rule and Portugal recovered its independence. This is the *Restauração da Independência*. It is still a national public holiday.
+**Explicação:** On 1 December 1640 a group of noblemen overthrew Spanish rule and Portugal recovered its independence. This is the *Restauração da Independência*. It is still a national public holiday.
 
 **Fonte:** historia.md §4.
 
@@ -351,7 +351,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A Dinastia Filipina
 - [x] A Dinastia de Bragança
 
-**Explicacao:** The Duke of Braganza was acclaimed King John IV and began the fourth dynasty, the House of Braganza. It ruled until the end of the monarchy in 1910. Avis is the dynasty of the Discoveries, two centuries earlier.
+**Explicação:** The Duke of Braganza was acclaimed King John IV and began the fourth dynasty, the House of Braganza. It ruled until the end of the monarchy in 1910. Avis is the dynasty of the Discoveries, two centuries earlier.
 
 **Fonte:** historia.md §4.
 
@@ -364,7 +364,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] 28 anos
 - [ ] 48 anos
 
-**Explicacao:** The Restoration War lasted 28 years, from 1640 to 1668. Recovering the crown in 1640 was quick; getting Spain to accept it took nearly three decades. Careful with the number 48 — that is the length of the Estado Novo, a different fact.
+**Explicação:** The Restoration War lasted 28 years, from 1640 to 1668. Recovering the crown in 1640 was quick; getting Spain to accept it took nearly three decades. Careful with the number 48 — that is the length of the Estado Novo, a different fact.
 
 **Fonte:** historia.md §4.
 
@@ -377,7 +377,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Portugal e Castela dividiram o Atlântico
 - [ ] O Brasil tornou-se independente
 
-**Explicacao:** With the Treaty of Lisbon of 1668, Spain finally recognised Portuguese independence and the Restoration War ended. Note there is a modern European treaty with the same name, signed in Lisbon in 2007 — in a history question, 1668 is the one that matters.
+**Explicação:** With the Treaty of Lisbon of 1668, Spain finally recognised Portuguese independence and the Restoration War ended. Note there is a modern European treaty with the same name, signed in Lisbon in 2007 — in a history question, 1668 is the one that matters.
 
 **Fonte:** historia.md §4; Wikipédia (pt), «Restauração da Independência».
 
@@ -390,7 +390,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O Dia da Liberdade
 - [ ] A Implantação da República
 
-**Explicacao:** 1 December marks the Restoration of Independence of 1640. Keep the four big civic dates apart: 25 April is Liberty Day, 10 June is Portugal Day, 5 October is the Republic, 1 December is the Restoration.
+**Explicação:** 1 December marks the Restoration of Independence of 1640. Keep the four big civic dates apart: 25 April is Liberty Day, 10 June is Portugal Day, 5 October is the Republic, 1 December is the Restoration.
 
 **Fonte:** historia.md §4 e §11.
 
@@ -403,7 +403,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1 de dezembro de 1755
 - [ ] 1 de novembro de 1855
 
-**Explicacao:** The earthquake struck on the morning of 1 November 1755, at about half past nine. It is one of the most important events in Portuguese history and shaped the city you walk through today. Remember the date as "All Saints' Day, 1755".
+**Explicação:** The earthquake struck on the morning of 1 November 1755, at about half past nine. It is one of the most important events in Portuguese history and shaped the city you walk through today. Remember the date as "All Saints' Day, 1755".
 
 **Fonte:** historia.md §5; Wikipédia (pt), «Sismo de Lisboa de 1755».
 
@@ -416,7 +416,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] O Dia de Todos os Santos
 - [ ] O Corpo de Deus
 
-**Explicacao:** It was All Saints' Day, so the churches were full of people at Mass. That is one reason the number of victims was so high and the shock so deep. The date is still a public holiday in Portugal.
+**Explicação:** It was All Saints' Day, so the churches were full of people at Mass. That is one reason the number of victims was so high and the shock so deep. The date is still a public holiday in Portugal.
 
 **Fonte:** historia.md §5.
 
@@ -429,7 +429,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Uma epidemia de peste
 - [ ] Uma guerra civil
 
-**Explicacao:** After the shaking came a tsunami along the river and fires that burned for days. Tens of thousands of people died and about 85% of Lisbon's buildings were destroyed. The three-part sequence — quake, wave, fire — is a classic test detail.
+**Explicação:** After the shaking came a tsunami along the river and fires that burned for days. Tens of thousands of people died and about 85% of Lisbon's buildings were destroyed. The three-part sequence — quake, wave, fire — is a classic test detail.
 
 **Fonte:** historia.md §5.
 
@@ -442,7 +442,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] D. Manuel II
 - [x] D. José I
 
-**Explicacao:** The king was Joseph I. He survived because the royal family was outside Lisbon that morning, and afterwards he refused to live in a stone palace again. His minister took charge of the rebuilding.
+**Explicação:** The king was Joseph I. He survived because the royal family was outside Lisbon that morning, and afterwards he refused to live in a stone palace again. His minister took charge of the rebuilding.
 
 **Fonte:** historia.md §5.
 
@@ -455,7 +455,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O general Spínola
 - [x] O Marquês de Pombal
 
-**Explicacao:** The Marquis of Pombal, minister of Joseph I, organised the emergency response and the rebuilding of the city centre. The rebuilt district is called the *Baixa Pombalina* and carries his name to this day.
+**Explicação:** The Marquis of Pombal, minister of Joseph I, organised the emergency response and the rebuilding of the city centre. The rebuilt district is called the *Baixa Pombalina* and carries his name to this day.
 
 **Fonte:** historia.md §5.
 
@@ -468,7 +468,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Uma estrutura de madeira feita para resistir aos sismos
 - [ ] Um estilo de pintura do século XVIII
 
-**Explicacao:** The *gaiola pombalina* is a wooden cage-like frame built inside the walls of the new Baixa buildings so they could flex in an earthquake. It is one of the earliest earthquake-resistant building systems in the world. The word *gaiola* literally means "cage".
+**Explicação:** The *gaiola pombalina* is a wooden cage-like frame built inside the walls of the new Baixa buildings so they could flex in an earthquake. It is one of the earliest earthquake-resistant building systems in the world. The word *gaiola* literally means "cage".
 
 **Fonte:** historia.md §5.
 
@@ -481,7 +481,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Fixou as fronteiras com Espanha
 - [ ] Deu origem à primeira Constituição
 
-**Explicacao:** Pombal sent parishes across the country a questionnaire asking what exactly they had felt and seen. Collecting systematic data about an earthquake had never been done before, and historians treat it as the beginning of modern seismology. It is a good example of the Enlightenment reaching Portugal.
+**Explicação:** Pombal sent parishes across the country a questionnaire asking what exactly they had felt and seen. Collecting systematic data about an earthquake had never been done before, and historians treat it as the beginning of modern seismology. It is a good example of the Enlightenment reaching Portugal.
 
 **Fonte:** historia.md §5.
 
@@ -494,7 +494,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Uma
 - [ ] Cinco
 
-**Explicacao:** There were three French invasions between 1807 and 1811, during the Napoleonic Wars. Portugal was attacked because it refused to close its ports to British trade. British and Portuguese forces fought together against them.
+**Explicação:** There were three French invasions between 1807 and 1811, during the Napoleonic Wars. Portugal was attacked because it refused to close its ports to British trade. British and Portuguese forces fought together against them.
 
 **Fonte:** historia.md §6 (invasões francesas, 1807–1822).
 
@@ -507,7 +507,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Para Espanha
 - [ ] Para os Açores
 
-**Explicacao:** In 1807, as the French approached, the royal family sailed to Brazil and Rio de Janeiro became the capital of the empire. It is the only case in history of a European court moving to a colony. Brazil declared independence fifteen years later, in 1822.
+**Explicação:** In 1807, as the French approached, the royal family sailed to Brazil and Rio de Janeiro became the capital of the empire. It is the only case in history of a European court moving to a colony. Brazil declared independence fifteen years later, in 1822.
 
 **Fonte:** historia.md §6.
 
@@ -520,7 +520,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Defender Lisboa do exército francês
 - [ ] Proteger a costa dos piratas
 
-**Explicacao:** The Lines of Torres Vedras were a defensive system of forts built north of Lisbon to stop the French army from reaching the capital. They worked: the French never got through. If you live near Torres Vedras, this history happened on your doorstep.
+**Explicação:** The Lines of Torres Vedras were a defensive system of forts built north of Lisbon to stop the French army from reaching the capital. They worked: the French never got through. If you live near Torres Vedras, this history happened on your doorstep.
 
 **Fonte:** historia.md §6 e «Ligações locais».
 
@@ -533,7 +533,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O Marquês de Pombal
 - [ ] D. Pedro IV
 
-**Explicacao:** Wellington, the British commander, ordered the Lines built from October 1809. Masséna is the opposite side of the story — the French marshal who could not get past them. Keep the two names straight.
+**Explicação:** Wellington, the British commander, ordered the Lines built from October 1809. Masséna is the opposite side of the story — the French marshal who could not get past them. Keep the two names straight.
 
 **Fonte:** historia.md §6; Wikipédia (pt), «Linhas de Torres Vedras».
 
@@ -546,7 +546,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] 152
 - [ ] 1520
 
-**Explicacao:** The system had 152 fortifications built across the hills between the sea and the Tagus. Several of them have been restored and can be visited today along the *Rota Histórica das Linhas de Torres*. The number 152 is the one to remember.
+**Explicação:** The system had 152 fortifications built across the hills between the sea and the Tagus. Several of them have been restored and can be visited today along the *Rota Histórica das Linhas de Torres*. The number 152 is the one to remember.
 
 **Fonte:** historia.md §6.
 
@@ -559,7 +559,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Assinou a paz com Wellington
 - [x] Não conseguiu passar e retirou-se em fevereiro de 1811
 
-**Explicacao:** Masséna arrived in October 1810, found the Lines impassable, waited through the winter and withdrew in February 1811. The French never took Lisbon. This retreat effectively ended the third invasion.
+**Explicação:** Masséna arrived in October 1810, found the Lines impassable, waited through the winter and withdrew in February 1811. The French never took Lisbon. This retreat effectively ended the third invasion.
 
 **Fonte:** historia.md §6.
 
@@ -572,7 +572,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] 1822
 - [ ] 1834
 
-**Explicacao:** Brazil declared independence in 1822, after the court had returned to Lisbon. The same year, Portugal approved its first Constitution — two big 1822 facts worth linking together. Portugal and Brazil have kept close ties ever since, which is why Brazilians appear in the nationality law today.
+**Explicação:** Brazil declared independence in 1822, after the court had returned to Lisbon. The same year, Portugal approved its first Constitution — two big 1822 facts worth linking together. Portugal and Brazil have kept close ties ever since, which is why Brazilians appear in the nationality law today.
 
 **Fonte:** historia.md §6.
 
@@ -585,7 +585,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Braga
 - [x] Porto
 
-**Explicacao:** The Liberal Revolution began in Porto on 24 August 1820 and spread from there. Its goal was a constitution and an elected parliament instead of absolute royal power. Porto has a long tradition of starting political movements in Portugal.
+**Explicação:** The Liberal Revolution began in Porto on 24 August 1820 and spread from there. Its goal was a constitution and an elected parliament instead of absolute royal power. Porto has a long tradition of starting political movements in Portugal.
 
 **Fonte:** historia.md §7 (liberalismo e monarquia constitucional).
 
@@ -598,7 +598,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1834
 - [ ] 1838
 
-**Explicacao:** The first Portuguese Constitution was approved on 23 September 1822, after the Constituent Cortes first met in January 1821. It limited the king's power for the first time. The 1826 date belongs to a different document, the Constitutional Charter.
+**Explicação:** The first Portuguese Constitution was approved on 23 September 1822, after the Constituent Cortes first met in January 1821. It limited the king's power for the first time. The 1826 date belongs to a different document, the Constitutional Charter.
 
 **Fonte:** historia.md §7; Assembleia da República, «Monarquia».
 
@@ -611,7 +611,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] D. Maria II
 - [ ] D. Carlos
 
-**Explicacao:** Peter IV granted the Constitutional Charter in 1826. It created two chambers and a limited vote based on property, so it was less democratic than the 1822 Constitution. The fight between the Charter and the 1822 text is at the root of the civil war that followed.
+**Explicação:** Peter IV granted the Constitutional Charter in 1826. It created two chambers and a limited vote based on property, so it was less democratic than the 1822 Constitution. The fight between the Charter and the 1822 text is at the root of the civil war that followed.
 
 **Fonte:** historia.md §7.
 
@@ -624,7 +624,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Liberais e absolutistas, entre D. Pedro e D. Miguel
 - [ ] Comunistas e socialistas
 
-**Explicacao:** The civil war of 1828–1834 set the liberals, behind Peter, against the absolutists, behind Miguel. The liberals won in 1834, and constitutional monarchy became the settled system. Republicans only become a serious force much later, at the end of the century.
+**Explicação:** The civil war of 1828–1834 set the liberals, behind Peter, against the absolutists, behind Miguel. The liberals won in 1834, and constitutional monarchy became the settled system. Republicans only become a serious force much later, at the end of the century.
 
 **Fonte:** historia.md §7.
 
@@ -637,7 +637,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] D. Maria I
 - [ ] D. Catarina
 
-**Explicacao:** Queen Maria II swore the new Constitution of 1838, after the liberal victory of 1834. She is the queen most associated with the consolidation of the constitutional monarchy. Lisbon's national theatre carries her name.
+**Explicação:** Queen Maria II swore the new Constitution of 1838, after the liberal victory of 1834. She is the queen most associated with the consolidation of the constitutional monarchy. Lisbon's national theatre carries her name.
 
 **Fonte:** historia.md §7.
 
@@ -650,7 +650,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O rei renunciou ao trono nesse mesmo ano
 - [x] Provocou uma grave crise e reforçou o movimento republicano
 
-**Explicacao:** In 1890 Britain demanded that Portugal withdraw from territory between Angola and Mozambique, and the government gave in. The humiliation caused a serious political crisis and pushed many people towards the republican movement. Twenty years later the monarchy fell.
+**Explicação:** In 1890 Britain demanded that Portugal withdraw from territory between Angola and Mozambique, and the government gave in. The humiliation caused a serious political crisis and pushed many people towards the republican movement. Twenty years later the monarchy fell.
 
 **Fonte:** historia.md §7.
 
@@ -663,7 +663,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Começou a Revolução Liberal
 - [ ] Foi aprovada a Constituição
 
-**Explicacao:** On 1 February 1908 King Carlos and the crown prince were shot dead in Lisbon — the event known as the *Regicídio*. His younger son became Manuel II, the last king of Portugal. The monarchy survived only two more years.
+**Explicação:** On 1 February 1908 King Carlos and the crown prince were shot dead in Lisbon — the event known as the *Regicídio*. His younger son became Manuel II, the last king of Portugal. The monarchy survived only two more years.
 
 **Fonte:** historia.md §8 (Implantação da República).
 
@@ -676,7 +676,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] 5 de outubro de 1910
 - [ ] 28 de maio de 1926
 
-**Explicacao:** The Republic was proclaimed on 5 October 1910, ending the monarchy. The date is still a national public holiday. Do not confuse it with 25 April, which is 1974 and a different revolution altogether.
+**Explicação:** The Republic was proclaimed on 5 October 1910, ending the monarchy. The date is still a national public holiday. Do not confuse it with 25 April, which is 1974 and a different revolution altogether.
 
 **Fonte:** historia.md §8.
 
@@ -689,7 +689,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Afonso Costa
 - [x] José Relvas
 
-**Explicacao:** José Relvas read out the proclamation from the balcony of Lisbon City Hall on 5 October 1910. Teófilo Braga then headed the Provisional Government and Manuel de Arriaga was the first elected President, in 1911. Three names, three different roles — keep them apart.
+**Explicação:** José Relvas read out the proclamation from the balcony of Lisbon City Hall on 5 October 1910. Teófilo Braga then headed the Provisional Government and Manuel de Arriaga was the first elected President, in 1911. Three names, three different roles — keep them apart.
 
 **Fonte:** historia.md §8.
 
@@ -702,7 +702,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] D. Luís I
 - [ ] D. Pedro V
 
-**Explicacao:** Manuel II was the last king. He went into exile in 1910 and never returned to live in Portugal. He sailed from Ericeira, on the coast just south of Santa Cruz — a local connection worth remembering.
+**Explicação:** Manuel II was the last king. He went into exile in 1910 and never returned to live in Portugal. He sailed from Ericeira, on the coast just south of Santa Cruz — a local connection worth remembering.
 
 **Fonte:** historia.md §8 e «Ligações locais».
 
@@ -715,7 +715,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] José Relvas
 - [ ] Sidónio Pais
 
-**Explicacao:** Manuel de Arriaga was elected the first President of the Portuguese Republic in 1911, after Teófilo Braga had led the Provisional Government. Óscar Carmona belongs to the dictatorship, from 1926 onwards. The First Republic went through presidents very quickly and was politically unstable.
+**Explicação:** Manuel de Arriaga was elected the first President of the Portuguese Republic in 1911, after Teófilo Braga had led the Provisional Government. Óscar Carmona belongs to the dictatorship, from 1926 onwards. The First Republic went through presidents very quickly and was politically unstable.
 
 **Fonte:** historia.md §8; Presidência da República, «Antigos Presidentes».
 
@@ -728,7 +728,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A bandeira verde e vermelha e o hino «Hino da Carta»
 - [ ] A bandeira azul e branca e o hino «A Portuguesa»
 
-**Explicacao:** The Republic replaced the blue-and-white monarchical flag with the green-and-red flag still used today, and adopted "A Portuguesa" as the national anthem. "Grândola, Vila Morena" is a 1974 song, not the anthem. Symbols are explicitly named in the nationality law, so learn them well.
+**Explicação:** The Republic replaced the blue-and-white monarchical flag with the green-and-red flag still used today, and adopted "A Portuguesa" as the national anthem. "Grândola, Vila Morena" is a 1974 song, not the anthem. Symbols are explicitly named in the nationality law, so learn them well.
 
 **Fonte:** historia.md §8; regulamento.md §3 (art. 6.º, n.º 1, al. c).
 
@@ -741,7 +741,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O Dia de Portugal
 - [x] A Implantação da República
 
-**Explicacao:** 5 October marks the proclamation of the Republic in 1910. Together with 1 December, 25 April and 10 June, it is one of the four civic national holidays. Tests like asking what each date celebrates.
+**Explicação:** 5 October marks the proclamation of the Republic in 1910. Together with 1 December, 25 April and 10 June, it is one of the four civic national holidays. Tests like asking what each date celebrates.
 
 **Fonte:** historia.md §8.
 
@@ -754,7 +754,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Salazar tornou-se Presidente do Conselho
 - [x] Um golpe militar pôs fim à Primeira República
 
-**Explicacao:** On 28 May 1926 a military coup that started in Braga, led by General Gomes da Costa, ended the First Republic. It opened a military dictatorship that became the Estado Novo. Salazar only reached the top job later, in 1932.
+**Explicação:** On 28 May 1926 a military coup that started in Braga, led by General Gomes da Costa, ended the First Republic. It opened a military dictatorship that became the Estado Novo. Salazar only reached the top job later, in 1932.
 
 **Fonte:** historia.md §9 (Ditadura Militar e Estado Novo).
 
@@ -767,7 +767,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Óscar Carmona
 - [ ] Américo Tomás
 
-**Explicacao:** Óscar Carmona took power in July 1926 and remained President until 1951. Under the Estado Novo the President had little real power; the head of government was the strong figure. That head of government was Salazar.
+**Explicação:** Óscar Carmona took power in July 1926 and remained President until 1951. Under the Estado Novo the President had little real power; the head of government was the strong figure. That head of government was Salazar.
 
 **Fonte:** historia.md §9.
 
@@ -780,7 +780,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Ministro dos Negócios Estrangeiros
 - [ ] Chefe da PIDE
 
-**Explicacao:** Salazar entered the government as Finance Minister in 1928, with a reputation as an economics professor who could balance the budget. That role made him powerful enough to become head of government in 1932. He was never President of the Republic.
+**Explicação:** Salazar entered the government as Finance Minister in 1928, with a reputation as an economics professor who could balance the budget. That role made him powerful enough to become head of government in 1932. He was never President of the Republic.
 
 **Fonte:** historia.md §9.
 
@@ -793,7 +793,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1961
 - [ ] 1968
 
-**Explicacao:** Salazar became Prime Minister (*Presidente do Conselho de Ministros*) in 1932 and stayed until 1968. The 1933 Constitution came the following year and gave the regime its formal shape. The order is: 1926 coup, 1928 Finance, 1932 head of government, 1933 Constitution.
+**Explicação:** Salazar became Prime Minister (*Presidente do Conselho de Ministros*) in 1932 and stayed until 1968. The 1933 Constitution came the following year and gave the regime its formal shape. The order is: 1926 coup, 1928 Finance, 1932 head of government, 1933 Constitution.
 
 **Fonte:** historia.md §9; Assembleia da República, «Estado Novo».
 
@@ -806,7 +806,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] O Estado Novo
 - [ ] A democracia parlamentar
 
-**Explicacao:** The 1933 Constitution created the Estado Novo, an authoritarian and corporatist regime. It lasted until 1974 — about 48 years counting from the 1926 coup. It was one of the longest dictatorships in twentieth-century Europe.
+**Explicação:** The 1933 Constitution created the Estado Novo, an authoritarian and corporatist regime. It lasted until 1974 — about 48 years counting from the 1926 coup. It was one of the longest dictatorships in twentieth-century Europe.
 
 **Fonte:** historia.md §9.
 
@@ -819,7 +819,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A imprensa podia criticar o Governo sem limites
 - [x] Havia censura, partido único e uma polícia política, a PIDE
 
-**Explicacao:** The regime had censorship, a single legal party, a National Assembly with no real power and a political police force, the PIDE. Understanding what was absent — free elections, free press, free unions — is the point of this topic. It explains why 25 April 1974 matters so much to Portuguese people.
+**Explicação:** The regime had censorship, a single legal party, a National Assembly with no real power and a political police force, the PIDE. Understanding what was absent — free elections, free press, free unions — is the point of this topic. It explains why 25 April 1974 matters so much to Portuguese people.
 
 **Fonte:** historia.md §9.
 
@@ -832,7 +832,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Marcelo Caetano
 - [ ] Mário Soares
 
-**Explicacao:** Marcelo Caetano replaced Salazar in 1968, after Salazar became ill. He promised reform but kept the essential structure of the regime and the colonial war. He was the man in power when the revolution came in 1974.
+**Explicação:** Marcelo Caetano replaced Salazar in 1968, after Salazar became ill. He promised reform but kept the essential structure of the regime and the colonial war. He was the man in power when the revolution came in 1974.
 
 **Fonte:** historia.md §9.
 
@@ -845,7 +845,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Timor
 - [x] Angola
 
-**Explicacao:** The Colonial War began in Angola on 4 February 1961. Two other fronts opened later: Guinea in 1963 and Mozambique in 1964. Angola first, then Guinea, then Mozambique — that order is often tested.
+**Explicação:** The Colonial War began in Angola on 4 February 1961. Two other fronts opened later: Guinea in 1963 and Mozambique in 1964. Angola first, then Guinea, then Mozambique — that order is often tested.
 
 **Fonte:** historia.md §10 (Guerra Colonial, 1961–1974).
 
@@ -858,7 +858,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Angola, Brasil e Timor
 - [ ] Moçambique, Cabo Verde e São Tomé
 
-**Explicacao:** The war was fought in Angola, Guinea and Mozambique. Goa and Macau were Portuguese territories but not war fronts. Brazil had been independent since 1822.
+**Explicação:** The war was fought in Angola, Guinea and Mozambique. Goa and Macau were Portuguese territories but not war fronts. Brazil had been independent since 1822.
 
 **Fonte:** historia.md §10.
 
@@ -871,7 +871,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Cabo Verde e Guiné
 - [ ] Ceuta e Melilha
 
-**Explicacao:** In 1961 India annexed Goa, Daman and Diu, ending more than four centuries of Portuguese presence in India. It happened the same year the war began in Angola, so 1961 is a heavy date. Macau stayed Portuguese until 1999.
+**Explicação:** In 1961 India annexed Goa, Daman and Diu, ending more than four centuries of Portuguese presence in India. It happened the same year the war began in Angola, so 1961 is a heavy date. Macau stayed Portuguese until 1999.
 
 **Fonte:** historia.md §10.
 
@@ -884,7 +884,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Cerca de vinte e oito anos
 - [ ] Cerca de quarenta e oito anos
 
-**Explicacao:** The war lasted about thirteen years, from 1961 to 1974. It required long military service, consumed much of the state budget and pushed many young men to emigrate to avoid being called up. It ended only with the revolution of 25 April 1974.
+**Explicação:** The war lasted about thirteen years, from 1961 to 1974. It required long military service, consumed much of the state budget and pushed many young men to emigrate to avoid being called up. It ended only with the revolution of 25 April 1974.
 
 **Fonte:** historia.md §10.
 
@@ -897,7 +897,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Foi proclamada a República
 - [x] O Movimento das Forças Armadas derrubou o Estado Novo
 
-**Explicacao:** On 25 April 1974 the Armed Forces Movement (MFA) overthrew the Estado Novo, almost without violence. It ended 48 years of dictatorship and thirteen years of colonial war. This is the single most important date in modern Portuguese history.
+**Explicação:** On 25 April 1974 the Armed Forces Movement (MFA) overthrew the Estado Novo, almost without violence. It ended 48 years of dictatorship and thirteen years of colonial war. This is the single most important date in modern Portuguese history.
 
 **Fonte:** historia.md §11 (25 de Abril e democracia).
 
@@ -910,7 +910,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] «Grândola, Vila Morena»
 - [ ] «E Depois do Adeus»
 
-**Explicacao:** "Grândola, Vila Morena", by José Afonso, played on Rádio Renascença at 00:20 and was the signal for the operations to start. It is still sung at protests and commemorations today. "A Portuguesa" is the national anthem — a different thing entirely.
+**Explicação:** "Grândola, Vila Morena", by José Afonso, played on Rádio Renascença at 00:20 and was the signal for the operations to start. It is still sung at protests and commemorations today. "A Portuguesa" is the national anthem — a different thing entirely.
 
 **Fonte:** historia.md §11; Centro de Documentação 25 de Abril (cd25a.uc.pt).
 
@@ -923,7 +923,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Sérgio Godinho
 - [x] José Afonso
 
-**Explicacao:** José Afonso, known as Zeca Afonso, wrote and sang "Grândola, Vila Morena". His songs were censored under the dictatorship, which is exactly why the MFA chose one of them as the signal. Grândola is a town in the Alentejo.
+**Explicação:** José Afonso, known as Zeca Afonso, wrote and sang "Grândola, Vila Morena". His songs were censored under the dictatorship, which is exactly why the MFA chose one of them as the signal. Grândola is a town in the Alentejo.
 
 **Fonte:** historia.md §11.
 
@@ -936,7 +936,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] No Terreiro do Paço
 - [ ] No aeroporto de Lisboa
 
-**Explicacao:** Caetano surrendered at the Carmo barracks in Lisbon to General António de Spínola. He then left the country and went into exile. The Largo do Carmo is still a place people visit for this reason.
+**Explicação:** Caetano surrendered at the Carmo barracks in Lisbon to General António de Spínola. He then left the country and went into exile. The Largo do Carmo is still a place people visit for this reason.
 
 **Fonte:** historia.md §11.
 
@@ -949,7 +949,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Porque aconteceu na época da colheita dos cravos
 - [ ] Porque a bandeira nova tinha um cravo
 
-**Explicacao:** People in Lisbon handed red carnations to the soldiers, who put them in the barrels of their rifles. The image became the symbol of a revolution made almost without bloodshed. That is why the red carnation is worn every 25 April.
+**Explicação:** People in Lisbon handed red carnations to the soldiers, who put them in the barrels of their rifles. The image became the symbol of a revolution made almost without bloodshed. That is why the red carnation is worn every 25 April.
 
 **Fonte:** historia.md §11.
 
@@ -962,7 +962,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A tomada de posse do primeiro Presidente eleito
 - [ ] A entrada em vigor da Constituição
 
-**Explicacao:** Exactly one year after the revolution, Portugal held its first free elections, by universal, direct and secret suffrage, to choose a Constituent Assembly. That assembly then wrote the Constitution. Women voted on equal terms for the first time.
+**Explicação:** Exactly one year after the revolution, Portugal held its first free elections, by universal, direct and secret suffrage, to choose a Constituent Assembly. That assembly then wrote the Constitution. Women voted on equal terms for the first time.
 
 **Fonte:** historia.md §11.
 
@@ -975,7 +975,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] O fim do período revolucionário e a abertura à democracia parlamentar
 - [ ] A morte de Salazar
 
-**Explicacao:** 25 November 1975 ended the revolutionary period known as the PREC and opened the way to parliamentary democracy. The eighteen months between April 1974 and November 1975 were politically very unstable. After this date the country settled into the system it still has.
+**Explicação:** 25 November 1975 ended the revolutionary period known as the PREC and opened the way to parliamentary democracy. The eighteen months between April 1974 and November 1975 were politically very unstable. After this date the country settled into the system it still has.
 
 **Fonte:** historia.md §11; Wikipédia (pt), «Processo Revolucionário Em Curso».
 
@@ -988,7 +988,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A 23 de julho de 1976
 - [ ] A 1 de janeiro de 1986
 
-**Explicacao:** The Constitution was approved on 2 April 1976 and entered into force on 25 April 1976, the second anniversary of the revolution. 23 July 1976 is a third date — the first constitutional government taking office. Approval, entry into force, government: three different moments.
+**Explicação:** The Constitution was approved on 2 April 1976 and entered into force on 25 April 1976, the second anniversary of the revolution. 23 July 1976 is a third date — the first constitutional government taking office. Approval, entry into force, government: three different moments.
 
 **Fonte:** historia.md §11; Assembleia da República, Constituição da República Portuguesa.
 
@@ -1001,7 +1001,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] António de Spínola
 - [x] António Ramalho Eanes
 
-**Explicacao:** Ramalho Eanes was elected President in 1976, the first under the new Constitution. Mário Soares formed the first constitutional government the same year and only became President later. Spínola was a general of 1974, not an elected president.
+**Explicação:** Ramalho Eanes was elected President in 1976, the first under the new Constitution. Mário Soares formed the first constitutional government the same year and only became President later. Spínola was a general of 1974, not an elected president.
 
 **Fonte:** historia.md §11; Presidência da República, «Antigos Presidentes».
 
@@ -1014,7 +1014,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Mário Soares
 - [ ] Aníbal Cavaco Silva
 
-**Explicacao:** Mário Soares formed the first constitutional government on 23 July 1976. He is one of the central figures of Portuguese democracy and later signed the treaty taking Portugal into Europe. Eanes was President, Soares was Prime Minister — two different jobs at the same time.
+**Explicação:** Mário Soares formed the first constitutional government on 23 July 1976. He is one of the central figures of Portuguese democracy and later signed the treaty taking Portugal into Europe. Eanes was President, Soares was Prime Minister — two different jobs at the same time.
 
 **Fonte:** historia.md §11.
 
@@ -1027,7 +1027,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Dia de Portugal
 - [ ] Dia da Restauração
 
-**Explicacao:** 25 April is the *Dia da Liberdade*, Freedom Day. 1 May, the day after, is *Dia do Trabalhador*, celebrated freely in Portugal for the first time in 1974. Both dates belong to the same spring.
+**Explicação:** 25 April is the *Dia da Liberdade*, Freedom Day. 1 May, the day after, is *Dia do Trabalhador*, celebrated freely in Portugal for the first time in 1974. Both dates belong to the same spring.
 
 **Fonte:** historia.md §11.
 
@@ -1040,7 +1040,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] O Dia de Portugal, de Camões e das Comunidades Portuguesas
 - [ ] A adesão à União Europeia
 
-**Explicacao:** 10 June is Portugal Day, and its full name honours the poet Luís de Camões and Portuguese communities abroad. The date is the anniversary of Camões's death. It is the national day proper, and it is celebrated in a different city each year.
+**Explicação:** 10 June is Portugal Day, and its full name honours the poet Luís de Camões and Portuguese communities abroad. The date is the anniversary of Camões's death. It is the national day proper, and it is celebrated in a different city each year.
 
 **Fonte:** historia.md §11.
 
@@ -1053,7 +1053,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Angola
 - [ ] Cabo Verde
 
-**Explicacao:** Guinea-Bissau became independent on 10 September 1974, a few months after the revolution. The others followed in 1975: Mozambique in June, Cape Verde in July, São Tomé and Príncipe in July, Angola in November. Guinea-Bissau is the one that stands alone in 1974.
+**Explicação:** Guinea-Bissau became independent on 10 September 1974, a few months after the revolution. The others followed in 1975: Mozambique in June, Cape Verde in July, São Tomé and Príncipe in July, Angola in November. Guinea-Bissau is the one that stands alone in 1974.
 
 **Fonte:** historia.md §12 (descolonização, 1974–1975).
 
@@ -1066,7 +1066,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] A 11 de novembro de 1975
 - [ ] A 28 de novembro de 1975
 
-**Explicacao:** Angola became independent on 11 November 1975, the last of the African territories, after the Alvor Agreements signed in January of that year. 25 June 1975 is Mozambique and 5 July 1975 is Cape Verde; 28 November 1975 is the day East Timor declared independence. Angola is the last of the African territories in the sequence — that is the detail to remember.
+**Explicação:** Angola became independent on 11 November 1975, the last of the African territories, after the Alvor Agreements signed in January of that year. 25 June 1975 is Mozambique and 5 July 1975 is Cape Verde; 28 November 1975 is the day East Timor declared independence. Angola is the last of the African territories in the sequence — that is the detail to remember.
 
 **Fonte:** historia.md §12.
 
@@ -1079,7 +1079,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Permaneceu território português até 1999
 - [ ] Juntou-se a Moçambique
 
-**Explicacao:** East Timor declared independence on 28 November 1975 and was invaded by Indonesia days later, on 7 December. It only restored its independence on 20 May 2002. Today it is a member of the CPLP, the community of Portuguese-speaking countries.
+**Explicação:** East Timor declared independence on 28 November 1975 and was invaded by Indonesia days later, on 7 December. It only restored its independence on 20 May 2002. Today it is a member of the CPLP, the community of Portuguese-speaking countries.
 
 **Fonte:** historia.md §12; Wikipédia (pt), «Timor-Leste».
 
@@ -1092,7 +1092,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1995
 - [x] 1999
 
-**Explicacao:** Macau was handed over to China in 1999, which marked the end of the Portuguese empire. It was the last territory administered by Portugal outside Europe. Note the contrast: 1961 India, 1974–75 Africa, 1999 Macau.
+**Explicação:** Macau was handed over to China in 1999, which marked the end of the Portuguese empire. It was the last territory administered by Portugal outside Europe. Note the contrast: 1961 India, 1974–75 Africa, 1999 Macau.
 
 **Fonte:** historia.md §12.
 
@@ -1105,7 +1105,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Os soldados que voltaram da Primeira Guerra Mundial
 - [ ] Os exilados políticos que voltaram depois de 1974
 
-**Explicacao:** About half a million people came back from the former colonies to Portugal in 1975 and 1976; they are called *os retornados*. Absorbing so many people at once was a huge social and economic challenge for a country of nine million. The word is still used in everyday conversation.
+**Explicação:** About half a million people came back from the former colonies to Portugal in 1975 and 1976; they are called *os retornados*. Absorbing so many people at once was a huge social and economic challenge for a country of nine million. The word is still used in everyday conversation.
 
 **Fonte:** historia.md §12.
 
@@ -1118,7 +1118,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Em Bruxelas
 - [x] No Mosteiro dos Jerónimos, em Lisboa
 
-**Explicacao:** The Accession Treaty was signed on 12 June 1985 at the Jerónimos Monastery in Lisbon. The venue was chosen deliberately: it is the monument of the age of Discoveries, so the symbolism was Portugal opening to the world again. Signature in 1985, membership in 1986.
+**Explicação:** The Accession Treaty was signed on 12 June 1985 at the Jerónimos Monastery in Lisbon. The venue was chosen deliberately: it is the monument of the age of Discoveries, so the symbolism was Portugal opening to the world again. Signature in 1985, membership in 1986.
 
 **Fonte:** historia.md §13 (a Europa); Eurocid/MNE, «Cronologia da Adesão».
 
@@ -1131,7 +1131,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Ramalho Eanes
 - [ ] Marcelo Caetano
 
-**Explicacao:** Mário Soares was Prime Minister and signed the treaty in 1985. He had also formed the first constitutional government in 1976, and later served as President. He is the name most associated with Portugal's European path.
+**Explicação:** Mário Soares was Prime Minister and signed the treaty in 1985. He had also formed the first constitutional government in 1976, and later served as President. He is the name most associated with Portugal's European path.
 
 **Fonte:** historia.md §13.
 
@@ -1144,7 +1144,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A 26 de março de 1995
 - [ ] A 1 de janeiro de 1999
 
-**Explicacao:** Portugal became a member on 1 January 1986, on the same day as Spain. The treaty had been signed in June 1985, but membership began the following January. The other two dates belong to Schengen and to the euro.
+**Explicação:** Portugal became a member on 1 January 1986, on the same day as Spain. The treaty had been signed in June 1985, but membership began the following January. The other two dates belong to Schengen and to the euro.
 
 **Fonte:** historia.md §13; União Europeia, ficha do país «Portugal».
 
@@ -1157,7 +1157,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] Espanha
 - [ ] Irlanda
 
-**Explicacao:** Spain joined on the same day, 1 January 1986. Both countries had recently left dictatorships, and joining Europe was seen as a way of securing their new democracies. Greece had joined earlier, in 1981.
+**Explicação:** Spain joined on the same day, 1 January 1986. Both countries had recently left dictatorships, and joining Europe was seen as a way of securing their new democracies. Greece had joined earlier, in 1981.
 
 **Fonte:** historia.md §13.
 
@@ -1170,7 +1170,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] 1999
 - [ ] 2002
 
-**Explicacao:** Portugal joined the Schengen Area on 26 March 1995, which removed border controls with most other member countries. That is a different step from joining the Communities in 1986 and from the euro. Three separate dates, three separate things.
+**Explicação:** Portugal joined the Schengen Area on 26 March 1995, which removed border controls with most other member countries. That is a different step from joining the Communities in 1986 and from the euro. Three separate dates, three separate things.
 
 **Fonte:** historia.md §13.
 
@@ -1183,7 +1183,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] A 1 de janeiro de 1999
 - [x] A 1 de janeiro de 2002
 
-**Explicacao:** Portugal has been in the euro area since 1 January 1999, but the notes and coins only came into people's hands on 1 January 2002. The currency existed on paper first and in your pocket three years later. Older people still convert prices into the old currency in their heads.
+**Explicação:** Portugal has been in the euro area since 1 January 1999, but the notes and coins only came into people's hands on 1 January 2002. The currency existed on paper first and in your pocket three years later. Older people still convert prices into the old currency in their heads.
 
 **Fonte:** historia.md §13.
 
@@ -1196,7 +1196,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O real
 - [ ] O cruzeiro
 
-**Explicacao:** The Portuguese currency before the euro was the *escudo*, replaced by euro notes and coins in 2002. The peseta was Spanish and the cruzeiro Brazilian. You may still hear older people say "contos", an old way of counting escudos.
+**Explicação:** The Portuguese currency before the euro was the *escudo*, replaced by euro notes and coins in 2002. The peseta was Spanish and the cruzeiro Brazilian. You may still hear older people say "contos", an old way of counting escudos.
 
 **Fonte:** historia.md §13.
 
@@ -1209,7 +1209,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] São Mamede, Restauração da Independência, Aljubarrota, Implantação da República
 - [ ] Implantação da República, São Mamede, Aljubarrota, Restauração da Independência
 
-**Explicacao:** The order is 1128, 1385, 1640, 1910. Ordering questions are common in citizenship tests because they show whether you understand the story, not just isolated dates. Anchor yourself on the four centuries: twelfth, fourteenth, seventeenth, twentieth.
+**Explicação:** The order is 1128, 1385, 1640, 1910. Ordering questions are common in citizenship tests because they show whether you understand the story, not just isolated dates. Anchor yourself on the four centuries: twelfth, fourteenth, seventeenth, twentieth.
 
 **Fonte:** historia.md, cronologia-relâmpago.
 
@@ -1222,7 +1222,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] O Tratado de Saragoça
 - [ ] O Tratado de Lisboa que reconheceu a independência
 
-**Explicacao:** Alcanizes is 1297, Tordesillas 1494, Zaragoza 1529 and the Treaty of Lisbon 1668. Alcanizes is the oldest and the only one about the land border with Spain; the other three are about overseas territory or independence. Grouping treaties by what they were for makes them easier to remember.
+**Explicação:** Alcanizes is 1297, Tordesillas 1494, Zaragoza 1529 and the Treaty of Lisbon 1668. Alcanizes is the oldest and the only one about the land border with Spain; the other three are about overseas territory or independence. Grouping treaties by what they were for makes them easier to remember.
 
 **Fonte:** historia.md §2, §3 e §4.
 
@@ -1235,7 +1235,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [x] A democracia foi restaurada em 1974 e Portugal aderiu à Europa em 1986
 - [ ] A Guerra Colonial terminou antes da chegada de Marcelo Caetano ao poder
 
-**Explicacao:** The sequence is: 1974 revolution, 1976 Constitution, 1986 accession to the European Communities. Caetano came to power in 1968, while the war was still going on, and it only ended with the revolution. Getting this order right is the backbone of the modern history topic.
+**Explicação:** The sequence is: 1974 revolution, 1976 Constitution, 1986 accession to the European Communities. Caetano came to power in 1968, while the war was still going on, and it only ended with the revolution. Getting this order right is the backbone of the modern history topic.
 
 **Fonte:** historia.md §9, §11 e §13.
 
@@ -1248,7 +1248,7 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] Porque o Regulamento da Nacionalidade de 2006 já o previa
 - [x] Porque a Lei Orgânica n.º 1/2026 passou a exigir que se conheça suficientemente a língua, a cultura, a história e os símbolos nacionais
 
-**Explicacao:** Article 6(1)(c) of the Nationality Law, as amended by Lei Orgânica n.º 1/2026 of 18 May 2026, requires applicants to show sufficient knowledge of the Portuguese language and culture, of history and of the national symbols. Note that the detailed rules — how the test works, how many questions, what pass mark — had still not been published when this bank was written. Study the subject, not a format that does not officially exist yet.
+**Explicação:** Article 6(1)(c) of the Nationality Law, as amended by Lei Orgânica n.º 1/2026 of 18 May 2026, requires applicants to show sufficient knowledge of the Portuguese language and culture, of history and of the national symbols. Note that the detailed rules — how the test works, how many questions, what pass mark — had still not been published when this bank was written. Study the subject, not a format that does not officially exist yet.
 
 **Fonte:** regulamento.md §3 e §7; Lei Orgânica n.º 1/2026, artigos 6.º e 4.º.
 

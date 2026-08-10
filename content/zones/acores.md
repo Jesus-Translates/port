@@ -2,7 +2,7 @@
 
 ## Identity
 
-The Açores are an autonomous region (Região Autónoma dos Açores) of **nine inhabited islands** in three groups, spread across 600 km of open Atlantic. Mainland Portugal is **o continente**; flying there is *ir ao continente*, and it is a two-and-a-bit-hour flight from São Miguel, longer from the west. Roughly 240,000 people live here, over half of them on **São Miguel**, with **Ponta Delgada** (about 67,229 in 2021) the largest city.
+The Açores are an autonomous region (Região Autónoma dos Açores) of **nine inhabited islands** in three groups, spread across 600 km of open Atlantic. Mainland Portugal is **o continente**; flying there is *ir ao continente*, and it is a two-and-a-bit-hour flight from São Miguel, longer from the west. Roughly 240,000 people live here (2021), over half of them on **São Miguel**, with **Ponta Delgada** (about 67,229 in 2021) the largest city.
 
 The three groups matter to how people think:
 
@@ -62,21 +62,21 @@ From the sea: **lapas grelhadas** with garlic butter and lemon; **cracas**, Azor
 
 From the land: Azorean beef, which is grass-fed year-round because the grass never stops; **morcela** and **linguiça**; **torresmos**; **inhame** with the cozido and at Easter; and **ananás dos Açores/São Miguel DOP**, pineapple grown slowly under glass in Fajã de Baixo and Ponta Delgada, PDO since 21 June 1996, managed by the **PROFRUTOS** cooperative.
 
-Cheese is identity. **Queijo de São Jorge DOP** — protected since 1986, made only on São Jorge from **leite de vaca inteiro e cru**, cured a minimum of 90 days at 12–14 °C and 80–85% humidity, in 8–12 kg wheels 25–35 cm across, yellow paste with small irregular holes and a **bouquet forte, limpo e ligeiramente picante** that gets sharper with age. Also **Queijo do Pico**, soft and pungent, and *queijo da ilha* as a generic.
+Cheese is identity. **Queijo de São Jorge DOP** — protected since **1986** (Decreto Regulamentar Regional n.º 24/86/A, de 9 de julho), made only on São Jorge from **leite de vaca inteiro e cru**, cured a minimum of **three months** at 12–14 °C and 80–85% humidity, in wheels of **8–12 kg**, 25–35 cm across and 10–15 cm high, yellow paste with small irregular holes and a **bouquet forte, limpo e ligeiramente picante** that gets sharper with age. Also **Queijo do Pico**, soft and pungent, and *queijo da ilha* as a generic.
 
 Sweet: **bolos lêvedos** from the **Vale das Furnas** — small sweet leavened discs cooked on a floured griddle, first appearing in the mid-19th century, split, buttered, and eaten with coffee at any hour; **massa sovada**; **queijadas da Vila** from Vila Franca do Campo (the **Queijadas do Morgado**); **queijadas da Graciosa**; **fofas da Povoação**; **Dona Amélia** on Terceira; **rosquilhas**.
 
-Drink: **vinho de cheiro**, the everyday semi-wild red poured at family tables and at festas — nobody sells it in a smart bottle and everybody has an uncle who makes it (unverified as to exact grape); **verdelho** and the modern Pico wines grown in the *currais* (labels including *Frei Gigante* and *Terras de Lava*) (unverified); **Biscoitos** wine on Terceira; **Especial**, brewed by **Melo Abreu** in Ponta Delgada (unverified as to current ownership); **Kima**, the maracujá soft drink; **licor de maracujá** and **angelica**; and the tea — **Gorreana** and **Porto Formoso** on São Miguel, the only tea plantations in Europe, producing *Hysson* (green) and *Orange Pekoe* (black) (unverified as to the current range).
+Drink: **vinho de cheiro**, the everyday semi-wild red poured at family tables and at festas — nobody sells it in a smart bottle and everybody has an uncle who makes it (unverified as to exact grape); **verdelho** and the modern Pico wines grown in the *currais* (labels including *Frei Gigante* and *Terras de Lava*) (unverified); **Biscoitos** wine on Terceira; **Especial**, brewed by **Melo Abreu** in Ponta Delgada (unverified as to current ownership); **Kima**, the maracujá soft drink; **licor de maracujá** and **angelica**; and the tea — **Gorreana** and **Porto Formoso** on São Miguel, the only tea plantations in Portugal and the oldest in Europe, Gorreana working continuously since 1883 and producing green and black leaf.
 
 ## Restaurants & institutions
 
 **Peter Café Sport, Horta.** Founded 1918 by Henrique Azevedo, run by the same family ever since — his son José, nicknamed **Peter**, took over in the 1960s, and José Henrique from 1978. The **gin tónico** is the house order, and it has been since Henrique made it the thing. Upstairs since 1986 is the **Museu do Peter**, a scrimshaw collection. For most of a century the café was the poste restante of the North Atlantic: crews left letters here for boats that had not arrived yet. The sailing line is *"Se velejares até à Horta e não visitares o Peter Café Sport, não viste a Horta na realidade."* The ritual: a crew comes in off an ocean crossing, still salt-stiff, orders the gin, signs something, and then goes out to paint their boat's name on the marina wall — because leaving without painting it is thought to invite a rough passage.
 
-**The caldeiras at Furnas.** The numbered holes in the ground by the Lagoa das Furnas are the institution. The morning ritual of burying the pots draws a small crowd; the midday ritual of digging them out draws a bigger one, with steam, a hook, and a lot of unsolicited advice about whether the pot has been down long enough. Restaurants in the village — including **Tony's** and the restaurant at **Terra Nostra** — are where the pot ends up (unverified as to which restaurants use which holes). You book the cozido, you do not turn up hoping.
+**The caldeiras at Furnas.** The numbered holes in the ground by the Lagoa das Furnas are the institution. The morning ritual of burying the pots draws a small crowd; the midday ritual of digging them out draws a bigger one, with steam, a hook, and a lot of unsolicited advice about whether the pot has been down long enough. Restaurants in the village are where the pot ends up — **Tony's**, on the Largo do Teatro in the middle of Furnas and trading since 1984, is the one most people name, and the restaurant at **Terra Nostra** is the other *(which house uses which hole is not something to assert)*. You book the cozido, you do not turn up hoping.
 
 **Mercado da Graça, Ponta Delgada.** Saturday morning. Fish downstairs, pineapples piled in gold pyramids at the entrance, tea, cheese, and a very serious *chicharro* trade. The ritual is arriving early, going twice round before buying anything, and having a *bolo lêvedo* and a coffee afterwards as though it were a reward for work.
 
-**Fábrica de Chá Gorreana**, Ribeira Grande. The old machinery still runs, the smell of drying leaf carries down the road, and there is a pot of tea on for anyone who walks in. The ritual is drinking it plain, standing up, while somebody explains that the leaf never sees a chemical because the island has no tea pests.
+**Fábrica de Chá Gorreana**, Ribeira Grande. The old machinery still runs, the smell of drying leaf carries down the road, and there is a pot of tea on for anyone who walks in. The ritual is drinking it plain, standing up, while somebody explains that the leaf never sees a chemical because the island has no tea pests. Gorreana has been in the same family since 1883.
 
 **Queijadas do Morgado**, Vila Franca do Campo — the *queijadas da Vila* everyone stops for on the way round the south coast.
 
@@ -90,7 +90,11 @@ Warm observations worth reusing: the standing argument over whether cozido is re
 
 **Getting between islands is the daily fact of life.** **SATA Air Açores**, based at **Aeroporto João Paulo II** in Ponta Delgada, flies the inter-island network with **Bombardier Dash 8-Q200** (37 seats) and **Q400** (80 seats) turboprops, carrying passengers, cargo and post; the smallest strips, notably **Corvo**, need exactly this kind of aircraft. Its subsidiary **Azores Airlines** (formerly SATA Internacional) does the mainland and international routes. Fog cancels flights. People genuinely get stranded on the wrong island for two days and it is treated as weather, not catastrophe: *"ficou retido no Faial"*.
 
-By sea, **Atlânticoline** runs the ferries. The workhorse is the **triângulo** — Faial, Pico and São Jorge — with the **Horta–Madalena** crossing taking roughly half an hour and running year-round, so people commute across it for work, school and hospital appointments. The longer lines linking all nine islands run mainly in summer (unverified as to current timetable). Cargo comes by ship, which means shelves depend on the boat; if the sea has been bad, the supermarket says so.
+By sea, **Atlânticoline** runs the ferries, and its lines are known by **colour**, not by number — say *a linha azul*, not "line 1".
+
+**Get this distinction right, because it is the one that strands people.** Only **one** crossing runs all year: the **linha azul**, **Horta–Madalena**, the short hop from Faial to Pico, roughly **25–30 minutes**, several sailings a day. That is the one people genuinely commute on for work, school and hospital appointments. **The full *triângulo* — the Faial–Pico–São Jorge circuit on the *linha verde* — is seasonal**, as are the lines that reach the rest of the Central group and link all nine islands: spring and summer only. So Horta to Madalena in February is a boat; **Horta or Madalena to Velas in February is not** — it is a flight, or it is nothing. Never assume São Jorge is reachable by sea out of season. Timetables are reissued each season and the winter one is far thinner: check before you count on a sailing.
+
+Cargo comes by ship, which means shelves depend on the boat; if the sea has been bad, the supermarket says so.
 
 **Farming** structures the week. Dairy is the backbone — cows walked along the road morning and evening, the **ordenha** twice a day, and the electric fence moved a few metres every day so the herd eats the field in strips. Milk brands processed in the region include **Lactaçores** and **Insco** (unverified as to current ownership). There is pineapple under glass, tea at Gorreana and Porto Formoso, and vines in the *currais* on Pico.
 
@@ -129,11 +133,18 @@ Azorean speech is European Portuguese and everything the learner is taught — *
 - `outra` — the /o/ of the *ou* spelling is realised as the **front rounded [ø]**, like French *eu* in *deux*.
 - `boi` — the *oi* likewise comes out as [ø] rather than a back vowel.
 
-These two phonemes, **[ʏ]** and **[ø]**, are emblematic of Micaelense above all. They appear partially in **Terceira, Graciosa, eastern Pico, Flores and Corvo**, and are **entirely absent** in **Santa Maria, Faial, São Jorge and western Pico** — which is why "the Azorean accent" is a fiction: there are nine of them, and a Faial speaker sounds far closer to the mainland than a São Miguel speaker does.
+These two phonemes, **[ʏ]** and **[ø]**, are emblematic of Micaelense above all, and they are **phonologically unique in the Portuguese-speaking world** — no other variety has them. They appear partially in **Terceira, Graciosa, eastern Pico, Flores and Corvo**, and are **entirely absent** in **Santa Maria, Faial, São Jorge and western Pico** — which is why "the Azorean accent" is a fiction: there are nine of them, and a Faial speaker sounds far closer to the mainland than a São Miguel speaker does.
+
+**Two features shared with Madeira**, and worth knowing because they mark a speaker as an islander rather than as a micaelense specifically:
+
+- **/l/ palatalises after /i/** — `família` → *famílhia*, `vila` → *vilha*, `aquilo` → *aquilho*. Instant, reliable island identification and completely transparent once explained.
+- **Nasal diphthongs simplify** — `-ões` leans towards *-ôns*, `-ães` towards *-âns*.
 
 **Prosody:** Azorean speech is generally heard by mainlanders as slower and more sung, with longer vowels and a rise-and-fall that carries across a field. Micaelense in particular is often said to be hard for mainlanders on first hearing (unverified as a documented claim, though universally reported anecdotally). Azoreans in turn describe mainland speech as clipped and swallowed.
 
-**Grammar:** the islands are reported to use the **gerúndio** (*estou fazendo*) somewhat more freely than Lisbon does, alongside the standard *estar a + infinitivo* (unverified for the Azores specifically; documented for Madeira). Sandra should teach *estou a fazer* and simply flag that the other form is heard.
+**Grammar:** the islands are reported to use the **gerúndio** (*estou fazendo*) somewhat more freely than Lisbon does, alongside the standard *estar a + infinitivo* — firmly documented for Madeira, less firmly for the Azores. This one carries a trap, because *estou fazendo* is **also** the standard Brazilian form. Where an islander says it, it is genuine southern European Portuguese and not a Brazilianism, and it must never be corrected. The learner should still produce *estar a + infinitivo*, because in a foreign mouth the gerund will be heard as Brazilian.
+
+Everything in this section is **recognition, not production**. The target is one neutral European Portuguese; copying these features reads as mimicry, while using the local *vocabulary* below reads as belonging. The cross-zone atlas in `sotaques.md` carries the full picture.
 
 **Lexicon — landscape and place:**
 
@@ -184,7 +195,7 @@ Known for: the north coast, and surf. Landmark: the **Ponte dos Oito Arcos**, bu
 
 ### Vila Franca do Campo (São Miguel)
 
-Known for: having been the island's most important settlement until the **subversão de Vila Franca**, the 1522 earthquake and landslide that buried most of the town and killed thousands. Landmark: the **Ilhéu de Vila Franca do Campo**, a drowned cone with a circular lagoon inside, a nature reserve since 1993, and the **Ermida de Nossa Senhora da Paz** at the top of its zigzag staircase. Food detail: **queijadas da Vila**, specifically the **Queijadas do Morgado**. Everyday life: the boat out to the ilhéu in summer, and the long view back over the town from the ermida that everyone climbs at least once a year.
+Known for: having been the island's most important settlement until the **subversão de Vila Franca** on the night of **21–22 October 1522**, the earthquake and mudslide that buried most of the town and killed thousands here and in settlements across the island. Landmark: the **Ilhéu de Vila Franca do Campo**, a drowned cone with a circular lagoon inside, a nature reserve since 1993, and the **Ermida de Nossa Senhora da Paz** at the top of its zigzag staircase. Food detail: **queijadas da Vila**, specifically the **Queijadas do Morgado**. Everyday life: the boat out to the ilhéu in summer, and the long view back over the town from the ermida that everyone climbs at least once a year.
 
 ### Angra do Heroísmo (Terceira)
 
@@ -192,7 +203,7 @@ Known for: the **Zona Central**, UNESCO World Heritage since 7 December 1983, an
 
 ### Horta (Faial)
 
-Known for: being the Atlantic's crossroads. Landmark: the **Marina da Horta** and its painted quay wall, and **Peter Café Sport** (1918) with the **Museu do Peter** upstairs. Food detail: **cracas** picked out of the shell with a fork, and the house **gin tónico**. Everyday life: the **Horta–Madalena** ferry across to Pico in about half an hour, running all year, so people cross for work, school and appointments; **Monte da Guia** for the walk; the **Caldeira do Faial**, about 2,000 m across, up in the cloud; and the **Semana do Mar** in August. Faial is the **ilha Azul** for its hydrangeas.
+Known for: being the Atlantic's crossroads. Landmark: the **Marina da Horta** and its painted quay wall, and **Peter Café Sport** (1918) with the **Museu do Peter** upstairs. Food detail: **cracas** picked out of the shell with a fork, and the house **gin tónico**. Everyday life: the **Horta–Madalena** ferry across to Pico in about half an hour — the one Azorean crossing that runs all year — so people cross for work, school and appointments, while the boat on to **São Jorge** is a summer thing only; **Monte da Guia** for the walk; the **Caldeira do Faial**, about 2,000 m across, up in the cloud; and the **Semana do Mar** in August. Faial is the **ilha Azul** for its hydrangeas.
 
 ### Madalena (Pico)
 
@@ -200,11 +211,11 @@ Known for: the ferry port facing Horta across the channel, and the wine. Landmar
 
 ### Velas (São Jorge)
 
-Known for: cheese. **Queijo de São Jorge DOP** is the island's principal product — raw whole cow's milk, cured at least 90 days, wheels of 8–12 kg, *forte, limpo e ligeiramente picante*. Landmark: the **fajãs** along the north coast — **Fajã dos Cubres**, **Fajã da Caldeira de Santo Cristo** with the only wild **amêijoas** in the Azores. Food detail: the cheese, eaten in thick slabs with bread and *vinho de cheiro*, and the clams from the Fajã da Caldeira. Everyday life: an island 53 km long and 8 km wide with 300–400 m cliffs on the north side, so getting down to a *fajã* is a decision, not a detour; the ferry across to Pico and Faial; and the **Semana Cultural das Velas** in July.
+Known for: cheese. **Queijo de São Jorge DOP** is the island's principal product — raw whole cow's milk, cured at least 90 days, wheels of 8–12 kg, *forte, limpo e ligeiramente picante*. Landmark: the **fajãs** along the north coast — **Fajã dos Cubres**, **Fajã da Caldeira de Santo Cristo** with the only wild **amêijoas** in the Azores. Food detail: the cheese, eaten in thick slabs with bread and *vinho de cheiro*, and the clams from the Fajã da Caldeira. Everyday life: an island 53 km long and 8 km wide with 300–400 m cliffs on the north side, so getting down to a *fajã* is a decision, not a detour; the ferry across to Pico and Faial, which is a **summer service only** — out of season São Jorge is reached by air, and planning around that is ordinary life here; and the **Semana Cultural das Velas** in July.
 
 ## Prompt context
 
-The learner lives in the Açores — nine islands, three groups, where mainland Portugal is *o continente* and reaching it means a flight. Most people are on São Miguel; Ponta Delgada is the biggest city, Angra do Heroísmo the historic capital, Horta the Atlantic crossroads. Volcanic ground is a utility: Furnas cooks *cozido nas caldeiras* in numbered holes for five or six hours, and people bathe at the Poça da Dona Beija on a wet evening. Weather rules everything — *nevoeiro* cancels SATA flights, plans carry *se o tempo deixar*, hydrangeas line the roads in June. The Horta–Madalena ferry is a half-hour commute; cargo comes by ship. Dairy is the economy: cows on the road, the *ordenha* twice a day, *queijo de São Jorge* aged until it bites. Everyday food: *chicharros*, *lapas*, *cracas*, *inhame*, *bolo lêvedo* split and buttered, *alcatra* on Terceira, *sopas do Espírito Santo* at the *império*, *vinho de cheiro* on the table. The year turns on the Senhor Santo Cristo in Ponta Delgada and the Espírito Santo everywhere. Use European Portuguese only, *tu* register, *estar a + infinitivo*.
+The learner lives in the Açores — nine islands, three groups, where mainland Portugal is *o continente* and reaching it means a flight. Most people are on São Miguel; Ponta Delgada is the biggest city, Angra do Heroísmo the historic capital, Horta the Atlantic crossroads. Volcanic ground is a utility: Furnas cooks *cozido nas caldeiras* in numbered holes for five or six hours, and people bathe at the Poça da Dona Beija on a wet evening. Weather rules everything — *nevoeiro* cancels SATA flights, plans carry *se o tempo deixar*, hydrangeas line the roads in June. The Horta–Madalena ferry is a half-hour commute and the only year-round crossing — other inter-island boats, São Jorge included, are summer only; cargo comes by ship. Dairy is the economy: cows on the road, the *ordenha* twice a day, *queijo de São Jorge* aged until it bites. Everyday food: *chicharros*, *lapas*, *cracas*, *inhame*, *bolo lêvedo* split and buttered, *alcatra* on Terceira, *sopas do Espírito Santo* at the *império*, *vinho de cheiro* on the table. The year turns on the Senhor Santo Cristo in Ponta Delgada and the Espírito Santo everywhere. Use European Portuguese only, *tu* register, *estar a + infinitivo*.
 
 ## Sources
 
@@ -228,3 +239,7 @@ The learner lives in the Açores — nine islands, three groups, where mainland 
 - https://pt.wikipedia.org/wiki/SATA_Air_A%C3%A7ores
 - https://en.wikipedia.org/wiki/Portuguese_dialects
 - https://pt.wikipedia.org/wiki/Dialetos_da_l%C3%ADngua_portuguesa
+- Atlânticoline ferry lines (colour-named; linha azul Horta–Madalena 25–30 min year-round; linha verde and the all-island lines seasonal, spring/summer only) — atlanticoline.pt timetable pages; cross-checked against this repo's `transportes-e-mercados.md`
+- Restaurante Tony's, Furnas (Largo do Teatro, trading since 1984, cozido nas caldeiras) — Lifecooler; All About Portugal; Tripadvisor
+- Ilhéu de Vila Franca do Campo (nature reserve since 1993) and the subversão de Vila Franca (night of 21–22 October 1522) — https://pt.wikipedia.org/wiki/Vila_Franca_do_Campo
+- Accent claims reconciled against this repo's cross-zone atlas, `sotaques.md`

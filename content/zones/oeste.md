@@ -95,8 +95,9 @@ The water is cold enough that wetsuits are worn year-round.
   and the oldest thermal hospital still operating in the world. It sits in the **Parque
   D. Carlos I**, alongside the **Museu José Malhoa** and the **Museu de Cerâmica**.
 - **Praça da República**, universally called the **Praça da Fruta**, in Caldas da Rainha —
-  the country's only daily fruit-and-vegetable market, essentially unchanged since the
-  late 19th century.
+  a fruit-and-vegetable market trading **every day, 07h00–14h00**, essentially unchanged
+  since the late 19th century. It is the city's only daily open-air market; the widely
+  repeated "only daily market in Portugal" is not what the council claims.
 - **Mosteiro de Alcobaça** (Santa Maria de Alcobaça) — Cistercian, founded by D. Afonso
   Henriques in **1153**, the church consecrated in 1252, UNESCO-listed **1989**. A church
   roughly 106 m long, the 18th-century **Cozinha dos
@@ -106,11 +107,12 @@ The water is cold enough that wetsuits are worn year-round.
   Miguel Arcanjo** with its lighthouse above Praia do Norte, and the **Elevador da Nazaré**
   funicular linking beach to Sítio. Offshore, the **Canhão da Nazaré** — around 211 km long
   and some 5 000 m deep, widely held to be Europe's largest submarine canyon — funnels swell
-  straight into Praia do Norte. Garrett McNamara's 2011 ride held the Guinness record until
-  Rodrigo Koxa's 24.4 m in 2017; **Sebastian Steudtner's 26.2 m (86 ft) on 29 October 2020**
-  is the ratified mark, with **Maya Gabeira's 22.4 m** the women's record. *(Steudtner is
-  reported to have ridden a larger wave at Nazaré in 2024, pending ratification — check
-  before stating "current record".)*
+  straight into Praia do Norte. Garrett McNamara's 2011 ride (23.8 m / 78 ft) held the
+  Guinness record until Rodrigo Koxa's 24.4 m (80 ft) in 2017; **Sebastian Steudtner's
+  26.2 m (86 ft) on 29 October 2020** is the standing ratified mark, with **Maya Gabeira's
+  22.4 m (73.5 ft), 11 February 2020**, the women's record. *(A 2024 Steudtner ride at
+  Nazaré was measured at 28.57 m / 93.7 ft but has **not** been ratified by Guinness — so
+  26.2 m remains the record to quote.)*
 - **Museu da Lourinhã** — the largest Iberian collection of Upper Jurassic dinosaur fossils;
   Lourinhã has called itself *Capital Portuguesa dos Dinossauros* since 2004. The
   **Lourinhanosaurus antunesi** and the **ninho de Paimogo** (a nest with egg-embryo
@@ -318,32 +320,49 @@ an Ericeira commuter's morning.
 **Markets — the real weekly and monthly rhythm.** This is the richest vein for everyday
 language, because each town has its own fixed day.
 
-- **Caldas da Rainha — the Praça da Fruta is open EVERY DAY**, roughly 07h00–14h00, the only
-  daily hortofrutícola market in the country. Caldas also has a **feira semanal on
-  Mondays**, the **Mercado de Santana at Alvorninha on Sundays** (the council calls it the
-  region's biggest weekly market), a daily **Mercado do Peixe**, and an antiques fair on the
-  second Sunday in the Parque D. Carlos I.
-- **Peniche — feira mensal on the LAST THURSDAY of the month**, at the Parque da Feira in
-  the Zona Industrial da Prageira, skipping July, August and December. Its **mercado
-  municipal** is daily but mornings only. Bufarda has its own feira on the third Sunday.
-- **Lourinhã — feira mensal on the FIRST MONDAY of the month**, on the EN 247 near the
-  hypermarkets, with roughly 300 stalls.
-- **Mafra — feira mensal on the THIRD SUNDAY**, at the Parque Intermodal from 08h00.
-- **Bombarral — feira mensal on the SECOND MONDAY** *(single-source)*.
-- **Torres Vedras — the mercado municipal runs Tuesday to Sunday and is CLOSED ON MONDAYS**
-  (07h00–15h00, to 14h00 on Sunday). There is also a **Feira Rural on the first Saturday**,
-  April to October, in the historic centre.
-- **Santa Cruz — a Feira Rural on the THIRD SATURDAY**, 09h00–17h00 at the Largo Jaime
-  Baptista da Costa, April to October but not in July or August; and a **Feira de Verão
-  every Saturday from July to September** in the pedestrian streets *(single-source each)*.
-- **Ericeira — the mercado municipal closes Mondays except from 1 June to 30 September**,
-  and stays open late (to 20h00) on Fridays and Saturdays. Fish and shellfish downstairs.
+- **Caldas da Rainha — the Praça da Fruta is open EVERY DAY**, 07h00–14h00. It is the
+  **city's** only daily open-air market — say that, not "the only one in Portugal", which
+  is a tourism-brochure inflation of the council's own wording. Caldas also has a **feira
+  semanal on Mondays** (Rua Inseparáveis de Lubango), the **Mercado de Santana at
+  Alvorninha on Sundays**, a **Mercado do Peixe Monday to Saturday, 07h00–14h00** (not
+  Sundays), and an antiques fair on the **second Sunday** in the Parque D. Carlos I.
+- **Peniche — feira mensal on the LAST THURSDAY of the month**, skipping **July and
+  December only** — it *does* run in August. (The council's regulation puts it at the Campo
+  da República and the ground west of the Fortaleza, but that text dates from 1987 and the
+  site has probably moved; do not name a venue.) **These are two separate fairs, not one:**
+  the concelho's feira mensal is held *na Vila de Peniche* per the regulamento, while
+  **Bufarda** has its own **Mercado Mensal** — whose day is not sourced. Do not merge them
+  into a single "Feira mensal da Bufarda".
+- **Lourinhã — feira mensal on the FIRST MONDAY of the month**, 08h00–18h00.
+- **Mafra — feira mensal on the THIRD SUNDAY**, at the Parque Intermodal.
+- **Torres Vedras — the mercado municipal is CLOSED ON MONDAYS**; Tuesday to Saturday
+  07h00–15h00, Sundays and holidays 07h00–14h00. There is also a **Feira Rural on the first
+  Saturday**, April to October, in the **historic centre** — Largo de S. Pedro, Praça
+  Machado Santos, Praça da República — *not* at the Parque Regional de Exposições, which is
+  the Feira de São Pedro's ground. The council's own listing carries an exception for
+  certain high-summer months that could not be read in full, so **check before promising a
+  first Saturday in August or September**.
+- **Santa Cruz — a Feira Rural on the THIRD SATURDAY**, 09h00–17h00 at the Mercado
+  Municipal, April to October but not in July or August; and a **Feira de Verão on Saturday
+  evenings, 17h00–24h00**, from mid-July to early September in the pedestrian streets. The
+  Feira de Verão is an evening event — do not send anyone to it in the morning.
+- **Ericeira — the mercado municipal is open every day 07h00–15h00, closing on Mondays
+  except from 1 June to 30 September.** Fish and shellfish downstairs. **Do not give it late
+  Friday and Saturday hours — those belong to the Mercado Municipal de Mafra**, which runs
+  Tuesday to Thursday 07h00–15h00, Friday and Saturday 07h00–20h00, Sunday 09h00–15h00,
+  closed Monday. The two markets are in the same concelho and are constantly confused.
+- **Nazaré — feira semanal on FRIDAYS, 08h00–13h00**, mornings only, at the car park in the
+  **Bairro dos Pescadores**. It **moves for the summer** to the car park by the pavilhões
+  municipais, so check in July and August.
+- **Óbidos — a Feira das Velharias on the FIRST SUNDAY of the month**, 08h00–19h00 — used
+  goods and antiques, not produce. No general market day could be sourced for Óbidos;
+  residents most likely use Caldas da Rainha, 7 km away, but do not state that as fact.
 - **Alcobaça — mercado municipal daily except Sunday**, busiest on Mondays and Saturdays.
 - **Growers' note**: the wholesale **Mercado Abastecedor de Torres Vedras** trades Mondays,
-  Thursdays and Fridays in the evening.
-- **Not established**: no regular market day was confirmed for **Óbidos** or **Nazaré** —
-  Óbidos residents most likely use Caldas da Rainha, 7 km away, but do not state that as
-  fact. Roadside stalls and **venda direta** at the farm gate are normal in season.
+  Thursdays and Fridays in the evening — 19h00–23h00 in winter, 20h00–24h00 in summer.
+- **Not established**: no market day could be sourced from the council for **Bombarral** —
+  a monthly feira is locally reported but the day is not documented, so do not name one.
+  Roadside stalls and **venda direta** at the farm gate are normal in season.
 
 **Shops.** Every larger town has a **Continente** (Modelo 08:00–22:00, the smaller Bom Dia
 08:00–21:00) — Torres Vedras, Caldas da Rainha, Peniche, Alcobaça, Nazaré, Bombarral,
@@ -662,9 +681,10 @@ the world**.
   José Malhoa** and the **Museu de Cerâmica**; the late-Gothic **Igreja de Nossa Senhora do
   Pópulo**; and the **Rota Bordaliana**, eighteen life-size ceramic figures placed around
   the town in 2014.
-- **Food**: the **Praça da Fruta** — officially Praça da República — where the country's
-  **only daily** fruit-and-vegetable market has run essentially unchanged since the late
-  19th century. This is where the town buys its food. The sweets are **cavacas das Caldas**,
+- **Food**: the **Praça da Fruta** — officially Praça da República — where a
+  fruit-and-vegetable market has traded **every day, 07h00–14h00**, essentially unchanged
+  since the late 19th century. It is the city's only daily open-air market (not, as often
+  said, the country's). This is where the town buys its food. The sweets are **cavacas das Caldas**,
   hollow egg pastries under a hard white glaze sold near the Largo do Hospital Termal, and
   **trouxas de ovos**.
 - **Everyday**: the other identity is **ceramics**. **Rafael Bordalo Pinheiro** ran the
@@ -707,7 +727,8 @@ Now world-famous for waves: the **Canhão da Nazaré**, some **211 km** long and
 deep and widely called Europe's largest submarine canyon, funnels Atlantic swell directly
 into **Praia do Norte**. Garrett McNamara's 2011 ride held the Guinness record until Rodrigo
 Koxa's in 2017; **Sebastian Steudtner**'s **26.2 m (86 ft)** on **29 October 2020** is the
-ratified mark. Visitor numbers at the lighthouse went from about 80 000 in 2015 to 174 000
+standing ratified mark — a 2024 Steudtner ride measured at 28.57 m is **not** ratified, so
+do not quote it as the record. Visitor numbers at the lighthouse went from about 80 000 in 2015 to 174 000
 in 2017 — the wave rebuilt the town's economy.
 
 - **Landmarks**: the **Elevador da Nazaré** funicular up to the Sítio; the **Forte de São
@@ -722,7 +743,9 @@ in 2017 — the wave rebuilt the town's economy.
   plus **sardinha doce** and **nazarenos**.
 - **Everyday**: tradition is unusually visible here. Older women still wear the **sete saias**,
   the seven layered skirts worn while waiting for the boats, and the beach-seine fishery
-  **arte xávega** survives — once hauled by oxen, now by two tractors. The **Festas em Honra
+  **arte xávega** survives — once hauled by oxen, now by two tractors. The **feira semanal
+  is on Friday mornings, 08h00–13h00**, at the car park in the Bairro dos Pescadores, moving
+  to the pavilhões municipais car park for the summer. The **Festas em Honra
   de Nossa Senhora da Nazaré** run over several days in early September. In big-wave season
   the whole town reorganises around the forecast and the crowds at the fort; the rest of the
   winter it is quiet.
@@ -892,11 +915,44 @@ Research conducted August 2026 via web search and direct page retrieval. Princip
 **Marked unverified in this pass**, and flagged inline where they appear: the Aldeia Típica
 José Franco at Sobreiro; the months of the Mostra de Doces Conventuais and the Festival do
 Pão de Mafra; the date of the Peniche patronal feast; the Torres Vedras *mercado mensal*
-(it may have been discontinued — the council's current pages no longer list it); market days
-for **Óbidos** and **Nazaré** (none found — do not invent one); the exact area of the Lagoa
+(it may have been discontinued — the council's current pages no longer list it); a general
+market day for **Óbidos** and any market day at all for **Bombarral**; the venue of the
+Peniche feira mensal and the day of the Bufarda mercado mensal; the exact area of the Lagoa
 de Óbidos; the details of the Aqueduto da Usseira; school-day clock times; the founding year
 of the Bordallo Pinheiro factory (1884 and 1885 both circulate); and the rule about small
 shops closing at lunchtime.
+
+**Corrected in the August 2026 re-verification pass:**
+
+- **Linha do Oeste.** CP's timetable in force since **19 July 2026** works the whole
+  **Caldas da Rainha – Mira Sintra-Meleças** section by replacement bus (*Transbordo
+  Rodoviário*), so Torres Vedras, Bombarral, Óbidos, Malveira and Mafra have no train.
+  Buses only started on **16 March 2026**; for the first seven weeks after the January 2026
+  storms the trains were simply cancelled.
+  <https://www.cp.pt/info/documents/d/cp/comboios-regionais-lisboa-figueira-da-foz-oeste>,
+  <https://www.publico.pt/2026/03/16/local/noticia/mes-meio-cp-inicia-transbordos-rodoviarios-linhas-encerradas-mau-tempo-2168081>
+- **Nazaré has a market day after all** — Friday mornings, 08h00–13h00, Bairro dos
+  Pescadores, relocating in summer. This replaces the previous "none found".
+  <https://www.cm-nazare.pt/autarquia/noticias/arquivo-de-noticias/noticia/feira-semanal-regressa-ao-parque-de-estacionamento-no-bairro-dos-pescadores>
+- **Óbidos** does have a **Feira das Velharias**, first Sunday, 08h00–19h00 — antiques, not
+  produce. <https://www.cm-obidos.pt/cmobidos/uploads/document/file/205/regras_da_feira_das_velharias.pdf>
+- **The Praça da Fruta is the *city's* only daily open-air market**, not the country's —
+  the national superlative is not what the council says.
+  <https://www.mcr.pt/conhecer/pracas-e-mercados>
+- **Peniche's feira mensal skips July and December only** — it runs in August.
+  <https://www.cm-peniche.pt/cmpeniche/uploads/document/file/6276/regulamento_feira_mensal.pdf>
+- **The late Friday/Saturday market hours belong to Mafra, not Ericeira.** Ericeira is
+  07h00–15h00 whenever it opens. <https://www.cm-mafra.pt/pages/881>,
+  <https://www.cm-mafra.pt/pages/880>
+- **Santa Cruz's Feira de Verão is an evening fair**, Saturdays 17h00–24h00, mid-July to
+  early September. <https://www.investir-tvedras.pt/agenda/detalhes/202526>
+- **Bombarral's "second Monday" had no council source and has been removed.**
+- **The Torres Vedras Feira Rural is in the historic centre**, not the Parque Regional de
+  Exposições. <https://promotorres.pt/equipamentos/feira-rural/>
+- **Peniche's feira mensal and the Mercado Mensal da Bufarda are two different events.**
+- **The Nazaré big-wave record**: Steudtner's 26.2 m of 29 October 2020 is still the
+  ratified mark; his 2024 ride was measured at 28.57 m but is **not** ratified.
+  <https://en.wikipedia.org/wiki/List_of_surfing_records>
 
 **Items investigated and dropped for lack of a source:** *sequinho de robalo* as a Peniche
 dish (not on the council's own gastronomy page); a *confraria* for frango na púcara;
