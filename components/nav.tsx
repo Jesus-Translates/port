@@ -9,9 +9,15 @@ import { cn } from "@/lib/utils";
  * Five tabs, ~75px each on a phone instead of eight at ~47px.
  *
  * Livro, Lições, TPC and Notas are not gone — they live one tap inside
- * Explorar. Eight equally-weighted tabs made every session start with a
+ * Praticar. Eight equally-weighted tabs made every session start with a
  * decision; this makes the guided path the obvious thing and everything else
  * findable in one place.
+ *
+ * That was aspirational for two of them until 2026-08-10: Lições (/workbook)
+ * and Notas (/notes) were linked from nowhere at all, so seven lessons — one
+ * family-written — sat unreachable behind a URL nobody had. Both are now in
+ * the Praticar footnote. If you demote a surface again, link it somewhere in
+ * the same commit.
  */
 const TABS = [
   { href: "/", emoji: "🏠", label: "Hoje", short: "Hoje" },

@@ -132,6 +132,12 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       {/* Exam prep and the level test are real, but they are not a way to
           practise — they belong in a footnote, not the main grid. */}
       <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-ink-faint">
+        <Link href="/workbook" className="hover:text-olive">
+          📚 Lições · fichas de trabalho
+        </Link>
+        <Link href="/notes" className="hover:text-olive">
+          📝 Notas · os teus apontamentos
+        </Link>
         <Link href="/practice/ciple" className="hover:text-olive">
           🎓 CIPLE · preparação do exame
         </Link>
