@@ -20,8 +20,31 @@ const PUBLIC_PATHS = [
   "/api/ls/audio",
 ];
 
+/**
+ * Routes that were retired, and where their traffic goes now.
+ *
+ * A server-component redirect() lost to the sibling /practice/[id] dynamic
+ * segment, which matched "verbos" as a quiz id first and 404'd. Handling it
+ * here settles it before routing runs, and issues a real 308 rather than
+ * rendering React to say "go somewhere else".
+ */
+const RETIRED: Record<string, string> = {
+  "/practice/verbos": "/verbos?tab=treinar",
+  "/ouvir": "/escutar",
+};
+
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  const movedTo = RETIRED[pathname];
+  if (movedTo) {
+    const url = new URL(movedTo, request.nextUrl);
+    // Carry the unit context through, or a course step would land adrift.
+    for (const [k, v] of request.nextUrl.searchParams) {
+      if (!url.searchParams.has(k)) url.searchParams.set(k, v);
+    }
+    return NextResponse.redirect(url, 308);
+  }
 
   if (PUBLIC_PATHS.some((p) => pathname === p)) {
     return NextResponse.next();
