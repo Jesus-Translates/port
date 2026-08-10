@@ -84,11 +84,16 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
       ) : isOwner ? (
         <QuizPlayer
           quizId={quiz.id}
+          // Deliberately field-by-field, not a spread: `answer` and
+          // `explanation` must not travel to the browser. Grading happens in
+          // gradeStep()/submitQuiz() precisely so they never do.
           questions={questions.map((q) => ({
             type: q.type,
             promptPt: q.promptPt,
             promptEn: q.promptEn,
             options: q.options,
+            speakerPt: q.speakerPt,
+            speakerEn: q.speakerEn,
           }))}
           unitItemId={unit?.itemId ?? null}
         />

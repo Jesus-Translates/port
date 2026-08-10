@@ -13,6 +13,7 @@ import {
 import { currentStyle } from "@/lib/place";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
+import { checkAnswer, type AnswerCheck } from "@/lib/diff";
 import { getDb, quizzes } from "@/lib/db";
 import { addMistakeCard } from "@/lib/srs";
 import { modelId, recordUsage } from "@/lib/usage";
@@ -49,15 +50,40 @@ export async function submitQuiz(
 
   questions.forEach((q, i) => {
     const given = (answers[i] ?? "").trim();
-    if (q.type === "multiple") {
-      const right = given === q.answer;
+
+    // Read-aloud is scored by the Recorder against the learner's voice, not by
+    // comparing text. Marking it correct on arrival is honest: the pronunciation
+    // score already happened, and re-grading the sentence they were shown
+    // would be marking them on their ability to read.
+    if (q.type === "speak") {
+      graded.set(i, {
+        index: i,
+        correct: true,
+        verdict: "certo",
+        comment: q.explanation || "Lido em voz alta. ✓",
+        correctedPt: null,
+        tip: null,
+      });
+      return;
+    }
+
+    // Word bank and dialogue are exact comparisons — the learner picked from a
+    // closed set, so there is nothing for a model to interpret and no reason
+    // to pay for one.
+    if (q.type === "wordbank" || q.type === "dialogue" || q.type === "multiple") {
+      const right =
+        q.type === "wordbank"
+          ? given.replace(/\s+/g, " ") === q.answer.replace(/\s+/g, " ")
+          : given === q.answer;
       graded.set(i, {
         index: i,
         correct: right,
         verdict: right ? "certo" : "errado",
         comment: right
           ? q.explanation
-          : `You picked **${given || "nothing"}**. ${q.explanation}`,
+          : q.type === "wordbank"
+            ? `You built **${given || "nothing"}**. ${q.explanation}`
+            : `You picked **${given || "nothing"}**. ${q.explanation}`,
         correctedPt: right ? null : q.answer,
         tip: null,
       });
@@ -185,4 +211,87 @@ export async function deleteQuiz(id: number) {
   await db.delete(quizzes).where(eq(quizzes.id, id));
   revalidatePath("/practice");
   redirect("/practice");
+}
+
+/**
+ * Grade ONE step, for the drill's Verificar button.
+ *
+ * Deterministic and free — no model call. The existing submitQuiz() batches
+ * every typed answer into a SINGLE AI request on hand-in, which is a real cost
+ * decision; grading each step through that path would multiply it by the
+ * number of questions and add a wait to every tap.
+ *
+ * So the in-flight check is a string comparison (choices, word bank) or
+ * checkAnswer() (typed answers — local, accent-significant, and already what
+ * AnswerDiff renders everywhere else in the app). The AI grade on hand-in
+ * stays the record of truth; it is more lenient, so it can only ever upgrade
+ * a verdict the learner already saw, never take one away.
+ *
+ * The answer is never sent to the browser. That is the whole reason this is a
+ * server action rather than a comparison in the component.
+ */
+export async function gradeStep(
+  quizId: number,
+  index: number,
+  given: string
+): Promise<{
+  correct: boolean;
+  verdict: "certo" | "quase" | "errado";
+  answer: string;
+  explanation: string;
+  /** Present for typed answers, so the player can render an AnswerDiff. */
+  check: AnswerCheck | null;
+} | null> {
+  const session = await requireSession();
+  const [quiz] = await getDb()
+    .select()
+    .from(quizzes)
+    .where(eq(quizzes.id, quizId))
+    .limit(1);
+  if (!quiz || quiz.username !== session.username) return null;
+
+  const { questions } = quiz.questions as QuizQuestions;
+  const q = questions[index];
+  if (!q) return null;
+
+  const typed = (given ?? "").trim();
+
+  if (q.type === "speak") {
+    return {
+      correct: true,
+      verdict: "certo",
+      answer: q.answer,
+      explanation: q.explanation ?? "",
+      check: null,
+    };
+  }
+
+  if (q.type === "translate") {
+    const check = checkAnswer(q.answer, typed);
+    return {
+      // "quase" is a near miss, not a failure — the app never scolds, and an
+      // accent slip with the right words is a correction.
+      correct: check.verdict === "certo" || check.verdict === "quase",
+      verdict:
+        check.verdict === "certo"
+          ? "certo"
+          : check.verdict === "quase"
+            ? "quase"
+            : "errado",
+      answer: q.answer,
+      explanation: q.explanation ?? "",
+      check,
+    };
+  }
+
+  const norm = (s: string) => s.replace(/\s+/g, " ").trim();
+  const right =
+    q.type === "wordbank" ? norm(typed) === norm(q.answer) : typed === q.answer;
+  return {
+    correct: right,
+    verdict: right ? "certo" : "errado",
+    answer: q.answer,
+    explanation: q.explanation ?? "",
+    check: null,
+  };
 }

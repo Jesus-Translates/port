@@ -54,8 +54,21 @@ export async function POST(request: NextRequest) {
   const topic = String(topicRaw).slice(0, 300);
   const mode = String(body.mode ?? "normal");
 
-  const FIELDS = `Use EXACTLY these fields per question: type ("multiple" or "translate"), promptEn (the question, in English),
-promptPt (optional pt-PT snippet), options (exactly 4, only for multiple), answer, explanation.`;
+  const FIELDS = `Use EXACTLY these fields per question: type, promptEn (the question, in English),
+promptPt (optional pt-PT snippet), options, answer, explanation, speakerPt, speakerEn.
+
+TYPES — vary them. Five questions of one type is a worksheet; a lesson moves:
+- "multiple"  — 4 options, correct one verbatim in answer.
+- "translate" — they type the pt-PT. answer = the best version.
+- "wordbank"  — they rebuild a sentence from shuffled words. answer = the full
+  sentence, AT LEAST FOUR WORDS. options: null (the tiles are made from answer).
+- "speak"     — they read a sentence aloud. Put the sentence in promptPt AND
+  answer; options: null. Use at most one per quiz.
+- "dialogue"  — someone speaks, they choose the reply. speakerPt = what the
+  other person says, speakerEn = its gloss, options = 2-4 replies, answer =
+  the right one. Real counter/shop/street situations.
+Set unused fields to null. Aim for a mix across a quiz: roughly half choices,
+the rest split between typing, building and one spoken line.`;
 
   let quiz: ReturnType<typeof normalizeQuiz> & { audioScript?: string };
   let usage;

@@ -161,7 +161,23 @@ export const quizGenSchema = z.object({
       z.object({
         type: z
           .string()
-          .describe(`"multiple" (multiple choice) or "translate"`),
+          .describe(
+            `One of: "multiple" (4 options), "translate" (they type the pt-PT), ` +
+              `"wordbank" (they rebuild the sentence from shuffled words), ` +
+              `"speak" (they read the sentence aloud), ` +
+              `"dialogue" (a reply chosen at a counter — set speakerPt too). ` +
+              `Vary them: a drill of five identical types is a worksheet, not a lesson.`
+          ),
+        speakerPt: z
+          .string()
+          .nullable()
+          .describe(
+            `For type=dialogue: what the other person says, in pt-PT. Else null.`
+          ),
+        speakerEn: z
+          .string()
+          .nullable()
+          .describe(`English gloss of speakerPt. Else null.`),
         promptPt: z
           .string()
           .nullable()
@@ -190,30 +206,139 @@ export const quizGenSchema = z.object({
     .max(14),
 });
 
+/**
+ * One step of a drill.
+ *
+ * `multiple` and `translate` are the original two and are untouched — every
+ * quiz ever generated is made of them, and they must keep working exactly as
+ * before. The three below are additive:
+ *
+ *   wordbank — the sentence cut into tiles, tapped or dragged back into order
+ *   speak    — read the sentence aloud; the Recorder owns its own scoring
+ *   dialogue — a multiple choice rendered as a conversation at a counter
+ *
+ * `dialogue` is a PRESENTATION of a choice question rather than a new grading
+ * mode, which is why it carries options and an answer like `multiple` does.
+ */
 export type QuizQuestion = {
-  type: "multiple" | "translate";
+  type: "multiple" | "translate" | "wordbank" | "speak" | "dialogue";
   promptPt?: string;
   promptEn: string;
   options?: string[];
   answer: string;
   explanation: string;
+  /** dialogue only: the line the learner is answering. */
+  speakerPt?: string;
+  speakerEn?: string;
 };
 /** Shape stored in quizzes.questions */
 export type QuizQuestions = { title?: string; questions: QuizQuestion[] };
 
-export function normalizeQuiz(
-  raw: z.infer<typeof quizGenSchema>
-): QuizQuestions {
+/**
+ * Structural, not `z.infer<typeof quizGenSchema>`.
+ *
+ * Two generators feed this — the general quiz schema and the listening one —
+ * and they do not carry the same fields. Tying the parameter to one schema
+ * meant every field added to it broke the other caller, which is how
+ * speakerPt/speakerEn first failed to compile.
+ */
+type GeneratedQuestion = {
+  type: string;
+  promptPt?: string | null;
+  promptEn?: string | null;
+  question?: string | null;
+  options?: string[] | null;
+  answer: string;
+  explanation?: string | null;
+  speakerPt?: string | null;
+  speakerEn?: string | null;
+};
+
+/**
+ * Fisher-Yates, with a guarantee the shuffle actually moved something.
+ *
+ * A word bank handed back in the right order is not an exercise, and on a
+ * three-word sentence an unguarded shuffle returns the original about one
+ * time in six.
+ */
+function shuffleWords(words: string[]): string[] {
+  if (words.length < 2) return [...words];
+  const out = [...words];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  if (out.every((w, i) => w === words[i])) {
+    [out[0], out[out.length - 1]] = [out[out.length - 1], out[0]];
+  }
+  return out;
+}
+
+export function normalizeQuiz(raw: {
+  title?: string | null;
+  questions: GeneratedQuestion[];
+}): QuizQuestions {
   const questions: QuizQuestion[] = [];
   for (const q of raw.questions) {
     const promptEn = (q.promptEn ?? q.question ?? q.promptPt ?? "").trim();
     const answer = (q.answer ?? "").trim();
     if (!promptEn || !answer) continue;
-    const isMultiple =
-      q.type.toLowerCase().includes("mult") &&
-      Array.isArray(q.options) &&
-      q.options.length >= 2;
-    if (isMultiple) {
+    const kind = q.type.toLowerCase();
+    const hasOptions = Array.isArray(q.options) && q.options.length >= 2;
+    const isMultiple = kind.includes("mult") && hasOptions;
+    // A dialogue is a choice question in a costume, so it needs options too —
+    // without them it would render a conversation with nothing to answer.
+    const isDialogue = kind.includes("dialog") && hasOptions && Boolean(q.speakerPt);
+
+    if (isDialogue) {
+      const options = q.options!.slice(0, 4);
+      if (!options.includes(answer)) options[options.length - 1] = answer;
+      questions.push({
+        type: "dialogue",
+        promptPt: q.promptPt ?? undefined,
+        promptEn,
+        options,
+        answer,
+        explanation: q.explanation ?? "",
+        speakerPt: q.speakerPt ?? undefined,
+        speakerEn: q.speakerEn ?? undefined,
+      });
+    } else if (kind.includes("wordbank") || kind.includes("word bank")) {
+      // The tiles are derived from the answer at render time, so a wordbank
+      // needs nothing beyond a sentence — and a one-word "sentence" is not a
+      // word bank, it is a spelling test with extra steps.
+      const words = answer.split(/\s+/).filter(Boolean);
+      if (words.length >= 3) {
+        questions.push({
+          type: "wordbank",
+          promptPt: q.promptPt ?? undefined,
+          promptEn,
+          // The tiles, SHUFFLED. They ship to the browser — which is fine and
+          // unavoidable, since ordering them is the exercise — but the ordered
+          // sentence stays on the server, so the answer is not just sitting in
+          // the payload.
+          options: shuffleWords(words),
+          answer,
+          explanation: q.explanation ?? "",
+        });
+      } else {
+        questions.push({
+          type: "translate",
+          promptPt: q.promptPt ?? undefined,
+          promptEn,
+          answer,
+          explanation: q.explanation ?? "",
+        });
+      }
+    } else if (kind.includes("speak") || kind.includes("aloud")) {
+      questions.push({
+        type: "speak",
+        promptPt: q.promptPt ?? undefined,
+        promptEn,
+        answer,
+        explanation: q.explanation ?? "",
+      });
+    } else if (isMultiple) {
       const options = q.options!.slice(0, 5);
       // Keep the answer answerable even if the model didn't repeat it verbatim.
       if (!options.includes(answer)) options[options.length - 1] = answer;
