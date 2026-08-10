@@ -1,6 +1,14 @@
 import { type AnswerCheck, type DiffTok, spellingSlips } from "@/lib/diff";
 import { cn } from "@/lib/utils";
 
+export type AnswerDiffProps = {
+  /** The graded result to explain, from `checkAnswer` in lib/diff. */
+  check: AnswerCheck;
+  /** The grader already called this a near-miss — keep that framing. */
+  nearMiss?: boolean;
+  className?: string;
+};
+
 /**
  * Shows a wrong answer word by word: what the learner wrote (muted, with the
  * words to drop or fix marked) over the correct version (with the words they
@@ -11,12 +19,7 @@ export function AnswerDiff({
   check,
   nearMiss = false,
   className,
-}: {
-  check: AnswerCheck;
-  /** The grader already called this a near-miss — keep that framing. */
-  nearMiss?: boolean;
-  className?: string;
-}) {
+}: AnswerDiffProps) {
   const slips = spellingSlips(check);
   const onlySpelling = check.verdict === "quase";
   const lead =

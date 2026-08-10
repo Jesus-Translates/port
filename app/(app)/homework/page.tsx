@@ -14,8 +14,21 @@ const STATUS_META: Record<string, { label: string; cls: string }> = {
 
 export default async function HomeworkPage(props: PageProps<"/homework">) {
   const session = await requireSession();
-  const { topic, item } = await props.searchParams;
+  const { topic, item, unidade } = await props.searchParams;
   const unitItemId = Number(Array.isArray(item) ? item[0] : item) || null;
+  const unitSlug =
+    (Array.isArray(unidade) ? unidade[0] : unidade)?.trim() || null;
+  /*
+   * The course context has to survive the hop to /homework/[id].
+   *
+   * That page rebuilds the unit from `?unidade=&item=`, and these links used
+   * to drop both — so a TPC opened from a unit step showed no way back, no
+   * continue button when you finished it, and never ticked the step off.
+   */
+  const unitQuery =
+    unitSlug && unitItemId
+      ? `?unidade=${encodeURIComponent(unitSlug)}&item=${unitItemId}`
+      : "";
   const all = await getHomeworkAll();
   const mine = all.filter((h) => h.username === session.username);
   const family = all.filter((h) => h.username !== session.username).slice(0, 10);
@@ -32,7 +45,11 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
         </p>
       </header>
 
-      <HomeworkComposer unitItemId={unitItemId} initialTopic={typeof topic === "string" ? topic : ""} />
+      <HomeworkComposer
+        unitItemId={unitItemId}
+        unitSlug={unitSlug}
+        initialTopic={typeof topic === "string" ? topic : ""}
+      />
 
       <section>
         <h2 className="mb-3 text-lg font-semibold">O teu TPC</h2>
@@ -47,7 +64,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
               return (
                 <Link
                   key={h.id}
-                  href={`/homework/${h.id}`}
+                  href={`/homework/${h.id}${unitQuery}`}
                   className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-sage-pale/40"
                 >
                   <span aria-hidden>

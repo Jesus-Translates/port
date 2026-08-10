@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -27,6 +27,22 @@ export function DitadoPlayer({
   const [results, setResults] = useState<(DitadoResult & { en: string })[]>([]);
   const [busy, setBusy] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [reloading, startReload] = useTransition();
+
+  /*
+   * Same fix as cloze-player: router.refresh() alone left `finished` and
+   * `index` set, so the completion card re-rendered itself and "Outro ditado"
+   * looked dead. The parent keys this on the sentence ids so new data remounts
+   * it clean; this clears the card immediately for the same-ids case.
+   */
+  function otherDictation() {
+    setFinished(false);
+    setIndex(0);
+    setTyped("");
+    setResult(null);
+    setResults([]);
+    startReload(() => router.refresh());
+  }
 
   const sentence = sentences[index];
   const last = index === sentences.length - 1;
@@ -86,9 +102,10 @@ export function DitadoPlayer({
           <UnitContinue unit={unit} />
           <button
             className={cn("w-full", unit ? "btn-ghost" : "btn-primary")}
-            onClick={() => router.refresh()}
+            disabled={reloading}
+            onClick={otherDictation}
           >
-            Outro ditado →
+            {reloading ? "A procurar…" : "Outro ditado →"}
           </button>
         </div>
       </div>

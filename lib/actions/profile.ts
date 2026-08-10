@@ -94,7 +94,18 @@ export async function getMyPrefs(): Promise<Prefs | null> {
  */
 export async function setMyPrefs(input: Partial<Prefs>): Promise<void> {
   const session = await requireSession();
-  const prefs = readPrefs({ ...DEFAULT_PREFS, ...input }) ?? DEFAULT_PREFS;
+  /*
+   * Merge over what they already chose, not over the defaults.
+   *
+   * The signature says Partial, but spreading onto DEFAULT_PREFS meant any
+   * single-field update silently reset the other five — flipping immersion
+   * from settings would also have thrown away their minutes, their level of
+   * help and their games appetite.
+   */
+  const current = (await getMyPrefs()) ?? DEFAULT_PREFS;
+  const prefs =
+    readPrefs({ ...DEFAULT_PREFS, ...current, ...input }) ?? DEFAULT_PREFS;
+  const changedPath = pathFor(prefs).namePt !== pathFor(current).namePt;
 
   await getDb()
     .insert(users)
@@ -109,12 +120,17 @@ export async function setMyPrefs(input: Partial<Prefs>): Promise<void> {
       set: { prefs, mode: prefs.guidance === "escolho" ? "full" : "simple" },
     });
 
-  await logActivity(
-    session.username,
-    "review",
-    `Caminho escolhido: ${pathFor(prefs).namePt}`,
-    3
-  ).catch(() => {});
+  // Only when the PATH actually changed. Logging every save turned a settings
+  // toggle into 3 XP a tap, and filled the activity feed with a line that said
+  // nothing had happened.
+  if (changedPath) {
+    await logActivity(
+      session.username,
+      "review",
+      `Caminho escolhido: ${pathFor(prefs).namePt}`,
+      3
+    ).catch(() => {});
+  }
   revalidatePath("/", "layout");
 }
 

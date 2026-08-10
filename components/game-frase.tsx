@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { WordBuilder } from "@/components/word-builder";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { cn } from "@/lib/utils";
@@ -218,16 +219,6 @@ export function GameFrase({
   const score = marks.filter(Boolean).length;
   const last = items.length > 0 && index === items.length - 1;
 
-  function place(id: number) {
-    if (checked || placed.includes(id)) return;
-    setPlaced((p) => [...p, id]);
-  }
-
-  function remove(at: number) {
-    if (checked) return;
-    setPlaced((p) => p.filter((_, i) => i !== at));
-  }
-
   function check() {
     if (!item || checked || placed.length === 0) return;
     const attempt = placed.map(
@@ -394,67 +385,15 @@ export function GameFrase({
           ) : null}
         </div>
 
-        {/* The tray. Fixed minimum height so nothing jumps as tiles land. */}
-        <div
-          className={cn(
-            "flex min-h-20 flex-wrap content-start gap-2 rounded-2xl border-2 border-dashed p-2 transition-colors",
-            checked
-              ? checked.ok
-                ? "border-olive/50 bg-sage-pale/60"
-                : "border-terra/50 bg-terra-pale/50"
-              : "border-sand bg-cream/40"
-          )}
-        >
-          {placed.length === 0 ? (
-            <span className="px-2 py-2 text-sm text-ink-faint">
-              Toca nas palavras para montar a frase…
-            </span>
-          ) : null}
-          {placed.map((id, i) => (
-            <button
-              key={`${id}-${i}`}
-              type="button"
-              onClick={() => remove(i)}
-              disabled={!!checked}
-              lang="pt-PT"
-              className={cn(
-                "min-h-11 rounded-xl border px-3 py-2 font-display text-sm transition-all",
-                checked
-                  ? "border-sand bg-white/70 text-ink"
-                  : "border-sage bg-white text-ink active:scale-95"
-              )}
-            >
-              {tiles.find((t) => t.id === id)?.word}
-            </button>
-          ))}
-        </div>
-
-        {/* The bank. Used tiles stay in place as invisible ghosts so the
-            remaining ones never shift under a thumb mid-tap. */}
-        <div className="flex flex-wrap gap-2">
-          {tiles.map((t) => {
-            const used = placed.includes(t.id);
-            return (
-              <button
-                key={t.id}
-                type="button"
-                onClick={() => place(t.id)}
-                disabled={used || !!checked}
-                aria-hidden={used}
-                tabIndex={used ? -1 : undefined}
-                lang="pt-PT"
-                className={cn(
-                  "min-h-11 rounded-xl border px-3 py-2 font-display text-sm transition-all",
-                  used
-                    ? "invisible"
-                    : "border-sand bg-cream text-ink hover:border-sage active:scale-95"
-                )}
-              >
-                {t.word}
-              </button>
-            );
-          })}
-        </div>
+        {/* Tap to append, or drag a word straight to its place — including
+            back out of the tray, and between two words already placed. */}
+        <WordBuilder
+          tiles={tiles}
+          placed={placed}
+          onChange={setPlaced}
+          disabled={!!checked}
+          state={checked ? (checked.ok ? "correct" : "wrong") : "idle"}
+        />
 
         {!checked && placed.length > 0 ? (
           <button

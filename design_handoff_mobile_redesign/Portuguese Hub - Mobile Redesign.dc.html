@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/port-ds-8ad5d74c-1264-4995-a125-fb4680f6772a/styles.css">
+<script src="_ds/port-ds-8ad5d74c-1264-4995-a125-fb4680f6772a/_ds_bundle.js"></script>
+<style>
+:root{--font-fraunces:"Fraunces","Fraunces Fallback";--font-inter:"Inter","Inter Fallback"}
+body{margin:0;background:#e9e4d8;font-family:var(--font-inter),system-ui,sans-serif;color:#2b271f}
+a{color:#33589b;text-decoration:none}a:hover{color:#2b271f}
+@keyframes ph-pulse{0%{box-shadow:0 0 0 0 rgba(194,98,46,.45)}70%{box-shadow:0 0 0 14px rgba(194,98,46,0)}100%{box-shadow:0 0 0 0 rgba(194,98,46,0)}}
+@keyframes ph-rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes ph-pop{0%{transform:scale(.7);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+::-webkit-scrollbar{width:0;height:0}
+</style>
+</helmet>
+
+<div style="display:flex;gap:56px;align-items:flex-start;padding:56px 64px 80px;min-width:1360px">
+
+  <div style="width:430px;flex:none;padding-top:8px">
+    <div style="font:600 11px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;color:#a39b88">Portuguese Hub · mobile</div>
+    <h1 style="font-family:var(--font-display);font-size:46px;line-height:1.02;font-weight:600;margin:14px 0 0;letter-spacing:-.02em">O Caminho</h1>
+    <p style="font-size:15px;line-height:1.6;color:#6f6858;margin:14px 0 0;text-wrap:pretty">A redesign of the whole mobile surface — nine screens, one live prototype. Tap through it on the right.</p>
+
+    <div style="height:1px;background:#d9cfb8;margin:30px 0 26px"></div>
+
+    <div style="font:600 11px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;color:#a39b88;margin-bottom:14px">What's wrong today</div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div style="display:flex;gap:12px"><div style="width:3px;flex:none;background:#c2622e;border-radius:2px"></div><p style="margin:0;font-size:14px;line-height:1.55;color:#2b271f"><strong style="font-weight:600">It reads as a worksheet, not a place.</strong> <span style="color:#6f6858">Every screen is the same stack of white cards on cream. There's no branded surface, no texture, no signature moment — nothing that could only be this app.</span></p></div>
+      <div style="display:flex;gap:12px"><div style="width:3px;flex:none;background:#c2622e;border-radius:2px"></div><p style="margin:0;font-size:14px;line-height:1.55;color:#2b271f"><strong style="font-weight:600">Every lesson is a dead end.</strong> <span style="color:#6f6858">You finish, you're returned to a list, and you have to decide what to do next. Duolingo never asks you to decide.</span></p></div>
+    </div>
+
+    <div style="height:1px;background:#d9cfb8;margin:30px 0 26px"></div>
+
+    <div style="font:600 11px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;color:#a39b88;margin-bottom:16px">Five moves</div>
+
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:30px;height:30px;flex:none;border-radius:9px;background:#5d6650;color:#faf7f0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:600">1</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">Calçada, not a road</div><p style="margin:0;font-size:13.5px;line-height:1.55;color:#6f6858">Progression is a Portuguese mosaic pavement — diamond stones on a cobble trail. Same job as Duolingo's path, but it belongs to Portugal instead of to Duolingo.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:30px;height:30px;flex:none;border-radius:9px;background:#5d6650;color:#faf7f0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:600">2</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">An azulejo band on every screen</div><p style="margin:0;font-size:13.5px;line-height:1.55;color:#6f6858">A deep olive header with a tile pattern, carrying the streak and the daily ring. One held colour field gives the app an identity the card stack never could.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:30px;height:30px;flex:none;border-radius:9px;background:#5d6650;color:#faf7f0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:600">3</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">Fraunces at display scale</div><p style="margin:0;font-size:13.5px;line-height:1.55;color:#6f6858">Portuguese phrases go up to 30–34px and every number — streak, XP, due count — is set in the display face. The type does the work the illustrations would have done.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:30px;height:30px;flex:none;border-radius:9px;background:#c2622e;color:#faf7f0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:600">4</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">Sessions chain — this is the flow fix</div><p style="margin:0;font-size:13.5px;line-height:1.55;color:#6f6858">A lesson never ends on a list. It ends on the next stone, already named and timed: <em>"A seguir: 6 palavras para rever · 2 min"</em>. The path scrolls itself. Finish the drill on the right and you'll see it.</p></div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start">
+        <div style="width:30px;height:30px;flex:none;border-radius:9px;background:#c2622e;color:#faf7f0;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:15px;font-weight:600">5</div>
+        <div><div style="font-size:14px;font-weight:600;margin-bottom:3px">Loud mechanics, quiet palette</div><p style="margin:0;font-size:13.5px;line-height:1.55;color:#6f6858">Streak, XP, league, word of the day, SRS queue — all in. But rendered in terra and olive, never neon. Terra stays a correction colour, so nothing scolds.</p></div>
+      </div>
+    </div>
+
+    <div style="height:1px;background:#d9cfb8;margin:30px 0 26px"></div>
+
+    <div style="font:600 11px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;color:#a39b88;margin-bottom:12px">Borrowed, and from where</div>
+    <div style="display:flex;flex-wrap:wrap;gap:7px">
+      <span class="chip">Path — Duolingo</span>
+      <span class="chip">Rapid word tiles — Drops</span>
+      <span class="chip">Native clips — Memrise</span>
+      <span class="chip">Dialogue + transcript — Practice Portuguese</span>
+      <span class="chip">SRS queue — Anki</span>
+      <span class="chip">League — Duolingo</span>
+    </div>
+
+    <div style="height:1px;background:#d9cfb8;margin:30px 0 26px"></div>
+    <div style="font:600 11px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;color:#a39b88;margin-bottom:12px">Notes &amp; next steps</div>
+    <p style="margin:0 0 10px;font-size:13.5px;line-height:1.6;color:#6f6858">I couldn't reach the attached <code style="font-family:var(--font-mono);font-size:12px;background:#f2ecdf;padding:1px 5px;border-radius:4px">port.robertjeremiah.com</code> folder from here, so the screens are built from PORT DS — its tokens, its five real components (AudioButton, Recorder, AnswerDiff, VerbConjugator, Markdown) and the conventions in its guide. Layouts that exist in your app but not in the DS are my proposal, not a recreation.</p>
+    <p style="margin:0;font-size:13.5px;line-height:1.6;color:#6f6858">Worth doing next: the Drops-style visual drill needs real photography — right now it's a placeholder grid. And the family view assumes each learner has their own level; tell me if it's one shared plan instead.</p>
+  </div>
+
+  <div style="flex:none">
+    <div style="display:flex;flex-wrap:wrap;gap:6px;width:402px;margin-bottom:18px">
+      <sc-for list="{{ jumps }}" as="j" hint-placeholder-count="8">
+        <button onClick="{{ j.go }}" style="{{ j.style }}">{{ j.label }}</button>
+      </sc-for>
+    </div>
+
+    <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ 402 }}" height="{{ 874 }}" hint-size="402px,874px">
+
+      <div style="min-height:874px;overflow-x:clip;background:#faf7f0;display:flex;flex-direction:column;font-family:var(--font-inter),system-ui,sans-serif;color:#2b271f">
+
+        <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;display:flex;flex-direction:column;background:#faf7f0">
+
+            <div style="padding:60px 20px 14px;display:flex;align-items:center;gap:14px;background:#faf7f0;position:sticky;top:0;z-index:5">
+              <button onClick="{{ quitLesson }}" style="width:32px;height:32px;flex:none;border-radius:10px;border:1px solid #e6dcc6;background:#fff;color:#6f6858;font-size:16px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
+              <div style="flex:1;height:10px;border-radius:99px;background:#e6dcc6;overflow:hidden">
+                <div style="{{ progressStyle }}"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;font-family:var(--font-display);font-size:15px;font-weight:600;color:#c2622e">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1-.4-2-.4-2s2.4 2 2.4 5a7 7 0 1 1-14 0C3 8 9 7 12 2z"/></svg>
+                <span>{{ xp }}</span>
+              </div>
+            </div>
+
+            <sc-if value="{{ stepListen }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:18px 20px 0;animation:ph-rise .3s ease-out">
+                <div class="label">Ouve e escolhe</div>
+                <div style="border-radius:20px;border:1px solid #e6dcc6;background:#fff;padding:26px 20px;display:flex;flex-direction:column;align-items:center;gap:16px;margin-bottom:22px">
+                  <x-import component-from-global-scope="PortDS.AudioButton" text="Onde fica a paragem do autocarro?" label="Ouvir de novo" hint-size="auto,44px"></x-import>
+                  <div style="font-size:12.5px;color:#a39b88">Toca para repetir · fala de Lisboa</div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                  <sc-for list="{{ listenOpts }}" as="o" hint-placeholder-count="4">
+                    <button onClick="{{ o.pick }}" style="{{ o.style }}">
+                      <span style="font-size:15px;font-weight:500;text-align:left">{{ o.text }}</span>
+                    </button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ stepBuild }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:18px 20px 0;animation:ph-rise .3s ease-out">
+                <div class="label">Constrói a frase</div>
+                <p style="font-size:20px;line-height:1.35;margin:0 0 6px;color:#2b271f">I'd like a coffee, please.</p>
+                <p style="font-size:13px;color:#a39b88;margin:0 0 20px">Toca nas palavras pela ordem certa.</p>
+                <div style="min-height:96px;border-radius:16px;background:#f2ecdf;border:1px dashed #e6dcc6;padding:14px;display:flex;flex-wrap:wrap;gap:8px;align-content:flex-start;margin-bottom:22px">
+                  <sc-for list="{{ built }}" as="w" hint-placeholder-count="0">
+                    <button onClick="{{ w.remove }}" style="font-family:var(--font-display);font-size:17px;font-weight:500;padding:8px 14px;border-radius:11px;background:#fff;border:1px solid #e6dcc6;color:#2b271f;cursor:pointer;box-shadow:0 1px 2px rgba(43,39,31,.06)">{{ w.text }}</button>
+                  </sc-for>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px">
+                  <sc-for list="{{ bank }}" as="w" hint-placeholder-count="6">
+                    <button onClick="{{ w.add }}" style="{{ w.style }}">{{ w.text }}</button>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ stepType }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:18px 20px 0;animation:ph-rise .3s ease-out">
+                <div class="label">Escreve em português</div>
+                <p style="font-size:20px;line-height:1.35;margin:0 0 4px">I'm eating breakfast.</p>
+                <p style="font-size:13px;color:#a39b88;margin:0 0 18px">Cuidado com os acentos — contam.</p>
+                <input class="input" value="{{ typed }}" onChange="{{ onType }}" placeholder="Escreve aqui…" style="font-family:var(--font-display);font-size:17px;padding:14px 16px;margin-bottom:16px">
+                <sc-if value="{{ showDiff }}" hint-placeholder-val="{{ false }}">
+                  <div style="border-radius:16px;background:#f7e6d9;padding:16px;margin-bottom:14px">
+                    <div style="font-size:12.5px;font-weight:600;color:#9e4c1f;margin-bottom:10px">Quase! Faltou o acento.</div>
+                    <x-import component-from-global-scope="PortDS.AnswerDiff" check="{{ diffCheck }}" nearMiss="{{ true }}" hint-size="100%,80px"></x-import>
+                    <div style="font-size:13px;line-height:1.55;color:#6f6858;margin-top:12px">Sandra: “O <em>é</em> aberto muda tudo — <strong>estou a comer</strong>, nunca <em>comendo</em>.”</div>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ stepSay }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:18px 20px 0;animation:ph-rise .3s ease-out">
+                <div class="label">Lê em voz alta</div>
+                <div style="border-radius:20px;border:1px solid #e6dcc6;background:#fff;padding:24px 20px;margin-bottom:18px">
+                  <p style="font-family:var(--font-display);font-size:26px;line-height:1.25;font-weight:500;margin:0 0 8px;letter-spacing:-.01em">Queria um café e um pastel de nata, se faz favor.</p>
+                  <p style="font-size:13.5px;color:#a39b88;margin:0 0 18px">I'd like a coffee and a custard tart, please.</p>
+                  <div style="display:flex;align-items:center;gap:10px;padding-top:16px;border-top:1px solid #f2ecdf">
+                    <x-import component-from-global-scope="PortDS.AudioButton" text="Queria um café e um pastel de nata, se faz favor." hint-size="44px,44px"></x-import>
+                    <span style="font-size:12.5px;color:#a39b88">Ouve primeiro, depois grava</span>
+                  </div>
+                </div>
+                <x-import component-from-global-scope="PortDS.Recorder" mode="read" target="Queria um café e um pastel de nata, se faz favor." hint-size="100%,90px"></x-import>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ stepDialog }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:18px 20px 0;animation:ph-rise .3s ease-out">
+                <div class="label">No café · diálogo</div>
+                <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px">
+                  <div style="display:flex;gap:11px;align-items:flex-start">
+                    <div style="width:34px;height:34px;flex:none;border-radius:11px;background:#e3eaf6;color:#33589b;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:600">E</div>
+                    <div style="flex:1;border-radius:14px;border:1px solid #e6dcc6;background:#fff;padding:13px 15px">
+                      <p style="font-family:var(--font-display);font-size:17px;line-height:1.35;margin:0 0 4px">Boa tarde! O que deseja?</p>
+                      <p style="font-size:12.5px;color:#a39b88;margin:0 0 8px">Good afternoon! What would you like?</p>
+                      <x-import component-from-global-scope="PortDS.AudioButton" text="Boa tarde! O que deseja?" hint-size="44px,44px"></x-import>
+                    </div>
+                  </div>
+                  <div style="display:flex;gap:11px;align-items:flex-start">
+                    <div style="width:34px;height:34px;flex:none;border-radius:11px;background:#eef0e9;color:#5d6650;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:600">Tu</div>
+                    <div style="flex:1;border-radius:14px;border:1px dashed #c7ccbc;background:#eef0e9;padding:13px 15px">
+                      <p style="font-family:var(--font-display);font-size:17px;line-height:1.35;margin:0;color:#5d6650">…a tua vez</p>
+                    </div>
+                  </div>
+                </div>
+                <div style="border-radius:16px;background:#f2ecdf;padding:15px 16px">
+                  <div style="font-size:12.5px;font-weight:600;color:#6f6858;margin-bottom:8px">O que respondes?</div>
+                  <div style="display:flex;flex-direction:column;gap:8px">
+                    <sc-for list="{{ dialogOpts }}" as="o" hint-placeholder-count="2">
+                      <button onClick="{{ o.pick }}" style="{{ o.style }}">{{ o.text }}</button>
+                    </sc-for>
+                  </div>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ stepDone }}" hint-placeholder-val="{{ false }}">
+              <div style="flex:1;padding:8px 20px 0;display:flex;flex-direction:column;animation:ph-rise .35s ease-out">
+                <div style="text-align:center;padding:22px 0 26px">
+                  <div style="width:96px;height:96px;margin:0 auto 20px;border-radius:28px;background:#5d6650;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;animation:ph-pop .5s cubic-bezier(.2,.9,.3,1.4) both">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#faf7f0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+                  </div>
+                  <div style="font-family:var(--font-display);font-size:32px;font-weight:600;letter-spacing:-.01em;margin-bottom:6px">Boa, {{ name }}!</div>
+                  <div style="font-size:14.5px;color:#6f6858">No café · 5 de 5 certas</div>
+                </div>
+                <div style="display:flex;gap:10px;margin-bottom:14px">
+                  <div style="flex:1;border-radius:16px;background:#f7e6d9;padding:14px 12px;text-align:center">
+                    <div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:#9e4c1f;line-height:1">+38</div>
+                    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#c2622e;margin-top:4px;font-weight:600">XP</div>
+                  </div>
+                  <div style="flex:1;border-radius:16px;background:#eef0e9;padding:14px 12px;text-align:center">
+                    <div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:#5d6650;line-height:1">13</div>
+                    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#97a08b;margin-top:4px;font-weight:600">Dias</div>
+                  </div>
+                  <div style="flex:1;border-radius:16px;background:#e3eaf6;padding:14px 12px;text-align:center">
+                    <div style="font-family:var(--font-display);font-size:26px;font-weight:600;color:#33589b;line-height:1">6</div>
+                    <div style="font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#33589b;opacity:.7;margin-top:4px;font-weight:600">Novas</div>
+                  </div>
+                </div>
+                <div style="border-radius:18px;border:1px solid #e6dcc6;background:#fff;padding:16px;margin-bottom:14px">
+                  <div style="font-size:12.5px;line-height:1.55;color:#6f6858"><strong style="color:#2b271f;font-weight:600">Sandra:</strong> “O <em>pastel de nata</em> saiu-te perfeito. O <em>café</em> ainda soa a brasileiro — mais fechado, sim?”</div>
+                </div>
+                <div style="margin-top:auto;padding-bottom:22px">
+                  <div style="border-radius:20px;background:#5d6650;padding:18px 18px 16px;color:#faf7f0">
+                    <div style="font:600 10.5px/1 var(--font-inter);letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-bottom:8px">A seguir</div>
+                    <div style="font-family:var(--font-display);font-size:21px;font-weight:600;line-height:1.2;margin-bottom:3px">6 palavras para rever</div>
+                    <div style="font-size:13px;opacity:.72;margin-bottom:14px">2 min · desbloqueia a pedra “No mercado”</div>
+                    <button onClick="{{ restart }}" style="width:100%;min-height:48px;border-radius:14px;border:0;background:#faf7f0;color:#2b271f;font-family:var(--font-inter);font-size:15px;font-weight:600;cursor:pointer">Continuar →</button>
+                  </div>
+                  <button onClick="{{ quitLesson }}" style="width:100%;min-height:44px;margin-top:8px;border:0;background:none;color:#a39b88;font-size:13.5px;cursor:pointer">Parar por hoje</button>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showFooter }}" hint-placeholder-val="{{ false }}">
+              <div style="position:sticky;bottom:0;padding:14px 20px 30px;background:#faf7f0;border-top:1px solid #f2ecdf">
+                <sc-if value="{{ feedbackOn }}" hint-placeholder-val="{{ false }}">
+                  <div style="{{ feedbackStyle }}">{{ feedbackText }}</div>
+                </sc-if>
+                <button onClick="{{ primaryAction }}" style="{{ primaryStyle }}">{{ primaryLabel }}</button>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+          <div style="flex:1">
+            <div style="padding:58px 20px 26px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),linear-gradient(135deg,rgba(250,247,240,.05) 25%,transparent 25%,transparent 50%,rgba(250,247,240,.05) 50%,rgba(250,247,240,.05) 75%,transparent 75%),#5d6650;background-size:40px 40px,40px 40px,28px 28px,auto;color:#faf7f0;border-radius:0 0 28px 28px">
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:22px">
+                <div>
+                  <div style="font-size:12.5px;opacity:.62;letter-spacing:.06em;text-transform:uppercase;font-weight:600;margin-bottom:5px">Sábado · dia de mercado</div>
+                  <div style="font-family:var(--font-display);font-size:29px;font-weight:600;letter-spacing:-.015em;line-height:1.1">Bom dia, {{ name }}</div>
+                </div>
+                <button onClick="{{ goPerfil }}" style="width:42px;height:42px;flex:none;border-radius:14px;border:1.5px solid rgba(250,247,240,.28);background:rgba(250,247,240,.12);color:#faf7f0;font-family:var(--font-display);font-size:16px;font-weight:600;cursor:pointer">R</button>
+              </div>
+
+              <div style="display:flex;gap:10px">
+                <div style="flex:1;border-radius:16px;background:rgba(250,247,240,.13);padding:13px 14px">
+                  <div style="display:flex;align-items:center;gap:5px;margin-bottom:4px">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="#e8a077"><path d="M12 2c1 4-3 5-3 9a3 3 0 0 0 6 0c0-1-.4-2-.4-2s2.4 2 2.4 5a7 7 0 1 1-14 0C3 8 9 7 12 2z"/></svg>
+                    <span style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;opacity:.7;font-weight:600">Fogo</span>
+                  </div>
+                  <div style="font-family:var(--font-display);font-size:27px;font-weight:600;line-height:1">13 <span style="font-size:13px;font-weight:400;opacity:.6">dias</span></div>
+                </div>
+                <div style="flex:1;border-radius:16px;background:rgba(250,247,240,.13);padding:13px 14px">
+                  <div style="font-size:11px;letter-spacing:.09em;text-transform:uppercase;opacity:.7;font-weight:600;margin-bottom:4px">Meta de hoje</div>
+                  <div style="display:flex;align-items:center;gap:9px">
+                    <div style="width:34px;height:34px;flex:none;border-radius:50%;background:conic-gradient(#e8a077 0 62%,rgba(250,247,240,.18) 62% 100%);display:flex;align-items:center;justify-content:center">
+                      <div style="width:23px;height:23px;border-radius:50%;background:#5d6650"></div>
+                    </div>
+                    <div style="font-family:var(--font-display);font-size:21px;font-weight:600;line-height:1">31<span style="font-size:12px;font-weight:400;opacity:.6">/50</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div style="padding:20px 20px 0">
+              <button onClick="{{ startLesson }}" style="width:100%;text-align:left;border-radius:20px;border:1px solid #e6dcc6;background:#fff;padding:0;overflow:hidden;cursor:pointer;box-shadow:0 2px 10px rgba(43,39,31,.05);display:block">
+                <div style="padding:17px 18px 16px">
+                  <div style="display:flex;align-items:center;gap:7px;margin-bottom:9px">
+                    <span class="chip" style="background:#f7e6d9;color:#9e4c1f">Contextual</span>
+                    <span style="font-size:11.5px;color:#a39b88">6 min</span>
+                  </div>
+                  <div style="font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1.2;margin-bottom:5px;letter-spacing:-.01em">Ao balcão do café</div>
+                  <div style="font-size:13.5px;line-height:1.5;color:#6f6858;margin-bottom:14px">É sábado — vais ao mercado e ao café. Estas 12 frases são as que vais mesmo precisar hoje.</div>
+                  <div style="display:flex;align-items:center;gap:10px">
+                    <div style="flex:1;height:8px;border-radius:99px;background:#f2ecdf;overflow:hidden"><div style="width:0%;height:100%;background:#5d6650"></div></div>
+                    <span style="font-size:11.5px;color:#a39b88">0 / 12</span>
+                  </div>
+                </div>
+                <div style="background:#5d6650;color:#faf7f0;padding:13px 18px;font-size:14.5px;font-weight:600;display:flex;align-items:center;justify-content:space-between">
+                  <span>Começar a lição</span><span>→</span>
+                </div>
+              </button>
+            </div>
+
+            <div style="padding:26px 20px 0">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:4px">
+                <div class="label" style="margin:0">O teu caminho</div>
+                <span style="font-size:11.5px;color:#a39b88">Unidade 3 · Na rua</span>
+              </div>
+
+              <sc-if value="{{ pathCalcada }}" hint-placeholder-val="{{ true }}">
+                <div style="padding:14px 0 4px">
+
+                  <div style="display:flex;justify-content:center">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(-92px)">
+                      <div style="width:62px;height:62px;border-radius:18px;background:#5d6650;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #4a5140">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#faf7f0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+                      </div>
+                      <div style="font-size:11.5px;font-weight:600;color:#6f6858;margin-top:4px">Bom dia</div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center;padding:12px 0 12px">
+                    <div style="display:flex;gap:9px;transform:translateX(-46px)">
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(14px)">
+                      <div style="width:62px;height:62px;border-radius:18px;background:#5d6650;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 #4a5140">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#faf7f0" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+                      </div>
+                      <div style="font-size:11.5px;font-weight:600;color:#6f6858;margin-top:4px">No autocarro</div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center;padding:12px 0 12px">
+                    <div style="display:flex;gap:9px;transform:translateX(48px)">
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#e6dcc6;transform:rotate(45deg)"></div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(78px)">
+                      <button onClick="{{ startLesson }}" style="width:78px;height:78px;border:0;padding:0;border-radius:22px;background:#c2622e;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;box-shadow:0 4px 0 #9e4c1f;cursor:pointer;animation:ph-pulse 2.4s ease-out infinite">
+                        <span style="transform:rotate(-45deg);font-family:var(--font-display);font-size:15px;font-weight:600;color:#faf7f0;letter-spacing:.02em">Café</span>
+                      </button>
+                      <div style="font-size:12px;font-weight:600;color:#9e4c1f;margin-top:6px">Ao balcão · agora</div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center;padding:14px 0 12px">
+                    <div style="display:flex;gap:9px;transform:translateX(30px)">
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(-24px)">
+                      <div style="width:62px;height:62px;border-radius:18px;background:#f2ecdf;border:1.5px solid #e6dcc6;transform:rotate(45deg);display:flex;align-items:center;justify-content:center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a39b88" stroke-width="2" style="transform:rotate(-45deg)"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                      </div>
+                      <div style="font-size:11.5px;color:#a39b88;margin-top:4px">No mercado</div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center;padding:12px 0 12px">
+                    <div style="display:flex;gap:9px;transform:translateX(-62px)">
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                      <div style="width:7px;height:7px;background:#f2ecdf;transform:rotate(45deg)"></div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex;justify-content:center">
+                    <div style="display:flex;flex-direction:column;align-items:center;gap:7px;transform:translateX(-96px)">
+                      <div style="width:62px;height:62px;border-radius:18px;background:#f2ecdf;border:1.5px solid #e6dcc6;transform:rotate(45deg);display:flex;align-items:center;justify-content:center">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#a39b88" stroke-width="2" style="transform:rotate(-45deg)"><rect x="4" y="10" width="16" height="11" rx="2.5"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+                      </div>
+                      <div style="font-size:11.5px;color:#a39b88;margin-top:4px">No talho</div>
+                    </div>
+                  </div>
+                </div>
+              </sc-if>
+
+              <sc-if value="{{ pathList }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:8px;padding-top:12px">
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:14px;background:#eef0e9"><div style="width:26px;height:26px;border-radius:8px;background:#5d6650;flex:none"></div><span style="font-size:14.5px;font-weight:500">Bom dia</span><span style="margin-left:auto;font-size:12px;color:#97a08b">Feito</span></div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:14px;background:#eef0e9"><div style="width:26px;height:26px;border-radius:8px;background:#5d6650;flex:none"></div><span style="font-size:14.5px;font-weight:500">No autocarro</span><span style="margin-left:auto;font-size:12px;color:#97a08b">Feito</span></div>
+                  <button onClick="{{ startLesson }}" style="display:flex;align-items:center;gap:12px;padding:15px;border-radius:14px;background:#c2622e;border:0;cursor:pointer;color:#faf7f0;text-align:left"><div style="width:26px;height:26px;border-radius:8px;background:rgba(250,247,240,.28);flex:none"></div><span style="font-size:15px;font-weight:600">Ao balcão do café</span><span style="margin-left:auto;font-size:12.5px;opacity:.8">Agora →</span></button>
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:14px;background:#f2ecdf"><div style="width:26px;height:26px;border-radius:8px;background:#e6dcc6;flex:none"></div><span style="font-size:14.5px;color:#a39b88">No mercado</span></div>
+                  <div style="display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:14px;background:#f2ecdf"><div style="width:26px;height:26px;border-radius:8px;background:#e6dcc6;flex:none"></div><span style="font-size:14.5px;color:#a39b88">No talho</span></div>
+                </div>
+              </sc-if>
+            </div>
+
+            <div style="padding:26px 20px 0">
+              <div class="label">Palavra do dia</div>
+              <div style="border-radius:20px;background:#e3eaf6;padding:18px;display:flex;align-items:center;gap:16px">
+                <div style="flex:1">
+                  <div style="font-family:var(--font-display);font-size:25px;font-weight:600;line-height:1.15;letter-spacing:-.01em">a saudade</div>
+                  <div style="font-size:13px;color:#33589b;opacity:.8;margin-top:3px">longing for something loved and absent</div>
+                </div>
+                <x-import component-from-global-scope="PortDS.AudioButton" text="a saudade" hint-size="44px,44px"></x-import>
+              </div>
+            </div>
+
+            <div style="padding:26px 20px 30px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+                <div class="label" style="margin:0">A família hoje</div>
+                <button onClick="{{ goFamilia }}" style="border:0;background:none;font-size:12px;color:#33589b;cursor:pointer;padding:0">Ver todos</button>
+              </div>
+              <div style="display:flex;gap:9px">
+                <div style="flex:1;border-radius:16px;border:1px solid #e6dcc6;background:#fff;padding:13px 11px;text-align:center">
+                  <div style="width:36px;height:36px;margin:0 auto 8px;border-radius:12px;background:#eef0e9;color:#5d6650;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:600">R</div>
+                  <div style="font-size:12.5px;font-weight:600">Rob</div>
+                  <div style="font-size:11px;color:#c2622e;margin-top:2px;font-weight:600">31 XP</div>
+                </div>
+                <div style="flex:1;border-radius:16px;border:1px solid #e6dcc6;background:#fff;padding:13px 11px;text-align:center">
+                  <div style="width:36px;height:36px;margin:0 auto 8px;border-radius:12px;background:#f7e6d9;color:#9e4c1f;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:600">M</div>
+                  <div style="font-size:12.5px;font-weight:600">Mia</div>
+                  <div style="font-size:11px;color:#c2622e;margin-top:2px;font-weight:600">80 XP</div>
+                </div>
+                <div style="flex:1;border-radius:16px;border:1px solid #e6dcc6;background:#fff;padding:13px 11px;text-align:center">
+                  <div style="width:36px;height:36px;margin:0 auto 8px;border-radius:12px;background:#e3eaf6;color:#33589b;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:14px;font-weight:600">T</div>
+                  <div style="font-size:12.5px;font-weight:600">Tomás</div>
+                  <div style="font-size:11px;color:#a39b88;margin-top:2px">Por fazer</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isPalavras }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1">
+            <div style="padding:58px 20px 18px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),#5d6650;background-size:40px 40px,40px 40px,auto;color:#faf7f0;border-radius:0 0 28px 28px">
+              <div style="font-family:var(--font-display);font-size:27px;font-weight:600;letter-spacing:-.015em;margin-bottom:14px">Palavras</div>
+              <div style="display:flex;gap:6px;background:rgba(250,247,240,.13);padding:4px;border-radius:14px">
+                <button onClick="{{ tabVocab }}" style="{{ vocabTabStyle }}">Vocabulário</button>
+                <button onClick="{{ tabVerbos }}" style="{{ verbosTabStyle }}">Verbos</button>
+              </div>
+            </div>
+
+            <sc-if value="{{ showVocab }}" hint-placeholder-val="{{ true }}">
+              <div style="padding:18px 20px 30px">
+                <button onClick="{{ startLesson }}" style="width:100%;text-align:left;border-radius:18px;background:#f7e6d9;border:0;padding:16px 18px;margin-bottom:20px;cursor:pointer;display:flex;align-items:center;gap:14px">
+                  <div style="font-family:var(--font-display);font-size:34px;font-weight:600;color:#9e4c1f;line-height:1">24</div>
+                  <div style="flex:1">
+                    <div style="font-size:14.5px;font-weight:600;color:#2b271f">palavras para rever</div>
+                    <div style="font-size:12.5px;color:#9e4c1f;opacity:.85;margin-top:2px">Repetição espaçada · 4 min</div>
+                  </div>
+                  <span style="color:#9e4c1f;font-size:18px">→</span>
+                </button>
+
+                <input class="input" placeholder="Procurar…" style="margin-bottom:20px;font-size:14.5px">
+
+                <div class="label">No café · 12 palavras</div>
+                <div style="display:flex;flex-direction:column;gap:2px;margin-bottom:22px">
+                  <sc-for list="{{ vocabCafe }}" as="v" hint-placeholder-count="5">
+                    <div style="display:flex;align-items:center;gap:13px;padding:11px 4px;border-bottom:1px solid #f2ecdf">
+                      <x-import component-from-global-scope="PortDS.AudioButton" text="{{ v.pt }}" hint-size="40px,40px"></x-import>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-family:var(--font-display);font-size:16.5px;font-weight:500;line-height:1.25">{{ v.pt }}</div>
+                        <sc-if value="{{ showEn }}" hint-placeholder-val="{{ true }}">
+                          <div style="font-size:12.5px;color:#a39b88;margin-top:1px">{{ v.en }}</div>
+                        </sc-if>
+                      </div>
+                      <div style="{{ v.dotStyle }}"></div>
+                    </div>
+                  </sc-for>
+                </div>
+
+                <div class="label">No mercado · 18 palavras</div>
+                <div style="display:flex;flex-direction:column;gap:2px">
+                  <sc-for list="{{ vocabMercado }}" as="v" hint-placeholder-count="4">
+                    <div style="display:flex;align-items:center;gap:13px;padding:11px 4px;border-bottom:1px solid #f2ecdf">
+                      <x-import component-from-global-scope="PortDS.AudioButton" text="{{ v.pt }}" hint-size="40px,40px"></x-import>
+                      <div style="flex:1;min-width:0">
+                        <div style="font-family:var(--font-display);font-size:16.5px;font-weight:500;line-height:1.25">{{ v.pt }}</div>
+                        <sc-if value="{{ showEn }}" hint-placeholder-val="{{ true }}">
+                          <div style="font-size:12.5px;color:#a39b88;margin-top:1px">{{ v.en }}</div>
+                        </sc-if>
+                      </div>
+                      <div style="{{ v.dotStyle }}"></div>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showVerbos }}" hint-placeholder-val="{{ false }}">
+              <div style="padding:18px 16px 30px">
+                <x-import component-from-global-scope="PortDS.VerbConjugator" initialVerb="ir" initialTense="presente" hint-size="100%,420px"></x-import>
+              </div>
+            </sc-if>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isSandra }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;display:flex;flex-direction:column">
+            <div style="padding:58px 20px 18px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),#5d6650;background-size:40px 40px,40px 40px,auto;color:#faf7f0;border-radius:0 0 28px 28px;display:flex;align-items:center;gap:13px">
+              <div style="width:46px;height:46px;flex:none;border-radius:15px;background:#f7e6d9;color:#9e4c1f;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:19px;font-weight:600">S</div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:22px;font-weight:600;line-height:1.15">Sandra</div>
+                <div style="font-size:12.5px;opacity:.68">Só português. Devagarinho.</div>
+              </div>
+            </div>
+
+            <div style="flex:1;padding:20px 20px 0;display:flex;flex-direction:column;gap:14px">
+              <div style="align-self:flex-start;max-width:82%;border-radius:18px 18px 18px 6px;background:#fff;border:1px solid #e6dcc6;padding:13px 15px">
+                <p style="font-family:var(--font-display);font-size:17px;line-height:1.4;margin:0 0 6px">Então, o que costumas tomar ao pequeno-almoço?</p>
+                <div style="display:flex;align-items:center;gap:9px">
+                  <x-import component-from-global-scope="PortDS.AudioButton" text="Então, o que costumas tomar ao pequeno-almoço?" hint-size="40px,40px"></x-import>
+                  <button style="border:0;background:none;font-size:11.5px;color:#33589b;cursor:pointer;padding:0">Traduzir</button>
+                </div>
+              </div>
+
+              <div style="align-self:flex-end;max-width:82%;border-radius:18px 18px 6px 18px;background:#5d6650;color:#faf7f0;padding:13px 15px">
+                <p style="font-family:var(--font-display);font-size:17px;line-height:1.4;margin:0">Tomo café e uma torrada.</p>
+              </div>
+
+              <div style="align-self:flex-start;max-width:88%;border-radius:18px 18px 18px 6px;background:#f7e6d9;padding:13px 15px">
+                <p style="font-size:13.5px;line-height:1.55;margin:0 0 8px;color:#9e4c1f"><strong style="font-weight:600">Quase!</strong> Dizemos <em>uma torrada</em> — mas em Portugal pedes logo <strong>duas torradas</strong>, que vêm sempre aos pares. 🙂</p>
+                <p style="font-family:var(--font-display);font-size:16px;line-height:1.35;margin:0;color:#2b271f">E bebes com açúcar ou sem?</p>
+              </div>
+
+              <div style="align-self:flex-start;display:flex;gap:7px;flex-wrap:wrap">
+                <button class="btn-ghost" style="font-size:13px;min-height:38px;padding:6px 13px">Sem açúcar</button>
+                <button class="btn-ghost" style="font-size:13px;min-height:38px;padding:6px 13px">Com um pacote</button>
+              </div>
+            </div>
+
+            <div style="position:sticky;bottom:0;padding:16px 20px 26px;background:#faf7f0;border-top:1px solid #f2ecdf">
+              <div style="margin-bottom:10px">
+                <x-import component-from-global-scope="PortDS.Recorder" mode="open" prompt="E bebes o café com açúcar ou sem?" hint-size="100%,80px"></x-import>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <input class="input" placeholder="…ou escreve a resposta" style="font-size:14.5px">
+                <button class="btn-primary" style="min-width:46px;padding:0 14px">→</button>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isLiga }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1">
+            <div style="padding:58px 20px 26px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),#5d6650;background-size:40px 40px,40px 40px,auto;color:#faf7f0;border-radius:0 0 28px 28px">
+              <div style="font-family:var(--font-display);font-size:27px;font-weight:600;letter-spacing:-.015em;margin-bottom:18px">Progresso</div>
+              <div style="display:flex;align-items:flex-end;gap:6px;height:80px">
+                <sc-for list="{{ week }}" as="d" hint-placeholder-count="7">
+                  <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px">
+                    <div style="{{ d.barStyle }}"></div>
+                    <span style="font-size:10.5px;opacity:.6">{{ d.label }}</span>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+
+            <div style="padding:22px 20px 0">
+              <div style="display:flex;gap:10px;margin-bottom:24px">
+                <div style="flex:1;border-radius:18px;border:1px solid #e6dcc6;background:#fff;padding:15px 14px">
+                  <div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:#c2622e;line-height:1">13</div>
+                  <div style="font-size:11.5px;color:#a39b88;margin-top:3px">dias seguidos</div>
+                </div>
+                <div style="flex:1;border-radius:18px;border:1px solid #e6dcc6;background:#fff;padding:15px 14px">
+                  <div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:#5d6650;line-height:1">1 240</div>
+                  <div style="font-size:11.5px;color:#a39b88;margin-top:3px">XP total</div>
+                </div>
+                <div style="flex:1;border-radius:18px;border:1px solid #e6dcc6;background:#fff;padding:15px 14px">
+                  <div style="font-family:var(--font-display);font-size:28px;font-weight:600;color:#33589b;line-height:1">A2</div>
+                  <div style="font-size:11.5px;color:#a39b88;margin-top:3px">nível atual</div>
+                </div>
+              </div>
+
+              <div class="label">Últimas 5 semanas</div>
+              <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:5px;margin-bottom:26px">
+                <sc-for list="{{ heat }}" as="c" hint-placeholder-count="35">
+                  <div style="{{ c.style }}"></div>
+                </sc-for>
+              </div>
+
+              <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px">
+                <div class="label" style="margin:0">Liga Azulejo</div>
+                <span class="chip" style="background:#e3eaf6;color:#33589b">3 dias restantes</span>
+              </div>
+              <div style="border-radius:18px;border:1px solid #e6dcc6;background:#fff;overflow:hidden;margin-bottom:30px">
+                <sc-for list="{{ league }}" as="r" hint-placeholder-count="5">
+                  <div style="{{ r.rowStyle }}">
+                    <div style="{{ r.rankStyle }}">{{ r.rank }}</div>
+                    <div style="flex:1;font-size:14.5px;font-weight:500">{{ r.name }}</div>
+                    <div style="font-family:var(--font-display);font-size:15px;font-weight:600;color:#6f6858">{{ r.xp }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isFamilia }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1">
+            <div style="padding:58px 20px 26px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),#5d6650;background-size:40px 40px,40px 40px,auto;color:#faf7f0;border-radius:0 0 28px 28px">
+              <div style="font-family:var(--font-display);font-size:27px;font-weight:600;letter-spacing:-.015em">Família Jeremiah</div>
+              <div style="font-size:13px;opacity:.68;margin-top:4px">Semana de 10 a 16 de agosto</div>
+            </div>
+
+            <div style="padding:20px 20px 0">
+              <div style="border-radius:20px;background:#f7e6d9;padding:17px 18px;margin-bottom:22px">
+                <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:#c2622e;margin-bottom:7px">Desafio da semana</div>
+                <div style="font-family:var(--font-display);font-size:20px;font-weight:600;line-height:1.25;margin-bottom:10px">Pedir o pequeno-almoço só em português</div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <div style="flex:1;height:9px;border-radius:99px;background:rgba(158,76,31,.18);overflow:hidden"><div style="width:66%;height:100%;background:#c2622e"></div></div>
+                  <span style="font-size:12px;font-weight:600;color:#9e4c1f">2 / 3</span>
+                </div>
+              </div>
+
+              <div class="label">Quem está a aprender</div>
+              <div style="display:flex;flex-direction:column;gap:10px;padding-bottom:30px">
+                <sc-for list="{{ family }}" as="m" hint-placeholder-count="3">
+                  <div style="border-radius:18px;border:1px solid #e6dcc6;background:#fff;padding:15px 16px;display:flex;align-items:center;gap:14px">
+                    <div style="{{ m.avatarStyle }}">{{ m.initial }}</div>
+                    <div style="flex:1;min-width:0">
+                      <div style="display:flex;align-items:baseline;gap:8px">
+                        <span style="font-size:15.5px;font-weight:600">{{ m.name }}</span>
+                        <span class="chip" style="padding:1px 8px;font-size:10.5px">{{ m.level }}</span>
+                      </div>
+                      <div style="font-size:12.5px;color:#a39b88;margin-top:3px">{{ m.note }}</div>
+                      <div style="margin-top:9px;height:7px;border-radius:99px;background:#f2ecdf;overflow:hidden"><div style="{{ m.barStyle }}"></div></div>
+                    </div>
+                    <div style="text-align:right;flex:none">
+                      <div style="font-family:var(--font-display);font-size:19px;font-weight:600;color:#c2622e;line-height:1">{{ m.xp }}</div>
+                      <div style="font-size:10.5px;color:#a39b88;margin-top:2px">XP hoje</div>
+                    </div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isPerfil }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1">
+            <div style="padding:58px 20px 26px;background:radial-gradient(circle at 0 0,rgba(250,247,240,.10) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.10) 4px,transparent 4.5px),#5d6650;background-size:40px 40px,40px 40px,auto;color:#faf7f0;border-radius:0 0 28px 28px;display:flex;align-items:center;gap:15px">
+              <div style="width:58px;height:58px;flex:none;border-radius:19px;background:rgba(250,247,240,.15);border:1.5px solid rgba(250,247,240,.28);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:23px;font-weight:600">R</div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:24px;font-weight:600;line-height:1.15">{{ name }}</div>
+                <div style="font-size:12.5px;opacity:.68;margin-top:3px">A2 · Torres Vedras · desde março</div>
+              </div>
+            </div>
+
+            <div style="padding:22px 20px 30px">
+              <div class="label">Meta diária</div>
+              <div style="display:flex;gap:8px;margin-bottom:24px">
+                <button class="btn-ghost" style="flex:1;flex-direction:column;gap:1px;min-height:64px"><span style="font-family:var(--font-display);font-size:17px;font-weight:600">20</span><span style="font-size:10.5px;color:#a39b88">Calma</span></button>
+                <button style="flex:1;min-height:64px;border-radius:12px;border:1.5px solid #5d6650;background:#eef0e9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;cursor:pointer"><span style="font-family:var(--font-display);font-size:17px;font-weight:600;color:#5d6650">50</span><span style="font-size:10.5px;color:#5d6650">A sério</span></button>
+                <button class="btn-ghost" style="flex:1;flex-direction:column;gap:1px;min-height:64px"><span style="font-family:var(--font-display);font-size:17px;font-weight:600">100</span><span style="font-size:10.5px;color:#a39b88">Intenso</span></button>
+              </div>
+
+              <div class="label">Preferências</div>
+              <div style="border-radius:18px;border:1px solid #e6dcc6;background:#fff;overflow:hidden;margin-bottom:24px">
+                <div style="display:flex;align-items:center;gap:12px;padding:15px 16px;border-bottom:1px solid #f2ecdf">
+                  <div style="flex:1"><div style="font-size:14.5px;font-weight:500">Mostrar tradução</div><div style="font-size:12px;color:#a39b88;margin-top:2px">Inglês por baixo do português</div></div>
+                  <button onClick="{{ toggleEn }}" style="{{ toggleStyle }}"><div style="{{ knobStyle }}"></div></button>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:15px 16px;border-bottom:1px solid #f2ecdf">
+                  <div style="flex:1"><div style="font-size:14.5px;font-weight:500">Sotaque</div><div style="font-size:12px;color:#a39b88;margin-top:2px">Lisboa</div></div>
+                  <span style="color:#a39b88;font-size:16px">›</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:12px;padding:15px 16px">
+                  <div style="flex:1"><div style="font-size:14.5px;font-weight:500">Lembrete diário</div><div style="font-size:12px;color:#a39b88;margin-top:2px">Todos os dias às 19:30</div></div>
+                  <span style="color:#a39b88;font-size:16px">›</span>
+                </div>
+              </div>
+
+              <button onClick="{{ goOnboarding }}" class="btn-ghost" style="width:100%;margin-bottom:10px">Rever a configuração inicial</button>
+              <button class="btn-ghost" style="width:100%;color:#a39b88">Terminar sessão</button>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ isOnboarding }}" hint-placeholder-val="{{ false }}">
+          <div style="flex:1;display:flex;flex-direction:column;background:radial-gradient(circle at 0 0,rgba(250,247,240,.09) 4px,transparent 4.5px),radial-gradient(circle at 20px 20px,rgba(250,247,240,.09) 4px,transparent 4.5px),linear-gradient(135deg,rgba(250,247,240,.045) 25%,transparent 25%,transparent 50%,rgba(250,247,240,.045) 50%,rgba(250,247,240,.045) 75%,transparent 75%),#5d6650;background-size:40px 40px,40px 40px,28px 28px,auto;color:#faf7f0">
+            <div style="padding:78px 26px 0;flex:1">
+              <div style="width:70px;height:70px;border-radius:22px;background:#c2622e;transform:rotate(45deg);margin:0 0 40px 12px;box-shadow:0 5px 0 #9e4c1f;display:flex;align-items:center;justify-content:center">
+                <span style="transform:rotate(-45deg);font-family:var(--font-display);font-size:28px;font-weight:600">ç</span>
+              </div>
+              <div style="font-family:var(--font-display);font-size:40px;font-weight:600;line-height:1.05;letter-spacing:-.025em;margin-bottom:14px">Português<br>a sério.<br>Aqui em casa.</div>
+              <p style="font-size:15.5px;line-height:1.6;opacity:.72;margin:0 0 34px;max-width:300px;text-wrap:pretty">O português de Portugal — o que se fala no talho, no autocarro e à porta da escola. Não o dos livros.</p>
+
+              <div class="label" style="color:rgba(250,247,240,.55)">Quem vai aprender?</div>
+              <div style="display:flex;flex-direction:column;gap:9px">
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:rgba(250,247,240,.16);border:1.5px solid rgba(250,247,240,.4)">
+                  <div style="width:38px;height:38px;flex:none;border-radius:13px;background:#faf7f0;color:#5d6650;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:600">R</div>
+                  <div style="flex:1"><div style="font-size:15px;font-weight:600">Rob</div><div style="font-size:12px;opacity:.65">Adulto · já percebe um pouco</div></div>
+                  <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#faf7f0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg>
+                </div>
+                <div style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:rgba(250,247,240,.08);border:1.5px solid rgba(250,247,240,.16)">
+                  <div style="width:38px;height:38px;flex:none;border-radius:13px;background:rgba(250,247,240,.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:600">M</div>
+                  <div style="flex:1"><div style="font-size:15px;font-weight:600">Mia</div><div style="font-size:12px;opacity:.65">9 anos · na escola portuguesa</div></div>
+                </div>
+                <button style="display:flex;align-items:center;gap:13px;padding:14px 16px;border-radius:16px;background:none;border:1.5px dashed rgba(250,247,240,.28);color:#faf7f0;cursor:pointer;width:100%;text-align:left">
+                  <div style="width:38px;height:38px;flex:none;border-radius:13px;border:1.5px solid rgba(250,247,240,.3);display:flex;align-items:center;justify-content:center;font-size:20px">+</div>
+                  <div style="font-size:14.5px;opacity:.75">Juntar alguém da família</div>
+                </button>
+              </div>
+            </div>
+            <div style="padding:22px 26px 34px">
+              <button onClick="{{ goHome }}" style="width:100%;min-height:52px;border-radius:16px;border:0;background:#faf7f0;color:#2b271f;font-size:15.5px;font-weight:600;cursor:pointer">Vamos lá →</button>
+              <div style="text-align:center;font-size:12.5px;opacity:.5;margin-top:12px">Já tens conta? Entrar</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showTabs }}" hint-placeholder-val="{{ true }}">
+          <div style="position:sticky;bottom:0;z-index:10;display:flex;background:rgba(250,247,240,.94);backdrop-filter:blur(14px);border-top:1px solid #e6dcc6;padding:9px 6px 30px">
+            <button onClick="{{ goHome }}" style="{{ tabHomeStyle }}">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3.5l9 7"/><path d="M5.5 9.8V20h13V9.8"/></svg>
+              <span style="font-size:10.5px;font-weight:600">Hoje</span>
+            </button>
+            <button onClick="{{ goPalavras }}" style="{{ tabPalavrasStyle }}">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5h6a2.5 2.5 0 0 1 2 2.5v12a2 2 0 0 0-2-1.6H4z"/><path d="M20 4.5h-6a2.5 2.5 0 0 0-2 2.5v12a2 2 0 0 1 2-1.6h6z"/></svg>
+              <span style="font-size:10.5px;font-weight:600">Palavras</span>
+            </button>
+            <button onClick="{{ goSandra }}" style="{{ tabSandraStyle }}">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 12c0 4-3.8 7.2-8.5 7.2a10 10 0 0 1-2.4-.3L4.5 20.5l1.2-3.4A6.9 6.9 0 0 1 3.5 12c0-4 3.8-7.2 8.5-7.2s8.5 3.2 8.5 7.2z"/></svg>
+              <span style="font-size:10.5px;font-weight:600">Sandra</span>
+            </button>
+            <button onClick="{{ goLiga }}" style="{{ tabLigaStyle }}">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 20V11"/><path d="M12 20V4.5"/><path d="M19 20v-6"/></svg>
+              <span style="font-size:10.5px;font-weight:600">Progresso</span>
+            </button>
+            <button onClick="{{ goFamilia }}" style="{{ tabFamiliaStyle }}">
+              <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/><circle cx="17" cy="9.5" r="2.4"/><path d="M15.5 15c3 0 5 1.8 5 4.5"/></svg>
+              <span style="font-size:10.5px;font-weight:600">Família</span>
+            </button>
+          </div>
+        </sc-if>
+
+      </div>
+    </x-import>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1060},&quot;learnerName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Rob&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;pathStyle&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;caminho&quot;,&quot;lista&quot;],&quot;default&quot;:&quot;caminho&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Home&quot;},&quot;showTranslations&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Learning&quot;}}">
+const OLIVE='#5d6650', TERRA='#c2622e', TERRA_D='#9e4c1f', SAND='#e6dcc6', CREAM='#f2ecdf', INK='#2b271f', FAINT='#a39b88', SAGE_P='#eef0e9', AZUL='#33589b';
+
+const SENT = ['Queria','um','café,','se','faz','favor.'];
+const BANK = ['faz','Queria','favor.','um','se','café,','tomo','muito'];
+
+class Component extends DCLogic {
+  state = {
+    screen: 'home', vocabTab: 'vocab', step: 0,
+    pick: null, checked: false, built: [], typed: '', dialogPick: null,
+    xp: 31, showEn: true
+  };
+
+  set(p){ this.setState(p); }
+  go(screen){ this.setState({ screen }); if (this.host) this.host.scrollTop = 0; }
+
+  reset(){ this.setState({ pick:null, checked:false, built:[], typed:'', dialogPick:null }); }
+
+  next(){
+    const s = this.state.step;
+    if (s >= 5) return;
+    this.setState({ step: s + 1, pick:null, checked:false, typed:'', dialogPick:null,
+      xp: this.state.xp + (s === 5 ? 0 : 7) });
+  }
+
+  check(){ this.setState({ checked: true }); }
+
+  jumpTo(screen, step){
+    this.setState({ screen, step: step === undefined ? this.state.step : step,
+      pick:null, checked:false, built:[], typed:'', dialogPick:null });
+  }
+
+  chip(label, screen, step){
+    const active = this.state.screen === screen;
+    return {
+      label,
+      go: () => this.jumpTo(screen, step),
+      style: 'padding:6px 11px;border-radius:9px;cursor:pointer;font-size:11.5px;font-weight:600;font-family:var(--font-inter);border:1px solid ' +
+        (active ? INK : '#d9cfb8') + ';background:' + (active ? INK : 'rgba(255,255,255,.55)') +
+        ';color:' + (active ? '#faf7f0' : '#6f6858')
+    };
+  }
+
+  optStyle(state){
+    const base = 'width:100%;text-align:left;padding:15px 17px;border-radius:15px;cursor:pointer;font-family:var(--font-inter);display:flex;align-items:center;min-height:56px;transition:all .16s ease;';
+    if (state === 'right') return base + 'border:1.5px solid ' + OLIVE + ';background:' + SAGE_P + ';color:' + INK;
+    if (state === 'wrong') return base + 'border:1.5px solid ' + TERRA + ';background:#f7e6d9;color:' + TERRA_D;
+    if (state === 'sel')   return base + 'border:1.5px solid ' + INK + ';background:#fff;color:' + INK;
+    return base + 'border:1.5px solid ' + SAND + ';background:#fff;color:' + INK;
+  }
+
+  renderVals(){
+    const st = this.state;
+    const p = this.props;
+    const name = p.learnerName || 'Rob';
+    const showEn = p.showTranslations !== false && st.showEn;
+    const scr = st.screen;
+    const isLesson = scr === 'lesson';
+
+    // ---- screen jump strip
+    const jumps = [
+      this.chip('Onboarding','onboarding'),
+      this.chip('Hoje','home'),
+      this.chip('Lição','lesson',0),
+      this.chip('Fim de lição','lesson',5),
+      this.chip('Palavras','palavras'),
+      this.chip('Sandra','sandra'),
+      this.chip('Progresso','liga'),
+      this.chip('Família','familia'),
+      this.chip('Perfil','perfil')
+    ];
+
+    // ---- lesson: listen & choose
+    const LISTEN = ['Where is the butcher’s?','What time is the market?','Where is the bus stop?','How much is the coffee?'];
+    const CORRECT = 2;
+    const listenOpts = LISTEN.map((text,i) => {
+      let s = 'idle';
+      if (st.checked) s = i === CORRECT ? 'right' : (st.pick === i ? 'wrong' : 'idle');
+      else if (st.pick === i) s = 'sel';
+      return { text, style: this.optStyle(s), pick: () => { if(!st.checked) this.set({pick:i}); } };
+    });
+
+    // ---- lesson: word bank
+    const built = st.built.map((w,i) => ({
+      text: w, remove: () => this.set({ built: st.built.filter((_,k)=>k!==i) })
+    }));
+    const used = {};
+    st.built.forEach(w => { used[w] = (used[w]||0)+1; });
+    const seen = {};
+    const bank = BANK.map((w,i) => {
+      seen[w] = (seen[w]||0)+1;
+      const spent = seen[w] <= (used[w]||0);
+      return {
+        text: w,
+        style: 'font-family:var(--font-display);font-size:17px;font-weight:500;padding:9px 15px;border-radius:11px;cursor:pointer;transition:all .14s ease;' +
+          (spent ? 'background:' + CREAM + ';border:1px solid ' + CREAM + ';color:' + CREAM + ';pointer-events:none'
+                 : 'background:#fff;border:1px solid ' + SAND + ';color:' + INK + ';box-shadow:0 2px 0 ' + SAND),
+        add: () => { if(!spent) this.set({ built: st.built.concat([w]) }); }
+      };
+    });
+    const buildRight = st.built.join(' ') === SENT.join(' ');
+
+    // ---- lesson: type it
+    const typedOk = st.typed.trim().toLowerCase().replace(/[.]/g,'') === 'estou a comer o pequeno-almoço';
+    const diffCheck = {
+      verdict: 'quase',
+      attempt: [{text:'Estou',status:'same'},{text:'a',status:'same'},{text:'comer',status:'same'},{text:'o',status:'same'},{text:'pequeno-almoco',status:'wrong'}],
+      target:  [{text:'Estou',status:'same'},{text:'a',status:'same'},{text:'comer',status:'same'},{text:'o',status:'same'},{text:'pequeno-almoço',status:'wrong'}]
+    };
+
+    // ---- lesson: dialogue
+    const DOPTS = ['Queria um galão, se faz favor.','Eu quero pedir o café agora.'];
+    const dialogOpts = DOPTS.map((text,i) => {
+      let s = 'idle';
+      if (st.checked) s = i === 0 ? 'right' : (st.dialogPick === i ? 'wrong' : 'idle');
+      else if (st.dialogPick === i) s = 'sel';
+      return {
+        text,
+        style: this.optStyle(s) + ';font-family:var(--font-display);font-size:16px;min-height:50px;padding:12px 15px',
+        pick: () => { if(!st.checked) this.set({dialogPick:i}); }
+      };
+    });
+
+    // ---- lesson footer
+    const step = st.step;
+    let canAct = false, label = 'Verificar', act = () => this.check();
+    if (step === 0) { canAct = st.pick !== null; }
+    else if (step === 1) { canAct = st.built.length > 0; }
+    else if (step === 2) { canAct = st.typed.trim().length > 0; }
+    else if (step === 3) { canAct = true; label = 'Continuar'; act = () => this.next(); }
+    else if (step === 4) { canAct = st.dialogPick !== null; }
+    if (st.checked) { label = 'Continuar'; act = () => this.next(); canAct = true; }
+    if (step === 1 && st.checked) { /* keep */ }
+
+    let fbText = '', fbBg = '', fbCol = '';
+    if (st.checked) {
+      let ok = true;
+      if (step === 0) ok = st.pick === CORRECT;
+      else if (step === 1) ok = buildRight;
+      else if (step === 2) ok = typedOk;
+      else if (step === 4) ok = st.dialogPick === 0;
+      if (ok) { fbText = 'Isso mesmo! ' + (step === 4 ? 'Um galão é o pedido certo ao balcão.' : 'Boa.'); fbBg = SAGE_P; fbCol = '#4a5140'; }
+      else if (step === 2) { fbText = 'Quase — só o acento em “almoço”.'; fbBg = '#f7e6d9'; fbCol = TERRA_D; }
+      else { fbText = 'Quase! Vê outra vez com calma.'; fbBg = '#f7e6d9'; fbCol = TERRA_D; }
+    }
+
+    const primaryStyle = 'width:100%;min-height:52px;border-radius:16px;border:0;font-family:var(--font-inter);font-size:15.5px;font-weight:600;cursor:pointer;transition:all .16s ease;' +
+      (canAct ? 'background:' + OLIVE + ';color:#faf7f0' : 'background:' + CREAM + ';color:' + FAINT + ';cursor:not-allowed');
+
+    // ---- vocab
+    const mk = (pt,en,due) => ({ pt, en, dotStyle: 'width:8px;height:8px;flex:none;border-radius:50%;background:' + (due==='due'?TERRA:(due==='new'?AZUL:'#c7ccbc')) });
+    const vocabCafe = [
+      mk('o galão','a milky coffee in a glass','due'),
+      mk('a bica','an espresso (Lisbon)','ok'),
+      mk('o pastel de nata','custard tart','ok'),
+      mk('se faz favor','please','due'),
+      mk('a conta','the bill','new')
+    ];
+    const vocabMercado = [
+      mk('o talho','the butcher’s','due'),
+      mk('a peixaria','the fishmonger’s','new'),
+      mk('meio quilo','half a kilo','ok'),
+      mk('está fresco?','is it fresh?','new')
+    ];
+
+    // ---- progress
+    const WK = [['S',34],['T',52],['Q',18],['Q',61],['S',44],['S',31],['D',0]];
+    const week = WK.map(([label,v]) => ({
+      label,
+      barStyle: 'width:100%;border-radius:6px 6px 3px 3px;background:' + (v?'#e8a077':'rgba(250,247,240,.16)') + ';height:' + Math.max(6, v) + 'px'
+    }));
+    const HEAT = [0,2,1,0,3,2,1, 2,3,3,1,0,2,2, 1,0,2,3,3,2,1, 3,2,3,2,3,3,2, 3,3,2,3,1,0,0];
+    const HC = ['#f2ecdf','#dfe3d8','#c7ccbc','#97a08b'];
+    const heat = HEAT.map(v => ({ style: 'aspect-ratio:1;border-radius:5px;background:' + HC[v] }));
+
+    const LG = [[1,'Mia',412],[2,'Carla',388],[3,name,340],[4,'Diogo',291],[5,'Tomás',204]];
+    const league = LG.map(([rank,n,xp]) => {
+      const me = n === name;
+      return {
+        rank, name: n, xp,
+        rowStyle: 'display:flex;align-items:center;gap:13px;padding:13px 15px;border-bottom:1px solid ' + CREAM + ';' + (me ? 'background:' + SAGE_P : ''),
+        rankStyle: 'width:26px;height:26px;flex:none;border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:600;' +
+          (rank <= 3 ? 'background:' + TERRA + ';color:#faf7f0' : 'background:' + CREAM + ';color:' + FAINT)
+      };
+    });
+
+    // ---- family
+    const FAM = [[name,'R','A2','Ao balcão do café · a meio',31,62,SAGE_P,OLIVE],['Mia','M','B1','Terminou tudo hoje',80,100,'#f7e6d9',TERRA_D],['Tomás','T','A1','Ainda não começou',0,0,'#e3eaf6',AZUL]];
+    const family = FAM.map(([n,initial,level,note,xp,pct,bg,fg]) => ({
+      name:n, initial, level, note, xp,
+      avatarStyle: 'width:44px;height:44px;flex:none;border-radius:15px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:17px;font-weight:600;background:' + bg + ';color:' + fg,
+      barStyle: 'height:100%;border-radius:99px;width:' + pct + '%;background:' + fg
+    }));
+
+    // ---- tabs
+    const tab = (key) => {
+      const on = scr === key;
+      return 'flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;padding:7px 2px;border:0;background:none;cursor:pointer;min-height:44px;font-family:var(--font-inter);color:' + (on ? OLIVE : FAINT);
+    };
+    const segTab = (on) => 'flex:1;min-height:38px;border-radius:11px;border:0;cursor:pointer;font-family:var(--font-inter);font-size:13.5px;font-weight:600;' +
+      (on ? 'background:#faf7f0;color:' + OLIVE : 'background:none;color:rgba(250,247,240,.72)');
+
+    return {
+      name, showEn, jumps,
+      isLesson, isHome: scr==='home', isPalavras: scr==='palavras', isSandra: scr==='sandra',
+      isLiga: scr==='liga', isFamilia: scr==='familia', isPerfil: scr==='perfil', isOnboarding: scr==='onboarding',
+      showTabs: !isLesson && scr !== 'onboarding',
+      pathCalcada: (p.pathStyle || 'caminho') === 'caminho',
+      pathList: (p.pathStyle || 'caminho') === 'lista',
+
+      stepListen: isLesson && step===0, stepBuild: isLesson && step===1, stepType: isLesson && step===2,
+      stepSay: isLesson && step===3, stepDialog: isLesson && step===4, stepDone: isLesson && step===5,
+      showFooter: isLesson && step < 5,
+      progressStyle: 'height:100%;border-radius:99px;background:' + OLIVE + ';transition:width .4s cubic-bezier(.3,.8,.3,1);width:' + Math.round((step/5)*100) + '%',
+      xp: st.xp,
+
+      listenOpts, built, bank, dialogOpts, diffCheck,
+      typed: st.typed, onType: (e) => this.set({ typed: e.target.value }),
+      showDiff: st.checked && !typedOk,
+
+      feedbackOn: st.checked && !!fbText,
+      feedbackText: fbText,
+      feedbackStyle: 'padding:12px 15px;border-radius:13px;margin-bottom:10px;font-size:13.5px;font-weight:500;line-height:1.45;animation:ph-rise .2s ease-out;background:' + fbBg + ';color:' + fbCol,
+      primaryLabel: label, primaryStyle,
+      primaryAction: () => { if (canAct) act(); },
+
+      startLesson: () => { this.setState({ screen:'lesson', step:0, pick:null, checked:false, built:[], typed:'', dialogPick:null }); },
+      quitLesson: () => this.jumpTo('home'),
+      restart: () => this.jumpTo('lesson', 0),
+      goHome: () => this.jumpTo('home'), goPalavras: () => this.jumpTo('palavras'),
+      goSandra: () => this.jumpTo('sandra'), goLiga: () => this.jumpTo('liga'),
+      goFamilia: () => this.jumpTo('familia'), goPerfil: () => this.jumpTo('perfil'),
+      goOnboarding: () => this.jumpTo('onboarding'),
+
+      vocabCafe, vocabMercado, week, heat, league, family,
+      showVocab: st.vocabTab === 'vocab', showVerbos: st.vocabTab === 'verbos',
+      tabVocab: () => this.set({ vocabTab:'vocab' }), tabVerbos: () => this.set({ vocabTab:'verbos' }),
+      vocabTabStyle: segTab(st.vocabTab === 'vocab'), verbosTabStyle: segTab(st.vocabTab === 'verbos'),
+
+      toggleEn: () => this.set({ showEn: !st.showEn }),
+      toggleStyle: 'width:46px;height:28px;flex:none;border-radius:99px;border:0;cursor:pointer;padding:3px;display:flex;transition:background .18s ease;background:' + (showEn ? OLIVE : SAND) + ';justify-content:' + (showEn ? 'flex-end' : 'flex-start'),
+      knobStyle: 'width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.2)',
+
+      tabHomeStyle: tab('home'), tabPalavrasStyle: tab('palavras'), tabSandraStyle: tab('sandra'),
+      tabLigaStyle: tab('liga'), tabFamiliaStyle: tab('familia')
+    };
+  }
+}
+</script>
+</body>
+</html>

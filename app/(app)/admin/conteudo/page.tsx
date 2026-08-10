@@ -2,7 +2,7 @@ import Link from "next/link";
 import { UnitRows } from "@/components/admin-content";
 import { ContentList } from "@/components/admin-tools";
 import { getContentOverview } from "@/lib/actions/admin";
-import { requireStaff } from "@/lib/auth";
+import { requireOperator } from "@/lib/auth";
 import { getDb, homework, kudos, notes, quizzes } from "@/lib/db";
 import { titleCase } from "@/lib/people";
 import { formatDate } from "@/lib/utils";
@@ -13,8 +13,9 @@ export const metadata = { title: "Conteúdo" };
 const CEFR_ORDER = ["A1", "A2", "B1", "B2"];
 
 export default async function ContentPage() {
-  const staff = await requireStaff();
-  const isAdmin = staff.role === "admin";
+  await requireOperator();
+  // Past requireOperator() there is only one kind of caller left.
+  const isAdmin = true;
   const content = await getContentOverview();
 
   const db = getDb();

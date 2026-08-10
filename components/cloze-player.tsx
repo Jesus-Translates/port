@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -36,6 +36,29 @@ export function ClozePlayer({
   const [marks, setMarks] = useState<boolean[]>([]);
   const [busy, setBusy] = useState(false);
   const [finished, setFinished] = useState(false);
+  const [reloading, startReload] = useTransition();
+
+  /*
+   * "Outras frases" used to call router.refresh() and nothing else.
+   *
+   * The server duly fetched a new random set — but `finished`, `index` and
+   * `score` are CLIENT state and survive a refresh, so the completion card
+   * re-rendered itself unchanged and the button looked dead.
+   *
+   * The parent keys this component on the sentence ids, so genuinely new data
+   * remounts it with clean state. This clears the card immediately as well,
+   * because ORDER BY random() can hand back the same five — and a button that
+   * silently does nothing is the bug being fixed.
+   */
+  function otherSentences() {
+    setFinished(false);
+    setIndex(0);
+    setTyped("");
+    setResult(null);
+    setScore(0);
+    setMarks([]);
+    startReload(() => router.refresh());
+  }
 
   const sentence = sentences[index];
   const last = index === sentences.length - 1;
@@ -94,9 +117,10 @@ export function ClozePlayer({
           <UnitContinue unit={unit} />
           <button
             className={cn("w-full", unit ? "btn-ghost" : "btn-primary")}
-            onClick={() => router.refresh()}
+            disabled={reloading}
+            onClick={otherSentences}
           >
-            Outras frases →
+            {reloading ? "A procurar…" : "Outras frases →"}
           </button>
         </div>
       </div>

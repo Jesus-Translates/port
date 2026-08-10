@@ -395,9 +395,27 @@ export async function getKudosFor(username: string, limit = 20) {
     .limit(limit);
 }
 
+/**
+ * The household's recent stars.
+ *
+ * TENANCY: this used to select the most recent kudos across the whole
+ * instance, with no filter at all, and /familia renders it for every signed-in
+ * user — so a brand-new family saw another family's names on their own board.
+ * Both ends are checked, not just the recipient: a kudo is a thing that
+ * happens inside one house, and either name leaking is a leak.
+ */
 export async function getRecentKudos(limit = 12) {
   const db = getDb();
-  return db.select().from(kudos).orderBy(desc(kudos.createdAt)).limit(limit);
+  const mine = await householdUsernames();
+  if (mine.length === 0) return [];
+  return db
+    .select()
+    .from(kudos)
+    .where(
+      and(inArray(kudos.fromUser, mine), inArray(kudos.toUser, mine))
+    )
+    .orderBy(desc(kudos.createdAt))
+    .limit(limit);
 }
 
 export async function logActivity(

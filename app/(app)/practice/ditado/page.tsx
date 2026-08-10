@@ -201,7 +201,15 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
             O livro ainda não tem frases suficientes.
           </p>
         ) : (
-          <ClozePlayer sentences={clozes} unit={unit} />
+          // Keyed on the sentence ids: "Outras frases" refreshes this server
+          // component, and without a key React keeps the player mounted with
+          // its finished/score state intact, so the completion card just
+          // re-renders and the button appears to do nothing.
+          <ClozePlayer
+            key={clozes.map((c) => c.id).join(",")}
+            sentences={clozes}
+            unit={unit}
+          />
         )
       ) : picks.length === 0 ? (
         <p className="card p-6 text-center text-sm text-ink-soft">
@@ -209,6 +217,7 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
         </p>
       ) : (
         <DitadoPlayer
+          key={picks.map((p) => p.id).join(",")}
           sentences={picks.map((p) => ({ id: p.id, en: p.en }))}
           unit={unit}
         />

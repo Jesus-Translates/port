@@ -13,6 +13,11 @@ export default defineConfig([
       ".vercel/**",
       ".claude/**",
       "next-env.d.ts",
+      // Design-system sync output: a compiled bundle of our own components
+      // plus vendored React. Generated, gitignored, and not ours to lint.
+      "ds-bundle/**",
+      ".ds-sync/**",
+      ".design-sync/**",
     ],
   },
 ]);

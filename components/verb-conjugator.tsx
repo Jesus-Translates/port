@@ -17,13 +17,17 @@ import { personLabel, TENSE_LABEL, type Tense, VERBS } from "@/lib/verbs";
  * Consultar — the full paradigm of one verb, every form with its own play
  * button, and the tenses where this verb breaks the pattern called out.
  */
+export type VerbConjugatorProps = {
+  /** Infinitive to open on, e.g. "falar". Defaults to "falar". */
+  initialVerb?: string;
+  /** Tense to filter to on open. Defaults to showing every tense. */
+  initialTense?: Tense;
+};
+
 export function VerbConjugator({
   initialVerb,
   initialTense,
-}: {
-  initialVerb?: string;
-  initialTense?: Tense;
-}) {
+}: VerbConjugatorProps) {
   const [query, setQuery] = useState("");
   const [inf, setInf] = useState(initialVerb ?? "falar");
   const [only, setOnly] = useState<Tense | "todos">(initialTense ?? "todos");

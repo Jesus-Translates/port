@@ -35,6 +35,25 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }
 
+/*
+ * Two steps the palette lacked, both needed by the O Caminho redesign.
+ *
+ * olive-deep is the calçada stone's flat 3px bottom shadow — no blur, so the
+ * stones read as physical paving rather than floating cards. terra-light is
+ * for marks that sit ON the olive band (chart bars, the streak flame), where
+ * full terra is too close in value to read.
+ *
+ * `static` is load-bearing: both are used inside arbitrary values —
+ * shadow-[0_3px_0_var(--color-olive-deep)] — where Tailwind cannot see the
+ * reference and tree-shakes the variable away. A plain @theme block compiled
+ * to nothing at all here, which is silent: the class name survives, the
+ * shadow just never renders.
+ */
+@theme static {
+  --color-olive-deep: #4a5140;
+  --color-terra-light: #e8a077;
+}
+
 @layer base {
   body {
     @apply bg-paper text-ink font-sans antialiased;
@@ -149,7 +168,172 @@
   .chip {
     @apply inline-flex items-center gap-1 rounded-full bg-sage-pale px-2.5 py-0.5 text-xs font-medium text-olive;
   }
+
+  /*
+   * Azulejo — the one piece of decoration in the whole design.
+   *
+   * Layered gradients over olive, no image: two offset dot grids and a
+   * diagonal hatch. The app was "a stack of white cards on cream with no
+   * branded surface"; this band is the fix, and it is why it appears on every
+   * screen rather than just the home page.
+   *
+   * Three sizes of field, three opacities. The same alpha that reads as a
+   * subtle texture on a 200px band reads as dirt across a full-screen one, so
+   * the larger the field the lower the contrast.
+   */
+  .azulejo {
+    background:
+      radial-gradient(
+        circle at 0 0,
+        rgba(250, 247, 240, 0.1) 4px,
+        transparent 4.5px
+      ),
+      radial-gradient(
+        circle at 20px 20px,
+        rgba(250, 247, 240, 0.1) 4px,
+        transparent 4.5px
+      ),
+      linear-gradient(
+        135deg,
+        rgba(250, 247, 240, 0.05) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(250, 247, 240, 0.05) 50%,
+        rgba(250, 247, 240, 0.05) 75%,
+        transparent 75%
+      ),
+      var(--color-olive);
+    background-size:
+      40px 40px,
+      40px 40px,
+      28px 28px,
+      auto;
+  }
+  /* Secondary screens: dots only. Their bands are short, and the diagonal
+     reads as noise rather than tile at that height. */
+  .azulejo-soft {
+    background:
+      radial-gradient(
+        circle at 0 0,
+        rgba(250, 247, 240, 0.1) 4px,
+        transparent 4.5px
+      ),
+      radial-gradient(
+        circle at 20px 20px,
+        rgba(250, 247, 240, 0.1) 4px,
+        transparent 4.5px
+      ),
+      var(--color-olive);
+    background-size:
+      40px 40px,
+      40px 40px,
+      auto;
+  }
+  /* Onboarding: the field is the whole screen, so both layers drop back. */
+  .azulejo-vast {
+    background:
+      radial-gradient(
+        circle at 0 0,
+        rgba(250, 247, 240, 0.09) 4px,
+        transparent 4.5px
+      ),
+      radial-gradient(
+        circle at 20px 20px,
+        rgba(250, 247, 240, 0.09) 4px,
+        transparent 4.5px
+      ),
+      linear-gradient(
+        135deg,
+        rgba(250, 247, 240, 0.045) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(250, 247, 240, 0.045) 50%,
+        rgba(250, 247, 240, 0.045) 75%,
+        transparent 75%
+      ),
+      var(--color-olive);
+    background-size:
+      40px 40px,
+      40px 40px,
+      28px 28px,
+      auto;
+  }
+
+  /*
+   * The column the calçada path and the lesson drill live in.
+   *
+   * Both are designed against a phone-width column and must NOT stretch on a
+   * desktop window: the path's offsets are absolute pixels that only make
+   * sense at this width, and a drill line 1200px wide is unreadable. Every
+   * other surface is free to use the space.
+   */
+  .column-phone {
+    @apply mx-auto w-full max-w-[440px];
+  }
+}
+
+/*
+ * Redesign motion. Three keyframes, each doing one job:
+ *   ph-pulse — the current calçada stone, so the eye lands on the one thing
+ *              to tap without an arrow or a "start here" label.
+ *   ph-rise  — each drill step body and the feedback banner on mount.
+ *   ph-pop   — the completion badge.
+ * The prefers-reduced-motion block in @layer base collapses all three.
+ */
+@keyframes ph-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(194, 98, 46, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(194, 98, 46, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(194, 98, 46, 0);
+  }
+}
+@keyframes ph-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ph-pop {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@layer components {
+  .animate-ph-pulse {
+    animation: ph-pulse 2.4s ease-out infinite;
+  }
+  .animate-ph-rise {
+    animation: ph-rise 0.3s ease-out;
+  }
+  .animate-ph-pop {
+    animation: ph-pop 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.4) both;
+  }
   .prose-basic {
-    @apply text-[15px] leading-relaxed [&_a]:text-azul [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-sage [&_blockquote]:pl-3 [&_blockquote]:text-ink-soft [&_code]:rounded [&_code]:bg-cream [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px] [&_h1]:mt-4 [&_h1]:mb-2 [&_h1]:text-xl [&_h2]:mt-4 [&_h2]:mb-2 [&_h2]:text-lg [&_h3]:mt-3 [&_h3]:mb-1.5 [&_h3]:text-base [&_h3]:font-semibold [&_li]:my-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_strong]:font-semibold [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5;
+    /* Headings carry font-display AND an explicit weight: preflight resets
+       h1/h2 to inherit, so without it a "## Estar a + infinitivo" in a unit
+       note renders at body weight and stops reading as a heading.
+
+       Tables are styled here because the unit notes use them constantly for
+       pt-PT vs pt-BR contrasts. With no rules at all the cells collapse
+       together — "Português europeuO que se ouve no Brasil" — which is how
+       every note with a table looked. */
+    @apply text-[15px] leading-relaxed [&_a]:text-azul [&_a]:underline [&_blockquote]:border-l-2 [&_blockquote]:border-sage [&_blockquote]:pl-3 [&_blockquote]:text-ink-soft [&_code]:rounded [&_code]:bg-cream [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[13px] [&_h1]:mt-4 [&_h1]:mb-2 [&_h1]:font-display [&_h1]:text-xl [&_h1]:font-semibold [&_h2]:mt-4 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-lg [&_h2]:font-semibold [&_h3]:mt-3 [&_h3]:mb-1.5 [&_h3]:font-display [&_h3]:text-base [&_h3]:font-semibold [&_li]:my-1 [&_ol]:my-2 [&_ol]:list-decimal [&_ol]:pl-5 [&_p]:my-2 [&_strong]:font-semibold [&_table]:my-3 [&_table]:w-full [&_table]:border-collapse [&_table]:text-[14px] [&_th]:border [&_th]:border-sand [&_th]:bg-cream [&_th]:px-2 [&_th]:py-1.5 [&_th]:text-left [&_th]:font-semibold [&_td]:border [&_td]:border-sand [&_td]:px-2 [&_td]:py-1.5 [&_td]:align-top [&_ul]:my-2 [&_ul]:list-disc [&_ul]:pl-5;
   }
 }

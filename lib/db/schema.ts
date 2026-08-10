@@ -563,3 +563,34 @@ export const authTokens = pgTable("auth_tokens", {
   usedAt: timestamp("used_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+/**
+ * A spoken conversation with Sandra, kept so it survives leaving the page.
+ *
+ * The conversation used to live entirely in React state: navigate away and the
+ * whole exchange was gone, which made Sandra the one part of the app with no
+ * memory of you. It is also where the step's XP accumulates, and progress you
+ * cannot leave and come back to is not progress.
+ *
+ * One OPEN row per learner per topic; finishing sets status to "done" so the
+ * next visit starts fresh rather than resuming a conversation that already
+ * earned its completion.
+ */
+export const conversas = pgTable("conversas", {
+  id: serial("id").primaryKey(),
+  username: text("username").notNull(),
+  topic: text("topic").notNull().default(""),
+  /** Pinned per session so Sandra does not change voice mid-conversation. */
+  voice: text("voice").notNull().default(""),
+  cefr: text("cefr").notNull().default("A2"),
+  /** The unit path item this fulfils, when it was opened from a course. */
+  unitItemId: integer("unit_item_id"),
+  /** Msg[] — role, pt, en. Audio is NOT stored; it is regenerated on demand. */
+  messages: jsonb("messages").notNull(),
+  /** Earned across the learner's turns, judged on quality. 100 completes. */
+  xp: integer("xp").notNull().default(0),
+  // open | done
+  status: text("status").notNull().default("open"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

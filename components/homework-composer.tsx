@@ -7,11 +7,20 @@ import { createHomework } from "@/lib/actions/homework";
 export function HomeworkComposer({
   initialTopic = "",
   unitItemId,
+  unitSlug,
 }: {
   initialTopic?: string;
   /** Set when this TPC fulfils a unit path item, so finishing it ticks the
    *  course forward instead of leaving the bar at zero. */
   unitItemId?: number | null;
+  /**
+   * The unit that sent us here. Needed as well as the item id: the WORK
+   * happens at /homework/[id], and that page rebuilds its unit context from
+   * `?unidade=&item=`. Without the slug in the URL the new TPC opened with no
+   * course context at all — no "back to the unit", no continue button when
+   * you finished, and the step never ticked.
+   */
+  unitSlug?: string | null;
 }) {
   const router = useRouter();
   const [mode, setMode] = useState<"sandra" | "class" | null>(
@@ -39,7 +48,13 @@ export function HomeworkComposer({
       });
       if (!res.ok) throw new Error();
       const { id } = await res.json();
-      router.push(`/homework/${id}`);
+      // Carry the course context onto the work page, or finishing it has
+      // nowhere to go back to.
+      const q =
+        unitSlug && unitItemId
+          ? `?unidade=${encodeURIComponent(unitSlug)}&item=${unitItemId}`
+          : "";
+      router.push(`/homework/${id}${q}`);
     } catch {
       setError("A Sandra não respondeu. Tenta outra vez.");
       setBusy(false);

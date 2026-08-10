@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { RevoiceClips } from "@/components/revoice-clips";
 import { getMonthSpendByKind, getSystemStats } from "@/lib/actions/admin";
-import { requireStaff } from "@/lib/auth";
+import { requireOperator } from "@/lib/auth";
 import { azureConfigured, azureVoices } from "@/lib/tts";
 import { formatEur } from "@/lib/usage";
 
@@ -36,10 +37,10 @@ const KIND_LABEL: Record<string, string> = {
 };
 
 export default async function SystemPage() {
-  const staff = await requireStaff();
-  // Spend, storage and table counts are the admin's business only. 404 rather
-  // than redirect so this page does not confirm it exists to a teacher.
-  if (staff.role !== "admin") notFound();
+  // Spend, storage and table counts read across every household, so this is
+  // the INSTANCE operator's page — not a family admin's. requireOperator
+  // redirects anyone else before a single row is read.
+  await requireOperator();
 
   const [stats, byKind] = await Promise.all([
     getSystemStats(),
@@ -122,6 +123,13 @@ export default async function SystemPage() {
               Vozes em rotação: {azureVoices().join(" · ")}
             </p>
           ) : null}
+        </div>
+
+        {/* Lives here rather than in a script because the Azure keys are only
+            present in the deployed environment — this is where the repair can
+            actually run. */}
+        <div className="mt-3">
+          <RevoiceClips />
         </div>
       </section>
 

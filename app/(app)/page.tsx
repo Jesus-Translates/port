@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { AzulejoHeader, BandTile } from "@/components/azulejo-header";
+import { CalcadaPath } from "@/components/calcada-path";
+import { IconFlame } from "@/components/icons";
 import { requireSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
 import {
@@ -8,10 +11,13 @@ import {
   getStats,
   hasBeenPlaced,
 } from "@/lib/data";
-import { getCourseProgress } from "@/lib/actions/course";
+import { getCaminho, getCourseProgress } from "@/lib/actions/course";
+import { getMyTodayXp } from "@/lib/actions/leaderboard";
+import { dailyGoal, DEFAULT_PREFS } from "@/lib/learning-path";
 import { getMyPrefs } from "@/lib/actions/profile";
 import { resolveNextAction } from "@/lib/next-action";
 import { avatarFor, titleCase } from "@/lib/people";
+import { cn } from "@/lib/utils";
 import { countDue } from "@/lib/srs";
 
 const KIND_EMOJI: Record<string, string> = {
@@ -35,21 +41,35 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, board, myKudos, due, next, course, placed, prefs] =
-    await Promise.all([
-      getStats(session.username),
-      getHomeworkAll(),
-      householdUsernames().then(getFamilyBoard).catch(() => []),
-      getKudosFor(session.username, 5).catch(() => []),
-      countDue(session.username).catch(() => 0),
-      resolveNextAction(session.username, session.displayName),
-      getCourseProgress().catch(() => null),
-      hasBeenPlaced(session.username).catch(() => true),
-      getMyPrefs().catch(() => null),
-    ]);
+  const [
+    stats,
+    allHomework,
+    board,
+    myKudos,
+    due,
+    next,
+    course,
+    placed,
+    prefs,
+    caminho,
+    todayXp,
+  ] = await Promise.all([
+    getStats(session.username),
+    getHomeworkAll(),
+    householdUsernames().then(getFamilyBoard).catch(() => []),
+    getKudosFor(session.username, 5).catch(() => []),
+    countDue(session.username).catch(() => 0),
+    resolveNextAction(session.username, session.displayName),
+    getCourseProgress().catch(() => null),
+    hasBeenPlaced(session.username).catch(() => true),
+    getMyPrefs().catch(() => null),
+    getCaminho().catch(() => []),
+    getMyTodayXp().catch(() => 0),
+  ]);
   const prefsAnswered = prefs !== null;
-  const myRank = board.findIndex((m) => m.username === session.username) + 1;
-  const myStars = board.find((m) => m.username === session.username)?.stars ?? 0;
+  // Rank and stars used to sit in the old header. The azulejo band carries
+  // streak and daily goal instead, and the ranking lives on Família where it
+  // has room to mean something.
 
   const openHomework = allHomework.filter(
     (h) => h.username === session.username && h.status === "open"
@@ -61,70 +81,88 @@ export default async function Dashboard() {
     timeZone: "Europe/Lisbon",
   });
 
+  // Today's XP against this learner's own daily goal, for the ring on the band.
+  const goal = dailyGoal(prefs ?? DEFAULT_PREFS);
+  const goalPct = Math.min(100, Math.round((todayXp / Math.max(1, goal)) * 100));
+
   return (
     <div className="space-y-6">
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div>
-          <p className="text-sm text-ink-faint capitalize">{today}</p>
-          <h1 className="mt-1 text-3xl font-semibold tracking-tight">
-            Olá, {session.displayName}! 👋
-          </h1>
-        </div>
-        <div className="flex gap-3">
-          <div className="card px-4 py-2.5 text-center">
-            <div className="text-lg leading-tight font-bold text-terra">
-              {stats.streakDays > 0 ? `🔥 ${stats.streakDays}` : "🌱 0"}
+      <AzulejoHeader
+        variant="full"
+        eyebrow={today}
+        title={`Bom dia, ${session.displayName}`}
+        avatar={avatarFor(session.displayName)}
+      >
+        <div className="flex gap-2.5">
+          <BandTile label="Fogo">
+            <IconFlame size={15} className="mr-1 text-terra-light" />
+            <span className="font-display text-[27px] leading-none font-semibold">
+              {stats.streakDays}
+            </span>
+            <span className="text-[13px] text-paper/60">
+              {stats.streakDays === 1 ? "dia" : "dias"}
+            </span>
+          </BandTile>
+
+          <div className="flex flex-1 items-center gap-3 rounded-2xl bg-paper/15 px-3.5 py-3">
+            {/* The ring is a conic-gradient with a punched centre — no SVG, no
+                library, and it inherits the band's olive for the hole. */}
+            <div
+              className="grid size-[34px] shrink-0 place-items-center rounded-full"
+              style={{
+                background: `conic-gradient(var(--color-terra-light) 0 ${goalPct}%, rgba(250,247,240,.18) ${goalPct}% 100%)`,
+              }}
+              aria-hidden
+            >
+              <span className="size-[23px] rounded-full bg-olive" />
             </div>
-            <div className="text-2xs text-ink-soft">day streak</div>
+            <div className="min-w-0">
+              <p className="text-[11px] font-semibold tracking-[.09em] text-paper/70 uppercase">
+                Meta de hoje
+              </p>
+              <p className="mt-0.5">
+                <span className="font-display text-[21px] leading-none font-semibold">
+                  {todayXp}
+                </span>
+                <span className="text-[12px] text-paper/60">/{goal}</span>
+              </p>
+            </div>
           </div>
-          <div className="card px-4 py-2.5 text-center">
-            <div className="text-lg leading-tight font-bold text-olive">
-              {stats.xp}
-            </div>
-            <div className="text-2xs text-ink-soft">XP total</div>
-          </div>
-          <Link
-            href="/familia"
-            className="card px-4 py-2.5 text-center transition-colors hover:border-sage"
-          >
-            <div className="text-lg leading-tight font-bold text-azul">
-              {myRank > 0 ? `${myRank}º` : "—"}
-            </div>
-            <div className="text-2xs text-ink-soft">
-              {myStars > 0 ? `⭐ ${myStars}` : "na família"}
-            </div>
-          </Link>
         </div>
-      </header>
+      </AzulejoHeader>
 
       {/* One answer to "what now?", so a session never starts with a decision
           across twenty identical tiles. The banners below suppress themselves
           when this card already points at the same place. */}
       <Link
         href={next.href}
-        className="group block rounded-2xl border border-olive/30 bg-sage-pale/70 p-5 transition-all hover:border-olive hover:shadow-md"
+        className="group block overflow-hidden rounded-[20px] border border-sand bg-white shadow-[0_2px_10px_rgba(43,39,31,.05)] transition-all hover:border-sage hover:shadow-md"
       >
-        <div className="flex items-center gap-4">
-          <span className="text-3xl" aria-hidden>
-            {next.emoji}
-          </span>
-          <div className="min-w-0 flex-1">
-            <div className="text-2xs font-semibold tracking-widest text-olive/70 uppercase">
-              A seguir
-            </div>
-            <div className="font-display text-xl font-semibold text-olive group-hover:underline">
-              {next.label}
-            </div>
-            <p className="mt-0.5 text-sm text-ink-soft">{next.why}</p>
+        <div className="p-[17px_18px_16px]">
+          <div className="flex items-center gap-2">
+            <span className="chip bg-terra-pale text-terra-dark">
+              {next.emoji} A seguir
+            </span>
           </div>
-          <span
-            className="shrink-0 text-2xl text-olive transition-transform group-hover:translate-x-1"
-            aria-hidden
-          >
+          <p className="mt-2 font-display text-[22px] leading-tight font-semibold tracking-[-.01em]">
+            {next.label}
+          </p>
+          <p className="mt-1 text-[13.5px] leading-relaxed text-ink-soft">
+            {next.why}
+          </p>
+        </div>
+        <div className="flex items-center justify-between bg-olive px-[18px] py-[13px] text-[14.5px] font-semibold text-paper">
+          <span>Começar</span>
+          <span className="transition-transform group-hover:translate-x-1" aria-hidden>
             →
           </span>
         </div>
       </Link>
+
+      <CalcadaPath
+        stones={caminho}
+        unitLabel={course ? `Nível ${course.level}` : null}
+      />
 
       {course && course.unitsTotal > 0 ? (
         <section>
@@ -274,6 +312,48 @@ export default async function Dashboard() {
         </section>
       ) : null}
 
+
+      {/* Who else is at it today. Three tiles, not a leaderboard — the ranking
+          lives on Família, and the point here is only "you are not alone". */}
+      {board.length > 1 ? (
+        <section>
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            {/* "esta semana", not "hoje": getFamilyBoard gives a weekly total,
+                and labelling it today's would be a number that quietly lies. */}
+            <p className="label mb-0">A família esta semana</p>
+            <Link href="/familia" className="text-xs text-azul hover:underline">
+              Ver todos
+            </Link>
+          </div>
+          <div className="grid grid-cols-3 gap-2.5 sm:grid-cols-4 lg:grid-cols-6">
+            {board.slice(0, 6).map((m) => (
+              <Link
+                key={m.username}
+                href="/familia"
+                className={cn(
+                  "card flex flex-col items-center gap-1.5 px-2.5 py-3 text-center transition-colors hover:border-sage",
+                  m.username === session.username && "border-sage bg-sage-pale/40"
+                )}
+              >
+                <span className="grid size-9 place-items-center rounded-xl bg-cream font-display text-sm font-semibold text-olive">
+                  {avatarFor(m.username)}
+                </span>
+                <span className="w-full truncate text-[12.5px] font-semibold">
+                  {titleCase(m.username)}
+                </span>
+                <span
+                  className={cn(
+                    "text-[11px] font-semibold",
+                    m.xpThisWeek > 0 ? "text-terra" : "text-ink-faint"
+                  )}
+                >
+                  {m.xpThisWeek > 0 ? `${m.xpThisWeek} XP` : "Por fazer"}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       {stats.recent.length > 0 ? (
         <section>

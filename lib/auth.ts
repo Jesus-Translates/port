@@ -205,3 +205,22 @@ export async function requireAdmin(): Promise<Session> {
   if ((await roleOf(session.username)) !== "admin") redirect("/");
   return session;
 }
+
+/**
+ * The INSTANCE operator — the person who runs the deployment.
+ *
+ * The distinction from requireAdmin() is load-bearing and easy to miss.
+ * `roleOf()` reads users.role, and /registar sets role "admin" on whoever
+ * creates a family, because they administer THEIR household. That means every
+ * self-registered family owner satisfies requireAdmin(), which is correct for
+ * their own family and catastrophic for anything instance-wide: it was enough
+ * to reach every household's spend report.
+ *
+ * Only ADMIN_USERS gets past this. Use it for any surface that reads across
+ * households — system stats, all-content views, revenue reporting.
+ */
+export async function requireOperator(): Promise<Session> {
+  const session = await requireSession();
+  if (envRole(session.username) !== "admin") redirect("/");
+  return session;
+}

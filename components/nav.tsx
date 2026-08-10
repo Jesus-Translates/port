@@ -2,33 +2,78 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import {
+  IconBook,
+  IconChart,
+  IconChat,
+  IconHome,
+  IconPeople,
+} from "@/components/icons";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 /**
- * Five tabs, ~75px each on a phone instead of eight at ~47px.
+ * Hoje · Palavras · Sandra · Progresso · Família.
  *
- * Livro, Lições, TPC and Notas are not gone — they live one tap inside
- * Praticar. Eight equally-weighted tabs made every session start with a
- * decision; this makes the guided path the obvious thing and everything else
- * findable in one place.
+ * The O Caminho redesign retired the Curso and Praticar tabs. Neither surface
+ * is gone: the course is now the calçada path ON Hoje, and Praticar's contents
+ * are reached from the screen they belong to — vocabulary and review from
+ * Palavras, games from Progresso, the rest from the "Tudo" link on Hoje.
  *
- * That was aspirational for two of them until 2026-08-10: Lições (/workbook)
- * and Notas (/notes) were linked from nowhere at all, so seven lessons — one
- * family-written — sat unreachable behind a URL nobody had. Both are now in
- * the Praticar footnote. If you demote a surface again, link it somewhere in
- * the same commit.
+ * The rule this file has carried since 2026-08-10 still applies, and applies
+ * doubly to a retab: if you demote a surface, LINK IT SOMEWHERE IN THE SAME
+ * COMMIT. Last time /workbook and /notes were dropped from the bar and became
+ * unreachable — seven lessons, one written by the family, behind a URL nobody
+ * had. `also` below is the other half of that promise: every retired route
+ * still lights a tab, so no screen reads as outside the app.
  */
 const TABS = [
-  { href: "/", emoji: "🏠", label: "Hoje", short: "Hoje" },
-  { href: "/unidades", emoji: "🎓", label: "Curso", short: "Curso" },
-  { href: "/practice", emoji: "🧭", label: "Praticar", short: "Praticar" },
-  { href: "/tutor", emoji: "👩‍🏫", label: "Sandra", short: "Sandra" },
-  { href: "/familia", emoji: "🏆", label: "Família", short: "Família" },
+  {
+    href: "/",
+    label: "Hoje",
+    Icon: IconHome,
+    // The course, the drills and everything Praticar used to hold.
+    also: [
+      "/unidades",
+      "/practice",
+      "/missoes",
+      "/workbook",
+      "/stories",
+      "/escutar",
+      "/notes",
+      "/homework",
+    ],
+  },
+  {
+    href: "/palavras",
+    label: "Palavras",
+    Icon: IconBook,
+    also: ["/reference", "/verbos"],
+  },
+  { href: "/tutor", label: "Sandra", Icon: IconChat, also: [] },
+  { href: "/progresso", label: "Progresso", Icon: IconChart, also: ["/jogos", "/gastos"] },
+  { href: "/familia", label: "Família", Icon: IconPeople, also: [] },
 ];
 
-function isActive(pathname: string, href: string) {
-  return href === "/" ? pathname === "/" : pathname.startsWith(href);
+function isActive(pathname: string, tab: (typeof TABS)[number]) {
+  // /practice/rever belongs to Palavras (it is the SRS queue), while the rest
+  // of /practice belongs to Hoje — so the more specific prefix wins.
+  if (pathname.startsWith("/practice/rever")) return tab.href === "/palavras";
+  if (tab.href === "/") {
+    return pathname === "/" || tab.also.some((p) => pathname.startsWith(p));
+  }
+  return (
+    pathname.startsWith(tab.href) || tab.also.some((p) => pathname.startsWith(p))
+  );
+}
+
+/**
+ * Screens that own the whole viewport and supply their own chrome: the lesson
+ * drill (its top bar has the ✕ and the progress track) and the placement flow.
+ * A tab bar under a drill invites you to leave halfway through.
+ */
+function isImmersive(pathname: string) {
+  return /^\/practice\/\d+/.test(pathname) || pathname.startsWith("/bem-vindo");
 }
 
 export function Nav({
@@ -51,9 +96,15 @@ export function Nav({
     router.refresh();
   }
 
+  if (isImmersive(pathname)) return null;
+
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-sand bg-paper/90 backdrop-blur">
+      {/* Desktop only. On a phone the azulejo band IS the top of the screen —
+          two stacked headers was the "generic" look the redesign is fixing.
+          Everything this bar holds (spend, painel, sair) is on Perfil, which
+          the band's avatar links to. */}
+      <header className="sticky top-0 z-40 hidden border-b border-sand bg-paper/90 backdrop-blur sm:block">
         <div className="mx-auto flex max-w-5xl items-center gap-3 px-4 py-3">
           <Link href="/" className="flex shrink-0 items-baseline gap-1.5">
             <span className="font-display text-xl font-semibold tracking-tight">
@@ -98,25 +149,30 @@ export function Nav({
           </button>
         </div>
 
-        {/* Desktop / tablet: pill row. On phones the bottom bar takes over. */}
+        {/* Desktop / tablet: pill row. On phones the bottom bar takes over —
+            a sticky bottom bar in a desktop window is a phone artefact. */}
         <nav className="mx-auto hidden max-w-5xl px-2 pb-2 sm:block">
           <ul className="flex flex-wrap gap-1">
-            {TABS.map((t) => (
-              <li key={t.href}>
-                <Link
-                  href={t.href}
-                  className={cn(
-                    "flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
-                    isActive(pathname, t.href)
-                      ? "bg-olive text-paper"
-                      : "text-ink-soft hover:bg-sage-pale hover:text-ink"
-                  )}
-                >
-                  <span aria-hidden>{t.emoji}</span>
-                  {t.label}
-                </Link>
-              </li>
-            ))}
+            {TABS.map((t) => {
+              const active = isActive(pathname, t);
+              return (
+                <li key={t.href}>
+                  <Link
+                    href={t.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm font-medium transition-colors",
+                      active
+                        ? "bg-olive text-paper"
+                        : "text-ink-soft hover:bg-sage-pale hover:text-ink"
+                    )}
+                  >
+                    <t.Icon size={17} />
+                    {t.label}
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </header>
@@ -126,33 +182,25 @@ export function Nav({
       <nav className="fixed inset-x-0 bottom-0 z-50 border-t border-sand bg-paper/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden">
         <ul className="flex items-stretch justify-between px-1">
           {TABS.map((t) => {
-            const active = isActive(pathname, t.href);
+            const active = isActive(pathname, t);
             return (
               <li key={t.href} className="flex-1">
                 <Link
                   href={t.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-lg px-px py-1.5 transition-colors",
+                    "flex min-h-14 flex-col items-center justify-center gap-1 rounded-lg px-px py-1.5 transition-colors",
                     active ? "text-olive" : "text-ink-faint"
                   )}
                 >
-                  <span
-                    className={cn(
-                      "text-lg leading-none transition-transform",
-                      active && "scale-110"
-                    )}
-                    aria-hidden
-                  >
-                    {t.emoji}
-                  </span>
+                  <t.Icon size={21} />
                   <span
                     className={cn(
                       "text-2xs leading-tight",
                       active && "font-semibold"
                     )}
                   >
-                    {t.short}
+                    {t.label}
                   </span>
                 </Link>
               </li>

@@ -5,6 +5,13 @@ import { AddToDeck } from "@/components/add-to-deck";
 import { Markdown } from "@/components/markdown";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
+import {
+  finishConversa,
+  loadOpenConversa,
+  saveTurn,
+  startConversa,
+} from "@/lib/actions/conversa";
+import { CONVERSA_GOAL } from "@/lib/conversa";
 import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
@@ -33,9 +40,30 @@ type Summary = {
   encouragementPt: string;
 };
 
+/**
+ * Sandra's voice, with a handle on it.
+ *
+ * This used to be `new Audio(...).play()` — fire and forget, with no reference
+ * kept anywhere. Nothing could stop it: leaving the page mid-sentence left her
+ * talking over whatever you opened next, and starting a new reply layered a
+ * second voice on top of the first. The element is module-level because there
+ * is only ever one Sandra, and she should never talk over herself.
+ */
+let current: HTMLAudioElement | null = null;
+
 function play(b64: string | null | undefined) {
+  stopSpeaking();
   if (!b64) return;
-  new Audio(`data:audio/mpeg;base64,${b64}`).play().catch(() => {});
+  const a = new Audio(`data:audio/mpeg;base64,${b64}`);
+  current = a;
+  a.play().catch(() => {});
+}
+
+export function stopSpeaking() {
+  if (!current) return;
+  current.pause();
+  current.src = "";
+  current = null;
 }
 
 /** Spoken back-and-forth with Sandra: she talks, you answer by mic (or keyboard). */
@@ -64,6 +92,14 @@ export function Conversa({
   /** True only once the unit step really was ticked — never claimed on faith. */
   const [unitTicked, setUnitTicked] = useState(false);
 
+  /** The stored row, so the conversation survives leaving the page. */
+  const [convId, setConvId] = useState<number | null>(null);
+  /** Server-held total. Never incremented locally — it gates course progress. */
+  const [xp, setXp] = useState(0);
+  /** What the last answer earned, shown briefly so the score is explicable. */
+  const [gain, setGain] = useState<{ xp: number; why: string } | null>(null);
+  const [restoring, setRestoring] = useState(true);
+
   /** What this unit asked them to talk about: its item topic, else its name. */
   const unitTopic = (initialTopic || unit?.titlePt || unit?.title || "").trim();
 
@@ -72,11 +108,53 @@ export function Conversa({
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const bottomRef = useRef<HTMLDivElement | null>(null);
 
-  const userTurns = msgs.filter((m) => m.role === "eu").length;
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }, [msgs.length, pending]);
+
+  // Leaving mid-sentence must not leave Sandra talking over the next screen.
+  useEffect(() => stopSpeaking, []);
+
+  /*
+   * Pick the conversation back up.
+   *
+   * It used to live entirely in React state, so leaving the page threw the
+   * whole exchange away — Sandra was the one part of the app with no memory of
+   * you, and any XP earned toward finishing the step went with it.
+   *
+   * Audio is deliberately not restored: it would mean re-synthesizing every
+   * line to reopen a page. The text is what you came back for.
+   */
+  useEffect(() => {
+    let live = true;
+    loadOpenConversa(unit?.itemId ?? null)
+      .then((row) => {
+        if (!live || !row) return;
+        setConvId(row.id);
+        setTopic(row.topic);
+        setVoice(row.voice);
+        setXp(row.xp);
+        setMsgs(
+          row.messages.map((m) => ({
+            role: m.role,
+            text: m.pt,
+            glossEn: m.en,
+            audioB64: null,
+          }))
+        );
+        if (row.messages.length > 0) setPhase("talk");
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (live) setRestoring(false);
+      });
+    return () => {
+      live = false;
+    };
+    // Once, on mount: reopening mid-conversation must not re-fetch and clobber.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     return () => {
@@ -105,16 +183,28 @@ export function Conversa({
       if (!res.ok) throw new Error(data.error);
       setTopic(data.topic);
       setVoice(data.voice ?? "");
-      setMsgs([
-        {
-          role: "sandra",
-          text: data.openerPt,
-          glossEn: data.glossEn,
-          audioB64: data.audioB64,
-        },
-      ]);
+      const opener = {
+        role: "sandra" as const,
+        text: data.openerPt,
+        glossEn: data.glossEn,
+        audioB64: data.audioB64,
+      };
+      setMsgs([opener]);
+      setXp(0);
+      setGain(null);
       setPhase("talk");
       play(data.audioB64);
+
+      // Persist immediately, so a conversation abandoned after one line is
+      // still there when they come back rather than starting over.
+      const row = await startConversa({
+        topic: data.topic,
+        voice: data.voice ?? "",
+        cefr,
+        unitItemId: unit?.itemId ?? null,
+        messages: [{ role: "sandra", pt: data.openerPt, en: data.glossEn }],
+      }).catch(() => null);
+      if (row) setConvId(row.id);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Não deu para começar.");
     } finally {
@@ -122,22 +212,51 @@ export function Conversa({
     }
   }
 
+  /**
+   * One exchange: the learner's line, Sandra's reply, and what it was worth.
+   *
+   * Both the spoken and typed paths land here, so persistence and scoring are
+   * wired once. The XP shown is whatever the SERVER returns — the client never
+   * adds up its own total, because reaching 100 is what unlocks the course
+   * step.
+   */
   function applyTurn(data: {
     heard: string;
     replyPt: string;
     glossEn: string;
     audioB64: string | null;
+    turnXp?: number;
+    turnWhyEn?: string;
   }) {
-    setMsgs((cur) => [
-      ...cur,
-      { role: "eu", text: data.heard || "🤔 (não percebi)" },
-      {
-        role: "sandra",
-        text: data.replyPt,
-        glossEn: data.glossEn,
-        audioB64: data.audioB64,
-      },
-    ]);
+    const mine: Msg = { role: "eu", text: data.heard || "🤔 (não percebi)" };
+    const hers: Msg = {
+      role: "sandra",
+      text: data.replyPt,
+      glossEn: data.glossEn,
+      audioB64: data.audioB64,
+    };
+    setMsgs((cur) => {
+      const next = [...cur, mine, hers];
+      if (convId) {
+        void saveTurn({
+          id: convId,
+          turnXp: data.turnXp ?? 0,
+          messages: next.map((m) => ({
+            role: m.role,
+            pt: m.text,
+            en: m.glossEn,
+          })),
+        })
+          .then((r) => setXp(r.xp))
+          .catch(() => {});
+      }
+      return next;
+    });
+    setGain(
+      data.turnXp && data.turnXp > 0
+        ? { xp: data.turnXp, why: data.turnWhyEn ?? "" }
+        : null
+    );
     play(data.audioB64);
   }
 
@@ -235,11 +354,28 @@ export function Conversa({
       if (!res.ok) throw new Error(data.error);
       setSummary(data);
       setPhase("summary");
-      // The summary IS the end of the conversation — there is nothing left to
-      // do here, so the step is done. No score: nothing in a conversation is
-      // graded out of 100, and counting corrections would punish the learner
-      // who talked the most. A failure here must never break the summary.
-      if (unit?.itemId) {
+
+      /*
+       * Close the row, then tick the step.
+       *
+       * finishConversa refuses below the goal, so the gate is enforced on the
+       * server as well as in the button — the client can be made to click
+       * anything, and this unlocks course progress. The score recorded against
+       * the item is the XP they actually earned, so the unit bar reflects how
+       * the conversation went rather than that it happened.
+       */
+      if (convId) {
+        const done = await finishConversa(convId).catch(() => null);
+        if (done?.ok && unit?.itemId) {
+          void completeItem(unit.itemId, done.xp)
+            .then((r) => {
+              if (r.ok) setUnitTicked(true);
+            })
+            .catch(() => {});
+        }
+      } else if (unit?.itemId) {
+        // No stored row (an older conversation, or the insert failed): fall
+        // back to the previous behaviour rather than stranding the step.
         void completeItem(unit.itemId, null)
           .then((r) => {
             if (r.ok) setUnitTicked(true);
@@ -261,6 +397,11 @@ export function Conversa({
     setMsgs([]);
     setSummary(null);
     setError(null);
+    // A new conversation is a new row and a new score — carrying either over
+    // would let one finished conversation complete the next step too.
+    setConvId(null);
+    setXp(0);
+    setGain(null);
   }
 
   // ── Setup ──────────────────────────────────────────────────────────────────
@@ -441,13 +582,65 @@ export function Conversa({
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-2">
         <span className="chip">💬 {topic}</span>
+        <span className="text-2xs text-ink-faint">
+          {restoring ? "…" : `${msgs.length} linhas`}
+        </span>
+      </div>
+
+      {/*
+        The score, accumulating.
+        This screen used to have no end at all: nothing was counted, so nothing
+        could be finished, and a course step that opened Sandra could never be
+        completed. The bar is the missing feedback — every answer moves it, and
+        it is what unlocks the finish.
+      */}
+      <div className="card space-y-2 p-4">
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-2xs font-semibold tracking-[.09em] text-ink-soft uppercase">
+            Pontos da conversa
+          </span>
+          <span className="font-display text-lg font-semibold text-terra tabular-nums">
+            {xp}
+            <span className="text-xs font-normal text-ink-faint">
+              /{CONVERSA_GOAL} XP
+            </span>
+          </span>
+        </div>
+        <div className="h-2 overflow-hidden rounded-full bg-cream">
+          <div
+            className="h-2 rounded-full bg-terra transition-[width] duration-500 ease-out"
+            style={{ width: `${Math.min(100, (xp / CONVERSA_GOAL) * 100)}%` }}
+          />
+        </div>
+        {gain ? (
+          <p className="text-xs text-olive">
+            +{gain.xp} XP{gain.why ? ` — ${gain.why}` : ""}
+          </p>
+        ) : (
+          <p className="text-xs text-ink-faint">
+            {xp >= CONVERSA_GOAL
+              ? "Já chega para terminar — fala mais se quiseres."
+              : "Frases inteiras valem mais do que “sim”."}
+          </p>
+        )}
         <button
-          className="text-xs text-ink-faint underline-offset-2 hover:text-olive hover:underline disabled:opacity-40"
+          className={cn(
+            "w-full",
+            xp >= CONVERSA_GOAL ? "btn-primary" : "btn-ghost"
+          )}
           onClick={end}
-          disabled={pending || userTurns < 2}
-          title={userTurns < 2 ? "Responde pelo menos duas vezes" : undefined}
+          disabled={pending || xp < CONVERSA_GOAL}
+          title={
+            xp < CONVERSA_GOAL
+              ? `Faltam ${CONVERSA_GOAL - xp} XP para terminar`
+              : undefined
+          }
         >
-          Terminar conversa ✓
+          {pending
+            ? "A Sandra está a pensar…"
+            : xp >= CONVERSA_GOAL
+              ? "Terminar e ver as correções ✓"
+              : `Faltam ${CONVERSA_GOAL - xp} XP`}
         </button>
       </div>
 

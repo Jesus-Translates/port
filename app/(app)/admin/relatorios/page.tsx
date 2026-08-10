@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { requireAdmin } from "@/lib/auth";
+import { requireOperator } from "@/lib/auth";
 import { getHouseholdReports } from "@/lib/actions/reports";
 import { getEmailStatus } from "@/lib/actions/email";
 import { formatEur } from "@/lib/usage";
@@ -8,7 +8,7 @@ import { TestEmailButton } from "@/components/test-email-button";
 export const metadata = { title: "Relatórios" };
 
 export default async function ReportsPage() {
-  await requireAdmin();
+  await requireOperator();
   const [report, email] = await Promise.all([
     getHouseholdReports(),
     getEmailStatus(),

@@ -1,0 +1,27 @@
+{
+  "projectId": "8ad5d74c-1264-4995-a125-fb4680f6772a",
+  "shape": "package",
+  "pkg": "portuguese-hub",
+  "globalName": "PortDS",
+  "srcDir": "components",
+  "tsconfig": "./tsconfig.json",
+  "cssEntry": ".design-sync/css/app.css",
+  "componentSrcMap": {
+    "AnswerDiff": "components/answer-diff.tsx",
+    "AudioButton": "components/audio-button.tsx",
+    "Markdown": "components/markdown.tsx",
+    "Recorder": "components/recorder.tsx",
+    "VerbConjugator": "components/verb-conjugator.tsx"
+  },
+  "buildCmd": "npm run build && node .design-sync/prepare-css.mjs && node .design-sync/prepare-types.mjs",
+  "dtsPropsFor": {
+    "AnswerDiff": "  /** The graded result to explain, from `checkAnswer` in lib/diff. */\n  check: {\n    /** certo = exact; quase = accent/case slip; incompleto = words missing; errado = a word is wrong. */\n    verdict: \"certo\" | \"quase\" | \"incompleto\" | \"errado\";\n    /** What the learner wrote, marked up word by word. */\n    attempt: { text: string; status: \"same\" | \"wrong\" | \"missing\" | \"extra\" }[];\n    /** The correct answer, marked up word by word. */\n    target: { text: string; status: \"same\" | \"wrong\" | \"missing\" | \"extra\" }[];\n  };\n  /** The grader already called this a near-miss \u2014 keep that framing. */\n  nearMiss?: boolean;\n  className?: string;"
+  },
+  "overrides": {
+    "VerbConjugator": {
+      "cardMode": "column",
+      "viewport": "1200x1150"
+    }
+  },
+  "readmeHeader": ".design-sync/conventions.md"
+}

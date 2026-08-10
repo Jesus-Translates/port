@@ -371,3 +371,61 @@ export async function completeAndNext(
   }
   return { kind: "done", href: "/" };
 }
+
+/**
+ * The learner's stretch of calçada: the units at their level, as stones.
+ *
+ * "Current" is the FIRST unfinished unit in syllabus order — the same rule the
+ * unit list uses for "A seguir", so the path and the list can never disagree
+ * about where you are. Everything after it is locked: a path where you can
+ * jump to stone nine is a list with extra steps.
+ *
+ * Nine at most. The design's weave is nine offsets, and a longer path stops
+ * being a glance and becomes a scroll.
+ */
+export async function getCaminho(
+  limit = 9
+): Promise<{ slug: string; label: string; state: "done" | "current" | "locked" }[]> {
+  const session = await requireSession();
+  const level = await getCefrFor(session.username);
+  const db = getDb();
+
+  const rows = await db
+    .select({
+      id: units.id,
+      slug: units.slug,
+      title: units.title,
+      titlePt: units.titlePt,
+    })
+    .from(units)
+    .where(and(eq(units.status, "published"), eq(units.cefr, level)))
+    .orderBy(asc(units.sortOrder), asc(units.id));
+  if (rows.length === 0) return [];
+
+  const pcts = await getUnitProgress(rows.map((r) => r.id));
+  const pctFor = new Map(pcts.map((p) => [p.unitId, p.pct]));
+
+  const currentIndex = rows.findIndex((r) => (pctFor.get(r.id) ?? 0) < 100);
+
+  // Window the path around where they actually are, so someone twenty units in
+  // does not get nine finished stones and no next step.
+  const start =
+    currentIndex < 0
+      ? Math.max(0, rows.length - limit)
+      : Math.max(0, Math.min(currentIndex - 2, rows.length - limit));
+
+  return rows.slice(start, start + limit).map((r, i) => {
+    const absolute = start + i;
+    const pct = pctFor.get(r.id) ?? 0;
+    return {
+      slug: r.slug,
+      label: r.titlePt || r.title,
+      state:
+        pct >= 100
+          ? ("done" as const)
+          : absolute === currentIndex
+            ? ("current" as const)
+            : ("locked" as const),
+    };
+  });
+}

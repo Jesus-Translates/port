@@ -281,6 +281,9 @@ export async function createAccount(input: {
   }
 
   revalidatePath("/admin/utilizadores");
+  // The families panel now adds and removes people too, so it goes stale on
+  // exactly the same events.
+  revalidatePath("/admin/familias");
   return { ok: true };
 }
 
@@ -460,6 +463,7 @@ export async function setAccountActive(
     .set({ active })
     .where(eq(users.username, target));
   revalidatePath("/admin/utilizadores");
+  revalidatePath("/admin/familias");
   return { ok: true };
 }
 
@@ -595,6 +599,7 @@ export async function deleteAccountForever(
     () => {}
   );
   revalidatePath("/admin/utilizadores");
+  revalidatePath("/admin/familias");
   return { ok: true };
 }
 

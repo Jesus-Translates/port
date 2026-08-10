@@ -12,6 +12,7 @@ import {
   type ScriptLine,
 } from "@/lib/listening";
 import {
+  assignSpeakerVoices,
   azureConfigured,
   azureVoices,
   azureSynthesizeSsml,
@@ -108,11 +109,15 @@ multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English,
     );
   }
 
-  // Speaker order → voice index, so each person keeps one voice throughout.
-  const voices = azureVoices();
-  const speakers = [...new Set(script.map((l) => l.speaker))];
+  // Each person keeps one voice throughout, and it MATCHES THEIR GENDER.
+  // Assigning by order of appearance put a man's voice on Ana and a woman's on
+  // Miguel, which in a listening exercise breaks the exercise itself — the
+  // learner is being asked to follow who says what.
+  const speakerVoices = assignSpeakerVoices([
+    ...new Set(script.map((l) => l.speaker)),
+  ]);
   const voiceFor = (speaker: string) =>
-    voices[speakers.indexOf(speaker) % voices.length];
+    speakerVoices.get(speaker) ?? azureVoices()[0];
 
   const mp3 = await azureSynthesizeSsml(
     ssmlSegments(

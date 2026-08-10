@@ -1,0 +1,32 @@
+/*
+ * Declaration emit for the design-system entry.
+ *
+ * The converter reads component props from a .d.ts tree. This is a Next.js
+ * app, so nothing ever emitted one and every component shipped an empty
+ * `{ [key: string]: unknown }` contract — the design agent had no API to code
+ * against. findTypesRoot() probes types/ before lib/, so emitting here is
+ * enough; no converter code has to change.
+ *
+ * Only entry.tsx is included: TypeScript follows its imports and emits
+ * declarations for everything reachable, which is exactly the public surface.
+ */
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    // The app's tsconfig turns this on. Inherited here it makes emit depend on
+    // a .tsbuildinfo: wipe types/ while the build-info still says "up to date"
+    // and tsc emits nothing, leaving the converter with no props at all.
+    "incremental": false,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": false,
+    // The program spans .design-sync/ and components/, so the common root is
+    // the repo. Stating it keeps the emitted layout stable instead of shifting
+    // with whatever files happen to be reachable.
+    "rootDir": "..",
+    "outDir": "../types",
+    "skipLibCheck": true
+  },
+  "include": ["entry.tsx"]
+}

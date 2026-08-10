@@ -20,18 +20,27 @@ function scoreColor(score: number): string {
 }
 
 /** Record → transcribe → pronunciation score (read) or Sandra feedback (open). */
+export type RecorderProps = {
+  /**
+   * "read" scores pronunciation against `target`; "open" sends a free spoken
+   * answer to `prompt` to Sandra for feedback.
+   */
+  mode: "read" | "open";
+  /** The sentence to read aloud. Required in "read" mode. */
+  target?: string;
+  /** The question being answered. Required in "open" mode. */
+  prompt?: string;
+  /** Open the mic immediately on mount — no second tap. */
+  autoStart?: boolean;
+};
+
+/** Record → transcribe → pronunciation score (read) or Sandra feedback (open). */
 export function Recorder({
   mode,
   target,
   prompt,
   autoStart = false,
-}: {
-  mode: "read" | "open";
-  target?: string;
-  prompt?: string;
-  /** Open the mic immediately on mount — no second tap. */
-  autoStart?: boolean;
-}) {
+}: RecorderProps) {
   const recRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const autoStartedRef = useRef(false);

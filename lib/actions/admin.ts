@@ -3,7 +3,12 @@
 import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import type { GradedResult } from "@/lib/actions/quiz";
-import { roleOf, requireSession, requireStaff } from "@/lib/auth";
+import {
+  roleOf,
+  requireOperator,
+  requireSession,
+  requireStaff,
+} from "@/lib/auth";
 import { householdUsernames, inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import {
@@ -378,8 +383,10 @@ export type SpendByKind = { kind: string; calls: number; eur: number };
 /** ADMIN ONLY: what the AI actually cost this month, split by what it was
  *  spent on. ai_usage.kind is recorded on every call and shown nowhere else. */
 export async function getMonthSpendByKind(): Promise<SpendByKind[]> {
-  const staff = await requireStaff();
-  if (staff.role !== "admin") return [];
+  // Instance-wide spend. requireStaff + role === "admin" was NOT enough:
+  // /registar gives every family owner users.role "admin" for their own house,
+  // so that pair let any customer read the whole deployment's bill.
+  await requireOperator();
 
   const rows = await getDb()
     .select({
@@ -749,7 +756,8 @@ export type ContentOverview = {
 
 /** Teacher/admin: the whole content library, with the gaps visible. */
 export async function getContentOverview(): Promise<ContentOverview> {
-  await requireStaff();
+  // Reads homework, quizzes, notes and kudos across every household.
+  await requireOperator();
   const db = getDb();
 
   const [unitRows, itemCounts, clipRows, storyRows, catRows, entryCounts] =
@@ -842,8 +850,8 @@ export type SystemStats = {
 
 /** ADMIN ONLY: what the deployment looks like from the inside. */
 export async function getSystemStats(): Promise<SystemStats | null> {
-  const staff = await requireStaff();
-  if (staff.role !== "admin") return null;
+  // Counts every row in the instance — operator only, same reasoning.
+  await requireOperator();
   const db = getDb();
 
   const n = sql<number>`count(*)::int`;

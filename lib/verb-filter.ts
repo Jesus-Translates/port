@@ -288,7 +288,7 @@ export function stripAccents(s: string): string {
     .toLowerCase()
     .trim()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 export type SpellVerdict = {

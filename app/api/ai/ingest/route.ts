@@ -54,7 +54,7 @@ function normalizePt(s: string): string {
     .toLowerCase()
     .trim()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
+    .replace(/[\u0300-\u036f]/g, "");
 }
 
 /** Some gateway models return near-miss JSON instead of the strict shape. */

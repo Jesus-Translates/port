@@ -19,8 +19,10 @@ export default async function HouseholdsPage() {
           🏠 Famílias · Households
         </h1>
         <p className="mt-1 text-sm text-ink-soft">
-          Create a family, change its plan and seats, move someone between
-          families, or retire one. People WITHIN a family are managed in{" "}
+          Create a family, change its plan and seats, and manage the people in
+          it — add someone, change their role, move them to another family,
+          deactivate them, or delete them outright. For passwords, emails and
+          usernames, see{" "}
           <Link href="/admin/utilizadores" className="underline underline-offset-2 hover:text-olive">
             Contas
           </Link>

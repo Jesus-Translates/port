@@ -53,6 +53,30 @@ const replySchema = z.object({
     .string()
     .describe("Sandra's next spoken line: 1-2 short pt-PT sentences plus ONE follow-up question."),
   glossEn: z.string().describe("Natural English translation of replyPt."),
+  /*
+   * Sandra judges the learner's line as she answers it.
+   *
+   * One model call rather than two: she has already read the turn in context,
+   * and a separate grader would double the cost and the latency of every
+   * exchange. The score is what accumulates toward finishing the step, so the
+   * rubric is explicit — otherwise a model rewards politeness and the learner
+   * who says "sim" ten times completes the course.
+   */
+  turnXp: z
+    .number()
+    .int()
+    .describe(
+      "XP for the LEARNER'S last line, 0-25. 0 if nothing was recognised or they wrote English. " +
+        "5 for a bare one-word answer. 10-14 for a short but real sentence. " +
+        "15-20 for a full, on-topic sentence in correct European Portuguese. " +
+        "21-25 only when they also volunteered something extra or asked a question back. " +
+        "Judge effort, correctness and relevance — never politeness. Use 0 for your own opening line."
+    ),
+  turnWhyEn: z
+    .string()
+    .describe(
+      "One short English clause naming what earned or cost the XP, e.g. 'full sentence, right preposition' or 'one word only'."
+    ),
 });
 
 const summarySchema = z.object({
@@ -168,7 +192,12 @@ async function generateReply(
   topic: string,
   history: HistoryTurn[],
   learnerLine: string | null
-): Promise<{ replyPt: string; glossEn: string }> {
+): Promise<{
+  replyPt: string;
+  glossEn: string;
+  turnXp: number;
+  turnWhyEn: string;
+}> {
   const args = {
     model: getModel(),
     instructions: await conversationInstructions(session.displayName, cefr),
@@ -190,7 +219,12 @@ Continue the conversation.`,
       output: Output.object({ schema: replySchema }),
     });
     await recordUsage(session.username, "tutor", modelId(), usage);
-    return output;
+    // The opener is Sandra's own line; there is nothing of the learner's to
+    // score, and a stray number there would hand out free XP for arriving.
+    return {
+      ...output,
+      turnXp: learnerLine ? clampXp(output.turnXp) : 0,
+    };
   } catch (err) {
     const raw = salvage(err);
     const replyPt =
@@ -200,8 +234,21 @@ Continue the conversation.`,
       inputTokens: 0,
       outputTokens: Math.ceil(replyPt.length / 4),
     });
-    return { replyPt, glossEn: str(raw?.glossEn) };
+    // Salvaged from a malformed response: keep the conversation alive, but
+    // award nothing rather than guess a score off a broken payload.
+    return {
+      replyPt,
+      glossEn: str(raw?.glossEn),
+      turnXp: 0,
+      turnWhyEn: "",
+    };
   }
+}
+
+/** The model is not trusted with the range: this number gates course progress. */
+function clampXp(v: unknown): number {
+  const n = Math.round(Number(v));
+  return Number.isFinite(n) ? Math.max(0, Math.min(25, n)) : 0;
 }
 
 export async function POST(request: NextRequest) {
@@ -289,6 +336,8 @@ export async function POST(request: NextRequest) {
         replyPt: output.replyPt,
         glossEn: output.glossEn,
         audioB64,
+        turnXp: output.turnXp,
+        turnWhyEn: output.turnWhyEn,
       });
     } catch (err) {
       console.error("conversa audio turn failed:", err);
@@ -363,6 +412,8 @@ export async function POST(request: NextRequest) {
         replyPt: output.replyPt,
         glossEn: output.glossEn,
         audioB64,
+        turnXp: output.turnXp,
+        turnWhyEn: output.turnWhyEn,
       });
     } catch (err) {
       console.error("conversa typed turn failed:", err);

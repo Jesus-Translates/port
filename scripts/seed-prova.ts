@@ -81,7 +81,7 @@ function parseBank(path: string): Parsed[] {
 function dedupeKey(promptPt: string): string {
   return promptPt
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "")
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, " ")
     .trim();

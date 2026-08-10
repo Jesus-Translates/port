@@ -140,7 +140,13 @@ function ItemisedHomework({
           </p>
           {unit ? (
             <div className="mt-4">
-              <UnitContinue unit={unit} />
+              {/* Record how it went, like every other activity does — the item
+                  stores a 0-100 and the unit bar reflects real performance
+                  rather than mere attendance. */}
+              <UnitContinue
+                unit={unit}
+                score={total > 0 ? Math.round((correct / total) * 100) : null}
+              />
             </div>
           ) : (
             <Link href="/homework" className="btn-ghost mt-4 inline-block">

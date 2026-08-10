@@ -36,6 +36,108 @@ export function pickVoice(text: string): string {
   return voices[h[0] % voices.length];
 }
 
+/*
+ * Speaker → voice, by GENDER rather than by order of appearance.
+ *
+ * Dialogues used to assign `voices[speakers.indexOf(name)]`, so the voice a
+ * character got depended entirely on who spoke first. In "A família da Sandra"
+ * the speakers appear as Sandra, Ana, Miguel and the pool runs
+ * Raquel(f), Duarte(m), Fernanda(f) — so Ana was read by a man and Miguel by a
+ * woman. In a listening exercise that is not a blemish, it is the exercise
+ * failing: the learner is being asked who said what.
+ */
+
+// Portuguese given names are strongly gendered by their ending, but the
+// common exceptions (Inês, Isabel, Beatriz) are exactly the names content
+// uses, so the list comes first and the ending rule is the fallback.
+const FEMALE_NAMES = new Set([
+  "ana", "maria", "sandra", "sofia", "ines", "beatriz", "catarina", "rita",
+  "joana", "leonor", "matilde", "carolina", "mariana", "teresa", "luisa",
+  "isabel", "raquel", "fernanda", "madalena", "margarida", "clara", "alice",
+  "francisca", "lara", "eva", "filipa", "patricia", "susana", "cristina",
+  "paula", "sara", "diana", "helena", "laura", "marta", "rosa", "vera",
+  "celia", "nuria", "irene", "conceicao", "manuela", "guiomar", "dulce",
+]);
+const MALE_NAMES = new Set([
+  "joao", "miguel", "pedro", "tiago", "rui", "duarte", "francisco", "antonio",
+  "manuel", "jose", "carlos", "nuno", "bruno", "diogo", "tomas", "afonso",
+  "goncalo", "rodrigo", "vasco", "henrique", "luis", "paulo", "ricardo",
+  "andre", "filipe", "hugo", "marco", "sergio", "vitor", "fernando", "jorge",
+  "artur", "alvaro", "simao", "martim", "salvador", "dinis", "gabriel",
+  "guilherme", "lourenco", "eduardo", "alexandre", "raul", "mario",
+]);
+
+function fold(s: string): string {
+  return s
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
+/**
+ * Best guess at a Portuguese given name's gender.
+ *
+ * Also works on role nouns, which dialogues use as speakers — "empregada" and
+ * "empregado" fall out of the ending rule correctly.
+ */
+export function ptGender(name: string): "f" | "m" {
+  const first = fold(name).split(/[\s,(]+/)[0] ?? "";
+  if (FEMALE_NAMES.has(first)) return "f";
+  if (MALE_NAMES.has(first)) return "m";
+  return first.endsWith("a") ? "f" : "m";
+}
+
+/**
+ * Azure ids embed the voice's given name: pt-PT-RaquelNeural → "Raquel".
+ *
+ * Exported so scripts/revoice-clips.ts can tell which already-generated audio
+ * carries a wrong-gender voice, rather than re-deriving the rule and drifting
+ * from it.
+ */
+export function voiceGender(voiceId: string): "f" | "m" {
+  const given = /^[a-z]{2}-[A-Z]{2}-([A-Za-z]+?)(Neural|:|$)/.exec(voiceId)?.[1];
+  return ptGender(given ?? voiceId);
+}
+
+/**
+ * Give every speaker in a dialogue a voice of their own gender, preferring a
+ * distinct voice per speaker so two characters of the same gender are still
+ * tellable apart.
+ *
+ * Sandra is pinned to the first female voice wherever she appears: she is the
+ * app's tutor, and a tutor who sounds like a different person in every
+ * exercise is not a persona.
+ */
+export function assignSpeakerVoices(speakers: string[]): Map<string, string> {
+  const pool = azureVoices();
+  const byGender = { f: pool.filter((v) => voiceGender(v) === "f"), m: pool.filter((v) => voiceGender(v) === "m") };
+  const used = new Set<string>();
+  const out = new Map<string, string>();
+
+  // Sandra first, so she keeps the same voice no matter who else is present.
+  const ordered = [...speakers].sort((a, b) =>
+    fold(a) === "sandra" ? -1 : fold(b) === "sandra" ? 1 : 0
+  );
+
+  for (const speaker of ordered) {
+    const want = byGender[ptGender(speaker)];
+    // A distinct voice of the right gender, else reuse one of the right
+    // gender, else anything — a same-gender repeat is far better than a
+    // wrong-gender voice.
+    const voice =
+      want.find((v) => !used.has(v)) ??
+      want[0] ??
+      pool.find((v) => !used.has(v)) ??
+      pool[0];
+    if (voice) {
+      used.add(voice);
+      out.set(speaker, voice);
+    }
+  }
+  return out;
+}
+
 function openaiVoice(): string {
   return process.env.TTS_VOICE ?? "marin";
 }

@@ -29,7 +29,7 @@ export function SignupForm({ siteKey }: { siteKey: string }) {
   function setName(displayName: string) {
     const auto = displayName
       .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "")
       .slice(0, 20);
@@ -42,7 +42,7 @@ export function SignupForm({ siteKey }: { siteKey: string }) {
   function autoFrom(name: string) {
     return name
       .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
+      .replace(/[\u0300-\u036f]/g, "")
       .toLowerCase()
       .replace(/[^a-z0-9]/g, "")
       .slice(0, 20);
