@@ -1,0 +1,69 @@
+[
+  {
+    "seriesTitle": "Os Vizinhos e o Mercado de Sábado em Santa Cruz",
+    "chapter": 1,
+    "title": "Capítulo 1: Uma manhã com vento",
+    "level": "A2",
+    "textPt": "É sábado de manhã e há muito vento em Santa Cruz. A família Costa está a preparar-se para ir ao mercado. A Ana leva um cesto grande, o Miguel procura as chaves do carro e a filha Leonor faz uma lista: tomates, pão, queijo e maçãs. O avô António quer comprar peixe fresco.\n\nA família Costa mora numa casa pequena perto da praia. Os seus vizinhos são a família Rocha. A Dona Celeste conhece toda a gente e fala sempre muito depressa. O filho dela, o Tiago, tem dez anos e gosta de andar de bicicleta. Hoje, ele vai com a família ao mercado.\n\nNo caminho, o vento leva a lista da Leonor. O Tiago corre atrás do papel e apanha-o junto a uma banca de flores. O vendedor sorri e oferece-lhe uma pequena flor amarela. Depois, as duas famílias continuam juntas entre as bancas. Há legumes, fruta, peixe, pão e doces.\n\nQuando chegam à banca do peixe, o vendedor olha para o avô António e diz: “Tenho uma coisa para si. Encontrei-a esta manhã.” António fica muito surpreendido. O que será?",
+    "textEn": "It is Saturday morning and there is a lot of wind in Santa Cruz. The Costa family is getting ready to go to the market. Ana is carrying a large basket, Miguel is looking for the car keys, and their daughter Leonor is making a list: tomatoes, bread, cheese and apples. Grandfather António wants to buy fresh fish.\n\nThe Costa family lives in a small house near the beach. Their neighbours are the Rocha family. Dona Celeste knows everybody and always speaks very quickly. Her son Tiago is ten years old and likes riding his bicycle. Today, he is going to the market with his family.\n\nOn the way, the wind blows Leonor’s list away. Tiago runs after the paper and catches it next to a flower stall. The seller smiles and gives him a small yellow flower. Then the two families continue together between the stalls. There are vegetables, fruit, fish, bread and sweets.\n\nWhen they arrive at the fish stall, the seller looks at Grandfather António and says, “I have something for you. I found it this morning.” António is very surprised. What could it be?",
+    "glossary": [
+      {
+        "en": "to be getting ready",
+        "pt": "estar a preparar-se"
+      },
+      {
+        "en": "basket",
+        "pt": "o cesto"
+      },
+      {
+        "en": "stall",
+        "pt": "a banca"
+      },
+      {
+        "en": "to catch / pick up",
+        "pt": "apanhar"
+      },
+      {
+        "en": "surprised",
+        "pt": "surpreendido"
+      },
+      {
+        "en": "fresh fish",
+        "pt": "peixe fresco"
+      }
+    ],
+    "questions": [
+      {
+        "answer": "Peixe fresco",
+        "options": [
+          "Peixe fresco",
+          "Flores amarelas",
+          "Queijo e maçãs",
+          "Um cesto grande"
+        ],
+        "promptPt": "O que quer comprar o avô António?"
+      },
+      {
+        "answer": "O Tiago",
+        "options": [
+          "O Miguel",
+          "A Dona Celeste",
+          "O Tiago",
+          "O vendedor do peixe"
+        ],
+        "promptPt": "Quem apanha a lista da Leonor?"
+      },
+      {
+        "answer": "Na banca do peixe",
+        "options": [
+          "Na banca do pão",
+          "Na banca das flores",
+          "Perto da praia",
+          "Na banca do peixe"
+        ],
+        "promptPt": "Onde encontram o avô António uma coisa especial?"
+      }
+    ],
+    "createdBy": "export"
+  }
+]

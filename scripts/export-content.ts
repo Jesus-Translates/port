@@ -36,6 +36,22 @@ import {
 
 const OUT = join(process.cwd(), "content", "generated");
 
+/**
+ * Creator columns hold LOGIN USERNAMES. Even in a private repo they do not
+ * belong in an exported file — a repo gets cloned, shared and published, and
+ * a valid username is half of a credential. Seeded rows keep "seed" because
+ * that is a marker the importer reads, not a person.
+ */
+function anonymise<T extends Record<string, unknown>>(row: T): T {
+  const out = { ...row };
+  for (const key of ["createdBy", "addedBy", "username"]) {
+    if (key in out && out[key] !== "seed" && out[key] !== "syllabus") {
+      (out as Record<string, unknown>)[key] = "export";
+    }
+  }
+  return out;
+}
+
 async function main() {
   const db = getDb();
   mkdirSync(OUT, { recursive: true });
@@ -50,7 +66,7 @@ async function main() {
   write(
     "units",
     (await db.select().from(units).orderBy(asc(units.sortOrder), asc(units.id))).map(
-      ({ id: _id, createdAt: _c, ...rest }) => rest
+      ({ id: _id, createdAt: _c, ...rest }) => anonymise(rest)
     )
   );
 
@@ -64,28 +80,29 @@ async function main() {
   write(
     "unit-items",
     (await db.select().from(unitItems).orderBy(asc(unitItems.id))).map(
-      ({ id: _id, unitId, ...rest }) => ({ unitSlug: unitById.get(unitId), ...rest })
+      ({ id: _id, unitId, ...rest }) =>
+        anonymise({ unitSlug: unitById.get(unitId), ...rest })
     )
   );
 
   write(
     "exam-questions",
     (await db.select().from(examQuestions).orderBy(asc(examQuestions.id))).map(
-      ({ id: _id, ...rest }) => rest
+      ({ id: _id, ...rest }) => anonymise(rest)
     )
   );
 
   write(
     "lessons",
     (await db.select().from(lessons).orderBy(asc(lessons.id))).map(
-      ({ id: _id, createdAt: _c, ...rest }) => rest
+      ({ id: _id, createdAt: _c, ...rest }) => anonymise(rest)
     )
   );
 
   write(
     "stories",
     (await db.select().from(stories).orderBy(asc(stories.id))).map(
-      ({ id: _id, createdAt: _c, ...rest }) => rest
+      ({ id: _id, createdAt: _c, ...rest }) => anonymise(rest)
     )
   );
 
@@ -93,7 +110,8 @@ async function main() {
   write(
     "listening-clips",
     (await db.select().from(listeningClips).orderBy(asc(listeningClips.id))).map(
-      ({ id: _id, audioB64: _a, audioKey: _k, createdAt: _c, ...rest }) => rest
+      ({ id: _id, audioB64: _a, audioKey: _k, createdAt: _c, ...rest }) =>
+        anonymise(rest)
     )
   );
 

@@ -15,7 +15,8 @@
     "audio:migrate": "dotenv -e .env.local -- tsx scripts/migrate-audio.ts",
     "db:zones": "dotenv -e .env.local -- tsx scripts/seed-zones.ts",
     "db:prova": "dotenv -e .env.local -- tsx scripts/seed-prova.ts",
-    "notes:regen": "dotenv -e .env.local -- tsx scripts/regen-notes.ts"
+    "notes:regen": "dotenv -e .env.local -- tsx scripts/regen-notes.ts",
+    "content:export": "dotenv -e .env.local -- tsx scripts/export-content.ts"
   },
   "dependencies": {
     "@ai-sdk/openai": "^4.0.32",

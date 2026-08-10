@@ -1,0 +1,332 @@
+[
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "escutar",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Diálogo sobre a família da Sandra: apresentar os pais, avós, tios, primos, cunhado, sogra, sobrinho, madrinha, padrasto, enteado e bisavô, usando os meus para falar da família"
+    },
+    "titlePt": "Ouve a família da Sandra",
+    "sortOrder": 1
+  },
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "jogo-pares",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Relacionar os nomes de parentes em português europeu — cunhado, sogra, sobrinho, primo, madrinha, padrasto, enteado e bisavô — com as traduções em inglês"
+    },
+    "titlePt": "Joga aos pares da família",
+    "sortOrder": 2
+  },
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "cloze",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Ouvir e completar frases sobre relações familiares, praticando o artigo definido antes do possessivo — a minha mãe, o meu irmão, os meus avós — e o contraste parentes = relatives, não parents"
+    },
+    "titlePt": "Completa as frases",
+    "sortOrder": 3
+  },
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "jogo-frase",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Reordenar palavras para formar frases sobre a família, incluindo os meus, os pais, os avós, os tios, os irmãos e grupos mistos no masculino plural"
+    },
+    "titlePt": "Constrói as frases",
+    "sortOrder": 4
+  },
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "homework",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Escrever um pequeno texto a apresentar todos os membros importantes da tua família, explicando como estão relacionados contigo e descrevendo o que são como pessoas, com a minha/o meu e os meus"
+    },
+    "titlePt": "Escreve sobre a tua família",
+    "sortOrder": 5
+  },
+  {
+    "unitSlug": "familia-e-relacoes",
+    "kind": "conversa",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "Conversar sobre a tua família e as tuas relações: apresentar parentes próximos e afastados, explicar quem são os teus sogros, cunhados, sobrinhos ou padrastos e descrever a personalidade de cada pessoa"
+    },
+    "titlePt": "Fala com a Sandra",
+    "sortOrder": 6
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "vocab",
+    "refId": 7,
+    "config": {
+      "level": "A2",
+      "topic": "eletrodomésticos e objetos de uma casa portuguesa, incluindo frigorífico, arca congeladora, máquina de lavar a loiça, máquina de lavar a roupa, esquentador, fogão, forno, exaustor, aspirador, chave, tesoura, vassoura, panela, tacho, toalha, lençóis, estendal e cabide, organizados por divisão"
+    },
+    "titlePt": "Explora a casa",
+    "sortOrder": 1
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "jogo-pares",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "combinar móveis, eletrodomésticos e objetos com a divisão onde pertencem: frigorífico, fogão e panela na cozinha; máquina de lavar a roupa, estendal e toalha na lavandaria; esquentador e autoclismo na casa de banho; aspirador, chave e cabide no hall ou nas várias divisões da casa"
+    },
+    "titlePt": "Liga cada coisa à divisão",
+    "sortOrder": 2
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "cloze",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "ouvir frases curtas sobre objetos e eletrodomésticos numa casa perto de Santa Cruz, completando palavras como frigorífico, forno, exaustor, vassoura, lençóis e estendal, incluindo a frase habitual «a máquina» para dizer máquina de lavar a roupa"
+    },
+    "titlePt": "Ouve e completa",
+    "sortOrder": 3
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "jogo-frase",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "reconstruir frases em português europeu sobre localização e pertença, como «O frigorífico está na cozinha», «Os lençóis estão no quarto» e «O estendal está na lavandaria», usando estar, artigos e preposições corretamente"
+    },
+    "titlePt": "Constrói as frases",
+    "sortOrder": 4
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "homework",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "escrever uma lista ou descrição de uma casa portuguesa, nomeando pelo menos dez móveis, eletrodomésticos e objetos e dizendo em que divisão está cada um; usar eletrodoméstico como termo geral e explicar que «a máquina» normalmente significa a máquina de lavar a roupa"
+    },
+    "titlePt": "Escreve sobre a tua casa",
+    "sortOrder": 5
+  },
+  {
+    "unitSlug": "moveis-e-eletrodomesticos",
+    "kind": "conversa",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "falar com a Sandra sobre uma visita à tua casa perto de Torres Vedras, indicando onde estão os eletrodomésticos e objetos e corrigindo vocabulário pt-PT: frigorífico em vez de geladeira, casa de banho em vez de banheiro e autoclismo em vez de descarga"
+    },
+    "titlePt": "Fala com a Sandra em casa",
+    "sortOrder": 6
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "escutar",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Diálogo numa assembleia de condóminos sobre a quota, o administrador, um vizinho do lado barulhento e uma proposta da junta de freguesia"
+    },
+    "titlePt": "Ouve a reunião",
+    "sortOrder": 1
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "jogo-pares",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Léxico de sociedade e convivência: condomínio, quota, administrador, assembleia de condóminos, junta de freguesia, vizinho do lado, fazer um favor e ficar mal visto"
+    },
+    "titlePt": "Liga as palavras",
+    "sortOrder": 2
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "jogo-frase",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Ordenar pedidos e reclamações educados em português europeu, incluindo «Se calhar não dava para baixar um bocadinho?» em vez de «Baixa o som»"
+    },
+    "titlePt": "Constrói a frase",
+    "sortOrder": 3
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "cloze",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Completar frases de queixa e negociação com formas atenuadas e impessoais, como «Não se podia…?», «Será que dava para…?» e «Se calhar…»"
+    },
+    "titlePt": "Completa com cuidado",
+    "sortOrder": 4
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "homework",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Escrever uma mensagem sobre ruído no condomínio e uma resposta a um pedido de favor, usando dar-se bem com, convivência, ficar mal visto e um tom firme mas conciliador"
+    },
+    "titlePt": "Escreve aos vizinhos",
+    "sortOrder": 5
+  },
+  {
+    "unitSlug": "sociedade-e-convivencia",
+    "kind": "conversa",
+    "refId": null,
+    "config": {
+      "level": "B2",
+      "topic": "Simular uma assembleia de condóminos e depois uma conversa com o vizinho do lado sobre barulho e um favor, mantendo a cordialidade sem ceder demasiado"
+    },
+    "titlePt": "Fala com a Sandra",
+    "sortOrder": 6
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "vocab",
+    "refId": 4,
+    "config": {
+      "level": "A2",
+      "topic": "palavras para o balcão do talho e da peixaria: entrecosto, febras, bifanas, entremeada, frango do campo, vitela, borrego, alheira, chouriço, dourada, robalo, carapau, sardinha, pescada, polvo, amêijoas e bacalhau salgado ou demolhado"
+    },
+    "titlePt": "Explora o talho e a peixaria",
+    "sortOrder": 1
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "escutar",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "diálogo no talho e na peixaria: perguntar «Quem é o último?», tirar uma senha, esperar a vez e pedir um quilo de um corte de carne ou peixe pelo nome"
+    },
+    "titlePt": "Ouve a conversa no balcão",
+    "sortOrder": 2
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "jogo-frase",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "ordenar frases do balcão, incluindo «Era um quilo de febras, se faz favor», «Pode limpar?», «Pode tirar as espinhas?» e «Às postas ou inteiro?»"
+    },
+    "titlePt": "Constrói os pedidos",
+    "sortOrder": 3
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "cloze",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "ouvir e completar palavras e expressões sobre preparar carne e peixe: «pode ___?», «tirar as ___», «às ___ ou inteiro?» e «mais alguma ___?»"
+    },
+    "titlePt": "Completa o que ouves",
+    "sortOrder": 4
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "homework",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "escrever um pequeno diálogo no talho ou na peixaria, incluindo a vez na fila, o nome e a quantidade do produto, e um pedido para limpar, tirar as espinhas ou cortar às postas"
+    },
+    "titlePt": "Escreve o teu pedido",
+    "sortOrder": 5
+  },
+  {
+    "unitSlug": "no-talho-e-na-peixaria",
+    "kind": "conversa",
+    "refId": null,
+    "config": {
+      "level": "A2",
+      "topic": "simular uma compra no talho ou na peixaria em Portugal: perguntar quem é o último, pedir um corte específico em vez de dizer apenas «carne de porco», responder às perguntas do talhante e escolher entre peixe inteiro, às postas ou amanhado"
+    },
+    "titlePt": "Fala com a Sandra",
+    "sortOrder": 6
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "escutar",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Diálogo num balcão da junta de freguesia em Silveira: contrastar “Podes ajudar-me?” com “O senhor pode ajudar-me?”, usando a terceira pessoa sem “você” e expressões como “com licença” e “faça favor”."
+    },
+    "titlePt": "Ouve o atendimento",
+    "sortOrder": 1
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "jogo-pares",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Pares português-inglês com fórmulas de atendimento e correspondência oficial: “com licença”, “faça favor”, “seria possível...?”, “agradeço desde já a atenção” e “com os melhores cumprimentos”."
+    },
+    "titlePt": "Liga as expressões formais",
+    "sortOrder": 2
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "jogo-frase",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Reconstruir frases para pedir ajuda num balcão, numa chamada telefónica para um serviço municipal de Torres Vedras e num e-mail: “Queria saber...”, “Seria possível enviar-me...?” e “O senhor pode confirmar...?”."
+    },
+    "titlePt": "Constrói a frase formal",
+    "sortOrder": 3
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "cloze",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Ouvir pedidos formais e completar a palavra em falta, praticando “queria” em vez de “quero”, “seria possível”, “pode”, “faça favor” e formas de tratamento “o senhor” e “a senhora”, sem usar “você”."
+    },
+    "titlePt": "Completa o pedido",
+    "sortOrder": 4
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "homework",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Escrever um e-mail à junta de freguesia ou à Câmara Municipal de Torres Vedras para pedir informação sobre um documento, com saudação formal, “seria possível...?”, “agradeço desde já a atenção” e despedida “com os melhores cumprimentos”."
+    },
+    "titlePt": "Escreve o teu e-mail formal",
+    "sortOrder": 5
+  },
+  {
+    "unitSlug": "registo-formal-e-burocracia",
+    "kind": "conversa",
+    "refId": null,
+    "config": {
+      "level": "B1",
+      "topic": "Simular uma situação formal em que pedes informação num balcão em Santa Cruz ou Silveira e depois telefonas para uma linha de atendimento: sair do registo tu, usar a terceira pessoa ou “o senhor/a senhora”, fazer pedidos com “queria” e “seria possível” e responder com cortesia."
+    },
+    "titlePt": "Fala com a Sandra no balcão",
+    "sortOrder": 6
+  }
+]
