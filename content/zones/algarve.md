@@ -247,6 +247,26 @@ Words and expressions (many from Eduardo Brazão Gonçalves, *Dicionário do Fal
 **Food detail:** **aguardente de medronho** distilled in *alambiques* (38–54% ABV), plus *presunto* and *enchidos*, celebrated at annual fairs.
 **Everyday life:** basketry and weaving are still made here; the 2018 fire is the reference point for every conversation about summer, and *limpeza de terrenos* is a legal obligation and a neighbourly one. *Feriado municipal*: Quinta-feira da Ascensão.
 
+### Vila Real de Santo António
+
+On the Guadiana facing Spain, laid out on a Pombaline grid in 1774. The ferry to Ayamonte still runs; Monte Gordo's beach is next door.
+
+### Lagoa e Carvoeiro
+
+Wine municipality on the central coast; **Carvoeiro** and the **Algar Seco** cliffs are its shoreline, and the Benagil sea cave is along the same stretch.
+
+### Quarteira e Vilamoura
+
+Quarteira is the older fishing town with a long promenade; **Vilamoura** beside it is a planned marina resort with golf courses and the Roman villa at Cerro da Vila.
+
+### Almancil
+
+Inland from the coast between Faro and Loulé, the service town for **Quinta do Lago** and **Vale do Lobo**. The church of São Lourenço is lined floor to ceiling in 18th-century azulejos.
+
+### Aljezur
+
+On the west coast inside the Costa Vicentina park — wilder Atlantic beaches, cold water, and the sweet potato the town is known for.
+
 ## Prompt context
 
 The learner lives in the Algarve, southern Portugal — al-Gharb — and speaks European Portuguese only. Their week runs on the *mercado municipal* (Olhão's two brick pavilions from 1915, Loulé's neo-Moorish hall), the Wednesday *feira* in Quarteira, the Saturday market in Loulé and Olhão, and the *feiras de velharias* that rotate through Almancil, Moncarapacho, Fuseta and Estói. They shop for *conquilhas*, *amêijoas*, *atum*, *laranjas de Silves*, *figos*, *amêndoa* and *alfarroba*; they cook *xarém*, *cataplana*, *sardinha assada*, *frango à Guia*; they drink *medronho* from Monchique and eat *dom rodrigos*. Errands mean *as Finanças*, the *junta de freguesia*, the *centro de saúde*, AIMA, Multibanco and MB WAY. Transport means the slow *comboio regional* along the Linha do Algarve, the EN125 and the A22 (Via do Infante), and the ferries across the Ria Formosa to Armona, Culatra and Farol. Life swings between August chaos and a winter when half the coast is *encerrado*. The accent is southern: diphthongs flatten (*pã* for pão, *lête* for leite), final vowels drop, and speech runs fast.

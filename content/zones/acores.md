@@ -213,6 +213,26 @@ Known for: the ferry port facing Horta across the channel, and the wine. Landmar
 
 Known for: cheese. **Queijo de São Jorge DOP** is the island's principal product — raw whole cow's milk, cured at least 90 days, wheels of 8–12 kg, *forte, limpo e ligeiramente picante*. Landmark: the **fajãs** along the north coast — **Fajã dos Cubres**, **Fajã da Caldeira de Santo Cristo** with the only wild **amêijoas** in the Azores. Food detail: the cheese, eaten in thick slabs with bread and *vinho de cheiro*, and the clams from the Fajã da Caldeira. Everyday life: an island 53 km long and 8 km wide with 300–400 m cliffs on the north side, so getting down to a *fajã* is a decision, not a detour; the ferry across to Pico and Faial, which is a **summer service only** — out of season São Jorge is reached by air, and planning around that is ordinary life here; and the **Semana Cultural das Velas** in July.
 
+### Praia da Vitória
+
+Terceira's second city and its port, with a long sandy bay — unusual in the archipelago. The US Lajes Field air base is in the municipality.
+
+### Vila do Porto (Santa Maria)
+
+The oldest settlement in the Azores, on the island where Columbus stopped on the return from his first crossing. Santa Maria has the archipelago's driest, warmest weather.
+
+### Santa Cruz da Graciosa
+
+The main town of Graciosa, a UNESCO biosphere reserve; the **Furna do Enxofre** is a volcanic cavern with a sulphurous lake inside.
+
+### Santa Cruz das Flores
+
+On Flores, the westernmost point of Europe — waterfalls, hydrangeas and the lagoons of the Sete Cidades' western cousin.
+
+### Vila do Corvo
+
+The only settlement on Corvo, the smallest island: a few hundred people inside the rim of an extinct volcano.
+
 ## Prompt context
 
 The learner lives in the Açores — nine islands, three groups, where mainland Portugal is *o continente* and reaching it means a flight. Most people are on São Miguel; Ponta Delgada is the biggest city, Angra do Heroísmo the historic capital, Horta the Atlantic crossroads. Volcanic ground is a utility: Furnas cooks *cozido nas caldeiras* in numbered holes for five or six hours, and people bathe at the Poça da Dona Beija on a wet evening. Weather rules everything — *nevoeiro* cancels SATA flights, plans carry *se o tempo deixar*, hydrangeas line the roads in June. The Horta–Madalena ferry is a half-hour commute and the only year-round crossing — other inter-island boats, São Jorge included, are summer only; cargo comes by ship. Dairy is the economy: cows on the road, the *ordenha* twice a day, *queijo de São Jorge* aged until it bites. Everyday food: *chicharros*, *lapas*, *cracas*, *inhame*, *bolo lêvedo* split and buttered, *alcatra* on Terceira, *sopas do Espírito Santo* at the *império*, *vinho de cheiro* on the table. The year turns on the Senhor Santo Cristo in Ponta Delgada and the Espírito Santo everywhere. Use European Portuguese only, *tu* register, *estar a + infinitivo*.

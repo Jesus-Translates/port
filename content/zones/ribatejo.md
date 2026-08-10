@@ -772,6 +772,22 @@ da Chamusca**, the **Feira da Ascensão**, the **Procissão dos Fogaréus**); an
 (where the **Zêzere** meets the **Tejo**, renamed from *Punhete* by D. Maria II in **1836**,
 with the **Casa-Memória de Camões** and the **Festa dos Barqueiros**).
 
+### Fátima
+
+In the Ourém municipality: the **Santuário** draws millions of pilgrims, with the largest gatherings on 13 May and 13 October.
+
+### Benavente e Samora Correia
+
+Lezíria do Tejo, on the flat river plain — rice, bulls and *campinos*.
+
+### Rio Maior
+
+Between the Serra dos Candeeiros and the plain, known for the **salinas** — inland salt pans worked since at least the 12th century, nowhere near the sea.
+
+### Coruche
+
+Cork capital on the Sorraia, surrounded by *montado* — the cork oak landscape that makes Portugal the world's largest producer.
+
 ## Prompt context
 
 The learner lives in the Ribatejo, the Tejo valley inland from Lisbon: Santarém on its hill

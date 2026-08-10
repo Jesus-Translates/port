@@ -23,12 +23,12 @@ const META: Record<string, { pt: string; en: string; emoji: string; sort: number
   centro: { pt: "Centro", en: "Centre — Coimbra, Aveiro, Leiria, Serra da Estrela", emoji: "⛰️", sort: 20 },
   oeste: { pt: "Oeste", en: "The West coast — Torres Vedras, Ericeira, Óbidos, Nazaré", emoji: "🌊", sort: 30 },
   ribatejo: { pt: "Ribatejo", en: "The Tejo valley — Santarém, Tomar, Golegã", emoji: "🐎", sort: 35 },
-  lisboa: { pt: "Grande Lisboa", en: "Lisbon and around — Sintra, Cascais, the south bank", emoji: "🏛️", sort: 40 },
+  lisboa: { pt: "Grande Lisboa", en: "Lisbon and around — Sintra, Cascais, Oeiras", emoji: "🏛️", sort: 40 },
   setubal: { pt: "Península de Setúbal", en: "South bank — Almada, Setúbal, Sesimbra, Arrábida", emoji: "🐬", sort: 45 },
   alentejo: { pt: "Alentejo", en: "The plains — Évora, Beja, the cork oaks", emoji: "🌾", sort: 50 },
   algarve: { pt: "Algarve", en: "The south — Faro, Tavira, Lagos", emoji: "🏖️", sort: 60 },
   madeira: { pt: "Madeira", en: "Madeira and Porto Santo", emoji: "🌺", sort: 70 },
-  acores: { pt: "Açores", en: "The Azores — nine islands", emoji: "🌋", sort: 80 },
+  acores: { pt: "Açores", en: "The Azores — all nine islands", emoji: "🌋", sort: 80 },
 };
 
 /**

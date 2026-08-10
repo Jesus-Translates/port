@@ -209,6 +209,18 @@ Known for: being the natural stop between Funchal and the west, at the mouth of 
 
 Known for: the **Grutas de São Vicente**, lava tubes you can walk through, and the wettest, greenest side of the island. Landmark: the small chapel built into a boulder at the river mouth. Food detail: *sopa de trigo* and north-coast cooking in the village restaurants. Everyday life: the tunnel to Seixal and Porto Moniz; when the *ribeira* is high after rain, everyone goes to look at it.
 
+### Caniço e Santa Cruz (Madeira)
+
+East of Funchal either side of the airport: Caniço de Baixo has the island's largest resident foreign community, and Santa Cruz is the municipality the airport sits in. Not to be confused with Santa Cruz in the Oeste.
+
+### Calheta
+
+On the sunnier south-west coast, with one of the island's few imported-sand beaches and the Casa das Mudas arts centre.
+
+### Ponta do Sol
+
+A small south-coast town that markets itself as a **digital nomad village**, with the island's highest sunshine hours.
+
 ## Prompt context
 
 The learner lives in Madeira, an autonomous Atlantic region where mainland Portugal is called *o continente* and going there means flying. The island is vertical: you go up to Monte and down to the marina, and journeys are measured in tunnels on the Via Rápida. Funchal holds most of the population; Câmara de Lobos fishes *espada preta* and grows the wine grapes; Santana is cold and wet; Porto Santo is flat and dry, two hours away on the *Lobo Marinho*. Weather dictates plans — the cloud lid over Funchal, a sudden *pé de vento*, crosswinds diverting flights at the pillared runway in Santa Cruz. Everyday nouns: *levada*, *levadeiro*, *poio*, *vereda*, *semilha*, *arraial*, *bica*. Everyday food: *espetada* on a laurel skewer with *milho frito*, *bolo do caco* with *manteiga de alho*, *lapas*, *espada com banana*, *carne de vinha d'alhos* at Christmas, *bolo de mel* broken by hand. Everyday drink: *poncha* stirred with a *caralhinho*, *nikita*, Coral beer, Brisa maracujá, Madeira wine as an aperitif. Saturday means the Mercado dos Lavradores. Use European Portuguese only, *tu* register, *estar a + infinitivo*.

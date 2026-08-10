@@ -664,6 +664,22 @@ and the **Linha da Beira Baixa** are the two ways out — Covilhã and Guarda to
 north, Lisboa to the south. Note the frequent mix-up: Delphi was in **Guarda**, not
 here.
 
+### Marinha Grande
+
+Portugal's glass town, next to the Pinhal de Leiria and the beaches at São Pedro de Moel. The **Museu do Vidro** sits in the old Stephens factory.
+
+### Pombal
+
+On the old Lisbon–Porto road, dominated by its Templar castle. Named for the Marquês de Pombal, who was exiled here after the 1755 earthquake rebuild.
+
+### Águeda
+
+Between Aveiro and Viseu, known nationally for the **Umbrella Sky** installation that shades its central streets each summer.
+
+### Fundão
+
+In the Cova da Beira below the Serra da Estrela — cherry country; the **Festa da Cereja** is the year's fixture.
+
 ## Prompt context
 
 The learner lives in Portugal's Centro, between the Atlantic and the Serra da

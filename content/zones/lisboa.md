@@ -217,9 +217,18 @@ The **densest concelho in Portugal**: 171 500 people (Censos 2021) on 23,79 km²
 
 Lisbon's newest freguesia, created in 2012 out of Santa Maria dos Olivais plus land taken from Loures, with 22 382 residents on 5,44 km². Built on a derelict industrial and port zone for **Expo 98**, whose theme was *"Os Oceanos, um Património para o Futuro"*. Landmarks: the **Oceanário** (opened 22 May 1998, central tank of five million litres), the **Gare do Oriente** by Calatrava, the **Torre Vasco da Gama** — the tallest building in Portugal — the **teleférico** along the waterfront, and the **MEO Arena**. Food: no deep tradition here; this is where people eat at chains and terraces along the **Passeio Ribeirinho**, which is exactly what residents say about it. Everyday life: the **Gare do Oriente** is the interchange for anyone arriving from the north or east — CP long-distance and urban trains, the **linha vermelha**, and the bus terminal — and the **Centro Vasco da Gama** next door is the everyday shopping. Wide pavements, flat ground and a river promenade make it the region's default place to run, cycle or take small children.
 
-### Alfama e Marvila
+### Odivelas
 
-Two faces of eastern Lisbon. **Alfama** is not a freguesia — it straddles **Santa Maria Maior** and **São Vicente**. It is the medieval quarter the earthquake largely spared: the **Castelo de São Jorge** above it, the **Sé** below, the **Miradouro das Portas do Sol** and **Miradouro de Santa Luzia**, the **Museu do Fado**, casas de fado, and the **elétrico 28E** (running since about 1914 — the 1901 inaugural route was the Cais do Sodré–Algés corridor, today's 15E) grinding up the Calçada de São Vicente. The **Feira da Ladra** is next door at Campo de Santa Clara on **Tuesdays and Saturdays**. The June **arraiais** on the night of 12 to 13 June are Alfama's biggest night of the year. The pressure is demographic: Santa Maria Maior fell from 12 961 residents in 2011 to **10 051 in 2021**, a 22,5% loss in a decade, which is the hard number behind the everyday complaint that the old people stay and everyone else is priced out. **Marvila**, further east (35 479 residents), is the opposite trajectory: wine warehouses and cooperages — the *armazéns* of Abel Pereira da Fonseca, the *tanoarias* of the Rua Capitão Leitão — now partly converted to cultural use, alongside large social-housing bairros that residents name individually (Amendoeiras, Armador, Condado, Lóios, PRODAC, Braço de Prata). Craft breweries such as **Dois Corvos** and **Musa** have taprooms on those old industrial streets. The **linha vermelha** has served the area via **Bela Vista** and **Chelas** since 1998 — there is no station called Marvila.
+North of Lisbon, about 148 000 people — one of the metropolitan area's densest municipalities, built around the 12th-century Mosteiro de São Dinis.
+
+### Vila Franca de Xira
+
+On the Tejo's north bank, about 137 000. Culturally Ribatejo — bulls, *campinos* and the **Colete Encarnado** festival — but administratively Área Metropolitana de Lisboa.
+
+<!-- Alfama and Marvila are NOT listed here on purpose. bairros-lisboa.md
+carries a fuller entry for each (2 592 and 2 800 chars against this file's
+1 529 combined), and a combined "### Alfama e Marvila" heading here made the
+seeder create a THIRD pickable place for two bairros that are not adjacent. -->
 
 ## Prompt context
 

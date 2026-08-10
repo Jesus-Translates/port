@@ -260,6 +260,22 @@ The unit of song is the **`moda`**, oral poetry set to melody, on rural work, th
 **Food:** fish and seafood, and **`areias de Sines`** among the local sweets.
 **Everyday life:** the only genuinely industrial labour market in the Alentejo — shift work, contractors, and a jobs story that runs against the regional decline. The **Festival Músicas do Mundo** in July fills the old town and Porto Covo. Air quality and industrial expansion are permanent local arguments.
 
+### Odemira e Vila Nova de Milfontes
+
+The country's largest municipality by area, on the south-west coast inside the Parque Natural do Sudoeste. Vila Nova de Milfontes sits where the Mira meets the sea; intensive agriculture here gives Odemira Portugal's highest share of foreign residents.
+
+### Grândola e Comporta
+
+Cork and rice country behind a long Atlantic beach. Grândola gave its name to *Grândola, Vila Morena*, the song that signalled the 25 de Abril coup.
+
+### Santiago do Cacém
+
+Above the Roman ruins of **Miróbriga**, between the Serra de Grândola and the coast at Santo André.
+
+### Montemor-o-Novo
+
+Halfway between Lisbon and Évora, under a ruined hilltop castle; birthplace of São João de Deus.
+
 ## Prompt context
 
 The learner lives in the Alentejo: 17 people per square kilometre, wheat and cork oak (*montado*) to the horizon, and 40 °C summers. Reach for distance and emptiness — driving 40 km *à cidade* (Évora, Beja, Portalegre) to batch errands at Finanças, the Centro de Saúde, the Loja do Cidadão or the Junta de Freguesia; the *carrinha do peixe* that comes on set days; the café where you greet the whole room, drink *um café* standing, and eat the *prato do dia*. Food is bread, pork and olive oil: *açorda*, *migas*, *ensopado de borrego*, *sopa de cação*, chopped-not-blended *gaspacho* with ice, *porco preto* from the *montanheira*, *queijo de Serpa* set with thistle, *sericaia* with *ameixa d'Elvas*. Wine is DOC Alentejo and *vinho de talha*, opened on São Martinho, 11 November. The year runs on *ceifa*, *vindima*, *apanha da azeitona*, and *tirada da cortiça* (May–August, nine-year cycle, the year painted on the trunk). People speak slowly, with dragged vowels, say *lête* for *leite*, prefer *a gente* to *nós*, and locally use the gerund — *estou fazendo* — though the learner should produce *estar a + infinitivo*. *Cante alentejano* is sung unaccompanied at the end of dinners.

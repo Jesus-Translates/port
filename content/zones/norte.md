@@ -567,6 +567,22 @@ Food and drink: port wine and Douro table wine; heavy, hot-weather cooking. Ever
 in **September** everything stops for the **vindima**, with grapes still trodden by foot in
 granite **lagares**.
 
+### Vila Real
+
+District capital of Trás-os-Montes, about 48 000 people, above the Corgo gorge. Home of the **Casa de Mateus**, the baroque palace on the wine label, and the Universidade de Trás-os-Montes e Alto Douro.
+
+### Chaves
+
+In the far north on the Tâmega, a few kilometres from the Galician border. Roman **Aquae Flaviae**: the 1st-century bridge still carries traffic, and the thermal springs still run at 73 °C. Known for *presunto*.
+
+### Vila Nova de Famalicão
+
+A textile and industrial municipality of about 134 000 between Braga and Porto — one of the country's densest manufacturing belts.
+
+### Lamego
+
+Above the Douro's south bank, about 26 000. The **Santuário dos Remédios** staircase climbs 686 steps; the town claims Portugal's first sparkling wine.
+
 ## Prompt context
 
 Learners here live around Porto, Vila Nova de Gaia, Braga, Guimarães, Viana do Castelo, the
