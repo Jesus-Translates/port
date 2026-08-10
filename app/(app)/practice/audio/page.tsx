@@ -7,7 +7,7 @@ import { getDb, lsSessions } from "@/lib/db";
 import { lsToken } from "@/lib/ls";
 import { azureConfigured } from "@/lib/tts";
 
-export const metadata = { title: "Listen & Speak" };
+export const metadata = { title: "No carro" };
 
 function whenLabel(d: Date): string {
   return new Date(d).toLocaleString("en-GB", {
@@ -42,11 +42,11 @@ export default async function ListenSpeakPage() {
         ← Praticar
       </Link>
       <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-        🎧 Listen &amp; Speak
+        🎧 No carro
       </h1>
       <p className="mt-1 text-sm text-ink-soft">
-        Hands-free revision for the car, the walk or the kitchen: English prompt
-        → silêncio → a resposta em português europeu.
+        Revisão mãos-livres para o carro, a caminhada ou a cozinha: a pergunta
+        em inglês → silêncio para responderes → a resposta em português.
       </p>
     </header>
   );

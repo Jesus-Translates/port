@@ -220,6 +220,22 @@ function CompletedView({
           );
         })}
       </ol>
+
+      {/*
+       * Every miss above already became a review card — addMistakeCard fires
+       * from the grading path. The learner was never told, so the page ended
+       * on a list of errors with no way to act on them. This is the one
+       * button that turns a bad score into progress.
+       */}
+      {score < total ? (
+        <Link href="/practice/rever" className="btn-primary block w-full text-center">
+          Rever os erros agora →
+        </Link>
+      ) : (
+        <Link href="/practice" className="btn-primary block w-full text-center">
+          Praticar outra coisa →
+        </Link>
+      )}
     </div>
   );
 }

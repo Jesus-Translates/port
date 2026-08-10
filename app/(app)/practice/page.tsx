@@ -72,9 +72,9 @@ export default async function PracticePage(props: PageProps<"/practice">) {
       title: "🎲 Jogar",
       en: "the fun half",
       items: [
+        // One door. Listing two of the six games here made the arcade look
+        // like three separate things and quietly demoted the other four.
         { href: "/jogos", emoji: "🎮", title: "Jogos", sub: "seis jogos rápidos" },
-        { href: "/jogos/genero", emoji: "⚖️", title: "O ou A?", sub: "género contra o relógio" },
-        { href: "/jogos/intruso", emoji: "🕵️", title: "O Intruso", sub: "só português no ecrã" },
       ],
     },
   ];

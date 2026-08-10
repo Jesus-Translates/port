@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FamilyBoard } from "@/components/family-board";
 import { requireSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
@@ -36,6 +37,47 @@ export default async function FamilyPage() {
           createdAt: k.createdAt.toISOString(),
         }))}
       />
+
+      {/*
+       * Família was the only nav tab with nowhere to go — a leaderboard and
+       * some stars, then a full stop. It is also the tab a child is most
+       * likely to open first, so the one thing it must offer is a way to go
+       * and earn a place on it.
+       */}
+      <section className="grid gap-3 sm:grid-cols-2">
+        <Link
+          href="/jogos"
+          className="card group flex items-center gap-3 p-4 transition-all hover:border-sage hover:shadow-md"
+        >
+          <span className="text-2xl" aria-hidden>
+            🎮
+          </span>
+          <span className="min-w-0">
+            <span className="block font-semibold group-hover:text-olive">
+              Desafia a família
+            </span>
+            <span className="block text-sm text-ink-soft">
+              Seis jogos rápidos — cada ronda conta para os teus pontos.
+            </span>
+          </span>
+        </Link>
+        <Link
+          href="/notes"
+          className="card group flex items-center gap-3 p-4 transition-all hover:border-sage hover:shadow-md"
+        >
+          <span className="text-2xl" aria-hidden>
+            📝
+          </span>
+          <span className="min-w-0">
+            <span className="block font-semibold group-hover:text-olive">
+              Notas da família
+            </span>
+            <span className="block text-sm text-ink-soft">
+              Apontamentos que toda a gente cá em casa pode ler.
+            </span>
+          </span>
+        </Link>
+      </section>
     </div>
   );
 }
