@@ -219,8 +219,9 @@ Amarante's **doces conventuais**, from the recipes of the Convento de Santa Clar
 **foguetes**, **lérias**, **brisas do Tâmega**, **papos de anjo** and the frankly phallic
 **bolos de São Gonçalo**, banned as obscene around 1926 and openly made again after 1974.
 Confeitaria da Ponte in Amarante, open since 1930, is the classic address. In Viana do Castelo
-people queue at the old **confeitarias** for **bolas de Berlim**, still warm, split and filled to
-order — ask locally which counter is the one, because they will have a view.
+people queue at **Confeitaria Manuel Natário** on **Rua Manuel Espregueira** for **bolas de
+Berlim** — the line goes down the street, and the house is one of the CTT's **Cafés Históricos**.
+It is **closed on Tuesdays**, which is the thing to know before walking anyone across town.
 
 **Drink.**
 
@@ -517,7 +518,8 @@ fills the Estádio D. Afonso Henriques.
 Where the Lima meets the Atlantic — a shipbuilding town with the most photogenic traditional
 costume in Portugal. Landmarks: the **Santuário de Santa Luzia** on the hill, reached by
 funicular, and the hospital ship **Gil Eannes** in the harbour. Food: **bolas de Berlim** from
-the town's old confeitarias, and fish off the Atlantic. Everyday life: the **estaleiros navais**
+Confeitaria Manuel Natário (closed Tuesdays), and fish off the Atlantic. Everyday life: the
+**estaleiros navais**
 are still a major employer, the goldsmiths still make **filigrana**, and the whole town takes 20
 August off for the **Romaria de Nossa Senhora da Agonia**.
 
@@ -595,7 +597,10 @@ vindima in September, magusto at São Martinho.
 - Feira de Barcelos (Thursdays) — https://www.cm-barcelos.pt/visitar/festas-feiras-e-romarias/feira-semanal-mercados-e-feiras-quinta-feira/ and http://www.portoenorte.pt/pt/o-que-fazer/feira-de-barcelos/
 - AIMA replacing SEF — https://pt.wikipedia.org/wiki/Ag%C3%AAncia_para_a_Integra%C3%A7%C3%A3o,_Migra%C3%A7%C3%B5es_e_Asilo
 - Francesinha origin and composition — https://pt.wikipedia.org/wiki/Francesinha. A Regaleira still trades, but moved: it closed in 2018 and reopened 1 July 2021 at Rua do Bonjardim 83 under the founding family — https://aregaleira.pt/ and https://www.comerciocomhistoria.gov.pt/en/listings/restaurante-a-regaleira-4204/. The house dates the dish to 1952 (not 1953), and the often-repeated "from Terras de Bouro" rests on a single blog, so it has been dropped.
-- Viana do Castelo bolas de Berlim — NO shop is named here on purpose. Confeitaria Manuel Natário could not be confirmed as still trading (its own site is stale and sources conflict), so per the no-unconfirmed-business rule the name was removed rather than hedged. Do not reinstate it without a fresh check.
+- Confeitaria Manuel Natário, Rua Manuel Espregueira 37, Viana do Castelo (tel. 258 822 376) — **VERIFIED STILL TRADING as of a check on 10 August 2026**. Evidence: its own Facebook page posted on 27 June 2026 promoting the Força Aérea's 74th-anniversary events in Viana (27 June – 5 July 2026 per emfa.pt), which date-anchors the post to a real public event so it cannot be stale; an unbroken run of dated first-hand Tripadvisor reviews through 29 July 2026 (visits in April, May and July 2026, one quoting €1,80 a bola, another describing the queue down the street); and a present-tense NiT piece of 30 August 2024 with full hours. No closure has been reported anywhere in the Portuguese press, which a CTT *Cafés Históricos* house would not escape.
+- Hours: Monday and Wednesday–Saturday 09:00–19:00; Sunday 09:00–13:30 and 15:30–19:00; **closed Tuesdays**. The government *Comércio com História* listing says open daily — it is wrong about Tuesdays, so do not "correct" the file back to match it.
+- One earlier draft deleted this name after a single site (padaria-miratejo.pt) claimed a closure. That page is undated, unattributed, uncited and gets the founding year wrong; it was the only such claim across three search engines. Do not delete the name on its authority.
+- **Do not conflate with Pastelaria Zé Natário**, Avenida dos Combatentes da Grande Guerra 20 — a separate firm founded in 1970, also trading, also known for bolas de Berlim. Two different houses, two different streets; keep their details apart.
 - Tripas à moda do Porto — https://pt.wikipedia.org/wiki/Tripas_%C3%A0_moda_do_Porto and https://tradicional.dgadr.gov.pt/pt/cat/pratos-a-base-de-carne/997-tripas-a-moda-do-porto
 - Minho dishes (rojões, papas de sarrabulho, bacalhau à Braga) — https://www.cm-vilaverde.pt/visitar/cultura/patrimonio-imaterial/gastronomia-tradicional/ and https://www.portugalthings.com/pt/o-que-comer-no-minho/
 - Trás-os-Montes gastronomy (posta mirandesa, alheira, folar, butelo) — https://amontesinho.pt/braganca/a-gastronomia-da-terra-fria-transmontana/ and https://www.e-konomista.pt/gastronomia-tras-montes-alto-douro/

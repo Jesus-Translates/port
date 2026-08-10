@@ -67,7 +67,21 @@ const LEXICAL: [string, string, string][] = [
   ["papai", "o pai", "Brazilian"],
   ["garçom", "o empregado de mesa", "Brazilian waiter"],
   ["fila do caixa", "a fila da caixa", "Brazilian gender"],
+  // Confirmed by native review of this app's own content, 2026-08-10.
+  ["para viagem", "para levar", "Brazilian takeaway phrase — Portugal says 'para levar'"],
 ];
+
+/**
+ * Clitic placement after a proclisis trigger.
+ *
+ * Native review found a quiz item whose only accepted answer was "porque
+ * estraga-se". "Porque", negatives, question words and a handful of adverbs
+ * all pull the pronoun BEFORE the verb in European Portuguese, and the app was
+ * teaching the opposite as correct — in a grammar drill, which is the worst
+ * possible place to be wrong.
+ */
+const PROCLISIS_TRIGGERS =
+  "porque|porqu\u00ea|que|quem|quando|onde|como|n\u00e3o|nunca|j\u00e1|tamb\u00e9m|s\u00f3|talvez|quem|se";
 
 const RULES: Rule[] = [
   ...LEXICAL.map(([found, expected, note]) => ({
@@ -94,6 +108,17 @@ const RULES: Rule[] = [
     severity: "medium",
   },
   {
+    // After a trigger the pronoun must PRECEDE the verb: "porque se estraga",
+    // never "porque estraga-se".
+    re: new RegExp(
+      `\\b(?:${PROCLISIS_TRIGGERS})\\s+[a-zà-ÿ]+(?:a|e|i|ou|ei)\\-(me|te|se|nos|lhe|lhes)\\b`,
+      "gi"
+    ),
+    expected: "pronome ANTES do verbo depois de porque/não/que/já (porque se estraga)",
+    note: "European Portuguese moves the clitic before the verb after these triggers",
+    severity: "high",
+  },
+  {
     // "você" as the everyday informal address. Real in European Portuguese but
     // formal/regional; this app teaches the tu register on purpose.
     re: /(?<![a-zà-ÿ])voc[êe]s?(?![a-zà-ÿ])/gi,
@@ -103,14 +128,38 @@ const RULES: Rule[] = [
   },
 ];
 
+/**
+ * Lines that are TEACHING the Brazilian form, not using it.
+ *
+ * A learning app says "No Brasil: geladeira · Em Portugal: frigorífico" on
+ * purpose, and the first version of this linter flagged those lessons as
+ * errors — it marked the curriculum wrong for doing its job. A checker that
+ * cries wolf on correct content is worse than no checker, so any line that
+ * names Brazil, or contrasts the two varieties, is exempt.
+ */
+const TEACHING_CONTRAST =
+  /\bno brasil\b|\bbrasileir[oa]s?\b|\bbrasil\b|em portugal\b|\bpt-?br\b|\berrado\b|\bevita[rs]?\b|\bnão dig[ao]s?\b|✗|❌/i;
+
 /** Every Brazilianism in a piece of text. */
 export function lintPt(text: string): Finding[] {
   if (!text) return [];
   const out: Finding[] = [];
   const seen = new Set<string>();
+  const lines = text.split(/\r?\n/);
+
+  /** Which line a match falls on, so context can excuse it. */
+  const lineAt = (index: number): string => {
+    let seenChars = 0;
+    for (const line of lines) {
+      seenChars += line.length + 1;
+      if (index < seenChars) return line;
+    }
+    return "";
+  };
 
   for (const rule of RULES) {
     for (const m of text.matchAll(rule.re)) {
+      if (m.index !== undefined && TEACHING_CONTRAST.test(lineAt(m.index))) continue;
       const found = m[0].replace(/\s+/g, " ").trim();
       const key = `${found.toLowerCase()}|${rule.expected}`;
       if (seen.has(key)) continue;

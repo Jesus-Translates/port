@@ -254,11 +254,12 @@ speech, so it is more alive than any survey shows.
 Several varieties instead **keep it audible**, or **add a vowel after a final consonant**
 (paragoge).
 
-**Where.** **Madeira** most famously; also documented in the **Alentejo**. In **Barranquenho** the
-final `-e` goes further and becomes `-i`.
+**Where.** **Madeira** most famously; also documented in the **Alentejo** (*fazêri*) and, with a
+well-attested set of examples, in the **Algarve**, where the added vowel after a final `-r` is
+specifically an `-i`. In **Barranquenho** the final `-e` goes further and becomes `-i`.
 
-**Example.** `fazer` → *fazêre* / *fazêri*. `comer` → *comêre*. `falar` → *falare*. Barranquenho
-`pobre` → *pobri*.
+**Example.** `fazer` → *fazêre* / *fazêri*. `comer` → *comêre*. `falar` → *falare*. Algarve
+`dizer` → *dizêri*, `dormir` → *dormíri*. Barranquenho `pobre` → *pobri*.
 
 **Verdict. RECOGNISE.** The Madeiran version is the single most caricatured island trait on the
 mainland; a learner producing it in Lisbon would be heard as doing an impression.
@@ -320,8 +321,11 @@ Brazilian — while never correcting a neighbour who uses it.
 vowels.
 
 **Where and example.** Alentejo: `bem` → *bã*; a nasalised, lengthened emphasis at word ends.
-Islands: `-ões` → *-ôns*, `-ães` → *-âns*. Algarve: final vowels drop wholesale, so *o meu irmão
-comprou um carro novo* runs out as [u ˈme iɾˈmɐ̃ kõˈpɾo ũ ˈkaʁ ˈnov].
+Islands: `-ões` → *-ôns*, `-ães` → *-âns*. Algarve: the headline is **`ão` → `ã`** (*não* towards
+*nã*, `pão` → *pã*), with final vowels dropping wholesale (*fôg* for `fogo`, *amig* for `amigo`),
+so *o meu irmão comprou um carro novo* runs out as [u ˈme iɾˈmɐ̃ kõˈpɾo ũ ˈkaʁ ˈnov]. The Algarve
+also hollows out long words — *fenomo* for `fenómeno`, *árve* for `árvore` — and, against the
+southern trend, **keeps a stressed `ô` closed** where the standard opens it (*ôvos*, *jôgos*).
 
 **Verdict. RECOGNISE.**
 
@@ -363,19 +367,29 @@ drift towards Brazilian habits:
 - **Uvular /ʁ/**: the standard `rr` and initial `r` are uvular, fricative [ʁ] or trilled [ʀ].
   (An apical alveolar trill survives in conservative interior speech — Guarda, Viseu, the Serra —
   but is receding; *unverified* as to how current it still is.)
-- **Northern apical /s̺/**: the whistly, faintly *sh*-tinted sibilant of the northern coast and
-  Galicia. **RECOGNISE**, do not adopt.
+- **Northern apical /s̺/**: the whistly, faintly *sh*-tinted sibilant of the northern **interior**
+  — Trás-os-Montes, the Alto Minho, the Beira Alta — and of Galicia. It is *not* reliably a
+  coastal feature, whatever the classic maps show. **RECOGNISE**, do not adopt.
 
 ---
 
 ## Minority and protected varieties
 
-### Mirandês — a second official language, not a dialect
+### Mirandês — a protected language in its own right, not a dialect
 
-**Status.** Recognised by **Lei n.º 7/99, de 29 de janeiro** — *"Reconhecimento oficial de
-direitos linguísticos da comunidade mirandesa."* Teaching is regulated by **Despacho Normativo
-n.º 35/99, de 20 de julho**, which allows Mirandese in basic and secondary education in Miranda
-do Douro as curricular enrichment — optional, one hour a week.
+**Status.** Recognised by **Lei n.º 7/99, de 29 de janeiro**, *"Reconhecimento oficial de
+direitos linguísticos da comunidade mirandesa"* — verified against the primary text in the
+Diário da República. Be precise about what the law actually does, because "Portugal's second
+official language" is a summary, not a quotation. Article 1 says the diploma *"visa reconhecer e
+promover a língua mirandesa"*; Article 2 recognises *"o direito a cultivar e promover a língua
+mirandesa, enquanto património cultural, instrumento de comunicação e de reforço de identidade
+da terra de Miranda"*; Article 3 recognises a child's right to learn it; Article 4 provides that
+public institutions in the **concelho de Miranda do Douro** *may* issue their documents
+accompanied by a Mirandese version. So: officially recognised linguistic rights, anchored to one
+concelho — not co-officiality across the Republic. Teaching is regulated by **Despacho Normativo
+n.º 35/99, de 20 de julho**, which makes Mirandese available to basic and secondary pupils in
+Miranda do Douro *"como vertente de enriquecimento do currículo"* — optional, and delivered
+through school projects rather than a fixed national timetable slot.
 
 **What it is.** **Asturo-Leonese**, a Western Ibero-Romance language. It is **not** a dialect of
 Portuguese and is not descended from it; it is Portuguese's cousin, not its child. Saying
@@ -392,18 +406,23 @@ the language and about **1,500 regular users**.
 **Variants.** Three: **central** (or *normal*, the reference standard), **setentrional** (or
 *raiano*, the border variety), and **meridional** (or *sendinês*).
 
-**What a learner should know.** That it exists, that it is co-official, and that it is a
-language. Nothing more is required. The **Pauliteiros de Miranda** stick dance and the
+**What a learner should know.** That it exists, that the State protects it by name, and that it
+is a language and not a rustic Portuguese. Nothing more is required. The **Pauliteiros de Miranda** stick dance and the
 *gaita-de-foles* travel with it culturally.
 
 ### Barranquenho — the border mix
 
-**Status.** Recognised by the **Assembleia da República unanimously on 26 November 2021** and
-promulgated by the President on **19 December 2021**, granting the right to cultivate and promote
-it, the right to learn it in local schools, and the option for public bodies in the concelho to
-issue documents accompanied by a Barranquenho version. It had been municipal cultural heritage
-since 2008. (Reported as **Lei n.º 97/2021, de 30 de dezembro** — *law number unverified against
-the primary text in this pass*.)
+**Status.** **Lei n.º 97/2021, de 30 de dezembro**, *"Reconhecimento e proteção do Barranquenho
+e da sua identidade cultural"* — **verified against the primary text this pass; the law number
+previously flagged here as unverified is correct.** Approved in the Assembleia da República on
+**26 November 2021** and promulgated on **19 December 2021**. It recognises *"o direito a
+cultivar e promover o Barranquenho, enquanto veículo de transmissão do património cultural
+imaterial"*, the right to learn it in local schools, the option for public institutions in the
+concelho de Barrancos to issue documents accompanied by a Barranquenho version, and support for
+academic research and for developing a spelling convention. The structure deliberately mirrors
+the Mirandese law of 1999, article for article — Portugal protects its small languages with one
+template. It had been municipal cultural heritage since 2008 *(that earlier municipal step is
+still uncorroborated here)*.
 
 **What it is.** A **mixed border variety** — Portuguese base, heavily restructured by southern
 Spanish. The classification is genuinely unsettled: Wikipedia's own section heading calls it
@@ -447,9 +466,11 @@ to the idea that Portugal's linguistic map has only two interesting corners.
 
 ### Also worth a line
 
-**Língua Gestual Portuguesa** is Portugal's sign language and holds constitutional protection
-*(unverified in this research pass)*. It is a full language, unrelated in structure to spoken
-Portuguese.
+**Língua Gestual Portuguesa** is Portugal's sign language, and its constitutional protection —
+flagged unverified in an earlier pass — **is confirmed**: Constituição da República Portuguesa,
+**Artigo 74.º, n.º 2, alínea h)**, which makes it the State's task to *"proteger e valorizar a
+língua gestual portuguesa, enquanto expressão cultural e instrumento de acesso à educação e da
+igualdade de oportunidades."* It is a full language, unrelated in structure to spoken Portuguese.
 
 ---
 
@@ -502,8 +523,11 @@ learner as the form to aim at.
 
 **Norte** — Dialectally setentrional and the most recognisable accent in the country, worn with
 pride. Betacismo (*binho*, *baca*) in the Minho and rural Braga; `ou` and `ei` kept as full
-diphthongs (*pouco*, *dinheiro*); apical, whistly /s/ along the coast and into Galicia;
-unstressed vowels given their full body, so speech sounds slower and rounder than Lisbon's.
+diphthongs (*pouco*, *dinheiro*); the apical, whistly /s/ inland and across into Galicia —
+**but do not put it on the north-western coast**, which is exactly where the ALPI re-analysis
+finds it practically absent, and where Cintra's own map is least defensible (see *Where the
+classification is contested*); unstressed vowels given their full body, so speech sounds slower
+and rounder than Lisbon's.
 Braga's cadence is more sung than Porto's, with a rising melody. The [tʃ] affricate and surviving
 *vós* forms persist inland in the Alto Minho and Trás-os-Montes. **Mirandês** is the co-official
 Asturo-Leonese language of the Miranda do Douro corner.
@@ -627,12 +651,39 @@ area, tell them they are already inside the reference variety and have no accent
   https://ciberduvidas.iscte-iul.pt/consultorio/perguntas/sobre-a-aceitabilidade-das-pronuncias-regionais-portugal/25830
 - Estremenho, the lisboeta/coimbrão split, *manêra* vs *manâira* —
   https://pt.wikipedia.org/wiki/Dialeto_estremenho
-- Mirandês: Lei n.º 7/99 de 29 de janeiro, Despacho Normativo n.º 35/99 de 20 de julho, extent,
-  speaker numbers, three variants — https://pt.wikipedia.org/wiki/L%C3%ADngua_mirandesa
-- Barranquenho: features, mixed status, 2021 parliamentary recognition —
-  https://pt.wikipedia.org/wiki/Barranquenho,
+- Mirandês, **primary text verified this pass**: Lei n.º 7/99, de 29 de Janeiro,
+  "Reconhecimento oficial de direitos linguísticos da comunidade mirandesa", Diário da República
+  I Série-A n.º 24 — https://files.dre.pt/1s/1999/01/024a00/05740575.pdf ; teaching regime,
+  Despacho Normativo n.º 35/99, DR I Série-B n.º 167, 20-7-1999 —
+  https://files.diariodarepublica.pt/1s/1999/07/167b00/44874487.pdf . The "one hour a week"
+  detail previously stated here is **not in the despacho** and has been deleted. Extent, speaker
+  numbers and the three variants remain sourced only to
+  https://pt.wikipedia.org/wiki/L%C3%ADngua_mirandesa — the km² range is given as a range on
+  purpose, because sources vary; do not flatten it to a single figure.
+- Barranquenho, **primary text verified this pass, resolving the flag left in the last pass**:
+  Lei n.º 97/2021, de 30 de dezembro, "Reconhecimento e proteção do Barranquenho e da sua
+  identidade cultural", Diário da República 1.ª série n.º 252, pp. 3–4 —
+  https://files.diariodarepublica.pt/1s/2021/12/25200/0000300004.pdf (approved 26-11-2021,
+  promulgated 19-12-2021). "Unanimously" is dropped: the published text does not record the vote.
+  Features and mixed status — https://pt.wikipedia.org/wiki/Barranquenho,
   https://pt.wikipedia.org/wiki/Dialeto_barranquenho
+- Língua Gestual Portuguesa, **constitutional protection verified this pass**: Constituição da
+  República Portuguesa, Artigo 74.º, n.º 2, alínea h) —
+  https://www.parlamento.pt/Legislacao/Paginas/ConstituicaoRepublicaPortuguesa.aspx
 - Minderico: origin as a trade code, endangerment, CIDLeS documentation —
   https://pt.wikipedia.org/wiki/Minderico
 - Cross-checked against this repo's own zone dossiers: `norte.md`, `centro.md`, `oeste.md`,
   `alentejo.md`, `algarve.md`, `madeira.md`, `acores.md`
+
+**Cross-check results this pass.** `alentejo.md`, `madeira.md` and `acores.md` agree with this
+file throughout — including the gerúndio rule, the island palatalisation after /i/, and the
+"firmly documented for Madeira, less firmly for the Açores" hedge. Two changes were made **to
+this file** because `algarve.md` was the better-evidenced side: paragoge in `-i` after final
+`-r` (*dizêri*, *dormíri*) is now credited to the Algarve as well as Madeira and the Alentejo,
+and the Algarve entry now leads with `ão` → `ã`, plus proparoxytone hollowing (*árve*) and the
+preserved close `ô` (*ôvos*). One discrepancy runs the other way and belongs to another owner:
+**`norte.md`:414-416 places the apical /s/ "along the northern coast"**, stated flatly. That is
+the single claim the CLUL re-analysis of the ALPI materials most directly undermines — the trait
+is reported as *"praticamente inexistente"* in the western Viana do Castelo and Braga districts
+and the north of Porto. This file's own Norte summary carried the same flat wording and has been
+corrected here; `norte.md` still needs it.
