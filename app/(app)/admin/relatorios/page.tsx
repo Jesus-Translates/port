@@ -75,8 +75,15 @@ export default async function ReportsPage() {
                 {h.subscription.status}
                 {h.subscription.periodEnd ? ` · até ${h.subscription.periodEnd}` : ""}
               </span>
-              <span className="ml-auto text-xs text-ink-faint">
+              <span
+                className={`ml-auto text-xs ${
+                  h.members.length > h.seatLimit
+                    ? "font-medium text-terra-dark"
+                    : "text-ink-faint"
+                }`}
+              >
                 {h.members.length}/{h.seatLimit} lugares
+                {h.members.length > h.seatLimit ? " · acima do plano" : ""}
               </span>
             </header>
 

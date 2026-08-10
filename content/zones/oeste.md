@@ -289,11 +289,17 @@ Nazaré town). **Peniche and Ericeira have no station at all**, and Nazaré has 
 own. Electrification is only partial, which is why the line's slow reputation is structural
 rather than folklore.
 
-> **Time-sensitive, as of August 2026.** Storms in late January 2026 took out the southern
-> half of the line, and the stretch serving Torres Vedras and Mafra has been running on
-> **bus substitution** since. Reopening is phased, with full electric services reported as
-> slipping to 2027–28. Prefer `o comboio está suprimido` and `há transbordo rodoviário`
-> over anything timetable-specific.
+> **Time-sensitive, as of August 2026 — check before teaching it as current.** Storms in
+> January 2026 closed the southern half of the line. For the first seven weeks CP simply
+> cancelled the trains with no road alternative; **replacement buses began on 16 March
+> 2026**. On the CP timetable **in force since 19 July 2026**, the whole stretch between
+> **Caldas da Rainha and Mira Sintra-Meleças** is worked by **Transbordo Rodoviário (TR) —
+> replacement bus** — so **Torres Vedras, Bombarral, Óbidos, Malveira and Mafra are served
+> by bus, not train**, and you change at Meleças onto the Lisbon urban trains for
+> Agualva-Cacém and Santa Apolónia. Trains still run north of Caldas towards Leiria,
+> Valado–Nazaré–Alcobaça and Figueira da Foz, at reduced frequency and with some workings
+> also bus-substituted. Electric services do not yet reach Caldas da Rainha. Prefer
+> `o comboio está suprimido` and `há transbordo rodoviário` over anything timetable-specific.
 
 **Buses — and the fact that most changes daily life.** Since **1 January 2025** the
 **Passe M Oeste** makes travel **free between all twelve OesteCIM municipalities**, with the
@@ -690,7 +696,8 @@ installed in converted buildings around the town.
   year and to itself in the off-season. Most of the concelho's population actually lives in
   the surrounding freguesias — Gaeiras, Amoreira, Olho Marinho, Usseira, A-dos-Negros, Vau —
   and drives to Caldas da Rainha for the supermarket and the hospital. Óbidos has a station
-  on the Linha do Oeste; it is about 88 km from Lisbon on the A8.
+  on the Linha do Oeste, though since the January 2026 storms it is served by replacement
+  bus rather than train; it is about 88 km from Lisbon on the A8.
 
 ### Nazaré
 
@@ -761,9 +768,9 @@ each August, and hosts the **Bacalhôa Buddha Eden** sculpture garden among the 
 The learner lives on Portugal's Oeste coast: surf beaches, pear and vine country, market
 towns. Set examples in real places — Torres Vedras, Santa Cruz, Silveira, Ericeira, Mafra,
 Peniche, Baleal, Óbidos, Caldas da Rainha, Nazaré, Lourinhã, Bombarral, Alcobaça. Everyone
-drives, using the tolled A8 to Lisbon and the slower EN 247; the Linha do Oeste train
-serves Torres Vedras, Bombarral, Óbidos and Caldas da Rainha, but Peniche, Ericeira and
-Nazaré have no station. Errands: the daily Praça da Fruta in Caldas, the mini-mercado,
+drives, using the tolled A8 to Lisbon and the slower EN 247; the Linha do Oeste is on
+replacement buses south of Caldas da Rainha, and Peniche, Ericeira and Nazaré have no
+station at all. Errands: the daily Praça da Fruta in Caldas, the mini-mercado,
 Continente or Pingo Doce in the nearest town, the centro de saúde, the Câmara Municipal, the
 Junta de Freguesia, the school run to an agrupamento de escolas. Foods: pêra rocha, maçã de
 Alcobaça, sardinha and caldeirada at Peniche, marisco at Ericeira, pão de Mafra, pão-de-ló
