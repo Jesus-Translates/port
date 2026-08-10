@@ -5,7 +5,7 @@ import { getDb, lsSessions } from "@/lib/db";
 import { buildSessionSsml, LS_MAX_CARDS } from "@/lib/ls";
 import { getFlashQueue, getQueue } from "@/lib/srs";
 import { azureConfigured, azureSynthesizeDocs } from "@/lib/tts";
-import { audioKey, putAudio } from "@/lib/blob";
+import { audioKey, deleteAudio, putAudio } from "@/lib/blob";
 
 // Six minutes of neural TTS in one request — give Azure room.
 export const maxDuration = 120;
@@ -99,22 +99,31 @@ export async function POST() {
     })
     .returning({ id: lsSessions.id });
 
-  // Keep only the newest few — these rows are megabytes each.
+  // Keep only the newest few. Since the audio moved to R2 the row is a
+  // pointer, so deleting it alone leaks the object it pointed at — about
+  // 1.5 MB per pruned session, per learner, forever. That is the cost problem
+  // object storage was supposed to solve, reintroduced.
   const keep = await db
     .select({ id: lsSessions.id })
     .from(lsSessions)
     .where(eq(lsSessions.username, username))
     .orderBy(desc(lsSessions.createdAt), desc(lsSessions.id))
     .limit(KEEP);
-  await db.delete(lsSessions).where(
-    and(
-      eq(lsSessions.username, username),
-      notInArray(
-        lsSessions.id,
-        keep.map((k) => k.id)
-      )
-    )
-  );
+  const keepIds = keep.map((k) => k.id);
+
+  const doomed = await db
+    .select({ id: lsSessions.id, audioKey: lsSessions.audioKey })
+    .from(lsSessions)
+    .where(and(eq(lsSessions.username, username), notInArray(lsSessions.id, keepIds)));
+
+  // Objects first: an orphaned row is visible and fixable, an orphaned object
+  // is invisible and bills forever.
+  for (const old of doomed) {
+    if (old.audioKey) await deleteAudio(old.audioKey);
+  }
+  await db
+    .delete(lsSessions)
+    .where(and(eq(lsSessions.username, username), notInArray(lsSessions.id, keepIds)));
 
   return NextResponse.json({ id: row.id, cardCount: cards.length });
 }
