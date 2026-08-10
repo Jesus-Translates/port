@@ -76,17 +76,31 @@ function parseBank(path: string): Parsed[] {
   return out;
 }
 
+/** Accent-and-punctuation-blind key, so «18 distritos» asked twice across
+ *  banks (fact-QA found 8 byte-identical pairs) seeds only once. */
+function dedupeKey(promptPt: string): string {
+  return promptPt
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
 async function main() {
   const db = getDb();
   let inserted = 0;
   let updated = 0;
+  let deduped = 0;
+  const seenPrompts = new Set<string>();
 
   for (const bank of ["civica", "ciple"]) {
     const dir = join(process.cwd(), "content", bank);
     if (!existsSync(dir)) continue;
-    const files = readdirSync(dir).filter(
-      (f) => f.startsWith("banco-") && f.endsWith(".md")
-    );
+    // Sorted so the first-occurrence winner of a duplicate is stable across runs.
+    const files = readdirSync(dir)
+      .filter((f) => f.startsWith("banco-") && f.endsWith(".md"))
+      .sort();
     for (const file of files) {
       let qs: Parsed[];
       try {
@@ -100,6 +114,12 @@ async function main() {
       if (qs.length === 0) continue;
 
       for (const [i, q] of qs.entries()) {
+        const pk = dedupeKey(q.promptPt);
+        if (seenPrompts.has(pk)) {
+          deduped += 1;
+          continue;
+        }
+        seenPrompts.add(pk);
         const key = and(
           eq(examQuestions.bank, bank),
           eq(examQuestions.sourceFile, file),
@@ -142,7 +162,7 @@ async function main() {
     }
   }
   console.log(
-    `\nBanco seeded — ${inserted} inserted, ${updated} refreshed${publish ? ", ALL PUBLISHED" : " (drafts — publish after review)"}.`
+    `\nBanco seeded — ${inserted} inserted, ${updated} refreshed, ${deduped} cross-file duplicates skipped${publish ? ", ALL PUBLISHED" : " (drafts — publish after review)"}.`
   );
 }
 

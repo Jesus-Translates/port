@@ -172,7 +172,7 @@
 - **A CPLP — Comunidade dos Países de Língua Portuguesa — foi criada a 17 de julho de 1996, em Lisboa.** *The CPLP was created in Lisbon on 17 July 1996.*
 - **A CPLP tem nove Estados-membros: Angola, Brasil, Cabo Verde, Guiné-Bissau, Guiné Equatorial, Moçambique, Portugal, São Tomé e Príncipe e Timor-Leste.** *The CPLP has nine member states.*
 - **Os sete fundadores foram Angola, Brasil, Cabo Verde, Guiné-Bissau, Moçambique, Portugal e São Tomé e Príncipe; Timor-Leste aderiu a 20 de maio de 2002 e a Guiné Equatorial tornou-se o nono membro (2014/2016 — ver lacunas).** *Seven founders, plus Timor-Leste (2002) and Equatorial Guinea.*
-- **A ligação à CPLP é relevante para o teste de cidadania: os nacionais dos países da CPLP estão dispensados do exame de língua, mas não do teste de cultura e cidadania.** *CPLP nationals are exempt from the language exam but not from the civics test.*
+- **A categoria legal relevante são os «nacionais de países de língua oficial portuguesa» (não «membros da CPLP» — a Guiné Equatorial é membro da CPLP sem estatuto linguístico equiparável): para eles, a lei presume-se — presunção ilidível, não dispensa — que dominam a língua (art. 6.º, n.º 10, primeira parte da alínea c)), mas o conhecimento da cultura, história, símbolos e dos direitos e deveres não está coberto pela presunção.** *Nationals of Portuguese-official-language countries benefit from a rebuttable presumption on the language requirement only — culture, history, symbols and civics are NOT covered.*
 - **A língua portuguesa é falada por mais de 250 milhões de pessoas em quatro continentes; é a língua oficial de nove países.** *Portuguese is spoken by over 250 million people across four continents.*
 
 ---
@@ -180,7 +180,7 @@
 ## 8. Geografia essencial
 
 - **Portugal fica no extremo sudoeste da Europa, na Península Ibérica, e faz fronteira terrestre apenas com Espanha.** *Portugal lies at the south-western tip of Europe and borders only Spain by land.*
-- **A fronteira entre Portugal e Espanha é uma das mais antigas da Europa, definida em boa parte pelo Tratado de Alcanises (1297).** *The Portugal-Spain border is one of Europe's oldest, largely set by the 1297 Treaty of Alcanices.*
+- **A fronteira entre Portugal e Espanha é uma das mais antigas da Europa, definida em boa parte pelo Tratado de Alcanizes (1297).** *The Portugal-Spain border is one of Europe's oldest, largely set by the 1297 Treaty of Alcanices.*
 - **O território é formado pelo continente e pelos arquipélagos dos Açores e da Madeira, no Oceano Atlântico.** *The territory comprises the mainland plus the Azores and Madeira archipelagos.*
 - **A capital é Lisboa; a segunda maior cidade é o Porto.** *The capital is Lisbon; the second city is Porto.*
 - **A população residente era de 11 424 031 pessoas a 31 de dezembro de 2025, segundo o INE; cerca de 1,6 milhões (14%) eram cidadãos estrangeiros.** *The resident population was 11,424,031 at the end of 2025, of whom about 1.6 million (14%) were foreign nationals.*
@@ -327,7 +327,7 @@ Honestidade sobre o que não ficou confirmado nesta pesquisa:
 - **Número exato de freguesias.** O valor de cerca de 3258 vem de imprensa e de análise da Lei n.º 25-A/2025, não de uma contagem oficial da Direção-Geral das Autarquias Locais. O valor de 308 municípios está estável e é seguro.
 - **Data de adoção de "A Portuguesa" como hino.** A Presidência da República refere a aprovação oficial por resolução do Conselho de Ministros em 1957; várias fontes apontam 1911 como a adoção enquanto hino da República. Ambas as datas estão registadas acima, sem escolher entre elas.
 - **Prémio Nobel de Saramago.** O site oficial nobelprize.org devolveu erro 403 em duas tentativas. O facto (1998, Literatura) é amplamente documentado mas não foi confirmado na fonte primária nesta sessão.
-- **Datas e números culturais** (fundação em 1143, Tratado de Alcanises 1297, pastel de Belém desde 1837, títulos desportivos) são de conhecimento corrente e não foram individualmente verificados em fonte primária.
+- **Datas e números culturais** (fundação em 1143, Tratado de Alcanizes 1297, pastel de Belém desde 1837, títulos desportivos) são de conhecimento corrente e não foram individualmente verificados em fonte primária.
 
 ---
 

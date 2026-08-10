@@ -992,7 +992,7 @@ Este é o segundo banco de perguntas do teste de cidadania. Cobre aquilo que a l
 
 - [ ] Porque foi o dia da fundação do reino, em 1143
 - [x] Porque foi o dia da morte de Luís Vaz de Camões, em 1580
-- [ ] Porque foi o dia da assinatura do Tratado de Alcanises
+- [ ] Porque foi o dia da assinatura do Tratado de Alcanizes
 - [ ] Porque foi o dia da implantação da República
 
 **Explicação:** 10 June marks the death of Camões, author of Os Lusíadas, in 1580. Portugal is unusual in having its national day tied to a poet rather than to a battle or a declaration of independence.

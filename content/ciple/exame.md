@@ -42,7 +42,7 @@ Three components, sat as one exam. Total contact time is roughly **2 hours** plu
 
 Note the oral is run **in pairs** — you are examined alongside another candidate, and Part III is a short discussion of a current-affairs topic. CAPLE's registration form requires candidates to consent to **video recording of the oral component**.
 
-> **NÃO VERIFICADO:** the exact number of items per part, and the required word count for the two written texts. CAPLE's public page does not publish them. (For calibration only: the 2006 ministry *teste de diagnóstico* — a different instrument — asked for a text of 50–70 words. Do not present that as the CIPLE spec.)
+> **Nota:** the exam *page* does not publish items-per-part or word counts, but CAPLE's own model papers (linked from it) do: 20 reading items in 4 tasks, 25 listening questions, and written texts of 25–35 and c. 60–80 words — see leitura-escrita.md and compreensao-oral.md. (For calibration only: the 2006 ministry *teste de diagnóstico* — a different instrument — asked for a text of 50–70 words. Do not present that as the CIPLE spec.)
 
 ---
 
@@ -61,7 +61,7 @@ CAPLE publishes three pass bands (verbatim):
 
 **The pass mark is 55% overall**, computed as the weighted sum: 0.45 × reading/writing + 0.30 × listening + 0.25 × speaking.
 
-> **NÃO VERIFICADO — this matters for strategy:** CAPLE does not publish a **minimum mark per component**. On the published information, a candidate could in principle compensate a weak component with a strong one. Do **not** teach "you can fail one paper and still pass" as fact until CAPLE confirms it — ask CAPLE or a LAPE directly. Likewise, the exact label used below 55% (e.g. *Não aprovado*) is not published on the CIPLE page.
+> **NÃO VERIFICADO — this matters for strategy:** CAPLE does not publish a **minimum mark per component**. On the published information, a candidate could in principle compensate a weak component with a strong one. Do **not** teach "you can fail one paper and still pass" as fact until CAPLE confirms it — ask CAPLE or a LAPE directly. The label below 55% is **Insuficiente** — published in the CAPLE FAQ («Insuficiente, Suficiente, Bom ou Muito Bom»).
 
 There is no published expiry date for the certificate — **NÃO VERIFICADO**; CAPLE's FAQ is silent on validity.
 

@@ -19,8 +19,24 @@ and the new civics test as the unclaimed land-grab. This wave builds both wings.
       Zero AI cost, zero hallucinated history.
 - [x] Sandra (tutorInstructions) told about both wings + the formal-address
       register switch for the CIPLE oral
-- [ ] Workflow lands → review qa-factos.md, run db:syllabus + db:prova,
-      publish per GO/NO-GO, verify in the app
+- [x] Workflow landed 2026-08-10: 20/20 agents, 0 errors. All 4 fact-QA
+      blockers fixed (oral duration 15 min not "10-15", CPLP→"países de língua
+      oficial portuguesa" + presunção ilidível não dispensa) plus 4 minors and
+      Alcanizes toponym unification. Seeded: 16 CIPLE units PUBLISHED, 12
+      Cívica units DRAFT, 263 bank questions PUBLISHED (271 authored, 8
+      byte-identical cross-file dupes skipped at ingestion). VERIFIED LIVE:
+      civica quiz id=10 served from bank (level "Cívica", matched
+      banco-historia Q026, ZERO ai_usage rows); /unidades shows CIPLE to
+      students, hides draft Cívica (teacher sees both); quiz page renders bank
+      question. Lint+types clean.
+- [ ] REGULATION WATCH — the deciding fact: implementing regulation NOT
+      published as of 2026-08-10; statutory deadline is 16 AUGUST 2026 (six
+      days). When the decreto-lei amending DL 237-A/2006 publishes: read
+      format, update content/civica/regulamento.md, publish the Cívica units.
+      Also: law is silent on HOW alínea d) civics is proven (test vs
+      certificate vs interview) — do not assert a single unified exam anywhere.
+- [ ] Onboarding nuance from the law: applications submitted before 19 May
+      2026 owe NO knowledge test (art. 7.º n.º 2) — ask submission date first
 - [ ] NATIVE pt-PT review before publishing Cívica to the family — model
       output; the register linter run is not a native speaker
 - [ ] Watch Diário da República weekly for the civics-exam portaria; flip

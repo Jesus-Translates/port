@@ -27,7 +27,7 @@ mock — the CIPLE's structural danger is not difficulty, it is time.
 | 1 | Compreensão da Leitura e Produção e Interação Escritas | **75 min**, sem paragem | 45 % |
 | — | Intervalo | 15 min | — |
 | 2 | Compreensão do Oral | **30 min**, sem paragem | 30 % |
-| 3 | Produção e Interação Orais | **10–15 min por par** | 25 % |
+| 3 | Produção e Interação Orais | **15 min por par** | 25 % |
 
 Material, como no exame real:
 

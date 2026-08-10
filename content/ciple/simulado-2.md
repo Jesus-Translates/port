@@ -577,7 +577,7 @@ ferramenta de verificação, não como desculpa para deixar de ouvir. NÃO VERIF
 
 # COMPONENTE 3 — Produção e Interação Orais
 
-**Duração: 10–15 minutos, com dois candidatos ao mesmo tempo sempre que possível. Gravado em
+**Duração: 15 minutos, com dois candidatos ao mesmo tempo sempre que possível. Gravado em
 vídeo.** **[FORMATO OFICIAL]**
 
 O examinador trata-te pela forma formal, na terceira pessoa, **sem «tu»**: *«Como se chama?»*,

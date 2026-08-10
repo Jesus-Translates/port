@@ -911,7 +911,6 @@ Este banco cobre a História de Portugal, da fundação do reino à democracia e
 - [ ] «E Depois do Adeus»
 
 **Explicação:** "Grândola, Vila Morena", by José Afonso, played on Rádio Renascença at 00:20 and was the signal for the operations to start. It is still sung at protests and commemorations today. "A Portuguesa" is the national anthem — a different thing entirely.
-
 **Fonte:** historia.md §11; Centro de Documentação 25 de Abril (cd25a.uc.pt).
 
 ## Q071 [historia]

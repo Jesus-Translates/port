@@ -944,7 +944,7 @@ Este banco cobre a metade cultural do que a Lei Orgânica n.º 1/2026 exige: a a
 
 ## Q073 [cultura]
 
-**Pergunta:** No processo de nacionalidade, de que estão dispensados os nacionais dos países de língua oficial portuguesa?
+**Pergunta:** No processo de nacionalidade, de que é que se presume que os nacionais dos países de língua oficial portuguesa estão dispensados?
 
 - [ ] De todo o teste de nacionalidade
 - [x] Apenas da parte da língua — não da cultura, da história nem dos símbolos nacionais

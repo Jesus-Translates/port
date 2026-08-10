@@ -16,7 +16,7 @@ the same day:
 |---|---|---|
 | Compreensão da Leitura e Produção e Interação Escritas | 1 h 15 min | **45 %** |
 | Compreensão do Oral | 30 min | **30 %** |
-| **Produção e Interação Orais (PIO)** | **10–15 min per pair** | **25 %** |
+| **Produção e Interação Orais (PIO)** | **15 min per pair** | **25 %** |
 
 Source: CAPLE's own CIPLE page. Fee **€95,00**; sittings in the *épocas internacionais* of
 **May, July and November**, plus national sittings.
