@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AccountsAdmin } from "@/components/accounts-admin";
 import { requireSession } from "@/lib/auth";
+import { orphanUsernames } from "@/lib/tenant";
 import { listAccounts } from "@/lib/actions/users";
 import { ChangeMyPassword } from "@/components/change-my-password";
 
@@ -10,7 +11,10 @@ export default async function AccountsPage() {
   // listAccounts() does the real gating and scoping — a family admin lands
   // here for their own household, an instance admin for every household.
   const session = await requireSession();
-  const accounts = await listAccounts();
+  const [accounts, orphans] = await Promise.all([
+    listAccounts(),
+    orphanUsernames(),
+  ]);
 
   return (
     <div className="space-y-6">
@@ -29,7 +33,11 @@ export default async function AccountsPage() {
 
       <ChangeMyPassword />
 
-      <AccountsAdmin accounts={accounts} me={session.username} />
+      <AccountsAdmin
+        accounts={accounts}
+        me={session.username}
+        orphans={orphans}
+      />
     </div>
   );
 }

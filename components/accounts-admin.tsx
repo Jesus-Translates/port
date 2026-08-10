@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
+  adoptOrphans,
   clearAccountPassword,
   createAccount,
   deleteAccountForever,
@@ -26,9 +27,12 @@ const ROLE_LABEL: Record<string, string> = {
 export function AccountsAdmin({
   accounts,
   me,
+  orphans = [],
 }: {
   accounts: Account[];
   me: string;
+  /** Usernames with no household — shown so they cannot stay invisible. */
+  orphans?: string[];
 }) {
   const router = useRouter();
   const [pending, start] = useTransition();
@@ -64,6 +68,38 @@ export function AccountsAdmin({
         >
           {note.text}
         </p>
+      )}
+
+      {orphans.length > 0 && (
+        <section className="rounded-xl border border-terra/40 bg-terra-pale/50 p-4">
+          <h2 className="text-sm font-semibold text-terra-dark">
+            ⚠️ {orphans.length}{" "}
+            {orphans.length === 1 ? "pessoa sem família" : "pessoas sem família"}
+          </h2>
+          <p className="mt-1 text-xs text-ink-soft">
+            {orphans.join(", ")} — conseguem entrar, mas não aparecem no quadro
+            da família nem podem receber TPC. Contas criadas antes de a
+            inscrição existir.
+          </p>
+          <button
+            type="button"
+            disabled={pending}
+            onClick={() =>
+              start(async () => {
+                const r = await adoptOrphans();
+                setNote(
+                  r.ok
+                    ? { kind: "ok", text: `${r.adopted} adotada(s) para a tua família.` }
+                    : { kind: "bad", text: r.error }
+                );
+                router.refresh();
+              })
+            }
+            className="mt-3 rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
+          >
+            Adotar para a minha família
+          </button>
+        </section>
       )}
 
       <NewAccount pending={pending} run={run} />
