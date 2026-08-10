@@ -5,14 +5,26 @@ import {
   listeningGenSchema,
   normalizeQuiz,
   quizGenSchema,
+  type QuizQuestions,
 } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
-import { getDb, quizzes } from "@/lib/db";
+import { getDb, quizzes, examQuestions } from "@/lib/db";
+import { and, eq, sql } from "drizzle-orm";
 
 export const maxDuration = 120;
+
+/** Sections a civica topic can name; anything else samples the whole bank. */
+const CIVICA_SECTIONS: [RegExp, string][] = [
+  [/hist[óo]ria/i, "historia"],
+  [/estado|[óo]rg[ãa]o|constitui/i, "estado"],
+  [/s[íi]mbolo|bandeira|hino/i, "simbolos"],
+  [/direito|dever/i, "direitos"],
+  [/cultura|literatura|fado|gastronomia/i, "cultura"],
+  [/geografia|rio|ilha|regi[ãa]o/i, "geografia"],
+];
 
 export async function POST(request: NextRequest) {
   const session = await getSession();
@@ -49,6 +61,65 @@ promptPt (optional pt-PT snippet), options (exactly 4, only for multiple), answe
   let usage;
   let storedTopic = topic;
   let storedLevel = level;
+
+  if (mode === "civica") {
+    // The civics test is a fixed body of facts, so questions come from the
+    // curated, fact-checked bank (content/civica/banco-*.md → exam_questions)
+    // whenever it has published rows — deterministic, free, and immune to the
+    // model inventing history. Generation below remains only as the fallback
+    // for an empty bank.
+    const db = getDb();
+    const section = CIVICA_SECTIONS.find(([re]) => re.test(topic))?.[1];
+    const where = section
+      ? and(
+          eq(examQuestions.bank, "civica"),
+          eq(examQuestions.status, "published"),
+          eq(examQuestions.section, section)
+        )
+      : and(
+          eq(examQuestions.bank, "civica"),
+          eq(examQuestions.status, "published")
+        );
+    const n = Math.min(Math.max(Number(count) || 8, 4), 12);
+    const rows = await db
+      .select()
+      .from(examQuestions)
+      .where(where)
+      .orderBy(sql`random()`)
+      .limit(n);
+    if (rows.length >= 4) {
+      // Built directly in the stored shape — the question is already pt-PT and
+      // exam-authentic, so it takes the headline (promptEn) slot as-is.
+      const bankQuiz: QuizQuestions = {
+        title: `Cultura e História: ${topic}`,
+        questions: rows.map((r) => ({
+          type: "multiple" as const,
+          promptEn: r.promptPt,
+          options: r.options as string[],
+          answer: (r.options as string[])[r.correctIndex],
+          explanation: r.explanation,
+        })),
+      };
+      const [row] = await db
+        .insert(quizzes)
+        .values({
+          username: session.username,
+          topic: `Cultura e História: ${topic}`.slice(0, 120),
+          level: "Cívica",
+          questions: bankQuiz,
+          status: "ready",
+        })
+        .returning({ id: quizzes.id });
+      await logActivity(
+        session.username,
+        "quiz",
+        `Started a civics quiz on “${topic}”`,
+        5
+      );
+      return NextResponse.json({ id: row.id });
+    }
+    // Bank empty or unpublished — fall through to generation.
+  }
 
   if (mode === "ciple-listening") {
     // Compreensão do Oral: audio script + questions about it.

@@ -6,6 +6,13 @@ export default defineConfig([
   ...nextVitals,
   ...nextTs,
   {
-    ignores: ["node_modules/**", ".next/**", ".vercel/**", "next-env.d.ts"],
+    // .claude holds agent worktrees whose .next build artifacts are not ours to lint.
+    ignores: [
+      "node_modules/**",
+      ".next/**",
+      ".vercel/**",
+      ".claude/**",
+      "next-env.d.ts",
+    ],
   },
 ]);

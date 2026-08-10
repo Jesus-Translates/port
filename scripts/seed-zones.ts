@@ -1,7 +1,7 @@
 import "dotenv/config";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { eq } from "drizzle-orm";
+import { and, eq, gte, sql } from "drizzle-orm";
 import { getDb, zonePlaces, zones } from "../lib/db";
 
 /**
@@ -296,6 +296,60 @@ async function main() {
   }
 
   console.log(`\n✓ ${zoneCount} zones, ${placeCount} towns seeded`);
+
+  /*
+   * Fail loudly rather than succeed emptily.
+   *
+   * Three times on this project a seeder printed a tick while importing
+   * nothing — a \Z that JavaScript treats as a literal Z, an exact heading
+   * match that missed "## Bairros do Porto", and alphabetical ordering that
+   * ran a bairros file before its parent zone existed. Every one was found by
+   * counting rows against the source, never by reading the output. So the
+   * seeder now does that counting itself.
+   */
+  const problems: string[] = [];
+  for (const slug of Object.keys(META)) {
+    if (!existsSync(join(DIR, `${slug}.md`))) continue;
+    const [row] = await db
+      .select({ id: zones.id, ctx: zones.promptContext })
+      .from(zones)
+      .where(eq(zones.slug, slug))
+      .limit(1);
+    if (!row) {
+      problems.push(`${slug}: dossier exists but no zone row was created`);
+      continue;
+    }
+    if (!row.ctx || row.ctx.length < 200) {
+      problems.push(`${slug}: prompt context is ${row.ctx?.length ?? 0} chars — too short to be real`);
+    }
+    const places = await db
+      .select({ n: sql<number>`count(*)::int` })
+      .from(zonePlaces)
+      .where(eq(zonePlaces.zoneId, row.id));
+    if (Number(places[0]?.n ?? 0) === 0) {
+      problems.push(`${slug}: zero places imported — check the "## Towns" heading`);
+    }
+  }
+  for (const slug of Object.keys(EXTENDS)) {
+    if (!existsSync(join(DIR, `${slug}.md`))) continue;
+    const parent = EXTENDS[slug];
+    const [z] = await db.select({ id: zones.id }).from(zones).where(eq(zones.slug, parent)).limit(1);
+    if (!z) { problems.push(`${slug}: parent zone "${parent}" missing`); continue; }
+    const n = await db
+      .select({ n: sql<number>`count(*)::int` })
+      .from(zonePlaces)
+      .where(and(eq(zonePlaces.zoneId, z.id), gte(zonePlaces.sortOrder, 100)));
+    if (Number(n[0]?.n ?? 0) === 0) {
+      problems.push(`${slug}: contributed zero bairros to ${parent}`);
+    }
+  }
+
+  if (problems.length > 0) {
+    console.error("\n✗ import looks wrong:");
+    for (const p of problems) console.error(`  - ${p}`);
+    process.exit(1);
+  }
+  console.log("✓ every registered dossier imported context and places");
   process.exit(0);
 }
 

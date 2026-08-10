@@ -45,11 +45,17 @@ const CATEGORIES = new Set([
 
 // Each level gets its own block of 1000 so a later insert into A1 can never
 // collide with A2, and the global order still reads A1 → A2 → B1 → B2.
-const LEVELS: { level: string; file: string; base: number }[] = [
+// The exam wings sit after B2: CIPLE ships published (the exam is a stable,
+// verified spec); Cívica ships DRAFT because the implementing regulation for
+// the civics test may not be published yet — a teacher promotes those units
+// once the format is confirmed.
+const LEVELS: { level: string; file: string; base: number; status?: string }[] = [
   { level: "A1", file: "syllabus-a1.json", base: 1000 },
   { level: "A2", file: "syllabus-a2.json", base: 2000 },
   { level: "B1", file: "syllabus-b1.json", base: 3000 },
   { level: "B2", file: "syllabus-b2.json", base: 4000 },
+  { level: "CIPLE", file: "syllabus-ciple.json", base: 5000 },
+  { level: "Cívica", file: "syllabus-civica.json", base: 6000, status: "draft" },
 ];
 
 function read(file: string): SyllabusUnit[] {
@@ -65,7 +71,7 @@ async function main() {
   let skipped = 0;
   const seenSlugs = new Set<string>();
 
-  for (const { level, file, base } of LEVELS) {
+  for (const { level, file, base, status } of LEVELS) {
     let list: SyllabusUnit[];
     try {
       list = read(file);
@@ -95,7 +101,7 @@ async function main() {
         notePrompt: u.notePrompt ?? "",
         cefr: level,
         sortOrder: base + i,
-        status: "published",
+        status: status ?? "published",
         createdBy: "syllabus",
       };
 
@@ -109,9 +115,12 @@ async function main() {
         await db.insert(schema.units).values(row);
         inserted += 1;
       } else if (existing.createdBy === "syllabus") {
-        // Refresh the syllabus fields, but never touch a note already written.
-        const { slug: _slug, ...rest } = row;
+        // Refresh the syllabus fields, but never touch a note already written —
+        // and never touch status: once a teacher publishes a draft wing (or
+        // unpublishes something), a re-seed must not undo that decision.
+        const { slug: _slug, status: _status, ...rest } = row;
         void _slug;
+        void _status;
         await db
           .update(schema.units)
           .set(rest)

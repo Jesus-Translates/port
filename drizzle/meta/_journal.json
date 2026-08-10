@@ -71,6 +71,13 @@
       "when": 1786316545469,
       "tag": "0009_zone_kind",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1786343137011,
+      "tag": "0010_silly_rockslide",
+      "breakpoints": true
     }
   ]
 }

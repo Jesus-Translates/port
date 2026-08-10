@@ -1,7 +1,7 @@
 import { cache } from "react";
-import { eq, inArray } from "drizzle-orm";
+import { eq, inArray, isNull } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
-import { getDb, memberships, users } from "@/lib/db";
+import { getDb, memberships, people, users } from "@/lib/db";
 
 /**
  * Which household the signed-in person belongs to, and who else is in it.
@@ -104,4 +104,58 @@ export async function inMyHousehold(username: string): Promise<boolean> {
  */
 export async function visibleOwners(): Promise<string[]> {
   return [...(await householdUsernames()), SEED_OWNER];
+}
+
+/**
+ * Users with no membership row at all.
+ *
+ * They are invisible everywhere the app asks "who is in my household?" — the
+ * family board, the admin roster, homework assignment. An account created
+ * before enrolment existed, or by any path that forgot it, silently vanishes
+ * rather than erroring, which is the worst way for this to fail.
+ */
+export async function orphanUsernames(): Promise<string[]> {
+  try {
+    const rows = await getDb()
+      .select({ username: users.username })
+      .from(users)
+      .leftJoin(memberships, eq(memberships.username, users.username))
+      .where(isNull(memberships.id));
+    return rows.map((r) => r.username);
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Put an orphan into a household. Used to repair accounts created before
+ * enrolment existed; new ones get their membership at creation.
+ */
+export async function adoptIntoHousehold(
+  username: string,
+  accountId: number,
+  role: "owner" | "parent" | "child" = "child"
+): Promise<boolean> {
+  const db = getDb();
+  const who = username.trim().toLowerCase();
+  try {
+    const [u] = await db
+      .select({ displayName: users.displayName, email: users.email })
+      .from(users)
+      .where(eq(users.username, who))
+      .limit(1);
+    if (!u) return false;
+
+    const [person] = await db
+      .insert(people)
+      .values({ displayName: u.displayName, email: u.email })
+      .returning({ id: people.id });
+    await db
+      .insert(memberships)
+      .values({ accountId, personId: person.id, username: who, role })
+      .onConflictDoNothing();
+    return true;
+  } catch {
+    return false;
+  }
 }

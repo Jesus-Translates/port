@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { count } from "drizzle-orm";
+import { asc, count } from "drizzle-orm";
 import { getSession, getValidUsers } from "@/lib/auth";
-import { accounts, getDb } from "@/lib/db";
+import { accounts, getDb, users } from "@/lib/db";
 import { LoginForm } from "@/components/login-form";
 
 export const metadata = { title: "Entrar" };
@@ -27,11 +27,33 @@ async function isSingleHousehold(): Promise<boolean> {
   }
 }
 
+/**
+ * The faces to show on the picker, from the DATABASE.
+ *
+ * This used to read VALID_USERS — an environment variable — so anyone added
+ * through the admin panel had no face to tap and could not sign in at all,
+ * even though checkCredentials would have accepted them. The env list stays as
+ * a fallback for the case it was actually meant for: the database being
+ * unreachable.
+ */
+async function signInFaces(): Promise<string[]> {
+  try {
+    const rows = await getDb()
+      .select({ username: users.username, active: users.active })
+      .from(users)
+      .orderBy(asc(users.createdAt));
+    const names = rows.filter((r) => r.active).map((r) => r.username);
+    return names.length > 0 ? names : getValidUsers();
+  } catch {
+    return getValidUsers();
+  }
+}
+
 export default async function LoginPage() {
   const session = await getSession();
   if (session) redirect("/");
 
-  const single = await isSingleHousehold();
+  const [single, faces] = await Promise.all([isSingleHousehold(), signInFaces()]);
 
   return (
     <div className="flex min-h-dvh items-center justify-center bg-gradient-to-b from-paper via-paper to-sage-pale px-4">
@@ -49,7 +71,7 @@ export default async function LoginPage() {
         </div>
         {/* A login page with no way to sign up is a door with no handle. */}
         <LoginForm
-          users={single ? getValidUsers() : []}
+          users={single ? faces : []}
           siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""}
         />
         <p className="mt-6 text-center text-sm text-ink-soft">

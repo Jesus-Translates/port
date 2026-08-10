@@ -1,3 +1,31 @@
+# WAVE 5 — CIPLE wing + Cívica wing (2026-08-10, in flight)
+
+Market research (tasks/research-name-market.md) ranked CIPLE prep as segment #1
+and the new civics test as the unclaimed land-grab. This wave builds both wings.
+
+- [x] 20-Opus-agent workflow dispatched: 8 research crawlers (CIPLE format ×4,
+      A2 spec, civics regulation STATUS CHECK, history, state/culture),
+      10 authors (2 syllabi JSON, 2 full simulados, 3 CIPLE banks, 3 civics
+      MCQ banks ≥60 questions each), 2 QA (pt-PT register fixer w/ change log,
+      then factual verifier w/ GO/NO-GO per file)
+- [x] exam_questions table (migration 0010) — curated banks, draft→publish,
+      unique (bank, sourceFile, qnum) so re-seeding updates in place
+- [x] scripts/seed-prova.ts (npm run db:prova; --publish flag gated on QA)
+- [x] seed-syllabus.ts: CIPLE level base 5000 (published), Cívica base 6000
+      (DRAFT until the implementing regulation is confirmed); status never
+      clobbered on refresh
+- [x] /api/ai/quiz civica mode now serves the curated bank (published rows,
+      random sample, section keyword routing) — generation only as fallback.
+      Zero AI cost, zero hallucinated history.
+- [x] Sandra (tutorInstructions) told about both wings + the formal-address
+      register switch for the CIPLE oral
+- [ ] Workflow lands → review qa-factos.md, run db:syllabus + db:prova,
+      publish per GO/NO-GO, verify in the app
+- [ ] NATIVE pt-PT review before publishing Cívica to the family — model
+      output; the register linter run is not a native speaker
+- [ ] Watch Diário da República weekly for the civics-exam portaria; flip
+      Cívica units to published when format confirmed
+
 # WAVE 4 RESULTS (2026-08-07) — shipped
 
 - [x] 126-unit A1-B2 course seeded and live (A1 32 / A2 44 / B1 28 / B2 22),

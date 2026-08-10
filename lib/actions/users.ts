@@ -10,7 +10,12 @@ import {
   type Role,
 } from "@/lib/auth";
 import { accounts, getDb, memberships, people, users } from "@/lib/db";
-import { currentAccountId, householdUsernames } from "@/lib/tenant";
+import {
+  adoptIntoHousehold,
+  currentAccountId,
+  householdUsernames,
+  orphanUsernames,
+} from "@/lib/tenant";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/password";
 import { logActivity } from "@/lib/data";
 
@@ -125,7 +130,12 @@ function cleanEmail(input: unknown): string | null {
 
 export async function listAccounts(): Promise<Account[]> {
   const scope = await manageScope();
-  const mine = scope.superadmin ? null : await householdUsernames();
+  // A household admin sees their own people. The instance admin sees
+  // everyone INCLUDING anyone with no household — those are exactly the
+  // accounts that go missing, so the roster is where they must show up.
+  const mine = scope.superadmin
+    ? null
+    : [...(await householdUsernames()), ...(await orphanUsernames())];
   const rows = await getDb()
     .select({
       username: users.username,
@@ -585,4 +595,30 @@ export async function setMyMode(mode: string): Promise<void> {
     .set({ mode })
     .where(eq(users.username, session.username));
   revalidatePath("/", "layout");
+}
+
+/**
+ * Adopt everyone with no household into the caller's own.
+ *
+ * Accounts created before enrolment existed have no membership row, which
+ * makes them invisible on the family board and unassignable homework while
+ * still being able to sign in — a confusing half-existence. This is the repair
+ * button for that; new accounts are enrolled at creation.
+ */
+export async function adoptOrphans(): Promise<
+  { ok: true; adopted: number } | { ok: false; error: string }
+> {
+  const scope = await manageScope();
+  if (scope.accountId === null) {
+    return { ok: false, error: "A tua conta não pertence a uma família." };
+  }
+  const orphans = await orphanUsernames();
+  if (orphans.length === 0) return { ok: true, adopted: 0 };
+
+  let adopted = 0;
+  for (const username of orphans) {
+    if (await adoptIntoHousehold(username, scope.accountId)) adopted++;
+  }
+  revalidatePath("/", "layout");
+  return { ok: true, adopted };
 }

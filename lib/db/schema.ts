@@ -141,6 +141,38 @@ export const quizzes = pgTable("quizzes", {
   completedAt: timestamp("completed_at"),
 });
 
+/**
+ * Curated exam question banks (CIPLE prep, the new civics test), seeded from
+ * content/civica/banco-*.md by scripts/seed-prova.ts. Unlike `quizzes` (one
+ * per-user AI-generated attempt), these are canonical rows: the civics test is
+ * a fixed body of facts, so questions are authored once, fact-checked, and
+ * served deterministically — no generation cost, no hallucination risk.
+ * status follows the draft → published workflow; only published rows are ever
+ * shown to a learner.
+ */
+export const examQuestions = pgTable(
+  "exam_questions",
+  {
+    id: serial("id").primaryKey(),
+    bank: text("bank").notNull(), // ciple | civica
+    section: text("section").notNull(), // historia | estado | simbolos | direitos | cultura | geografia
+    /** Q001… — stable identity inside its source file, so re-seeding updates in place. */
+    qnum: text("qnum").notNull(),
+    sourceFile: text("source_file").notNull(),
+    promptPt: text("prompt_pt").notNull(),
+    options: jsonb("options").notNull(), // string[4]
+    correctIndex: integer("correct_index").notNull(),
+    explanation: text("explanation").notNull().default(""),
+    source: text("source").notNull().default(""),
+    status: text("status").notNull().default("draft"), // draft | published
+    sortOrder: integer("sort_order").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [
+    uniqueIndex("exam_questions_file_qnum").on(t.bank, t.sourceFile, t.qnum),
+  ]
+);
+
 // kind: star (golden star for an achievement) | note (encouragement message)
 export const kudos = pgTable("kudos", {
   id: serial("id").primaryKey(),
