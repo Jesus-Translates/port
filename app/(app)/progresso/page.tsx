@@ -88,7 +88,10 @@ export default async function ProgressoPage() {
       {heat.length > 0 ? (
         <section>
           <p className="label">Últimas 5 semanas</p>
-          <div className="card grid grid-cols-7 gap-[5px] p-4">
+          {/* Capped width: aspect-square in a 7-column grid across the full
+              5xl column turned each day into a 130px tile. A heatmap is meant
+              to be read as a shape at a glance, not a wall. */}
+          <div className="card grid max-w-[300px] grid-cols-7 gap-[5px] p-4">
             {heat.map((c) => (
               <span
                 key={c.day}

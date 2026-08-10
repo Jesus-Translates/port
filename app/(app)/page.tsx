@@ -12,7 +12,7 @@ import {
   hasBeenPlaced,
 } from "@/lib/data";
 import { getCaminho, getCourseProgress } from "@/lib/actions/course";
-import { getMyTodayXp } from "@/lib/actions/leaderboard";
+import { getMyToday } from "@/lib/actions/leaderboard";
 import { dailyGoal, DEFAULT_PREFS } from "@/lib/learning-path";
 import { getMyPrefs } from "@/lib/actions/profile";
 import { resolveNextAction } from "@/lib/next-action";
@@ -52,7 +52,7 @@ export default async function Dashboard() {
     placed,
     prefs,
     caminho,
-    todayXp,
+    today_,
   ] = await Promise.all([
     getStats(session.username),
     getHomeworkAll(),
@@ -64,7 +64,7 @@ export default async function Dashboard() {
     hasBeenPlaced(session.username).catch(() => true),
     getMyPrefs().catch(() => null),
     getCaminho().catch(() => []),
-    getMyTodayXp().catch(() => 0),
+    getMyToday().catch(() => ({ xp: 0, done: 0 })),
   ]);
   const prefsAnswered = prefs !== null;
   // Rank and stars used to sit in the old header. The azulejo band carries
@@ -81,9 +81,16 @@ export default async function Dashboard() {
     timeZone: "Europe/Lisbon",
   });
 
-  // Today's XP against this learner's own daily goal, for the ring on the band.
+  /*
+   * The ring counts FINISHED ACTIVITIES, not XP.
+   *
+   * dailyGoal() returns 1, 3 or 5 — a number of things done, not points. It
+   * first shipped fed with today's XP, which rendered "5 / 3": a figure past
+   * its own target that still drew as unfinished.
+   */
   const goal = dailyGoal(prefs ?? DEFAULT_PREFS);
-  const goalPct = Math.min(100, Math.round((todayXp / Math.max(1, goal)) * 100));
+  const doneToday = today_.done;
+  const goalPct = Math.min(100, Math.round((doneToday / Math.max(1, goal)) * 100));
 
   return (
     <div className="space-y-6">
@@ -122,7 +129,7 @@ export default async function Dashboard() {
               </p>
               <p className="mt-0.5">
                 <span className="font-display text-[21px] leading-none font-semibold">
-                  {todayXp}
+                  {doneToday}
                 </span>
                 <span className="text-[12px] text-paper/60">/{goal}</span>
               </p>

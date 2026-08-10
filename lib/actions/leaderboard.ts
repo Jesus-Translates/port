@@ -80,16 +80,21 @@ export async function getGlobalLeaderboard(limit = 20): Promise<LeaderRow[]> {
 }
 
 /**
- * The signed-in learner's XP so far today.
+ * What the signed-in learner has done today: XP earned, and things finished.
  *
- * Home's daily-goal ring needs a SUM, and getStats().recent carries no xp
- * column — counting its rows would have shown "number of things done" in a
- * field labelled XP, which is the kind of wrong that looks right.
+ * BOTH, because they answer different questions and are not interchangeable.
+ * dailyGoal() in lib/learning-path counts FINISHED ACTIVITIES (1, 3 or 5) —
+ * feeding it an XP total rendered "5/3" on the goal ring, a number over its
+ * own target that still looked unfinished. The ring wants `done`; the
+ * leaderboard and the streak want `xp`.
  */
-export async function getMyTodayXp(): Promise<number> {
+export async function getMyToday(): Promise<{ xp: number; done: number }> {
   const session = await requireSession();
   const [row] = await getDb()
-    .select({ xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int` })
+    .select({
+      xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
+      done: sql<number>`count(*)::int`,
+    })
     .from(activity)
     .where(
       and(
@@ -97,5 +102,5 @@ export async function getMyTodayXp(): Promise<number> {
         gte(activity.createdAt, startOfDayLisbon())
       )
     );
-  return row?.xp ?? 0;
+  return { xp: row?.xp ?? 0, done: row?.done ?? 0 };
 }
