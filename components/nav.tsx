@@ -59,7 +59,7 @@ const TABS = [
     label: "Progresso",
     en: "Progress",
     Icon: IconChart,
-    also: ["/jogos", "/gastos"],
+    also: ["/jogos"],
   },
   { href: "/familia", label: "Família", en: "Family", Icon: IconPeople, also: [] },
 ];
@@ -142,8 +142,8 @@ export function Nav({
             </Link>
           ) : null}
           <Link
-            href="/gastos"
-            title="O teu gasto de IA este mês"
+            href="/perfil"
+            title="O teu perfil"
             className="flex shrink-0 items-center gap-1.5 rounded-full bg-sage-pale px-2.5 py-0.5 transition-colors hover:bg-sage-light"
           >
             <span className="text-xs font-medium text-olive">

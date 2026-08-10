@@ -3,7 +3,7 @@ import { BilingualProvider } from "@/components/bilingual";
 import { Nav } from "@/components/nav";
 import { SpendChip } from "@/components/spend-chip";
 import { getHouseholdSettings } from "@/lib/actions/household-settings";
-import { roleOf, requireSession } from "@/lib/auth";
+import { envRole, roleOf, requireSession } from "@/lib/auth";
 
 export default async function AppLayout({
   children,
@@ -19,10 +19,14 @@ export default async function AppLayout({
       <Nav
         displayName={session.displayName}
         showPanel={await roleOf(session.username) !== "student"}
+        // Running costs are an operator's business. A family sees their
+        // PLAN on /conta, not what their lesson cost to generate.
         spendSlot={
-          <Suspense fallback={null}>
-            <SpendChip username={session.username} />
-          </Suspense>
+          envRole(session.username) === "admin" ? (
+            <Suspense fallback={null}>
+              <SpendChip username={session.username} />
+            </Suspense>
+          ) : null
         }
       />
       {/* pb-28 on phones keeps content clear of the fixed bottom tab bar. */}

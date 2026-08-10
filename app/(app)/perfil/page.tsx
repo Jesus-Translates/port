@@ -4,7 +4,7 @@ import { ChangeMyPassword } from "@/components/change-my-password";
 import { DailyGoalPicker } from "@/components/daily-goal-picker";
 import { ImmersionToggle } from "@/components/immersion-toggle";
 import { SignOut } from "@/components/sign-out";
-import { requireSession, roleOf } from "@/lib/auth";
+import { envRole, requireSession, roleOf } from "@/lib/auth";
 import { getHouseholdSettings } from "@/lib/actions/household-settings";
 import { getMyCefr, getMyPrefs } from "@/lib/actions/profile";
 import { getPlace } from "@/lib/place";
@@ -25,6 +25,9 @@ export const metadata = { title: "Perfil" };
  */
 export default async function PerfilPage() {
   const session = await requireSession();
+  // Instance operator, not a family admin: /registar makes every family
+  // owner users.role "admin", so roleOf cannot gate operator-only surfaces.
+  const isOperator = envRole(session.username) === "admin";
   const [role, cefr, place, prefs, house] = await Promise.all([
     roleOf(session.username),
     getMyCefr().catch(() => null),
@@ -85,11 +88,20 @@ export default async function PerfilPage() {
       <section className="space-y-2">
         <p className="label">A tua conta</p>
         <div className="card divide-y divide-cream overflow-hidden">
+          {/* Plan and seats — never running costs. Those are operator numbers
+              and live on /gastos, which now refuses everyone else. */}
           <Row
-            href="/gastos"
-            title="O teu gasto de IA"
-            sub="Quanto custou este mês"
+            href="/conta"
+            title="O vosso plano"
+            sub="Subscrição, lugares e renovação"
           />
+          {isOperator ? (
+            <Row
+              href="/gastos"
+              title="Custos de IA"
+              sub="O que a IA custou a correr este mês"
+            />
+          ) : null}
           {role !== "student" ? (
             <Row href="/admin" title="Painel" sub="Gerir contas, conteúdo e famílias" />
           ) : null}

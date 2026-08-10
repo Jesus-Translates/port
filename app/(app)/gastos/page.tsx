@@ -1,10 +1,19 @@
-import { requireSession } from "@/lib/auth";
+import { requireOperator, requireSession } from "@/lib/auth";
 import { avatarFor, titleCase } from "@/lib/people";
 import { formatEur, getSpend, getSpendByUser, usdToEur } from "@/lib/usage";
 
 export const metadata = { title: "Gastos" };
 
+/**
+ * What the AI actually costs to run — an OPERATOR's page.
+ *
+ * It was open to every signed-in learner, which told a paying family that
+ * their conversation with Sandra cost four cents. That invites exactly one
+ * thought — "am I being metered?" — when the truth is a flat monthly price.
+ * Families see /conta instead: their plan, their seats, their renewal.
+ */
 export default async function SpendPage() {
+  await requireOperator();
   const session = await requireSession();
   const [mine, byUser] = await Promise.all([
     getSpend(session.username),
