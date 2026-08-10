@@ -9,6 +9,7 @@ import {
   hasBeenPlaced,
 } from "@/lib/data";
 import { getCourseProgress } from "@/lib/actions/course";
+import { getMyPrefs } from "@/lib/actions/profile";
 import { resolveNextAction } from "@/lib/next-action";
 import { avatarFor, titleCase } from "@/lib/people";
 import { countDue } from "@/lib/srs";
@@ -34,7 +35,7 @@ const KIND_EMOJI: Record<string, string> = {
 export default async function Dashboard() {
   const session = await requireSession();
   // Social widgets must never take down the whole dashboard.
-  const [stats, allHomework, board, myKudos, due, next, course, placed] =
+  const [stats, allHomework, board, myKudos, due, next, course, placed, prefs] =
     await Promise.all([
       getStats(session.username),
       getHomeworkAll(),
@@ -44,7 +45,9 @@ export default async function Dashboard() {
       resolveNextAction(session.username, session.displayName),
       getCourseProgress().catch(() => null),
       hasBeenPlaced(session.username).catch(() => true),
+      getMyPrefs().catch(() => null),
     ]);
+  const prefsAnswered = prefs !== null;
   const myRank = board.findIndex((m) => m.username === session.username) + 1;
   const myStars = board.find((m) => m.username === session.username)?.stars ?? 0;
 
@@ -183,6 +186,30 @@ export default async function Dashboard() {
             </div>
           </div>
         </section>
+      ) : null}
+
+      {/*
+        * Nobody in the family has ever answered the learning questionnaire —
+        * they were all backfilled past onboarding, so the step that offers it
+        * never fired for them. Paths, the daily goal and immersion have been
+        * sitting dormant as a result.
+        *
+        * A quiet invitation rather than a blocking step: it is genuinely
+        * optional, and someone with cards due should not be stopped to answer
+        * a preference question.
+        */}
+      {!prefsAnswered ? (
+        <Link
+          href="/bem-vindo"
+          className="block rounded-2xl border border-azul/30 bg-azul-pale/50 p-4 transition-colors hover:border-azul"
+        >
+          <span className="font-semibold text-azul">
+            🧩 Como gostas de aprender?
+          </span>
+          <span className="ml-2 text-sm text-ink-soft">
+            — cinco toques, e o curso reorganiza-se à tua volta.
+          </span>
+        </Link>
       ) : null}
 
       {due > 0 && next.href !== "/practice/rever" ? (
