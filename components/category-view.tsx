@@ -230,7 +230,7 @@ export function CategoryView({
                     <span className="font-medium">{e.pt}</span>
                     <AudioButton
                       text={e.replyPt ? `${e.pt} … ${e.replyPt}` : e.pt}
-                      className="min-h-7 min-w-7 scale-90 px-1.5"
+                      className="min-h-7 min-w-7 px-1.5"
                     />
                     {showEn ? (
                       <span className="text-sm text-ink-soft">{e.en}</span>

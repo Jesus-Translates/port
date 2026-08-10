@@ -64,7 +64,7 @@ export function AudioButton({
       autoFocus={autoFocusPlay}
       title={status === "error" ? "Áudio indisponível" : "Ouvir"}
       className={cn(
-        "inline-flex min-h-9 min-w-9 items-center justify-center gap-1.5 rounded-full border border-sand bg-white/70 px-2.5 text-sm transition-colors hover:border-sage hover:bg-sage-pale",
+        "tap-44 inline-flex min-h-9 min-w-9 items-center justify-center gap-1.5 rounded-full border border-sand bg-white/70 px-2.5 text-sm transition-colors hover:border-sage hover:bg-sage-pale",
         status === "playing" && "border-olive bg-sage-pale",
         status === "error" && "opacity-40",
         className

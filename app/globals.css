@@ -85,6 +85,31 @@
   .label {
     @apply mb-1.5 block text-xs font-semibold tracking-wide text-ink-soft uppercase;
   }
+  /*
+   * A 44px tap target that does not cost 44px of layout.
+   *
+   * Small inline controls — the play button beside every phrasebook entry
+   * shrinks to about 25px — cannot simply grow, because they sit in a line of
+   * text and would push it around. This expands the HIT area with a centred
+   * pseudo-element instead, so the control looks the same and Apple's minimum
+   * is still met. The parent needs a positioning context, which every button
+   * here already has via relative.
+   */
+  .tap-44 {
+    @apply relative;
+  }
+  .tap-44::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 44px;
+    min-height: 44px;
+    transform: translate(-50%, -50%);
+  }
+
   .chip {
     @apply inline-flex items-center gap-1 rounded-full bg-sage-pale px-2.5 py-0.5 text-xs font-medium text-olive;
   }

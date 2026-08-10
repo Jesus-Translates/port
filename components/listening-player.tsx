@@ -294,13 +294,13 @@ export function ListeningPlayer({
           ))}
           <span className="ml-auto flex gap-2">
             <button
-              className="btn-ghost min-h-9 px-3 py-1.5 text-xs"
+              className="btn-ghost min-h-11 px-3 py-1.5 text-xs"
               onClick={() => setAudioOnly((v) => !v)}
             >
               {audioOnly ? "Mostrar transcrição" : "Modo só áudio"}
             </button>
             <button
-              className="btn-ghost min-h-9 px-3 py-1.5 text-xs"
+              className="btn-ghost min-h-11 px-3 py-1.5 text-xs"
               onClick={() => setShowTranslation((v) => !v)}
               disabled={audioOnly}
             >
