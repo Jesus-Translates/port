@@ -14,13 +14,24 @@ import { cn } from "@/lib/utils";
  * immersion is a beginner, and the person most likely to need it off is the
  * same beginner an hour later.
  */
-export function ImmersionToggle({ initial }: { initial: boolean }) {
+export function ImmersionToggle({
+  initial,
+  followingFamily = false,
+}: {
+  initial: boolean;
+  /** True while this person has made no choice and is inheriting the house. */
+  followingFamily?: boolean;
+}) {
   const [on, setOn] = useState(initial);
+  const [owned, setOwned] = useState(!followingFamily);
   const [busy, start] = useTransition();
 
   function flip() {
     const next = !on;
     setOn(next); // optimistic: the switch must move under the finger
+    // Touching it is the choice: from here this person no longer follows the
+    // household default, even if they flip it back to where it was.
+    setOwned(true);
     start(async () => {
       try {
         await setMyPrefs({ immersion: next ? "total" : "ajuda" });
@@ -38,6 +49,7 @@ export function ImmersionToggle({ initial }: { initial: boolean }) {
           {on
             ? "A Sandra só fala português — nunca traduz."
             : "A Sandra explica em inglês quando precisas."}
+          {!owned ? " · como a tua família escolheu" : ""}
         </span>
       </span>
       <button

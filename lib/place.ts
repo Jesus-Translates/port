@@ -3,7 +3,11 @@ import { and, eq } from "drizzle-orm";
 import { getDb, users, zonePlaces, zones } from "@/lib/db";
 import { PT_STYLE } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
-import { immersionLine, readPrefs } from "@/lib/learning-path";
+import {
+  immersionLine,
+  type Prefs,
+  readPrefs,
+} from "@/lib/learning-path";
 
 /**
  * Where the learner lives, and what that means for generated content.
@@ -157,7 +161,23 @@ export async function styleFor(username: string): Promise<string> {
   // Immersion rides along with the style because every AI surface already
   // appends this — wiring it here reaches all eighteen instead of the three
   // that happen to mention Sandra by name.
-  return `${PT_STYLE}\n${placeLine(place)}${zoneBlock}${immersionLine(prefs)}`;
+  return `${PT_STYLE}\n${placeLine(place)}${zoneBlock}${immersionLine(await immersionOn(prefs))}`;
+}
+
+/**
+ * Is immersion on for this learner?
+ *
+ * The person's own choice wins; "familia" (the default) defers to whatever
+ * the household set. Resolved here rather than in immersionLine so there is
+ * exactly one place that knows the precedence.
+ */
+async function immersionOn(prefs: Prefs | null): Promise<boolean> {
+  if (prefs?.immersion === "total") return true;
+  if (prefs?.immersion === "ajuda") return false;
+  const { getHouseholdSettings } = await import(
+    "@/lib/actions/household-settings"
+  );
+  return (await getHouseholdSettings()).immersion === "total";
 }
 
 export async function readPrefsFor(username: string) {

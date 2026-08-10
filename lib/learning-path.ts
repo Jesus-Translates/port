@@ -23,8 +23,16 @@ export type Voice = "avontade" | "nervoso" | "escrever";
 export type Games = "adoro" | "asvezes" | "poucos";
 /** Q5 — guided or self-directed. Mirrors users.mode. */
 export type Guidance = "guia" | "escolho";
-/** Q6 — full immersion. When on, Sandra never uses English at all. */
-export type Immersion = "total" | "ajuda";
+/**
+ * Q6 — full immersion. When on, Sandra never uses English at all.
+ *
+ * "familia" means "whatever the household chose" and is the default for a new
+ * learner: the family sets how the app starts, and anyone who cares can pick
+ * for themselves in Perfil. Without a third value there is no way to tell
+ * "I want help" from "I never said", so a parent turning immersion on for the
+ * house could never reach the children.
+ */
+export type Immersion = "total" | "ajuda" | "familia";
 
 export type Prefs = {
   minutes: Minutes;
@@ -41,9 +49,11 @@ export const DEFAULT_PREFS: Prefs = {
   voice: "nervoso",
   games: "asvezes",
   guidance: "guia",
-  // Defaults to help, not immersion: dropping a beginner into Portuguese-only
-  // with no way back is how you lose them on day one. Immersion is chosen.
-  immersion: "ajuda",
+  // Follow the household. Its own default is "ajuda" — dropping a beginner
+  // into Portuguese-only with no way back is how you lose them on day one —
+  // so nothing changes for a learner who never chooses, and a parent who sets
+  // it for the house actually reaches the children.
+  immersion: "familia",
 };
 
 export type Question = {
@@ -213,8 +223,8 @@ export function dailyGoal(prefs: Prefs): number {
  * "instructions in English" — without explicitly outranking those, the model
  * splits the difference and the setting quietly does nothing.
  */
-export function immersionLine(prefs: Prefs | null): string {
-  if (prefs?.immersion !== "total") return "";
+export function immersionLine(on: boolean): string {
+  if (!on) return "";
   return `
 FULL IMMERSION IS ON FOR THIS LEARNER. This OVERRIDES every other instruction in this prompt about language.
 - Write EVERYTHING in European Portuguese. Not one word of English: no translations, no glosses in parentheses, no English headings, labels or examples.

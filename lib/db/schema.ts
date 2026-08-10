@@ -594,3 +594,27 @@ export const conversas = pgTable("conversas", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+/**
+ * How a household wants the app to speak to it.
+ *
+ * Both settings live on the ACCOUNT rather than the user because they are
+ * decisions a family makes together — a parent turning immersion on for a
+ * nine-year-old, or turning English glosses on because two of the three
+ * learners are beginners. Any owner or parent can set them; a member can
+ * still override immersion for themselves in Perfil.
+ *
+ * Separate table rather than columns on accounts: this will grow (accent,
+ * reminder time, weekly challenge), and accounts is joined on nearly every
+ * request. Keeping it apart keeps that row narrow.
+ */
+export const householdSettings = pgTable("household_settings", {
+  accountId: integer("account_id")
+    .primaryKey()
+    .references(() => accounts.id, { onDelete: "cascade" }),
+  /** total = Sandra never uses English. ajuda = she explains when needed. */
+  immersion: text("immersion").notNull().default("ajuda"),
+  /** English shown beside the Portuguese throughout the interface. */
+  bilingual: boolean("bilingual").notNull().default(false),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

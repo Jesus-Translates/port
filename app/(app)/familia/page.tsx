@@ -1,16 +1,23 @@
 import Link from "next/link";
 import { FamilyBoard } from "@/components/family-board";
+import { FamilySettings } from "@/components/family-settings";
 import { requireSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
 import { getFamilyBoard, getRecentKudos } from "@/lib/data";
+import {
+  canSetHouseholdSettings,
+  getHouseholdSettings,
+} from "@/lib/actions/household-settings";
 
 export const metadata = { title: "Família" };
 
 export default async function FamilyPage() {
   const session = await requireSession();
-  const [board, recent] = await Promise.all([
+  const [board, recent, settings, canEdit] = await Promise.all([
     getFamilyBoard(await householdUsernames()),
     getRecentKudos(15),
+    getHouseholdSettings(),
+    canSetHouseholdSettings(),
   ]);
 
   return (
@@ -37,6 +44,9 @@ export default async function FamilyPage() {
           createdAt: k.createdAt.toISOString(),
         }))}
       />
+
+      {/* How the app speaks to this house. Set once, applies to everyone. */}
+      <FamilySettings initial={settings} canEdit={canEdit} />
 
       {/*
        * Família was the only nav tab with nowhere to go — a leaderboard and

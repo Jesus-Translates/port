@@ -9,6 +9,7 @@ import {
   IconHome,
   IconPeople,
 } from "@/components/icons";
+import { useBilingual } from "@/components/bilingual";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
@@ -31,6 +32,7 @@ const TABS = [
   {
     href: "/",
     label: "Hoje",
+    en: "Today",
     Icon: IconHome,
     // The course, the drills and everything Praticar used to hold.
     also: [
@@ -47,12 +49,19 @@ const TABS = [
   {
     href: "/palavras",
     label: "Palavras",
+    en: "Words",
     Icon: IconBook,
     also: ["/reference", "/verbos"],
   },
-  { href: "/tutor", label: "Sandra", Icon: IconChat, also: [] },
-  { href: "/progresso", label: "Progresso", Icon: IconChart, also: ["/jogos", "/gastos"] },
-  { href: "/familia", label: "Família", Icon: IconPeople, also: [] },
+  { href: "/tutor", label: "Sandra", en: "Tutor", Icon: IconChat, also: [] },
+  {
+    href: "/progresso",
+    label: "Progresso",
+    en: "Progress",
+    Icon: IconChart,
+    also: ["/jogos", "/gastos"],
+  },
+  { href: "/familia", label: "Família", en: "Family", Icon: IconPeople, also: [] },
 ];
 
 function isActive(pathname: string, tab: (typeof TABS)[number]) {
@@ -89,6 +98,7 @@ export function Nav({
 }) {
   const pathname = usePathname();
   const router = useRouter();
+  const bilingual = useBilingual();
 
   async function logout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -169,6 +179,9 @@ export function Nav({
                   >
                     <t.Icon size={17} />
                     {t.label}
+                    {bilingual ? (
+                      <span className="font-normal opacity-60">· {t.en}</span>
+                    ) : null}
                   </Link>
                 </li>
               );
@@ -202,6 +215,13 @@ export function Nav({
                   >
                     {t.label}
                   </span>
+                  {/* Under the label, not beside it: five tabs on a 390px
+                      phone have no horizontal room to spare. */}
+                  {bilingual ? (
+                    <span className="text-[9.5px] leading-none opacity-60">
+                      {t.en}
+                    </span>
+                  ) : null}
                 </Link>
               </li>
             );

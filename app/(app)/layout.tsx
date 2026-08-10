@@ -1,6 +1,8 @@
 import { Suspense } from "react";
+import { BilingualProvider } from "@/components/bilingual";
 import { Nav } from "@/components/nav";
 import { SpendChip } from "@/components/spend-chip";
+import { getHouseholdSettings } from "@/lib/actions/household-settings";
 import { roleOf, requireSession } from "@/lib/auth";
 
 export default async function AppLayout({
@@ -9,7 +11,10 @@ export default async function AppLayout({
   children: React.ReactNode;
 }) {
   const session = await requireSession();
+  // Read once here, not once per label — every screen below can ask.
+  const { bilingual } = await getHouseholdSettings();
   return (
+    <BilingualProvider value={bilingual}>
     <div className="min-h-dvh">
       <Nav
         displayName={session.displayName}
@@ -25,5 +30,6 @@ export default async function AppLayout({
         {children}
       </main>
     </div>
+    </BilingualProvider>
   );
 }

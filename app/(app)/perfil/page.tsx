@@ -4,6 +4,7 @@ import { ChangeMyPassword } from "@/components/change-my-password";
 import { ImmersionToggle } from "@/components/immersion-toggle";
 import { SignOut } from "@/components/sign-out";
 import { requireSession, roleOf } from "@/lib/auth";
+import { getHouseholdSettings } from "@/lib/actions/household-settings";
 import { getMyCefr, getMyPrefs } from "@/lib/actions/profile";
 import { getPlace } from "@/lib/place";
 import { avatarFor } from "@/lib/people";
@@ -23,12 +24,25 @@ export const metadata = { title: "Perfil" };
  */
 export default async function PerfilPage() {
   const session = await requireSession();
-  const [role, cefr, place, prefs] = await Promise.all([
+  const [role, cefr, place, prefs, house] = await Promise.all([
     roleOf(session.username),
     getMyCefr().catch(() => null),
     getPlace(session.username).catch(() => null),
     getMyPrefs().catch(() => null),
+    getHouseholdSettings(),
   ]);
+
+  /*
+   * The RESOLVED state, not the raw preference.
+   *
+   * "familia" is the default and means "whatever the house chose", so showing
+   * the raw value would leave this switch off while Sandra was speaking only
+   * Portuguese — a control that disagrees with what is happening.
+   */
+  const followingFamily = prefs?.immersion !== "total" && prefs?.immersion !== "ajuda";
+  const immersionOn = followingFamily
+    ? house.immersion === "total"
+    : prefs?.immersion === "total";
 
   const sub = [cefr, place?.locality].filter(Boolean).join(" · ");
 
@@ -47,7 +61,10 @@ export default async function PerfilPage() {
       <section className="space-y-2">
         <p className="label">Como aprendes</p>
         <div className="card divide-y divide-cream overflow-hidden">
-          <ImmersionToggle initial={prefs?.immersion === "total"} />
+          <ImmersionToggle
+            initial={immersionOn}
+            followingFamily={followingFamily}
+          />
           <Row
             href="/bem-vindo"
             title="Rever as preferências"
