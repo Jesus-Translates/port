@@ -29,8 +29,25 @@ export const users = pgTable("users", {
   email: text("email"),
   /** scrypt hash. null means this account still uses the shared password. */
   passwordHash: text("password_hash"),
-  /** admin | teacher | student. null falls back to the ADMIN_USERS/TEACHER_USERS env lists. */
+  /**
+   * admin | teacher | student — WITHIN A HOUSEHOLD. null falls back to the
+   * ADMIN_USERS/TEACHER_USERS env lists.
+   *
+   * "admin" here means "runs their own family". /registar sets it on whoever
+   * creates a household, so it is held by every customer who ever signed up
+   * and must never gate anything that reads across families.
+   */
   role: text("role"),
+  /**
+   * PLATFORM operator — runs the deployment and can see every household.
+   *
+   * A different axis from `role` entirely, and the distinction is
+   * load-bearing: if role "admin" also meant platform access, every family
+   * owner would be an operator. An operator belongs to NO family, and is
+   * excluded from the orphan sweep for that reason — they are family-less on
+   * purpose, not lost.
+   */
+  isOperator: boolean("is_operator").notNull().default(false),
   /** Soft delete: an inactive account keeps its history but cannot sign in. */
   active: boolean("active").notNull().default(true),
   /**

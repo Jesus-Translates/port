@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { asc, eq, inArray, sql } from "drizzle-orm";
 import {
-  envRole,
+  isOperator,
   requireSession,
   roleOf,
   type Role,
@@ -68,7 +68,7 @@ type ManageScope = {
 
 async function manageScope(): Promise<ManageScope> {
   const session = await requireSession();
-  const superadmin = envRole(session.username) === "admin";
+  const superadmin = await isOperator(session.username);
   const accountId = await currentAccountId();
 
   if (superadmin) return { username: session.username, superadmin, accountId };
@@ -165,16 +165,26 @@ export async function listAccounts(): Promise<Account[]> {
   );
 }
 
-/** How many people can still administer this app. Guards every demotion. */
+/**
+ * How many people can still administer this app. Guards every demotion.
+ *
+ * Counts platform operators AND household admins from rows already in hand,
+ * so the last person who can administer anything cannot be demoted or
+ * deactivated into a locked-out deployment.
+ */
 async function adminCount(excluding?: string): Promise<number> {
   const rows = await getDb()
-    .select({ username: users.username, role: users.role, active: users.active })
+    .select({
+      username: users.username,
+      role: users.role,
+      active: users.active,
+      op: users.isOperator,
+    })
     .from(users);
   return rows.filter((r) => {
     if (excluding && r.username === excluding) return false;
     if (!r.active) return false;
-    // Same precedence as roleOf, resolved from rows already in hand.
-    return envRole(r.username) === "admin" || r.role === "admin";
+    return r.op === true || r.role === "admin";
   }).length;
 }
 

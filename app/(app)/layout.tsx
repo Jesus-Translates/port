@@ -3,7 +3,7 @@ import { BilingualProvider } from "@/components/bilingual";
 import { Nav } from "@/components/nav";
 import { SpendChip } from "@/components/spend-chip";
 import { getHouseholdSettings } from "@/lib/actions/household-settings";
-import { envRole, roleOf, requireSession } from "@/lib/auth";
+import { canSeePanel, isOperator, requireSession } from "@/lib/auth";
 
 export default async function AppLayout({
   children,
@@ -18,11 +18,11 @@ export default async function AppLayout({
     <div className="min-h-dvh">
       <Nav
         displayName={session.displayName}
-        showPanel={await roleOf(session.username) !== "student"}
+        showPanel={await canSeePanel(session.username)}
         // Running costs are an operator's business. A family sees their
         // PLAN on /conta, not what their lesson cost to generate.
         spendSlot={
-          envRole(session.username) === "admin" ? (
+          (await isOperator(session.username)) ? (
             <Suspense fallback={null}>
               <SpendChip username={session.username} />
             </Suspense>

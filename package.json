@@ -16,6 +16,7 @@
     "db:zones": "dotenv -e .env.local -- tsx scripts/seed-zones.ts",
     "db:prova": "dotenv -e .env.local -- tsx scripts/seed-prova.ts",
     "notes:regen": "dotenv -e .env.local -- tsx scripts/regen-notes.ts",
+    "admin:create": "dotenv -e .env.local -- tsx scripts/create-operator.ts",
     "clips:revoice": "dotenv -e .env.local -- tsx scripts/revoice-clips.ts",
     "content:export": "dotenv -e .env.local -- tsx scripts/export-content.ts"
   },

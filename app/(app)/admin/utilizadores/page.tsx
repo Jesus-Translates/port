@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AccountsAdmin } from "@/components/accounts-admin";
-import { envRole, requireSession } from "@/lib/auth";
+import { isOperator, requireSession } from "@/lib/auth";
 import { orphanUsernames } from "@/lib/tenant";
 import { listHouseholds } from "@/lib/actions/households";
 import { listAccounts } from "@/lib/actions/users";
@@ -17,7 +17,7 @@ export default async function AccountsPage() {
     orphanUsernames(),
     // Only an instance operator gets a list; for a family admin this is empty
     // and the picker never appears.
-    envRole(session.username) === "admin"
+    (await isOperator(session.username))
       ? listHouseholds().catch(() => [])
       : Promise.resolve([]),
   ]);

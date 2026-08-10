@@ -1,5 +1,5 @@
 import { cache } from "react";
-import { eq, inArray, isNull } from "drizzle-orm";
+import { and, eq, inArray, isNull } from "drizzle-orm";
 import { getSession } from "@/lib/auth";
 import { getDb, memberships, people, users } from "@/lib/db";
 
@@ -120,7 +120,17 @@ export async function orphanUsernames(): Promise<string[]> {
       .select({ username: users.username })
       .from(users)
       .leftJoin(memberships, eq(memberships.username, users.username))
-      .where(isNull(memberships.id));
+      .where(
+        and(
+          isNull(memberships.id),
+          // A platform operator belongs to NO family ON PURPOSE. Without this
+          // they are indistinguishable from a lost account — and listAccounts
+          // hands the orphan list to every household admin, so the operator
+          // would appear in the roster of every family on the instance, and
+          // be adoptable into one by any of them.
+          eq(users.isOperator, false)
+        )
+      );
     return rows.map((r) => r.username);
   } catch {
     return [];

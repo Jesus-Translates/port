@@ -191,12 +191,24 @@ export async function roleOf(username: string): Promise<Role> {
   }
 }
 
-/** Admin or teacher only; students are sent home. */
+/**
+ * Admin or teacher only; students are sent home.
+ *
+ * A PLATFORM OPERATOR passes regardless of role. Operator accounts carry role
+ * "student" on purpose — "admin" means "runs a household" and an operator has
+ * none — so without this check the person who runs the deployment would be
+ * turned away from its own admin panel.
+ */
 export async function requireStaff(): Promise<Session & { role: Role }> {
   const session = await requireSession();
   const role = await roleOf(session.username);
-  if (role === "student") redirect("/");
+  if (role === "student" && !(await isOperator(session.username))) redirect("/");
   return { ...session, role };
+}
+
+/** Staff or operator — for showing a panel link, not for gating data. */
+export async function canSeePanel(username: string): Promise<boolean> {
+  return (await roleOf(username)) !== "student" || (await isOperator(username));
 }
 
 /** Admin only. Used by the destructive account-management actions. */
@@ -221,6 +233,33 @@ export async function requireAdmin(): Promise<Session> {
  */
 export async function requireOperator(): Promise<Session> {
   const session = await requireSession();
-  if (envRole(session.username) !== "admin") redirect("/");
+  if (!(await isOperator(session.username))) redirect("/");
   return session;
+}
+
+/**
+ * Is this a PLATFORM operator?
+ *
+ * Two sources, and both are needed. The ADMIN_USERS env list is the bootstrap
+ * — it exists before any database row does, and is how the first operator
+ * ever signs in. users.is_operator is the real thing: an account, creatable
+ * and revocable without a redeploy, belonging to no family.
+ *
+ * Never `roleOf`. That returns "admin" for every family owner, because
+ * /registar makes them one for their own household.
+ */
+export async function isOperator(username: string): Promise<boolean> {
+  if (envRole(username) === "admin") return true;
+  try {
+    const { getDb, users } = await import("@/lib/db");
+    const [row] = await getDb()
+      .select({ op: users.isOperator })
+      .from(users)
+      .where(eq(users.username, username.toLowerCase()))
+      .limit(1);
+    return row?.op === true;
+  } catch {
+    // A database blip must never silently promote anyone.
+    return false;
+  }
 }

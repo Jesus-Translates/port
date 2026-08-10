@@ -378,8 +378,16 @@ export function slotPrompt(slot: Slot): string {
  */
 export function regularVerb(input: string): Verb | null {
   const inf = input.trim().toLowerCase();
-  // Letters only (accents allowed), at least three, ending in a theme vowel.
-  if (!/^[a-zà-ÿ]{3,24}$/.test(inf)) return null;
+  /*
+   * FOUR characters minimum, not three.
+   *
+   * "par" is three letters ending in -ar, so a three-character floor
+   * conjugated it — and typing `partir` passes straight through "par",
+   * flashing a table for a noun. Every real three-letter Portuguese
+   * infinitive (ser, ter, ver, ler, dar, ir, vir, pôr) is irregular and
+   * already curated, so nothing legitimate is lost by requiring four.
+   */
+  if (!/^[a-zà-ÿ]{4,24}$/.test(inf)) return null;
   if (!/(ar|er|ir)$/.test(inf)) return null;
   if (inf.endsWith("pôr")) return null;
 

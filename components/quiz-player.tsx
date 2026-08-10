@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AnswerDiff } from "@/components/answer-diff";
+import { Bi, useBilingual } from "@/components/bilingual";
 import { AudioButton } from "@/components/audio-button";
 import { Recorder } from "@/components/recorder";
 import { WordBuilder, type WordTile } from "@/components/word-builder";
@@ -66,6 +67,9 @@ export function QuizPlayer({
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
   const [xp, setXp] = useState(0);
+  // A hook, so it must sit above the early returns for `busy` and `!q`.
+  const bilingual = useBilingual();
+  const gloss = (pt: string, en: string) => (bilingual ? `${pt} · ${en}` : pt);
 
   const q = questions[index];
   const last = index === questions.length - 1;
@@ -158,15 +162,12 @@ export function QuizPlayer({
   const hasAnswer =
     isSpeak ||
     (q.type === "wordbank" ? placed.length > 0 : answer.trim().length > 0);
-  const primaryLabel = isSpeak
-    ? last
-      ? "Entregar ✓"
-      : "Continuar →"
-    : verdict
+  const primaryLabel =
+    isSpeak || verdict
       ? last
-        ? "Entregar ✓"
-        : "Continuar →"
-      : "Verificar";
+        ? gloss("Entregar ✓", "Hand in")
+        : gloss("Continuar →", "Continue")
+      : gloss("Verificar", "Check");
 
   function onPrimary() {
     if (!isSpeak && !verdict) return void check();
@@ -202,7 +203,9 @@ export function QuizPlayer({
       </div>
 
       <div className="animate-ph-rise space-y-4">
-        <p className="label mb-0">{STEP_LABEL[q.type]}</p>
+        <p className="label mb-0">
+          <Bi pt={STEP_LABEL[q.type].pt} en={STEP_LABEL[q.type].en} inline />
+        </p>
 
         {q.type === "dialogue" ? (
           <DialogueBody q={q} />
@@ -271,7 +274,11 @@ export function QuizPlayer({
               autoFocus
             />
             <p className="mt-1.5 text-xs text-ink-faint">
-              Cuidado com os acentos — contam.
+              <Bi
+                pt="Cuidado com os acentos — contam."
+                en="Mind the accents — they count."
+                inline
+              />
             </p>
           </div>
         ) : null}
@@ -350,7 +357,7 @@ export function QuizPlayer({
               : "cursor-not-allowed bg-cream text-ink-faint"
           )}
         >
-          {checking ? "A ver…" : primaryLabel}
+          {checking ? gloss("A ver…", "Checking…") : primaryLabel}
         </button>
         <p className="text-center text-2xs text-ink-faint">
           {index + 1} de {questions.length}
@@ -360,12 +367,12 @@ export function QuizPlayer({
   );
 }
 
-const STEP_LABEL: Record<PlayerQuestion["type"], string> = {
-  multiple: "Escolhe a certa",
-  translate: "Escreve em português",
-  wordbank: "Constrói a frase",
-  speak: "Lê em voz alta",
-  dialogue: "Diálogo",
+const STEP_LABEL: Record<PlayerQuestion["type"], { pt: string; en: string }> = {
+  multiple: { pt: "Escolhe a certa", en: "Pick the right one" },
+  translate: { pt: "Escreve em português", en: "Write it in Portuguese" },
+  wordbank: { pt: "Constrói a frase", en: "Build the sentence" },
+  speak: { pt: "Lê em voz alta", en: "Read it aloud" },
+  dialogue: { pt: "Diálogo", en: "Conversation" },
 };
 
 function OptionButton({

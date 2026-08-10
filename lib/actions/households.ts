@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { asc, count, eq, sql } from "drizzle-orm";
 import { redirect } from "next/navigation";
-import { envRole, requireSession } from "@/lib/auth";
+import { isOperator, requireSession } from "@/lib/auth";
 import { accounts, getDb, memberships, people, users } from "@/lib/db";
 
 /**
@@ -35,7 +35,7 @@ export type Result = { ok: true } | { ok: false; error: string };
 /** Instance operator only — not a household admin. */
 async function requireOperator(): Promise<string> {
   const session = await requireSession();
-  if (envRole(session.username) !== "admin") redirect("/");
+  if (!(await isOperator(session.username))) redirect("/");
   return session.username;
 }
 

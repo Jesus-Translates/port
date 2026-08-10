@@ -47,24 +47,28 @@ export function VerbConjugator({
     : VERBS;
 
   /*
-   * A verb the list does not have.
+   * A verb the list does not have — conjugated as you type.
    *
-   * The curated list is ~90 hand-checked verbs — plenty for the course, and
+   * The curated list is ~90 hand-checked verbs: plenty for the course, and
    * useless the moment someone meets `arrumar` on a form at the Finanças and
    * wants to see it laid out. Anything regular is fully derivable, so a typed
-   * infinitive gets conjugated by rule rather than met with "no match".
+   * infinitive is conjugated by rule rather than met with "no match".
    *
-   * `custom` is only ever set from the button below, never guessed while
-   * typing: silently conjugating a half-typed word would flash wrong tables.
+   * This used to need a button, on the theory that conjugating mid-typing
+   * would flash wrong tables. It does not: Portuguese infinitives end in -r,
+   * so the truncations you pass through on the way — "estaciona", "falа",
+   * "come" — are not valid infinitives and produce nothing. The one real
+   * guard is the 3-character floor, so a lone "ir" does not fire.
    */
-  const [custom, setCustom] = useState<Verb | null>(null);
   const typed = query.trim().toLowerCase();
-  const canGenerate =
-    matches.length === 0 && typed.length >= 3 && regularVerb(typed) !== null;
+  const generatedVerb: Verb | null =
+    matches.length === 0 && typed.length >= 3 ? regularVerb(typed) : null;
 
+  // A typed verb wins while the search finds nothing; clearing the box falls
+  // back to whichever chip is selected.
   const listed = findVerb(inf);
-  const verb = listed ?? (custom?.inf === inf ? custom : undefined);
-  const generated = !listed && Boolean(verb);
+  const verb = generatedVerb ?? listed;
+  const generated = Boolean(generatedVerb);
   const tenses = verb ? tensesOf(verb) : [];
   // Switching verbs can strand the tense filter — plenty of verbs have no
   // imperativo or conjuntivo — so a filter this verb cannot honour falls back
@@ -92,31 +96,16 @@ export function VerbConjugator({
           />
         </div>
         {matches.length === 0 ? (
-          canGenerate ? (
-            <div className="space-y-2">
-              <p className="text-sm text-ink-soft">
-                «{typed}» não está na lista — mas dá para conjugar.
-              </p>
-              <button
-                type="button"
-                className="btn-primary w-full"
-                onClick={() => {
-                  const v = regularVerb(typed);
-                  if (!v) return;
-                  setCustom(v);
-                  setInf(v.inf);
-                  setQuery("");
-                }}
-              >
-                Conjugar «{typed}» →
-              </button>
-            </div>
+          generated ? (
+            <p className="text-sm text-ink-soft">
+              «{typed}» não está na lista — conjugado pela regra, em baixo.
+            </p>
           ) : (
             <p className="text-sm text-ink-soft">
               Nenhum verbo com «{query}».{" "}
               <span className="text-ink-faint">
-                No match — try the English, or type a full infinitive ending in
-                -ar, -er or -ir.
+                Escreve o infinitivo completo — acabado em -ar, -er ou -ir — ou
+                procura pelo inglês.
               </span>
             </p>
           )
