@@ -50,6 +50,27 @@ function needsWork(note: string): "missing" | "town" | "brazilian" | null {
   return null;
 }
 
+/**
+ * A note the generator has already tried and failed to satisfy.
+ *
+ * Three units span-looped here: each held a correct teaching contrast
+ * ("not the Brazilian word ônibus"), the linter misread it as a Brazilianism,
+ * this endpoint rewrote the note, and the rewrite tripped the same check —
+ * paying for a model call every round with nothing changing. The linter bug
+ * is fixed, but the loop was possible at all because a rewrite that does not
+ * clear the check gets retried forever.
+ *
+ * So: a note that comes back no cleaner than it went in is left alone and
+ * reported, rather than queued again.
+ */
+function rewriteHelped(
+  before: number,
+  after: number,
+  wasMissing: boolean
+): boolean {
+  return wasMissing || after < before || after === 0;
+}
+
 export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session || (await roleOf(session.username)) !== "admin") {

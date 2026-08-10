@@ -138,7 +138,24 @@ const RULES: Rule[] = [
  * names Brazil, or contrasts the two varieties, is exempt.
  */
 const TEACHING_CONTRAST =
-  /\bno brasil\b|\bbrasileir[oa]s?\b|\bbrasil\b|em portugal\b|\bpt-?br\b|\berrado\b|\bevita[rs]?\b|\bnão dig[ao]s?\b|✗|❌/i;
+  new RegExp(
+    [
+      // Portuguese markers
+      "\\bno brasil\\b", "\\bbrasileir[oa]s?\\b", "\\bbrasil\\b", "em portugal\\b",
+      "\\bpt-?br\\b", "\\berrado\\b", "\\bevita[rs]?\\b", "\\bnão dig[ao]s?\\b",
+      // English markers. The notes EXPLAIN in English by design, so a contrast
+      // reads "not the Brazilian word ônibus" — no Portuguese marker in sight.
+      // Missing these put three units in an infinite loop: the generator wrote
+      // a correct teaching contrast, the linter called it a Brazilianism, the
+      // endpoint rewrote it, and round it went, paying for a model call each
+      // time.
+      "\\bbrazilian\\b", "\\bin portugal\\b", "\\bnot the\\b", "\\binstead of\\b",
+      "\\brather than\\b", "\\bavoid\\b", "\\bnever say\\b", "\\bwrong\\b",
+      "\\bincorrect\\b", "\\bmay try to\\b", "\\bmay copy\\b",
+      "✗", "❌",
+    ].join("|"),
+    "i"
+  );
 
 /** Every Brazilianism in a piece of text. */
 export function lintPt(text: string): Finding[] {
