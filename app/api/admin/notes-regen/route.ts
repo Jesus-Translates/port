@@ -26,6 +26,23 @@ export const maxDuration = 300;
 
 const NAMES_A_TOWN = /Santa Cruz|Torres Vedras|Silveira/i;
 
+/**
+ * Levels this generator must not write.
+ *
+ * Cívica teaches Portuguese citizenship law, and content/civica/ holds a
+ * hand-researched, fact-checked corpus for it — including nuances a generic
+ * model flattens: the CPLP provision is a REBUTTABLE PRESUMPTION on the
+ * language half only, the alínea d) proof mechanism is UNSPECIFIED so no
+ * single unified exam may be asserted, and applications filed before
+ * 19 May 2026 owe no test at all. The implementing decree had still not
+ * published as of 2026-08-10.
+ *
+ * Those notes must be written FROM the corpus, by someone reading it. Not
+ * here. Remove this guard only when the regulation is published and the
+ * corpus has been updated.
+ */
+const NEVER_GENERATE = new Set(["Cívica"]);
+
 function needsWork(note: string): "missing" | "town" | "brazilian" | null {
   if (note.trim().length < 200) return "missing";
   if (NAMES_A_TOWN.test(note)) return "town";
@@ -59,7 +76,7 @@ export async function POST(request: NextRequest) {
 
   const pending = rows
     .map((r) => ({ ...r, why: needsWork(r.note ?? "") }))
-    .filter((r) => r.why !== null);
+    .filter((r) => r.why !== null && !NEVER_GENERATE.has(r.cefr));
 
   const slice = pending.slice(0, batch);
   const written: { slug: string; why: string; chars: number; retried: boolean }[] = [];
