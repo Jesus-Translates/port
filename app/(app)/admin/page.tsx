@@ -207,6 +207,21 @@ export default async function AdminPage() {
 
           {isAdmin && (
             <Link
+              href="/admin/familias"
+              className="card p-5 transition-colors hover:bg-sage-pale/40"
+            >
+              <div className="font-display text-lg font-semibold">
+                🏠 Famílias
+              </div>
+              <p className="mt-1 text-sm text-ink-soft">
+                Create a family, set its plan and seats, move someone between
+                families.
+              </p>
+            </Link>
+          )}
+
+          {isAdmin && (
+            <Link
               href="/admin/relatorios"
               className="card p-5 transition-colors hover:bg-sage-pale/40"
             >
