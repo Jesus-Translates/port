@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
 import { ChangeMyPassword } from "@/components/change-my-password";
+import { DailyGoalPicker } from "@/components/daily-goal-picker";
 import { ImmersionToggle } from "@/components/immersion-toggle";
 import { SignOut } from "@/components/sign-out";
 import { requireSession, roleOf } from "@/lib/auth";
@@ -57,6 +58,14 @@ export default async function PerfilPage() {
           </span>
         }
       />
+
+      <section className="space-y-2">
+        <p className="label">Meta diária</p>
+        <DailyGoalPicker initial={prefs?.minutes ?? "15"} />
+        <p className="text-2xs text-ink-faint">
+          É isto que enche o anel em Hoje. Muda quando a vida mudar.
+        </p>
+      </section>
 
       <section className="space-y-2">
         <p className="label">Como aprendes</p>

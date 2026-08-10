@@ -1,6 +1,10 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { FamilyBoard } from "@/components/family-board";
 import { FamilySettings } from "@/components/family-settings";
+import { currentAccountId } from "@/lib/tenant";
+import { accounts, getDb } from "@/lib/db";
+import { eq } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
 import { getFamilyBoard, getRecentKudos } from "@/lib/data";
@@ -13,24 +17,54 @@ export const metadata = { title: "Família" };
 
 export default async function FamilyPage() {
   const session = await requireSession();
-  const [board, recent, settings, canEdit] = await Promise.all([
+  const [board, recent, settings, canEdit, houseName] = await Promise.all([
     getFamilyBoard(await householdUsernames()),
     getRecentKudos(15),
     getHouseholdSettings(),
     canSetHouseholdSettings(),
+    householdName(),
   ]);
+
+  // "Everyone practised this week" — counted from the board rather than
+  // stored, so the challenge cannot drift out of sync with the scores beside it.
+  const activeCount = board.filter((m) => m.xpThisWeek > 0).length;
+  const weekLabel = `Semana de ${new Date().toLocaleDateString("pt-PT", {
+    day: "numeric",
+    month: "long",
+    timeZone: "Europe/Lisbon",
+  })}`;
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          🏆 A família
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Who&apos;s ahead this week — and a place to cheer each other on. Give a
-          golden star when someone does something you&apos;re proud of.
+      <AzulejoHeader
+        title={houseName}
+        eyebrow={weekLabel}
+        subtitle="Quem está à frente esta semana — e onde se dão as estrelas."
+      />
+
+      {/* One thing the whole house is doing, rather than five separate scores.
+          Derived, not stored: the challenge is "everyone practises today", and
+          the bar is how many of you actually have. */}
+      <section className="rounded-[20px] bg-terra-pale p-[17px_18px]">
+        <p className="text-xs font-semibold tracking-[.1em] text-terra uppercase">
+          Desafio da semana
         </p>
-      </header>
+        <p className="mt-1 font-display text-xl leading-snug font-semibold">
+          Toda a gente pratica esta semana
+        </p>
+        <div className="mt-3 h-[9px] overflow-hidden rounded-full bg-terra-dark/20">
+          <div
+            className="h-[9px] rounded-full bg-terra transition-[width] duration-500"
+            style={{
+              width: `${board.length > 0 ? Math.round((activeCount / board.length) * 100) : 0}%`,
+            }}
+          />
+        </div>
+        <p className="mt-1.5 text-xs font-semibold text-terra-dark">
+          {activeCount} / {board.length}{" "}
+          {board.length === 1 ? "pessoa" : "pessoas"}
+        </p>
+      </section>
 
       <FamilyBoard
         board={board}
@@ -90,4 +124,20 @@ export default async function FamilyPage() {
       </section>
     </div>
   );
+}
+
+/** The family's own name for the band. Falls back rather than erroring. */
+async function householdName(): Promise<string> {
+  try {
+    const id = await currentAccountId();
+    if (id === null) return "A família";
+    const [row] = await getDb()
+      .select({ name: accounts.name })
+      .from(accounts)
+      .where(eq(accounts.id, id))
+      .limit(1);
+    return row?.name ?? "A família";
+  } catch {
+    return "A família";
+  }
 }

@@ -1,56 +1,82 @@
-import Link from "next/link";
 import { Suspense } from "react";
-import { AzulejoHeader, BandTile } from "@/components/azulejo-header";
+import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { GlobalLeaderboard } from "@/components/global-leaderboard";
 import { IconFlame } from "@/components/icons";
 import { requireSession } from "@/lib/auth";
 import { getCefrFor, getStats } from "@/lib/data";
+import {
+  getHeatmap,
+  getHouseholdLeague,
+  getWeeklyXp,
+} from "@/lib/actions/progress";
+import { titleCase } from "@/lib/people";
+import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Progresso" };
 
 /**
- * Progresso — streak, XP and level.
+ * Progresso — the streak, the week, and where you stand.
  *
- * The weekly chart, the 35-day heatmap and the household league are the next
- * pass; this exists now because the tab bar points at it, and a tab that 404s
- * is worse than a thin screen. Everything here is real data from getStats().
+ * Every number here is real: derived from the activity rows the app already
+ * writes, day-bucketed in Lisbon so a late-evening session lands on the day
+ * the learner thinks it did.
  */
 export default async function ProgressoPage() {
   const session = await requireSession();
-  const [stats, cefr] = await Promise.all([
+  const [stats, cefr, week, heat, league] = await Promise.all([
     getStats(session.username),
     getCefrFor(session.username).catch(() => null),
+    getWeeklyXp().catch(() => []),
+    getHeatmap().catch(() => []),
+    getHouseholdLeague().catch(() => []),
   ]);
+
+  const peak = Math.max(1, ...week.map((d) => d.xp));
 
   return (
     <div className="space-y-6">
       <AzulejoHeader
+        variant="full"
         eyebrow="O teu caminho"
         title="Progresso"
         subtitle={`${stats.activeThisWeek} ${
           stats.activeThisWeek === 1 ? "dia ativo" : "dias ativos"
         } esta semana`}
       >
-        <div className="flex gap-2.5">
-          <BandTile label="Fogo">
-            <IconFlame size={15} className="mr-1 text-terra-light" />
-            <span className="font-display text-[27px] leading-none font-semibold">
-              {stats.streakDays}
-            </span>
-            <span className="text-[13px] text-paper/60">
-              {stats.streakDays === 1 ? "dia" : "dias"}
-            </span>
-          </BandTile>
-          <BandTile label="XP total">
-            <span className="font-display text-[27px] leading-none font-semibold">
-              {stats.xp.toLocaleString("pt-PT")}
-            </span>
-          </BandTile>
+        {/* The week, in the band. Bars are terra-light because full terra is
+            too close to olive in value to read on this background. */}
+        <div className="flex h-20 items-end gap-1.5">
+          {week.map((d) => (
+            <div key={d.day} className="flex flex-1 flex-col items-center gap-1.5">
+              <div
+                className={cn(
+                  "w-full rounded-t-md rounded-b-[3px]",
+                  d.xp > 0 ? "bg-terra-light" : "bg-paper/20"
+                )}
+                style={{ height: `${Math.max(6, (d.xp / peak) * 62)}px` }}
+                title={`${d.xp} XP`}
+              />
+              <span
+                className={cn(
+                  "text-[10.5px]",
+                  d.isToday ? "font-semibold text-paper" : "text-paper/60"
+                )}
+              >
+                {d.letter}
+              </span>
+            </div>
+          ))}
         </div>
       </AzulejoHeader>
 
-      <section className="grid gap-2.5 sm:grid-cols-3">
-        <Stat value={String(stats.streakDays)} caption="dias seguidos" tone="text-terra" />
+      <section className="grid grid-cols-3 gap-2.5">
+        <Stat
+          icon={<IconFlame size={14} className="text-terra" />}
+          value={String(stats.streakDays)}
+          caption="dias seguidos"
+          tone="text-terra"
+        />
         <Stat
           value={stats.xp.toLocaleString("pt-PT")}
           caption="XP no total"
@@ -59,10 +85,69 @@ export default async function ProgressoPage() {
         <Stat value={cefr ?? "—"} caption="nível atual" tone="text-azul" />
       </section>
 
+      {heat.length > 0 ? (
+        <section>
+          <p className="label">Últimas 5 semanas</p>
+          <div className="card grid grid-cols-7 gap-[5px] p-4">
+            {heat.map((c) => (
+              <span
+                key={c.day}
+                title={c.day}
+                className={cn(
+                  "aspect-square rounded-[5px]",
+                  c.level === 0
+                    ? "bg-cream"
+                    : c.level === 1
+                      ? "bg-[#dfe3d8]"
+                      : c.level === 2
+                        ? "bg-sage-light"
+                        : "bg-sage"
+                )}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {league.length > 1 ? (
+        <section>
+          <div className="mb-2 flex items-baseline justify-between gap-2">
+            <p className="label mb-0">A tua casa</p>
+            <span className="text-2xs text-ink-faint">últimos 7 dias</span>
+          </div>
+          <div className="card divide-y divide-cream overflow-hidden">
+            {league.map((r, i) => (
+              <div
+                key={r.username}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3",
+                  r.isMe && "bg-sage-pale"
+                )}
+              >
+                <span
+                  className={cn(
+                    "grid size-[26px] shrink-0 place-items-center rounded-[9px] font-display text-[13px] font-semibold",
+                    i < 3 ? "bg-terra text-paper" : "bg-cream text-ink-faint"
+                  )}
+                >
+                  {i + 1}
+                </span>
+                <span className="min-w-0 flex-1 truncate text-[14.5px]">
+                  {titleCase(r.username)}
+                </span>
+                <span className="font-display text-[15px] font-semibold text-ink-soft tabular-nums">
+                  {r.xp} XP
+                </span>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       {/* The only cross-family surface in the app. Names are masked in the
           query, so this stays a scoreboard rather than a directory. */}
-      <section className="space-y-2">
-        <div className="flex items-baseline justify-between">
+      <section>
+        <div className="mb-2 flex items-baseline justify-between gap-2">
           <p className="label mb-0">Tabela de hoje</p>
           <span className="text-2xs text-ink-faint">todas as famílias</span>
         </div>
@@ -77,30 +162,6 @@ export default async function ProgressoPage() {
         </Suspense>
       </section>
 
-      <section className="space-y-2">
-        <p className="label">O que fizeste</p>
-        {stats.recent.length === 0 ? (
-          <p className="card p-6 text-center text-sm text-ink-soft">
-            Ainda nada esta semana — começa por{" "}
-            <Link href="/" className="underline underline-offset-2 hover:text-olive">
-              hoje
-            </Link>
-            .
-          </p>
-        ) : (
-          <div className="card divide-y divide-cream">
-            {stats.recent.slice(0, 12).map((r, i) => (
-              <div key={i} className="flex items-center gap-3 px-4 py-2.5">
-                <span className="min-w-0 flex-1 truncate text-sm">
-                  {r.summary}
-                </span>
-                <span className="chip bg-cream text-ink-soft">{r.kind}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </section>
-
       <Link href="/jogos" className="btn-ghost w-full">
         🎮 Jogos — ganha XP em rondas rápidas
       </Link>
@@ -109,20 +170,28 @@ export default async function ProgressoPage() {
 }
 
 function Stat({
+  icon,
   value,
   caption,
   tone,
 }: {
+  icon?: React.ReactNode;
   value: string;
   caption: string;
   tone: string;
 }) {
   return (
     <div className="card p-4 text-center">
-      <p className={`font-display text-[28px] leading-none font-semibold ${tone}`}>
+      <p
+        className={cn(
+          "flex items-center justify-center gap-1 font-display text-[28px] leading-none font-semibold",
+          tone
+        )}
+      >
+        {icon}
         {value}
       </p>
-      <p className="mt-1 text-[11.5px] text-ink-faint">{caption}</p>
+      <p className="mt-1.5 text-[11.5px] text-ink-faint">{caption}</p>
     </div>
   );
 }

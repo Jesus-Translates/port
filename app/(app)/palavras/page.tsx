@@ -3,7 +3,7 @@ import { AzulejoHeader } from "@/components/azulejo-header";
 import { VerbConjugator } from "@/components/verb-conjugator";
 import { requireSession } from "@/lib/auth";
 import { getCategoriesWithCounts } from "@/lib/data";
-import { countDue } from "@/lib/srs";
+import { countDue, srsByCategory } from "@/lib/srs";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Palavras" };
@@ -26,10 +26,12 @@ export default async function PalavrasPage(props: PageProps<"/palavras">) {
     ? "verbos"
     : "vocab";
 
-  const [due, categories] = await Promise.all([
+  const [due, categories, srs] = await Promise.all([
     countDue(session.username).catch(() => 0),
     getCategoriesWithCounts().catch(() => []),
+    srsByCategory(session.username),
   ]);
+  const srsFor = new Map(srs.map((s) => [s.categoryId, s]));
 
   return (
     <div className="space-y-6">
@@ -90,26 +92,46 @@ export default async function PalavrasPage(props: PageProps<"/palavras">) {
               </p>
             ) : (
               <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                {categories.map((c) => (
-                  <Link
-                    key={c.id}
-                    href={`/reference/${c.slug}`}
-                    className="card flex items-center gap-3 p-4 transition-all hover:border-sage hover:shadow-md"
-                  >
-                    <span className="text-2xl" aria-hidden>
-                      {c.emoji}
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block font-display text-[16.5px] font-medium">
-                        {c.namePt}
+                {categories.map((c) => {
+                  const s = srsFor.get(c.id);
+                  return (
+                    <Link
+                      key={c.id}
+                      href={`/reference/${c.slug}`}
+                      className="card flex items-center gap-3 p-4 transition-all hover:border-sage hover:shadow-md"
+                    >
+                      <span className="text-2xl" aria-hidden>
+                        {c.emoji}
                       </span>
-                      <span className="block text-xs text-ink-faint">
-                        {c.nameEn} · {c.entryCount}{" "}
-                        {c.entryCount === 1 ? "palavra" : "palavras"}
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-display text-[16.5px] font-medium">
+                          {c.namePt}
+                        </span>
+                        <span className="block text-xs text-ink-faint">
+                          {c.nameEn} · {c.entryCount}{" "}
+                          {c.entryCount === 1 ? "palavra" : "palavras"}
+                        </span>
                       </span>
-                    </span>
-                  </Link>
-                ))}
+                      {/* Terra = due, sage = in the deck and settled. Silence
+                          when nothing from here has been studied — an empty
+                          dot would read as "nothing due" rather than "not
+                          started", which are very different things. */}
+                      {s && s.known > 0 ? (
+                        <span
+                          title={
+                            s.due > 0
+                              ? `${s.due} para rever`
+                              : `${s.known} no baralho`
+                          }
+                          className={cn(
+                            "size-2 shrink-0 rounded-full",
+                            s.due > 0 ? "bg-terra" : "bg-sage-light"
+                          )}
+                        />
+                      ) : null}
+                    </Link>
+                  );
+                })}
               </div>
             )}
           </section>

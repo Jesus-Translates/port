@@ -7,7 +7,7 @@ import {
   type Grade,
 } from "ts-fsrs";
 import { and, asc, eq, gt, gte, lte, ne, sql } from "drizzle-orm";
-import { cards, getDb, reviewLogs } from "@/lib/db";
+import { cards, getDb, refEntries, reviewLogs } from "@/lib/db";
 
 // Default FSRS-6 weights, 90% retention target. Fuzz spreads due times so
 // eight people don't all get identical schedules.
@@ -203,5 +203,38 @@ export async function addMistakeCard(
     });
   } catch {
     // never block grading on this
+  }
+}
+
+export type CategorySrs = { categoryId: number; due: number; known: number };
+
+/**
+ * Per-category review state, for the vocabulary browser.
+ *
+ * cards.sourceId points at ref_entries.id when kind is "entry", so this joins
+ * cleanly rather than matching on the Portuguese text — which would break the
+ * moment a word appeared in two categories.
+ *
+ * One grouped query and a Map, never a correlated sub-select: that pattern
+ * renders the outer column unqualified inside the sub-select's scope, binds to
+ * the wrong table and silently returns zeros.
+ */
+export async function srsByCategory(username: string): Promise<CategorySrs[]> {
+  try {
+    const now = new Date();
+    const rows = await getDb()
+      .select({
+        categoryId: refEntries.categoryId,
+        due: sql<number>`count(*) filter (where ${cards.state} > 0 and ${cards.due} <= ${now})::int`,
+        known: sql<number>`count(*) filter (where ${cards.state} > 0)::int`,
+      })
+      .from(cards)
+      .innerJoin(refEntries, eq(refEntries.id, cards.sourceId))
+      .where(and(eq(cards.username, username), eq(cards.kind, "entry")))
+      .groupBy(refEntries.categoryId);
+    return rows;
+  } catch {
+    // A missing review count must never stop the word list rendering.
+    return [];
   }
 }
