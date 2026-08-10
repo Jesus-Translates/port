@@ -35,14 +35,20 @@ export function ZonePicker({
 
   const chosen = zones.find((z) => z.slug === zone) ?? null;
 
+  /**
+   * Choosing a zone does NOT save.
+   *
+   * It used to save straight away, which marked the location answered — and
+   * onboarding then advanced to the placement quiz before the town list had a
+   * chance to render. From the outside that reads as the screen jumping
+   * forward on its own, with no way back and no way to see what you picked.
+   *
+   * Now it is two steps: zone, then town within that zone, with a way back.
+   * Nothing is written until the second step, so the flow cannot run ahead.
+   */
   function pickZone(slug: string) {
     setZone(slug);
     setSaved(false);
-    // Save immediately: the region alone is a complete, useful answer.
-    start(async () => {
-      await setMyZone(slug, null);
-      router.refresh();
-    });
   }
 
   function pickTown(placeSlug: string | null) {
@@ -149,7 +155,7 @@ export function ZonePicker({
                   {pending ? "A guardar…" : "Guardar"}
                 </button>
               </form>
-            ) : (
+            ) : chosen ? null : (
               <div className="grid gap-2 sm:grid-cols-2">
                 {zones.map((z) => (
                   <button
@@ -178,8 +184,19 @@ export function ZonePicker({
 
           {chosen && chosen.places.length > 0 && (
             <div>
+              <button
+                type="button"
+                onClick={() => {
+                  setZone(null);
+                  setSaved(false);
+                }}
+                disabled={pending}
+                className="mb-2 text-xs text-ink-soft underline underline-offset-2 hover:text-olive"
+              >
+                ← mudar de zona ({chosen.namePt})
+              </button>
               <p className="label">
-                Queres dizer onde exatamente? <span className="normal-case font-normal text-ink-faint">· opcional</span>
+                Onde exatamente, no {chosen.namePt}?
               </p>
               <div className="flex flex-wrap gap-2">
                 {chosen.places.map((p) => (
@@ -208,7 +225,8 @@ export function ZonePicker({
                 </button>
               </div>
               <p className="mt-2 text-xs text-ink-faint">
-                A zona já chega. Isto só afina ainda mais os exemplos.
+                Escolhe a tua terra — ou “prefiro não dizer”, que a zona já
+                chega. Só depois disto é que seguimos em frente.
               </p>
             </div>
           )}
