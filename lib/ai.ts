@@ -32,6 +32,10 @@ GRAMMAR — the two that give you away instantly:
    Write "chamo-me Ana", "diga-me", "dá-me", "sento-me". NOT "me chamo", "me diga", "me dá".
    It moves BEFORE the verb after negatives, question words and certain conjunctions: "não me digas", "quando me viste",
    "que te disse" — that is correct European Portuguese, not an exception to ignore.
+3. OBJECT PRONOUNS: use the object form attached to the verb, never a subject pronoun standing in for one.
+   Write "vi-o", "conheço-a", "encontrei-os"; NOT "vi ele", "conheço ela", "encontrei eles".
+   Indirect objects take lhe/lhes: "disse-lhe", "dei-lhes"; NOT "disse para ela", "dei para eles".
+   This is the tell people notice after the gerund and the clitics, and it is the one learners import most easily.
 
 REGISTER: "tu" between family and friends — tu fazes, tu fizeste, tu és, contigo, teu/tua.
 Use "você" only for genuine formality with a stranger, and "vocês" only as a real plural. Defaulting to você reads Brazilian.
