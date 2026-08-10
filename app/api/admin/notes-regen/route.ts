@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { eq, sql } from "drizzle-orm";
 import { getDb, units } from "@/lib/db";
-import { getRole, getSession } from "@/lib/auth";
+import { getSession, roleOf } from "@/lib/auth";
 import { generateEuropean } from "@/lib/ai-guard";
 import { lintPt } from "@/lib/pt-lint";
 import { PT_STYLE, SANDRA } from "@/lib/ai";
@@ -35,7 +35,7 @@ function needsWork(note: string): "missing" | "town" | "brazilian" | null {
 
 export async function POST(request: NextRequest) {
   const session = await getSession();
-  if (!session || getRole(session.username) !== "admin") {
+  if (!session || (await roleOf(session.username)) !== "admin") {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 

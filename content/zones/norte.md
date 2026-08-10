@@ -411,9 +411,14 @@ locally. It is strongest in older and rural speakers and less consistent in urba
 *Filipa* is said with all its syllables, not squeezed to *Flipa*. The overall effect is slower,
 rounder and more open, where Lisbon sounds clipped and consonantal.
 
-**The apical s.** Along the northern coast and across the border in Galicia, /s/ is articulated
-with the tip of the tongue, producing a whistly, slightly *sh*-tinted sibilant that southern ears
-notice immediately.
+**The apical s.** /s/ articulated with the tip of the tongue, producing a whistly, slightly
+*sh*-tinted sibilant that southern ears notice immediately, and shared with Galician across the
+border. It is a real northern feature — and the one Cintra's whole northern/southern
+classification rests on — but its distribution is contested. The CLUL re-analysis of the ALPI
+materials finds it *praticamente inexistente* along the north-west littoral, in western Viana do
+Castelo and Braga, which is why some scholars argue those districts do not belong in the
+northern group at all. It is securely attested inland and in north-eastern Trás-os-Montes. Do
+not tell a learner in Viana they will hear it.
 
 **Braga's cadence.** Braga's accent is more strongly marked and more sung than Porto's, with a
 rising melody. Typical Braga realisations: *meu* → *mieu*, *bem* → *beim*.
