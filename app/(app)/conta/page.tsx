@@ -69,6 +69,19 @@ export default async function ContaPage() {
               {full ? " · sem lugares livres" : ""}
             </span>
           </div>
+          {/* The account's real limit can differ from the plan's nominal one
+              — an operator can widen it. Printing "1 de 12" beside a card
+              that says "até 6 pessoas" reads as a contradiction unless the
+              adjustment is named. */}
+          {billing.seatLimit !== billing.plan.seats ? (
+            <p className="text-2xs text-ink-faint">
+              O plano {billing.plan.namePt} traz{" "}
+              {billing.plan.seats === 1
+                ? "1 lugar"
+                : `${billing.plan.seats} lugares`}
+              ; esta família tem {billing.seatLimit} combinados à parte.
+            </p>
+          ) : null}
           <div className="h-2 overflow-hidden rounded-full bg-cream">
             <div
               className={cn(
