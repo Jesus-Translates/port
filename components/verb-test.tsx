@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { Markdown } from "@/components/markdown";
 import { finishVerbRound } from "@/lib/actions/verbos";
+import { UnitContinue, UnitReturn } from "@/components/unit-return";
+import type { UnitContext } from "@/lib/unit-context";
 import type { PronResult } from "@/lib/pronunciation";
 import {
   checkSpelling,
@@ -95,7 +97,18 @@ function buildRound(filters: VerbFilters, types: QType[]): Question[] {
   }));
 }
 
-export function VerbTest({ initialTense }: { initialTense?: Tense }) {
+export function VerbTest({
+  initialTense,
+  unit = null,
+}: {
+  initialTense?: Tense;
+  /**
+   * Set when this round is a step in a course unit. It was the only thing the
+   * separate /practice/verbos drill did that this one could not, which is why
+   * the app carried two verb trainers over the same data.
+   */
+  unit?: UnitContext | null;
+}) {
   // ── setup ──
   const [cls, setCls] = useState<VerbClass | "all">("all");
   const [tenses, setTenses] = useState<Tense[]>(
@@ -319,6 +332,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
     const poolSize = selectForms(filters).length;
     return (
       <div className="space-y-4">
+        <UnitReturn unit={unit} />
         {done && round ? (
           <div className="card space-y-4 p-6">
             <div className="text-center">
@@ -373,6 +387,12 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                 </Link>
               </div>
             </div>
+            {unit ? (
+              <UnitContinue
+                unit={unit}
+                score={Math.round((score / Math.max(1, round.length)) * 100)}
+              />
+            ) : null}
           </div>
         ) : null}
 

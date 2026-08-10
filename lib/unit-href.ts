@@ -101,7 +101,7 @@ export function resolve(
     case "verbos":
       return {
         kind,
-        href: `/practice/verbos?${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
+        href: `/verbos?tab=treinar&${topic ? `tema=${q}&` : ""}unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: about,
       };
     case "escutar":

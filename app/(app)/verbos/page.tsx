@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unitContextFrom } from "@/lib/unit-context";
 import { VerbConjugator } from "@/components/verb-conjugator";
 import { VerbTest } from "@/components/verb-test";
 import { requireSession } from "@/lib/auth";
@@ -26,6 +27,8 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
   const sp = await props.searchParams;
 
   const tab = first(sp.tab) === "treinar" ? "treinar" : "consultar";
+  // A verb step opened from a unit lands straight on the trainer.
+  const unit = await unitContextFrom(sp);
   // Deep links (?verbo=ficar&tempo=perfeito) are validated against the data —
   // an unknown value just falls back to the default rather than blowing up.
   const wanted = first(sp.verbo);
@@ -88,7 +91,7 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
       </nav>
 
       {tab === "treinar" ? (
-        <VerbTest initialTense={tempo} />
+        <VerbTest initialTense={tempo} unit={unit} />
       ) : (
         <VerbConjugator initialVerb={verbo} initialTense={tempo} />
       )}
