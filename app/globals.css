@@ -48,6 +48,42 @@
       opacity: 1 !important;
     }
   }
+  /*
+   * A visible focus ring, in the design system's own colours.
+   *
+   * Nothing in the app styled :focus-visible, so every button, link, tab and
+   * game tile fell back to the browser default — which Tailwind's reset
+   * removes. That left keyboard and switch users with no way to see where
+   * they are. Inputs already had a ring; everything else had nothing.
+   *
+   * :focus-visible rather than :focus, so a mouse click does not leave a ring
+   * behind on the tile you just tapped.
+   */
+  :focus-visible {
+    outline: 2px solid var(--color-olive);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+  }
+
+  /*
+   * Respect a system-level request for less motion.
+   *
+   * This app animates a lot — the gender game runs a depleting timer bar, the
+   * progress bars ease, cards lift on hover. For a learner with vestibular
+   * sensitivity that is a reason to close the app. Transitions collapse to
+   * near-instant rather than being removed, so state changes are still legible.
+   */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   ::selection {
     @apply bg-terra-pale text-terra-dark;
   }
