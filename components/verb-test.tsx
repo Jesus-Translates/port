@@ -440,7 +440,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                   <div className="text-sm font-semibold">{r.label}</div>
                   <div
                     className={cn(
-                      "text-[10px]",
+                      "text-2xs",
                       regularity === r.key ? "text-paper/80" : "text-ink-faint"
                     )}
                   >
@@ -473,7 +473,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                   </div>
                   <div
                     className={cn(
-                      "text-[10px]",
+                      "text-2xs",
                       types.includes(t) ? "text-paper/80" : "text-ink-faint"
                     )}
                   >
@@ -606,7 +606,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
           <div className="space-y-3">
             <div className="flex items-center justify-between gap-3 rounded-xl border border-sand bg-cream/60 px-3 py-2.5">
               <div className="min-w-0">
-                <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+                <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
                   Diz esta frase
                 </div>
                 <p className="font-display text-lg break-words">
@@ -663,7 +663,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                     >
                       {pron.score}
                     </div>
-                    <div className="text-[10px] text-ink-faint">/100 frase</div>
+                    <div className="text-2xs text-ink-faint">/100 frase</div>
                   </div>
                   <p className="flex flex-1 flex-wrap gap-x-1.5 gap-y-1 font-display text-lg">
                     {pron.words.map((w, i) => (
@@ -690,7 +690,7 @@ export function VerbTest({ initialTense }: { initialTense?: Tense }) {
                     ))}
                   </p>
                 </div>
-                <p className="text-[11px] text-ink-faint">
+                <p className="text-2xs text-ink-faint">
                   A nota é da frase toda; a pergunta conta pela palavra
                   destacada — the conjugated form is what is being marked.
                 </p>

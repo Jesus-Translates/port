@@ -72,7 +72,7 @@ export default async function NotesPage() {
                         </span>
                       ))
                   : null}
-                <span className="ml-auto text-[11px] text-ink-faint">
+                <span className="ml-auto text-2xs text-ink-faint">
                   {formatDate(n.updatedAt)}
                 </span>
               </div>

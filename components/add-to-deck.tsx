@@ -43,7 +43,7 @@ export function AddToDeck({
       title={saved ? `“${pt}” está no baralho` : `Guardar “${pt}” no baralho`}
       className={cn(
         "inline-flex max-w-full items-center gap-1 rounded-full border transition-colors disabled:cursor-default",
-        compact ? "px-2 py-0.5 text-[11px]" : "px-2.5 py-1 text-xs",
+        compact ? "px-2 py-0.5 text-2xs" : "px-2.5 py-1 text-xs",
         saved
           ? "border-sage bg-sage-pale text-olive"
           : "border-sand bg-white/70 text-ink-soft hover:border-sage hover:bg-sage-pale hover:text-ink"
@@ -77,7 +77,7 @@ export function HarvestFromMarkdown({ md }: { md: string }) {
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="text-[11px] text-ink-faint transition-colors hover:text-olive"
+        className="text-2xs text-ink-faint transition-colors hover:text-olive"
       >
         Guardar palavras {open ? "▴" : "▾"}
       </button>

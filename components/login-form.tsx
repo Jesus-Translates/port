@@ -87,7 +87,7 @@ function LoginFormInner({
               <span className="text-xl leading-none" aria-hidden>
                 {avatarFor(u)}
               </span>
-              <span className="mt-1 text-[11px] leading-tight font-semibold">
+              <span className="mt-1 text-2xs leading-tight font-semibold">
                 {u}
               </span>
             </button>

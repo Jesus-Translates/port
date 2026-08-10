@@ -24,6 +24,13 @@
   --color-azul: #33589b;
   --color-azul-pale: #e3eaf6;
 
+  /* The scale had no step below Tailwind's xs (12px), so 47 call sites
+     invented one — 30x text-2xs and 17x text-2xs, two sizes a reader
+     cannot tell apart. One named step replaces both; 10px was under the
+     accessibility floor regardless. */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+
   --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 }

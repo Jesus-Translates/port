@@ -134,7 +134,7 @@ export function Recorder({
                   >
                     {result.pron.score}
                   </div>
-                  <div className="text-[10px] text-ink-faint">/100 pronúncia</div>
+                  <div className="text-2xs text-ink-faint">/100 pronúncia</div>
                 </div>
                 <p className="flex flex-1 flex-wrap gap-x-1.5 gap-y-1 font-display text-lg">
                   {result.pron.words.map((w, i) => (
@@ -179,14 +179,14 @@ export function Recorder({
                   ))}
                 </ul>
               ) : null}
-              <p className="text-[11px] text-ink-faint">
+              <p className="text-2xs text-ink-faint">
                 Estimativa a partir do reconhecimento de voz — mede se foste
                 percebido, palavra a palavra.
               </p>
             </>
           ) : (
             <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
-              <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+              <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
                 O que a Sandra ouviu
               </div>
               <p className="text-[15px]">{result.transcript || "—"}</p>

@@ -181,7 +181,7 @@ export function CategoryView({
                       {s.replyEn ? ` — ${s.replyEn}` : ""}
                     </div>
                   ) : null}
-                  <span className="ml-2 align-middle text-[10px] text-ink-faint uppercase">
+                  <span className="ml-2 align-middle text-2xs text-ink-faint uppercase">
                     {s.section}
                   </span>
                 </div>

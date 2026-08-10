@@ -84,7 +84,7 @@ export function FamilyBoard({
                 <div className="flex items-center gap-1.5 font-medium">
                   {titleCase(m.username)}
                   {m.username === me ? (
-                    <span className="text-[10px] text-ink-faint">(tu)</span>
+                    <span className="text-2xs text-ink-faint">(tu)</span>
                   ) : null}
                   {m.stars > 0 ? (
                     <span className="text-xs text-terra" title={`${m.stars} estrelas`}>
@@ -104,7 +104,7 @@ export function FamilyBoard({
                 <div className="font-bold tabular-nums text-olive">
                   {m.xpThisWeek}
                 </div>
-                <div className="text-[10px] text-ink-faint">XP semana</div>
+                <div className="text-2xs text-ink-faint">XP semana</div>
               </div>
               {m.username !== me ? (
                 <div className="flex w-full gap-2 sm:w-auto">

@@ -341,7 +341,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               href={`/unidades/${startUnit.slug}`}
               className="group mt-5 block rounded-2xl border border-olive/30 bg-sage-pale/70 p-4 text-left transition-all hover:border-olive hover:shadow-md"
             >
-              <div className="text-[11px] font-semibold tracking-widest text-olive/70 uppercase">
+              <div className="text-2xs font-semibold tracking-widest text-olive/70 uppercase">
                 Começa aqui
               </div>
               <div className="font-display text-lg font-semibold text-olive group-hover:underline">

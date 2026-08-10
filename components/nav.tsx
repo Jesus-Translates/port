@@ -142,7 +142,7 @@ export function Nav({
                   </span>
                   <span
                     className={cn(
-                      "text-[10px] leading-tight",
+                      "text-2xs leading-tight",
                       active && "font-semibold"
                     )}
                   >

@@ -161,7 +161,7 @@ export function VerbConjugator({
                       </h3>
                       <p
                         className={cn(
-                          "text-[11px]",
+                          "text-2xs",
                           regular ? "text-ink-faint" : "text-terra-dark"
                         )}
                       >

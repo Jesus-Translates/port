@@ -111,7 +111,7 @@ export function ReviewPlayer({
       </div>
 
       <div className="card min-h-56 p-6">
-        <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+        <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
           {card.kind === "mistake" ? "Corrige-te" : "Como se diz…"}
         </div>
         <p className="mt-2 font-display text-2xl leading-snug">{card.front}</p>
@@ -150,7 +150,7 @@ export function ReviewPlayer({
               )}
             >
               <span className="text-sm font-bold">{g.label}</span>
-              <span className="text-[10px] opacity-80">{g.hint}</span>
+              <span className="text-2xs opacity-80">{g.hint}</span>
             </button>
           ))}
         </div>

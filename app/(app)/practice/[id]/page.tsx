@@ -193,7 +193,7 @@ function CompletedView({
 
                       {r?.correctedPt ? (
                         <div className="mt-1.5 rounded-lg border border-sage bg-sage-pale/60 px-2.5 py-1.5">
-                          <div className="text-[10px] font-semibold tracking-wide text-olive uppercase">
+                          <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
                             Assim fica certo
                           </div>
                           <p className="font-display text-[16px]">

@@ -7,7 +7,7 @@ export async function SpendChip({ username }: { username: string }) {
   const spend = await getSpend(username).catch(() => null);
   if (!spend) return null;
   return (
-    <span className="border-l border-sage/40 pl-1.5 text-[11px] font-semibold text-terra-dark tabular-nums">
+    <span className="border-l border-sage/40 pl-1.5 text-2xs font-semibold text-terra-dark tabular-nums">
       {formatEur(spend.monthEur)}
     </span>
   );

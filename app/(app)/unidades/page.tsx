@@ -176,7 +176,7 @@ export default async function UnidadesPage() {
                                 style={{ width: `${p.pct}%` }}
                               />
                             </span>
-                            <span className="shrink-0 text-[11px] font-medium text-ink-soft tabular-nums">
+                            <span className="shrink-0 text-2xs font-medium text-ink-soft tabular-nums">
                               {p.pct}%
                             </span>
                           </span>

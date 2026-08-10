@@ -324,7 +324,7 @@ export function Conversa({
         {fromUnit ? (
           <>
             <div className="space-y-2 rounded-2xl bg-sage-pale/60 p-4">
-              <p className="text-[11px] font-semibold tracking-wide text-olive uppercase">
+              <p className="text-2xs font-semibold tracking-wide text-olive uppercase">
                 Passo da unidade · {unit?.title}
               </p>
               <p className="font-display text-xl">«{unitTopic}»</p>

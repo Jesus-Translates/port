@@ -120,7 +120,7 @@ export function FalarModes({
             <div className="text-sm font-semibold">{m.label}</div>
             <div
               className={cn(
-                "text-[10px]",
+                "text-2xs",
                 mode === m.key ? "text-paper/80" : "text-ink-faint"
               )}
             >
@@ -192,7 +192,7 @@ export function FalarModes({
               <div className="flex items-start justify-between gap-3">
                 <div>
                   {p.titlePt ? (
-                    <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+                    <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
                       {p.titlePt}
                     </div>
                   ) : null}

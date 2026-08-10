@@ -44,7 +44,7 @@ function Stat({
       >
         {value}
       </div>
-      <div className="mt-1 text-[10px] tracking-wide text-ink-faint uppercase">
+      <div className="mt-1 text-2xs tracking-wide text-ink-faint uppercase">
         {label}
       </div>
     </div>
@@ -172,7 +172,7 @@ export function LessonComplete({
           <>
             <UnitContinue unit={unit} />
             {unit.itemId ? (
-              <p className="text-[11px] text-ink-faint">
+              <p className="text-2xs text-ink-faint">
                 {unitTicked
                   ? "Este passo ficou marcado na tua unidade. ✓"
                   : "Marca como ouvido em cima e o passo fica feito na unidade."}
@@ -207,7 +207,7 @@ export function LessonComplete({
                 <span className="text-ink-faint"> · {next.cefr}</span>
               </span>
             </div>
-            <p className="text-[11px] text-ink-faint">
+            <p className="text-2xs text-ink-faint">
               Next clip in the library — same level where there is one.
             </p>
           </>

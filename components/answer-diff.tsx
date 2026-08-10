@@ -70,7 +70,7 @@ export function AnswerDiff({
         </Row>
 
         <Row glyph="✓" tone="text-olive">
-          <div className="text-[10px] font-semibold tracking-wide text-olive uppercase">
+          <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
             Assim fica certo
           </div>
           <Line

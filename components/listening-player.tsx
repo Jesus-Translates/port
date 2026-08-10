@@ -269,7 +269,7 @@ export function ListeningPlayer({
               className="w-full accent-olive"
               aria-label="Posição no áudio"
             />
-            <div className="flex justify-between text-[11px] text-ink-faint">
+            <div className="flex justify-between text-2xs text-ink-faint">
               <span>{clock(time)}</span>
               <span>{clock(duration)}</span>
             </div>
@@ -335,7 +335,7 @@ export function ListeningPlayer({
               onMicChange={onMicChange}
             />
           ))}
-          <p className="px-4 py-2 text-[11px] text-ink-faint">
+          <p className="px-4 py-2 text-2xs text-ink-faint">
             Toca numa linha para a ouvir outra vez, ou no 🎙️ para a leres em voz
             alta e receberes nota.
           </p>
@@ -538,7 +538,7 @@ const LineRow = memo(function LineRow({
         >
           <span
             className={cn(
-              "mb-0.5 block text-[11px] font-semibold tracking-wide uppercase",
+              "mb-0.5 block text-2xs font-semibold tracking-wide uppercase",
               second ? "text-azul" : "text-olive"
             )}
           >
@@ -633,7 +633,7 @@ const LineRow = memo(function LineRow({
               >
                 {result.pron.score}
               </div>
-              <div className="text-[10px] text-ink-faint">/100 pronúncia</div>
+              <div className="text-2xs text-ink-faint">/100 pronúncia</div>
             </div>
             <p className="flex flex-1 flex-wrap gap-x-1.5 gap-y-1 font-display text-base">
               {result.pron.words.map((w, i) => (
@@ -677,7 +677,7 @@ const LineRow = memo(function LineRow({
               ))}
             </ul>
           ) : null}
-          <p className="text-[11px] text-ink-faint">
+          <p className="text-2xs text-ink-faint">
             Estimativa a partir do reconhecimento de voz — mede se foste
             percebido, palavra a palavra.
           </p>

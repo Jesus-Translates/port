@@ -65,7 +65,7 @@ export function EnrolPanel({
                 >
                   <span aria-hidden>{c.emoji}</span>{" "}
                   <span className="font-medium">{c.namePt}</span>
-                  <div className="mt-0.5 text-[10px] text-ink-faint">
+                  <div className="mt-0.5 text-2xs text-ink-faint">
                     {full ? "no baralho ✓" : `${c.enrolled}/${c.total}`}
                   </div>
                 </button>

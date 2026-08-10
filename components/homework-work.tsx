@@ -223,7 +223,7 @@ function ItemCard({
         </span>
         <div className="min-w-0 flex-1">
           {item.section ? (
-            <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+            <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
               {item.section}
             </div>
           ) : null}
@@ -268,7 +268,7 @@ function ItemCard({
           <div className="space-y-2">
             {diff ? null : (
               <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
-                <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+                <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
                   Resposta
                 </div>
                 <p className="text-[15px] whitespace-pre-wrap">{item.answer}</p>
@@ -310,7 +310,7 @@ function ItemCard({
 
                 {item.correctedPt ? (
                   <div className="rounded-xl border border-sage bg-sage-pale/60 px-3 py-2">
-                    <div className="text-[11px] font-semibold tracking-wide text-olive uppercase">
+                    <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
                       Assim fica certo
                     </div>
                     <p className="font-display text-[16px]">

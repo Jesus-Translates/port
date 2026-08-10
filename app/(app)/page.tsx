@@ -72,13 +72,13 @@ export default async function Dashboard() {
             <div className="text-lg leading-tight font-bold text-terra">
               {stats.streakDays > 0 ? `🔥 ${stats.streakDays}` : "🌱 0"}
             </div>
-            <div className="text-[11px] text-ink-soft">day streak</div>
+            <div className="text-2xs text-ink-soft">day streak</div>
           </div>
           <div className="card px-4 py-2.5 text-center">
             <div className="text-lg leading-tight font-bold text-olive">
               {stats.xp}
             </div>
-            <div className="text-[11px] text-ink-soft">XP total</div>
+            <div className="text-2xs text-ink-soft">XP total</div>
           </div>
           <Link
             href="/familia"
@@ -87,7 +87,7 @@ export default async function Dashboard() {
             <div className="text-lg leading-tight font-bold text-azul">
               {myRank > 0 ? `${myRank}º` : "—"}
             </div>
-            <div className="text-[11px] text-ink-soft">
+            <div className="text-2xs text-ink-soft">
               {myStars > 0 ? `⭐ ${myStars}` : "na família"}
             </div>
           </Link>
@@ -106,7 +106,7 @@ export default async function Dashboard() {
             {next.emoji}
           </span>
           <div className="min-w-0 flex-1">
-            <div className="text-[11px] font-semibold tracking-widest text-olive/70 uppercase">
+            <div className="text-2xs font-semibold tracking-widest text-olive/70 uppercase">
               A seguir
             </div>
             <div className="font-display text-xl font-semibold text-olive group-hover:underline">

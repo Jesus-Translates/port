@@ -137,7 +137,7 @@ export function MissionAttempt({
                 >
                   {result.score}
                 </div>
-                <div className="text-[10px] text-ink-faint">/10 missão</div>
+                <div className="text-2xs text-ink-faint">/10 missão</div>
               </div>
               <p className="flex-1 text-sm text-ink-soft">
                 {result.score >= 7
@@ -147,7 +147,7 @@ export function MissionAttempt({
             </div>
 
             <div className="rounded-xl border border-sand bg-cream/60 px-3 py-2">
-              <div className="text-[11px] font-semibold tracking-wide text-ink-faint uppercase">
+              <div className="text-2xs font-semibold tracking-wide text-ink-faint uppercase">
                 O que a Sandra ouviu
               </div>
               <p className="text-[15px]">{result.transcript || "—"}</p>

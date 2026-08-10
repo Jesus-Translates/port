@@ -39,7 +39,7 @@ export default async function ReferencePage() {
               {c.namePt}
             </div>
             <div className="text-xs text-ink-soft">{c.nameEn}</div>
-            <div className="mt-2 text-[11px] text-ink-faint">
+            <div className="mt-2 text-2xs text-ink-faint">
               {c.entryCount} {c.entryCount === 1 ? "entry" : "entries"}
             </div>
           </Link>
