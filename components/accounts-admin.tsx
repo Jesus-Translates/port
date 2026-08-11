@@ -409,7 +409,16 @@ function NewAccount({
     email: "",
     password: "",
     role: "student",
-    accountId: 0,
+    /*
+     * Start on the first family, not on 0.
+     *
+     * The picker below rendered `form.accountId || households[0].id`, so it
+     * DISPLAYED the first family while the form still held 0. Fill in a name,
+     * don't touch the dropdown, submit — and createAccount() got no accountId,
+     * fell back to the caller's own household, and an operator has none. The
+     * screen showed a family selected and then refused to use it.
+     */
+    accountId: households[0]?.id ?? 0,
   });
 
   if (!show) {
@@ -483,10 +492,13 @@ function NewAccount({
           </select>
         </label>
 
-        {/* Only an instance operator sees more than one family, and only then
-            is there a choice to make. A new family starts empty; this is where
-            its first person comes from, without a create-then-move dance. */}
-        {households.length > 1 ? (
+        {/* Only an instance operator gets a list here at all — for a family
+            admin it is empty and the picker never appears. It used to require
+            MORE THAN ONE family, which meant that on an instance with a single
+            family the operator saw no picker, sent no accountId, and could not
+            create anybody. An operator has to say which family every time,
+            even when there is only one to say. */}
+        {households.length > 0 ? (
           <label className="text-xs text-ink-soft">
             Família
             <select
