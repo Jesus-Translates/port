@@ -1,5 +1,5 @@
 import { SignJWT, jwtVerify } from "jose";
-import { pickVoice, ssmlSegmentDocs } from "@/lib/tts";
+import { pickVoice, sandraVoice, ssmlSegmentDocs } from "@/lib/tts";
 import { isPortuguese } from "@/lib/lang-detect";
 
 /**
@@ -39,7 +39,10 @@ export function buildSessionSsml(
     .slice(0, LS_MAX_CARDS);
 
   const segments: Segment[] = [
-    { text: INTRO, voice: pickVoice(INTRO), breakAfterMs: 1000 },
+    // The intro is Sandra coaching the learner, not library content —
+    // her voice, not a draw from the pool. The CARDS below still rotate:
+    // that variety is the point of a listening exercise.
+    { text: INTRO, voice: sandraVoice(), breakAfterMs: 1000 },
   ];
   for (const card of usable) {
     // The front is USUALLY the English prompt — but mistake cards are built

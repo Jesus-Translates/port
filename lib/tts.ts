@@ -36,6 +36,39 @@ export function pickVoice(text: string): string {
   return voices[h[0] % voices.length];
 }
 
+/** The tutor's name, folded. Every "is this Sandra?" test goes through here. */
+export const SANDRA = "sandra";
+
+/**
+ * Sandra's voice. ALWAYS the same, ALWAYS female.
+ *
+ * Rotating voices is right for the library — a phrasebook read by four people
+ * sounds like a language, one read by a robot sounds like a robot. It is wrong
+ * for Sandra. She is a person the learner talks to every day, and a tutor who
+ * is a woman on Monday and a man on Tuesday is not a persona, she is a
+ * text-to-speech setting.
+ *
+ * Conversa picked her voice with `voices[hash(topic|username) % 4]` over a
+ * pool that is half male, so she was a man about half the time and a different
+ * person for every learner. This is the one place that decides, so nothing can
+ * disagree with anything else.
+ *
+ * SANDRA_VOICE overrides. Otherwise the first FEMALE voice in the pool, and
+ * only if the pool somehow has no female voice does it fall back to the first
+ * one — a wrong voice beats no audio.
+ */
+export function sandraVoice(): string {
+  const override = process.env.SANDRA_VOICE?.trim();
+  if (override) return override;
+  const pool = azureVoices();
+  return pool.find((v) => voiceGender(v) === "f") ?? pool[0] ?? "";
+}
+
+/** Is this speaker the tutor herself? */
+export function isSandra(name: string): boolean {
+  return fold(name).split(/[\s,(]+/)[0] === SANDRA;
+}
+
 /*
  * Speaker → voice, by GENDER rather than by order of appearance.
  *
@@ -115,20 +148,39 @@ export function assignSpeakerVoices(speakers: string[]): Map<string, string> {
   const used = new Set<string>();
   const out = new Map<string, string>();
 
-  // Sandra first, so she keeps the same voice no matter who else is present.
-  const ordered = [...speakers].sort((a, b) =>
-    fold(a) === "sandra" ? -1 : fold(b) === "sandra" ? 1 : 0
-  );
+  /*
+   * Sandra is not assigned a voice, she HAS one. Take it off the top and mark
+   * it spent, so the rest of the cast is chosen around her rather than her
+   * being chosen around them. Sorting her first only made her win the pick;
+   * this makes her voice the same one she uses in Conversa and everywhere
+   * else, which is the point of her having a voice at all.
+   */
+  const hers = sandraVoice();
+  for (const speaker of speakers) {
+    if (isSandra(speaker) && hers) {
+      out.set(speaker, hers);
+      used.add(hers);
+    }
+  }
 
-  for (const speaker of ordered) {
+  for (const speaker of speakers.filter((s) => !out.has(s))) {
     const want = byGender[ptGender(speaker)];
-    // A distinct voice of the right gender, else reuse one of the right
-    // gender, else anything — a same-gender repeat is far better than a
-    // wrong-gender voice.
+    /*
+     * A distinct voice of the right gender; else reuse one of the right
+     * gender, but NOT Sandra's if there is any other choice; else anything.
+     *
+     * The pool has two female voices, so a cast with Sandra and two other
+     * women has to double up somewhere. Doubling a background character onto
+     * SANDRA is the one repeat that actually costs something — the learner
+     * stops being able to tell the tutor from the cast, which is the whole
+     * reason this function exists. Two extras sharing a voice is cheap.
+     */
     const voice =
       want.find((v) => !used.has(v)) ??
+      want.find((v) => v !== hers) ??
       want[0] ??
       pool.find((v) => !used.has(v)) ??
+      pool.find((v) => v !== hers) ??
       pool[0];
     if (voice) {
       used.add(voice);
@@ -157,9 +209,15 @@ function xmlEscape(s: string): string {
     .replace(/"/g, "&quot;");
 }
 
-export function ttsHash(text: string): string {
+/**
+ * The cache key. The VOICE is part of it, which is what makes pinning safe:
+ * "Bom dia" spoken by Sandra and "Bom dia" in the phrasebook are two rows, so
+ * pinning her voice can never be defeated by whichever one was synthesized
+ * first winning the cache.
+ */
+export function ttsHash(text: string, voice?: string): string {
   const key = azureConfigured()
-    ? `azure|${pickVoice(text)}|${text}`
+    ? `azure|${voice || pickVoice(text)}|${text}`
     : `openai|${openaiVoice()}|${openaiInstructions()}|${text}`;
   return createHash("sha256").update(key).digest("hex").slice(0, 40);
 }
@@ -365,13 +423,19 @@ async function openaiSynthesize(
  */
 export async function getTtsAudio(
   text: string,
-  username: string
+  username: string,
+  /**
+   * Pin the voice instead of hashing the text for one. Pass sandraVoice() for
+   * anything the tutor says; leave it off for library content, where rotation
+   * is the feature.
+   */
+  voice?: string
 ): Promise<Buffer | null> {
   const clean = text.trim().slice(0, 1600);
   if (!clean) return null;
 
   const db = getDb();
-  const hash = ttsHash(clean);
+  const hash = ttsHash(clean, voice);
   const [cached] = await db
     .select({ audioB64: ttsAudio.audioB64, audioKey: ttsAudio.audioKey })
     .from(ttsAudio)
@@ -389,7 +453,7 @@ export async function getTtsAudio(
   let buf: Buffer | null = null;
   let voiceUsed = "";
   if (azureConfigured()) {
-    voiceUsed = pickVoice(clean);
+    voiceUsed = voice || pickVoice(clean);
     buf = await azureSynthesizeSsml(ssmlFor(clean, voiceUsed), username);
   }
   if (!buf) {

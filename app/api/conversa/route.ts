@@ -1,4 +1,3 @@
-import { createHash } from "node:crypto";
 import { generateText, NoObjectGeneratedError, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
@@ -9,9 +8,9 @@ import { logActivity } from "@/lib/data";
 import { addMistakeCard } from "@/lib/srs";
 import {
   azureConfigured,
-  azureVoices,
   azureSynthesizeSsml,
   getTtsAudio,
+  sandraVoice,
   ssmlFor,
 } from "@/lib/tts";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
@@ -161,7 +160,9 @@ async function speak(
       );
       if (buf) return buf.toString("base64");
     }
-    const buf = await getTtsAudio(text, username);
+    // Still Sandra on the fallback path — pin her voice rather than letting
+    // the cache hash the text into whoever it lands on.
+    const buf = await getTtsAudio(text, username, voice || sandraVoice());
     return buf ? buf.toString("base64") : null;
   } catch {
     return null;
@@ -373,10 +374,15 @@ export async function POST(request: NextRequest) {
       // is a route handler, so plain randomness is fine.
       topic = RANDOM_TOPICS[Math.floor(Math.random() * RANDOM_TOPICS.length)];
     }
-    // One voice for the whole session so Sandra doesn't change person mid-chat.
-    const voices = azureVoices();
-    const h = createHash("sha1").update(`${topic}|${session.username}`).digest();
-    const voice = azureConfigured() ? voices[h[0] % voices.length] : "";
+    /*
+     * Sandra's own voice — not a draw from the pool.
+     *
+     * This used to be voices[hash(topic|username) % pool.length]. The pool is
+     * half male, so Sandra was a man about half the time, and a different
+     * person for every learner and every topic. Fixing it per session only
+     * stopped her changing mid-chat; it never made her anyone in particular.
+     */
+    const voice = azureConfigured() ? sandraVoice() : "";
 
     try {
       const output = await generateReply(session, cefr, topic, [], null);
