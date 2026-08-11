@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { SignJWT, jwtVerify } from "jose";
 import { eq, or, sql } from "drizzle-orm";
 import { cookies } from "next/headers";
@@ -131,11 +132,55 @@ export const sessionCookieOptions = {
   maxAge: SESSION_DAYS * 24 * 60 * 60,
 };
 
+/**
+ * Does this session's account still exist, and is it still allowed in?
+ *
+ * A JWT is a bearer token: once signed it is good for its full 30 days and
+ * nothing in it can be taken back. So deleting or deactivating a person did
+ * NOT sign them out — their cookie kept working for a month. Worse, it was
+ * invisible: householdUsernames() fails closed to "a household of one", so a
+ * deleted account got a private, empty, entirely functional app instead of a
+ * door in the face. "Apagar conta" has to mean it immediately.
+ *
+ * Fails OPEN on a database error. A Neon blip must never sign the whole
+ * family out; only a definitive answer ends a session.
+ *
+ * cache() keeps it to one lookup per request no matter how many callers ask.
+ */
+const accountStillValid = cache(async (username: string): Promise<boolean> => {
+  try {
+    const { getDb, users } = await import("@/lib/db");
+    const [row] = await getDb()
+      .select({ active: users.active })
+      .from(users)
+      .where(eq(users.username, username.toLowerCase()))
+      .limit(1);
+    // No row can mean two things, and only one of them is a live session.
+    //
+    // Do NOT resolve it against VALID_USERS. That list defaults to the eight
+    // original family names — the very accounts since deleted — so consulting
+    // it would keep exactly the ghosts this check exists to evict. The only
+    // honest bootstrap signal is a users table with nobody in it at all: a
+    // fresh deployment, where the env list IS the identity.
+    if (!row) {
+      const [count] = await getDb()
+        .select({ n: sql<number>`count(*)::int` })
+        .from(users);
+      return Number(count?.n ?? 0) === 0;
+    }
+    return row.active;
+  } catch {
+    return true;
+  }
+});
+
 export async function getSession(): Promise<Session | null> {
   const store = await cookies();
   const token = store.get(SESSION_COOKIE)?.value;
   if (!token) return null;
-  return verifySessionToken(token);
+  const session = await verifySessionToken(token);
+  if (!session) return null;
+  return (await accountStillValid(session.username)) ? session : null;
 }
 
 /** For pages/actions that require login; redirects to /login when absent. */
