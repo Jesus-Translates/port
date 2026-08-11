@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { getSession, roleOf } from "@/lib/auth";
+import { getSession, isOperator } from "@/lib/auth";
 import {
   diagnoseClips,
   estimateCostUsd,
@@ -27,7 +27,7 @@ export const maxDuration = 300;
 
 async function guard() {
   const session = await getSession();
-  if (!session || (await roleOf(session.username)) !== "admin") {
+  if (!session || !(await isOperator(session.username))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
   return null;

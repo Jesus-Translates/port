@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { eq, sql } from "drizzle-orm";
 import { getDb, units } from "@/lib/db";
-import { getSession, roleOf } from "@/lib/auth";
+import { getSession, isOperator } from "@/lib/auth";
 import { generateEuropean } from "@/lib/ai-guard";
 import { lintPt } from "@/lib/pt-lint";
 import { PT_STYLE, SANDRA } from "@/lib/ai";
@@ -73,7 +73,7 @@ function rewriteHelped(
 
 export async function POST(request: NextRequest) {
   const session = await getSession();
-  if (!session || (await roleOf(session.username)) !== "admin") {
+  if (!session || !(await isOperator(session.username))) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
