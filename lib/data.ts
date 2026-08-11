@@ -279,16 +279,33 @@ export async function getStats(username: string): Promise<Stats> {
     rows.filter((r) => r.createdAt >= weekAgo).map((r) => dayKey(r.createdAt))
   ).size;
 
-  const recent = await db
-    .select({
-      kind: activity.kind,
-      summary: activity.summary,
-      createdAt: activity.createdAt,
-      username: activity.username,
-    })
-    .from(activity)
-    .orderBy(desc(activity.createdAt))
-    .limit(8);
+  /*
+   * The family feed — HOUSEHOLD ONLY.
+   *
+   * TENANCY: this had no WHERE clause at all. It selected the eight most
+   * recent activity rows in the entire instance and rendered them under "A
+   * família esta semana", so a brand-new family saw another family's lessons,
+   * and the platform operator — who belongs to no household — saw a stranger's
+   * homework, including account names from deletions.
+   *
+   * An empty household yields an empty feed rather than everyone's: someone
+   * with no family has no family activity, which is the honest answer.
+   */
+  const mine = await householdUsernames();
+  const recent =
+    mine.length === 0
+      ? []
+      : await db
+          .select({
+            kind: activity.kind,
+            summary: activity.summary,
+            createdAt: activity.createdAt,
+            username: activity.username,
+          })
+          .from(activity)
+          .where(inArray(activity.username, mine))
+          .orderBy(desc(activity.createdAt))
+          .limit(8);
 
   return { xp: total, streakDays: streak, activeThisWeek, recent };
 }

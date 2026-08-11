@@ -7,6 +7,7 @@ import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { categories, getDb, refEntries } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
@@ -163,7 +164,9 @@ export async function POST(request: NextRequest) {
   const db = getDb();
   const cats = await db
     .select({ id: categories.id, slug: categories.slug, namePt: categories.namePt, nameEn: categories.nameEn })
-    .from(categories);
+    .from(categories)
+    // Another family's category name must not reach this prompt.
+    .where(inArray(categories.createdBy, await visibleOwners()));
   if (cats.length === 0) {
     return NextResponse.json({ error: "O livro ainda não tem categorias." }, { status: 400 });
   }

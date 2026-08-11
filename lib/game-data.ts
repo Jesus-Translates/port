@@ -1,5 +1,6 @@
-import { and, eq, isNotNull, sql } from "drizzle-orm";
+import { and, eq, inArray, isNotNull, sql } from "drizzle-orm";
 import { categories, getDb, refEntries } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { VERBS, type Tense, personLabel } from "@/lib/verbs";
 
 /**
@@ -141,9 +142,14 @@ export type IntruderRound = {
  */
 export async function intruderRounds(limit = 10): Promise<IntruderRound[]> {
   const db = getDb();
+  // TENANCY: categories carry a createdBy, so an unscoped read pulled another
+  // household's custom category — and the loop below then pulled ITS phrases
+  // into your game. Same scope the phrasebook itself uses.
+  const owners = await visibleOwners();
   const cats = await db
     .select({ id: categories.id, name: categories.namePt, sort: categories.sortOrder })
     .from(categories)
+    .where(inArray(categories.createdBy, owners))
     .orderBy(categories.sortOrder);
 
   const byCat = new Map<number, { pt: string; en: string }[]>();
@@ -154,6 +160,7 @@ export async function intruderRounds(limit = 10): Promise<IntruderRound[]> {
       .where(
         and(
           eq(refEntries.categoryId, cat.id),
+          inArray(refEntries.addedBy, owners),
           eq(refEntries.kind, "term"),
           // Nouns only, and short ones: a sentence among four words is
           // obviously the odd one out for the wrong reason.

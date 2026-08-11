@@ -13,6 +13,7 @@ import {
   type ItemKind,
 } from "@/lib/course";
 import { categories, getDb, unitItems, units } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
@@ -121,6 +122,8 @@ export async function POST(request: NextRequest) {
   const cats = await db
     .select({ id: categories.id, slug: categories.slug, namePt: categories.namePt })
     .from(categories)
+    // Another family's category name must not reach this prompt.
+    .where(inArray(categories.createdBy, await visibleOwners()))
     .orderBy(asc(categories.sortOrder), asc(categories.id));
   const catMenu =
     cats.map((c) => `${c.slug} (${c.namePt})`).join(", ") ||

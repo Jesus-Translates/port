@@ -7,6 +7,7 @@ import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { householdMembers } from "@/lib/tenant";
 import { categories, getDb, unitItems, units } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
 
 /** Display names of my household — never every account on the instance. */
@@ -130,6 +131,8 @@ export async function POST(request: NextRequest) {
   const cats = await db
     .select({ id: categories.id, slug: categories.slug, namePt: categories.namePt })
     .from(categories)
+    // Another family's category name must not reach this prompt.
+    .where(inArray(categories.createdBy, await visibleOwners()))
     .orderBy(asc(categories.sortOrder), asc(categories.id));
   const catMenu = cats.map((c) => `${c.slug} (${c.namePt})`).join(", ") || "(none)";
 
