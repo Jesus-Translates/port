@@ -6,7 +6,7 @@
  * kind of drift a customer notices and nobody else does.
  */
 
-export type PlanId = "free" | "individual" | "family";
+export type PlanId = "individual" | "family";
 
 export type Plan = {
   id: PlanId;
@@ -24,6 +24,9 @@ function priceFor(id: PlanId, fallback: number): number {
   return Number.isFinite(n) && n >= 0 ? n : fallback;
 }
 
+/** Nobody needs sixty seats, and an unbounded number is an unbounded bill. */
+export const MAX_SEATS = 12;
+
 /** EUR per month for each seat beyond the plan's included ones. */
 export function extraSeatEur(): number {
   const n = Number(process.env.PLAN_PRICE_EXTRA_SEAT);
@@ -32,13 +35,6 @@ export function extraSeatEur(): number {
 
 export function plans(): Plan[] {
   return [
-    {
-      id: "free",
-      namePt: "Grátis",
-      eur: priceFor("free", 0),
-      seats: 1,
-      blurbPt: "Uma pessoa, o essencial. Sem cartão.",
-    },
     {
       id: "individual",
       namePt: "Individual",
@@ -70,8 +66,35 @@ export function grossMonthlyEur(planId: string, seatLimit: number): number {
   return plan.eur + extra * (plan.eur > 0 ? extraSeatEur() : 0);
 }
 
+/**
+ * Days of no-questions money back after signing up.
+ *
+ * Not a free trial. Payment is taken up front and the subscription starts
+ * immediately — this is the window in which "I do not like it" is a full
+ * refund. A card entered on day one converts far better than a card asked for
+ * on day eight, and a guarantee carries the risk that a trial wall creates.
+ */
+export function guaranteeDays(): number {
+  const n = Number(process.env.GUARANTEE_DAYS);
+  return Number.isFinite(n) && n > 0 ? Math.round(n) : 5;
+}
+
+/**
+ * There is no free plan.
+ *
+ * It was removed once the margin guard existed: a free household still costs
+ * real money in AI spend, against revenue of exactly zero, and no share of
+ * nothing produces a margin. The money-back guarantee does the job a free tier
+ * was doing — letting someone find out whether the app is for them without
+ * risking anything — and does it without an unfunded cost centre.
+ *
+ * An unrecognised plan name falls back to Família rather than to something
+ * cheap, so a bad value can never quietly hand out the largest allowance for
+ * the smallest price.
+ */
 export function planById(id: string): Plan {
-  return plans().find((p) => p.id === id) ?? plans()[0];
+  const all = plans();
+  return all.find((p) => p.id === id) ?? all.find((p) => p.id === "family") ?? all[0];
 }
 
 /** Portuguese money, the way Portugal writes it: 14,99 €. */

@@ -21,7 +21,6 @@ import {
 } from "@/lib/actions/users";
 
 const PLAN_LABEL: Record<string, string> = {
-  free: "Grátis",
   individual: "Individual",
   family: "Família",
 };

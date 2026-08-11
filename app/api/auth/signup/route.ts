@@ -5,9 +5,9 @@ import {
   SESSION_COOKIE,
   sessionCookieOptions,
 } from "@/lib/auth";
-import { accounts, getDb, memberships, people, users } from "@/lib/db";
+import { accounts, getDb, memberships, people, subscriptions, users } from "@/lib/db";
 import { hashPassword, passwordProblem } from "@/lib/password";
-import { planById } from "@/lib/plans";
+import { guaranteeDays, planById } from "@/lib/plans";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { logActivity } from "@/lib/data";
 
@@ -168,6 +168,30 @@ export async function POST(request: NextRequest) {
       username,
       role: "owner",
     });
+
+    /*
+     * Start the money-back clock at signup.
+     *
+     * The guarantee only means anything if its deadline is a real stored date
+     * rather than a sentence on a marketing page — otherwise "five days" is
+     * whatever the operator remembers when someone asks. Recorded here, shown
+     * on /conta, and enforced by requestRefund().
+     *
+     * Status is "trialing" and there is no Stripe id yet: payment collection
+     * is the one part of this flow still to be wired, and pretending otherwise
+     * in the data would be worse than an honest gap.
+     */
+    const guaranteeEndsAt = new Date(
+      Date.now() + guaranteeDays() * 24 * 60 * 60 * 1000
+    );
+    await db
+      .insert(subscriptions)
+      .values({
+        accountId: account.id,
+        status: "trialing",
+        guaranteeEndsAt,
+      })
+      .onConflictDoNothing();
 
     await logActivity(username, "review", `Família criada: ${familyName}`, 0).catch(
       () => {}

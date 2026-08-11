@@ -490,7 +490,8 @@ export const accounts = pgTable("accounts", {
   slug: text("slug").notNull().unique(),
   name: text("name").notNull(),
   // free | individual | family
-  plan: text("plan").notNull().default("free"),
+  // There is no free plan; a household exists because someone subscribed.
+  plan: text("plan").notNull().default("family"),
   seatLimit: integer("seat_limit").notNull().default(1),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
@@ -559,8 +560,10 @@ export const subscriptions = pgTable("subscriptions", {
     .references(() => accounts.id, { onDelete: "cascade" }),
   stripeCustomerId: text("stripe_customer_id"),
   stripeSubscriptionId: text("stripe_subscription_id"),
-  // active | trialing | past_due | canceled | incomplete | none
+  // active | trialing | past_due | canceled | incomplete | refund_requested | none
   status: text("status").notNull().default("none"),
+  /** Last instant the money-back guarantee can still be claimed. */
+  guaranteeEndsAt: timestamp("guarantee_ends_at"),
   priceId: text("price_id"),
   currentPeriodEnd: timestamp("current_period_end"),
   cancelAt: timestamp("cancel_at"),

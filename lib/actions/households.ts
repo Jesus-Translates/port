@@ -52,7 +52,9 @@ function slugify(name: string): string {
   );
 }
 
-const PLANS = ["free", "individual", "family"];
+/* No free plan: a household on one costs real AI money against no
+   revenue, and no share of nothing yields a margin. */
+const PLANS = ["individual", "family"];
 
 export async function listHouseholds(): Promise<Household[]> {
   await requireOperator();

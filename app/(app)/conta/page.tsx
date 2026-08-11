@@ -1,8 +1,10 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
+import { GuaranteeCard } from "@/components/guarantee-card";
+import { SeatPicker } from "@/components/seat-picker";
 import { UsageMeter } from "@/components/usage-meter";
 import { getBilling } from "@/lib/actions/billing";
-import { extraSeatEur, formatPlanPrice, plans, STATUS_PT } from "@/lib/plans";
+import { extraSeatEur, formatPlanPrice, MAX_SEATS, plans, STATUS_PT } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Plano" };
@@ -30,16 +32,15 @@ export default async function ContaPage() {
   }
 
   const status = STATUS_PT[billing.status] ?? STATUS_PT.none;
-  const full = billing.seatsUsed >= billing.seatLimit;
 
   return (
     <div className="space-y-6">
       <AzulejoHeader
         eyebrow={billing.householdName}
         title="O vosso plano"
-        subtitle={`${billing.plan.namePt} · ${formatPlanPrice(billing.plan.eur)}${
-          billing.plan.eur > 0 ? " por mês" : ""
-        }`}
+        // The real invoice, not the list price: a family of seven paying 35 €
+        // should not read "25 € por mês" at the top of their own billing page.
+        subtitle={`${billing.plan.namePt} · ${formatPlanPrice(billing.monthlyEur)} por mês`}
       />
 
       <section className="card space-y-4 p-5">
@@ -62,39 +63,15 @@ export default async function ContaPage() {
         </div>
         <p className="text-sm text-ink-soft">{billing.plan.blurbPt}</p>
 
-        <div className="space-y-2">
-          <div className="flex items-baseline justify-between text-sm">
-            <span className="text-ink-soft">Pessoas</span>
-            <span className={cn("font-medium", full && "text-terra-dark")}>
-              {billing.seatsUsed} de {billing.seatLimit}
-              {full ? " · sem lugares livres" : ""}
-            </span>
-          </div>
-          {/* The account's real limit can differ from the plan's nominal one
-              — an operator can widen it. Printing "1 de 12" beside a card
-              that says "até 6 pessoas" reads as a contradiction unless the
-              adjustment is named. */}
-          {billing.seatLimit !== billing.plan.seats ? (
-            <p className="text-2xs text-ink-faint">
-              O plano {billing.plan.namePt} traz{" "}
-              {billing.plan.seats === 1
-                ? "1 lugar"
-                : `${billing.plan.seats} lugares`}
-              ; esta família tem {billing.seatLimit} combinados à parte.
-            </p>
-          ) : null}
-          <div className="h-2 overflow-hidden rounded-full bg-cream">
-            <div
-              className={cn(
-                "h-2 rounded-full transition-[width]",
-                full ? "bg-terra" : "bg-olive"
-              )}
-              style={{
-                width: `${Math.min(100, (billing.seatsUsed / Math.max(1, billing.seatLimit)) * 100)}%`,
-              }}
-            />
-          </div>
-        </div>
+        <SeatPicker
+          seatLimit={billing.seatLimit}
+          seatsUsed={billing.seatsUsed}
+          includedSeats={billing.plan.seats}
+          planEur={billing.plan.eur}
+          extraSeatEur={extraSeatEur()}
+          maxSeats={MAX_SEATS}
+          canManage={billing.canManage}
+        />
 
         {billing.cancelsOn ? (
           <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
@@ -106,6 +83,15 @@ export default async function ContaPage() {
           </p>
         ) : null}
       </section>
+
+      {billing.guarantee ? (
+        <GuaranteeCard
+          daysLeft={billing.guarantee.daysLeft}
+          endsOn={billing.guarantee.endsOn}
+          requested={billing.refundRequested}
+          canManage={billing.canManage}
+        />
+      ) : null}
 
       <UsageMeter />
 
