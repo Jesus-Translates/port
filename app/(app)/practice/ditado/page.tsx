@@ -72,8 +72,30 @@ const ROUND = 5;
  */
 const CANDIDATES = 500;
 
+/**
+ * The round to deal when the URL names none.
+ *
+ * Pure on purpose. This began as Math.random(), which meant a plain reload —
+ * not just "Outras frases" — dealt five new sentences and silently binned the
+ * answers already given. Deriving it from who you are, what day it is and what
+ * the step is about makes the round stable all day: leave and come back and
+ * you resume. A NEW round is now an explicit act, and the players ask for one
+ * by putting a fresh `s` in the URL.
+ */
+function defaultSeed(username: string, tema: string): string {
+  const day = new Date().toLocaleDateString("en-CA", {
+    timeZone: "Europe/Lisbon",
+  });
+  let h = 2166136261;
+  for (const ch of `${username}|${day}|${tema}`) {
+    h ^= ch.charCodeAt(0);
+    h = Math.imul(h, 16777619);
+  }
+  return (h >>> 0).toString(36);
+}
+
 export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
-  await requireSession();
+  const session = await requireSession();
   const sp = await props.searchParams;
   const isCloze = one(sp.modo) === "cloze";
   const tema = one(sp.tema).slice(0, 300);
@@ -86,7 +108,7 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
    * in the URL and both mode links carry it, so the two modes are two views of
    * ONE round rather than two unrelated ones.
    */
-  const seed = one(sp.s) || Math.random().toString(36).slice(2, 10);
+  const seed = one(sp.s) || defaultSeed(session.username, tema);
   const unit = await unitContextFrom(sp);
 
   // Spoken-size phrases in random order. In full dictation ONLY ids and glosses

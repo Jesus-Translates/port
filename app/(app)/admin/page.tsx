@@ -1,9 +1,11 @@
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { DangerTools } from "@/components/admin-tools";
 import { AssignHomework } from "@/components/assign-homework";
+import { Stat } from "@/components/stat-card";
 import { getClassOverview, getHubStats } from "@/lib/actions/admin";
-import { requireStaff } from "@/lib/auth";
-import { householdMembers } from "@/lib/tenant";
+import { isOperator, requireStaff } from "@/lib/auth";
+import { currentAccountId, householdMembers } from "@/lib/tenant";
 import { getDb, ttsAudio } from "@/lib/db";
 import { avatarFor, titleCase } from "@/lib/people";
 import { formatEur, getSpendByUser } from "@/lib/usage";
@@ -12,43 +14,32 @@ import { sql } from "drizzle-orm";
 
 export const metadata = { title: "Painel" };
 
-function Stat({
-  label,
-  value,
-  sub,
-  tone,
-}: {
-  label: string;
-  value: string;
-  sub: string;
-  tone: "olive" | "terra" | "azul";
-}) {
-  const colour =
-    tone === "terra"
-      ? "text-terra"
-      : tone === "azul"
-        ? "text-azul"
-        : "text-olive";
-  return (
-    <div className="card p-4">
-      <div className="text-xs text-ink-soft">{label}</div>
-      <div className={`mt-1 font-display text-3xl font-bold ${colour}`}>
-        {value}
-      </div>
-      <div className="mt-1 text-xs text-ink-faint">{sub}</div>
-    </div>
-  );
-}
-
 export default async function AdminPage() {
   const staff = await requireStaff();
   const isAdmin = staff.role === "admin";
+
+  /*
+   * Everything below this line is a FAMILY's panel: a class list, homework to
+   * assign, a deck to reset. It all reads through householdUsernames(), so a
+   * platform operator — who belongs to no family on purpose — got the whole
+   * screen back empty. Send them to the console that has their data instead.
+   *
+   * An operator who DOES run a family (the env-list bootstrap account is
+   * usually one) keeps this panel and reaches the console from a tile.
+   */
+  const operator = await isOperator(staff.username);
+  if (operator && (await currentAccountId()) === null) {
+    redirect("/admin/operador");
+  }
+
   const students = (await householdMembers()).map((m) => m.username);
 
   const [stats, turma] = await Promise.all([getHubStats(), getClassOverview()]);
 
-  // Spend and the destructive tools are the admin's business only.
-  const [spend, ttsCount] = isAdmin
+  // AI cost is an OPERATOR's number. A family sees its plan at /conta and is
+  // never shown what a chat with Sandra cost — a flat monthly price should not
+  // read as a meter. The audio-cache count backs an operator-only button.
+  const [spend, ttsCount] = operator
     ? await Promise.all([
         getSpendByUser().catch(() => []),
         getDb()
@@ -100,7 +91,7 @@ export default async function AdminPage() {
               : "nenhuma em rascunho"
           }
         />
-        {isAdmin ? (
+        {operator ? (
           <Stat
             tone="terra"
             label="IA este mês"
@@ -147,7 +138,7 @@ export default async function AdminPage() {
                     {s.placed ? "" : " por omissão"}
                   </span>
                   <span className="ml-auto flex items-center gap-3 text-xs text-ink-faint">
-                    {isAdmin ? (
+                    {operator ? (
                       <span className="font-semibold text-terra-dark tabular-nums">
                         {formatEur(money?.monthEur ?? 0)}
                       </span>
@@ -188,24 +179,44 @@ export default async function AdminPage() {
       <section>
         <h2 className="mb-3 text-lg font-semibold">🗂️ Gerir</h2>
         <div className="grid gap-3 sm:grid-cols-2">
-          <Link
-            href="/admin/conteudo"
-            className="card p-5 transition-colors hover:bg-sage-pale/40"
-          >
-            <div className="font-display text-lg font-semibold">
-              📚 Conteúdo
-            </div>
-            <p className="mt-1 text-sm text-ink-soft">
-              Units, listening clips, stories and the phrasebook — publish,
-              unpublish, and see what is still a draft.
-            </p>
-            <p className="mt-2 text-xs text-ink-faint">
-              {stats.unitsPublished} publicadas
-              {stats.unitsDraft > 0 ? ` · ${stats.unitsDraft} rascunhos` : ""}
-            </p>
-          </Link>
+          {/* Every tile below is shown only to someone the target page will
+              actually admit. /admin/conteudo, /admin/familias, /admin/relatorios
+              and /admin/sistema all call requireOperator(), so offering them to
+              a family admin was offering four links that bounce you home. */}
+          {operator && (
+            <Link
+              href="/admin/operador"
+              className="card p-5 transition-colors hover:bg-sage-pale/40"
+            >
+              <div className="font-display text-lg font-semibold">
+                🛠️ Consola do operador
+              </div>
+              <p className="mt-1 text-sm text-ink-soft">
+                Every family on the platform: seats, cost, revenue and margin.
+              </p>
+            </Link>
+          )}
 
-          {isAdmin && (
+          {operator && (
+            <Link
+              href="/admin/conteudo"
+              className="card p-5 transition-colors hover:bg-sage-pale/40"
+            >
+              <div className="font-display text-lg font-semibold">
+                📚 Conteúdo
+              </div>
+              <p className="mt-1 text-sm text-ink-soft">
+                Units, listening clips, stories and the phrasebook — publish,
+                unpublish, and see what is still a draft.
+              </p>
+              <p className="mt-2 text-xs text-ink-faint">
+                {stats.unitsPublished} publicadas
+                {stats.unitsDraft > 0 ? ` · ${stats.unitsDraft} rascunhos` : ""}
+              </p>
+            </Link>
+          )}
+
+          {operator && (
             <Link
               href="/admin/familias"
               className="card p-5 transition-colors hover:bg-sage-pale/40"
@@ -220,7 +231,7 @@ export default async function AdminPage() {
             </Link>
           )}
 
-          {isAdmin && (
+          {operator && (
             <Link
               href="/admin/relatorios"
               className="card p-5 transition-colors hover:bg-sage-pale/40"
@@ -250,7 +261,7 @@ export default async function AdminPage() {
             </Link>
           )}
 
-          {isAdmin ? (
+          {operator ? (
             <Link
               href="/admin/sistema"
               className="card p-5 transition-colors hover:bg-sage-pale/40"
@@ -274,7 +285,11 @@ export default async function AdminPage() {
         <section>
           <h2 className="mb-3 text-lg font-semibold">🧰 Ferramentas</h2>
           <div className="card p-4">
-            <DangerTools ttsClips={ttsCount} students={students} />
+            <DangerTools
+              ttsClips={ttsCount}
+              students={students}
+              canClearTts={operator}
+            />
           </div>
         </section>
       ) : null}

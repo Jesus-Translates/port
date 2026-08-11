@@ -242,9 +242,14 @@ export async function createAccount(input: {
       ? Number(input.accountId)
       : scope.accountId;
   if (accountId === null) {
+    // Two different people land here. An operator belongs to no family BY
+    // DESIGN and simply has to say which family the new person joins; a
+    // family admin with no membership row is a data problem.
     return {
       ok: false,
-      error: "A tua conta ainda não pertence a uma família — corre db:backfill.",
+      error: scope.superadmin
+        ? "Escolhe primeiro a família a que esta pessoa pertence."
+        : "A tua conta ainda não pertence a uma família — corre db:backfill.",
     };
   }
 

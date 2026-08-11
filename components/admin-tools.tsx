@@ -50,13 +50,21 @@ export function ContentList({
 export function DangerTools({
   ttsClips,
   students,
+  /**
+   * The audio cache is ONE table shared by every family, so clearing it is an
+   * operator action. Without this the button rendered for family admins and
+   * the server action refused it — a button that silently does nothing.
+   */
+  canClearTts = false,
 }: {
   ttsClips: number;
   students: string[];
+  canClearTts?: boolean;
 }) {
   const [pending, startTransition] = useTransition();
   return (
     <div className="space-y-3">
+      {canClearTts ? (
       <div className="flex flex-wrap items-center gap-3">
         <button
           className="btn-ghost text-terra-dark"
@@ -74,6 +82,7 @@ export function DangerTools({
           🔊 Limpar cache de áudio ({ttsClips})
         </button>
       </div>
+      ) : null}
       <div>
         <span className="label">Reiniciar baralho de revisão</span>
         <div className="flex flex-wrap gap-2">

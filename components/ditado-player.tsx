@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
+import { nextRoundHref } from "@/lib/new-round";
 import { finishDitado, gradeDitado } from "@/lib/actions/ditado";
 import type { DitadoResult } from "@/lib/ditado";
 import type { UnitContext } from "@/lib/unit-context";
@@ -75,7 +76,7 @@ export function DitadoPlayer({
     setResult(null);
     setResults([]);
     remember(sentences.length);
-    startReload(() => router.refresh());
+    startReload(() => router.push(nextRoundHref()));
   }
 
   const sentence = sentences[index];

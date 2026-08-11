@@ -1,7 +1,7 @@
 "use server";
 
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
-import { requireAdmin } from "@/lib/auth";
+import { requireOperator } from "@/lib/auth";
 import {
   accounts,
   aiUsage,
@@ -75,7 +75,7 @@ export type ReportsSummary = {
 };
 
 export async function getHouseholdReports(): Promise<ReportsSummary> {
-  await requireAdmin();
+  await requireOperator();
   const db = getDb();
   const rate = usdToEur();
   const monthStart = sql`date_trunc('month', now())`;
@@ -213,7 +213,7 @@ function sum(values: number[]): number {
 export async function getHouseholdMembers(
   accountId: number
 ): Promise<{ username: string; displayName: string; eurMonth: number }[]> {
-  await requireAdmin();
+  await requireOperator();
   const db = getDb();
   const rate = usdToEur();
 

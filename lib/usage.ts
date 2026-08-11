@@ -1,4 +1,4 @@
-import { and, desc, eq, gte, sql } from "drizzle-orm";
+import { and, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import { aiUsage, getDb } from "@/lib/db";
 
 /**
@@ -145,11 +145,36 @@ export async function aiRateLimited(username: string): Promise<boolean> {
 }
 
 /** Per-person spend this month, for the family breakdown. */
-export async function getSpendByUser(): Promise<
-  { username: string; monthEur: number; calls: number }[]
-> {
+export type UserSpend = { username: string; monthEur: number; calls: number };
+
+/**
+ * This month's AI spend per person IN MY HOUSEHOLD.
+ *
+ * It used to select every row in ai_usage, and /admin renders both the list
+ * and its total to anyone with role "admin" — which /registar grants to every
+ * family owner. So a family's own admin panel was quietly totalling the whole
+ * instance's AI bill. Scoped now; the operator uses getSpendEverywhere().
+ */
+export async function getSpendByUser(): Promise<UserSpend[]> {
+  const { householdUsernames } = await import("@/lib/tenant");
+  const mine = await householdUsernames();
+  if (mine.length === 0) return [];
+  return spendByUser(inArray(aiUsage.username, mine));
+}
+
+/** Instance-wide spend. Operator only — the gate is at the call site. */
+export async function getSpendEverywhere(): Promise<UserSpend[]> {
+  return spendByUser(undefined);
+}
+
+async function spendByUser(
+  scope: ReturnType<typeof inArray> | undefined
+): Promise<UserSpend[]> {
   const db = getDb();
   const monthStart = lisbonMonthStart();
+  const where = scope
+    ? and(gte(aiUsage.createdAt, monthStart), scope)
+    : gte(aiUsage.createdAt, monthStart);
   const rows = await db
     .select({
       username: aiUsage.username,
@@ -157,7 +182,7 @@ export async function getSpendByUser(): Promise<
       calls: sql<number>`count(*)::int`,
     })
     .from(aiUsage)
-    .where(gte(aiUsage.createdAt, monthStart))
+    .where(where)
     .groupBy(aiUsage.username)
     .orderBy(desc(sql`sum(${aiUsage.costMicroUsd})`));
   const rate = usdToEur();

@@ -5,6 +5,7 @@ import { useEffect, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
+import { nextRoundHref } from "@/lib/new-round";
 import { finishCloze, gradeCloze, type ClozeResult } from "@/lib/actions/ditado";
 import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
@@ -82,14 +83,14 @@ export function ClozePlayer({
   /*
    * "Outras frases" used to call router.refresh() and nothing else.
    *
-   * The server duly fetched a new random set — but `finished`, `index` and
-   * `score` are CLIENT state and survive a refresh, so the completion card
-   * re-rendered itself unchanged and the button looked dead.
+   * The server duly fetched a new set — but `finished`, `index` and `score`
+   * are CLIENT state and survive a refresh, so the completion card re-rendered
+   * itself unchanged and the button looked dead.
    *
-   * The parent keys this component on the sentence ids, so genuinely new data
-   * remounts it with clean state. This clears the card immediately as well,
-   * because ORDER BY random() can hand back the same five — and a button that
-   * silently does nothing is the bug being fixed.
+   * It also depended on the server minting a fresh random seed on every
+   * render, which is what made a plain reload destroy a half-finished round.
+   * The seed is stable now, so a new round has to be ASKED for: put a new `s`
+   * in the URL. Random here is fine — this is an event handler, not render.
    */
   function otherSentences() {
     setFinished(false);
@@ -99,7 +100,7 @@ export function ClozePlayer({
     setScore(0);
     setMarks([]);
     remember(sentences.length, 0, []); // a new round starts from nothing
-    startReload(() => router.refresh());
+    startReload(() => router.push(nextRoundHref()));
   }
 
   const sentence = sentences[index];

@@ -1,7 +1,8 @@
 "use server";
 
 import { desc, eq } from "drizzle-orm";
-import { requireAdmin, requireSession } from "@/lib/auth";
+import { isOperator, requireAdmin, requireOperator, requireSession } from "@/lib/auth";
+import { inMyHousehold } from "@/lib/tenant";
 import { emailLog, getDb, homework, users } from "@/lib/db";
 import {
   button,
@@ -28,7 +29,7 @@ export type EmailStatus = {
 };
 
 export async function getEmailStatus(): Promise<EmailStatus> {
-  await requireAdmin();
+  await requireOperator();
   let recent: EmailStatus["recent"] = [];
   try {
     const rows = await getDb()
@@ -65,7 +66,7 @@ function maskEmail(address: string): string {
  * consent an admin can be sure of is their own.
  */
 export async function sendTestEmail(): Promise<SendResult> {
-  const session = await requireAdmin();
+  const session = await requireOperator();
   const [row] = await getDb()
     .select({ email: users.email, displayName: users.displayName })
     .from(users)
@@ -101,7 +102,16 @@ export async function sendTestEmail(): Promise<SendResult> {
 export async function sendWelcomeEmail(
   username: string
 ): Promise<SendResult> {
-  await requireAdmin();
+  const session = await requireAdmin();
+  // requireAdmin() is satisfied by every family owner, so on its own this
+  // would address any account on the instance. An admin may welcome their own
+  // people; the operator, who belongs to no family, may welcome anyone.
+  if (
+    !(await inMyHousehold(username)) &&
+    !(await isOperator(session.username))
+  ) {
+    return { ok: false, id: null, error: "Essa conta não é da tua família." };
+  }
   const [row] = await getDb()
     .select({ email: users.email, displayName: users.displayName })
     .from(users)
@@ -144,6 +154,11 @@ export async function sendHomeworkEmail(
     .where(eq(homework.id, homeworkId))
     .limit(1);
   if (!hw) return { ok: false, id: null, error: "TPC não encontrado." };
+  // The homework id comes from the client. Without this, any signed-in person
+  // could walk the ids and mail another family's learner.
+  if (!(await inMyHousehold(hw.username))) {
+    return { ok: false, id: null, error: "TPC não encontrado." };
+  }
 
   const [learner] = await db
     .select({ email: users.email, displayName: users.displayName })

@@ -1,6 +1,6 @@
 import { requireOperator, requireSession } from "@/lib/auth";
 import { avatarFor, titleCase } from "@/lib/people";
-import { formatEur, getSpend, getSpendByUser, usdToEur } from "@/lib/usage";
+import { formatEur, getSpend, getSpendEverywhere, usdToEur } from "@/lib/usage";
 
 export const metadata = { title: "Gastos" };
 
@@ -17,7 +17,8 @@ export default async function SpendPage() {
   const session = await requireSession();
   const [mine, byUser] = await Promise.all([
     getSpend(session.username),
-    getSpendByUser(),
+    // Operator page: the whole instance, not one household.
+    getSpendEverywhere(),
   ]);
   const familyTotal = byUser.reduce((sum, u) => sum + u.monthEur, 0);
   const month = new Date().toLocaleDateString("pt-PT", {

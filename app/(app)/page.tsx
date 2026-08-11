@@ -2,8 +2,9 @@ import Link from "next/link";
 import { AzulejoHeader, BandTile } from "@/components/azulejo-header";
 import { CalcadaPath } from "@/components/calcada-path";
 import { IconFlame } from "@/components/icons";
-import { requireSession } from "@/lib/auth";
-import { householdUsernames } from "@/lib/tenant";
+import { redirect } from "next/navigation";
+import { isOperator, requireSession } from "@/lib/auth";
+import { currentAccountId, householdUsernames } from "@/lib/tenant";
 import {
   getFamilyBoard,
   getHomeworkAll,
@@ -40,6 +41,19 @@ const KIND_EMOJI: Record<string, string> = {
 
 export default async function Dashboard() {
   const session = await requireSession();
+
+  /*
+   * A platform operator belongs to no family, so every panel on this screen —
+   * the streak, the path, the family strip — reads back empty. Their home is
+   * the console. An operator who also runs a family has real data here and is
+   * left alone.
+   */
+  if (
+    (await isOperator(session.username)) &&
+    (await currentAccountId()) === null
+  ) {
+    redirect("/admin/operador");
+  }
   // Social widgets must never take down the whole dashboard.
   const [
     stats,

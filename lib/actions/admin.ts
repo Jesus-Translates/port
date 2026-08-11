@@ -211,6 +211,45 @@ export async function assignHomework(formData: FormData) {
 }
 
 /** Admin: remove any content, regardless of owner. */
+/** Who a deletable row belongs to, or null if it is gone. */
+async function ownerOf(
+  db: ReturnType<typeof getDb>,
+  kind: "homework" | "quiz" | "note" | "kudo",
+  id: number
+): Promise<string | null> {
+  if (kind === "homework") {
+    const [r] = await db
+      .select({ u: homework.username })
+      .from(homework)
+      .where(eq(homework.id, id))
+      .limit(1);
+    return r?.u ?? null;
+  }
+  if (kind === "quiz") {
+    const [r] = await db
+      .select({ u: quizzes.username })
+      .from(quizzes)
+      .where(eq(quizzes.id, id))
+      .limit(1);
+    return r?.u ?? null;
+  }
+  if (kind === "note") {
+    const [r] = await db
+      .select({ u: notes.username })
+      .from(notes)
+      .where(eq(notes.id, id))
+      .limit(1);
+    return r?.u ?? null;
+  }
+  // A kudo has two ends; the recipient is the one whose family owns it.
+  const [r] = await db
+    .select({ u: kudos.toUser })
+    .from(kudos)
+    .where(eq(kudos.id, id))
+    .limit(1);
+  return r?.u ?? null;
+}
+
 export async function adminDeleteContent(
   kind: "homework" | "quiz" | "note" | "kudo",
   id: number
@@ -218,6 +257,17 @@ export async function adminDeleteContent(
   const session = await requireSession();
   if (await roleOf(session.username) !== "admin") return;
   const db = getDb();
+
+  /*
+   * The id comes from the client, and roleOf() says "admin" for every family
+   * owner — /registar makes them one for their own household. So the role
+   * check alone let any family's admin walk the ids and delete another
+   * family's homework, quizzes, notes and kudos. Find the owner first and
+   * refuse anything outside my household.
+   */
+  const owner = await ownerOf(db, kind, id);
+  if (!owner || !(await inMyHousehold(owner))) return;
+
   if (kind === "homework") await db.delete(homework).where(eq(homework.id, id));
   else if (kind === "quiz") await db.delete(quizzes).where(eq(quizzes.id, id));
   else if (kind === "note") await db.delete(notes).where(eq(notes.id, id));
@@ -227,10 +277,15 @@ export async function adminDeleteContent(
   revalidatePath("/familia");
 }
 
-/** Admin: wipe the cached audio so a new voice regenerates everything. */
+/**
+ * Wipe the cached audio so a new voice regenerates everything.
+ *
+ * OPERATOR only. The cache is one table shared by every household, so a
+ * family admin clearing it made every other family re-synthesise their audio
+ * — someone else's bill, from a button in your own panel.
+ */
 export async function clearTtsCache() {
-  const session = await requireSession();
-  if (await roleOf(session.username) !== "admin") return;
+  await requireOperator();
   const db = getDb();
   await db.delete(ttsAudio);
   revalidatePath("/admin");
