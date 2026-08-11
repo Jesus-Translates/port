@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -39,6 +39,47 @@ export function ClozePlayer({
   const [reloading, startReload] = useTransition();
 
   /*
+   * Remember what has already been answered.
+   *
+   * Flipping to "Ditado completo" and back used to wipe the round: the page
+   * re-renders, the player remounts, and every answer was gone. The sentence
+   * set is now stable for a round (a seed in the URL), so the ids identify the
+   * round and progress can be picked back up exactly where it was left.
+   *
+   * sessionStorage, not the database: this is a scratchpad for one sitting,
+   * and it should not outlive the tab or follow you to another device.
+   */
+  const runKey = `ditado:cloze:${sentences.map((x) => x.id).join(",")}`;
+
+  /*
+   * eslint-disable-next-line react-hooks/set-state-in-effect --
+   * An effect is the only correct place for this. sessionStorage does not
+   * exist during SSR, so a lazy useState initialiser would render index 0 on
+   * the server and index 3 on the client — a hydration mismatch. Restoring
+   * after mount is the documented way to read a browser-only API.
+   */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(runKey);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as {
+        index: number;
+        score: number;
+        marks: boolean[];
+      };
+      if (saved.index > 0 && saved.index < sentences.length) {
+        /* eslint-disable react-hooks/set-state-in-effect */
+        setIndex(saved.index);
+        setScore(saved.score ?? 0);
+        setMarks(saved.marks ?? []);
+        /* eslint-enable react-hooks/set-state-in-effect */
+      }
+    } catch {
+      // A corrupt scratchpad must never stop the exercise loading.
+    }
+  }, [runKey, sentences.length]);
+
+  /*
    * "Outras frases" used to call router.refresh() and nothing else.
    *
    * The server duly fetched a new random set — but `finished`, `index` and
@@ -57,6 +98,7 @@ export function ClozePlayer({
     setResult(null);
     setScore(0);
     setMarks([]);
+    remember(sentences.length, 0, []); // a new round starts from nothing
     startReload(() => router.refresh());
   }
 
@@ -78,6 +120,19 @@ export function ClozePlayer({
     }
   }
 
+  function remember(nextIndex: number, nextScore: number, nextMarks: boolean[]) {
+    try {
+      if (nextIndex >= sentences.length) sessionStorage.removeItem(runKey);
+      else
+        sessionStorage.setItem(
+          runKey,
+          JSON.stringify({ index: nextIndex, score: nextScore, marks: nextMarks })
+        );
+    } catch {
+      // Private mode / quota: losing the scratchpad is not worth an error.
+    }
+  }
+
   async function next() {
     if (last) {
       setFinished(true);
@@ -89,10 +144,12 @@ export function ClozePlayer({
         void completeItem(unit.itemId, pct).catch(() => {});
       }
       await finishCloze(score, sentences.length);
+      remember(sentences.length, score, marks); // finished: clear the scratchpad
     } else {
       setIndex((i) => i + 1);
       setTyped("");
       setResult(null);
+      remember(index + 1, score, marks);
     }
   }
 

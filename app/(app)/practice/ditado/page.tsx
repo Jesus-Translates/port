@@ -30,7 +30,9 @@ const FUNCTION_WORDS = new Set(
 /** Choose one word to hide: a reduced function word if the sentence has one
  *  (never the first word), otherwise any word from the middle. */
 function makeCloze(
-  pt: string
+  pt: string,
+  /** Stable picker input, so the same sentence hides the same word all round. */
+  pick: number
 ): { masked: string; blankIndex: number } | null {
   const tokens = pt.split(/\s+/).filter(Boolean);
   if (tokens.length < 3) return null;
@@ -47,7 +49,9 @@ function makeCloze(
         ? middleIdxs
         : [1];
 
-  const blankIndex = pool[Math.floor(Math.random() * pool.length)];
+  // Deterministic, not random: with Math.random the hidden word changed on
+  // every reload, so the answer you just got wrong became a different question.
+  const blankIndex = pool[pick % pool.length];
   if (!normalizeWord(tokens[blankIndex])) return null;
 
   const masked = tokens
@@ -73,6 +77,16 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
   const sp = await props.searchParams;
   const isCloze = one(sp.modo) === "cloze";
   const tema = one(sp.tema).slice(0, 300);
+  /*
+   * A stable seed for this run.
+   *
+   * The sentences used to come back ORDER BY random(), so switching between
+   * "Ditado completo" and "Palavra escondida" — or coming back at all — dealt
+   * a brand new set and threw away everything already answered. The seed rides
+   * in the URL and both mode links carry it, so the two modes are two views of
+   * ONE round rather than two unrelated ones.
+   */
+  const seed = one(sp.s) || Math.random().toString(36).slice(2, 10);
   const unit = await unitContextFrom(sp);
 
   // Spoken-size phrases in random order. In full dictation ONLY ids and glosses
@@ -90,7 +104,8 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
     .from(refEntries)
     .innerJoin(categories, eq(categories.id, refEntries.categoryId))
     .where(sql`${refEntries.kind} = 'phrase' and length(${refEntries.pt}) between 15 and 90`)
-    .orderBy(sql`random()`)
+    // Deterministic per seed: same round on a reload or a mode switch.
+    .orderBy(sql`md5(${refEntries.id}::text || ${seed})`)
     .limit(CANDIDATES);
 
   // Now the ones about the topic first. `sortByTopic` keeps every row and is a
@@ -124,7 +139,7 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
   const clozes = isCloze
     ? unique
         .flatMap((p) => {
-          const c = makeCloze(p.pt);
+          const c = makeCloze(p.pt, p.id);
           return c ? [{ id: p.id, en: p.en, ...c }] : [];
         })
         .slice(0, ROUND)
@@ -137,6 +152,7 @@ export default async function DitadoPage(props: PageProps<"/practice/ditado">) {
     carry.set("unidade", unit.slug);
     if (unit.itemId) carry.set("item", String(unit.itemId));
   }
+  carry.set("s", seed);
   const extra = carry.toString();
   const tabs = [
     {

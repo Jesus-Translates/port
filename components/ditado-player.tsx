@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -29,6 +29,39 @@ export function DitadoPlayer({
   const [finished, setFinished] = useState(false);
   const [reloading, startReload] = useTransition();
 
+  /* Same scratchpad as the cloze player: switching modes must not wipe the
+     answers already given. Keyed by the round's sentence ids, which are now
+     stable because the page seeds its ordering. */
+  const runKey = `ditado:full:${sentences.map((x) => x.id).join(",")}`;
+
+  /*
+   * eslint-disable-next-line react-hooks/set-state-in-effect --
+   * An effect is the only correct place for this. sessionStorage does not
+   * exist during SSR, so a lazy useState initialiser would render index 0 on
+   * the server and index 3 on the client — a hydration mismatch. Restoring
+   * after mount is the documented way to read a browser-only API.
+   */
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(runKey);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { index: number };
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (saved.index > 0 && saved.index < sentences.length) setIndex(saved.index);
+    } catch {
+      // A corrupt scratchpad must never stop the exercise loading.
+    }
+  }, [runKey, sentences.length]);
+
+  function remember(nextIndex: number) {
+    try {
+      if (nextIndex >= sentences.length) sessionStorage.removeItem(runKey);
+      else sessionStorage.setItem(runKey, JSON.stringify({ index: nextIndex }));
+    } catch {
+      // Private mode / quota: losing the scratchpad is not worth an error.
+    }
+  }
+
   /*
    * Same fix as cloze-player: router.refresh() alone left `finished` and
    * `index` set, so the completion card re-rendered itself and "Outro ditado"
@@ -41,6 +74,7 @@ export function DitadoPlayer({
     setTyped("");
     setResult(null);
     setResults([]);
+    remember(sentences.length);
     startReload(() => router.refresh());
   }
 
@@ -73,10 +107,12 @@ export function DitadoPlayer({
         void completeItem(unit.itemId, pct).catch(() => {});
       }
       await finishDitado(score, total, missed);
+      remember(sentences.length); // finished: clear the scratchpad
     } else {
       setIndex((i) => i + 1);
       setTyped("");
       setResult(null);
+      remember(index + 1);
     }
   }
 

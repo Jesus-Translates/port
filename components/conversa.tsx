@@ -41,29 +41,64 @@ type Summary = {
 };
 
 /**
- * Sandra's voice, with a handle on it.
+ * Sandra's voice — ONE element for the whole conversation.
  *
- * This used to be `new Audio(...).play()` — fire and forget, with no reference
- * kept anywhere. Nothing could stop it: leaving the page mid-sentence left her
- * talking over whatever you opened next, and starting a new reply layered a
- * second voice on top of the first. The element is module-level because there
- * is only ever one Sandra, and she should never talk over herself.
+ * This is an iOS constraint, not a preference. Safari only lets an audio
+ * element play if that element was first started inside a user gesture, and
+ * the permission belongs to the ELEMENT, not the page. Building a fresh
+ * `new Audio()` per reply therefore worked exactly once — the opener, which
+ * follows the "Começar" tap — and every later line was silently blocked,
+ * because it arrives after a fetch with no gesture anywhere on the stack.
+ *
+ * So: one element, unlocked once by unlockVoice() on a real tap, then only
+ * ever `src` swaps. It also keeps Sandra from talking over herself, which was
+ * the reason the handle was introduced in the first place.
  */
-let current: HTMLAudioElement | null = null;
+let el: HTMLAudioElement | null = null;
+
+function voiceEl(): HTMLAudioElement {
+  if (!el) el = new Audio();
+  return el;
+}
+
+/**
+ * Call from a real user gesture (a tap), before any awaits.
+ *
+ * Plays the element silently for an instant, which is what grants it
+ * permission for the rest of the page's life. Failure is fine and expected on
+ * browsers that never needed unlocking.
+ */
+export function unlockVoice() {
+  const a = voiceEl();
+  if (a.dataset.unlocked === "1") return;
+  a.dataset.unlocked = "1";
+  a.muted = true;
+  a.play()
+    .then(() => {
+      a.pause();
+      a.currentTime = 0;
+      a.muted = false;
+    })
+    .catch(() => {
+      a.muted = false;
+    });
+}
 
 function play(b64: string | null | undefined) {
-  stopSpeaking();
   if (!b64) return;
-  const a = new Audio(`data:audio/mpeg;base64,${b64}`);
-  current = a;
+  const a = voiceEl();
+  a.pause();
+  a.src = `data:audio/mpeg;base64,${b64}`;
+  a.currentTime = 0;
   a.play().catch(() => {});
 }
 
 export function stopSpeaking() {
-  if (!current) return;
-  current.pause();
-  current.src = "";
-  current = null;
+  if (!el) return;
+  el.pause();
+  // removeAttribute, not src = "": assigning an empty string makes Safari
+  // resolve it against the page URL and fetch the document as audio.
+  el.removeAttribute("src");
 }
 
 /** Spoken back-and-forth with Sandra: she talks, you answer by mic (or keyboard). */
@@ -167,6 +202,9 @@ export function Conversa({
     JSON.stringify(msgs.map((m) => ({ role: m.role, text: m.text })));
 
   async function start(chosen?: string) {
+    // Synchronously, before any await: iOS only grants playback permission
+    // while a gesture is still on the stack.
+    unlockVoice();
     setPending(true);
     setError(null);
     try {
@@ -263,6 +301,7 @@ export function Conversa({
   async function sendTyped() {
     const text = typed.trim();
     if (!text || pending) return;
+    unlockVoice();
     setPending(true);
     setError(null);
     setTyped("");
@@ -291,6 +330,8 @@ export function Conversa({
   }
 
   async function startRecording() {
+    // The reply plays long after this tap, so the unlock has to happen now.
+    unlockVoice();
     setError(null);
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
