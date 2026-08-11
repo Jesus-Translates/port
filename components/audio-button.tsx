@@ -10,6 +10,8 @@ export type AudioButtonProps = {
   entryId?: number;
   /** Speak a quiz question's Portuguese; cached server-side by id. */
   quizId?: number;
+  /** Speak a placement dictation item — the sentence stays on the server. */
+  placementId?: string;
   className?: string;
   /** Show this text beside the icon instead of an icon-only button. */
   label?: string;
@@ -18,11 +20,12 @@ export type AudioButtonProps = {
   autoFocusPlay?: boolean;
 };
 
-/** Small play button for pt-PT audio. Pass exactly one of text/entryId/quizId. */
+/** Small play button for pt-PT audio. Pass exactly one source prop. */
 export function AudioButton({
   text,
   entryId,
   quizId,
+  placementId,
   className,
   label,
   onEnded,
@@ -37,7 +40,9 @@ export function AudioButton({
     ? `/api/tts?entry=${entryId}`
     : quizId
       ? `/api/tts?quiz=${quizId}`
-      : `/api/tts?text=${encodeURIComponent(text ?? "")}`;
+      : placementId
+        ? `/api/tts?placement=${encodeURIComponent(placementId)}`
+        : `/api/tts?text=${encodeURIComponent(text ?? "")}`;
 
   // The element is built once and reused so a second tap replays from cache
   // instead of re-downloading — which means the `onEnded` captured at that

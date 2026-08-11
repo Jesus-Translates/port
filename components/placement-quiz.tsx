@@ -2,150 +2,12 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { getStartUnit } from "@/lib/actions/course";
+import { gradePlacement, nextPlacementItem } from "@/lib/actions/placement";
 import { setCefrLevel } from "@/lib/actions/profile";
+import { LEVELS, RUN_LENGTH, verdict, type Level, type PublicItem } from "@/lib/placement";
 import { cn } from "@/lib/utils";
-
-const LEVELS = ["A1", "A2", "B1", "B2"] as const;
-type Level = (typeof LEVELS)[number];
-
-const TOTAL = 10; // questions per run
-const PASS = 2; // correct answers needed to "own" a level
-
-type Item = {
-  level: Level;
-  promptEn: string;
-  promptPt?: string;
-  options: string[];
-  answer: string;
-};
-
-/** Hand-written, European Portuguese only. Four items per level. */
-const BANK: Item[] = [
-  // ── A1 ──────────────────────────────────────────────────────────────
-  {
-    level: "A1",
-    promptEn: "“I am Robert.” — which verb form fits?",
-    promptPt: "Eu ___ o Robert.",
-    options: ["sou", "estou", "és", "é"],
-    answer: "sou",
-  },
-  {
-    level: "A1",
-    promptEn: "It's 9 in the morning and you meet a neighbour. You say…",
-    options: ["Bom dia", "Boa tarde", "Boa noite", "Até logo"],
-    answer: "Bom dia",
-  },
-  {
-    level: "A1",
-    promptEn: "“The house is big.” — which article?",
-    promptPt: "___ casa é grande.",
-    options: ["O", "A", "Os", "As"],
-    answer: "A",
-  },
-  {
-    level: "A1",
-    promptEn: "In Portugal, “the bus” is…",
-    options: ["o autocarro", "o ônibus", "o comboio", "o elétrico"],
-    answer: "o autocarro",
-  },
-
-  // ── A2 ──────────────────────────────────────────────────────────────
-  {
-    level: "A2",
-    promptEn: "“Yesterday we spoke to the teacher.” — past tense, Portugal spelling.",
-    promptPt: "Ontem nós ___ com a professora.",
-    options: ["falamos", "falámos", "falávamos", "falaremos"],
-    answer: "falámos",
-  },
-  {
-    level: "A2",
-    promptEn: "“Tomorrow I'm going to Lisbon.” — which preposition?",
-    promptPt: "Amanhã vou ___ Lisboa.",
-    options: ["a", "em", "de", "por"],
-    answer: "a",
-  },
-  {
-    level: "A2",
-    promptEn: "Breakfast, as the Portuguese say it:",
-    options: ["o pequeno-almoço", "o café da manhã", "o almoço", "o lanche"],
-    answer: "o pequeno-almoço",
-  },
-  {
-    level: "A2",
-    promptEn: "“Last Saturday I went to the market.”",
-    promptPt: "No sábado passado, eu ___ ao mercado.",
-    options: ["fui", "fiz", "vim", "ia"],
-    answer: "fui",
-  },
-
-  // ── B1 ──────────────────────────────────────────────────────────────
-  {
-    level: "B1",
-    promptEn: "“When I was little, I always used to go to the beach with my grandad.”",
-    promptPt: "Quando era pequeno, ___ sempre à praia com o meu avô.",
-    options: ["fui", "ia", "tinha ido", "vou"],
-    answer: "ia",
-  },
-  {
-    level: "B1",
-    promptEn: "“I didn't see you yesterday.” — which sentence is correct?",
-    options: [
-      "Não te vi ontem.",
-      "Não vi-te ontem.",
-      "Não vi te ontem.",
-      "Te não vi ontem.",
-    ],
-    answer: "Não te vi ontem.",
-  },
-  {
-    level: "B1",
-    promptEn: "“I hope you have time tomorrow.” — after «espero que»…",
-    promptPt: "Espero que tu ___ tempo amanhã.",
-    options: ["tens", "tenhas", "tinhas", "terás"],
-    answer: "tenhas",
-  },
-  {
-    level: "B1",
-    promptEn: "“When you get to Portugal, call me.” — after «quando» about the future.",
-    promptPt: "Quando ___ a Portugal, liga-me.",
-    options: ["chegas", "chegares", "chegaste", "chegarias"],
-    answer: "chegares",
-  },
-
-  // ── B2 ──────────────────────────────────────────────────────────────
-  {
-    level: "B2",
-    promptEn: "“If I had more time, I'd go to the gym more often.”",
-    promptPt: "Se eu ___ mais tempo, iria mais vezes ao ginásio.",
-    options: ["tinha", "tivesse", "tiver", "teria"],
-    answer: "tivesse",
-  },
-  {
-    level: "B2",
-    promptEn: "Conditional (condicional) of «dizer», first person singular:",
-    options: ["direi", "diria", "dissesse", "dizia"],
-    answer: "diria",
-  },
-  {
-    level: "B2",
-    promptEn: "The expression «estar com os azeites» means…",
-    options: [
-      "estar zangado",
-      "estar com pressa",
-      "estar apaixonado",
-      "estar cheio de fome",
-    ],
-    answer: "estar zangado",
-  },
-  {
-    level: "B2",
-    promptEn: "“You'd better leave now.” — personal infinitive after «é melhor».",
-    promptPt: "É melhor vocês ___ agora.",
-    options: ["sair", "saem", "saírem", "saiam"],
-    answer: "saírem",
-  },
-];
 
 const BLURB: Record<Level, { pt: string; en: string }> = {
   A1: {
@@ -168,55 +30,39 @@ const BLURB: Record<Level, { pt: string; en: string }> = {
 
 const emptyScores = (): Record<Level, number> => ({ A1: 0, A2: 0, B1: 0, B2: 0 });
 
-/** Pick an unused item, preferring `levelIdx` and widening outwards. */
-function pick(levelIdx: number, asked: Item[]): Item | null {
-  const order = LEVELS.map((_, i) => i).sort(
-    (a, b) => Math.abs(a - levelIdx) - Math.abs(b - levelIdx)
-  );
-  for (const idx of order) {
-    const pool = BANK.filter(
-      (i) => i.level === LEVELS[idx] && !asked.includes(i)
-    );
-    if (pool.length > 0) return pool[Math.floor(Math.random() * pool.length)];
-  }
-  return null;
-}
+const KIND_LABEL: Record<PublicItem["kind"], string> = {
+  choice: "Escolhe",
+  gap: "Completa a frase",
+  dictation: "Ouve e escreve",
+  write: "Escreve em português",
+  wordbank: "Constrói a frase",
+};
 
 /**
- * The highest level whose ladder you actually own.
+ * The placement test.
  *
- * The old rule returned the highest level with PASS correct answers and looked
- * no lower — so two lucky B2 guesses placed you at B2 while you had failed
- * everything beneath. A real tester got B2 having missed BOTH subjunctive
- * items, and was then told B2 means "conjuntivo com à-vontade". Now you climb:
- * a level counts only if you got at least half of what was ASKED at that level
- * (and at least PASS where enough were asked), and the climb stops at the first
- * level you did not own. Levels that were never asked don't break the chain.
+ * Five kinds of question, not one. A test made entirely of four-option
+ * multiple choice measures recognition and nothing else — you can pass it
+ * without ever producing a word of Portuguese, which is exactly the skill a
+ * placement needs to measure. Typing what you heard, writing a sentence from
+ * scratch and reordering one you are given each probe something recognition
+ * hides.
+ *
+ * It starts at A1 and climbs. Everyone begins a beginner unless they show
+ * otherwise, so the first question is one an A1 learner can answer — starting
+ * at A2 opened the test with something a true beginner cannot do, which is a
+ * discouraging first impression of a language app.
+ *
+ * The bank and the marking live on the server (lib/placement.ts); this holds
+ * only what has been asked and how it went.
  */
-function verdict(
-  scores: Record<Level, number>,
-  askedPerLevel: Record<Level, number>
-): Level {
-  let best: Level = "A1";
-  for (const level of LEVELS) {
-    const n = askedPerLevel[level] ?? 0;
-    if (n === 0) continue; // not tested here — neither owned nor failed
-    const got = scores[level] ?? 0;
-    // Below half at this level: you don't get to climb past it.
-    if (got * 2 < n) break;
-    // To actually CLAIM a level you need two thirds, not a coin flip — these
-    // are four-option questions, so 50% is barely above guessing. This is what
-    // stops 2-of-4 at B2 (having missed both subjunctive items) reading as
-    // "conjuntivo com à-vontade".
-    if (got >= PASS && got * 3 >= n * 2) best = level;
-  }
-  return best;
-}
-
 export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
-  const [asked, setAsked] = useState<Item[]>([]);
-  const [levelIdx, setLevelIdx] = useState(1); // start at A2
+  const [asked, setAsked] = useState<PublicItem[]>([]);
+  const [levelIdx, setLevelIdx] = useState(0); // start at A1
   const [scores, setScores] = useState(emptyScores);
+  const [typed, setTyped] = useState("");
+  const [picked, setPicked] = useState<string[]>([]); // wordbank tiles chosen
+  const [mark, setMark] = useState<{ correct: boolean; correctAnswer: string } | null>(null);
   const [result, setResult] = useState<Level | null>(null);
   const [saved, setSaved] = useState(false);
   const [startUnit, setStartUnit] = useState<{
@@ -225,58 +71,82 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     titlePt: string;
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
   const [pending, startTransition] = useTransition();
 
   const current = asked[asked.length - 1];
 
   function reset() {
     setAsked([]);
-    setLevelIdx(1);
+    setLevelIdx(0);
     setScores(emptyScores());
+    setTyped("");
+    setPicked([]);
+    setMark(null);
     setResult(null);
     setSaved(false);
     setStartUnit(null);
     setError(null);
   }
 
-  function start() {
-    // Randomness only ever runs on a click, never during render — no
-    // server/client hydration mismatch.
-    const first = pick(1, []);
-    if (!first) return;
+  async function start() {
+    setBusy(true);
+    const first = await nextPlacementItem([], 0);
+    setBusy(false);
+    if (!first) {
+      setError("O teste não está disponível.");
+      return;
+    }
+    reset();
     setAsked([first]);
-    setLevelIdx(1);
-    setScores(emptyScores());
-    setResult(null);
-    setSaved(false);
-    setStartUnit(null);
-    setError(null);
   }
 
-  function answer(option: string) {
-    if (!current) return;
-    const ok = option === current.answer;
-    const nextScores = ok
-      ? { ...scores, [current.level]: scores[current.level] + 1 }
-      : scores;
-    const nextIdx = ok
+  /** The learner's answer for the current kind, as one string. */
+  function answerText(): string {
+    if (!current) return "";
+    return current.kind === "wordbank" ? picked.join(" ") : typed;
+  }
+
+  async function check(explicit?: string) {
+    if (!current || busy || mark) return;
+    const given = explicit ?? answerText();
+    if (!given.trim()) return;
+    setBusy(true);
+    const m = await gradePlacement(current.id, given);
+    setBusy(false);
+    if (!m) return;
+    setMark({ correct: m.correct, correctAnswer: m.correctAnswer });
+    setScores((s) => (m.correct ? { ...s, [m.level]: s[m.level] + 1 } : s));
+  }
+
+  async function advance() {
+    if (!current || !mark) return;
+    const nextIdx = mark.correct
       ? Math.min(LEVELS.length - 1, levelIdx + 1)
       : Math.max(0, levelIdx - 1);
-
-    setScores(nextScores);
     setLevelIdx(nextIdx);
+    setTyped("");
+    setPicked([]);
+    setMark(null);
 
-    const next = asked.length >= TOTAL ? null : pick(nextIdx, asked);
+    if (asked.length >= RUN_LENGTH) return finish();
+    setBusy(true);
+    const next = await nextPlacementItem(
+      asked.map((a) => a.id),
+      nextIdx
+    );
+    setBusy(false);
     if (next) setAsked([...asked, next]);
-    else {
-      // How many were actually ASKED at each level — the verdict needs the
-      // denominator, not just the count of right answers.
-      const perLevel = LEVELS.reduce(
-        (acc, l) => ({ ...acc, [l]: asked.filter((a) => a.level === l).length }),
-        {} as Record<Level, number>
-      );
-      setResult(verdict(nextScores, perLevel));
-    }
+    else finish();
+  }
+
+  function finish() {
+    // The verdict needs the DENOMINATOR per level, not just the hits.
+    const perLevel = LEVELS.reduce(
+      (acc, l) => ({ ...acc, [l]: asked.filter((a) => a.level === l).length }),
+      {} as Record<Level, number>
+    );
+    setResult(verdict(scores, perLevel));
   }
 
   function save() {
@@ -286,8 +156,6 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       try {
         await setCefrLevel(result);
         setSaved(true);
-        // A score is not an answer to "what now?" — fetch the actual unit
-        // this learner should open first.
         setStartUnit(await getStartUnit().catch(() => null));
       } catch {
         setError("Não deu para guardar. Tenta outra vez.");
@@ -311,27 +179,21 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           <p className="mt-1 text-sm text-ink-faint">{BLURB[result].en}</p>
 
           <div className="mt-4 flex flex-wrap justify-center gap-1.5">
-            {LEVELS.map((l) => (
-              <span key={l} className="chip">
-                {l} · {scores[l]}/
-                {asked.filter((a) => a.level === l).length}
-              </span>
-            ))}
+            {LEVELS.map((l) => {
+              const n = asked.filter((a) => a.level === l).length;
+              return n > 0 ? (
+                <span key={l} className="chip">
+                  {l} · {scores[l]}/{n}
+                </span>
+              ) : null;
+            })}
           </div>
 
           <div className="mt-5 flex flex-wrap justify-center gap-2">
-            <button
-              className="btn-terra"
-              onClick={save}
-              disabled={pending || saved}
-            >
-              {saved
-                ? "Guardado ✓"
-                : pending
-                  ? "A guardar…"
-                  : "Guardar o meu nível"}
+            <button className="btn-terra" onClick={save} disabled={pending || saved}>
+              {saved ? "Guardado ✓" : pending ? "A guardar…" : "Guardar o meu nível"}
             </button>
-            <button className="btn-ghost" onClick={reset}>
+            <button className="btn-ghost" onClick={start}>
               Repetir
             </button>
           </div>
@@ -351,8 +213,8 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                 <div className="text-sm text-ink-faint">{startUnit.titlePt}</div>
               ) : null}
               <p className="mt-1 text-sm text-ink-soft">
-                The first unit of your {result} course — read the note, then
-                work the path through it. →
+                The first unit of your {result} course — read the note, then work
+                the path through it. →
               </p>
             </Link>
           ) : saved ? (
@@ -360,9 +222,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               Nível guardado. Os testes, lições e histórias já vêm em {result}.
             </p>
           ) : null}
-          {error ? (
-            <p className="mt-3 text-sm text-terra-dark">{error}</p>
-          ) : null}
+          {error ? <p className="mt-3 text-sm text-terra-dark">{error}</p> : null}
         </div>
       </div>
     );
@@ -373,31 +233,36 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     return (
       <div className="card space-y-3 p-6">
         <p className="text-ink-soft">
-          Dez perguntas, cerca de três minutos. As perguntas ficam mais difíceis
+          Quinze perguntas, cerca de cinco minutos. Vais escolher, completar,
+          ouvir e escrever, e construir frases. As perguntas ficam mais difíceis
           quando acertas e mais fáceis quando falhas — por isso não faz mal
           errar.
         </p>
         <p className="text-sm text-ink-faint">
-          Ten adaptive multiple-choice questions in European Portuguese. No
-          feedback along the way — just answer with your gut.
+          Fifteen adaptive questions in European Portuguese: multiple choice,
+          gap-fill, dictation, free writing and sentence building. Everyone
+          starts at A1 — this is how you test up.
         </p>
         {savedLevel ? (
           <p className="text-sm text-ink-soft">
             Nível guardado neste momento: <span className="chip">{savedLevel}</span>
           </p>
         ) : null}
-        <button className="btn-terra" onClick={start}>
-          Começar 🧭
+        {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
+        <button className="btn-terra" onClick={start} disabled={busy}>
+          {busy ? "A preparar…" : "Começar 🧭"}
         </button>
       </div>
     );
   }
 
   // ── Question ────────────────────────────────────────────────────────
+  const typedKind = current.kind === "dictation" || current.kind === "write";
+
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-1.5">
-        {Array.from({ length: TOTAL }, (_, i) => (
+        {Array.from({ length: RUN_LENGTH }, (_, i) => (
           <span
             key={i}
             className={cn(
@@ -413,9 +278,15 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       </div>
 
       <div className="card p-5">
-        <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-          Pergunta {asked.length} de {TOTAL}
-        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
+            Pergunta {asked.length} de {RUN_LENGTH}
+          </p>
+          <span className="chip bg-cream text-ink-soft">
+            {KIND_LABEL[current.kind]}
+          </span>
+        </div>
+
         <h2 className="mt-2 text-lg font-semibold">{current.promptEn}</h2>
         {current.promptPt ? (
           <p className="mt-1 font-display text-xl text-ink-soft">
@@ -423,20 +294,162 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           </p>
         ) : null}
 
-        <div className="mt-4 grid gap-2">
-          {current.options.map((opt) => (
-            <button
-              key={opt}
-              onClick={() => answer(opt)}
-              className="rounded-xl border border-sand bg-white/70 px-4 py-3 text-left transition-all hover:border-sage hover:bg-sage-pale"
-            >
-              {opt}
-            </button>
-          ))}
-        </div>
+        {/* Dictation: the sentence never comes to the browser, so the audio is
+            requested by item id exactly like ditado does it. */}
+        {current.kind === "dictation" ? (
+          <div className="mt-3 flex items-center gap-3">
+            <AudioButton placementId={current.id} label="Ouvir" />
+            <span className="text-xs text-ink-faint">
+              (ouve as vezes que precisares)
+            </span>
+          </div>
+        ) : null}
+
+        {/* Choice and gap */}
+        {current.options ? (
+          <div className="mt-4 grid gap-2">
+            {current.options.map((opt) => {
+              const chosen = typed === opt;
+              const isAnswer = mark && opt === mark.correctAnswer;
+              return (
+                <button
+                  key={opt}
+                  disabled={!!mark || busy}
+                  onClick={() => {
+                    setTyped(opt);
+                    void check(opt);
+                  }}
+                  className={cn(
+                    "rounded-xl border px-4 py-3 text-left transition-all",
+                    isAnswer
+                      ? "border-olive bg-sage-pale text-olive"
+                      : chosen && mark && !mark.correct
+                        ? "border-terra bg-terra-pale text-terra-dark"
+                        : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
+                  )}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        {/* Wordbank: tap tiles in order, tap a chosen one to take it back. */}
+        {current.kind === "wordbank" && current.tiles ? (
+          <div className="mt-4 space-y-3">
+            <div className="min-h-[52px] rounded-xl border border-dashed border-sand bg-cream/60 p-2">
+              {picked.length === 0 ? (
+                <span className="text-sm text-ink-faint">
+                  Toca nas palavras pela ordem certa…
+                </span>
+              ) : (
+                <div className="flex flex-wrap gap-1.5">
+                  {picked.map((w, i) => (
+                    <button
+                      key={`${w}-${i}`}
+                      disabled={!!mark}
+                      onClick={() =>
+                        setPicked((p) => p.filter((_, j) => j !== i))
+                      }
+                      className="rounded-lg bg-olive px-2.5 py-1.5 text-sm text-paper"
+                    >
+                      {w}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              {current.tiles.map((w, i) => {
+                // A word can legitimately appear twice, so spend tiles by
+                // POSITION rather than by value.
+                const spent = picked.filter((p) => p === w).length;
+                const before = current.tiles!.slice(0, i).filter((t) => t === w).length;
+                const used = before < spent;
+                return (
+                  <button
+                    key={`${w}-${i}`}
+                    disabled={used || !!mark}
+                    onClick={() => setPicked((p) => [...p, w])}
+                    className={cn(
+                      "rounded-lg border px-2.5 py-1.5 text-sm transition-all",
+                      used
+                        ? "border-sand/60 bg-cream text-ink-faint/50"
+                        : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
+                    )}
+                  >
+                    {w}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : null}
+
+        {/* Dictation and free writing */}
+        {typedKind ? (
+          <textarea
+            value={typed}
+            onChange={(e) => setTyped(e.target.value)}
+            onKeyDown={(e) => {
+              if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void check();
+            }}
+            rows={2}
+            disabled={!!mark}
+            className="input mt-4 resize-y"
+            placeholder={
+              current.kind === "dictation"
+                ? "Escreve o que ouves…"
+                : "Escreve em português…"
+            }
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+        ) : null}
+
+        {mark ? (
+          <div
+            className={cn(
+              "mt-3 rounded-xl px-3 py-2 text-sm",
+              mark.correct
+                ? "bg-sage-pale text-olive"
+                : "bg-terra-pale text-terra-dark"
+            )}
+          >
+            {mark.correct ? (
+              <>Certo! ✓</>
+            ) : (
+              <>
+                Era:{" "}
+                <strong className="font-display text-base">
+                  {mark.correctAnswer}
+                </strong>
+              </>
+            )}
+          </div>
+        ) : null}
       </div>
 
-      <button className="btn-ghost" onClick={reset}>
+      {/* Choice and gap grade on tap; the rest need a Verificar. */}
+      {!mark && (typedKind || current.kind === "wordbank") ? (
+        <button
+          className="btn-terra w-full"
+          onClick={() => void check()}
+          disabled={busy || !answerText().trim()}
+        >
+          {busy ? "A corrigir…" : "Verificar ✓"}
+        </button>
+      ) : null}
+
+      {mark ? (
+        <button className="btn-primary w-full" onClick={() => void advance()} disabled={busy}>
+          {asked.length >= RUN_LENGTH ? "Ver o resultado" : "Continuar →"}
+        </button>
+      ) : null}
+
+      <button className="btn-ghost" onClick={reset} disabled={busy}>
         Recomeçar
       </button>
     </div>

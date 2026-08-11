@@ -13,6 +13,8 @@ export const maxDuration = 60;
  *   ?entry=ID    a phrasebook entry — text stays server-side (used by ditado,
  *                where the whole point is that you can't read the answer)
  *   ?quiz=ID     a listening quiz's audio script (also server-side only)
+ *   ?placement=ID a placement dictation item — the whole question is that you
+ *                cannot read it, so the sentence never leaves the server
  */
 export async function GET(request: NextRequest) {
   const session = await getSession();
@@ -41,6 +43,10 @@ export async function GET(request: NextRequest) {
       .limit(1);
     const script = (q?.questions as { audioScript?: string } | null)?.audioScript;
     text = script ?? null;
+  } else if (p.get("placement")) {
+    const { BANK } = await import("@/lib/placement");
+    const item = BANK.find((i) => i.id === p.get("placement"));
+    text = item?.kind === "dictation" ? item.say : null;
   } else {
     text = p.get("text");
   }
