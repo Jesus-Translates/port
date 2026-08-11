@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getDb, quizzes, refEntries } from "@/lib/db";
 import { getTtsAudio } from "@/lib/tts";
+import { budgetState } from "@/lib/budget";
 
 export const maxDuration = 60;
 
@@ -48,7 +49,30 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Sem texto." }, { status: 400 });
   }
 
-  const audio = await getTtsAudio(text, session.username);
+  /*
+   * The one billable path that had NO gate, and it is the expensive one:
+   * speech is ~86% of this app's AI cost. Every /api/ai/* route checks the
+   * allowance and this did not, so a household could spend its whole month
+   * here without ever touching a gated route.
+   *
+   * Replay is still free. Only SYNTHESIS is refused, so a family that has
+   * used its allowance keeps every clip it already generated.
+   */
+  const budget = await budgetState();
+  const audio = await getTtsAudio(text, session.username, {
+    cachedOnly: budget.blocked !== null,
+  });
+  if (!audio && budget.blocked !== null) {
+    return NextResponse.json(
+      {
+        error:
+          budget.blocked === "month"
+            ? "A tua família já usou a IA incluída neste mês. O áudio já gerado continua a tocar."
+            : "Já usaram bastante IA hoje. O áudio já gerado continua a tocar.",
+      },
+      { status: 429 }
+    );
+  }
   if (!audio) {
     return NextResponse.json(
       { error: "Áudio indisponível (OPENAI_API_KEY em falta?)" },

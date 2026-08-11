@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { getModel, refSuggestSchema } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 import { categories, getDb, refEntries } from "@/lib/db";
 
 export const maxDuration = 120;
@@ -15,11 +15,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   let categoryId: number;

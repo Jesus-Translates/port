@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IconCheck, IconLock } from "@/components/icons";
+import { IconCheck } from "@/components/icons";
 import { cn } from "@/lib/utils";
 
 /**
@@ -22,7 +22,7 @@ export type Stone = {
   slug: string;
   /** Short caption under the stone — the unit's pt-PT name. */
   label: string;
-  state: "done" | "current" | "locked";
+  state: "done" | "current" | "ahead";
 };
 
 /** The weave. Alternating left/right so the trail reads as a path, not a line. */
@@ -125,16 +125,26 @@ function StoneTile({ stone }: { stone: Stone }) {
     );
   }
 
+  /*
+   * Units ahead: quieter, but OPEN.
+   *
+   * These used to be padlocks — a non-link with a lock icon. The path is a
+   * picture of where you are, not a gate: someone who wants to read ahead, or
+   * skip a topic they already know, should be able to. Nothing on the server
+   * ever enforced the lock anyway, so the padlock only stopped the people
+   * honest enough to believe it.
+   */
   return (
     <>
-      {/* Locked stones are not links: a disabled control you can still tap is
-          worse than one that plainly cannot be. */}
-      <div
-        aria-label={`Bloqueado: ${stone.label}`}
-        className="grid size-[62px] rotate-45 place-items-center rounded-[18px] border-[1.5px] border-sand bg-cream"
+      <Link
+        href={`/unidades/${stone.slug}#caminho`}
+        aria-label={`Ver: ${stone.label}`}
+        className="grid size-[62px] rotate-45 place-items-center rounded-[18px] border-[1.5px] border-sand bg-cream transition-colors hover:border-sage hover:bg-sage-pale active:translate-y-0.5"
       >
-        <IconLock size={20} className="-rotate-45 text-ink-faint" />
-      </div>
+        <span className="-rotate-45 px-1.5 text-center font-display text-[12.5px] leading-tight font-semibold text-ink-faint">
+          {shortLabel(stone.label)}
+        </span>
+      </Link>
       <span className="mt-1 text-center text-[11.5px] text-ink-faint">
         {stone.label}
       </span>

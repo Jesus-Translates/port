@@ -7,6 +7,7 @@ import {
 } from "@/lib/auth";
 import { accounts, getDb, memberships, people, users } from "@/lib/db";
 import { hashPassword, passwordProblem } from "@/lib/password";
+import { planById } from "@/lib/plans";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { logActivity } from "@/lib/data";
 
@@ -141,7 +142,9 @@ export async function POST(request: NextRequest) {
   try {
     const [account] = await db
       .insert(accounts)
-      .values({ slug, name: familyName, plan: "family", seatLimit: 6 })
+      // Seats come from the plan, so changing the plan cannot silently
+      // leave new families on an old seat count.
+      .values({ slug, name: familyName, plan: "family", seatLimit: planById("family").seats })
       .returning({ id: accounts.id });
 
     const [person] = await db

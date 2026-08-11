@@ -35,6 +35,9 @@ type Msg = {
 
 type Summary = {
   resumoMd: string;
+  strengths: { quotePt: string; whyEn: string }[];
+  wordChoice: { saidPt: string; naturalPt: string; whyEn: string }[];
+  speech: { fluencyEn: string; soundTipEn: string };
   corrections: { saidPt: string; betterPt: string; tipEn: string }[];
   newWords: { pt: string; en: string }[];
   encouragementPt: string;
@@ -559,6 +562,57 @@ export function Conversa({
             👩‍🏫 {summary.encouragementPt}
           </p>
         </div>
+
+        {/* What went RIGHT, first and quoted. A learner who has just spoken a
+            foreign language out loud reads the first panel most carefully, and
+            leading with a list of mistakes is how speaking practice becomes
+            something people quietly stop doing. */}
+        {summary.strengths?.length > 0 ? (
+          <div className="card space-y-2 p-5">
+            <h3 className="font-semibold">✅ O que correu bem</h3>
+            {summary.strengths.map((s2, i) => (
+              <div key={i} className="rounded-xl border border-sage/40 bg-sage-pale/40 px-3 py-2 text-sm">
+                <p className="font-display text-base text-olive">“{s2.quotePt}”</p>
+                <p className="mt-0.5 text-xs text-ink-soft">{s2.whyEn}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
+
+        {summary.speech?.fluencyEn || summary.speech?.soundTipEn ? (
+          <div className="card space-y-2 p-5">
+            <h3 className="font-semibold">🎙️ Como falaste</h3>
+            {summary.speech.fluencyEn ? (
+              <p className="text-sm text-ink-soft">{summary.speech.fluencyEn}</p>
+            ) : null}
+            {summary.speech.soundTipEn ? (
+              <div className="rounded-xl bg-azul-pale/60 px-3 py-2 text-sm text-azul">
+                <Markdown className="text-sm">
+                  {`🗣️ ${summary.speech.soundTipEn}`}
+                </Markdown>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+
+        {/* Not mistakes — upgrades. Separated from "Diz melhor" on purpose:
+            being told a correct sentence was wrong is discouraging and untrue,
+            and this is where most of correct-to-fluent actually lives. */}
+        {summary.wordChoice?.length > 0 ? (
+          <div className="card space-y-2 p-5">
+            <h3 className="font-semibold">💡 Soaria mais natural</h3>
+            <p className="text-xs text-ink-faint">
+              Não estava errado — é só o que um português diria.
+            </p>
+            {summary.wordChoice.map((w, i) => (
+              <div key={i} className="rounded-xl border border-sand bg-white/70 px-3 py-2 text-sm">
+                <span className="text-ink-soft">{w.saidPt}</span>{" "}
+                → <strong className="text-olive">{w.naturalPt}</strong>
+                <p className="mt-0.5 text-xs text-ink-soft">{w.whyEn}</p>
+              </div>
+            ))}
+          </div>
+        ) : null}
 
         {summary.corrections.length > 0 ? (
           <div className="card space-y-2 p-5">

@@ -1,0 +1,1 @@
+ALTER TABLE "users" ALTER COLUMN "cefr_level" SET DEFAULT 'A1';

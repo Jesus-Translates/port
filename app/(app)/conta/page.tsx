@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
+import { UsageMeter } from "@/components/usage-meter";
 import { getBilling } from "@/lib/actions/billing";
-import { formatPlanPrice, plans, STATUS_PT } from "@/lib/plans";
+import { extraSeatEur, formatPlanPrice, plans, STATUS_PT } from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Plano" };
@@ -106,6 +107,8 @@ export default async function ContaPage() {
         ) : null}
       </section>
 
+      <UsageMeter />
+
       {/* Every plan, so the family can see what changing would mean. No
           checkout yet — the honest thing is to say so rather than render a
           button that does nothing. */}
@@ -142,6 +145,9 @@ export default async function ContaPage() {
                 <p className="mt-1.5 text-xs text-ink-soft">{p.blurbPt}</p>
                 <p className="mt-1 text-2xs text-ink-faint">
                   {p.seats === 1 ? "1 pessoa" : `até ${p.seats} pessoas`}
+                  {p.eur > 0 && p.seats > 1
+                    ? ` · +${formatPlanPrice(extraSeatEur())} por pessoa extra`
+                    : ""}
                 </p>
               </div>
             );

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { asc, count, eq, sql } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { isOperator, requireSession } from "@/lib/auth";
+import { planById } from "@/lib/plans";
 import { accounts, getDb, memberships, people, users } from "@/lib/db";
 
 /**
@@ -110,7 +111,7 @@ export async function createHousehold(input: {
   const plan = PLANS.includes(String(input.plan)) ? String(input.plan) : "family";
   const seatLimit = Math.min(
     50,
-    Math.max(1, Math.round(Number(input.seatLimit) || (plan === "individual" ? 1 : 6)))
+    Math.max(1, Math.round(Number(input.seatLimit) || planById(plan).seats))
   );
 
   const db = getDb();

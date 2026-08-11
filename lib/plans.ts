@@ -24,6 +24,12 @@ function priceFor(id: PlanId, fallback: number): number {
   return Number.isFinite(n) && n >= 0 ? n : fallback;
 }
 
+/** EUR per month for each seat beyond the plan's included ones. */
+export function extraSeatEur(): number {
+  const n = Number(process.env.PLAN_PRICE_EXTRA_SEAT);
+  return Number.isFinite(n) && n >= 0 ? n : 5;
+}
+
 export function plans(): Plan[] {
   return [
     {
@@ -36,18 +42,32 @@ export function plans(): Plan[] {
     {
       id: "individual",
       namePt: "Individual",
-      eur: priceFor("individual", 7.99),
+      eur: priceFor("individual", 10),
       seats: 1,
       blurbPt: "Uma pessoa, tudo incluído — Sandra, jogos e revisão.",
     },
     {
       id: "family",
       namePt: "Família",
-      eur: priceFor("family", 14.99),
-      seats: 6,
-      blurbPt: "Até seis pessoas em casa, cada uma com o seu caminho.",
+      eur: priceFor("family", 25),
+      seats: 5,
+      blurbPt: "Até cinco pessoas em casa, cada uma com o seu caminho.",
     },
   ];
+}
+
+/**
+ * What a household actually invoices per month: the plan, plus every seat
+ * beyond the ones it includes.
+ *
+ * Seats are the only thing that scales cost — one plan price against an
+ * unbounded number of learners is a promise to lose money on the largest
+ * families, which are exactly the ones the family plan attracts.
+ */
+export function grossMonthlyEur(planId: string, seatLimit: number): number {
+  const plan = planById(planId);
+  const extra = Math.max(0, Math.round(seatLimit) - plan.seats);
+  return plan.eur + extra * (plan.eur > 0 ? extraSeatEur() : 0);
 }
 
 export function planById(id: string): Plan {

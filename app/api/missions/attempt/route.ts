@@ -8,7 +8,7 @@ import { getSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { getDb, missionAttempts, missions } from "@/lib/db";
 import { addMistakeCard } from "@/lib/srs";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
@@ -34,11 +34,10 @@ export async function POST(request: NextRequest) {
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
   const key = process.env.OPENAI_API_KEY;
   if (!key || !key.startsWith("sk-")) {

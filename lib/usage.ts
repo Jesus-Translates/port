@@ -193,6 +193,52 @@ async function spendByUser(
   }));
 }
 
+export type AiDenial = { error: string; status: number };
+
+/**
+ * ONE gate for every billable AI path.
+ *
+ * There are two different reasons to refuse a call and they need two different
+ * answers. A burst limit means "wait a moment"; a spent allowance means "this
+ * is gone until the month turns" — telling someone to wait a few minutes for
+ * something that will not come back for three weeks is the kind of message
+ * that produces a support email and a refund request.
+ *
+ * The budget import is dynamic so lib/usage stays free of a cycle: budget.ts
+ * needs usdToEur() from here.
+ */
+export async function aiDenial(username: string): Promise<AiDenial | null> {
+  if (await aiRateLimited(username)) {
+    return {
+      error: "Calma! Muitos pedidos à Sandra — espera uns minutos.",
+      status: 429,
+    };
+  }
+  try {
+    const { budgetState } = await import("@/lib/budget");
+    const b = await budgetState();
+    if (b.blocked === "month") {
+      return {
+        error:
+          "A tua família já usou a IA incluída neste mês. Renova no dia 1 — " +
+          "as revisões, o vocabulário e os exercícios continuam a funcionar.",
+        status: 429,
+      };
+    }
+    if (b.blocked === "day") {
+      return {
+        error:
+          "Já usaram bastante IA hoje. Volta amanhã — as revisões, o " +
+          "vocabulário e os exercícios continuam a funcionar.",
+        status: 429,
+      };
+    }
+  } catch {
+    // Never let the meter take the app away from someone who paid for it.
+  }
+  return null;
+}
+
 export function formatEur(v: number): string {
   // Sub-cent spend should read as "<0,01 €", not "0,00 €".
   if (v > 0 && v < 0.01) return "<0,01 €";

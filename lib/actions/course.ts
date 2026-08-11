@@ -377,15 +377,19 @@ export async function completeAndNext(
  *
  * "Current" is the FIRST unfinished unit in syllabus order — the same rule the
  * unit list uses for "A seguir", so the path and the list can never disagree
- * about where you are. Everything after it is locked: a path where you can
- * jump to stone nine is a list with extra steps.
+ * about where you are.
+ *
+ * Units AHEAD are not locked. The path says where you are, it does not decide
+ * where you may go: an adult who wants to read next week's unit tonight, or
+ * skip a topic they already know, should not be told no by their own
+ * textbook. The stones ahead simply look quieter than the one you are on.
  *
  * Nine at most. The design's weave is nine offsets, and a longer path stops
  * being a glance and becomes a scroll.
  */
 export async function getCaminho(
   limit = 9
-): Promise<{ slug: string; label: string; state: "done" | "current" | "locked" }[]> {
+): Promise<{ slug: string; label: string; state: "done" | "current" | "ahead" }[]> {
   const session = await requireSession();
   const level = await getCefrFor(session.username);
   const db = getDb();
@@ -425,7 +429,7 @@ export async function getCaminho(
           ? ("done" as const)
           : absolute === currentIndex
             ? ("current" as const)
-            : ("locked" as const),
+            : ("ahead" as const),
     };
   });
 }

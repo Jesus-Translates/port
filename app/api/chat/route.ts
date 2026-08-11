@@ -11,7 +11,7 @@ import { getCefrFor } from "@/lib/data";
 import { getSession } from "@/lib/auth";
 import { householdMembers } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
@@ -21,11 +21,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   let body: { messages: UIMessage[]; context?: string };

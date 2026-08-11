@@ -424,13 +424,25 @@ async function openaiSynthesize(
 export async function getTtsAudio(
   text: string,
   username: string,
-  /**
-   * Pin the voice instead of hashing the text for one. Pass sandraVoice() for
-   * anything the tutor says; leave it off for library content, where rotation
-   * is the feature.
-   */
-  voice?: string
+  opts: {
+    /**
+     * Pin the voice instead of hashing the text for one. Pass sandraVoice()
+     * for anything the tutor says; leave it off for library content, where
+     * rotation is the feature.
+     */
+    voice?: string;
+    /**
+     * Serve from cache or not at all.
+     *
+     * A household that has spent its allowance must still be able to REPLAY
+     * audio — the bytes already exist and cost nothing to send. Only new
+     * synthesis is refused. Without this, running out of allowance would mute
+     * the phrasebook a family already paid to generate.
+     */
+    cachedOnly?: boolean;
+  } = {}
 ): Promise<Buffer | null> {
+  const { voice, cachedOnly = false } = opts;
   const clean = text.trim().slice(0, 1600);
   if (!clean) return null;
 
@@ -449,6 +461,9 @@ export async function getTtsAudio(
   } else if (cached?.audioB64) {
     return Buffer.from(cached.audioB64, "base64");
   }
+
+  // Cache missed and we are not allowed to spend: no audio, no charge.
+  if (cachedOnly) return null;
 
   let buf: Buffer | null = null;
   let voiceUsed = "";

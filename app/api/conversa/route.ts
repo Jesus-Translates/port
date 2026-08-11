@@ -13,7 +13,7 @@ import {
   sandraVoice,
   ssmlFor,
 } from "@/lib/tts";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
 
@@ -82,6 +82,53 @@ const summarySchema = z.object({
   resumoMd: z
     .string()
     .describe("2-4 English markdown sentences: what was discussed and what the learner did well."),
+  /*
+   * Three kinds of feedback, kept apart on purpose.
+   *
+   * `strengths` is what they actually did well, QUOTED — praise that names a
+   * real sentence is the only praise a learner believes. `wordChoice` is the
+   * upgrade path: things that were not wrong but that a Portuguese person
+   * would have said differently, which is most of the distance between
+   * correct and fluent and is invisible if you only ever list errors.
+   * `corrections` stays what it was — actual mistakes.
+   *
+   * Collapsing these into one list is what makes feedback feel either
+   * dishonestly nice or relentlessly negative.
+   */
+  strengths: z
+    .array(
+      z.object({
+        quotePt: z.string().describe("Something the learner ACTUALLY said, verbatim."),
+        whyEn: z.string().describe("Why it worked, in ≤ 18 English words. Be specific — 'you used the personal infinitive correctly', not 'good job'."),
+      })
+    )
+    .max(3)
+    .describe("Real strengths, quoted. Empty only if the learner barely spoke."),
+  wordChoice: z
+    .array(
+      z.object({
+        saidPt: z.string().describe("What they said — correct, but not what a native would pick."),
+        naturalPt: z.string().describe("What a Portuguese person would say instead."),
+        whyEn: z.string().describe("The difference, in ≤ 20 English words."),
+      })
+    )
+    .max(4)
+    .describe("NOT errors — natural-sounding upgrades. Empty if their word choice was already idiomatic."),
+  speech: z.object({
+    fluencyEn: z
+      .string()
+      .describe(
+        "2-3 honest English sentences on HOW they spoke: length of turns, whether they built full sentences or single words, " +
+          "whether they took initiative or only answered, and range of vocabulary and tenses. Encouraging but truthful — " +
+          "if they answered every question with one word, say so kindly and say what to try instead."
+      ),
+    soundTipEn: z
+      .string()
+      .describe(
+        "One European Portuguese pronunciation pointer tied to a word they actually used: the sound in **bold** and what the mouth does. " +
+          "You are reading a TRANSCRIPT and cannot hear them, so teach the sound — never claim to have judged their accent."
+      ),
+  }),
   corrections: z
     .array(
       z.object({
@@ -162,7 +209,9 @@ async function speak(
     }
     // Still Sandra on the fallback path — pin her voice rather than letting
     // the cache hash the text into whoever it lands on.
-    const buf = await getTtsAudio(text, username, voice || sandraVoice());
+    const buf = await getTtsAudio(text, username, {
+      voice: voice || sandraVoice(),
+    });
     return buf ? buf.toString("base64") : null;
   } catch {
     return null;
@@ -257,11 +306,10 @@ export async function POST(request: NextRequest) {
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   const contentType = request.headers.get("content-type") ?? "";
@@ -444,11 +492,24 @@ You are reviewing a finished spoken conversation with ${session.displayName} (CE
 
 ${SPEAKING_COACHING}
 
-Only flag real word-choice, verb-form or phrasing errors. corrections must quote things the learner ACTUALLY said.
-newWords are useful pt-PT words or short phrases that came up (from either speaker) and are worth reviewing later.
-Be generous and specific about what went well.
-resumoMd must END with the pronunciation pointer on its own final line, written as "🗣️ …" — the sound in **bold** and
-what the mouth does, tied to a word they actually used. Never close the conversation without it.`,
+This is the moment the learner finds out whether speaking was worth the nerve it took. Be warm AND be useful — praise
+with nothing specific in it reads as politeness, and a list of faults reads as a verdict. Give them both, plainly.
+
+- strengths: quote what they ACTUALLY said and name why it worked. Never invent a quote. If they genuinely said very
+  little, say something true and small rather than something generous and hollow.
+- wordChoice: things that were CORRECT but not what a Portuguese person would say. This is most of the distance between
+  understandable and fluent, and it is invisible to a learner who only ever sees their errors. Leave it empty if their
+  Portuguese was already idiomatic — do not manufacture upgrades.
+- corrections: only real word-choice, verb-form or phrasing ERRORS, quoting things the learner actually said.
+- speech.fluencyEn: how they held up the conversation — turn length, full sentences vs single words, whether they asked
+  anything back, range of vocabulary and tenses. Be honest here. If every answer was one word, say so kindly and say
+  exactly what to try next time; a learner who is told "great job" after ten one-word answers learns nothing.
+- speech.soundTipEn: you are reading a TRANSCRIPT of speech-to-text. You did not hear them and you cannot judge their
+  accent — never imply otherwise. Teach one European Portuguese sound instead, tied to a word they actually used.
+- newWords: useful pt-PT words or short phrases that came up (from either speaker) and are worth reviewing later.
+
+resumoMd stays a short 2-4 sentence English recap of what was discussed. The pointer now lives in speech.soundTipEn, so
+do NOT repeat it there.`,
         prompt: `TOPIC: ${topic}\n\nTRANSCRIPT:\n${transcriptOf(history)}`,
       };
       let output: z.infer<typeof summarySchema>;
@@ -465,6 +526,11 @@ what the mouth does, tied to a word they actually used. Never close the conversa
         if (!loose?.success || !loose.data.resumoMd) throw err;
         output = {
           resumoMd: loose.data.resumoMd,
+          strengths: loose.data.strengths ?? [],
+          wordChoice: loose.data.wordChoice ?? [],
+          // A salvaged response may have lost the nested object entirely.
+          // Empty strings render as nothing rather than as a broken panel.
+          speech: loose.data.speech ?? { fluencyEn: "", soundTipEn: "" },
           corrections: loose.data.corrections ?? [],
           newWords: loose.data.newWords ?? [],
           encouragementPt: loose.data.encouragementPt ?? "Continua assim! 💪",

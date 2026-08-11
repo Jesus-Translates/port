@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getModel, suggestSchema } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 import {
   getCategoriesWithCounts,
   getCefrFor,
@@ -19,11 +19,10 @@ export async function POST() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   const [stats, cats, mine, cefr] = await Promise.all([

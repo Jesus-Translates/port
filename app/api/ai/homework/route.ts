@@ -8,7 +8,7 @@ import {
 import { currentStyle, referenceContext } from "@/lib/place";
 import { roleOf, getSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 import { CEFR_LEVELS, getCefrFor, logActivity } from "@/lib/data";
 import { getDb, homework } from "@/lib/db";
 import {
@@ -25,11 +25,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   let body: {

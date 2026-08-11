@@ -2,6 +2,7 @@
 
 import { and, eq, gte, inArray, sql } from "drizzle-orm";
 import { requireOperator } from "@/lib/auth";
+import { grossMonthlyEur } from "@/lib/plans";
 import {
   accounts,
   aiUsage,
@@ -30,13 +31,15 @@ import { usdToEur } from "@/lib/usage";
  * collected revenue only becomes knowable once Stripe is wired, and the panel
  * says so rather than dressing an estimate up as an invoice.
  */
-function planPriceEur(plan: string): number {
-  const env = Number(
-    process.env[`PLAN_PRICE_${plan.toUpperCase().replace(/[^A-Z0-9]/g, "_")}`]
-  );
-  if (env > 0) return env;
-  return plan === "family" ? 14.99 : plan === "individual" ? 7.99 : 0;
-}
+/*
+ * Prices come from lib/plans.ts and nowhere else.
+ *
+ * This file used to carry its OWN copy of the table — 14,99 and 7,99 — which
+ * is precisely the drift plans.ts exists to prevent: the operator's revenue
+ * report and the family's own billing screen quoting different numbers for the
+ * same subscription. grossMonthlyEur also counts seats beyond the plan, which
+ * a flat lookup by plan name silently dropped.
+ */
 
 /** A subscription in one of these states is one we can expect to be paid for. */
 const PAYING = ["active", "trialing"];
@@ -159,7 +162,7 @@ export async function getHouseholdReports(): Promise<ReportsSummary> {
 
     const sub = subByAccount.get(a.id);
     const paying = Boolean(sub && PAYING.includes(sub.status));
-    const revenueMonth = paying ? planPriceEur(a.plan) : 0;
+    const revenueMonth = paying ? grossMonthlyEur(a.plan, a.seatLimit) : 0;
 
     return {
       accountId: a.id,

@@ -8,7 +8,7 @@ import { getSession } from "@/lib/auth";
 import { householdMembers } from "@/lib/tenant";
 import { categories, getDb, unitItems, units } from "@/lib/db";
 import { visibleOwners } from "@/lib/tenant";
-import { aiRateLimited, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 
 /** Display names of my household — never every account on the instance. */
 async function householdNames(): Promise<string[]> {
@@ -108,11 +108,10 @@ export async function POST(request: NextRequest) {
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
-  if (await aiRateLimited(session.username)) {
-    return NextResponse.json(
-      { error: "Calma! Muitos pedidos à Sandra — espera uns minutos." },
-      { status: 429 }
-    );
+  // Burst limit AND the household's monthly AI allowance, in one check.
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   let body: { topic?: string; cefr?: string };

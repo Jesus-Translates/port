@@ -14,7 +14,8 @@ export const users = pgTable("users", {
   username: text("username").notNull().unique(),
   displayName: text("display_name").notNull(),
   // A1 | A2 | B1 | B2 — set by the placement quiz, filters default to level ±1.
-  cefrLevel: text("cefr_level").notNull().default("A2"),
+  // A1 until the placement test says otherwise — see DEFAULT_CEFR.
+  cefrLevel: text("cefr_level").notNull().default("A1"),
   // Where the learner actually lives, asked during onboarding. null means not
   // asked yet, which is NOT the same as "no" — generated content stays generic
   // until we know, rather than guessing at a town.

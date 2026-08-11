@@ -14,7 +14,14 @@ import {
 import { householdUsernames, visibleOwners } from "@/lib/tenant";
 
 export const CEFR_LEVELS = ["A1", "A2", "B1", "B2"] as const;
-export const DEFAULT_CEFR = "A2";
+/**
+ * Where a new learner starts.
+ *
+ * A1, not A2. The placement test moves you UP; nobody should be dropped into
+ * a level they never demonstrated, and a beginner meeting A2 content on day
+ * one concludes the app is not for them.
+ */
+export const DEFAULT_CEFR = "A1";
 
 /** Anyone's stored level. Server-only (not a server action) so a client can't
  *  probe other people's rows. Falls back to the default, never throws. */
