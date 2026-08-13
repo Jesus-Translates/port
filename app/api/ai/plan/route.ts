@@ -1,14 +1,14 @@
 import { generateText, Output } from "ai";
 import { NextResponse } from "next/server";
 import { z } from "zod";
-import { getModel, SANDRA } from "@/lib/ai";
+import { getSmartModel, smartModelId, SANDRA } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { getCefrFor } from "@/lib/data";
 import { currentStyle } from "@/lib/place";
 import { getPlacementRecord, savePlacementRecord } from "@/lib/actions/placement";
 import { getMyPrefs } from "@/lib/actions/profile";
 import { DEFAULT_PREFS, QUESTIONS } from "@/lib/learning-path";
-import { aiDenial, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 60;
 
@@ -61,7 +61,8 @@ export async function POST() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const denied = await aiDenial(session.username);
+  // Onboarding is never refused for budget — see aiDenial({essential}).
+  const denied = await aiDenial(session.username, { essential: true });
   if (denied) {
     return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
@@ -87,7 +88,7 @@ export async function POST() {
       : "- No specific gaps recorded; treat this as a fresh start at their level.";
 
   const { output, usage } = await generateText({
-    model: getModel(),
+    model: getSmartModel(),
     output: Output.object({ schema }),
     instructions: `${SANDRA}
 
@@ -110,7 +111,8 @@ HOW THEY WANT TO STUDY:
 ${answers}`,
   });
 
-  await recordUsage(session.username, "lesson", modelId(), usage);
+  // Billed against the model actually used, not the default one.
+  await recordUsage(session.username, "lesson", smartModelId(), usage);
 
   const plan = {
     introEn: output.introEn,

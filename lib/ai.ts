@@ -20,6 +20,42 @@ export function getModel(): LanguageModel {
   return id;
 }
 
+/**
+ * The stronger model, for the few calls where being right matters most.
+ *
+ * Most of what this app generates is cheap and repeated — a quiz, a game
+ * round, a reply in a chat — and luna is the right tool for all of it. Three
+ * things are not like that: the placement assessment, the summary that tells a
+ * learner what their Portuguese is actually like, and the plan built from it.
+ *
+ * Each happens ONCE per learner, at the exact moment they decide whether this
+ * app understands them. Getting those wrong is not a rounding error in a
+ * monthly bill, it is the first impression. At roughly a third of a cent per
+ * call the difference is invisible against a €25 subscription and very visible
+ * on the screen.
+ *
+ * AI_MODEL_SMART overrides; it falls back to AI_MODEL so a deployment that
+ * sets neither behaves exactly as before.
+ */
+export function getSmartModel(): LanguageModel {
+  const id = smartModelId();
+  const openaiKey = process.env.OPENAI_API_KEY;
+  if (openaiKey && openaiKey.startsWith("sk-") && id.startsWith("openai/")) {
+    const openai = createOpenAI({ apiKey: openaiKey });
+    return openai(id.slice("openai/".length));
+  }
+  return id;
+}
+
+/** The id the smart model bills under — usage must record what it really used. */
+export function smartModelId(): string {
+  return (
+    process.env.AI_MODEL_SMART ??
+    process.env.AI_MODEL ??
+    "openai/gpt-5.6-sol"
+  );
+}
+
 export const PT_STYLE = `You are writing EUROPEAN Portuguese (português europeu, pt-PT) for learners in Portugal. Brazilian Portuguese is wrong here.
 
 GRAMMAR — the three that give you away:

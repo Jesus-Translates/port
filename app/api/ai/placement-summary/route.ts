@@ -1,12 +1,12 @@
 import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
-import { getModel, SANDRA } from "@/lib/ai";
+import { getSmartModel, smartModelId, SANDRA } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { currentStyle } from "@/lib/place";
 import { BANK, LEVELS } from "@/lib/placement";
 import { savePlacementRecord } from "@/lib/actions/placement";
-import { aiDenial, modelId, recordUsage } from "@/lib/usage";
+import { aiDenial, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 60;
 
@@ -68,7 +68,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  const denied = await aiDenial(session.username);
+  // Onboarding is never refused for budget — see aiDenial({essential}).
+  const denied = await aiDenial(session.username, { essential: true });
   if (denied) {
     return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
@@ -122,7 +123,7 @@ export async function POST(request: NextRequest) {
     .filter((m): m is NonNullable<typeof m> => m !== null);
 
   const { output, usage } = await generateText({
-    model: getModel(),
+    model: getSmartModel(),
     output: Output.object({ schema }),
     instructions: `${SANDRA}
 
@@ -151,7 +152,8 @@ ${
 }`,
   });
 
-  await recordUsage(session.username, "grade", modelId(), usage);
+  // Billed against the model actually used, not the default one.
+  await recordUsage(session.username, "grade", smartModelId(), usage);
 
   // Kept because the questionnaire runs next and builds the plan from exactly
   // these gaps — they have to survive the navigation.

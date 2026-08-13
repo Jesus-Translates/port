@@ -207,13 +207,32 @@ export type AiDenial = { error: string; status: number };
  * The budget import is dynamic so lib/usage stays free of a cycle: budget.ts
  * needs usdToEur() from here.
  */
-export async function aiDenial(username: string): Promise<AiDenial | null> {
+export async function aiDenial(
+  username: string,
+  opts: {
+    /**
+     * Skip the monthly allowance, but NOT the burst limit.
+     *
+     * For the two calls that happen once per learner during onboarding: the
+     * assessment of their Portuguese and the plan built from it. A household
+     * that adds a sixth person in the last week of the month would otherwise
+     * hand that person a broken first impression to save a third of a cent —
+     * which is the worst possible trade in a product whose whole promise is
+     * that it understands you.
+     *
+     * Bounded on purpose: twice per learner, ever. It cannot be the thing that
+     * blows a budget, and the burst limit still stops a script.
+     */
+    essential?: boolean;
+  } = {}
+): Promise<AiDenial | null> {
   if (await aiRateLimited(username)) {
     return {
       error: "Calma! Muitos pedidos à Sandra — espera uns minutos.",
       status: 429,
     };
   }
+  if (opts.essential) return null;
   try {
     const { budgetState } = await import("@/lib/budget");
     const b = await budgetState();
