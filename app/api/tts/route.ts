@@ -1,9 +1,10 @@
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getDb, quizzes, refEntries } from "@/lib/db";
 import { getTtsAudio } from "@/lib/tts";
 import { budgetState } from "@/lib/budget";
+import { inMyHousehold, visibleOwners } from "@/lib/tenant";
 
 export const maxDuration = 60;
 
@@ -27,21 +28,37 @@ export async function GET(request: NextRequest) {
 
   const entryId = Number(p.get("entry"));
   const quizId = Number(p.get("quiz"));
+  /*
+   * Both id modes are SCOPED.
+   *
+   * They looked safe because neither returns text to the browser — but they
+   * return the AUDIO of it, which is the same disclosure out loud. Walking
+   * ids let anyone hear another family's phrasebook additions, or the audio
+   * script of a quiz built for their child.
+   */
   if (Number.isInteger(entryId) && entryId > 0) {
     const [e] = await getDb()
       .select({ pt: refEntries.pt })
       .from(refEntries)
-      .where(eq(refEntries.id, entryId))
+      .where(
+        and(
+          eq(refEntries.id, entryId),
+          inArray(refEntries.addedBy, await visibleOwners())
+        )
+      )
       .limit(1);
     // pt only — ditado depends on the listener not being able to read it.
     text = e?.pt ?? null;
   } else if (Number.isInteger(quizId) && quizId > 0) {
     const [q] = await getDb()
-      .select({ questions: quizzes.questions })
+      .select({ questions: quizzes.questions, username: quizzes.username })
       .from(quizzes)
       .where(eq(quizzes.id, quizId))
       .limit(1);
-    const script = (q?.questions as { audioScript?: string } | null)?.audioScript;
+    const script =
+      q && (await inMyHousehold(q.username))
+        ? (q.questions as { audioScript?: string } | null)?.audioScript
+        : null;
     text = script ?? null;
   } else if (p.get("placement")) {
     const { BANK } = await import("@/lib/placement");

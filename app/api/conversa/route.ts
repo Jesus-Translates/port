@@ -6,13 +6,7 @@ import { currentStyle, referenceContext } from "@/lib/place";
 import { getSession, type Session } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
 import { addMistakeCard } from "@/lib/srs";
-import {
-  azureConfigured,
-  azureSynthesizeSsml,
-  getTtsAudio,
-  sandraVoice,
-  ssmlFor,
-} from "@/lib/tts";
+import { azureConfigured, getTtsAudio, sandraVoice } from "@/lib/tts";
 import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 120;
@@ -25,8 +19,11 @@ export const maxDuration = 120;
  *                generate Sandra's next line, return it with inline audio.
  *   mode=end   — grade the whole transcript: summary, corrections (→ mistake
  *                cards), new words worth saving, XP.
- * Audio is synthesized inline and NOT cached — every line is one-off, and a
- * fixed per-session voice matters more than cache hits mid-conversation.
+ * Audio is returned inline as base64 and DOES go through the TTS cache. It
+ * used to bypass it on the theory that every line is one-off; most are, and
+ * simply miss — but Sandra's stock lines recur constantly and a resumed
+ * conversation replayed every earlier line at full price, in the app's most
+ * expensive currency.
  */
 
 const RANDOM_TOPICS = [
@@ -199,16 +196,20 @@ async function speak(
   username: string
 ): Promise<string | null> {
   try {
-    if (azureConfigured() && voice) {
-      // Billing happens inside azureSynthesizeSsml, on the exact SSML sent.
-      const buf = await azureSynthesizeSsml(
-        ssmlFor(text, voice, "0.92"),
-        username
-      );
-      if (buf) return buf.toString("base64");
-    }
-    // Still Sandra on the fallback path — pin her voice rather than letting
-    // the cache hash the text into whoever it lands on.
+    /*
+     * Through the CACHE, not around it.
+     *
+     * This called azureSynthesizeSsml directly, so nothing conversa ever said
+     * was looked up or stored — and speech is ~86% of this app's AI bill.
+     * Most of Sandra's lines are one-offs and will simply miss, which costs
+     * nothing; her stock lines ("Não percebi bem — podes repetir?", the
+     * greetings, the transitions) recur constantly, and resuming a
+     * conversation replayed every earlier line at full price.
+     *
+     * The cache key already includes the voice (lib/tts.ts ttsHash), so
+     * pinning Sandra's voice and caching are compatible — which is what made
+     * this a one-line fix rather than a redesign.
+     */
     const buf = await getTtsAudio(text, username, {
       voice: voice || sandraVoice(),
     });
