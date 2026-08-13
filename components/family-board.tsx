@@ -218,9 +218,7 @@ function KudosForm({
         rows={2}
         className="input resize-y"
         placeholder={
-          isStar
-            ? "Porquê? (opcional) (opcional)"
-            : "Escreve algo encorajador…"
+          isStar ? "Porquê? (opcional)" : "Escreve algo encorajador…"
         }
       />
       <div className="flex flex-wrap gap-1.5">

@@ -461,7 +461,7 @@ export function VerbTest({
                   <div
                     className={cn(
                       "text-2xs",
-                      regularity === r.key ? "text-paper/80" : "text-ink-faint"
+                      regularity === r.key ? "text-paper/95" : "text-ink-faint"
                     )}
                   >
                     {r.sub}
@@ -494,7 +494,7 @@ export function VerbTest({
                   <div
                     className={cn(
                       "text-2xs",
-                      types.includes(t) ? "text-paper/80" : "text-ink-faint"
+                      types.includes(t) ? "text-paper/95" : "text-ink-faint"
                     )}
                   >
                     {TYPE_META[t].sub}

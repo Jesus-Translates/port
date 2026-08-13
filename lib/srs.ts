@@ -6,7 +6,8 @@ import {
   type Card as FsrsCard,
   type Grade,
 } from "ts-fsrs";
-import { and, asc, eq, gt, gte, lte, ne, sql } from "drizzle-orm";
+import { cache } from "react";
+import { and, asc, eq, gt, gte, inArray, lte, ne, sql } from "drizzle-orm";
 import { cards, getDb, refEntries, reviewLogs } from "@/lib/db";
 
 // Default FSRS-6 weights, 90% retention target. Fuzz spreads due times so
@@ -131,7 +132,10 @@ export async function getFlashQueue(username: string, n = 5) {
     .limit(n);
 }
 
-export async function countDue(username: string): Promise<number> {
+/** cache(): the dashboard and the next-action card both ask in one render.
+ *  No caller writes cards before reading this in the same request, and new
+ *  mistake cards are state 0 — invisible to this count anyway. */
+export const countDue = cache(async (username: string): Promise<number> => {
   const db = getDb();
   const now = new Date();
   const [row] = await db
@@ -141,7 +145,7 @@ export async function countDue(username: string): Promise<number> {
       and(eq(cards.username, username), gt(cards.state, 0), lte(cards.due, now))
     );
   return Number(row?.n ?? 0);
-}
+});
 
 /** Insert a card unless the user already has one with the same identity. */
 export async function upsertCard(input: {
@@ -201,6 +205,68 @@ export async function addMistakeCard(
       back: correctedPt,
       note: tip ?? null,
     });
+  } catch {
+    // never block grading on this
+  }
+}
+
+/**
+ * Every miss from one submission at once: one select of the fronts the user
+ * already has, one multi-row insert. The quiz and game close-outs used to loop
+ * addMistakeCard — two round trips per miss, sequentially, on Neon's HTTP
+ * driver — which put up to 40 network waits between "submit" and the results.
+ * Same identity rule and same fire-and-forget contract as the single version.
+ */
+export async function addMistakeCards(
+  username: string,
+  misses: { prompt: string; correctedPt: string; tip?: string | null }[]
+): Promise<void> {
+  try {
+    // First occurrence wins on duplicate fronts, exactly as the loop did.
+    const byFront = new Map<string, { front: string; back: string; note: string | null }>();
+    for (const m of misses) {
+      const front = (m.prompt ?? "").trim().slice(0, 500);
+      const back = (m.correctedPt ?? "").trim().slice(0, 500);
+      if (!front || !back || byFront.has(front)) continue;
+      byFront.set(front, {
+        front,
+        back,
+        note: m.tip?.trim().slice(0, 500) || null,
+      });
+    }
+    if (byFront.size === 0) return;
+
+    const db = getDb();
+    const existing = await db
+      .select({ front: cards.front })
+      .from(cards)
+      .where(
+        and(
+          eq(cards.username, username),
+          eq(cards.kind, "mistake"),
+          inArray(cards.front, [...byFront.keys()])
+        )
+      );
+    for (const row of existing) byFront.delete(row.front);
+    if (byFront.size === 0) return;
+
+    await db.insert(cards).values(
+      [...byFront.values()].map((m) => {
+        const state = emptyCard();
+        return {
+          username,
+          kind: "mistake",
+          sourceId: null,
+          front: m.front,
+          back: m.back,
+          note: m.note,
+          direction: "en-pt",
+          fsrs: state,
+          due: state.due,
+          state: 0,
+        };
+      })
+    );
   } catch {
     // never block grading on this
   }

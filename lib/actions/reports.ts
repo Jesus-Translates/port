@@ -12,7 +12,7 @@ import {
   subscriptions,
   users,
 } from "@/lib/db";
-import { usdToEur } from "@/lib/usage";
+import { lisbonMonthStart, usdToEur } from "@/lib/usage";
 
 /**
  * Per-household reporting: what each account costs to run, what it brings in,
@@ -81,7 +81,11 @@ export async function getHouseholdReports(): Promise<ReportsSummary> {
   await requireOperator();
   const db = getDb();
   const rate = usdToEur();
-  const monthStart = sql`date_trunc('month', now())`;
+  // Lisbon month start, same helper as /gastos and the budget gate. The old
+  // date_trunc('month', now()) here was UTC, so for an hour either side of
+  // the month boundary the operator report disagreed with what every family
+  // saw on its own spend page.
+  const monthStart = lisbonMonthStart();
 
   const [accountRows, memberRows, subRows, userRows] = await Promise.all([
     db.select().from(accounts),
@@ -237,7 +241,7 @@ export async function getHouseholdMembers(
       .where(
         and(
           inArray(aiUsage.username, names),
-          gte(aiUsage.createdAt, sql`date_trunc('month', now())`)
+          gte(aiUsage.createdAt, lisbonMonthStart())
         )
       )
       .groupBy(aiUsage.username),

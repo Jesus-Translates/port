@@ -98,8 +98,13 @@ export type SpendSummary = {
 
 /** First instant of the current month in the family's timezone (±1h at the
  *  DST boundary — fine for a spend display, and it keeps the month label on
- *  /gastos and the totals in agreement). */
-function lisbonMonthStart(): Date {
+ *  /gastos and the totals in agreement).
+ *
+ *  THE definition of "this month" for every money query. There used to be
+ *  three: two identical copies here and in lib/budget.ts, and a UTC
+ *  date_trunc in the operator reports — so /gastos and the revenue report
+ *  could disagree for an hour either side of the month boundary. */
+export function lisbonMonthStart(): Date {
   const day = new Date().toLocaleDateString("en-CA", {
     timeZone: "Europe/Lisbon",
   });

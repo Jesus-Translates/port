@@ -4,7 +4,7 @@ import { accounts, aiUsage, getDb } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { grossMonthlyEur } from "@/lib/plans";
 import { currentAccountId, householdUsernames } from "@/lib/tenant";
-import { usdToEur } from "@/lib/usage";
+import { lisbonMonthStart, usdToEur } from "@/lib/usage";
 
 /**
  * The margin guard.
@@ -97,13 +97,6 @@ function lisbonDayStart(): Date {
     timeZone: "Europe/Lisbon",
   });
   return new Date(`${day}T00:00:00Z`);
-}
-
-function lisbonMonthStart(): Date {
-  const day = new Date().toLocaleDateString("en-CA", {
-    timeZone: "Europe/Lisbon",
-  });
-  return new Date(`${day.slice(0, 7)}-01T00:00:00Z`);
 }
 
 export type BudgetState = {

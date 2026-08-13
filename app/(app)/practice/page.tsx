@@ -138,6 +138,11 @@ export default async function PracticePage(props: PageProps<"/practice">) {
         <Link href="/notes" className="hover:text-olive">
           📝 Notas · os teus apontamentos
         </Link>
+        {/* Otherwise /homework is only linked from inside an open TPC — a
+            learner with nothing due had no way back to their history. */}
+        <Link href="/homework" className="hover:text-olive">
+          ✍️ TPC · os teus trabalhos de casa
+        </Link>
         <Link href="/practice/ciple" className="hover:text-olive">
           🎓 CIPLE · preparação do exame
         </Link>

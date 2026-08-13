@@ -3,7 +3,7 @@ import { asc, eq, sql } from "drizzle-orm";
 import { UnitGenerate } from "@/components/unit-generate";
 import { getUnitProgress } from "@/lib/actions/course";
 import { getMyCefr } from "@/lib/actions/profile";
-import { isOperator, roleOf, requireSession } from "@/lib/auth";
+import { isOperator, requireSession } from "@/lib/auth";
 import { getDb, unitItems, units } from "@/lib/db";
 
 export const metadata = { title: "Unidades" };
@@ -105,16 +105,16 @@ export default async function UnidadesPage() {
           const inLevel = rows.filter((r) => r.cefr === level);
           if (inLevel.length === 0) return null;
           const isMine = level === myLevel;
-          return (
-            /**
-             * Only the learner's own level is open. 126 units listed at once
-             * reads as a mountain; the other levels collapse to one line each
-             * that opens on demand, so nothing is hidden and nothing shouts.
-             */
-            <section key={level}>
-              <details open={isMine} className={isMine ? "" : "card px-4 py-3"}>
-                <summary className={isMine ? "list-none" : "cursor-pointer text-sm text-ink-soft"}>
-              <h2 className="mb-2 flex flex-wrap items-baseline gap-2 font-display text-lg font-semibold">
+          /**
+           * Only the learner's own level is expanded. 126 units listed at
+           * once reads as a mountain; the other levels collapse to one line
+           * each that opens on demand. The learner's own level is a plain
+           * section rather than an open <details>: its summary hid the
+           * marker, so a stray tap on the heading folded the whole course
+           * away with no affordance to explain what happened or how to undo.
+           */
+          const heading = (
+            <h2 className="mb-2 flex flex-wrap items-baseline gap-2 font-display text-lg font-semibold">
                 {level}
                 {level === myLevel ? (
                   <>
@@ -135,11 +135,10 @@ export default async function UnidadesPage() {
                     {inLevel.length} unidades
                   </span>
                 )}
-              </h2>
-                </summary>
-              <div
-                className="mt-3 grid gap-3 sm:grid-cols-2"
-              >
+            </h2>
+          );
+          const grid = (
+            <div className="mt-3 grid gap-3 sm:grid-cols-2">
                 {inLevel.map((u) => {
                   const p = pctFor.get(u.id);
                   const walked = p && p.total > 0;
@@ -198,11 +197,14 @@ export default async function UnidadesPage() {
                                 : `${itemCountFor.get(u.id)} atividades`}
                             </span>
                           ) : null}
-                          {u.hasNote ? null : (
+                          {/* Curation workflow, not course content — a
+                              student can't write the note and shouldn't be
+                              told one is owed. */}
+                          {isStaff && !u.hasNote ? (
                             <span className="chip bg-cream text-ink-faint">
                               nota por escrever
                             </span>
-                          )}
+                          ) : null}
                           {u.status !== "published" ? (
                             <span className="chip bg-terra-pale text-terra-dark">
                               rascunho
@@ -213,8 +215,23 @@ export default async function UnidadesPage() {
                     </Link>
                   );
                 })}
-              </div>
-              </details>
+            </div>
+          );
+          return (
+            <section key={level}>
+              {isMine ? (
+                <>
+                  {heading}
+                  {grid}
+                </>
+              ) : (
+                <details className="card px-4 py-3">
+                  <summary className="cursor-pointer text-sm text-ink-soft">
+                    {heading}
+                  </summary>
+                  {grid}
+                </details>
+              )}
             </section>
           );
         })

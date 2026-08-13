@@ -216,9 +216,11 @@ export function Nav({
                     {t.label}
                   </span>
                   {/* Under the label, not beside it: five tabs on a 390px
-                      phone have no horizontal room to spare. */}
+                      phone have no horizontal room to spare. text-2xs is the
+                      scale's floor — 9.5px sat below the minimum globals.css
+                      itself declares. */}
                   {bilingual ? (
-                    <span className="text-[9.5px] leading-none opacity-60">
+                    <span className="text-2xs leading-none opacity-60">
                       {t.en}
                     </span>
                   ) : null}

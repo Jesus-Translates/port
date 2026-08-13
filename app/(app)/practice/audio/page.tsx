@@ -2,7 +2,7 @@ import { desc, eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { LsPanel, LsSubscribe } from "@/components/ls-panel";
-import { requireSession } from "@/lib/auth";
+import { isOperator, requireSession } from "@/lib/auth";
 import { getDb, lsSessions } from "@/lib/db";
 import { lsToken } from "@/lib/ls";
 import { azureConfigured } from "@/lib/tts";
@@ -52,23 +52,50 @@ export default async function ListenSpeakPage() {
   );
 
   if (!azureConfigured()) {
+    // The variable names are deploy-time homework for whoever runs the
+    // platform — a family should never be told to redeploy anything. They get
+    // a calm pause note with somewhere useful to go instead.
+    const operator = await isOperator(session.username);
     return (
       <div className="space-y-6">
         {header}
-        <div className="card border-terra/40 bg-terra-pale/30 p-6 text-center">
-          <div className="mb-2 text-4xl" aria-hidden>
-            🔑
+        {operator ? (
+          <div className="card border-terra/40 bg-terra-pale/30 p-6 text-center">
+            <div className="mb-2 text-4xl" aria-hidden>
+              🔑
+            </div>
+            <p className="font-medium">
+              Esta funcionalidade precisa das variáveis AZURE_SPEECH_KEY e
+              AZURE_SPEECH_REGION.
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">
+              Listen &amp; Speak needs Azure&rsquo;s multi-voice neural speech
+              to put an English prompt and a Portuguese answer in one
+              recording. Add the two variables to the deployment and this page
+              wakes up.
+            </p>
           </div>
-          <p className="font-medium">
-            Esta funcionalidade precisa das variáveis AZURE_SPEECH_KEY e
-            AZURE_SPEECH_REGION.
-          </p>
-          <p className="mt-1 text-sm text-ink-soft">
-            Listen &amp; Speak needs Azure&rsquo;s multi-voice neural speech to
-            put an English prompt and a Portuguese answer in one recording. Add
-            the two variables to the deployment and this page wakes up.
-          </p>
-        </div>
+        ) : (
+          <div className="card p-6 text-center">
+            <div className="mb-2 text-4xl" aria-hidden>
+              🎧
+            </div>
+            <p className="font-medium">
+              As sessões mãos-livres estão em pausa.
+            </p>
+            <p className="mt-1 text-sm text-ink-soft">
+              De momento não é possível gerar sessões novas. Entretanto, podes
+              rever os teus cartões em{" "}
+              <Link
+                href="/practice/rever"
+                className="underline underline-offset-2 hover:text-olive"
+              >
+                Rever
+              </Link>
+              .
+            </p>
+          </div>
+        )}
       </div>
     );
   }

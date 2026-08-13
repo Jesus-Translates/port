@@ -482,7 +482,14 @@ export async function setAccountActive(
   return { ok: true };
 }
 
-/** Every table that stores a username, and the column it stores it in. */
+/**
+ * Every table that stores a username, and the column it stores it in.
+ *
+ * The owner columns matter most: reads scope by them (visibleOwners), so a
+ * rename that misses one PERMANENTLY orphans that content — the old string no
+ * longer matches any member and nothing ever finds the rows again. When a new
+ * table gains a username/added_by/created_by column it MUST be added here.
+ */
 const USER_TABLES: { table: string; column: string }[] = [
   { table: "notes", column: "username" },
   { table: "homework", column: "username" },
@@ -495,8 +502,14 @@ const USER_TABLES: { table: string; column: string }[] = [
   { table: "ls_sessions", column: "username" },
   { table: "activity", column: "username" },
   { table: "memberships", column: "username" },
+  { table: "conversas", column: "username" },
   { table: "kudos", column: "from_user" },
   { table: "kudos", column: "to_user" },
+  { table: "user_verbs", column: "added_by" },
+  { table: "ref_entries", column: "added_by" },
+  { table: "categories", column: "created_by" },
+  { table: "stories", column: "created_by" },
+  { table: "lessons", column: "created_by" },
 ];
 
 /**
@@ -589,6 +602,12 @@ export async function deleteAccountForever(
   if (!isSafeName(target)) {
     return { ok: false, error: "Nome de utilizador inválido." };
   }
+  // admin.username is interpolated into the raw category hand-over below, so
+  // it must clear the same bar the target does. It comes from a signed
+  // session, but "provably inert" beats "arrived from somewhere we trust".
+  if (!isSafeName(admin.username)) {
+    return { ok: false, error: "Nome de utilizador inválido." };
+  }
   if (cleanUsername(confirmation) !== target) {
     return { ok: false, error: "Escreve o nome de utilizador exatamente para confirmar." };
   }
@@ -597,13 +616,44 @@ export async function deleteAccountForever(
   }
 
   const db = getDb();
-  const ctes = USER_TABLES.map(
-    (t, i) => `d${i} AS (DELETE FROM "${t.table}" WHERE "${t.column}" = '${target}' RETURNING 1)`
-  ).join(",\n     ");
+
+  /*
+   * A category is the FAMILY's, whoever happened to create it.
+   *
+   * ref_entries.category_id cascades on category delete, so deleting the
+   * person who made "Cozinha" would take every phrase in it — including the
+   * ones other members added. Renaming must carry categories (or they vanish
+   * from visibleOwners); deleting must not. So the category is handed to the
+   * admin doing the deletion, who is by definition in the same household,
+   * and only then is the account removed.
+   */
   try {
     await db.execute(
       sql.raw(
-        `WITH ${ctes},\n     du AS (DELETE FROM "users" WHERE "username" = '${target}' RETURNING 1)\nSELECT 1`
+        `UPDATE "categories" SET "created_by" = '${admin.username}' WHERE "created_by" = '${target}'`
+      )
+    );
+  } catch {
+    return { ok: false, error: "Não foi possível apagar a conta." };
+  }
+
+  const ctes = USER_TABLES.filter((t) => t.table !== "categories")
+    .map(
+      (t, i) => `d${i} AS (DELETE FROM "${t.table}" WHERE "${t.column}" = '${target}' RETURNING 1)`
+    )
+    .join(",\n     ");
+  // The people row must go too, or the person can never come back: their email
+  // stays behind under people_email_unique and re-signup fails at the insert,
+  // forever. Every CTE reads the same snapshot, so the sub-select still sees
+  // the membership row a sibling CTE deletes; credentials and sessions follow
+  // people by cascade.
+  const dropPerson =
+    `dp AS (DELETE FROM "people" WHERE "id" IN ` +
+    `(SELECT "person_id" FROM "memberships" WHERE "username" = '${target}') RETURNING 1)`;
+  try {
+    await db.execute(
+      sql.raw(
+        `WITH ${ctes},\n     ${dropPerson},\n     du AS (DELETE FROM "users" WHERE "username" = '${target}' RETURNING 1)\nSELECT 1`
       )
     );
   } catch {

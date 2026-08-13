@@ -292,8 +292,12 @@ export async function requireOperator(): Promise<Session> {
  *
  * Never `roleOf`. That returns "admin" for every family owner, because
  * /registar makes them one for their own household.
+ *
+ * cache(): the layout, the dashboard and every gate ask this about the same
+ * session in one render. is_operator is only ever written by a CLI script,
+ * so within a request the answer cannot change.
  */
-export async function isOperator(username: string): Promise<boolean> {
+export const isOperator = cache(async (username: string): Promise<boolean> => {
   if (envRole(username) === "admin") return true;
   try {
     const { getDb, users } = await import("@/lib/db");
@@ -307,4 +311,4 @@ export async function isOperator(username: string): Promise<boolean> {
     // A database blip must never silently promote anyone.
     return false;
   }
-}
+});

@@ -7,7 +7,11 @@
   --color-sand: #e6dcc6;
   --color-ink: #2b271f;
   --color-ink-soft: #6f6858;
-  --color-ink-faint: #a39b88;
+  /* The old #a39b88 sat at 2.58:1 on paper — and this token is every
+     back-link, timestamp, hint and inactive tab label in the app. 4.5:1 on
+     paper only leaves a narrow band under ink-soft, so the ramp compresses
+     at the faint end (13.9 → 5.2 → 4.5) but stays ordered and legible. */
+  --color-ink-faint: #79715d;
 
   /* Sage & olive — their Canva book's sidebar */
   --color-sage: #97a08b;
@@ -17,6 +21,10 @@
 
   /* Terracotta — Portuguese rooftops */
   --color-terra: #c2622e;
+  /* Button fill only. terra proper carries paper text at 3.86:1 — fine as a
+     chip or a border, a failure as a 14px label's background. This step
+     clears 4.81:1 and keeps terra-dark visibly darker for the hover. */
+  --color-terra-mid: #ac5525;
   --color-terra-dark: #9e4c1f;
   --color-terra-pale: #f7e6d9;
 
@@ -127,7 +135,7 @@
     @apply bg-olive text-paper hover:bg-ink;
   }
   .btn-terra {
-    @apply bg-terra text-paper hover:bg-terra-dark;
+    @apply bg-terra-mid text-paper hover:bg-terra-dark;
   }
   .btn-ghost {
     @apply border border-sand bg-white/60 text-ink hover:border-sage hover:bg-sage-pale;

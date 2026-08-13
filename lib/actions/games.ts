@@ -2,7 +2,7 @@
 
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
-import { addMistakeCard } from "@/lib/srs";
+import { addMistakeCards } from "@/lib/srs";
 import { GAME_KINDS, KIND_META, type ItemKind } from "@/lib/course";
 
 /**
@@ -31,17 +31,14 @@ export async function finishGame(
 
   // A miss is the highest-signal card we can make: the English side is the
   // prompt, the Portuguese the answer — same direction as the rest of the deck.
-  for (const m of (misses ?? []).slice(0, 10)) {
-    const prompt = (m?.prompt ?? "").trim();
-    const answer = (m?.answer ?? "").trim();
-    if (!prompt || !answer) continue;
-    await addMistakeCard(
-      session.username,
-      prompt,
-      answer,
-      m.tip?.trim() || null
-    );
-  }
+  await addMistakeCards(
+    session.username,
+    (misses ?? []).slice(0, 10).map((m) => ({
+      prompt: m?.prompt ?? "",
+      correctedPt: m?.answer ?? "",
+      tip: m?.tip ?? null,
+    }))
+  );
 
   await logActivity(
     session.username,

@@ -107,10 +107,12 @@ export function Chat({
             {starters.length > 0 ? (
               <div className="mx-auto mt-4 flex max-w-md flex-wrap justify-center gap-2">
                 {starters.map((s) => (
+                  // min-h-11, not tap-44: chips sit 8px apart, so expanded
+                  // hit areas would overlap the neighbouring chip.
                   <button
                     key={s}
                     onClick={() => send(s)}
-                    className="rounded-full border border-sand bg-white/70 px-3 py-1.5 text-xs text-ink-soft transition-colors hover:border-sage hover:bg-sage-pale hover:text-ink"
+                    className="inline-flex min-h-11 items-center rounded-full border border-sand bg-white/70 px-3.5 text-xs text-ink-soft transition-colors hover:border-sage hover:bg-sage-pale hover:text-ink"
                   >
                     {s}
                   </button>

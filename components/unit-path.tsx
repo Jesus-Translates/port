@@ -187,10 +187,13 @@ export function UnitPath({
                  * no natural "finished" moment, and undoing a completion has
                  * to stay possible.
                  */}
+                {/* Visually 32px keeps this admin row quiet under the real
+                    step; tap-44 restores the hit area the target system
+                    promises without spending the layout. */}
                 {finished ? (
                   <button
                     type="button"
-                    className="btn-ghost h-8 min-h-0 px-3 text-xs"
+                    className="btn-ghost tap-44 h-8 min-h-0 px-3 text-xs"
                     disabled={pendingId !== null}
                     onClick={() => toggle(item, false)}
                   >
@@ -199,7 +202,7 @@ export function UnitPath({
                 ) : NEEDS_MANUAL.includes(item.kind) ? (
                   <button
                     type="button"
-                    className="btn-ghost h-8 min-h-0 px-3 text-xs"
+                    className="btn-ghost tap-44 h-8 min-h-0 px-3 text-xs"
                     disabled={pendingId !== null}
                     onClick={() => toggle(item, true)}
                   >

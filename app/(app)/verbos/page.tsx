@@ -87,7 +87,7 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
             <div
               className={cn(
                 "text-2xs",
-                tab === t.key ? "text-paper/80" : "text-ink-faint"
+                tab === t.key ? "text-paper/95" : "text-ink-faint"
               )}
             >
               {t.sub}

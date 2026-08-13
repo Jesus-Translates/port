@@ -1,5 +1,6 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
@@ -87,31 +88,44 @@ export const categories = pgTable("categories", {
 });
 
 // kind: term | verb | phrase | task
-export const refEntries = pgTable("ref_entries", {
-  id: serial("id").primaryKey(),
-  categoryId: integer("category_id")
-    .notNull()
-    .references(() => categories.id, { onDelete: "cascade" }),
-  kind: text("kind").notNull().default("term"),
-  section: text("section").notNull().default("Geral"),
-  pt: text("pt").notNull(),
-  en: text("en").notNull(),
-  replyPt: text("reply_pt"),
-  replyEn: text("reply_en"),
-  note: text("note"),
-  addedBy: text("added_by").notNull().default("seed"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const refEntries = pgTable(
+  "ref_entries",
+  {
+    id: serial("id").primaryKey(),
+    categoryId: integer("category_id")
+      .notNull()
+      .references(() => categories.id, { onDelete: "cascade" }),
+    kind: text("kind").notNull().default("term"),
+    section: text("section").notNull().default("Geral"),
+    pt: text("pt").notNull(),
+    en: text("en").notNull(),
+    replyPt: text("reply_pt"),
+    replyEn: text("reply_en"),
+    note: text("note"),
+    addedBy: text("added_by").notNull().default("seed"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  // Every phrasebook read filters by category or by owner; Neon bills the
+  // sequential scans these replace on every single page of the reference.
+  (t) => [
+    index("ref_entries_category_idx").on(t.categoryId),
+    index("ref_entries_added_by_idx").on(t.addedBy),
+  ]
+);
 
-export const notes = pgTable("notes", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  title: text("title").notNull(),
-  body: text("body").notNull().default(""),
-  tags: text("tags").notNull().default(""),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const notes = pgTable(
+  "notes",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    title: text("title").notNull(),
+    body: text("body").notNull().default(""),
+    tags: text("tags").notNull().default(""),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [index("notes_username_idx").on(t.username)]
+);
 
 // blocks: array of typed lesson blocks (intro/prompts/vocab/reading/writing/speaking/game)
 export const lessons = pgTable("lessons", {
@@ -128,45 +142,53 @@ export const lessons = pgTable("lessons", {
 // status: open | submitted | reviewed
 // items: HomeworkItem[] — one exercise per entry, each answered and graded
 // on its own so the learner gets feedback before moving to the next.
-export const homework = pgTable("homework", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  title: text("title").notNull(),
-  instructions: text("instructions").notNull(),
-  items: jsonb("items"),
-  lessonId: integer("lesson_id").references(() => lessons.id, {
-    onDelete: "set null",
-  }),
-  source: text("source").notNull().default("ai"), // ai | user | class
-  status: text("status").notNull().default("open"),
-  response: text("response"),
-  feedback: text("feedback"),
-  /** The unit path item this TPC fulfils, so finishing it ticks the course
-   *  forward. Without somewhere to STORE the link, threading a query param
-   *  through was never going to be enough — the grading happens question by
-   *  question, long after the URL is gone. */
-  unitItemId: integer("unit_item_id").references(() => unitItems.id, {
-    onDelete: "set null",
-  }),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  submittedAt: timestamp("submitted_at"),
-});
+export const homework = pgTable(
+  "homework",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    title: text("title").notNull(),
+    instructions: text("instructions").notNull(),
+    items: jsonb("items"),
+    lessonId: integer("lesson_id").references(() => lessons.id, {
+      onDelete: "set null",
+    }),
+    source: text("source").notNull().default("ai"), // ai | user | class
+    status: text("status").notNull().default("open"),
+    response: text("response"),
+    feedback: text("feedback"),
+    /** The unit path item this TPC fulfils, so finishing it ticks the course
+     *  forward. Without somewhere to STORE the link, threading a query param
+     *  through was never going to be enough — the grading happens question by
+     *  question, long after the URL is gone. */
+    unitItemId: integer("unit_item_id").references(() => unitItems.id, {
+      onDelete: "set null",
+    }),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    submittedAt: timestamp("submitted_at"),
+  },
+  (t) => [index("homework_user_status_idx").on(t.username, t.status)]
+);
 
 // questions/answers/feedback are JSON; status: ready | completed
-export const quizzes = pgTable("quizzes", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  topic: text("topic").notNull(),
-  level: text("level").notNull().default("A2"),
-  questions: jsonb("questions").notNull(),
-  answers: jsonb("answers"),
-  score: integer("score"),
-  total: integer("total"),
-  feedback: jsonb("feedback"),
-  status: text("status").notNull().default("ready"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  completedAt: timestamp("completed_at"),
-});
+export const quizzes = pgTable(
+  "quizzes",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    topic: text("topic").notNull(),
+    level: text("level").notNull().default("A2"),
+    questions: jsonb("questions").notNull(),
+    answers: jsonb("answers"),
+    score: integer("score"),
+    total: integer("total"),
+    feedback: jsonb("feedback"),
+    status: text("status").notNull().default("ready"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    completedAt: timestamp("completed_at"),
+  },
+  (t) => [index("quizzes_username_idx").on(t.username)]
+);
 
 /**
  * Curated exam question banks (CIPLE prep, the new civics test), seeded from
@@ -201,55 +223,82 @@ export const examQuestions = pgTable(
 );
 
 // kind: star (golden star for an achievement) | note (encouragement message)
-export const kudos = pgTable("kudos", {
-  id: serial("id").primaryKey(),
-  fromUser: text("from_user").notNull(),
-  toUser: text("to_user").notNull(),
-  kind: text("kind").notNull().default("note"),
-  message: text("message").notNull().default(""),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const kudos = pgTable(
+  "kudos",
+  {
+    id: serial("id").primaryKey(),
+    fromUser: text("from_user").notNull(),
+    toUser: text("to_user").notNull(),
+    kind: text("kind").notNull().default("note"),
+    message: text("message").notNull().default(""),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [index("kudos_to_user_created_idx").on(t.toUser, t.createdAt)]
+);
 
 // One row per AI call, so each person can see what they've actually spent.
-export const aiUsage = pgTable("ai_usage", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  kind: text("kind").notNull(), // tutor | quiz | grade | homework | lesson | reference | suggest
-  model: text("model").notNull(),
-  inputTokens: integer("input_tokens").notNull().default(0),
-  outputTokens: integer("output_tokens").notNull().default(0),
-  // Micro-dollars (USD × 1e6) — integers avoid float drift on tiny amounts.
-  costMicroUsd: integer("cost_micro_usd").notNull().default(0),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const aiUsage = pgTable(
+  "ai_usage",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    kind: text("kind").notNull(), // tutor | quiz | grade | homework | lesson | reference | suggest
+    model: text("model").notNull(),
+    inputTokens: integer("input_tokens").notNull().default(0),
+    outputTokens: integer("output_tokens").notNull().default(0),
+    // Micro-dollars (USD × 1e6) — integers avoid float drift on tiny amounts.
+    costMicroUsd: integer("cost_micro_usd").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  // The budget gate and the spend meter both run on nearly every request.
+  (t) => [index("ai_usage_user_created_idx").on(t.username, t.createdAt)]
+);
 
 // Spaced-repetition cards (FSRS). Shared content, per-user memory:
 // kind: entry (from the phrasebook) | mistake (from graded errors) | verb.
 // `fsrs` holds the serialized ts-fsrs Card; due/state are denormalized for queries.
-export const cards = pgTable("cards", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  kind: text("kind").notNull().default("entry"),
-  sourceId: integer("source_id"),
-  front: text("front").notNull(),
-  back: text("back").notNull(),
-  note: text("note"),
-  direction: text("direction").notNull().default("en-pt"),
-  fsrs: jsonb("fsrs").notNull(),
-  due: timestamp("due").notNull(),
-  state: integer("state").notNull().default(0),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const cards = pgTable(
+  "cards",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    kind: text("kind").notNull().default("entry"),
+    sourceId: integer("source_id"),
+    front: text("front").notNull(),
+    back: text("back").notNull(),
+    note: text("note"),
+    direction: text("direction").notNull().default("en-pt"),
+    fsrs: jsonb("fsrs").notNull(),
+    due: timestamp("due").notNull(),
+    state: integer("state").notNull().default(0),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  // (username, state, due) is the due-queue shape; (username, kind) the
+  // mistake-dedup lookup every graded answer makes.
+  (t) => [
+    index("cards_user_state_due_idx").on(t.username, t.state, t.due),
+    index("cards_user_kind_idx").on(t.username, t.kind),
+  ]
+);
 
-export const reviewLogs = pgTable("review_logs", {
-  id: serial("id").primaryKey(),
-  cardId: integer("card_id")
-    .notNull()
-    .references(() => cards.id, { onDelete: "cascade" }),
-  username: text("username").notNull(),
-  rating: integer("rating").notNull(),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const reviewLogs = pgTable(
+  "review_logs",
+  {
+    id: serial("id").primaryKey(),
+    cardId: integer("card_id")
+      .notNull()
+      .references(() => cards.id, { onDelete: "cascade" }),
+    username: text("username").notNull(),
+    rating: integer("rating").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  // The card_id index also pays for the ON DELETE CASCADE from cards, which
+  // otherwise scans this table once per deleted card.
+  (t) => [
+    index("review_logs_user_created_idx").on(t.username, t.createdAt),
+    index("review_logs_card_idx").on(t.cardId),
+  ]
+);
 
 // Cached TTS audio (base64 mp3) so each phrase is synthesized exactly once.
 /**
@@ -329,17 +378,21 @@ export const units = pgTable("units", {
 // kind: note | category | quiz | ditado | verbos | story | listening | homework
 // refId points at the concrete row when applicable; config carries params
 // (e.g. {topic, level} for a quiz to generate).
-export const unitItems = pgTable("unit_items", {
-  id: serial("id").primaryKey(),
-  unitId: integer("unit_id")
-    .notNull()
-    .references(() => units.id, { onDelete: "cascade" }),
-  kind: text("kind").notNull(),
-  refId: integer("ref_id"),
-  config: jsonb("config"),
-  titlePt: text("title_pt").notNull().default(""),
-  sortOrder: integer("sort_order").notNull().default(0),
-});
+export const unitItems = pgTable(
+  "unit_items",
+  {
+    id: serial("id").primaryKey(),
+    unitId: integer("unit_id")
+      .notNull()
+      .references(() => units.id, { onDelete: "cascade" }),
+    kind: text("kind").notNull(),
+    refId: integer("ref_id"),
+    config: jsonb("config"),
+    titlePt: text("title_pt").notNull().default(""),
+    sortOrder: integer("sort_order").notNull().default(0),
+  },
+  (t) => [index("unit_items_unit_idx").on(t.unitId)]
+);
 
 /**
  * Per-learner completion of a single unit item. This is what turns the
@@ -406,14 +459,23 @@ export const lsSessions = pgTable("ls_sessions", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
-export const activity = pgTable("activity", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  kind: text("kind").notNull(),
-  summary: text("summary").notNull(),
-  xp: integer("xp").notNull().default(5),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-});
+export const activity = pgTable(
+  "activity",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    kind: text("kind").notNull(),
+    summary: text("summary").notNull(),
+    xp: integer("xp").notNull().default(5),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  // The busiest table in the app: streaks, XP, the family feed and the
+  // placement breadcrumb all filter it on every dashboard render.
+  (t) => [
+    index("activity_user_created_idx").on(t.username, t.createdAt),
+    index("activity_created_idx").on(t.createdAt),
+  ]
+);
 
 /**
  * Portugal, as the app understands it.
@@ -533,7 +595,11 @@ export const memberships = pgTable(
     role: text("role").notNull().default("child"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
-  (t) => [uniqueIndex("memberships_account_username").on(t.accountId, t.username)]
+  (t) => [
+    uniqueIndex("memberships_account_username").on(t.accountId, t.username),
+    // Tenancy resolves session → household by username on every request.
+    index("memberships_username_idx").on(t.username),
+  ]
 );
 
 /** Password credentials. Hash only — scrypt via node:crypto, no native dep. */
@@ -606,24 +672,28 @@ export const authTokens = pgTable("auth_tokens", {
  * next visit starts fresh rather than resuming a conversation that already
  * earned its completion.
  */
-export const conversas = pgTable("conversas", {
-  id: serial("id").primaryKey(),
-  username: text("username").notNull(),
-  topic: text("topic").notNull().default(""),
-  /** Pinned per session so Sandra does not change voice mid-conversation. */
-  voice: text("voice").notNull().default(""),
-  cefr: text("cefr").notNull().default("A2"),
-  /** The unit path item this fulfils, when it was opened from a course. */
-  unitItemId: integer("unit_item_id"),
-  /** Msg[] — role, pt, en. Audio is NOT stored; it is regenerated on demand. */
-  messages: jsonb("messages").notNull(),
-  /** Earned across the learner's turns, judged on quality. 100 completes. */
-  xp: integer("xp").notNull().default(0),
-  // open | done
-  status: text("status").notNull().default("open"),
-  createdAt: timestamp("created_at").defaultNow().notNull(),
-  updatedAt: timestamp("updated_at").defaultNow().notNull(),
-});
+export const conversas = pgTable(
+  "conversas",
+  {
+    id: serial("id").primaryKey(),
+    username: text("username").notNull(),
+    topic: text("topic").notNull().default(""),
+    /** Pinned per session so Sandra does not change voice mid-conversation. */
+    voice: text("voice").notNull().default(""),
+    cefr: text("cefr").notNull().default("A2"),
+    /** The unit path item this fulfils, when it was opened from a course. */
+    unitItemId: integer("unit_item_id"),
+    /** Msg[] — role, pt, en. Audio is NOT stored; it is regenerated on demand. */
+    messages: jsonb("messages").notNull(),
+    /** Earned across the learner's turns, judged on quality. 100 completes. */
+    xp: integer("xp").notNull().default(0),
+    // open | done
+    status: text("status").notNull().default("open"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [index("conversas_user_status_idx").on(t.username, t.status)]
+);
 
 /**
  * How a household wants the app to speak to it.

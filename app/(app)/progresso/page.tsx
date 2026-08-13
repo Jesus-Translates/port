@@ -60,7 +60,7 @@ export default async function ProgressoPage() {
               <span
                 className={cn(
                   "text-[10.5px]",
-                  d.isToday ? "font-semibold text-paper" : "text-paper/60"
+                  d.isToday ? "font-semibold text-paper" : "text-paper/85"
                 )}
               >
                 {d.letter}

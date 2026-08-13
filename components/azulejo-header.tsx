@@ -17,6 +17,14 @@ import { cn } from "@/lib/utils";
  * the olive reaches both edges of a 1680px window instead of floating in a
  * centred column.
  */
+/*
+ * Text on the olive band never goes below paper/85.
+ *
+ * /60 measured 3.16:1 and /70 3.69:1 against the band — both fail WCAG AA for
+ * the small, tracked-out labels they were used on, which is most of the
+ * eyebrows and subtitles in the app. /85 is 4.59:1. The band is the one place
+ * where "slightly faded" is tempting and unreadable outdoors on a phone.
+ */
 export function AzulejoHeader({
   eyebrow,
   title,
@@ -66,7 +74,7 @@ export function AzulejoHeader({
         <div className="flex items-start gap-3">
           <div className="min-w-0 flex-1">
             {eyebrow ? (
-              <p className="text-2xs font-semibold tracking-[.06em] text-paper/60 uppercase">
+              <p className="text-2xs font-semibold tracking-[.06em] text-paper/85 uppercase">
                 {eyebrow}
               </p>
             ) : null}
@@ -74,7 +82,7 @@ export function AzulejoHeader({
               {title}
             </h1>
             {subtitle ? (
-              <p className="mt-1 text-[13px] text-paper/70">{subtitle}</p>
+              <p className="mt-1 text-[13px] text-paper/85">{subtitle}</p>
             ) : null}
           </div>
 
@@ -119,7 +127,7 @@ export function BandTile({
       )}
     >
       <div className="min-w-0">
-        <p className="text-[11px] font-semibold tracking-[.09em] text-paper/70 uppercase">
+        <p className="text-[11px] font-semibold tracking-[.09em] text-paper/85 uppercase">
           {label}
         </p>
         <div className="mt-0.5 flex items-baseline gap-1">{children}</div>

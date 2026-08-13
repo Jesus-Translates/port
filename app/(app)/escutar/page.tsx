@@ -6,7 +6,7 @@ import { ListeningGenerate } from "@/components/listening-generate";
 import { UnitReturn } from "@/components/unit-return";
 import { UnitStart } from "@/components/unit-start";
 import { getMyCefr } from "@/lib/actions/profile";
-import { requireSession } from "@/lib/auth";
+import { isOperator, requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
 import { rankByTopic } from "@/lib/topic-match";
 import { azureConfigured } from "@/lib/tts";
@@ -23,13 +23,17 @@ function one(v: string | string[] | undefined): string {
 }
 
 export default async function EscutarPage(props: PageProps<"/escutar">) {
-  await requireSession();
+  const session = await requireSession();
   const sp = await props.searchParams;
   const unit = await unitContextFrom(sp);
   // The step's own topic, falling back to the unit's Portuguese name — a unit
   // item with no topic configured should still land on something about it.
   const tema = one(sp.tema).slice(0, 200) || unit?.titlePt.trim() || "";
   const ready = azureConfigured();
+  // The Azure checklist below is deploy-time homework for whoever runs the
+  // platform. A paying family should never be told to set environment
+  // variables — only the operator sees the setup card.
+  const operator = ready ? false : await isOperator(session.username);
   const level = await getMyCefr();
   // 120 rather than 60: the extra rows are only ever used to answer "do we
   // already have one about this?" — the library list below still shows 60.
@@ -85,7 +89,15 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
         </p>
       </header>
 
-      {ready ? null : (
+      {ready ? null : !operator ? (
+        <div className="card space-y-1.5 p-5">
+          <h2 className="font-semibold">🎧 Diálogos novos em pausa</h2>
+          <p className="text-sm text-ink-soft">
+            De momento não é possível criar diálogos novos. Tudo o que já foi
+            gravado continua a tocar em baixo.
+          </p>
+        </div>
+      ) : (
         <div className="card space-y-1.5 p-5">
           <h2 className="font-semibold">🔌 Falta ligar as vozes</h2>
           <p className="text-sm text-ink-soft">

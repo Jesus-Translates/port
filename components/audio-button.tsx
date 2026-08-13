@@ -121,6 +121,18 @@ export function AudioButton({
       onClick={play}
       autoFocus={autoFocusPlay}
       title={status === "error" ? "Áudio indisponível" : "Ouvir"}
+      /* A title names a control only for sighted mouse users; the app's
+         most-used button needs a real accessible name. When a visible label
+         is passed, that text already names the button — don't override it. */
+      aria-label={
+        label
+          ? undefined
+          : status === "error"
+            ? "Áudio indisponível"
+            : status === "playing"
+              ? "Pausar"
+              : "Ouvir"
+      }
       className={cn(
         "tap-44 inline-flex min-h-9 min-w-9 items-center justify-center gap-1.5 rounded-full border border-sand bg-white/70 px-2.5 text-sm transition-colors hover:border-sage hover:bg-sage-pale",
         status === "playing" && "border-olive bg-sage-pale",

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { and, asc, desc, eq, gte, inArray, sql } from "drizzle-orm";
 import {
   activity,
@@ -24,8 +25,10 @@ export const CEFR_LEVELS = ["A1", "A2", "B1", "B2"] as const;
 export const DEFAULT_CEFR = "A1";
 
 /** Anyone's stored level. Server-only (not a server action) so a client can't
- *  probe other people's rows. Falls back to the default, never throws. */
-export async function getCefrFor(username: string): Promise<string> {
+ *  probe other people's rows. Falls back to the default, never throws.
+ *  cache(): the dashboard asks three times per render, and setCefrLevel only
+ *  ever writes BEFORE the first read in its own request. */
+export const getCefrFor = cache(async (username: string): Promise<string> => {
   try {
     const [row] = await getDb()
       .select({ level: users.cefrLevel })
@@ -39,7 +42,7 @@ export async function getCefrFor(username: string): Promise<string> {
   } catch {
     return DEFAULT_CEFR;
   }
-}
+});
 
 /** This ONE person's recent activity. getStats().recent is deliberately
  *  family-wide for the dashboard feed; anything reasoning about "what should
@@ -58,8 +61,9 @@ export async function getMyRecentActivity(username: string, limit = 12) {
 }
 
 /** Has this person actually done the placement quiz (or set a level by hand)?
- *  Recorded as an activity row by setCefrLevel — no extra column needed. */
-export async function hasBeenPlaced(username: string): Promise<boolean> {
+ *  Recorded as an activity row by setCefrLevel — no extra column needed.
+ *  cache() is safe for the same reason as getCefrFor. */
+export const hasBeenPlaced = cache(async (username: string): Promise<boolean> => {
   try {
     const [row] = await getDb()
       .select({ id: activity.id })
@@ -76,7 +80,7 @@ export async function hasBeenPlaced(username: string): Promise<boolean> {
     // Never nag someone because a query failed.
     return true;
   }
-}
+});
 
 export async function getCategoriesWithCounts() {
   const db = getDb();
@@ -330,6 +334,11 @@ export type FamilyMember = {
 /** Leaderboard data: one row per family member, ranked by XP this week. */
 export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[]> {
   const db = getDb();
+  // The JS below already kept only the household's rows, but the queries were
+  // aggregating the WHOLE instance first — this runs on every dashboard load,
+  // so its cost scaled with the deployment instead of with the family.
+  const names = usernames.map((n) => n.toLowerCase());
+  if (names.length === 0) return [];
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
   const since = new Date();
@@ -342,6 +351,7 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
         xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
       })
       .from(activity)
+      .where(inArray(activity.username, names))
       .groupBy(activity.username),
     db
       .select({
@@ -349,7 +359,9 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
         xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
       })
       .from(activity)
-      .where(gte(activity.createdAt, weekAgo))
+      .where(
+        and(inArray(activity.username, names), gte(activity.createdAt, weekAgo))
+      )
       .groupBy(activity.username),
     db
       .select({
@@ -359,7 +371,9 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
         total: sql<number>`coalesce(sum(${quizzes.total}), 0)::int`,
       })
       .from(quizzes)
-      .where(eq(quizzes.status, "completed"))
+      .where(
+        and(inArray(quizzes.username, names), eq(quizzes.status, "completed"))
+      )
       .groupBy(quizzes.username),
     db
       .select({
@@ -367,20 +381,21 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
         stars: sql<number>`count(*)::int`,
       })
       .from(kudos)
-      .where(eq(kudos.kind, "star"))
+      .where(and(inArray(kudos.toUser, names), eq(kudos.kind, "star")))
       .groupBy(kudos.toUser),
     db
       .select({ username: activity.username, createdAt: activity.createdAt })
       .from(activity)
-      .where(gte(activity.createdAt, since)),
+      .where(
+        and(inArray(activity.username, names), gte(activity.createdAt, since))
+      ),
   ]);
 
   const dayKey = (d: Date) =>
     d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
 
-  return usernames
-    .map((name) => {
-      const u = name.toLowerCase();
+  return names
+    .map((u) => {
       const days = new Set(
         actRows.filter((r) => r.username === u).map((r) => dayKey(r.createdAt))
       );

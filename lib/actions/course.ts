@@ -1,5 +1,6 @@
 "use server";
 
+import { cache } from "react";
 import { and, asc, eq, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { requireSession } from "@/lib/auth";
@@ -271,8 +272,12 @@ export type CourseProgress = {
  *
  * Placement assigns a level; this is what makes that assignment feel like an
  * actual course rather than a label on a dropdown.
+ *
+ * cache() lives on an inner function because a "use server" file may only
+ * export async functions. Safe: completeAndNext writes unit_progress BEFORE
+ * its first read, so the memoised value is always post-write.
  */
-export async function getCourseProgress(): Promise<CourseProgress> {
+const courseProgress = cache(async (): Promise<CourseProgress> => {
   const session = await requireSession();
   const level = await getCefrFor(session.username);
   const db = getDb();
@@ -322,6 +327,10 @@ export async function getCourseProgress(): Promise<CourseProgress> {
       ? { slug: nextRow.slug, title: nextRow.title, titlePt: nextRow.titlePt }
       : null,
   };
+});
+
+export async function getCourseProgress(): Promise<CourseProgress> {
+  return courseProgress();
 }
 
 export type NextDestination =

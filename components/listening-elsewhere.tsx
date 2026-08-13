@@ -91,7 +91,9 @@ const GROUPS: { title: string; blurb: string; items: Resource[] }[] = [
  */
 export function ListeningElsewhere() {
   return (
-    <section className="space-y-4">
+    // id="fora": the Praticar footnote links /escutar#fora straight here —
+    // scroll-mt keeps the heading clear of the viewport edge on arrival.
+    <section id="fora" className="scroll-mt-4 space-y-4">
       <div>
         <h2 className="font-display text-lg font-semibold">
           🎧 Fora da app — rádio, podcasts e TV

@@ -120,7 +120,9 @@ export default async function Dashboard() {
             <span className="font-display text-[27px] leading-none font-semibold">
               {stats.streakDays}
             </span>
-            <span className="text-[13px] text-paper/60">
+            {/* paper/85 is the floor on olive: /60 and /70 sat at 3.2:1 and
+                3.7:1 against the band. */}
+            <span className="text-[13px] text-paper/85">
               {stats.streakDays === 1 ? "dia" : "dias"}
             </span>
           </BandTile>
@@ -138,14 +140,14 @@ export default async function Dashboard() {
               <span className="size-[23px] rounded-full bg-olive" />
             </div>
             <div className="min-w-0">
-              <p className="text-[11px] font-semibold tracking-[.09em] text-paper/70 uppercase">
+              <p className="text-[11px] font-semibold tracking-[.09em] text-paper/85 uppercase">
                 Meta de hoje
               </p>
               <p className="mt-0.5">
                 <span className="font-display text-[21px] leading-none font-semibold">
                   {doneToday}
                 </span>
-                <span className="text-[12px] text-paper/60">/{goal}</span>
+                <span className="text-[12px] text-paper/85">/{goal}</span>
               </p>
             </div>
           </div>
@@ -184,6 +186,36 @@ export default async function Dashboard() {
         stones={caminho}
         unitLabel={course ? `Nível ${course.level}` : null}
       />
+
+      {/* nav.tsx retired the Praticar tab on the promise of a "Tudo" link
+          here. Until this card that link never existed, which left Conversa,
+          Ditado, Escutar, Histórias, Missões and the rest reachable only from
+          a footnote on Palavras — a third of the product behind small print. */}
+      <Link
+        href="/practice"
+        className="card group flex items-center gap-4 p-4 transition-all hover:border-sage hover:shadow-md"
+      >
+        <span
+          className="grid size-11 shrink-0 place-items-center rounded-xl bg-sage-pale text-2xl"
+          aria-hidden
+        >
+          🎯
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-semibold group-hover:text-olive">
+            Tudo para praticar
+          </span>
+          <span className="mt-0.5 block text-xs text-ink-soft">
+            Conversa, ditado, escutar, histórias, missões e mais
+          </span>
+        </span>
+        <span
+          className="shrink-0 text-ink-soft transition-transform group-hover:translate-x-1"
+          aria-hidden
+        >
+          →
+        </span>
+      </Link>
 
       {course && course.unitsTotal > 0 ? (
         <section>
@@ -378,7 +410,9 @@ export default async function Dashboard() {
 
       {stats.recent.length > 0 ? (
         <section>
-          <h2 className="mb-3 text-lg font-semibold">A família esta semana</h2>
+          {/* Not "A família esta semana" — that title already names the XP
+              strip above, and two sections with one name read as a bug. */}
+          <h2 className="mb-3 text-lg font-semibold">Atividade recente</h2>
           <div className="card divide-y divide-sand/70">
             {stats.recent.map((a, i) => (
               <div key={i} className="flex items-center gap-3 px-4 py-2.5">

@@ -41,22 +41,12 @@ import {
   parseItemsFromMarkdown,
 } from "@/lib/homework-items";
 import { countDue } from "@/lib/srs";
-import { usdToEur } from "@/lib/usage";
+import { lisbonMonthStart, usdToEur } from "@/lib/usage";
 
 // Everything below is module-LOCAL on purpose: a "use server" file may only
 // export async functions (types are erased, so those are fine).
 
 const DEFAULT_LEVEL = "A2";
-
-/** First instant of the current month in the family's timezone. Mirrors the
- *  private helper in lib/usage.ts so the by-kind breakdown on /admin/sistema
- *  and the per-person totals on /gastos always agree about "this month". */
-function monthStart(): Date {
-  const day = new Date().toLocaleDateString("en-CA", {
-    timeZone: "Europe/Lisbon",
-  });
-  return new Date(`${day.slice(0, 7)}-01T00:00:00Z`);
-}
 
 /** Only ever trust a jsonb column to be an array after checking. */
 function asArray<T>(value: unknown): T[] {
@@ -450,7 +440,7 @@ export async function getMonthSpendByKind(): Promise<SpendByKind[]> {
       micro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint`,
     })
     .from(aiUsage)
-    .where(gte(aiUsage.createdAt, monthStart()))
+    .where(gte(aiUsage.createdAt, lisbonMonthStart()))
     .groupBy(aiUsage.kind)
     .orderBy(desc(sql`sum(${aiUsage.costMicroUsd})`));
 

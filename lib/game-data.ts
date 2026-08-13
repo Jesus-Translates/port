@@ -159,25 +159,40 @@ export async function intruderRounds(limit = 10): Promise<IntruderRound[]> {
     .where(inArray(categories.createdBy, owners))
     .orderBy(categories.sortOrder);
 
-  const byCat = new Map<number, { pt: string; en: string }[]>();
-  for (const cat of cats) {
-    const rows = await db
-      .select({ pt: refEntries.pt, en: refEntries.en })
-      .from(refEntries)
-      .where(
-        and(
-          eq(refEntries.categoryId, cat.id),
-          inArray(refEntries.addedBy, owners),
-          eq(refEntries.kind, "term"),
-          // Nouns only, and short ones: a sentence among four words is
-          // obviously the odd one out for the wrong reason.
-          sql`${refEntries.pt} !~ '[?!.]'`,
-          sql`array_length(regexp_split_to_array(trim(${refEntries.pt}), '\s+'), 1) <= 3`
-        )
+  // ONE query for every category, grouped in JS. The old shape queried per
+  // category inside this loop — 15-25 sequential HTTP round trips on Neon's
+  // driver before the first round could be dealt. random() still shuffles
+  // within the single result, so the 12-per-category hands stay random.
+  if (cats.length === 0) return [];
+  const entryRows = await db
+    .select({
+      categoryId: refEntries.categoryId,
+      pt: refEntries.pt,
+      en: refEntries.en,
+    })
+    .from(refEntries)
+    .where(
+      and(
+        inArray(refEntries.categoryId, cats.map((c) => c.id)),
+        inArray(refEntries.addedBy, owners),
+        eq(refEntries.kind, "term"),
+        // Nouns only, and short ones: a sentence among four words is
+        // obviously the odd one out for the wrong reason.
+        sql`${refEntries.pt} !~ '[?!.]'`,
+        sql`array_length(regexp_split_to_array(trim(${refEntries.pt}), '\s+'), 1) <= 3`
       )
-      .orderBy(sql`random()`)
-      .limit(12);
-    if (rows.length >= 3) byCat.set(cat.id, rows);
+    )
+    .orderBy(sql`random()`);
+
+  const byCat = new Map<number, { pt: string; en: string }[]>();
+  for (const row of entryRows) {
+    const list = byCat.get(row.categoryId) ?? [];
+    if (list.length >= 12) continue;
+    list.push({ pt: row.pt, en: row.en });
+    byCat.set(row.categoryId, list);
+  }
+  for (const [id, list] of byCat) {
+    if (list.length < 3) byCat.delete(id);
   }
 
   const usable = cats.filter((c) => byCat.has(c.id));

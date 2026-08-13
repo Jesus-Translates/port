@@ -16,7 +16,7 @@ import { inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { checkAnswer, type AnswerCheck } from "@/lib/diff";
 import { getDb, quizzes } from "@/lib/db";
-import { addMistakeCard } from "@/lib/srs";
+import { addMistakeCards } from "@/lib/srs";
 import { modelId, recordUsage } from "@/lib/usage";
 
 export type GradedResult = {
@@ -143,15 +143,14 @@ ${FEEDBACK_COACHING}`,
   const score = results.filter((r) => r.correct).length;
 
   // Missed items → review cards (translate: corrected pt; multiple: the answer).
-  for (const r of results) {
-    if (r.correct) continue;
+  const misses = results.flatMap((r) => {
+    if (r.correct) return [];
     const q = questions[r.index];
-    if (!q) continue;
-    const back = r.correctedPt ?? q.answer;
-    if (back) {
-      await addMistakeCard(session.username, q.promptEn, back, r.tip ?? q.explanation);
-    }
-  }
+    const back = r.correctedPt ?? q?.answer;
+    if (!q || !back) return [];
+    return [{ prompt: q.promptEn, correctedPt: back, tip: r.tip ?? q.explanation }];
+  });
+  await addMistakeCards(session.username, misses);
 
   await db
     .update(quizzes)

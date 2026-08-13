@@ -136,14 +136,14 @@ export function UnitContinue({
         that ends on a list is a lesson nobody follows with another.
       */}
       <div className="rounded-[20px] bg-olive p-[18px_18px_16px] text-paper">
-        <p className="text-[10.5px] font-semibold tracking-[.14em] text-paper/65 uppercase">
+        <p className="text-[10.5px] font-semibold tracking-[.14em] text-paper/85 uppercase">
           A seguir
         </p>
         <p className="mt-1 font-display text-[21px] leading-tight font-semibold">
           {title ?? "Concluir esta lição"}
         </p>
         {meta ? (
-          <p className="mt-1 text-[13px] text-paper/70">{meta}</p>
+          <p className="mt-1 text-[13px] text-paper/85">{meta}</p>
         ) : null}
 
         <button

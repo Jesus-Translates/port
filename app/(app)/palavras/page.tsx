@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
 import { VerbConjugator } from "@/components/verb-conjugator";
+import { listMyVerbs } from "@/lib/actions/verbs";
 import { requireSession } from "@/lib/auth";
 import { getCategoriesWithCounts } from "@/lib/data";
 import { countDue, srsByCategory } from "@/lib/srs";
@@ -26,10 +27,13 @@ export default async function PalavrasPage(props: PageProps<"/palavras">) {
     ? "verbos"
     : "vocab";
 
-  const [due, categories, srs] = await Promise.all([
+  const [due, categories, srs, mine] = await Promise.all([
     countDue(session.username).catch(() => 0),
     getCategoriesWithCounts().catch(() => []),
     srsByCategory(session.username),
+    // The same list /verbos passes in. Without it, a verb the household saved
+    // over there simply did not exist on this screen.
+    tab === "verbos" ? listMyVerbs() : Promise.resolve([]),
   ]);
   const srsFor = new Map(srs.map((s) => [s.categoryId, s]));
 
@@ -49,7 +53,7 @@ export default async function PalavrasPage(props: PageProps<"/palavras">) {
                 "flex min-h-10 flex-1 items-center justify-center rounded-xl text-[13.5px] font-semibold transition-colors",
                 tab === t.key
                   ? "bg-paper text-olive"
-                  : "text-paper/70 hover:text-paper"
+                  : "text-paper/85 hover:text-paper"
               )}
             >
               {t.label}
@@ -59,8 +63,21 @@ export default async function PalavrasPage(props: PageProps<"/palavras">) {
       </AzulejoHeader>
 
       {tab === "verbos" ? (
-        // Full width, nothing beside it — it is a reference surface, not a card.
-        <VerbConjugator initialVerb="ir" initialTense="presente" />
+        <>
+          {/* Full width, nothing beside it — a reference surface, not a card. */}
+          <VerbConjugator initialVerb="ir" initialTense="presente" mine={mine} />
+          {/* /verbos also has a Treinar tab; this is its only door from here. */}
+          <p className="text-xs text-ink-faint">
+            Queres testar-te?{" "}
+            <Link
+              href="/verbos?tab=treinar"
+              className="underline underline-offset-2 hover:text-olive"
+            >
+              Treinar verbos
+            </Link>{" "}
+            — escreve, escolhe ou diz.
+          </p>
+        </>
       ) : (
         <>
           {/* The only thing here with a deadline. */}

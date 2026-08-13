@@ -2,7 +2,7 @@
 
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
-import { addMistakeCard } from "@/lib/srs";
+import { addMistakeCards } from "@/lib/srs";
 
 /** Log a finished conjugation round; misses become review cards. */
 export async function finishVerbRound(
@@ -11,9 +11,10 @@ export async function finishVerbRound(
   misses: { prompt: string; answer: string }[]
 ) {
   const session = await requireSession();
-  for (const m of misses.slice(0, 10)) {
-    await addMistakeCard(session.username, m.prompt, m.answer, null);
-  }
+  await addMistakeCards(
+    session.username,
+    misses.slice(0, 10).map((m) => ({ prompt: m.prompt, correctedPt: m.answer }))
+  );
   await logActivity(
     session.username,
     "verbos",

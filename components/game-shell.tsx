@@ -67,16 +67,12 @@ export function GameResult({
         <UnitContinue unit={unit} />
       ) : (
         <div className="flex flex-wrap gap-2">
-          <Link
-            href={replayHref}
-            className="rounded-lg bg-sage px-4 py-2.5 text-sm font-medium text-white"
-          >
+          {/* The real button primitives — the ad-hoc bg-sage/text-white pair
+              read at 2.72:1, and neither link met the 44px tap target. */}
+          <Link href={replayHref} className="btn-primary">
             Jogar outra vez
           </Link>
-          <Link
-            href="/jogos"
-            className="rounded-lg border border-sand px-4 py-2.5 text-sm"
-          >
+          <Link href="/jogos" className="btn-ghost">
             Outros jogos
           </Link>
         </div>

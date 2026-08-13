@@ -121,7 +121,7 @@ export function FalarModes({
             <div
               className={cn(
                 "text-2xs",
-                mode === m.key ? "text-paper/80" : "text-ink-faint"
+                mode === m.key ? "text-paper/95" : "text-ink-faint"
               )}
             >
               {m.sub}
