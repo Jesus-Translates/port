@@ -140,6 +140,18 @@ export async function POST(request: NextRequest) {
     slug = `${slugify(familyName)}-${i}`;
   }
 
+  /*
+   * Five inserts, no transaction — neon-http has none.
+   *
+   * Uniqueness is checked above and enforced by a constraint below, so two
+   * simultaneous signups for the same username both pass the check and one
+   * fails at the users insert. Without cleanup that left an orphaned account
+   * and person behind, and burned the family slug, forever. Track what we
+   * created so the catch can undo it.
+   */
+  let newAccountId: number | null = null;
+  let newPersonId: number | null = null;
+
   try {
     const [account] = await db
       .insert(accounts)
@@ -147,11 +159,13 @@ export async function POST(request: NextRequest) {
       // leave new families on an old seat count.
       .values({ slug, name: familyName, plan: "family", seatLimit: planById("family").seats })
       .returning({ id: accounts.id });
+    newAccountId = account.id;
 
     const [person] = await db
       .insert(people)
       .values({ displayName, email: email || null })
       .returning({ id: people.id });
+    newPersonId = person.id;
 
     await db.insert(users).values({
       username,
@@ -204,6 +218,18 @@ export async function POST(request: NextRequest) {
       () => {}
     );
   } catch {
+    // Best effort, and deliberately silent: the customer's answer is the same
+    // either way, and a failed cleanup must not mask the original failure.
+    try {
+      if (newPersonId !== null) {
+        await db.delete(people).where(eq(people.id, newPersonId));
+      }
+      if (newAccountId !== null) {
+        await db.delete(accounts).where(eq(accounts.id, newAccountId));
+      }
+    } catch {
+      // Nothing more we can do from here.
+    }
     return NextResponse.json(
       { error: "Não foi possível criar a conta. Tenta outra vez." },
       { status: 500 }
