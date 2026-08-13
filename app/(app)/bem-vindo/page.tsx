@@ -6,6 +6,8 @@ import { requireSession } from "@/lib/auth";
 import { getMyCefr, getMyPlace, getMyPrefs, getZones } from "@/lib/actions/profile";
 import { onboardingState } from "@/lib/onboarding";
 import { getCourseProgress } from "@/lib/actions/course";
+import { getPlacementRecord } from "@/lib/actions/placement";
+import { LearningPlanCard } from "@/components/learning-plan";
 
 export const metadata = { title: "Bem-vindo" };
 
@@ -28,6 +30,9 @@ export default async function WelcomePage() {
     getZones(),
     state.done ? getCourseProgress().catch(() => null) : Promise.resolve(null),
   ]);
+  // The plan is the payoff for the questionnaire, so it only exists once the
+  // questionnaire has been answered.
+  const record = state.done ? await getPlacementRecord() : {};
 
   if (state.done) {
     return (
@@ -45,6 +50,10 @@ export default async function WelcomePage() {
             tua espera.
           </p>
         </div>
+
+        {/* Built from the placement gaps AND the questionnaire answers — the
+            two halves of "what to work on" and "how you'll actually do it". */}
+        <LearningPlanCard initial={record.plan ?? null} />
 
         {course?.next ? (
           <div className="card p-5 text-left">

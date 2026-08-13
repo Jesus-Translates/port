@@ -19,7 +19,13 @@ import {
   type Mark,
   type PublicItem,
 } from "@/lib/placement";
+import type { PlacementSummary } from "@/lib/placement-record";
 import { cn } from "@/lib/utils";
+
+/** What the summary endpoint returns — the record shape minus what we add. */
+type PlacementSummaryView = Omit<PlacementSummary, "level" | "gaps" | "at"> & {
+  gapsEn: { topicEn: string; whyEn: string }[];
+};
 
 const BLURB: Record<Level, { pt: string; en: string }> = {
   A1: {
@@ -87,6 +93,11 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   const [mark, setMark] = useState<
     { mark: Mark; correct: boolean; correctAnswer: string } | null
   >(null);
+  /** What they got wrong, for the AI summary. Ids only — the server re-reads
+      the questions itself and never trusts the client for a right answer. */
+  const [misses, setMisses] = useState<{ id: string; given: string }[]>([]);
+  const [summary, setSummary] = useState<PlacementSummaryView | null>(null);
+  const [summaryState, setSummaryState] = useState<"idle" | "loading" | "off">("idle");
   const [result, setResult] = useState<Level | null>(null);
   const [saved, setSaved] = useState(false);
   const [startUnit, setStartUnit] = useState<{
@@ -108,6 +119,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setBlockRight(0);
     setBlockAsked(0);
     setBlocksPassed(0);
+    setMisses([]);
+    setSummary(null);
+    setSummaryState("idle");
     setGate(null);
     setTyped("");
     setPicked([]);
@@ -154,6 +168,8 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       setScores((s) => ({ ...s, [m.level]: s[m.level] + 1 }));
       setBlockRight((n) => n + 1);
       if (m.mark === "quase") setNearMisses((n) => n + 1);
+    } else {
+      setMisses((list) => [...list, { id: current.id, given }]);
     }
   }
 
@@ -198,7 +214,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
     if (!gate.passed || levelIdx + 1 >= LEVELS.length) {
       setGate(null);
-      setResult(placeAt(passedSoFar));
+      const placed = placeAt(passedSoFar);
+      setResult(placed);
+      void loadSummary(placed);
       return;
     }
 
@@ -211,7 +229,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setBusy(false);
     if (!next) {
       setGate(null);
-      setResult(placeAt(passedSoFar));
+      const placed = placeAt(passedSoFar);
+      setResult(placed);
+      void loadSummary(placed);
       return;
     }
     setGate(null);
@@ -219,6 +239,37 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setBlockRight(0);
     setBlockAsked(1);
     setAsked([...asked, next]);
+  }
+
+  /**
+   * Sandra's read on the result.
+   *
+   * Fetched once, and allowed to fail: the level is already decided and saved
+   * without it. If the household has spent its AI allowance, or the model is
+   * unreachable, the result screen simply has one card fewer rather than a
+   * broken placement.
+   */
+  async function loadSummary(level: Level) {
+    setSummaryState("loading");
+    try {
+      const perLevel = LEVELS.reduce(
+        (acc, l) => ({
+          ...acc,
+          [l]: { right: scores[l], asked: asked.filter((a) => a.level === l).length },
+        }),
+        {} as Record<string, { right: number; asked: number }>
+      );
+      const res = await fetch("/api/ai/placement-summary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ level, perLevel, nearMisses, misses }),
+      });
+      if (!res.ok) return setSummaryState("off");
+      setSummary(await res.json());
+      setSummaryState("idle");
+    } catch {
+      setSummaryState("off");
+    }
   }
 
   function save() {
@@ -311,6 +362,63 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               ) : null;
             })}
           </div>
+
+          {/* Sandra's read, grounded in what they actually missed. Additive:
+              if the AI is unavailable the level still stands. */}
+          {summaryState === "loading" ? (
+            <p className="mt-4 text-sm text-ink-faint">
+              A Sandra está a ler as tuas respostas…
+            </p>
+          ) : summary ? (
+            <div className="mt-5 space-y-3 border-t border-sand pt-4 text-left">
+              <p className="text-sm text-ink">{summary.headlineEn}</p>
+
+              {summary.canDoEn?.length > 0 ? (
+                <div>
+                  <p className="label">Já consegues</p>
+                  <ul className="mt-1 space-y-1">
+                    {summary.canDoEn.map((c, i) => (
+                      <li key={i} className="text-sm text-ink-soft">
+                        ✓ {c}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : null}
+
+              {summary.gapsEn?.length > 0 ? (
+                <div>
+                  <p className="label">A trabalhar</p>
+                  <div className="mt-1 space-y-1.5">
+                    {summary.gapsEn.map((g, i) => (
+                      <div
+                        key={i}
+                        className="rounded-xl border border-sand bg-white/70 px-3 py-2"
+                      >
+                        <p className="text-sm font-medium">{g.topicEn}</p>
+                        <p className="text-xs text-ink-soft">{g.whyEn}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              <div className="rounded-xl bg-azul-pale/60 px-3 py-2">
+                <p className="text-xs font-semibold tracking-wide text-azul uppercase">
+                  Primeiro passo
+                </p>
+                <p className="mt-0.5 text-sm text-azul">{summary.focusEn}</p>
+              </div>
+
+              <p className="rounded-xl bg-sage-pale/60 px-3 py-2 text-sm text-olive">
+                👩‍🏫 {summary.encouragementPt}
+              </p>
+              <p className="text-2xs text-ink-faint">
+                A seguir, umas perguntas rápidas sobre como gostas de estudar —
+                é com elas que a Sandra monta o teu plano.
+              </p>
+            </div>
+          ) : null}
 
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <button className="btn-terra" onClick={save} disabled={pending || saved}>

@@ -1,6 +1,12 @@
 "use server";
 
+import { eq } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
+import { getDb, users } from "@/lib/db";
+import {
+  readPlacement,
+  type PlacementRecord,
+} from "@/lib/placement-record";
 import {
   BANK,
   counts,
@@ -85,4 +91,37 @@ export async function gradePlacement(
 
   const mark = gradeItem(item, String(given ?? "").slice(0, 400));
   return { mark, correct: counts(mark), level: item.level, correctAnswer };
+}
+
+/* ── What we keep afterwards ─────────────────────────────────────────── */
+
+/** Read this learner's stored placement summary and plan. */
+export async function getPlacementRecord(): Promise<PlacementRecord> {
+  const session = await requireSession();
+  try {
+    const [row] = await getDb()
+      .select({ placement: users.placement })
+      .from(users)
+      .where(eq(users.username, session.username))
+      .limit(1);
+    return readPlacement(row?.placement);
+  } catch {
+    return {};
+  }
+}
+
+/** Merge a patch into the stored record without losing the other half. */
+export async function savePlacementRecord(
+  patch: PlacementRecord
+): Promise<void> {
+  const session = await requireSession();
+  try {
+    const current = await getPlacementRecord();
+    await getDb()
+      .update(users)
+      .set({ placement: { ...current, ...patch } })
+      .where(eq(users.username, session.username));
+  } catch {
+    // A lost summary must never cost somebody their placement.
+  }
 }

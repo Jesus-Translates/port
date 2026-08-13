@@ -62,6 +62,15 @@ export const users = pgTable("users", {
    * will change as we learn which questions earn their place.
    */
   prefs: jsonb("prefs"),
+  /**
+   * What the placement test concluded, and the plan built from it.
+   *
+   * Kept because the gaps outlive the screen that found them: the
+   * questionnaire runs next and designs the plan around exactly these
+   * weaknesses, and the plan itself is worth showing again later. See
+   * lib/placement-record.ts for the shape.
+   */
+  placement: jsonb("placement"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
