@@ -639,3 +639,31 @@ export const householdSettings = pgTable("household_settings", {
   bilingual: boolean("bilingual").notNull().default(false),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+/**
+ * Verbs a learner added themselves.
+ *
+ * The curated table in lib/verbs.ts is hand-checked European Portuguese and
+ * stays that way — it is the reference. This is the household's own shelf
+ * beside it: type "estacionar", get the paradigm, keep it. Conjugations are
+ * stored rather than regenerated so a saved verb reads the same tomorrow, and
+ * so a hand-corrected irregular can overwrite what the pattern guessed.
+ *
+ * Scoped by addedBy like every other user-authored row — one family's verbs
+ * are not another's.
+ */
+export const userVerbs = pgTable(
+  "user_verbs",
+  {
+    id: serial("id").primaryKey(),
+    inf: text("inf").notNull(),
+    en: text("en").notNull().default(""),
+    /** Partial<Record<Tense, (string | null)[]>> — same shape as Verb.forms. */
+    forms: jsonb("forms").notNull(),
+    /** "auto" when generated from the regular pattern, "hand" once corrected. */
+    source: text("source").notNull().default("auto"),
+    addedBy: text("added_by").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+  },
+  (t) => [uniqueIndex("user_verbs_owner_inf").on(t.addedBy, t.inf)]
+);

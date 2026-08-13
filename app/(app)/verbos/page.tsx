@@ -2,6 +2,7 @@ import Link from "next/link";
 import { unitContextFrom } from "@/lib/unit-context";
 import { VerbConjugator } from "@/components/verb-conjugator";
 import { VerbTest } from "@/components/verb-test";
+import { listMyVerbs } from "@/lib/actions/verbs";
 import { requireSession } from "@/lib/auth";
 import { TENSE_LABEL, type Tense, VERBS } from "@/lib/verbs";
 import { cn } from "@/lib/utils";
@@ -31,8 +32,13 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
   const unit = await unitContextFrom(sp);
   // Deep links (?verbo=ficar&tempo=perfeito) are validated against the data —
   // an unknown value just falls back to the default rather than blowing up.
+  // The household's own verbs are searched alongside the curated ones.
+  const mine = await listMyVerbs();
   const wanted = first(sp.verbo);
-  const verbo = VERBS.some((v) => v.inf === wanted) ? wanted : undefined;
+  const verbo =
+    VERBS.some((v) => v.inf === wanted) || mine.some((v) => v.inf === wanted)
+      ? wanted
+      : undefined;
   const tempoRaw = first(sp.tempo);
   const tempo =
     tempoRaw && tempoRaw in TENSE_LABEL ? (tempoRaw as Tense) : undefined;
@@ -93,7 +99,7 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
       {tab === "treinar" ? (
         <VerbTest initialTense={tempo} unit={unit} />
       ) : (
-        <VerbConjugator initialVerb={verbo} initialTense={tempo} />
+        <VerbConjugator initialVerb={verbo} initialTense={tempo} mine={mine} />
       )}
     </div>
   );

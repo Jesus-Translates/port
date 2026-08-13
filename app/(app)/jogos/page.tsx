@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
-import { KIND_META } from "@/lib/course";
+import { KIND_META, type ItemKind } from "@/lib/course";
 
 export const metadata = { title: "Jogos" };
 
@@ -48,6 +48,17 @@ const QUICK_GAMES = [
     href: "/jogos/verbo",
     pt: "“tu fazes” ou “tu fazem”? Diz se está certo antes de pensar demais.",
     en: "Judge a form fast — the skill you use listening, not writing.",
+  },
+  {
+    // Not a unit-path item kind — it deals from the verb tables rather than
+    // from a syllabus step — so it carries its own label instead of going
+    // through KIND_META.
+    kind: "cartoes" as const,
+    href: "/jogos/cartoes",
+    emoji: "🎴",
+    label: "Cartões de verbos",
+    pt: "Vira o cartão, diz a resposta de cabeça, confirma. Escolhe o tempo.",
+    en: "Flashcards — the fastest way through a paradigm, in any tense you pick.",
   },
   {
     kind: "jogo-responde" as const,
@@ -167,9 +178,13 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
             No setup — these run straight from your phrasebook and verb tables.
           </span>
         </p>
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {QUICK_GAMES.map((g) => {
-            const meta = KIND_META[g.kind];
+            const known = g.kind in KIND_META ? KIND_META[g.kind as ItemKind] : null;
+            const meta = {
+              emoji: ("emoji" in g ? g.emoji : known?.emoji) ?? "🎲",
+              label: ("label" in g ? g.label : known?.label) ?? g.kind,
+            };
             return (
               <Link
                 key={g.kind}

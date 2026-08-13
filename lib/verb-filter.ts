@@ -145,11 +145,35 @@ export function regularForms(inf: string, tense: Tense): (string | null)[] | nul
   const table = STEM_ENDINGS[cls];
   if (tense === "imperativo") {
     // tu borrows the presente 3sg; você/nós/vocês borrow the conjuntivo.
-    const pres = table.presente.map((e) => join(stem, e, cls));
+    const pres = presente(stem, cls, table);
     const conj = table.conjuntivo.map((e) => join(stem, e, cls));
     return [null, pres[2], conj[2], conj[3], conj[4]];
   }
+  if (tense === "presente") return presente(stem, cls, table);
   return table[tense].map((e) => join(stem, e, cls));
+}
+
+/**
+ * The present tense, with the one sound-driven exception worth encoding.
+ *
+ * Verbs in -uzir (conduzir, produzir, traduzir, reduzir, seduzir…) drop the
+ * ending entirely in the third person singular: "ele conduz", never
+ * "conduze". The pattern otherwise treats them as ordinary -ir verbs and is
+ * right about every other slot.
+ *
+ * This mattered little while generated forms were a transient preview. Now a
+ * learner can SAVE a typed verb, so a wrong form is persisted and then drilled
+ * — and "conduze" practised twenty times is worse than no table at all. The
+ * imperative borrows this slot for tu, so fixing it here fixes both.
+ */
+function presente(
+  stem: string,
+  cls: Exclude<VerbClass, "outro">,
+  table: (typeof STEM_ENDINGS)[Exclude<VerbClass, "outro">]
+): string[] {
+  const forms = table.presente.map((e) => join(stem, e, cls));
+  if (cls === "ir" && /uz$/.test(stem)) forms[2] = stem;
+  return forms;
 }
 
 /**

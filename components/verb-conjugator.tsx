@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
+import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import {
   CLASS_LABEL,
@@ -19,6 +20,7 @@ import {
   type Verb,
   VERBS,
 } from "@/lib/verbs";
+import { addVerb, removeVerb, type SavedVerb } from "@/lib/actions/verbs";
 
 /**
  * Consultar — the full paradigm of one verb, every form with its own play
@@ -29,22 +31,32 @@ export type VerbConjugatorProps = {
   initialVerb?: string;
   /** Tense to filter to on open. Defaults to showing every tense. */
   initialTense?: Tense;
+  /** The household's own saved verbs, searched alongside the curated ones. */
+  mine?: SavedVerb[];
 };
 
 export function VerbConjugator({
   initialVerb,
   initialTense,
+  mine = [],
 }: VerbConjugatorProps) {
   const [query, setQuery] = useState("");
   const [inf, setInf] = useState(initialVerb ?? "falar");
   const [only, setOnly] = useState<Tense | "todos">(initialTense ?? "todos");
+  const [saved, setSaved] = useState<SavedVerb[]>(mine);
+  const [meaning, setMeaning] = useState("");
+  const [addError, setAddError] = useState<string | null>(null);
+  const [adding, startAdd] = useTransition();
 
+  // The household's own verbs sit in the same list as the curated ones — a
+  // learner should not have to remember which shelf a verb came from.
+  const all: Verb[] = [...VERBS, ...saved];
   const q = stripAccents(query);
   const matches = q
-    ? VERBS.filter(
+    ? all.filter(
         (v) => stripAccents(v.inf).includes(q) || v.en.toLowerCase().includes(q)
       )
-    : VERBS;
+    : all;
 
   /*
    * A verb the list does not have — conjugated as you type.
@@ -66,7 +78,7 @@ export function VerbConjugator({
 
   // A typed verb wins while the search finds nothing; clearing the box falls
   // back to whichever chip is selected.
-  const listed = findVerb(inf);
+  const listed = saved.find((v) => v.inf === inf) ?? findVerb(inf);
   const verb = generatedVerb ?? listed;
   const generated = Boolean(generatedVerb);
   const tenses = verb ? tensesOf(verb) : [];
@@ -97,9 +109,53 @@ export function VerbConjugator({
         </div>
         {matches.length === 0 ? (
           generated ? (
-            <p className="text-sm text-ink-soft">
-              «{typed}» não está na lista — conjugado pela regra, em baixo.
-            </p>
+            <div className="space-y-2">
+              <p className="text-sm text-ink-soft">
+                «{typed}» não está na lista — conjugado pela regra, em baixo.
+              </p>
+              {/* Keeping it is the point: a verb you looked up once is a verb
+                  you will look up again, and the flashcard game draws from
+                  exactly this shelf. The meaning is required because a card
+                  with a blank back teaches nothing. */}
+              <div className="flex flex-wrap items-end gap-2">
+                <label className="min-w-0 flex-1 text-xs text-ink-soft">
+                  O que significa?
+                  <input
+                    value={meaning}
+                    onChange={(e) => setMeaning(e.target.value)}
+                    className="input mt-1"
+                    placeholder="to park"
+                    autoCapitalize="off"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="btn-primary"
+                  disabled={adding || !meaning.trim()}
+                  onClick={() =>
+                    startAdd(async () => {
+                      setAddError(null);
+                      const r = await addVerb(typed, meaning);
+                      if (r.ok) {
+                        setSaved((list) =>
+                          [...list.filter((v) => v.inf !== r.verb.inf), r.verb].sort(
+                            (a, b) => a.inf.localeCompare(b.inf)
+                          )
+                        );
+                        setInf(r.verb.inf);
+                        setQuery("");
+                        setMeaning("");
+                      } else setAddError(r.error);
+                    })
+                  }
+                >
+                  {adding ? "A guardar…" : "Guardar na lista"}
+                </button>
+              </div>
+              {addError ? (
+                <p className="text-sm text-terra-dark">{addError}</p>
+              ) : null}
+            </div>
           ) : (
             <p className="text-sm text-ink-soft">
               Nenhum verbo com «{query}».{" "}
@@ -132,6 +188,56 @@ export function VerbConjugator({
           </div>
         )}
       </div>
+
+      {/* The household's own shelf. Small, deletable, and only shown once it
+          has something on it — an empty "your verbs" panel is furniture. */}
+      {saved.length > 0 ? (
+        <div className="card space-y-2 p-4">
+          <div className="flex items-baseline justify-between gap-2">
+            <span className="label">Verbos que guardaram</span>
+            <Link
+              href="/jogos/cartoes"
+              className="text-xs text-olive underline underline-offset-2"
+            >
+              Treinar com cartões →
+            </Link>
+          </div>
+          <div className="flex flex-wrap gap-1.5">
+            {saved.map((v) => (
+              <span
+                key={v.id}
+                className={cn(
+                  "flex items-center gap-1 rounded-full border py-1 pr-1 pl-3 text-sm",
+                  v.inf === inf
+                    ? "border-olive bg-olive text-paper"
+                    : "border-sand bg-white/70"
+                )}
+              >
+                <button type="button" onClick={() => setInf(v.inf)}>
+                  {v.inf}
+                </button>
+                <button
+                  type="button"
+                  aria-label={`Apagar ${v.inf}`}
+                  className="tap-44 grid size-6 place-items-center rounded-full text-xs opacity-60 hover:opacity-100"
+                  onClick={() =>
+                    startAdd(async () => {
+                      const r = await removeVerb(v.id);
+                      if (r.ok) setSaved((l) => l.filter((x) => x.id !== v.id));
+                    })
+                  }
+                >
+                  ✕
+                </button>
+              </span>
+            ))}
+          </div>
+          <p className="text-2xs text-ink-faint">
+            Conjugados pelo padrão regular. Se algum for irregular, a tabela vai
+            estar errada — apaga-o e diz-nos.
+          </p>
+        </div>
+      ) : null}
 
       {!verb ? (
         <p className="card p-5 text-sm text-ink-soft">
