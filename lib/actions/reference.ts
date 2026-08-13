@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { requireSession } from "@/lib/auth";
+import { householdUsernames } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { categories, getDb, refEntries } from "@/lib/db";
 
@@ -112,6 +113,19 @@ export async function addEntries(
 export async function deleteEntry(id: number, slug: string) {
   await requireSession();
   const db = getDb();
+  /*
+   * Scoped to the household's OWN entries.
+   *
+   * This deleted by id alone, so any customer could remove another family's
+   * phrases — or the seeded phrasebook itself, which is the product. Seed rows
+   * belong to nobody and are operator business.
+   */
+  const [row] = await db
+    .select({ addedBy: refEntries.addedBy })
+    .from(refEntries)
+    .where(eq(refEntries.id, id))
+    .limit(1);
+  if (!row || !(await householdUsernames()).includes(row.addedBy)) return;
   await db.delete(refEntries).where(eq(refEntries.id, id));
   revalidatePath(`/reference/${slug}`);
 }

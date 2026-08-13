@@ -294,6 +294,18 @@ export function readPrefs(raw: unknown): Prefs | null {
     voice: pick(r.voice, ["avontade", "nervoso", "escrever"] as const, "nervoso"),
     games: pick(r.games, ["adoro", "asvezes", "poucos"] as const, "asvezes"),
     guidance: pick(r.guidance, ["guia", "escolho"] as const, "guia"),
-    immersion: pick(r.immersion, ["total", "ajuda"] as const, "ajuda"),
+    /*
+     * "familia" MUST be admissible here.
+     *
+     * It is the sentinel meaning "follow the household", and the family
+     * settings card promises exactly that ("Vale para toda a família"). This
+     * reader admitted only total|ajuda and coerced everything else to
+     * "ajuda" — and setMyPrefs persists whatever it returns. So the moment a
+     * member answered the questionnaire, or merely tapped the daily-goal
+     * picker, they were permanently detached from the household default and
+     * the parent's switch stopped reaching them. It reached only members who
+     * had never touched a preference at all.
+     */
+    immersion: pick(r.immersion, ["total", "ajuda", "familia"] as const, "familia"),
   };
 }

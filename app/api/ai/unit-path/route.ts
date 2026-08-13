@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
-import { roleOf, getSession } from "@/lib/auth";
+import { roleOf, getSession, isOperator } from "@/lib/auth";
 import {
   isItemKind,
   ITEM_KINDS,
@@ -76,6 +76,18 @@ export async function POST(request: NextRequest) {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+  }
+  /*
+   * This route WRITES to the global `units` / `unit_items` tables — content
+   * every household learns from, with no tenant column. Session-only (or
+   * roleOf-based) gating let any customer generate into, or reshape, the
+   * shared syllabus. Operator only until units are per-household.
+   */
+  if (!(await isOperator(session.username))) {
+    return NextResponse.json(
+      { error: "Só o operador pode alterar o conteúdo do curso." },
+      { status: 403 }
+    );
   }
   // Burst limit AND the household's monthly AI allowance, in one check.
   const denied = await aiDenial(session.username);

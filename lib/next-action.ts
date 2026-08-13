@@ -18,6 +18,12 @@ import { DEFAULT_PREFS, dailyGoal, readPrefs } from "@/lib/learning-path";
  * off it), then the things with a deadline or a decay cost, then forward
  * progress, then a default that is never a dead end.
  */
+/** The activity kinds that count toward a finished day. */
+export const DONE_TODAY_KINDS = [
+  "review", "jogo", "homework", "quiz", "falar",
+  "unidade", "tutor", "ditado", "verbos", "conversa", "cloze", "escutar",
+] as const;
+
 export type NextAction = {
   href: string;
   emoji: string;
@@ -80,7 +86,16 @@ export async function resolveNextAction(
         and(
           eq(activity.username, username),
           sql`${activity.createdAt} >= date_trunc('day', now())`,
-          inArray(activity.kind, ["review", "jogo", "homework", "quiz", "falar"])
+          /*
+           * Everything that IS a day's learning.
+           *
+           * This listed five kinds and omitted the four the calçada path
+           * actually drives — "unidade", "tutor", "ditado", "verbos" — so a
+           * learner could finish five course activities and never once be
+           * told "Feito por hoje". The daily goal is the retention
+           * centrepiece; one that never completes teaches people to ignore it.
+           */
+          inArray(activity.kind, DONE_TODAY_KINDS)
         )
       )
       .then((r) => Number(r[0]?.n ?? 0))

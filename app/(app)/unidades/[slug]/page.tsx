@@ -68,7 +68,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
   });
 
   const isDraft = unit.status !== "published";
-  // The banner promises "Kelly reads it before the class sees it" — so honour
+  // The banner promises a draft is reviewed before learners see it — so honour
   // that. A student with a guessed slug could otherwise read a draft AND make
   // it spend AI calls building itself.
   if (isDraft && !isStaff) notFound();
@@ -97,7 +97,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
         <p className="rounded-2xl border-l-4 border-terra bg-terra-pale/60 px-4 py-3 text-sm text-terra-dark">
           Rascunho — à espera da revisão da professora.{" "}
           <span className="text-terra-dark/80">
-            Still a draft: Kelly reads it before the class sees it.
+            Still a draft — it is reviewed before learners see it.
           </span>
         </p>
       ) : null}
@@ -118,7 +118,7 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
         <p className="card p-6 text-center text-sm text-ink-soft">
           As atividades desta unidade já não abrem em lado nenhum.{" "}
           <span className="text-ink-faint">
-            Ask Kelly to rebuild this unit&apos;s path.
+            Ask an admin to rebuild this unit&apos;s path.
           </span>
         </p>
       )}

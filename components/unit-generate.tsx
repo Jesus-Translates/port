@@ -74,7 +74,7 @@ export function UnitGenerate({ level = "A2" }: { level?: string }) {
         </button>
       </div>
       <p className="text-xs text-ink-faint">
-        New units start as a <strong>rascunho</strong> — Professora Kelly reads
+        New units start as a <strong>rascunho</strong> — a teacher reads
         the note and publishes it to the class.
       </p>
       {error ? <p className="text-sm text-terra-dark">{error}</p> : null}

@@ -32,7 +32,14 @@ export async function genderRounds(limit = 25): Promise<GenderRound[]> {
   const rows = await getDb()
     .select({ pt: refEntries.pt, en: refEntries.en })
     .from(refEntries)
-    .where(sql`lower(${refEntries.pt}) ~ '^(o|a|os|as) [a-zà-ú]'`)
+    .where(
+      and(
+        // TENANCY: same fix intruderRounds already carries — an unscoped read
+        // put one family's own phrases into another family's game.
+        inArray(refEntries.addedBy, await visibleOwners()),
+        sql`lower(${refEntries.pt}) ~ '^(o|a|os|as) [a-zà-ú]'`
+      )
+    )
     .orderBy(sql`random()`)
     .limit(limit * 2);
 
@@ -249,7 +256,14 @@ export async function replyRounds(limit = 8): Promise<ReplyRound[]> {
     })
     .from(refEntries)
     .innerJoin(categories, eq(categories.id, refEntries.categoryId))
-    .where(and(isNotNull(refEntries.replyPt), sql`length(trim(${refEntries.replyPt})) > 0`))
+    .where(
+      and(
+        // TENANCY: as above.
+        inArray(refEntries.addedBy, await visibleOwners()),
+        isNotNull(refEntries.replyPt),
+        sql`length(trim(${refEntries.replyPt})) > 0`
+      )
+    )
     .orderBy(sql`random()`);
 
   const byCat = new Map<number, typeof rows>();

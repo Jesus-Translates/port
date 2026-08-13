@@ -1,6 +1,7 @@
 import { and, desc, eq, notInArray } from "drizzle-orm";
 import { NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
+import { aiDenial } from "@/lib/usage";
 import { getDb, lsSessions } from "@/lib/db";
 import { buildSessionSsml, LS_MAX_CARDS } from "@/lib/ls";
 import { getFlashQueue, getQueue } from "@/lib/srs";
@@ -20,6 +21,19 @@ export async function POST() {
   if (!session) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
+  /*
+   * The single most expensive artefact in the product — roughly five minutes
+   * of neural TTS per session — and the ONE billable route that never asked
+   * the budget. Every /api/ai/* route and /api/tts enforce the 75%-of-net-
+   * revenue ceiling; without this, a household past its cap could keep buying
+   * the priciest thing on the menu, which makes the guarantee a hope rather
+   * than an invariant.
+   */
+  const denied = await aiDenial(session.username);
+  if (denied) {
+    return NextResponse.json({ error: denied.error }, { status: denied.status });
+  }
+
   if (!azureConfigured()) {
     return NextResponse.json(
       {

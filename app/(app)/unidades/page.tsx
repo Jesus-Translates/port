@@ -3,7 +3,7 @@ import { asc, eq, sql } from "drizzle-orm";
 import { UnitGenerate } from "@/components/unit-generate";
 import { getUnitProgress } from "@/lib/actions/course";
 import { getMyCefr } from "@/lib/actions/profile";
-import { roleOf, requireSession } from "@/lib/auth";
+import { isOperator, roleOf, requireSession } from "@/lib/auth";
 import { getDb, unitItems, units } from "@/lib/db";
 
 export const metadata = { title: "Unidades" };
@@ -26,7 +26,13 @@ const CATEGORY_CHIP: Record<string, string> = {
 
 export default async function UnidadesPage() {
   const session = await requireSession();
-  const isStaff = await roleOf(session.username) !== "student";
+  /*
+   * Drafts and the unit generator belong to whoever curates the GLOBAL course,
+   * not to every family owner. roleOf() says "admin" for all of them, so each
+   * customer was shown every other household's drafts and a button that writes
+   * into the shared syllabus.
+   */
+  const isStaff = await isOperator(session.username);
   // Named myLevel: `level` is already the loop variable over CEFR buckets below.
   const myLevel = await getMyCefr();
 

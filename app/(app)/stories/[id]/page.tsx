@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { eq, inArray, and } from "drizzle-orm";
 import { AudioButton } from "@/components/audio-button";
 import { StoryReader } from "@/components/story-reader";
 import { UnitReturn } from "@/components/unit-return";
 import { requireSession } from "@/lib/auth";
 import { getDb, stories } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { unitContextFrom } from "@/lib/unit-context";
 
 export default async function StoryPage(props: PageProps<"/stories/[id]">) {
@@ -16,7 +17,14 @@ export default async function StoryPage(props: PageProps<"/stories/[id]">) {
   const [story] = await getDb()
     .select()
     .from(stories)
-    .where(eq(stories.id, storyId))
+    // Stories embed the household's REAL names and town (see the story
+    // route's prompt), so they are the last thing that may cross families.
+    .where(
+      and(
+        eq(stories.id, storyId),
+        inArray(stories.createdBy, await visibleOwners())
+      )
+    )
     .limit(1);
   if (!story) notFound();
 

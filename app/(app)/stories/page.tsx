@@ -1,10 +1,11 @@
 import Link from "next/link";
-import { desc } from "drizzle-orm";
+import { desc, inArray } from "drizzle-orm";
 import { StoryGenerate } from "@/components/story-generate";
 import { UnitReturn } from "@/components/unit-return";
 import { UnitStart } from "@/components/unit-start";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
+import { visibleOwners } from "@/lib/tenant";
 import { getDb, stories } from "@/lib/db";
 import { rankByTopic } from "@/lib/topic-match";
 import { unitContextFrom } from "@/lib/unit-context";
@@ -35,6 +36,9 @@ export default async function StoriesPage(props: PageProps<"/stories">) {
       level: stories.level,
     })
     .from(stories)
+    // Stories embed the household's REAL names and town (see the story
+    // route's prompt), so they are the last thing that may cross families.
+    .where(inArray(stories.createdBy, await visibleOwners()))
     .orderBy(desc(stories.createdAt))
     .limit(60);
 

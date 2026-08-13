@@ -12,6 +12,7 @@ import {
 } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
 import { requireSession } from "@/lib/auth";
+import { inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { checkAnswer, type AnswerCheck } from "@/lib/diff";
 import { getDb, quizzes } from "@/lib/db";
@@ -184,7 +185,12 @@ export async function cloneQuiz(id: number) {
     .from(quizzes)
     .where(eq(quizzes.id, id))
     .limit(1);
-  if (!quiz) return;
+  /*
+   * Every other quiz action checks the owner; this one checked only that the
+   * row existed, and then copied its questions — answers included — into the
+   * caller's account. Walking ids read other families' quizzes.
+   */
+  if (!quiz || !(await inMyHousehold(quiz.username))) return;
   const [row] = await db
     .insert(quizzes)
     .values({
