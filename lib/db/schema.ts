@@ -580,6 +580,16 @@ export const people = pgTable(
 );
 
 /** Person ↔ account. `username` lives HERE and is unique per account only. */
+/**
+ * Pro is an ADD-ON on a seat, not a plan.
+ *
+ * A family buys it for the adult sitting the CIPLE exam, not for the
+ * six-year-old — which is the whole reason it is affordable. `proUntil` is the
+ * instant the extra allowance stops: Pro is live while now < proUntil, so it
+ * is month-scoped by construction and unused capacity CANNOT roll over. That
+ * matters: banked credits would let somebody save three months and spend them
+ * in one, and the monthly guarantee would stop being monthly.
+ */
 export const memberships = pgTable(
   "memberships",
   {
@@ -593,6 +603,8 @@ export const memberships = pgTable(
     username: text("username").notNull(),
     // owner | parent | child  (the existing admin/teacher roles map onto these)
     role: text("role").notNull().default("child"),
+    /** Null or past = base allowance. Future = the Pro multiplier applies. */
+    proUntil: timestamp("pro_until"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [

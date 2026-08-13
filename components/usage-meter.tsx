@@ -17,22 +17,23 @@ import { cn } from "@/lib/utils";
  */
 export async function UsageMeter() {
   const b = await budgetState();
-  if (b.exempt || !Number.isFinite(b.budgetEur)) return null;
+  if (b.exempt || !Number.isFinite(b.weekBudgetEur)) return null;
 
-  const heavy = b.pct >= 80;
   const spent = b.blocked !== null;
 
   return (
     <section className="card space-y-3 p-5">
       <div className="flex items-baseline justify-between gap-3">
-        <h2 className="font-semibold">Uso da IA este mês</h2>
+        <h2 className="font-semibold">
+          A tua IA esta semana{b.pro ? " · Pro" : ""}
+        </h2>
         <span
           className={cn(
             "text-sm font-medium tabular-nums",
-            spent ? "text-terra-dark" : heavy ? "text-terra" : "text-ink-soft"
+            spent ? "text-terra-dark" : b.nearLimit ? "text-terra" : "text-ink-soft"
           )}
         >
-          {b.pct}%
+          {b.weekPct}%
         </span>
       </div>
 
@@ -40,31 +41,35 @@ export async function UsageMeter() {
         <div
           className={cn(
             "h-2 rounded-full transition-[width]",
-            spent ? "bg-terra" : heavy ? "bg-terra-light" : "bg-olive"
+            spent ? "bg-terra" : b.nearLimit ? "bg-terra-light" : "bg-olive"
           )}
-          style={{ width: `${Math.min(100, b.pct)}%` }}
+          style={{ width: `${Math.min(100, b.weekPct)}%` }}
         />
       </div>
 
       {spent ? (
         <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
           {b.blocked === "month"
-            ? "Usaram a IA incluída neste mês. A Sandra volta no dia 1."
-            : "Já usaram bastante IA hoje. A Sandra volta amanhã."}{" "}
+            ? "A família usou a IA incluída neste mês. Renova no dia 1."
+            : b.daysToReset === 1
+              ? "Usaste a tua IA desta semana. Renova amanhã."
+              : `Usaste a tua IA desta semana. Renova segunda-feira — faltam ${b.daysToReset} dias.`}{" "}
           As revisões, o vocabulário, os exercícios e o áudio já gravado
-          continuam a funcionar normalmente.
+          continuam a funcionar.
         </p>
-      ) : heavy ? (
-        <p className="text-sm text-ink-soft">
-          Estão a usar bastante — o que é ótimo. Se chegarem aos 100%, a Sandra
-          faz uma pausa até ao início do mês e o resto da app continua a
-          funcionar.
+      ) : b.nearLimit ? (
+        /* 75%, not 100%. A limit you meet without warning feels like a fault
+           in the app; one you saw coming feels like a rule. */
+        <p className="rounded-xl bg-terra-pale/60 px-3 py-2 text-sm text-terra-dark">
+          Estás perto do limite desta semana. Renova{" "}
+          {b.daysToReset === 1 ? "amanhã" : `daqui a ${b.daysToReset} dias`}. Se
+          desligares a voz da Sandra, cada resposta fica muito mais barata.
         </p>
       ) : (
         <p className="text-sm text-ink-soft">
-          Inclui as conversas com a Sandra, as correções e o áudio novo. Só
-          famílias que falam com a Sandra todos os dias, o dia inteiro, chegam
-          perto do limite.
+          É o teu limite, não o da família — ninguém gasta o dos outros. Conta
+          conversas com a Sandra e áudio novo; as revisões e os exercícios são
+          à parte.
         </p>
       )}
     </section>

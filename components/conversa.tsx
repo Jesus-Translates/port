@@ -120,6 +120,33 @@ export function Conversa({
   const [topicInput, setTopicInput] = useState(initialTopic);
   const [topic, setTopic] = useState("");
   const [voice, setVoice] = useState("");
+  /*
+   * Sandra's voice, off.
+   *
+   * Speech is ~86% of what a turn costs, so a written reply is about a seventh
+   * of the price and buys roughly seven times as many exchanges from the same
+   * allowance. The learner still SPEAKS — only Sandra's half goes quiet — so
+   * the practice that matters is untouched. Remembered per browser: someone
+   * who studies on a bus wants it off every time, not once.
+   */
+  const [withVoice, setWithVoice] = useState(true);
+  useEffect(() => {
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (localStorage.getItem("conversa:voice") === "off") setWithVoice(false);
+    } catch {
+      // Private mode: default to voice on.
+    }
+  }, []);
+  function toggleVoice() {
+    setWithVoice((on) => {
+      try {
+        localStorage.setItem("conversa:voice", on ? "off" : "on");
+      } catch {}
+      if (on) stopSpeaking();
+      return !on;
+    });
+  }
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [typed, setTyped] = useState("");
   const [pending, setPending] = useState(false);
@@ -218,6 +245,7 @@ export function Conversa({
           mode: "start",
           topic: chosen ?? topicInput ?? "",
           cefr,
+          withVoice,
         }),
       });
       const data = await res.json();
@@ -317,6 +345,7 @@ export function Conversa({
           typedText: text,
           topic,
           voice,
+          withVoice,
           cefr,
           history: JSON.parse(historyPayload()),
         }),
@@ -351,6 +380,7 @@ export function Conversa({
         form.append("audio", blob, "audio.webm");
         form.append("topic", topic);
         form.append("voice", voice);
+        form.append("withVoice", withVoice ? "1" : "0");
         form.append("cefr", cefr);
         form.append("history", historyPayload());
         try {
@@ -807,6 +837,35 @@ export function Conversa({
             {pending ? "A Sandra está a ouvir…" : "🎙️ Responder com a voz"}
           </button>
         )}
+        {/* The one lever a learner has over their own allowance, stated in
+            plain terms rather than as a credits abstraction. */}
+        <button
+          type="button"
+          role="switch"
+          aria-checked={!withVoice}
+          onClick={toggleVoice}
+          className={cn(
+            "tap-44 flex w-full items-center gap-2.5 rounded-xl border px-3 py-2 text-left text-sm transition-colors",
+            withVoice
+              ? "border-sand bg-white/70 hover:border-sage"
+              : "border-olive bg-sage-pale"
+          )}
+        >
+          <span aria-hidden className="text-base">
+            {withVoice ? "🔊" : "🔇"}
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block font-medium">
+              {withVoice ? "A Sandra fala" : "A Sandra escreve"}
+            </span>
+            <span className="block text-2xs text-ink-soft">
+              {withVoice
+                ? "Toca para desligar a voz — gasta muito menos"
+                : "Falas na mesma; ela responde por escrito · ~7x mais conversa"}
+            </span>
+          </span>
+        </button>
+
         <div className="flex gap-2">
           <input
             className="input flex-1"

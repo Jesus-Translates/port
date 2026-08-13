@@ -193,8 +193,19 @@ Rules of the conversation:
 async function speak(
   text: string,
   voice: string,
-  username: string
+  username: string,
+  /**
+   * Sandra's voice, off.
+   *
+   * Speech is ~86% of a turn's cost, so a written reply is roughly a seventh
+   * of the price — the single biggest lever a learner has over their own
+   * allowance, and the only one that costs them nothing they need. They still
+   * SPEAK; only Sandra's half is written. For listening practice the voice is
+   * the point, but for a quick exchange on a bus it is not.
+   */
+  withVoice = true
 ): Promise<string | null> {
+  if (!withVoice) return null;
   try {
     /*
      * Through the CACHE, not around it.
@@ -334,6 +345,8 @@ export async function POST(request: NextRequest) {
     }
     const topic = String(form.get("topic") ?? "").slice(0, 200);
     const voice = String(form.get("voice") ?? "").slice(0, 60);
+    // Voice off is opt-IN to silence: absent means speak, as before.
+    const withVoice = String(form.get("withVoice") ?? "1") !== "0";
     const cefr = String(form.get("cefr") ?? "A2").slice(0, 8);
     let history: HistoryTurn[] = [];
     try {
@@ -380,7 +393,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const output = await generateReply(session, cefr, topic, history, heard);
-      const audioB64 = await speak(output.replyPt, voice, session.username);
+      const audioB64 = await speak(output.replyPt, voice, session.username, withVoice);
       return NextResponse.json({
         heard,
         replyPt: output.replyPt,
@@ -405,6 +418,8 @@ export async function POST(request: NextRequest) {
     cefr?: string;
     voice?: string;
     typedText?: string;
+    /** false = write the reply, do not synthesize it (~86% cheaper). */
+    withVoice?: boolean;
     history?: unknown;
   };
   try {
@@ -432,10 +447,11 @@ export async function POST(request: NextRequest) {
      * stopped her changing mid-chat; it never made her anyone in particular.
      */
     const voice = azureConfigured() ? sandraVoice() : "";
+    const withVoice = body.withVoice !== false;
 
     try {
       const output = await generateReply(session, cefr, topic, [], null);
-      const audioB64 = await speak(output.replyPt, voice, session.username);
+      const audioB64 = await speak(output.replyPt, voice, session.username, withVoice);
       return NextResponse.json({
         topic,
         voice,
@@ -455,13 +471,14 @@ export async function POST(request: NextRequest) {
   if (mode === "turn") {
     const topic = String(body.topic ?? "").slice(0, 200);
     const voice = String(body.voice ?? "").slice(0, 60);
+    const withVoice = body.withVoice !== false;
     const typed = String(body.typedText ?? "").trim().slice(0, 500);
     if (!typed) {
       return NextResponse.json({ error: "Escreve alguma coisa." }, { status: 400 });
     }
     try {
       const output = await generateReply(session, cefr, topic, history, typed);
-      const audioB64 = await speak(output.replyPt, voice, session.username);
+      const audioB64 = await speak(output.replyPt, voice, session.username, withVoice);
       return NextResponse.json({
         heard: typed,
         replyPt: output.replyPt,

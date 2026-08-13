@@ -249,11 +249,14 @@ export async function aiDenial(
         status: 429,
       };
     }
-    if (b.blocked === "day") {
+    if (b.blocked === "week") {
+      // The rail is per PERSON now, so the message says "tu", not "vocês" —
+      // nobody else in the family is affected by this one.
       return {
         error:
-          "Já usaram bastante IA hoje. Volta amanhã — as revisões, o " +
-          "vocabulário e os exercícios continuam a funcionar.",
+          `Usaste a tua IA desta semana. Renova segunda-feira` +
+          `${b.daysToReset === 1 ? " (amanhã)" : ` (faltam ${b.daysToReset} dias)`}` +
+          ` — as revisões, o vocabulário e os exercícios continuam a funcionar.`,
         status: 429,
       };
     }

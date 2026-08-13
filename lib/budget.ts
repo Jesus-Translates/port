@@ -1,8 +1,9 @@
 import { cache } from "react";
 import { and, gte, inArray, sql } from "drizzle-orm";
-import { accounts, aiUsage, getDb } from "@/lib/db";
+import { accounts, aiUsage, getDb, memberships } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { grossMonthlyEur } from "@/lib/plans";
+import { getSession } from "@/lib/auth";
 import { currentAccountId, householdUsernames } from "@/lib/tenant";
 import { lisbonMonthStart, usdToEur } from "@/lib/usage";
 
@@ -39,10 +40,29 @@ function feeFixedEur(): number {
   return Number.isFinite(n) && n >= 0 ? n : 0.25;
 }
 
-/** Share of net revenue a household is allowed to consume in AI cost. */
+/**
+ * Share of net revenue a household may consume in AI cost. Margin floor is
+ * 1 minus this.
+ *
+ * 0.60 — a 40% floor — chosen over 0.75 and 0.50 for a specific reason. At
+ * 0.50 the ceiling falls BELOW measured heavy use on the Individual and
+ * four-seat plans (€3,87 against €3,94; €7,86 against €7,88), so the cap would
+ * fire in the last days of the month on the most engaged families — the ones
+ * least worth throttling.
+ *
+ * At 0.60 heavy use fits at every plan size, though not everywhere by much:
+ * five seats lands exactly on the line and ten within fifteen cents. That is an
+ * artefact of rounding "active members" up (5 x 0.55 -> 3), not a real cliff —
+ * but it is the reason not to go lower, and the reason to re-measure once real
+ * families are generating real numbers. Typical use is about a fifth of the
+ * allowance at every size.
+ *
+ * Note what "net" is: gross less VAT and card fees. Corporate tax comes out of
+ * the margin AFTER this, so a 40% floor is not 40% profit.
+ */
 export function costShare(): number {
   const n = Number(process.env.MAX_COST_SHARE);
-  return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.75;
+  return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.6;
 }
 
 /** What the free tier may consume. Small, but not zero — a free plan that
@@ -80,23 +100,46 @@ function daysInMonth(): number {
 }
 
 /**
- * How much of one day's pro-rata share a household may spend in a single day.
+ * What a Pro seat multiplies its allowance by.
  *
- * Above 1 on purpose. A hard daily quota would punish the Saturday morning
- * when the whole family sits down together, which is exactly the behaviour
- * worth encouraging. This only stops one person consuming the entire month in
- * an afternoon.
+ * Pro is an add-on ON A SEAT, priced to cover the extra AI it buys — so the
+ * multiplier raises the seat's weekly rail AND the household's monthly
+ * ceiling. Raising only the rail would sell somebody capacity the household
+ * cap then refuses, which is worse than not selling it.
  */
-function burstFactor(): number {
-  const n = Number(process.env.DAILY_BURST_FACTOR);
-  return Number.isFinite(n) && n >= 1 ? n : 3;
+export function proMultiplier(): number {
+  const n = Number(process.env.PRO_MULTIPLIER);
+  return Number.isFinite(n) && n >= 1 ? n : 5;
 }
 
-function lisbonDayStart(): Date {
-  const day = new Date().toLocaleDateString("en-CA", {
-    timeZone: "Europe/Lisbon",
-  });
+/** Warn the learner at this share of their weekly allowance. */
+export function warnAt(): number {
+  const n = Number(process.env.USAGE_WARN_AT);
+  return Number.isFinite(n) && n > 0 && n < 1 ? n : 0.75;
+}
+
+/**
+ * Monday 00:00 Lisbon. A CALENDAR week, not a rolling one.
+ *
+ * "Renews Monday" is a promise somebody can plan around; "renews 168 hours
+ * after whenever you started" is not.
+ */
+function lisbonWeekStart(): Date {
+  const now = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" })
+  );
+  const dow = (now.getDay() + 6) % 7; // Monday = 0
+  now.setDate(now.getDate() - dow);
+  const day = now.toLocaleDateString("en-CA");
   return new Date(`${day}T00:00:00Z`);
+}
+
+/** Days until the weekly allowance resets, for the meter's copy. */
+function daysToWeekReset(): number {
+  const now = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" })
+  );
+  return 7 - ((now.getDay() + 6) % 7);
 }
 
 export type BudgetState = {
@@ -112,10 +155,18 @@ export type BudgetState = {
   remainingEur: number;
   /** 0-100, clamped, for a progress bar. */
   pct: number;
-  dayBudgetEur: number;
-  daySpentEur: number;
+  /** THIS SEAT's weekly rail — per person, not per household. */
+  weekBudgetEur: number;
+  weekSpentEur: number;
+  /** 0-100 of the weekly rail; what the meter shows. */
+  weekPct: number;
+  /** True once weekPct crosses the warn threshold. */
+  nearLimit: boolean;
+  daysToReset: number;
+  /** Is this seat on the Pro add-on right now? */
+  pro: boolean;
   /** Why further AI spend is refused, or null when it is allowed. */
-  blocked: null | "month" | "day";
+  blocked: null | "month" | "week";
   /** True when this session is exempt (operator / no account). */
   exempt: boolean;
 };
@@ -123,7 +174,9 @@ export type BudgetState = {
 const UNLIMITED: BudgetState = {
   accountId: null, planId: "operator", seatLimit: 0,
   grossEur: 0, netEur: 0, budgetEur: Infinity, spentEur: 0,
-  remainingEur: Infinity, pct: 0, dayBudgetEur: Infinity, daySpentEur: 0,
+  remainingEur: Infinity, pct: 0,
+  weekBudgetEur: Infinity, weekSpentEur: 0, weekPct: 0, nearLimit: false,
+  daysToReset: 7, pro: false,
   blocked: null, exempt: true,
 };
 
@@ -152,11 +205,21 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
 
     const mine = await householdUsernames();
     if (mine.length === 0) return UNLIMITED;
+    const session = await getSession();
+    if (!session) return UNLIMITED;
 
+    /*
+     * Two aggregations, two different scopes, on purpose.
+     *
+     * The MONTH is the household's — that is the margin guarantee, and it has
+     * to hold across everyone. The WEEK is this person's own: the rail exists
+     * so one member cannot eat the family's month, and the old daily rail did
+     * that by blocking the whole household the moment anybody was heavy, which
+     * punished the family for one person's Saturday.
+     */
     const [row] = await db
       .select({
         monthMicro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint`,
-        dayMicro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}) filter (where ${aiUsage.createdAt} >= ${lisbonDayStart()}), 0)::bigint`,
       })
       .from(aiUsage)
       .where(
@@ -166,13 +229,61 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
         )
       );
 
+    const [weekRow] = await db
+      .select({
+        micro: sql<number>`coalesce(sum(${aiUsage.costMicroUsd}), 0)::bigint`,
+      })
+      .from(aiUsage)
+      .where(
+        and(
+          eq(aiUsage.username, session.username),
+          gte(aiUsage.createdAt, lisbonWeekStart())
+        )
+      );
+
     const rate = usdToEur();
     const spentEur = (Number(row?.monthMicro ?? 0) / 1_000_000) * rate;
-    const daySpentEur = (Number(row?.dayMicro ?? 0) / 1_000_000) * rate;
+    const weekSpentEur = (Number(weekRow?.micro ?? 0) / 1_000_000) * rate;
+
+    /*
+     * Pro raises BOTH rails, and that is not optional.
+     *
+     * A Pro seat's weekly allowance is multiplied, so the household's monthly
+     * ceiling must rise by the same amount of capacity — otherwise the family
+     * buys extra credits and the month cap refuses them, which is worse than
+     * never selling it. The add-on is priced to cover exactly this, so the
+     * margin floor is unmoved.
+     */
+    const seats = Math.max(1, account.seatLimit);
+    const proRows = await db
+      .select({ username: memberships.username, proUntil: memberships.proUntil })
+      .from(memberships)
+      .where(eq(memberships.accountId, accountId));
+    const now = Date.now();
+    const isPro = (u: string) =>
+      proRows.some(
+        (r) =>
+          r.username === u && r.proUntil !== null && new Date(r.proUntil) > new Date(now)
+      );
+    const proSeats = proRows.filter(
+      (r) => r.proUntil !== null && new Date(r.proUntil) > new Date(now)
+    ).length;
 
     const grossEur = grossMonthlyEur(account.plan, account.seatLimit);
-    const budgetEur = monthlyBudgetEur(account.plan, account.seatLimit);
-    const dayBudgetEur = (budgetEur / daysInMonth()) * burstFactor();
+    const baseBudget = monthlyBudgetEur(account.plan, account.seatLimit);
+    const perSeatMonth = baseBudget / seats;
+    // The household ceiling funds every seat, Pro seats at their multiple.
+    const budgetEur =
+      perSeatMonth * (seats - proSeats + proSeats * proMultiplier());
+
+    const pro = isPro(session.username);
+    const mult = pro ? proMultiplier() : 1;
+    // Pro-rata: a seat's month divided into weeks, times its multiplier.
+    const weekBudgetEur = perSeatMonth * (7 / daysInMonth()) * mult;
+    const weekPct = Math.min(
+      100,
+      Math.round((weekSpentEur / Math.max(weekBudgetEur, 0.0001)) * 100)
+    );
 
     return {
       accountId,
@@ -184,10 +295,18 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
       spentEur,
       remainingEur: Math.max(0, budgetEur - spentEur),
       pct: Math.min(100, Math.round((spentEur / Math.max(budgetEur, 0.0001)) * 100)),
-      dayBudgetEur,
-      daySpentEur,
+      weekBudgetEur,
+      weekSpentEur,
+      weekPct,
+      nearLimit: weekPct >= Math.round(warnAt() * 100),
+      daysToReset: daysToWeekReset(),
+      pro,
       blocked:
-        spentEur >= budgetEur ? "month" : daySpentEur >= dayBudgetEur ? "day" : null,
+        spentEur >= budgetEur
+          ? "month"
+          : weekSpentEur >= weekBudgetEur
+            ? "week"
+            : null,
       exempt: false,
     };
   } catch {
