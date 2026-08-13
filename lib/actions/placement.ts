@@ -3,10 +3,12 @@
 import { requireSession } from "@/lib/auth";
 import {
   BANK,
+  counts,
   gradeItem,
   LEVELS,
   publicItem,
   type Level,
+  type Mark,
   type PublicItem,
 } from "@/lib/placement";
 
@@ -25,11 +27,15 @@ function byId(id: string) {
 }
 
 /**
- * The next question, preferring `levelIdx` and widening outwards.
+ * The next unasked question AT THIS LEVEL — never from another one.
  *
- * Widening rather than failing matters: a bank can run dry at one level
- * mid-run, and ending the test early because A2 had no items left would score
- * somebody on nine questions instead of fifteen.
+ * The test used to widen outwards when a level ran dry, which suited the old
+ * adaptive format and is exactly wrong now. A block is a level's own set of
+ * questions: borrowing a B1 item to pad out the A2 block would mean somebody
+ * cleared A2 on a question A2 never asked.
+ *
+ * Returns null when the block is finished, which is how the client knows to
+ * total it up and decide whether the next level opens.
  */
 export async function nextPlacementItem(
   askedIds: string[],
@@ -37,24 +43,25 @@ export async function nextPlacementItem(
 ): Promise<PublicItem | null> {
   await requireSession();
   const asked = new Set(askedIds);
-  const target = Math.max(0, Math.min(LEVELS.length - 1, Math.round(levelIdx)));
+  const level = LEVELS[Math.max(0, Math.min(LEVELS.length - 1, Math.round(levelIdx)))];
 
-  const order = LEVELS.map((_, i) => i).sort(
-    (a, b) => Math.abs(a - target) - Math.abs(b - target)
-  );
-  for (const idx of order) {
-    const pool = BANK.filter(
-      (i) => i.level === LEVELS[idx] && !asked.has(i.id)
-    );
-    if (pool.length > 0) {
-      // A route handler, not a render — plain randomness is fine here.
-      return publicItem(pool[Math.floor(Math.random() * pool.length)]);
-    }
-  }
-  return null;
+  const pool = BANK.filter((i) => i.level === level && !asked.has(i.id));
+  if (pool.length === 0) return null;
+  // A route handler, not a render — plain randomness is fine here.
+  return publicItem(pool[Math.floor(Math.random() * pool.length)]);
+}
+
+/** How many questions each level's block holds, for the progress display. */
+export async function placementBlockSizes(): Promise<Record<string, number>> {
+  await requireSession();
+  const out: Record<string, number> = {};
+  for (const l of LEVELS) out[l] = BANK.filter((i) => i.level === l).length;
+  return out;
 }
 
 export type PlacementMark = {
+  /** certo | quase | errado — "quase" counts, but is shown as a near miss. */
+  mark: Mark;
   correct: boolean;
   level: Level;
   /** Shown after answering, so a wrong answer teaches something. */
@@ -76,9 +83,6 @@ export async function gradePlacement(
         ? item.answer
         : item.answer;
 
-  return {
-    correct: gradeItem(item, String(given ?? "").slice(0, 400)),
-    level: item.level,
-    correctAnswer,
-  };
+  const mark = gradeItem(item, String(given ?? "").slice(0, 400));
+  return { mark, correct: counts(mark), level: item.level, correctAnswer };
 }

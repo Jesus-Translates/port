@@ -4,9 +4,21 @@ import Link from "next/link";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
 import { getStartUnit } from "@/lib/actions/course";
-import { gradePlacement, nextPlacementItem } from "@/lib/actions/placement";
+import {
+  gradePlacement,
+  nextPlacementItem,
+  placementBlockSizes,
+} from "@/lib/actions/placement";
 import { setCefrLevel } from "@/lib/actions/profile";
-import { LEVELS, RUN_LENGTH, verdict, type Level, type PublicItem } from "@/lib/placement";
+import {
+  BLOCK_SIZE,
+  LEVELS,
+  passMarkFor,
+  placeAt,
+  type Level,
+  type Mark,
+  type PublicItem,
+} from "@/lib/placement";
 import { cn } from "@/lib/utils";
 
 const BLURB: Record<Level, { pt: string; en: string }> = {
@@ -58,11 +70,23 @@ const KIND_LABEL: Record<PublicItem["kind"], string> = {
  */
 export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   const [asked, setAsked] = useState<PublicItem[]>([]);
-  const [levelIdx, setLevelIdx] = useState(0); // start at A1
+  const [levelIdx, setLevelIdx] = useState(0); // A1, and only ever upwards
   const [scores, setScores] = useState(emptyScores);
+  const [nearMisses, setNearMisses] = useState(0);
+  /** Right answers in the CURRENT block; reset when a new level opens. */
+  const [blockRight, setBlockRight] = useState(0);
+  const [blockAsked, setBlockAsked] = useState(0);
+  const [blocksPassed, setBlocksPassed] = useState(0);
+  const [sizes, setSizes] = useState<Record<string, number>>({});
+  /** Set when a block ends, so the learner is told before anything moves. */
+  const [gate, setGate] = useState<
+    { level: Level; right: number; of: number; passed: boolean } | null
+  >(null);
   const [typed, setTyped] = useState("");
   const [picked, setPicked] = useState<string[]>([]); // wordbank tiles chosen
-  const [mark, setMark] = useState<{ correct: boolean; correctAnswer: string } | null>(null);
+  const [mark, setMark] = useState<
+    { mark: Mark; correct: boolean; correctAnswer: string } | null
+  >(null);
   const [result, setResult] = useState<Level | null>(null);
   const [saved, setSaved] = useState(false);
   const [startUnit, setStartUnit] = useState<{
@@ -80,6 +104,11 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setAsked([]);
     setLevelIdx(0);
     setScores(emptyScores());
+    setNearMisses(0);
+    setBlockRight(0);
+    setBlockAsked(0);
+    setBlocksPassed(0);
+    setGate(null);
     setTyped("");
     setPicked([]);
     setMark(null);
@@ -91,14 +120,19 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
   async function start() {
     setBusy(true);
-    const first = await nextPlacementItem([], 0);
+    const [first, blockSizes] = await Promise.all([
+      nextPlacementItem([], 0),
+      placementBlockSizes().catch(() => ({})),
+    ]);
     setBusy(false);
     if (!first) {
       setError("O teste não está disponível.");
       return;
     }
     reset();
+    setSizes(blockSizes);
     setAsked([first]);
+    setBlockAsked(1);
   }
 
   /** The learner's answer for the current kind, as one string. */
@@ -115,38 +149,76 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     const m = await gradePlacement(current.id, given);
     setBusy(false);
     if (!m) return;
-    setMark({ correct: m.correct, correctAnswer: m.correctAnswer });
-    setScores((s) => (m.correct ? { ...s, [m.level]: s[m.level] + 1 } : s));
+    setMark({ mark: m.mark, correct: m.correct, correctAnswer: m.correctAnswer });
+    if (m.correct) {
+      setScores((s) => ({ ...s, [m.level]: s[m.level] + 1 }));
+      setBlockRight((n) => n + 1);
+      if (m.mark === "quase") setNearMisses((n) => n + 1);
+    }
   }
 
+  /**
+   * Next question, or the end of a block.
+   *
+   * The block is the unit of decision, not the question: nothing moves until
+   * all of a level's questions have been answered, and then the whole block
+   * passes or it does not.
+   */
   async function advance() {
     if (!current || !mark) return;
-    const nextIdx = mark.correct
-      ? Math.min(LEVELS.length - 1, levelIdx + 1)
-      : Math.max(0, levelIdx - 1);
-    setLevelIdx(nextIdx);
     setTyped("");
     setPicked([]);
     setMark(null);
 
-    if (asked.length >= RUN_LENGTH) return finish();
+    setBusy(true);
+    const next = await nextPlacementItem(
+      asked.map((a) => a.id),
+      levelIdx
+    );
+    setBusy(false);
+
+    if (next) {
+      setAsked([...asked, next]);
+      setBlockAsked((n) => n + 1);
+      return;
+    }
+
+    // Block finished. Decide, and TELL them before anything changes.
+    const level = LEVELS[levelIdx];
+    const of = sizes[level] ?? blockAsked;
+    const passed = blockRight >= passMarkFor(of);
+    setGate({ level, right: blockRight, of, passed });
+    if (passed) setBlocksPassed(levelIdx + 1);
+  }
+
+  /** Continue past a cleared block, or end the test at a failed one. */
+  async function continuePastGate() {
+    if (!gate) return;
+    const passedSoFar = gate.passed ? levelIdx + 1 : levelIdx;
+
+    if (!gate.passed || levelIdx + 1 >= LEVELS.length) {
+      setGate(null);
+      setResult(placeAt(passedSoFar));
+      return;
+    }
+
+    const nextIdx = levelIdx + 1;
     setBusy(true);
     const next = await nextPlacementItem(
       asked.map((a) => a.id),
       nextIdx
     );
     setBusy(false);
-    if (next) setAsked([...asked, next]);
-    else finish();
-  }
-
-  function finish() {
-    // The verdict needs the DENOMINATOR per level, not just the hits.
-    const perLevel = LEVELS.reduce(
-      (acc, l) => ({ ...acc, [l]: asked.filter((a) => a.level === l).length }),
-      {} as Record<Level, number>
-    );
-    setResult(verdict(scores, perLevel));
+    if (!next) {
+      setGate(null);
+      setResult(placeAt(passedSoFar));
+      return;
+    }
+    setGate(null);
+    setLevelIdx(nextIdx);
+    setBlockRight(0);
+    setBlockAsked(1);
+    setAsked([...asked, next]);
   }
 
   function save() {
@@ -163,6 +235,54 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     });
   }
 
+  // ── Between sections ────────────────────────────────────────────────
+  if (gate) {
+    const nextLevel = LEVELS[levelIdx + 1];
+    return (
+      <div className="card space-y-3 p-6 text-center">
+        <div className="text-4xl" aria-hidden>
+          {gate.passed ? "🎉" : "🌱"}
+        </div>
+        <h2 className="font-display text-2xl font-semibold">
+          Secção {gate.level}: {gate.right}/{gate.of}
+        </h2>
+        {gate.passed ? (
+          <p className="text-sm text-ink-soft">
+            {nextLevel ? (
+              <>
+                Passaste. A seguir vêm as perguntas de{" "}
+                <strong>{nextLevel}</strong> — se ficarem difíceis, para aí
+                mesmo. É suposto.
+              </>
+            ) : (
+              <>Passaste tudo. Não há nível acima deste no teste.</>
+            )}
+          </p>
+        ) : (
+          /* Failing is the mechanism, not a verdict on the person. Say what
+             happens next in the same breath as what went wrong. */
+          <p className="text-sm text-ink-soft">
+            Precisavas de {passMarkFor(gate.of)} para avançar, por isso o teste
+            fica por aqui — é assim que funciona. Começas em{" "}
+            <strong>{placeAt(levelIdx)}</strong>, que é exatamente onde o curso
+            te vai ser útil.
+          </p>
+        )}
+        <button
+          className="btn-primary w-full"
+          disabled={busy}
+          onClick={() => void continuePastGate()}
+        >
+          {busy
+            ? "Um momento…"
+            : gate.passed && nextLevel
+              ? `Continuar para ${nextLevel} →`
+              : "Ver o meu nível"}
+        </button>
+      </div>
+    );
+  }
+
   // ── Result ──────────────────────────────────────────────────────────
   if (result) {
     const total = LEVELS.reduce((sum, l) => sum + scores[l], 0);
@@ -171,6 +291,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         <div className="card p-6 text-center">
           <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
             Acertaste {total} de {asked.length}
+            {nearMisses > 0
+              ? ` · ${nearMisses} com pequenos erros de escrita`
+              : ""}
           </p>
           <h2 className="mt-2 font-display text-3xl font-semibold">
             O teu nível: {result}
@@ -233,15 +356,16 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     return (
       <div className="card space-y-3 p-6">
         <p className="text-ink-soft">
-          Quinze perguntas, cerca de cinco minutos. Vais escolher, completar,
-          ouvir e escrever, e construir frases. As perguntas ficam mais difíceis
-          quando acertas e mais fáceis quando falhas — por isso não faz mal
-          errar.
+          Começas em A1 com {sizes.A1 ?? BLOCK_SIZE} perguntas. Se passares,
+          abre a secção A2, depois B1, depois B2 — e o teste pára assim que uma
+          secção te escapar. Escolher, completar, ouvir e escrever, construir
+          frases.
         </p>
         <p className="text-sm text-ink-faint">
-          Fifteen adaptive questions in European Portuguese: multiple choice,
-          gap-fill, dictation, free writing and sentence building. Everyone
-          starts at A1 — this is how you test up.
+          A ladder, not a quiz: {BLOCK_SIZE} questions per level, and it stops
+          at the first section you don&apos;t clear — so you are never asked to
+          guess at grammar you haven&apos;t met. Small typos and missing accents
+          still count as correct.
         </p>
         {savedLevel ? (
           <p className="text-sm text-ink-soft">
@@ -258,18 +382,32 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
   // ── Question ────────────────────────────────────────────────────────
   const typedKind = current.kind === "dictation" || current.kind === "write";
+  const blockLength = sizes[LEVELS[levelIdx]] ?? BLOCK_SIZE;
 
   return (
     <div className="space-y-4">
+      {/* Progress is within the SECTION, not the whole test — the whole test
+          has no fixed length any more, and "3 of 7 at A1" is a promise the
+          screen can keep. */}
+      <div className="flex flex-wrap items-center justify-between gap-2">
+        <span className="chip bg-olive text-paper">
+          Secção {LEVELS[levelIdx]}
+        </span>
+        <span className="text-xs text-ink-faint">
+          {blocksPassed > 0
+            ? `${LEVELS.slice(0, blocksPassed).join(" · ")} ✓`
+            : "a começar"}
+        </span>
+      </div>
       <div className="flex items-center gap-1.5">
-        {Array.from({ length: RUN_LENGTH }, (_, i) => (
+        {Array.from({ length: blockLength }, (_, i) => (
           <span
             key={i}
             className={cn(
               "h-1.5 flex-1 rounded-full transition-colors",
-              i < asked.length - 1
+              i < blockAsked - 1
                 ? "bg-olive"
-                : i === asked.length - 1
+                : i === blockAsked - 1
                   ? "bg-terra"
                   : "bg-sand"
             )}
@@ -280,7 +418,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       <div className="card p-5">
         <div className="flex flex-wrap items-center gap-2">
           <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-            Pergunta {asked.length} de {RUN_LENGTH}
+            {LEVELS[levelIdx]} · pergunta {blockAsked} de {blockLength}
           </p>
           <span className="chip bg-cream text-ink-soft">
             {KIND_LABEL[current.kind]}
@@ -414,12 +552,23 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
             className={cn(
               "mt-3 rounded-xl px-3 py-2 text-sm",
               mark.correct
-                ? "bg-sage-pale text-olive"
+                ? mark.mark === "quase"
+                  ? "bg-azul-pale text-azul"
+                  : "bg-sage-pale text-olive"
                 : "bg-terra-pale text-terra-dark"
             )}
           >
             {mark.correct ? (
-              <>Certo! ✓</>
+              mark.mark === "quase" ? (
+                <>
+                  Conta como certo ✓ — escreve-se{" "}
+                  <strong className="font-display text-base">
+                    {mark.correctAnswer}
+                  </strong>
+                </>
+              ) : (
+                <>Certo! ✓</>
+              )
             ) : (
               <>
                 Era:{" "}
@@ -445,7 +594,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
       {mark ? (
         <button className="btn-primary w-full" onClick={() => void advance()} disabled={busy}>
-          {asked.length >= RUN_LENGTH ? "Ver o resultado" : "Continuar →"}
+          {blockAsked >= blockLength ? `Terminar secção ${LEVELS[levelIdx]}` : "Continuar →"}
         </button>
       ) : null}
 
