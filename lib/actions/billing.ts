@@ -1,10 +1,17 @@
 "use server";
 
-import { eq } from "drizzle-orm";
-import { requireSession } from "@/lib/auth";
-import { accounts, getDb, memberships, subscriptions } from "@/lib/db";
-import { grossMonthlyEur, MAX_SEATS, planById, type Plan } from "@/lib/plans";
-import { currentAccountId } from "@/lib/tenant";
+import { asc, eq } from "drizzle-orm";
+import { isOperator, requireSession } from "@/lib/auth";
+import { accounts, getDb, memberships, subscriptions, users } from "@/lib/db";
+import {
+  grossMonthlyEur,
+  MAX_SEATS,
+  multiplierFor,
+  planById,
+  proTierById,
+  type Plan,
+} from "@/lib/plans";
+import { currentAccountId, inMyHousehold } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { revalidatePath } from "next/cache";
 
@@ -217,4 +224,134 @@ export async function requestRefund(): Promise<
   );
   revalidatePath("/conta");
   return { ok: true };
+}
+
+/* ── The per-seat AI add-ons ──────────────────────────────────────────── */
+
+export type SeatAddon = {
+  username: string;
+  displayName: string;
+  tierId: string | null;
+  tierName: string | null;
+  /** Formatted end date, or null when there is no add-on. */
+  untilOn: string | null;
+  multiplier: number;
+};
+
+/** Every seat in the household and what it is entitled to right now. */
+export async function listSeatAddons(): Promise<SeatAddon[]> {
+  await requireSession();
+  const accountId = await currentAccountId();
+  if (accountId === null) return [];
+  try {
+    const rows = await getDb()
+      .select({
+        username: memberships.username,
+        proUntil: memberships.proUntil,
+        proTier: memberships.proTier,
+        displayName: users.displayName,
+      })
+      .from(memberships)
+      .leftJoin(users, eq(users.username, memberships.username))
+      .where(eq(memberships.accountId, accountId))
+      .orderBy(asc(memberships.username));
+
+    return rows.map((r) => {
+      const m = multiplierFor(r.proTier, r.proUntil);
+      const tier = m > 1 ? proTierById(r.proTier) : null;
+      return {
+        username: r.username,
+        displayName: r.displayName ?? r.username,
+        tierId: tier?.id ?? null,
+        tierName: tier?.namePt ?? null,
+        untilOn:
+          m > 1 && r.proUntil
+            ? new Date(r.proUntil).toLocaleDateString("pt-PT", {
+                day: "numeric",
+                month: "long",
+                timeZone: "Europe/Lisbon",
+              })
+            : null,
+        multiplier: m,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Turn an add-on on for one seat until the end of the current month.
+ *
+ * NO PAYMENT IS TAKEN. Checkout is the one part of this not yet wired, and
+ * pretending otherwise in the data would be worse than the gap — so this is
+ * restricted to the platform operator, who can grant a comp or test the
+ * entitlement end to end. The moment Stripe exists, the webhook writes exactly
+ * these two columns and this action becomes the manual override rather than
+ * the only door.
+ *
+ * Expiry is the end of THIS month, never a rolling 30 days: the allowance is
+ * monthly, so an add-on that straddles two months would hand out two months of
+ * capacity for one month's money.
+ */
+export async function grantSeatAddon(
+  username: string,
+  tierId: string
+): Promise<{ ok: true } | { ok: false; error: string }> {
+  const session = await requireSession();
+  if (!(await isOperator(session.username))) {
+    return { ok: false, error: "Só o operador pode ativar isto por agora." };
+  }
+  const tier = proTierById(tierId);
+  if (!tier) return { ok: false, error: "Extra desconhecido." };
+
+  const who = String(username ?? "").trim().toLowerCase();
+  if (!(await inMyHousehold(who)) && !(await isOperator(session.username))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
+  // Last instant of the current month, Lisbon.
+  const now = new Date(
+    new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" })
+  );
+  const until = new Date(Date.UTC(now.getFullYear(), now.getMonth() + 1, 1) - 1);
+
+  try {
+    await getDb()
+      .update(memberships)
+      .set({ proTier: tier.id, proUntil: until })
+      .where(eq(memberships.username, who));
+    revalidatePath("/conta");
+    return { ok: true };
+  } catch {
+    return { ok: false, error: "Não foi possível ativar." };
+  }
+}
+
+/** Remove an add-on immediately. Owner/parent, or the operator. */
+export async function clearSeatAddon(username: string): Promise<{ ok: true } | { ok: false; error: string }> {
+  const session = await requireSession();
+  const who = String(username ?? "").trim().toLowerCase();
+  const [me] = await getDb()
+    .select({ role: memberships.role })
+    .from(memberships)
+    .where(eq(memberships.username, session.username))
+    .limit(1);
+  const mayManage =
+    me?.role === "owner" || me?.role === "parent" || (await isOperator(session.username));
+  if (!mayManage) return { ok: false, error: "Só um adulto da família pode mudar isto." };
+  if (!(await inMyHousehold(who)) && !(await isOperator(session.username))) {
+    return { ok: false, error: "Essa pessoa não é da tua família." };
+  }
+
+  try {
+    await getDb()
+      .update(memberships)
+      .set({ proTier: null, proUntil: null })
+      .where(eq(memberships.username, who));
+    revalidatePath("/conta");
+    return { ok: true };
+  } catch {
+    return { ok: false, error: "Não foi possível desativar." };
+  }
 }

@@ -3,8 +3,18 @@ import { AzulejoHeader } from "@/components/azulejo-header";
 import { GuaranteeCard } from "@/components/guarantee-card";
 import { SeatPicker } from "@/components/seat-picker";
 import { UsageMeter } from "@/components/usage-meter";
+import { SeatAddons } from "@/components/seat-addons";
+import { listSeatAddons } from "@/lib/actions/billing";
+import { isOperator, requireSession } from "@/lib/auth";
 import { getBilling } from "@/lib/actions/billing";
-import { extraSeatEur, formatPlanPrice, MAX_SEATS, plans, STATUS_PT } from "@/lib/plans";
+import {
+  extraSeatEur,
+  formatPlanPrice,
+  MAX_SEATS,
+  plans,
+  proTiers,
+  STATUS_PT,
+} from "@/lib/plans";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Plano" };
@@ -94,6 +104,16 @@ export default async function ContaPage() {
       ) : null}
 
       <UsageMeter />
+
+      {/* Per-seat, so the family can put one adult on Pro and leave the
+          children on base — which is the only reason 19 € is affordable. */}
+      <SeatAddons
+        seats={await listSeatAddons()}
+        tiers={proTiers()}
+        canManage={billing.canManage}
+        isOperator={await isOperator((await requireSession()).username)}
+        money={formatPlanPrice}
+      />
 
       {/* Every plan, so the family can see what changing would mean. No
           checkout yet — the honest thing is to say so rather than render a

@@ -67,6 +67,79 @@ export function grossMonthlyEur(planId: string, seatLimit: number): number {
 }
 
 /**
+ * The AI add-ons, bought per SEAT and priced to cover the extra they buy.
+ *
+ * A seat's base allowance is its share of the household's monthly ceiling.
+ * These multiply it — and they multiply the household ceiling by the same
+ * capacity, because selling somebody credits the month cap then refuses is
+ * worse than not selling them.
+ *
+ * Two tiers on purpose. Most people who hit the wall need a bit more, not five
+ * times more: "boost" is the price of another seat and doubles the thing they
+ * already like. "pro" is for the month somebody is cramming for CIPLE, where
+ * 19 EUR against a ~19 EUR tutor HOUR is the comparison that matters — not
+ * against the 5 EUR seat.
+ *
+ * Both are priced so the incremental AI spend still clears the margin floor;
+ * see lib/budget.ts costShare(). Changing a price here without redoing that
+ * arithmetic is how a margin quietly disappears.
+ */
+export type ProTierId = "boost" | "pro";
+
+export type ProTier = {
+  id: ProTierId;
+  namePt: string;
+  /** EUR per month, per seat, on top of the seat's own price. */
+  eur: number;
+  /** What it multiplies the seat's allowance by. */
+  multiplier: number;
+  blurbPt: string;
+};
+
+export function proTiers(): ProTier[] {
+  return [
+    {
+      id: "boost",
+      namePt: "Boost",
+      eur: priceForAddon("BOOST", 5),
+      multiplier: 2,
+      blurbPt: "O dobro das conversas com a Sandra. Para quem fala todos os dias.",
+    },
+    {
+      id: "pro",
+      namePt: "Pro",
+      // 20, not 19. Five times a seat's allowance is 9,43 € of extra AI, and
+      // clearing the 40% floor needs 19,32 € gross — so 19 lands at 39% and
+      // quietly breaks the guarantee the whole guard exists to make. 20 is
+      // also the flat number, which is the house style for prices anyway.
+      eur: priceForAddon("PRO", 20),
+      multiplier: 5,
+      blurbPt: "Cinco vezes mais. Para o mês antes do exame.",
+    },
+  ];
+}
+
+export function proTierById(id: string | null | undefined): ProTier | null {
+  if (!id) return null;
+  return proTiers().find((t) => t.id === id) ?? null;
+}
+
+/** The multiplier a seat is entitled to right now. 1 when it has no add-on. */
+export function multiplierFor(
+  tierId: string | null | undefined,
+  until: Date | string | null | undefined
+): number {
+  if (!until) return 1;
+  if (new Date(until).getTime() <= Date.now()) return 1;
+  return proTierById(tierId)?.multiplier ?? 1;
+}
+
+function priceForAddon(key: string, fallback: number): number {
+  const n = Number(process.env[`PLAN_PRICE_ADDON_${key}`]);
+  return Number.isFinite(n) && n >= 0 ? n : fallback;
+}
+
+/**
  * Days of no-questions money back after signing up.
  *
  * Not a free trial. Payment is taken up front and the subscription starts

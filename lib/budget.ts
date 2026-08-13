@@ -2,7 +2,7 @@ import { cache } from "react";
 import { and, gte, inArray, sql } from "drizzle-orm";
 import { accounts, aiUsage, getDb, memberships } from "@/lib/db";
 import { eq } from "drizzle-orm";
-import { grossMonthlyEur } from "@/lib/plans";
+import { grossMonthlyEur, multiplierFor } from "@/lib/plans";
 import { getSession } from "@/lib/auth";
 import { currentAccountId, householdUsernames } from "@/lib/tenant";
 import { lisbonMonthStart, usdToEur } from "@/lib/usage";
@@ -107,6 +107,7 @@ function daysInMonth(): number {
  * ceiling. Raising only the rail would sell somebody capacity the household
  * cap then refuses, which is worse than not selling it.
  */
+/** @deprecated Seats carry their own tier now — see plans.multiplierFor(). */
 export function proMultiplier(): number {
   const n = Number(process.env.PRO_MULTIPLIER);
   return Number.isFinite(n) && n >= 1 ? n : 5;
@@ -163,8 +164,12 @@ export type BudgetState = {
   /** True once weekPct crosses the warn threshold. */
   nearLimit: boolean;
   daysToReset: number;
-  /** Is this seat on the Pro add-on right now? */
+  /** Is this seat on an add-on right now? */
   pro: boolean;
+  /** Which one — "boost" | "pro" | null. */
+  proTier: string | null;
+  /** The multiplier actually in force for this seat. */
+  multiplier: number;
   /** Why further AI spend is refused, or null when it is allowed. */
   blocked: null | "month" | "week";
   /** True when this session is exempt (operator / no account). */
@@ -176,7 +181,7 @@ const UNLIMITED: BudgetState = {
   grossEur: 0, netEur: 0, budgetEur: Infinity, spentEur: 0,
   remainingEur: Infinity, pct: 0,
   weekBudgetEur: Infinity, weekSpentEur: 0, weekPct: 0, nearLimit: false,
-  daysToReset: 7, pro: false,
+  daysToReset: 7, pro: false, proTier: null, multiplier: 1,
   blocked: null, exempt: true,
 };
 
@@ -255,29 +260,36 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
      * margin floor is unmoved.
      */
     const seats = Math.max(1, account.seatLimit);
-    const proRows = await db
-      .select({ username: memberships.username, proUntil: memberships.proUntil })
+    const seatRows = await db
+      .select({
+        username: memberships.username,
+        proUntil: memberships.proUntil,
+        proTier: memberships.proTier,
+      })
       .from(memberships)
       .where(eq(memberships.accountId, accountId));
-    const now = Date.now();
-    const isPro = (u: string) =>
-      proRows.some(
-        (r) =>
-          r.username === u && r.proUntil !== null && new Date(r.proUntil) > new Date(now)
-      );
-    const proSeats = proRows.filter(
-      (r) => r.proUntil !== null && new Date(r.proUntil) > new Date(now)
-    ).length;
+
+    // Each seat carries its OWN tier, so a family can put one adult on Pro and
+    // leave the children on base — which is the whole reason it is affordable.
+    const multOf = (u: string) => {
+      const r = seatRows.find((x) => x.username === u);
+      return multiplierFor(r?.proTier, r?.proUntil);
+    };
+    // Capacity the household is entitled to: every seat at its own multiple,
+    // and unoccupied seats at 1.
+    const seatMultiplierSum =
+      seatRows.reduce((n, r) => n + multiplierFor(r.proTier, r.proUntil), 0) +
+      Math.max(0, seats - seatRows.length);
 
     const grossEur = grossMonthlyEur(account.plan, account.seatLimit);
     const baseBudget = monthlyBudgetEur(account.plan, account.seatLimit);
     const perSeatMonth = baseBudget / seats;
     // The household ceiling funds every seat, Pro seats at their multiple.
-    const budgetEur =
-      perSeatMonth * (seats - proSeats + proSeats * proMultiplier());
+    const budgetEur = perSeatMonth * seatMultiplierSum;
 
-    const pro = isPro(session.username);
-    const mult = pro ? proMultiplier() : 1;
+    const mult = multOf(session.username);
+    const pro = mult > 1;
+    const myRow = seatRows.find((r) => r.username === session.username);
     // Pro-rata: a seat's month divided into weeks, times its multiplier.
     const weekBudgetEur = perSeatMonth * (7 / daysInMonth()) * mult;
     const weekPct = Math.min(
@@ -301,6 +313,8 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
       nearLimit: weekPct >= Math.round(warnAt() * 100),
       daysToReset: daysToWeekReset(),
       pro,
+      proTier: pro ? (myRow?.proTier ?? null) : null,
+      multiplier: mult,
       blocked:
         spentEur >= budgetEur
           ? "month"

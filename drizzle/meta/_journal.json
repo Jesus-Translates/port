@@ -141,6 +141,13 @@
       "when": 1786636362286,
       "tag": "0019_many_mysterio",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1786642952683,
+      "tag": "0020_panoramic_thena",
+      "breakpoints": true
     }
   ]
 }

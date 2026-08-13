@@ -603,8 +603,10 @@ export const memberships = pgTable(
     username: text("username").notNull(),
     // owner | parent | child  (the existing admin/teacher roles map onto these)
     role: text("role").notNull().default("child"),
-    /** Null or past = base allowance. Future = the Pro multiplier applies. */
+    /** Null or past = base allowance. Future = proTier's multiplier applies. */
     proUntil: timestamp("pro_until"),
+    /** Which add-on: "boost" (2x) or "pro" (5x). See lib/plans.ts proTiers(). */
+    proTier: text("pro_tier"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
   },
   (t) => [
