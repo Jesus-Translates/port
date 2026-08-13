@@ -138,3 +138,46 @@ export function escapeHtml(s: string): string {
 export function button(href: string, label: string): string {
   return `<p style="margin:20px 0"><a href="${escapeHtml(href)}" style="display:inline-block;background:#6b7f5e;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600">${escapeHtml(label)}</a></p>`;
 }
+
+/**
+ * The welcome message, sendable WITHOUT a session.
+ *
+ * The templated version in lib/actions/email.ts sits behind requireAdmin(),
+ * which is right for an admin adding somebody — and useless at signup, where
+ * the session cookie is only set once the route returns. So the one moment a
+ * welcome email is most obviously wanted was the one moment it could not be
+ * sent, and both templates sat in the codebase with zero call sites.
+ *
+ * Never contains a password. An emailed password is a password in a dozen
+ * mailboxes forever.
+ */
+export async function sendWelcome(input: {
+  to: string;
+  username: string;
+  displayName: string;
+  familyName?: string;
+}): Promise<void> {
+  const site = process.env.SITE_URL ?? "https://port.robertjeremiah.com";
+  try {
+    await sendEmail({
+      to: input.to,
+      kind: "welcome",
+      subject: "Bem-vindo(a) ao Português",
+      text: `Olá ${input.displayName}!\n\n${
+        input.familyName ? `A família ${input.familyName} já está criada. ` : ""
+      }O teu nome de utilizador é ${input.username}.\n\n${site}`,
+      html: emailShell(
+        `Olá, ${escapeHtml(input.displayName)}!`,
+        `<p style="margin:0;font-size:15px;line-height:1.6">${
+          input.familyName
+            ? `A família <strong>${escapeHtml(input.familyName)}</strong> já está criada. `
+            : ""
+        }O teu nome de utilizador é <strong>${escapeHtml(input.username)}</strong>.</p>
+         <p style="margin:12px 0 0;font-size:15px;line-height:1.6">Podes convidar o resto da família a partir de Contas, no painel.</p>
+         ${button(`${site}/login`, "Entrar")}`
+      ),
+    });
+  } catch {
+    // A signup must never fail because a mailbox was unreachable.
+  }
+}

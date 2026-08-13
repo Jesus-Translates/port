@@ -10,6 +10,7 @@ import { hashPassword, passwordProblem } from "@/lib/password";
 import { guaranteeDays, planById } from "@/lib/plans";
 import { verifyTurnstile } from "@/lib/turnstile";
 import { logActivity } from "@/lib/data";
+import { sendWelcome } from "@/lib/email";
 
 /**
  * Sign a new family up.
@@ -192,6 +193,12 @@ export async function POST(request: NextRequest) {
         guaranteeEndsAt,
       })
       .onConflictDoNothing();
+
+    // Welcome them. Fire-and-forget by construction (sendWelcome swallows its
+    // own failures) — a signup must never fail because Resend was down.
+    if (email) {
+      void sendWelcome({ to: email, username, displayName, familyName });
+    }
 
     await logActivity(username, "review", `Família criada: ${familyName}`, 0).catch(
       () => {}
