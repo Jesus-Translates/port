@@ -199,10 +199,24 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
   }
 
   const db = getDb();
+  /*
+   * "For everyone" is a STAFF power, and this is where that is decided.
+   *
+   * forEveryone arrives in the request body. It used to be honoured on its
+   * own, so any child in the household could POST {forEveryone: true} and
+   * push homework onto every parent and sibling — no teacher role required,
+   * and the activity feed would credit Sandra for it. The composer now hides
+   * the checkbox from students, but a hidden checkbox is not a permission:
+   * this is the only place a client cannot argue with.
+   *
+   * A student's forEveryone now silently means "just me", which is exactly
+   * what the button they can legitimately press already does.
+   */
+  const toEveryone = forEveryone && staff;
   const assignees =
     requested.length > 0
       ? requested
-      : forEveryone
+      : toEveryone
         ? household
         : [session.username];
   const source = requested.length > 0 ? "teacher" : "ai";
@@ -229,7 +243,9 @@ Reply with ONLY markdown: a "# " title line, one or two intro sentences, then th
   await logActivity(
     session.username,
     "homework",
-    `Sandra assigned “${title}”${forEveryone ? " to everyone" : ""}`,
+    // toEveryone, not forEveryone — the log must say what HAPPENED, not what
+    // was asked for, or a refused request reads in the feed as a granted one.
+    `Sandra assigned “${title}”${toEveryone ? " to everyone" : ""}`,
     5
   );
 

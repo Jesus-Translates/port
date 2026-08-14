@@ -5,6 +5,7 @@ import { getModel } from "@/lib/ai";
 import { audioKey, putAudio } from "@/lib/blob";
 import { currentStyle, referenceContext } from "@/lib/place";
 import { getSession } from "@/lib/auth";
+import { hasNonLatin, nonLatinSample, scriptOffenders } from "@/lib/lang-guard";
 import { getDb, listeningClips } from "@/lib/db";
 import {
   alignTranscript,
@@ -78,32 +79,86 @@ export async function POST(request: NextRequest) {
   const topic = String(body.topic ?? "").slice(0, 200).trim();
   const cefr = String(body.cefr ?? "A2").slice(0, 8);
 
-  const { output, usage } = await generateText({
-    model: getModel(),
-    output: Output.object({ schema: dialogueSchema }),
-    instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}${await referenceContext()}
+  // The topic is free text from the learner and it lands inside the prompt.
+  // "Write a dialogue about 中文" is a perfectly obedient request, which is
+  // how Escutar clips came back in Chinese. Refuse at the door: this app has
+  // exactly two languages and both are written in Latin script.
+  if (hasNonLatin(topic)) {
+    return NextResponse.json(
+      {
+        error:
+          "O tema tem de estar em português ou inglês — só esses dois. " +
+          `Encontrei: ${nonLatinSample(topic)}`,
+      },
+      { status: 400 }
+    );
+  }
+
+  /*
+   * Generate, then CHECK — and if the check fails, generate once more.
+   *
+   * The instruction above asks for Portuguese and English. Asking is not
+   * enforcing: a model that drifts into another script has not disobeyed
+   * anything the runtime can detect, so the script check below is what
+   * actually holds the line. One retry, because drift is a coin-flip rather
+   * than a stable property of the request, and two attempts is the difference
+   * between "rare hiccup" and "the feature is broken" without turning a
+   * pathological topic into an unbounded spend.
+   */
+  let script: ScriptLine[] = [];
+  let title = "";
+  let offending = "";
+  for (let attempt = 0; attempt < 2 && script.length === 0; attempt++) {
+    const { output, usage } = await generateText({
+      model: getModel(),
+      output: Output.object({ schema: dialogueSchema }),
+      instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}${await referenceContext()}
+Write ONLY in European Portuguese, with English translations. Never any other language or writing system.
 Write it as REAL SPEECH, not a textbook: exactly two speakers with short Portuguese first names, taking turns, 8-14 lines,
 most of them one sentence long. Use the contractions and fillers spoken Portuguese actually has — "'tá" for está when it
 fits, "pois", "então", "olha", "se calhar", "pronto", "'tá bem" — plus everyday politeness (bom dia, faz favor, obrigado/a).
 Keep every structure inside the target CEFR level; a lower level means shorter lines and present tense, not stilted robot talk.
 Ground it in the learner's own real world: o mercado, a peixaria, a praia, o autocarro, o
 multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English, not word-for-word.`,
-    prompt: `Write a listening dialogue at CEFR level ${cefr}${
-      topic ? ` about: ${topic}` : " about an ordinary everyday situation"
-    }.`,
-  });
-  await recordUsage(session.username, "escutar", modelId(), usage);
+      prompt: `Write a listening dialogue at CEFR level ${cefr}${
+        topic ? ` about: ${topic}` : " about an ordinary everyday situation"
+      }.`,
+    });
+    // Billed whether or not the result survives the check — it was generated.
+    await recordUsage(session.username, "escutar", modelId(), usage);
 
-  const script: ScriptLine[] = output.lines
-    .map((l) => ({
-      speaker: (l.speaker ?? "").trim() || "Ana",
-      text: (l.text ?? "").trim(),
-      translation: (l.translation ?? "").trim(),
-    }))
-    .filter((l) => l.text.length > 0);
+    const candidate: ScriptLine[] = output.lines
+      .map((l) => ({
+        speaker: (l.speaker ?? "").trim() || "Ana",
+        text: (l.text ?? "").trim(),
+        translation: (l.translation ?? "").trim(),
+      }))
+      .filter((l) => l.text.length > 0);
+    if (candidate.length === 0) continue;
+
+    // The title is read back too — it is displayed, and a Chinese title on a
+    // Portuguese clip is the same bug in a smaller font.
+    const bad = scriptOffenders([
+      ...candidate,
+      { text: output.title ?? "" },
+    ]);
+    if (bad.length === 0) {
+      script = candidate;
+      title = (output.title ?? "").trim();
+      break;
+    }
+    // Never synthesize or store it: wrong-script audio costs Azure characters
+    // and leaves a clip nobody can use sitting in the family's library.
+    offending = nonLatinSample(bad.join(" "));
+  }
+
   if (script.length === 0) {
     return NextResponse.json(
-      { error: "A Sandra não escreveu nada. Tenta outra vez." },
+      {
+        error: offending
+          ? `A Sandra escreveu fora do português (${offending}). Tenta outro tema.`
+          : "A Sandra não escreveu nada. Tenta outra vez.",
+      },
       { status: 502 }
     );
   }
@@ -155,7 +210,7 @@ multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English,
     heard?.duration ?? 0
   );
 
-  const clipTitle = output.title?.trim() || topic || "Diálogo";
+  const clipTitle = title || topic || "Diálogo";
   const clipKey = await putAudio(
     audioKey("clip", `${clipTitle}|${mp3.length}`),
     mp3

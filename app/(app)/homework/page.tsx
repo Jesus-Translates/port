@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
 import { HomeworkComposer } from "@/components/homework-composer";
-import { requireSession } from "@/lib/auth";
+import { requireSession, roleOf } from "@/lib/auth";
 import { getHomeworkAll } from "@/lib/data";
 import { formatDate } from "@/lib/utils";
 
@@ -46,6 +46,7 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
         unitItemId={unitItemId}
         unitSlug={unitSlug}
         initialTopic={typeof topic === "string" ? topic : ""}
+        canAssignToFamily={(await roleOf(session.username)) !== "student"}
       />
 
       <section>

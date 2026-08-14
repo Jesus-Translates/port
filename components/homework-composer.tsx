@@ -8,8 +8,18 @@ export function HomeworkComposer({
   initialTopic = "",
   unitItemId,
   unitSlug,
+  canAssignToFamily = false,
 }: {
   initialTopic?: string;
+  /**
+   * Whether this person may give the same TPC to the whole household.
+   *
+   * Staff only. A student setting homework for their parents and siblings is
+   * not a feature, and the checkbox was previously shown to everyone. The API
+   * enforces this independently — this prop only decides whether somebody is
+   * offered a control that would work for them.
+   */
+  canAssignToFamily?: boolean;
   /** Set when this TPC fulfils a unit path item, so finishing it ticks the
    *  course forward instead of leaving the bar at zero. */
   unitItemId?: number | null;
@@ -98,15 +108,17 @@ export function HomeworkComposer({
             Cancelar
           </button>
         </div>
-        <label className="flex items-center gap-2 text-sm text-ink-soft">
-          <input
-            type="checkbox"
-            checked={forEveryone}
-            onChange={(e) => setForEveryone(e.target.checked)}
-            className="accent-olive"
-          />
-          Dar o mesmo TPC a toda a família
-        </label>
+        {canAssignToFamily ? (
+          <label className="flex items-center gap-2 text-sm text-ink-soft">
+            <input
+              type="checkbox"
+              checked={forEveryone}
+              onChange={(e) => setForEveryone(e.target.checked)}
+              className="accent-olive"
+            />
+            Dar o mesmo TPC a toda a família
+          </label>
+        ) : null}
         {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
       </form>
     );
