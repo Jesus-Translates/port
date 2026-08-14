@@ -5,9 +5,10 @@ import { ChangeMyPassword } from "@/components/change-my-password";
 import { DailyGoalPicker } from "@/components/daily-goal-picker";
 import { ImmersionToggle } from "@/components/immersion-toggle";
 import { SignOut } from "@/components/sign-out";
+import { ZonePicker } from "@/components/zone-picker";
 import { isOperator, requireSession, roleOf } from "@/lib/auth";
 import { getHouseholdSettings } from "@/lib/actions/household-settings";
-import { getMyCefr, getMyPrefs } from "@/lib/actions/profile";
+import { getMyCefr, getMyPrefs, getZones } from "@/lib/actions/profile";
 import { getPlace } from "@/lib/place";
 import { avatarFor } from "@/lib/people";
 
@@ -29,12 +30,15 @@ export default async function PerfilPage() {
   // Instance operator, not a family admin: /registar makes every family
   // owner users.role "admin", so roleOf cannot gate operator-only surfaces.
   const operator = await isOperator(session.username);
-  const [role, cefr, place, prefs, house] = await Promise.all([
+  const [role, cefr, place, prefs, house, zones] = await Promise.all([
     roleOf(session.username),
     getMyCefr().catch(() => null),
     getPlace(session.username).catch(() => null),
     getMyPrefs().catch(() => null),
     getHouseholdSettings(),
+    // Empty list still renders: the picker's "I don't live in Portugal" and
+    // free-text locality both work without a researched zone to choose.
+    getZones().catch(() => []),
   ]);
 
   /*
@@ -70,6 +74,37 @@ export default async function PerfilPage() {
         <DailyGoalPicker initial={prefs?.minutes ?? "15"} />
         <p className="text-2xs text-ink-faint">
           É isto que enche o anel em Hoje. Muda quando a vida mudar.
+        </p>
+      </section>
+
+      {/*
+        Where they live, editable HERE.
+        It was collected once during onboarding and then only reachable back
+        through /bem-vindo — a screen called "welcome" that a settled user has
+        no reason to revisit, and which reads like starting over. So in
+        practice moving house meant living with the wrong town forever.
+        It is not a cosmetic field: getPlace feeds currentStyle() and
+        referenceContext(), so it decides which region's vocabulary and
+        examples Sandra reaches for. Wrong town, subtly wrong Portuguese.
+      */}
+      <section className="space-y-2">
+        <p className="label">
+          <Bi pt="Onde vives" en="Where you live" inline />
+        </p>
+        <ZonePicker
+          initial={
+            place ?? {
+              livesInPortugal: null,
+              locality: null,
+              zoneSlug: null,
+              placeSlug: null,
+            }
+          }
+          zones={zones}
+        />
+        <p className="text-2xs text-ink-faint">
+          Mudaste de casa? Muda aqui — a Sandra passa a usar o vocabulário e os
+          exemplos dessa zona.
         </p>
       </section>
 
