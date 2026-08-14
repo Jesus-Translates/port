@@ -1,0 +1,1 @@
+ALTER TABLE "listening_clips" ADD COLUMN "voices" jsonb;

@@ -353,6 +353,18 @@ export const listeningClips = pgTable("listening_clips", {
   audioB64: text("audio_b64"),
   audioKey: text("audio_key"),
   bytes: integer("bytes").notNull().default(0),
+  /**
+   * Which voice actually spoke each speaker: {"Ana": "pt-PT-FernandaNeural"}.
+   *
+   * Without this the repair could not be OBSERVED. diagnoseClips had to guess
+   * what the audio was made with by recomputing the old order-of-appearance
+   * formula, which returns the same answer forever — so a clip stayed
+   * "wrong-gender" no matter how many times it was correctly re-voiced, and
+   * every check invited another paid re-synthesis of audio that was already
+   * fine. Null on clips generated before this column existed; those still fall
+   * back to the guess.
+   */
+  voices: jsonb("voices"),
   source: text("source").notNull().default("ai"), // ai | human
   createdBy: text("created_by").notNull().default("ai"),
   createdAt: timestamp("created_at").defaultNow().notNull(),

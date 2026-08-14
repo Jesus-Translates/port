@@ -226,6 +226,8 @@ multibanco, a farmácia, os vizinhos, o tempo. Translations are natural English,
       audioB64: clipKey ? null : mp3.toString("base64"),
       audioKey: clipKey,
       bytes: mp3.length,
+      // Recorded at birth, so a clip never has to be guessed about later.
+      voices: Object.fromEntries(speakerVoices),
       source: "ai",
       createdBy: session.username,
     })

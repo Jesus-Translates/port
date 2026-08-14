@@ -74,6 +74,7 @@ export async function diagnoseClips(
       title: listeningClips.title,
       transcript: listeningClips.transcript,
       audioKey: listeningClips.audioKey,
+      voices: listeningClips.voices,
     })
     .from(listeningClips);
 
@@ -97,8 +98,18 @@ export async function diagnoseClips(
     if (script.length === 0 || names.length === 0) continue;
 
     const planned = assignSpeakerVoices(names);
+    /*
+     * What the audio was ACTUALLY made with, when the row knows.
+     *
+     * The fallback below reproduces the old order-of-appearance formula, and
+     * it is a guess that never changes — so before this column existed, a
+     * correctly repaired clip kept reporting itself broken and every check
+     * offered to re-synthesize it again. Stored voices are the truth; the
+     * guess is only for clips predating the column.
+     */
+    const stored = (row.voices ?? null) as Record<string, string> | null;
     const speakers: SpeakerPlan[] = names.map((name, i) => {
-      const from = voices[i % voices.length];
+      const from = stored?.[name] ?? voices[i % voices.length];
       const to = planned.get(name) ?? from;
       return {
         name,
@@ -189,6 +200,9 @@ export async function revoiceClip(clip: ClipDiagnosis): Promise<RevoiceResult> {
       audioB64: newKey ? null : mp3.toString("base64"),
       audioKey: newKey,
       bytes: mp3.length,
+      // Record what this synthesis actually used, so the next diagnosis reads
+      // a fact instead of re-deriving a guess and condemning its own repair.
+      voices: Object.fromEntries(voiceOf),
     })
     .where(eq(listeningClips.id, clip.id));
 
