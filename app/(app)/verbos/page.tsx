@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { unitContextFrom } from "@/lib/unit-context";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { VerbConjugator } from "@/components/verb-conjugator";
 import { VerbTest } from "@/components/verb-test";
 import { listMyVerbs } from "@/lib/actions/verbs";
@@ -50,23 +51,24 @@ export default async function ConjugadorPage(props: PageProps<"/verbos">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <Link
-          href="/practice"
-          className="text-xs text-ink-faint hover:text-olive"
-        >
-          ← Praticar
-        </Link>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-          🔤 Conjugador
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Look a verb up, hear every form, then test yourself on any slice of
-          it — say <em>-ar verbs, pretérito perfeito, irregulars only</em> — by
-          writing, choosing or speaking. European Portuguese throughout:{" "}
-          <em>falámos</em>, not <em>falamos</em>.
-        </p>
-      </header>
+      <AzulejoHeader
+        eyebrow={
+          // The way back rides in the eyebrow slot — colour comes from the
+          // band's own /85 floor, so it stays legible on olive.
+          <Link href="/practice" className="transition-colors hover:text-paper">
+            ← Praticar
+          </Link>
+        }
+        title="Conjugador"
+        subtitle={
+          <>
+            Look a verb up, hear every form, then test yourself on any slice of
+            it — say <em>-ar verbs, pretérito perfeito, irregulars only</em> —
+            by writing, choosing or speaking. European Portuguese throughout:{" "}
+            <em>falámos</em>, not <em>falamos</em>.
+          </>
+        }
+      />
 
       <nav className="grid grid-cols-2 gap-2 rounded-2xl border border-sand bg-white/60 p-1.5">
         {TABS.map((t) => (

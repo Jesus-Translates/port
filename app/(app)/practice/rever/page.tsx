@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { EnrolPanel } from "@/components/enrol-panel";
 import { ReviewPlayer } from "@/components/review-player";
 import { requireSession } from "@/lib/auth";
@@ -18,19 +19,21 @@ export default async function ReviewPage(props: PageProps<"/practice/rever">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
-          ← Praticar
-        </Link>
-        <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-          {isFlash ? "⚡ Flash review" : "🔁 Rever"}
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          {isFlash
+      <AzulejoHeader
+        eyebrow={
+          // The way back rides in the eyebrow slot — colour comes from the
+          // band's own /85 floor, so it stays legible on olive.
+          <Link href="/practice" className="transition-colors hover:text-paper">
+            ← Praticar
+          </Link>
+        }
+        title={isFlash ? "Flash review" : "Rever"}
+        subtitle={
+          isFlash
             ? "Five quick cards as a sanity check — pass with Bom or better to complete each one."
-            : "Spaced repetition over the family book and your own mistakes — each card comes back right before you would forget it."}
-        </p>
-      </header>
+            : "Spaced repetition over the family book and your own mistakes — each card comes back right before you would forget it."
+        }
+      />
 
       {queue.length > 0 ? (
         <ReviewPlayer

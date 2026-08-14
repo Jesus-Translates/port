@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { ListeningElsewhere } from "@/components/listening-elsewhere";
 import { shortTopic } from "@/lib/topic-label";
 import { desc } from "drizzle-orm";
@@ -79,15 +80,13 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
 
   return (
     <div className="space-y-6">
-      <UnitReturn unit={unit} />
+      <AzulejoHeader
+        title="Escutar"
+        subtitle="Short two-voice conversations at real speed. Listen first, then follow the transcript word by word — and tap any line to hear it again."
+      />
 
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">🎧 Escutar</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Short two-voice conversations at real speed. Listen first, then follow
-          the transcript word by word — and tap any line to hear it again.
-        </p>
-      </header>
+      {/* Styled for the paper surface, so it sits under the band, not on it. */}
+      <UnitReturn unit={unit} />
 
       {ready ? null : !operator ? (
         <div className="card space-y-1.5 p-5">

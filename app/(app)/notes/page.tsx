@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { createNote } from "@/lib/actions/notes";
 import { requireSession } from "@/lib/auth";
 import { getNotesAll } from "@/lib/data";
@@ -12,15 +13,10 @@ export default async function NotesPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          📝 Notas da família
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Shared study notes — everyone can read, add and improve them. Sandra can
-          explain, correct and expand any note.
-        </p>
-      </header>
+      <AzulejoHeader
+        title="Notas da família"
+        subtitle="Shared study notes — everyone can read, add and improve them. Sandra can explain, correct and expand any note."
+      />
 
       <form action={createNote} className="card flex items-end gap-2 p-4">
         <div className="flex-1">

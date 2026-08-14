@@ -72,6 +72,13 @@ export const users = pgTable("users", {
    * lib/placement-record.ts for the shape.
    */
   placement: jsonb("placement"),
+  /**
+   * When this person answered "Quem mais vive cá em casa?" in onboarding —
+   * by adding people or by saying it's just them. null = never asked.
+   * A timestamp rather than a boolean because "skipped on day one" and
+   * "skipped last week" are different signals if we ever re-ask.
+   */
+  familyStepAt: timestamp("family_step_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
@@ -668,6 +675,13 @@ export const authTokens = pgTable("auth_tokens", {
     onDelete: "cascade",
   }),
   email: text("email"),
+  /**
+   * Invites only: the household role the INVITER chose — "parent" | "child".
+   * It lives on the token row because the invitee must never pick their own
+   * role; whatever the accept form sends is ignored in favour of this. Never
+   * "owner": a household has exactly one, made at signup. Null for magic links.
+   */
+  role: text("role"),
   tokenHash: text("token_hash").notNull().unique(),
   expiresAt: timestamp("expires_at").notNull(),
   usedAt: timestamp("used_at"),

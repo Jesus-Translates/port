@@ -7,6 +7,21 @@ const PUBLIC_PATHS = [
   // The front door: a stranger has to be able to reach these signed out.
   "/registar",
   "/api/auth/signup",
+  // Magic-link sign-in: requesting a link and redeeming one both happen
+  // signed out — that is the whole point of them.
+  "/api/auth/magic/request",
+  "/api/auth/magic/redeem",
+  // Family invites: the invitee has no account yet. Server-action posts from
+  // this page target the same pathname, so one entry covers form and page.
+  "/convite",
+  // The shop window. Signed-out traffic to "/" is rewritten onto it below;
+  // this entry makes the path answer directly too, for shared links.
+  "/welcome",
+  // Vercel Cron calls this with a bearer secret and no session cookie, so the
+  // blanket 401 below would stop it before it ran. Public HERE only — the
+  // route itself demands CRON_SECRET and closes when that is unset, so this
+  // opens a path to an authenticated endpoint, not an open mailer.
+  "/api/cron/reminders",
   // Next metadata routes — these have no file extension, so the matcher below
   // doesn't skip them. Social/link previews and the iOS home-screen icon must
   // be fetchable without a session.
@@ -59,6 +74,12 @@ export async function proxy(request: NextRequest) {
   if (!session) {
     if (pathname.startsWith("/api/")) {
       return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
+    }
+    // The naked domain is the shop window when nobody is signed in. A rewrite,
+    // not a redirect: the URL a stranger shares and a search engine indexes is
+    // the domain itself, while a signed-in family keeps their dashboard at "/".
+    if (pathname === "/") {
+      return NextResponse.rewrite(new URL("/welcome", request.nextUrl));
     }
     const loginUrl = new URL("/login", request.nextUrl);
     if (pathname !== "/") loginUrl.searchParams.set("next", pathname);

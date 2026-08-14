@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { QuizNewForm } from "@/components/quiz-new-form";
 import { QuizUnitForm } from "@/components/quiz-unit-form";
 import { UnitReturn } from "@/components/unit-return";
@@ -196,20 +197,23 @@ export default async function PracticePage(props: PageProps<"/practice">) {
   if (unit) {
     return (
       <div className="space-y-6">
-        <header>
-          <UnitReturn unit={unit} />
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-            🎯 Teste da unidade
-          </h1>
-          <p className="mt-1 text-sm text-ink-soft">
-            Um teste escrito de propósito para este passo de{" "}
-            <span className="font-medium">{unit.titlePt || unit.title}</span>.{" "}
-            <span className="text-ink-faint">
+        <AzulejoHeader
+          eyebrow="Unidade"
+          title="Teste da unidade"
+          subtitle={
+            <>
+              Um teste escrito de propósito para este passo de{" "}
+              <span className="font-medium">{unit.titlePt || unit.title}</span>.
               Finish it and the step ticks itself off.
-            </span>
-          </p>
+            </>
+          }
+        />
+        {/* Both of these are styled for the paper surface, so they sit just
+            under the band rather than on it. */}
+        <div className="space-y-2">
+          <UnitReturn unit={unit} />
           {topic ? (
-            <p className="mt-2">
+            <p>
               {/* Unit topics are whole sentences — the form below holds the
                   full text; this chip only has to be recognisable. */}
               <span className="chip bg-cream text-ink-soft">
@@ -217,7 +221,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
               </span>
             </p>
           ) : null}
-        </header>
+        </div>
 
         <QuizUnitForm unit={unit} initialTopic={topic} initialLevel={level} />
 
@@ -236,14 +240,10 @@ export default async function PracticePage(props: PageProps<"/practice">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">🎯 Praticar</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Pick a skill, then pick a tool — reviews, live conversation, dictation, verbs,
-          listening, real-world missions, exam prep and more — plus fresh
-          quizzes below.
-        </p>
-      </header>
+      <AzulejoHeader
+        title="Praticar"
+        subtitle="Pick a skill, then pick a tool — reviews, live conversation, dictation, verbs, listening, real-world missions, exam prep and more — plus fresh quizzes below."
+      />
 
       {grid}
 

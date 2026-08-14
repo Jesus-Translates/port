@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { asc, eq, sql } from "drizzle-orm";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { UnitGenerate } from "@/components/unit-generate";
 import { getUnitProgress } from "@/lib/actions/course";
 import { getMyCefr } from "@/lib/actions/profile";
@@ -86,13 +87,10 @@ export default async function UnidadesPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">📚 Unidades</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          The spine of the course: one teaching point, explained properly, then
-          a short path through the practice that makes it stick.
-        </p>
-      </header>
+      <AzulejoHeader
+        title="Unidades"
+        subtitle="The spine of the course: one teaching point, explained properly, then a short path through the practice that makes it stick."
+      />
 
       <UnitGenerate level={myLevel} />
 

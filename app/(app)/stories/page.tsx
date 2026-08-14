@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { desc, inArray } from "drizzle-orm";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { StoryGenerate } from "@/components/story-generate";
 import { UnitReturn } from "@/components/unit-return";
 import { UnitStart } from "@/components/unit-start";
@@ -64,17 +65,13 @@ export default async function StoriesPage(props: PageProps<"/stories">) {
 
   return (
     <div className="space-y-6">
-      <UnitReturn unit={unit} />
+      <AzulejoHeader
+        title="Histórias"
+        subtitle="Serialized stories set right here — the beach, the mercado, the neighbours — written at your level, with audio and questions."
+      />
 
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          📕 Histórias
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Serialized stories set right here — the beach, the mercado, the
-          neighbours — written at your level, with audio and questions.
-        </p>
-      </header>
+      {/* Styled for the paper surface, so it sits under the band, not on it. */}
+      <UnitReturn unit={unit} />
 
       {matches.length > 0 ? (
         <section className="card space-y-3 p-5">

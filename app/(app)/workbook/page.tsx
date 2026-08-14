@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { LessonGenerate } from "@/components/lesson-generate";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
@@ -13,13 +14,10 @@ export default async function WorkbookPage(props: PageProps<"/workbook">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">📚 Lições</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Workbook pages just like class — reading, vocab, prompts and games.
-          Ask Sandra for a new one on any topic.
-        </p>
-      </header>
+      <AzulejoHeader
+        title="Lições"
+        subtitle="Workbook pages just like class — reading, vocab, prompts and games. Ask Sandra for a new one on any topic."
+      />
 
       <LessonGenerate
         initialTopic={typeof topic === "string" ? topic : ""}

@@ -148,6 +148,13 @@
       "when": 1786642952683,
       "tag": "0020_panoramic_thena",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1786696536313,
+      "tag": "0021_bored_viper",
+      "breakpoints": true
     }
   ]
 }

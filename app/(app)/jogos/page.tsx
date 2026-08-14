@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { KIND_META, type ItemKind } from "@/lib/course";
@@ -83,16 +84,10 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">🎲 Jogos</h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Dois jogos rápidos sobre o tema que quiseres — as palavras que falhares
-          vão parar ao teu baralho de revisão.{" "}
-          <span className="text-ink-faint">
-            Pick a topic, play a round, and your misses become flashcards.
-          </span>
-        </p>
-      </header>
+      <AzulejoHeader
+        title="Jogos"
+        subtitle="Dois jogos rápidos sobre o tema que quiseres — as palavras que falhares vão parar ao teu baralho de revisão. Pick a topic, play a round, and your misses become flashcards."
+      />
 
       {/* A plain GET form: type the topic once, then tap the game you want.
           Each card is the form's submit button, so it works with one thumb. */}

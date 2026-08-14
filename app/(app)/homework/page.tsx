@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { HomeworkComposer } from "@/components/homework-composer";
 import { requireSession } from "@/lib/auth";
 import { getHomeworkAll } from "@/lib/data";
@@ -35,15 +36,11 @@ export default async function HomeworkPage(props: PageProps<"/homework">) {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          ✍️ TPC — trabalhos de casa
-        </h1>
-        <p className="mt-1 text-sm text-ink-soft">
-          Homework from Sandra or from class. Submit your answers and Sandra
-          corrects them with kind, specific feedback.
-        </p>
-      </header>
+      <AzulejoHeader
+        eyebrow="Trabalhos de casa"
+        title="TPC"
+        subtitle="Homework from Sandra or from class. Submit your answers and Sandra corrects them with kind, specific feedback."
+      />
 
       <HomeworkComposer
         unitItemId={unitItemId}

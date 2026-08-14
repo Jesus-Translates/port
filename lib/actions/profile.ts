@@ -134,6 +134,32 @@ export async function setMyPrefs(input: Partial<Prefs>): Promise<void> {
   revalidatePath("/", "layout");
 }
 
+/**
+ * Mark the "Quem mais vive cá em casa?" onboarding step answered — whether by
+ * adding people or by saying it's just me. Skipping IS an answer and must
+ * stick: without a stored one, a solo learner would meet the same question on
+ * every visit to /bem-vindo, which is the trap the step was told never to be.
+ */
+export async function finishFamilyStep(): Promise<void> {
+  const session = await requireSession();
+  // Upsert for the same reason setMyPlace does: a member without a users row
+  // yet would otherwise save nothing and stay stuck on the step.
+  await getDb()
+    .insert(users)
+    .values({
+      username: session.username,
+      displayName: session.displayName,
+      familyStepAt: new Date(),
+    })
+    .onConflictDoUpdate({
+      target: users.username,
+      set: { familyStepAt: new Date() },
+    });
+  revalidatePath("/bem-vindo");
+  // The dashboard's next-action card reads onboarding state too.
+  revalidatePath("/");
+}
+
 /** Store the level from the placement quiz (or a manual pick). */
 export async function setCefrLevel(level: string): Promise<void> {
   const session = await requireSession();

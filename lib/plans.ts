@@ -45,9 +45,9 @@ export function plans(): Plan[] {
     {
       id: "family",
       namePt: "Família",
-      eur: priceFor("family", 25),
-      seats: 5,
-      blurbPt: "Até cinco pessoas em casa, cada uma com o seu caminho.",
+      eur: priceFor("family", 20),
+      seats: 4,
+      blurbPt: "Até quatro pessoas em casa, cada uma com o seu caminho.",
     },
   ];
 }
@@ -65,6 +65,41 @@ export function grossMonthlyEur(planId: string, seatLimit: number): number {
   const extra = Math.max(0, Math.round(seatLimit) - plan.seats);
   return plan.eur + extra * (plan.eur > 0 ? extraSeatEur() : 0);
 }
+
+/**
+ * Pay for a year, get a month.
+ *
+ * Eleven months for twelve. Modest as discounts go — the point is not to buy
+ * the year cheaply, it is to be holding it when somebody passes their CIPLE
+ * exam in month four and stops feeling urgent. Post-exam churn is the
+ * predictable risk in this niche, and an annual term is the only hedge that
+ * does not require the product to be better.
+ *
+ * THE MARGIN FLOOR IS 35% ON ANNUAL, NOT 40%, AND THAT IS ACCEPTED.
+ *
+ * You collect eleven months of revenue and they may consume twelve months of
+ * allowance, so the guarantee in lib/budget.ts costShare() — 40% against
+ * MONTHLY revenue — lands five points lower across a year. Deliberate: a
+ * subscriber who prepays a year is worth more than five points, and the whole
+ * reason for the discount is to still be holding them in month four. Do not
+ * "fix" this by shrinking the annual allowance; it was priced knowing.
+ */
+export function annualMonths(): number {
+  const n = Number(process.env.PLAN_ANNUAL_MONTHS);
+  return Number.isFinite(n) && n > 0 && n <= 12 ? n : 11;
+}
+
+/** What a year costs up front, for any monthly figure. */
+export function annualEur(monthlyEur: number): number {
+  return monthlyEur * annualMonths();
+}
+
+/** What paying annually saves, in EUR per year. */
+export function annualSavingEur(monthlyEur: number): number {
+  return monthlyEur * (12 - annualMonths());
+}
+
+export type BillingInterval = "month" | "year";
 
 /**
  * The AI add-ons, bought per SEAT and priced to cover the extra they buy.

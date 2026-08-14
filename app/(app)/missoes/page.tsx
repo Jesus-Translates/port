@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { asc, eq, sql } from "drizzle-orm";
+import { AzulejoHeader } from "@/components/azulejo-header";
 import { requireSession } from "@/lib/auth";
 import { getPlace } from "@/lib/place";
 import { getDb, missionAttempts, missions } from "@/lib/db";
@@ -53,24 +54,23 @@ export default async function MissoesPage() {
 
   return (
     <div className="space-y-6">
-      <header>
-        <h1 className="text-2xl font-semibold tracking-tight">
-          🗺️ Missões — o teu português na rua
-        </h1>
-        {/*
-          Named the learner's own town, not ours.
-          The missions themselves are hand-written around one region — that is
-          honest and the copy says so — but promising "errands around Santa
-          Cruz" to a family in Faro reads as an app built for somebody else.
-          lib/place.ts localises every other surface; this one was still
-          quoting the author's home town at every household.
-        */}
-        <p className="mt-1 text-sm text-ink-soft">
-          {place.locality
+      {/*
+        The subtitle names the learner's own town, not ours.
+        The missions themselves are hand-written around one region — that is
+        honest and the copy says so — but promising "errands around Santa
+        Cruz" to a family in Faro reads as an app built for somebody else.
+        lib/place.ts localises every other surface; this one was still
+        quoting the author's home town at every household.
+      */}
+      <AzulejoHeader
+        eyebrow="O teu português na rua"
+        title="Missões"
+        subtitle={
+          place.locality
             ? `Recados a sério, do género que fazes em ${place.locality}. Ensaia à mesa da cozinha e depois vai fazê-lo — é na rua que o português pega.`
-            : "Recados a sério: ensaia à mesa da cozinha e depois vai fazê-lo — é na rua que o português pega."}
-        </p>
-      </header>
+            : "Recados a sério: ensaia à mesa da cozinha e depois vai fazê-lo — é na rua que o português pega."
+        }
+      />
 
       <div className="space-y-3">
         {rows.map((m) => {

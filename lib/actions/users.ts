@@ -9,7 +9,7 @@ import {
   roleOf,
   type Role,
 } from "@/lib/auth";
-import { accounts, getDb, memberships, people, users } from "@/lib/db";
+import { accounts, getDb, memberships, users } from "@/lib/db";
 import {
   adoptIntoHousehold,
   currentAccountId,
@@ -17,6 +17,7 @@ import {
   orphanUsernames,
 } from "@/lib/tenant";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/password";
+import { insertMember } from "@/lib/create-member";
 import { logActivity } from "@/lib/data";
 
 /**
@@ -272,24 +273,16 @@ export async function createAccount(input: {
   }
 
   try {
-    await db.insert(users).values({
+    // Shared with the invite flow (lib/create-member.ts) so both paths write
+    // exactly the same three rows.
+    await insertMember({
+      accountId,
       username,
       displayName,
       email,
       passwordHash,
-      role,
-      // New accounts start guided; they can switch once they find their feet.
-      mode: "simple",
-    });
-    const [person] = await db
-      .insert(people)
-      .values({ displayName, email })
-      .returning({ id: people.id });
-    await db.insert(memberships).values({
-      accountId,
-      personId: person.id,
-      username,
-      role: role === "student" ? "child" : "parent",
+      appRole: role,
+      householdRole: role === "student" ? "child" : "parent",
     });
   } catch {
     return { ok: false, error: "Não foi possível criar a conta (email repetido?)." };

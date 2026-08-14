@@ -2,12 +2,15 @@ import Link from "next/link";
 import { ZonePicker } from "@/components/zone-picker";
 import { PlacementQuiz } from "@/components/placement-quiz";
 import { LearningQuestionnaire } from "@/components/learning-questionnaire";
+import { FamilyStep } from "@/components/family-step";
 import { requireSession } from "@/lib/auth";
 import { getMyCefr, getMyPlace, getMyPrefs, getZones } from "@/lib/actions/profile";
+import { getBilling } from "@/lib/actions/billing";
 import { onboardingState } from "@/lib/onboarding";
 import { getCourseProgress } from "@/lib/actions/course";
 import { getPlacementRecord } from "@/lib/actions/placement";
 import { LearningPlanCard } from "@/components/learning-plan";
+import { householdMembers } from "@/lib/tenant";
 
 export const metadata = { title: "Bem-vindo" };
 
@@ -15,6 +18,10 @@ const STEP_TITLE: Record<string, { pt: string; en: string }> = {
   place: { pt: "Onde vives?", en: "So your lessons happen where you do." },
   level: { pt: "Que português já sabes?", en: "Ten quick questions. No preparation, no marks." },
   prefs: { pt: "Como gostas de aprender?", en: "Five taps. It shapes what comes first." },
+  family: {
+    pt: "Quem mais vive cá em casa?",
+    en: "Your plan already has their seats — a minute each, or skip it.",
+  },
 };
 
 export default async function WelcomePage() {
@@ -149,6 +156,7 @@ export default async function WelcomePage() {
       )}
       {state.step === "level" && <PlacementQuiz savedLevel={level} />}
       {state.step === "prefs" && <LearningQuestionnaire initial={prefs} />}
+      {state.step === "family" && <FamilySeats />}
 
       {/* Never a trap: someone can leave and finish later. */}
       <p className="text-center">
@@ -157,5 +165,28 @@ export default async function WelcomePage() {
         </Link>
       </p>
     </div>
+  );
+}
+
+/**
+ * The family step's data, fetched only when the step is actually shown — the
+ * other three steps should not pay for a billing read. Props down to the
+ * client component are plain data; it imports the server actions it calls
+ * itself (functions cannot cross the server→client prop boundary).
+ *
+ * If billing cannot be read the seat numbers degrade to "full", which renders
+ * the step as a plain "continue" — degraded but never a dead end.
+ */
+async function FamilySeats() {
+  const [billing, members] = await Promise.all([
+    getBilling().catch(() => null),
+    householdMembers().catch(() => []),
+  ]);
+  return (
+    <FamilyStep
+      seatLimit={billing?.seatLimit ?? 1}
+      seatsUsed={billing?.seatsUsed ?? 1}
+      members={members}
+    />
   );
 }
