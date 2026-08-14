@@ -9,6 +9,7 @@ import { getBilling } from "@/lib/actions/billing";
 import { onboardingState } from "@/lib/onboarding";
 import { getCourseProgress } from "@/lib/actions/course";
 import { getPlacementRecord } from "@/lib/actions/placement";
+import { BLOCK_SIZE } from "@/lib/placement";
 import { LearningPlanCard } from "@/components/learning-plan";
 import { householdMembers } from "@/lib/tenant";
 
@@ -119,8 +120,13 @@ export default async function WelcomePage() {
           </div>
 
           <p className="text-2xs text-ink-faint">
-            O teste são dezasseis perguntas escritas à mão, sem IA — gramática,
-            vocabulário do dia a dia e uma expressão, tudo no português daqui.
+            {/* Was "dezasseis perguntas" — the flat test this replaced. It is
+                a ladder now, and describing it as a fixed pile of questions
+                sets up exactly the wrong expectation before someone starts. */}
+            O teste é uma escada: {BLOCK_SIZE} perguntas por nível, escritas à
+            mão, sem IA. Começas em A1 e pára assim que uma secção te escapar —
+            gramática, vocabulário do dia a dia e uma expressão, tudo no
+            português daqui.
           </p>
         </section>
       </div>
