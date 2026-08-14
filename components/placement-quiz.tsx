@@ -24,6 +24,14 @@ import { cn } from "@/lib/utils";
 /** What the summary endpoint returns — the record shape minus what we add. */
 type PlacementSummaryView = Omit<PlacementSummary, "level" | "gaps" | "at"> & {
   gapsEn: { topicEn: string; whyEn: string }[];
+  /** The actual questions they missed. Absent when they missed nothing. */
+  review?: {
+    level: string;
+    asked: string;
+    pt: string;
+    given: string;
+    correct: string;
+  }[];
 };
 
 const BLURB: Record<Level, { pt: string; en: string }> = {
@@ -446,6 +454,39 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                       >
                         <p className="text-sm font-medium">{g.topicEn}</p>
                         <p className="text-xs text-ink-soft">{g.whyEn}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/*
+                The questions themselves, not just the themes.
+                Nothing is shown during the run any more, so this is the only
+                moment a learner finds out what they actually missed — and a
+                theme is not reviewable without the sentence that produced it.
+                "Your past tense is inconsistent" teaches nobody; the sentence
+                they wrote, next to the one they meant, teaches immediately.
+              */}
+              {summary.review && summary.review.length > 0 ? (
+                <div>
+                  <p className="label">O que escapou</p>
+                  <div className="mt-1 space-y-1.5">
+                    {summary.review.map((r, i) => (
+                      <div
+                        key={i}
+                        className="rounded-xl border border-sand bg-white/70 px-3 py-2"
+                      >
+                        <p className="text-xs text-ink-faint">
+                          {r.level} · {r.asked}
+                          {r.pt ? ` — ${r.pt}` : ""}
+                        </p>
+                        <p className="mt-1 text-sm text-terra-dark line-through decoration-terra/50">
+                          {r.given || "(em branco)"}
+                        </p>
+                        <p className="font-display text-base font-semibold text-olive">
+                          {r.correct}
+                        </p>
                       </div>
                     ))}
                   </div>

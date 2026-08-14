@@ -169,5 +169,28 @@ ${
     },
   });
 
-  return NextResponse.json(output);
+  /*
+   * The answers they got wrong, sent back so the result screen can SHOW them.
+   *
+   * The test itself now reveals nothing while it runs — that stopped it being
+   * re-rollable — which means this is the only moment a learner ever finds out
+   * what they actually missed. Themes alone ("your past tense is
+   * inconsistent") are not reviewable: you cannot study a theme without the
+   * sentence that produced it.
+   *
+   * Only the items THIS run reported as misses, re-read from the bank above
+   * and capped at 12 — this is not an endpoint that will read out the question
+   * bank. Fabricating ids to harvest answers would cost an AI call each time
+   * and still trip the burst limit in aiDenial.
+   */
+  return NextResponse.json({
+    ...output,
+    review: misses.map((m) => ({
+      level: m.level,
+      asked: m.asked,
+      pt: m.pt,
+      given: m.given,
+      correct: m.correct,
+    })),
+  });
 }
