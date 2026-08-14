@@ -149,6 +149,35 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setBlockAsked(1);
   }
 
+  /**
+   * "I have never learned any Portuguese" — the honest answer for a lot of
+   * people, and until now the app made them prove it.
+   *
+   * A true beginner facing a test they cannot answer is the worst possible
+   * first screen: seven questions of failure to arrive at the level they
+   * already told us they were. The placement exists to find people who are
+   * FURTHER ALONG than A1; somebody who says they are not needs no test.
+   *
+   * Same end state as a completed run — setCefrLevel writes the "Nível
+   * definido" activity row that hasBeenPlaced() reads, so onboarding advances
+   * exactly as it would have. No AI summary: there are no answers to read, and
+   * inventing an assessment of somebody who answered nothing would be a lie.
+   */
+  function startAtA1() {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await setCefrLevel("A1");
+        reset();
+        setResult("A1");
+        setSaved(true);
+        setStartUnit(await getStartUnit().catch(() => null));
+      } catch {
+        setError("Não deu para guardar. Tenta outra vez.");
+      }
+    });
+  }
+
   /** The learner's answer for the current kind, as one string. */
   function answerText(): string {
     if (!current) return "";
@@ -340,12 +369,18 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     return (
       <div className="space-y-4">
         <div className="card p-6 text-center">
-          <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-            Acertaste {total} de {asked.length}
-            {nearMisses > 0
-              ? ` · ${nearMisses} com pequenos erros de escrita`
-              : ""}
-          </p>
+          {asked.length > 0 ? (
+            <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
+              Acertaste {total} de {asked.length}
+              {nearMisses > 0
+                ? ` · ${nearMisses} com pequenos erros de escrita`
+                : ""}
+            </p>
+          ) : (
+            <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
+              Começar do início
+            </p>
+          )}
           <h2 className="mt-2 font-display text-3xl font-semibold">
             O teu nível: {result}
           </h2>
@@ -481,9 +516,24 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           </p>
         ) : null}
         {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
-        <button className="btn-terra" onClick={start} disabled={busy}>
+        <button className="btn-terra" onClick={start} disabled={busy || pending}>
           {busy ? "A preparar…" : "Começar 🧭"}
         </button>
+
+        {/* The way out for somebody who does not need testing. Low emphasis,
+            but plainly there — a beginner should not have to fail seven
+            questions to be told what they already said. */}
+        <button
+          className="btn-ghost w-full"
+          onClick={startAtA1}
+          disabled={busy || pending}
+        >
+          {pending ? "A preparar…" : "Sou mesmo principiante — começar do início"}
+        </button>
+        <p className="text-2xs text-ink-faint">
+          Nunca aprendeste português? Salta o teste. Ficas em A1 e podes fazer o
+          teste mais tarde, a partir do teu perfil.
+        </p>
       </div>
     );
   }
