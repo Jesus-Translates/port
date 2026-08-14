@@ -25,13 +25,20 @@ export function SeatAddons({
   tiers,
   canManage,
   isOperator,
-  money,
 }: {
   seats: SeatAddon[];
-  tiers: ProTier[];
+  /*
+   * Prices arrive already FORMATTED.
+   *
+   * The formatter is a function, and a function cannot cross the server/client
+   * boundary — only serialisable data and server actions can. Passing
+   * formatPlanPrice as a prop typechecked, built locally (this page is dynamic
+   * and never prerendered), and broke the deploy. Strings cross; functions do
+   * not.
+   */
+  tiers: (ProTier & { priceLabel: string })[];
   canManage: boolean;
   isOperator: boolean;
-  money: (eur: number) => string;
 }) {
   const [rows, setRows] = useState(seats);
   const [error, setError] = useState<string | null>(null);
@@ -88,7 +95,7 @@ export function SeatAddons({
               <span className="chip bg-cream text-ink-soft">{t.multiplier}×</span>
             </div>
             <p className="mt-1 font-display text-xl font-semibold text-olive">
-              {money(t.eur)}
+              {t.priceLabel}
               <span className="text-xs font-normal text-ink-faint"> /mês por pessoa</span>
             </p>
             <p className="mt-1.5 text-xs text-ink-soft">{t.blurbPt}</p>

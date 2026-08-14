@@ -250,8 +250,8 @@ export async function aiDenial(
       };
     }
     if (b.blocked === "week") {
-      // The rail is per PERSON now, so the message says "tu", not "vocês" —
-      // nobody else in the family is affected by this one.
+      // Pooled with a per-person ceiling: this learner has taken their share
+      // of the family's week, and the rest of the family is unaffected.
       return {
         error:
           `Usaste a tua IA desta semana. Renova segunda-feira` +

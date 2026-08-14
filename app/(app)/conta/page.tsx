@@ -109,10 +109,12 @@ export default async function ContaPage() {
           children on base — which is the only reason 19 € is affordable. */}
       <SeatAddons
         seats={await listSeatAddons()}
-        tiers={proTiers()}
+        tiers={proTiers().map((t) => ({
+          ...t,
+          priceLabel: formatPlanPrice(t.eur),
+        }))}
         canManage={billing.canManage}
         isOperator={await isOperator((await requireSession()).username)}
-        money={formatPlanPrice}
       />
 
       {/* Every plan, so the family can see what changing would mean. No

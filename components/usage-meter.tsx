@@ -67,9 +67,9 @@ export async function UsageMeter() {
         </p>
       ) : (
         <p className="text-sm text-ink-soft">
-          É o teu limite, não o da família — ninguém gasta o dos outros. Conta
-          conversas com a Sandra e áudio novo; as revisões e os exercícios são
-          à parte.
+          A IA da semana é da família e tu podes usar uma boa parte dela —
+          ninguém consegue gastar tudo sozinho. Conta conversas com a Sandra e
+          áudio novo; as revisões e os exercícios são à parte.
         </p>
       )}
     </section>

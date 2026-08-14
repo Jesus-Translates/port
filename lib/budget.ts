@@ -113,6 +113,23 @@ export function proMultiplier(): number {
   return Number.isFinite(n) && n >= 1 ? n : 5;
 }
 
+/**
+ * The most of the household's WEEK any one person may take.
+ *
+ * Strict per-seat was fair and wasteful: a family of four with two active
+ * learners had half its allowance sitting in dormant seats, and the two people
+ * actually studying were held to a quarter each. Pooling gives them the room
+ * that nobody else is using; the ceiling is what stops one member eating the
+ * family's week.
+ *
+ * Above 1/seats by construction, so it is always more generous than an equal
+ * split — and below 1, so nobody can ever take it all.
+ */
+export function memberWeekShare(): number {
+  const n = Number(process.env.MEMBER_WEEK_SHARE);
+  return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.6;
+}
+
 /** Warn the learner at this share of their weekly allowance. */
 export function warnAt(): number {
   const n = Number(process.env.USAGE_WARN_AT);
@@ -290,8 +307,24 @@ export const budgetState = cache(async (): Promise<BudgetState> => {
     const mult = multOf(session.username);
     const pro = mult > 1;
     const myRow = seatRows.find((r) => r.username === session.username);
-    // Pro-rata: a seat's month divided into weeks, times its multiplier.
-    const weekBudgetEur = perSeatMonth * (7 / daysInMonth()) * mult;
+
+    /*
+     * POOLED, with a per-person ceiling.
+     *
+     * The household's week is shared — a family with two active learners out
+     * of four should not have half its allowance stranded in seats nobody is
+     * using. What one person may take from it is capped, which is the actual
+     * fairness rule: nobody starves anybody, and nobody is held to a quarter
+     * of a pot three-quarters empty.
+     *
+     * The floor is an equal split, so pooling can only ever be MORE generous
+     * than per-seat, never less. A Pro seat's own multiplier applies on top —
+     * the household ceiling already rose to fund it.
+     */
+    const householdWeek = budgetEur * (7 / daysInMonth());
+    const equalSplit = householdWeek / seats;
+    const weekBudgetEur =
+      Math.max(equalSplit, householdWeek * memberWeekShare()) * mult;
     const weekPct = Math.min(
       100,
       Math.round((weekSpentEur / Math.max(weekBudgetEur, 0.0001)) * 100)
