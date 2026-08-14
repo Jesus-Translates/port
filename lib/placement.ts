@@ -128,6 +128,11 @@ function fold(s: string): string {
     .trim();
 }
 
+/** Folded, with the spaces taken out too — joins and splits stop mattering. */
+function squash(s: string): string {
+  return fold(s).replace(/ /g, "");
+}
+
 export type Mark = "certo" | "quase" | "errado";
 
 /**
@@ -160,6 +165,25 @@ export function scoreTyped(target: string, attempt: string): Mark {
   const ft = fold(t);
   const fa = fold(a);
   if (ft === fa) return "quase"; // accents and punctuation only
+
+  /*
+   * Word BOUNDARIES are formatting, not knowledge.
+   *
+   * "da me as chaves porfavor" for "Dá-me as chaves, por favor" has every
+   * word, in the right order, with the clitic in the right place — the one
+   * thing that sentence is testing. What is missing is a hyphen, a comma, an
+   * accent and a space. Failing that outright says "you do not know this" to
+   * somebody who plainly does, and on a placement test the punishment for
+   * that is a whole level.
+   *
+   * So collapse the spaces and compare. This forgives joins and splits and
+   * nothing else: letters still have to match, so "sabem" for "saibam" is
+   * still wrong — which is the entire point of that B2 item. Marked "quase",
+   * which counts as correct and shows them the exact spelling.
+   */
+  const st = squash(t);
+  const sa = squash(a);
+  if (st === sa) return "quase";
 
   /*
    * Word by word, NOT across the whole sentence.

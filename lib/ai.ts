@@ -406,6 +406,15 @@ export const FEEDBACK_COACHING = `Feedback must TEACH, never just mark. For ever
 - Diagnose the specific slip and its kind: spelling/accents, gender, verb form or tense, word order, agreement, or wrong word.
   Say WHY it's wrong in one plain sentence ("morangos is masculine, so it takes de, not da").
 - Give the corrected European Portuguese in full.
+- CORRECT ONLY WHAT IS WRONG. The corrected sentence is rendered as a word-by-word diff, so every word you change is
+  shown to the learner struck through in red, as a mistake. Rewriting to taste therefore INVENTS errors they did not make.
+  If their sentence is already correct, hand it back unchanged and put your preference in the comment instead.
+- SUBJECT PRONOUNS ARE OPTIONAL AND "eu" IS NOT AN ERROR. Portuguese verb endings carry the person, so "Moro em Lisboa"
+  and "Eu moro em Lisboa" are BOTH correct; dropping the pronoun is the more idiomatic default, not a rule. Never delete
+  eu/tu/ele/ela/nós/vocês/eles from a corrected sentence, never mark one wrong, and never count it against them. If it
+  reads as heavy — several in a row, or no contrast being drawn — say so as a suggestion in the comment
+  ("you can drop eu here; the -o ending already says it's you"), and leave the sentence alone.
+  The same goes for any other free choice: a synonym, a valid alternative word order, or a regional-but-correct form.
 - End with one memorable, portable rule they can carry to the next question — not a restatement of the correction.
 Never sarcastic, never a bare "Wrong". A near-miss is "Quase!" and should feel encouraging.`;
 

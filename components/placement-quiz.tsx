@@ -16,7 +16,6 @@ import {
   passMarkFor,
   placeAt,
   type Level,
-  type Mark,
   type PublicItem,
 } from "@/lib/placement";
 import type { PlacementSummary } from "@/lib/placement-record";
@@ -90,9 +89,6 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   >(null);
   const [typed, setTyped] = useState("");
   const [picked, setPicked] = useState<string[]>([]); // wordbank tiles chosen
-  const [mark, setMark] = useState<
-    { mark: Mark; correct: boolean; correctAnswer: string } | null
-  >(null);
   /** What they got wrong, for the AI summary. Ids only — the server re-reads
       the questions itself and never trusts the client for a right answer. */
   const [misses, setMisses] = useState<{ id: string; given: string }[]>([]);
@@ -125,7 +121,6 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setGate(null);
     setTyped("");
     setPicked([]);
-    setMark(null);
     setResult(null);
     setSaved(false);
     setStartUnit(null);
@@ -184,38 +179,49 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     return current.kind === "wordbank" ? picked.join(" ") : typed;
   }
 
+  /**
+   * Answer, and move straight on — WITHOUT saying whether it was right.
+   *
+   * This used to grade in view: a tick, a cross, and the correct answer, one
+   * question at a time. On a practice screen that is the right call. On a
+   * PLACEMENT test it hands out the answer key one question at a time, and it
+   * tells you the moment you are off course — so the cheapest move is to
+   * restart and run the same block again knowing what is coming. A test you
+   * can re-roll until it flatters you does not measure anything, and the prize
+   * for winning it is being put in a level you cannot follow.
+   *
+   * So nothing is revealed until the whole run ends. Every correction still
+   * gets shown — at the end, with the level, where it teaches instead of
+   * steering. Grading stays on the server either way; this only changes what
+   * comes back down.
+   */
   async function check(explicit?: string) {
-    if (!current || busy || mark) return;
+    if (!current || busy) return;
     const given = explicit ?? answerText();
     if (!given.trim()) return;
     setBusy(true);
     const m = await gradePlacement(current.id, given);
-    setBusy(false);
-    if (!m) return;
-    setMark({ mark: m.mark, correct: m.correct, correctAnswer: m.correctAnswer });
+    if (!m) {
+      setBusy(false);
+      return;
+    }
+
+    // Tallied into a local as well as into state: the block decision below
+    // runs in this same tick, and setBlockRight has not landed yet. Reading
+    // the state variable here would decide the block on a stale count and
+    // fail somebody who had just passed.
+    const right = blockRight + (m.correct ? 1 : 0);
     if (m.correct) {
       setScores((s) => ({ ...s, [m.level]: s[m.level] + 1 }));
-      setBlockRight((n) => n + 1);
+      setBlockRight(right);
       if (m.mark === "quase") setNearMisses((n) => n + 1);
     } else {
       setMisses((list) => [...list, { id: current.id, given }]);
     }
-  }
 
-  /**
-   * Next question, or the end of a block.
-   *
-   * The block is the unit of decision, not the question: nothing moves until
-   * all of a level's questions have been answered, and then the whole block
-   * passes or it does not.
-   */
-  async function advance() {
-    if (!current || !mark) return;
     setTyped("");
     setPicked([]);
-    setMark(null);
 
-    setBusy(true);
     const next = await nextPlacementItem(
       asked.map((a) => a.id),
       levelIdx
@@ -228,11 +234,11 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       return;
     }
 
-    // Block finished. Decide, and TELL them before anything changes.
+    // Block finished. The block is the unit of decision, not the question.
     const level = LEVELS[levelIdx];
     const of = sizes[level] ?? blockAsked;
-    const passed = blockRight >= passMarkFor(of);
-    setGate({ level, right: blockRight, of, passed });
+    const passed = right >= passMarkFor(of);
+    setGate({ level, right, of, passed });
     if (passed) setBlocksPassed(levelIdx + 1);
   }
 
@@ -323,8 +329,16 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         <div className="text-4xl" aria-hidden>
           {gate.passed ? "🎉" : "🌱"}
         </div>
+        {/*
+          A score mid-test is a result, and a result mid-test is a reason to
+          restart. Somebody who cleared A1 is told only that they cleared it;
+          the numbers arrive with the level at the end. When the run is OVER
+          the score is not a steer any more, so a failed section shows it.
+        */}
         <h2 className="font-display text-2xl font-semibold">
-          Secção {gate.level}: {gate.right}/{gate.of}
+          {gate.passed
+            ? `Secção ${gate.level} terminada`
+            : `Secção ${gate.level}: ${gate.right}/${gate.of}`}
         </h2>
         {gate.passed ? (
           <p className="text-sm text-ink-soft">
@@ -605,23 +619,22 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         {current.options ? (
           <div className="mt-4 grid gap-2">
             {current.options.map((opt) => {
+              // Selected is shown; RIGHT is not. The tap registers and the
+              // next question arrives — no colour telling them how it went.
               const chosen = typed === opt;
-              const isAnswer = mark && opt === mark.correctAnswer;
               return (
                 <button
                   key={opt}
-                  disabled={!!mark || busy}
+                  disabled={busy}
                   onClick={() => {
                     setTyped(opt);
                     void check(opt);
                   }}
                   className={cn(
                     "rounded-xl border px-4 py-3 text-left transition-all",
-                    isAnswer
-                      ? "border-olive bg-sage-pale text-olive"
-                      : chosen && mark && !mark.correct
-                        ? "border-terra bg-terra-pale text-terra-dark"
-                        : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
+                    chosen
+                      ? "border-olive bg-cream"
+                      : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
                   {opt}
@@ -644,7 +657,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                   {picked.map((w, i) => (
                     <button
                       key={`${w}-${i}`}
-                      disabled={!!mark}
+                      disabled={busy}
                       onClick={() =>
                         setPicked((p) => p.filter((_, j) => j !== i))
                       }
@@ -666,7 +679,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                 return (
                   <button
                     key={`${w}-${i}`}
-                    disabled={used || !!mark}
+                    disabled={used || busy}
                     onClick={() => setPicked((p) => [...p, w])}
                     className={cn(
                       "rounded-lg border px-2.5 py-1.5 text-sm transition-all",
@@ -692,7 +705,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void check();
             }}
             rows={2}
-            disabled={!!mark}
+            disabled={busy}
             className="input mt-4 resize-y"
             placeholder={
               current.kind === "dictation"
@@ -705,54 +718,24 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           />
         ) : null}
 
-        {mark ? (
-          <div
-            className={cn(
-              "mt-3 rounded-xl px-3 py-2 text-sm",
-              mark.correct
-                ? mark.mark === "quase"
-                  ? "bg-azul-pale text-azul"
-                  : "bg-sage-pale text-olive"
-                : "bg-terra-pale text-terra-dark"
-            )}
-          >
-            {mark.correct ? (
-              mark.mark === "quase" ? (
-                <>
-                  Conta como certo ✓ — escreve-se{" "}
-                  <strong className="font-display text-base">
-                    {mark.correctAnswer}
-                  </strong>
-                </>
-              ) : (
-                <>Certo! ✓</>
-              )
-            ) : (
-              <>
-                Era:{" "}
-                <strong className="font-display text-base">
-                  {mark.correctAnswer}
-                </strong>
-              </>
-            )}
-          </div>
-        ) : null}
       </div>
 
-      {/* Choice and gap grade on tap; the rest need a Verificar. */}
-      {!mark && (typedKind || current.kind === "wordbank") ? (
+      {/*
+        One button, one meaning: record it and move on. The old pair —
+        "Verificar" then "Continuar" — existed to show a result in between,
+        and there is no result to show any more. Choice and gap submit on tap.
+      */}
+      {typedKind || current.kind === "wordbank" ? (
         <button
           className="btn-terra w-full"
           onClick={() => void check()}
           disabled={busy || !answerText().trim()}
         >
-          {busy ? "A corrigir…" : "Verificar ✓"}
-        </button>
-      ) : null}
-
-      {mark ? (
-        <button className="btn-primary w-full" onClick={() => void advance()} disabled={busy}>
-          {blockAsked >= blockLength ? `Terminar secção ${LEVELS[levelIdx]}` : "Continuar →"}
+          {busy
+            ? "A guardar…"
+            : blockAsked >= blockLength
+              ? `Terminar secção ${LEVELS[levelIdx]} →`
+              : "Responder →"}
         </button>
       ) : null}
 
