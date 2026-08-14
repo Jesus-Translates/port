@@ -8,6 +8,9 @@ import { listSeatAddons } from "@/lib/actions/billing";
 import { isOperator, requireSession } from "@/lib/auth";
 import { getBilling } from "@/lib/actions/billing";
 import {
+  annualEur,
+  annualMonths,
+  annualSavingEur,
   extraSeatEur,
   formatPlanPrice,
   MAX_SEATS,
@@ -82,6 +85,18 @@ export default async function ContaPage() {
           maxSeats={MAX_SEATS}
           canManage={billing.canManage}
         />
+
+        {/* Their real invoice annualised, not the list price — a family of
+            seven should see what THEIR year costs. Stated, not sold: there is
+            no checkout yet, so this is a number to weigh, not a button. */}
+        {annualMonths() < 12 && billing.monthlyEur > 0 ? (
+          <p className="rounded-xl bg-sage-pale/40 px-3 py-2 text-sm text-ink-soft">
+            A pagar por ano:{" "}
+            <strong>{formatPlanPrice(annualEur(billing.monthlyEur))}</strong> —
+            poupam {formatPlanPrice(annualSavingEur(billing.monthlyEur))}, que
+            é um mês grátis.
+          </p>
+        ) : null}
 
         {billing.cancelsOn ? (
           <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">

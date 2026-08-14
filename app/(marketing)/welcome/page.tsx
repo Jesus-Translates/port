@@ -3,7 +3,9 @@ import Link from "next/link";
 import ciple from "@/content/syllabus-ciple.json";
 import {
   MAX_SEATS,
+  annualEur,
   annualMonths,
+  annualSavingEur,
   extraSeatEur,
   formatPlanPrice,
   guaranteeDays,
@@ -341,6 +343,15 @@ export default function WelcomePage() {
                 <p className="mt-1 text-sm font-medium text-ink-soft">
                   {p.seats === 1 ? "1 seat" : `${p.seats} seats included`}
                 </p>
+                {/* The yearly figure, not just the offer. "Twelve for the
+                    price of eleven" is a claim; the price and the saving are
+                    what somebody actually weighs. */}
+                {annualMonths() < 12 ? (
+                  <p className="mt-1 text-sm text-ink-faint">
+                    or {formatPlanPrice(annualEur(p.eur))} / year — save{" "}
+                    {formatPlanPrice(annualSavingEur(p.eur))}
+                  </p>
+                ) : null}
                 <p className="mt-3 text-sm leading-relaxed text-ink-soft">
                   {PLAN_EN[p.id] ?? p.blurbPt}
                 </p>
