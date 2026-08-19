@@ -8,6 +8,7 @@ import {
   type QuizQuestions,
 } from "@/lib/ai";
 import { currentStyle } from "@/lib/place";
+import { nonLatinError } from "@/lib/lang-guard";
 import { getSession } from "@/lib/auth";
 import { aiDenial, modelId, recordUsage } from "@/lib/usage";
 import { logActivity } from "@/lib/data";
@@ -51,6 +52,13 @@ export async function POST(request: NextRequest) {
   }
   const { topic: topicRaw = "everyday life at home", level = "A2", count = 8 } = body;
   const topic = String(topicRaw).slice(0, 300);
+
+  // Turn away a non-Latin topic before it reaches the prompt — same rule as
+  // the listening route. This app has two languages, both Latin-script.
+  const langErr = nonLatinError(topic);
+  if (langErr) {
+    return NextResponse.json({ error: langErr }, { status: 400 });
+  }
   const mode = String(body.mode ?? "normal");
 
   const FIELDS = `Use EXACTLY these fields per question: type, promptEn (the question, in English),

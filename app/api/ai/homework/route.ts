@@ -6,6 +6,7 @@ import {
   homeworkItemsGenSchema,
 } from "@/lib/ai";
 import { currentStyle, referenceContext } from "@/lib/place";
+import { nonLatinError } from "@/lib/lang-guard";
 import { roleOf, getSession } from "@/lib/auth";
 import { householdUsernames } from "@/lib/tenant";
 import { aiDenial, modelId, recordUsage } from "@/lib/usage";
@@ -47,6 +48,13 @@ export async function POST(request: NextRequest) {
   }
   const { topic: topicRaw = "everyday life in Portugal", forEveryone = false } = body;
   const topic = String(topicRaw).slice(0, 300);
+
+  // Turn away a non-Latin topic before it reaches the prompt — same rule as
+  // the listening route. This app has two languages, both Latin-script.
+  const langErr = nonLatinError(topic) || nonLatinError(String(body.transcript ?? "").slice(0, 6000));
+  if (langErr) {
+    return NextResponse.json({ error: langErr }, { status: 400 });
+  }
   const unitItemId =
     Number.isInteger(body.unitItemId) && Number(body.unitItemId) > 0
       ? Number(body.unitItemId)

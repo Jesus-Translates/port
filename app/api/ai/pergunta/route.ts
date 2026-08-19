@@ -3,6 +3,7 @@ import { desc, eq } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { z } from "zod";
 import { getModel } from "@/lib/ai";
+import { nonLatinError } from "@/lib/lang-guard";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { getCefrFor } from "@/lib/data";
@@ -69,6 +70,13 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     theme = String(body.theme ?? "").slice(0, 200);
+
+  // Turn away a non-Latin topic before it reaches the prompt — same rule as
+  // the listening route. This app has two languages, both Latin-script.
+  const langErr = nonLatinError(theme);
+  if (langErr) {
+    return NextResponse.json({ error: langErr }, { status: 400 });
+  }
     if (body.kind === "frases") kind = "frases";
   } catch {
     // no body is fine

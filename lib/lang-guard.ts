@@ -60,3 +60,17 @@ export function scriptOffenders(
   }
   return out;
 }
+
+/**
+ * The learner-facing refusal for a non-Latin free-text field, or null when the
+ * text is fine. One message, so every AI route that takes a typed topic turns
+ * away "写一个对话" the same way — the input half of the Chinese-output bug,
+ * which is otherwise re-openable by every new route with a topic box.
+ */
+export function nonLatinError(text: string): string | null {
+  if (!hasNonLatin(text)) return null;
+  return (
+    "O texto tem de estar em português ou inglês — só esses dois. " +
+    `Encontrei: ${nonLatinSample(text)}`
+  );
+}

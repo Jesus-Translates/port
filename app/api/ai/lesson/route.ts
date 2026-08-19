@@ -1,6 +1,7 @@
 import { generateText, Output } from "ai";
 import { NextResponse, type NextRequest } from "next/server";
 import { familyList, getModel, lessonGenSchema } from "@/lib/ai";
+import { nonLatinError } from "@/lib/lang-guard";
 import { currentStyle } from "@/lib/place";
 import { getSession } from "@/lib/auth";
 import { householdMembers } from "@/lib/tenant";
@@ -35,6 +36,13 @@ export async function POST(request: NextRequest) {
   }
   const { topic: topicRaw = "daily routines", level = "A2" } = body;
   const topic = String(topicRaw).slice(0, 300);
+
+  // Turn away a non-Latin topic before it reaches the prompt — same rule as
+  // the listening route. This app has two languages, both Latin-script.
+  const langErr = nonLatinError(topic);
+  if (langErr) {
+    return NextResponse.json({ error: langErr }, { status: 400 });
+  }
 
   const { output, usage } = await generateText({
     model: getModel(),

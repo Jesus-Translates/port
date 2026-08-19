@@ -2,6 +2,7 @@ import { generateText, Output } from "ai";
 import { and, asc, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, storyGenSchema } from "@/lib/ai";
+import { nonLatinError } from "@/lib/lang-guard";
 import { currentStyle, referenceContext } from "@/lib/place";
 import { familyList } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
@@ -37,6 +38,13 @@ export async function POST(request: NextRequest) {
   const level = String(body.level ?? "A2").slice(0, 8);
   const seriesTitle = String(body.seriesTitle ?? "").slice(0, 120);
   const theme = String(body.theme ?? "").slice(0, 300);
+
+  // Turn away a non-Latin topic before it reaches the prompt — same rule as
+  // the listening route. This app has two languages, both Latin-script.
+  const langErr = nonLatinError(theme) || nonLatinError(seriesTitle);
+  if (langErr) {
+    return NextResponse.json({ error: langErr }, { status: 400 });
+  }
 
   const db = getDb();
   // Continuing a series: give the model the arc so far.
