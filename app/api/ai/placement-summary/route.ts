@@ -5,7 +5,7 @@ import { getSmartModel, smartModelId, SANDRA } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
 import { currentStyle } from "@/lib/place";
 import { BANK, LEVELS } from "@/lib/placement";
-import { savePlacementRecord } from "@/lib/actions/placement";
+import { getPlacementRecord, savePlacementRecord } from "@/lib/actions/placement";
 import { aiDenial, recordUsage } from "@/lib/usage";
 
 export const maxDuration = 60;
@@ -68,8 +68,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  // Onboarding is never refused for budget — see aiDenial({essential}).
-  const denied = await aiDenial(session.username, { essential: true });
+  // First summary is essential (bypasses budget so a new learner always gets
+  // their result); regenerating one already stored is a normal budgeted call,
+  // closing the loop where a blocked household could re-POST this forever.
+  const existing = await getPlacementRecord();
+  const denied = await aiDenial(session.username, { essential: !existing.summary });
   if (denied) {
     return NextResponse.json({ error: denied.error }, { status: denied.status });
   }

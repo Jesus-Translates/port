@@ -2,7 +2,7 @@ import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { roleOf, getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
-import { visibleOwners } from "@/lib/tenant";
+import { householdUsernames } from "@/lib/tenant";
 import { audioKey, putAudio } from "@/lib/blob";
 import {
   alignTranscript,
@@ -72,10 +72,15 @@ export async function POST(request: NextRequest) {
   }
 
   const db = getDb();
+  // Scope the pre-read to the household. Reading by id alone was an existence
+  // oracle (404 vs "no transcript" told a stranger which clip ids exist), and
+  // it meant we ran paid transcription for a clip the UPDATE below could never
+  // touch. A clip that is not ours is simply NOT FOUND.
+  const mine = await householdUsernames();
   const [clip] = await db
     .select({ transcript: listeningClips.transcript })
     .from(listeningClips)
-    .where(eq(listeningClips.id, id))
+    .where(and(eq(listeningClips.id, id), inArray(listeningClips.createdBy, mine)))
     .limit(1);
   if (!clip) {
     return NextResponse.json({ error: "Clipe não encontrado." }, { status: 404 });
@@ -116,7 +121,7 @@ export async function POST(request: NextRequest) {
     Buffer.from(bytes)
   );
 
-  await db
+  const updated = await db
     .update(listeningClips)
     .set({
       audioB64: humanKey ? null : Buffer.from(bytes).toString("base64"),
@@ -126,15 +131,17 @@ export async function POST(request: NextRequest) {
       createdBy: session.username,
       transcript,
     })
-    // The real boundary: this clip must belong to MY household. Without it
-    // the id alone was authority to overwrite anybody's audio.
-    .where(
-      and(
-        eq(listeningClips.id, id),
-        inArray(listeningClips.createdBy, await visibleOwners())
-      )
-    )
+    // Household only — not visibleOwners: this flips createdBy to the caller,
+    // so allowing the seed owner here would let a family capture a shared clip.
+    .where(and(eq(listeningClips.id, id), inArray(listeningClips.createdBy, mine)))
     .returning({ id: listeningClips.id });
+
+  // The clip can vanish (or be re-keyed) between the read and this write.
+  // Answering ok:true then would tell the recorder their audio saved when the
+  // row it targeted no longer exists — and leave the uploaded blob orphaned.
+  if (updated.length === 0) {
+    return NextResponse.json({ error: "Clipe não encontrado." }, { status: 404 });
+  }
 
   return NextResponse.json({ ok: true, timed: Boolean(heard) });
 }

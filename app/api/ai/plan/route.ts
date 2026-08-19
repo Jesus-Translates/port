@@ -61,14 +61,17 @@ export async function POST() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  // Onboarding is never refused for budget — see aiDenial({essential}).
-  const denied = await aiDenial(session.username, { essential: true });
+  // The FIRST plan is essential (a new learner must get one even mid-budget);
+  // regenerating an existing plan is a normal budgeted call, so a blocked
+  // household cannot loop this smart-model endpoint for free.
+  const existing = await getPlacementRecord();
+  const denied = await aiDenial(session.username, { essential: !existing.plan });
   if (denied) {
     return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
 
   const [record, prefs, cefr] = await Promise.all([
-    getPlacementRecord(),
+    Promise.resolve(existing),
     getMyPrefs(),
     getCefrFor(session.username),
   ]);

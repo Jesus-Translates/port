@@ -70,8 +70,6 @@ export type PlacementMark = {
   mark: Mark;
   correct: boolean;
   level: Level;
-  /** Shown after answering, so a wrong answer teaches something. */
-  correctAnswer: string;
 };
 
 export async function gradePlacement(
@@ -82,15 +80,8 @@ export async function gradePlacement(
   const item = byId(id);
   if (!item) return null;
 
-  const correctAnswer =
-    item.kind === "dictation"
-      ? item.say
-      : item.kind === "write" || item.kind === "wordbank"
-        ? item.answer
-        : item.answer;
-
   const mark = gradeItem(item, String(given ?? "").slice(0, 400));
-  return { mark, correct: counts(mark), level: item.level, correctAnswer };
+  return { mark, correct: counts(mark), level: item.level };
 }
 
 /* ── What we keep afterwards ─────────────────────────────────────────── */

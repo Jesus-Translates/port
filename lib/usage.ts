@@ -225,8 +225,13 @@ export async function aiDenial(
      * which is the worst possible trade in a product whose whole promise is
      * that it understands you.
      *
-     * Bounded on purpose: twice per learner, ever. It cannot be the thing that
-     * blows a budget, and the burst limit still stops a script.
+     * The CALLER must bound this — aiDenial cannot. It carries no per-learner
+     * counter, so `essential: true` is an unconditional budget skip every time
+     * it is passed. The two onboarding routes therefore pass it only for the
+     * FIRST generation (when no placement record exists yet); a regeneration
+     * goes through the normal budget like any other call. Passing a constant
+     * `true` here — as this code used to — turns a "once per learner" courtesy
+     * into an unmetered smart-model endpoint a blocked household can loop.
      */
     essential?: boolean;
   } = {}

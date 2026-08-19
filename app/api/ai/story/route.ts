@@ -1,11 +1,11 @@
 import { generateText, Output } from "ai";
-import { asc, eq } from "drizzle-orm";
+import { and, asc, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getModel, storyGenSchema } from "@/lib/ai";
 import { currentStyle, referenceContext } from "@/lib/place";
 import { familyList } from "@/lib/ai";
 import { getSession } from "@/lib/auth";
-import { householdMembers } from "@/lib/tenant";
+import { householdMembers, visibleOwners } from "@/lib/tenant";
 import { logActivity } from "@/lib/data";
 import { getDb, stories } from "@/lib/db";
 import { aiDenial, modelId, recordUsage } from "@/lib/usage";
@@ -50,7 +50,16 @@ export async function POST(request: NextRequest) {
         textEn: stories.textEn,
       })
       .from(stories)
-      .where(eq(stories.seriesTitle, seriesTitle))
+      // Scoped. A series title is a client-supplied string, and matching on it
+      // alone read EVERY household's stories: household B could continue
+      // household A's arc — with A's chapter titles and text in the prompt — by
+      // guessing the title. The arc-so-far must be MY family's.
+      .where(
+        and(
+          eq(stories.seriesTitle, seriesTitle),
+          inArray(stories.createdBy, await visibleOwners())
+        )
+      )
       .orderBy(asc(stories.chapter));
     if (prior.length > 0) {
       chapter = prior[prior.length - 1].chapter + 1;
