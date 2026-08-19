@@ -105,6 +105,10 @@ export async function POST(request: NextRequest) {
    * between "rare hiccup" and "the feature is broken" without turning a
    * pathological topic into an unbounded spend.
    */
+  // Assembled ONCE, not per attempt: both are DB-backed chains, and a retry
+  // would otherwise re-run them. In parallel rather than back-to-back too.
+  const [style, ref] = await Promise.all([currentStyle(), referenceContext()]);
+
   let script: ScriptLine[] = [];
   let title = "";
   let offending = "";
@@ -112,7 +116,7 @@ export async function POST(request: NextRequest) {
     const { output, usage } = await generateText({
       model: getModel(),
       output: Output.object({ schema: dialogueSchema }),
-      instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${await currentStyle()}${await referenceContext()}
+      instructions: `You write short listening dialogues for a family learning EUROPEAN Portuguese. ${style}${ref}
 Write ONLY in European Portuguese, with English translations. Never any other language or writing system.
 Write it as REAL SPEECH, not a textbook: exactly two speakers with short Portuguese first names, taking turns, 8-14 lines,
 most of them one sentence long. Use the contractions and fillers spoken Portuguese actually has — "'tá" for está when it

@@ -1,8 +1,18 @@
 import { BANK } from "@/lib/placement-bank";
-import { LEVELS, type Level, type PlacementItem } from "@/lib/placement-types";
+import {
+  BLOCK_SIZE,
+  LEVELS,
+  PASS_MARK,
+  passMarkFor,
+  placeAt,
+  type Level,
+  type PlacementItem,
+} from "@/lib/placement-types";
 
 export { BANK };
-export { LEVELS };
+// Re-exported so existing server imports of @/lib/placement keep working; the
+// definitions live in placement-types (client-safe, no BANK). See there.
+export { BLOCK_SIZE, LEVELS, PASS_MARK, passMarkFor, placeAt };
 export type { Level, PlacementItem };
 
 /**
@@ -19,19 +29,6 @@ export type { Level, PlacementItem };
  * being put in the wrong level — but "the answers are in the page" is not a
  * property to design in on purpose.
  */
-
-/**
- * A level's whole block. You answer all of them before anything is decided.
- */
-export const BLOCK_SIZE = 7;
-
-/** Correct answers needed in a block to be let through to the next level. */
-export const PASS_MARK = 5;
-
-/** The bar for a block of `n` questions, scaled if a level is short. */
-export function passMarkFor(n: number): number {
-  return Math.max(1, Math.ceil((n * PASS_MARK) / BLOCK_SIZE));
-}
 
 /**
  * What the browser is allowed to know about a question.
@@ -157,8 +154,14 @@ function tolerance(len: number): number {
 }
 
 export function scoreTyped(target: string, attempt: string): Mark {
-  const t = target.trim();
-  const a = attempt.trim();
+  // Normalize to NFC first: a keyboard/IME that emits decomposed text (macOS
+  // drag-drop, some mobile IMEs) writes "português" as "portugue" + combining
+  // circumflex + "s", which is byte-different from the composed target. Without
+  // this, a perfect answer fails the exact match, falls to the fold() path, and
+  // is reported as a spelling near-miss — and that near-miss count is fed to
+  // the AI summary as a signal about a learner who made no mistake.
+  const t = target.normalize("NFC").trim();
+  const a = attempt.normalize("NFC").trim();
   if (!a) return "errado";
   if (t === a) return "certo";
 
@@ -245,18 +248,3 @@ export function counts(mark: Mark): boolean {
   return mark === "certo" || mark === "quase";
 }
 
-/**
- * Where a run of blocks leaves the learner.
- *
- * The ladder is strict and stops early ON PURPOSE. Each level is a block of
- * its own questions; clear it and the next block opens, miss it and the test
- * ends there. Nobody is asked to guess at the conjuntivo after failing the
- * present tense — that is demoralising, it tells us nothing we did not already
- * know, and it is how a test ends up placing somebody by luck.
- *
- * The placement is the highest block actually CLEARED, and A1 when none was:
- * the floor is a starting point, not a failure.
- */
-export function placeAt(blocksPassed: number): Level {
-  return LEVELS[Math.max(0, Math.min(LEVELS.length - 1, blocksPassed - 1))] ?? "A1";
-}

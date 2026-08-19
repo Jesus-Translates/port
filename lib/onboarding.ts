@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { accounts, getDb, memberships, users } from "@/lib/db";
 import { hasBeenPlaced } from "@/lib/data";
 import { readPrefs } from "@/lib/learning-path";
@@ -63,21 +63,22 @@ async function familyStepApplies(username: string): Promise<boolean> {
       .limit(1);
     if (!m || (m.role !== "owner" && m.role !== "parent")) return false;
 
-    const [account] = await db
-      .select({ seatLimit: accounts.seatLimit })
+    // Seat limit and current occupancy in ONE query (join + count) rather than
+    // two. This runs on every dashboard render while familyStepAt is null —
+    // i.e. forever for children and solo owners — so the round-trip count
+    // matters on the hottest path in the app.
+    const [row] = await db
+      .select({
+        seatLimit: accounts.seatLimit,
+        taken: sql<number>`count(${memberships.username})::int`,
+      })
       .from(accounts)
+      .leftJoin(memberships, eq(memberships.accountId, accounts.id))
       .where(eq(accounts.id, m.accountId))
-      .limit(1);
-    const seatLimit = account?.seatLimit ?? 1;
+      .groupBy(accounts.id, accounts.seatLimit);
+    const seatLimit = row?.seatLimit ?? 1;
     if (seatLimit <= 1) return false;
-
-    const taken = (
-      await db
-        .select({ username: memberships.username })
-        .from(memberships)
-        .where(eq(memberships.accountId, m.accountId))
-    ).length;
-    return taken < seatLimit;
+    return Number(row?.taken ?? 0) < seatLimit;
   } catch {
     return false;
   }
@@ -114,12 +115,13 @@ export async function onboardingState(
     };
   }
 
-  const placed = await hasBeenPlaced(username).catch(() => true);
-  // Checked up front so "passo 1 de 4" is honest from the first screen. The
-  // household reads only run while familyStepAt is null — answering the step
-  // silences them, and for everyone else they are one indexed lookup, the
-  // same shape tenancy already pays on every request.
-  const familyPending = !familyAnswered && (await familyStepApplies(username));
+  // Independent lookups, run together. The family check only fires while the
+  // step is unanswered; once answered it never queries again.
+  const [placed, applies] = await Promise.all([
+    hasBeenPlaced(username).catch(() => true),
+    familyAnswered ? Promise.resolve(false) : familyStepApplies(username),
+  ]);
+  const familyPending = !familyAnswered && applies;
   const total = familyPending ? ONBOARDING_STEPS + 1 : ONBOARDING_STEPS;
 
   if (!livesAnswered) {

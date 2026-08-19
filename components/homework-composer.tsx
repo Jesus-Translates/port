@@ -56,8 +56,9 @@ export function HomeworkComposer({
           ...(unitItemId ? { unitItemId } : {}),
         }),
       });
-      if (!res.ok) throw new Error();
-      const { id } = await res.json();
+      const data = (await res.json()) as { id?: number; error?: string };
+      if (!res.ok || !data.id) throw new Error(data.error);
+      const { id } = data;
       // Carry the course context onto the work page, or finishing it has
       // nowhere to go back to.
       const q =
@@ -65,8 +66,12 @@ export function HomeworkComposer({
           ? `?unidade=${encodeURIComponent(unitSlug)}&item=${unitItemId}`
           : "";
       router.push(`/homework/${id}${q}`);
-    } catch {
-      setError("A Sandra não respondeu. Tenta outra vez.");
+    } catch (e) {
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "A Sandra não respondeu. Tenta outra vez."
+      );
       setBusy(false);
     }
   }

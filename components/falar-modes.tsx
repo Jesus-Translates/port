@@ -68,7 +68,10 @@ export function FalarModes({
           theme: topic.trim() || undefined,
         }),
       });
-      if (!res.ok) throw new Error();
+      if (!res.ok) {
+        const data = (await res.json().catch(() => ({}))) as { error?: string };
+        throw new Error(data.error);
+      }
       if (mode === "ler") {
         const data = (await res.json()) as { frases: { pt: string; en: string }[] };
         setTargets(
@@ -91,8 +94,12 @@ export function FalarModes({
           ...qs,
         ]);
       }
-    } catch {
-      setError("A Sandra não respondeu. Tenta outra vez.");
+    } catch (err) {
+      setError(
+        err instanceof Error && err.message
+          ? err.message
+          : "A Sandra não respondeu. Tenta outra vez."
+      );
     } finally {
       setFetching(false);
     }

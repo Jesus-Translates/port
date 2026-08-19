@@ -30,11 +30,16 @@ export function StoryGenerate({
             : { level, theme: theme.trim() || undefined }
         ),
       });
-      if (!res.ok) throw new Error();
-      const { id } = await res.json();
+      const data = (await res.json()) as { id?: number; error?: string };
+      if (!res.ok || !data.id) throw new Error(data.error);
+      const { id } = data;
       router.push(`/stories/${id}`);
-    } catch {
-      setError("A Sandra não conseguiu escrever agora. Tenta outra vez.");
+    } catch (e) {
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "A Sandra não conseguiu escrever agora. Tenta outra vez."
+      );
       setBusy(false);
     }
   }

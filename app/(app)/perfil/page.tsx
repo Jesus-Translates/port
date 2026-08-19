@@ -29,8 +29,9 @@ export default async function PerfilPage() {
   const session = await requireSession();
   // Instance operator, not a family admin: /registar makes every family
   // owner users.role "admin", so roleOf cannot gate operator-only surfaces.
-  const operator = await isOperator(session.username);
-  const [role, cefr, place, prefs, house, zones] = await Promise.all([
+  const [operator, role, cefr, place, prefs, house, zones] = await Promise.all([
+    // Was awaited before the batch, adding a serial round trip to every view.
+    isOperator(session.username),
     roleOf(session.username),
     getMyCefr().catch(() => null),
     getPlace(session.username).catch(() => null),

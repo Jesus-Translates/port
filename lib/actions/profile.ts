@@ -1,6 +1,6 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, unstable_cache } from "next/cache";
 import { and, asc, eq } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { logActivity } from "@/lib/data";
@@ -191,17 +191,38 @@ export type ZoneOption = {
   places: { slug: string; name: string }[];
 };
 
-/** The zone list for the picker, with each zone's towns. */
-export async function getZones(): Promise<ZoneOption[]> {
-  try {
+/**
+ * The zone list for the picker, with each zone's towns.
+ *
+ * Cached across requests (revalidated hourly) and column-PROJECTED: the full
+ * row carries each zone's promptContext — a multi-hundred-word researched
+ * paragraph used only for AI prompts — which was being shipped over the wire
+ * and then mapped away on every /perfil and /bem-vindo render. The picker
+ * needs only the labels.
+ */
+const loadZones = unstable_cache(
+  async (): Promise<ZoneOption[]> => {
     const db = getDb();
     const [zoneRows, placeRows] = await Promise.all([
       db
-        .select()
+        .select({
+          id: zones.id,
+          slug: zones.slug,
+          namePt: zones.namePt,
+          nameEn: zones.nameEn,
+          emoji: zones.emoji,
+        })
         .from(zones)
         .where(eq(zones.kind, "zone"))
         .orderBy(asc(zones.sortOrder)),
-      db.select().from(zonePlaces).orderBy(asc(zonePlaces.sortOrder)),
+      db
+        .select({
+          zoneId: zonePlaces.zoneId,
+          slug: zonePlaces.slug,
+          name: zonePlaces.name,
+        })
+        .from(zonePlaces)
+        .orderBy(asc(zonePlaces.sortOrder)),
     ]);
     // Grouped + Map, never a correlated sub-select.
     const byZone = new Map<number, { slug: string; name: string }[]>();
@@ -217,6 +238,14 @@ export async function getZones(): Promise<ZoneOption[]> {
       emoji: z.emoji,
       places: byZone.get(z.id) ?? [],
     }));
+  },
+  ["zones-list"],
+  { revalidate: 3600 }
+);
+
+export async function getZones(): Promise<ZoneOption[]> {
+  try {
+    return await loadZones();
   } catch {
     return [];
   }

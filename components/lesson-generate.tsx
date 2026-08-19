@@ -27,11 +27,18 @@ export function LessonGenerate({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic: topic.trim(), level }),
       });
-      if (!res.ok) throw new Error();
-      const { id } = await res.json();
-      router.push(`/workbook/${id}`);
-    } catch {
-      setError("A Sandra não conseguiu criar a lição. Tenta outra vez.");
+      const data = (await res.json()) as { id?: number; error?: string };
+      if (!res.ok || !data.id) throw new Error(data.error);
+      router.push(`/workbook/${data.id}`);
+    } catch (e) {
+      // Surface the server's message when it sent one — the budget-denial 429
+      // says "renova segunda-feira", not "try again", and "try again" is the
+      // one thing that cannot work at a weekly limit.
+      setError(
+        e instanceof Error && e.message
+          ? e.message
+          : "A Sandra não conseguiu criar a lição. Tenta outra vez."
+      );
       setBusy(false);
     }
   }

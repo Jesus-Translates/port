@@ -9,6 +9,35 @@
 export const LEVELS = ["A1", "A2", "B1", "B2"] as const;
 export type Level = (typeof LEVELS)[number];
 
+/*
+ * Client-safe placement constants live HERE, not in lib/placement.ts.
+ *
+ * lib/placement.ts imports and re-exports BANK (every question WITH its
+ * answer). A client component importing a value from it keeps the bank out of
+ * the browser bundle only by tree-shaking — and a placement test whose answers
+ * ship in view-source is exactly what this module's header warns against. These
+ * four carry no bank reference, so the quiz can import them safely.
+ */
+
+/** A level's whole block. You answer all of them before anything is decided. */
+export const BLOCK_SIZE = 7;
+
+/** Correct answers needed in a block to be let through to the next level. */
+export const PASS_MARK = 5;
+
+/** The bar for a block of `n` questions, scaled if a level is short. */
+export function passMarkFor(n: number): number {
+  return Math.max(1, Math.ceil((n * PASS_MARK) / BLOCK_SIZE));
+}
+
+/**
+ * Where a run of blocks leaves the learner: the highest block CLEARED, A1 when
+ * none was. The floor is a starting point, not a failure.
+ */
+export function placeAt(blocksPassed: number): Level {
+  return LEVELS[Math.max(0, Math.min(LEVELS.length - 1, blocksPassed - 1))] ?? "A1";
+}
+
 export type PlacementItem =
   | {
       id: string;

@@ -16,8 +16,8 @@ import {
   passMarkFor,
   placeAt,
   type Level,
-  type PublicItem,
-} from "@/lib/placement";
+} from "@/lib/placement-types";
+import type { PublicItem } from "@/lib/placement";
 import type { PlacementSummary } from "@/lib/placement-record";
 import { cn } from "@/lib/utils";
 
