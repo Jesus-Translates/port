@@ -4,6 +4,7 @@ import { Turnstile } from "@marsidev/react-turnstile";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { suggestUsername } from "@/lib/username";
 
 /**
  * Create a family and its first member in one form.
@@ -27,26 +28,14 @@ export function SignupForm({ siteKey }: { siteKey: string }) {
 
   /** Suggest a username from the first name, until they type their own. */
   function setName(displayName: string) {
-    const auto = displayName
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "")
-      .slice(0, 20);
+    const auto = suggestUsername(displayName);
     setForm((f) => ({
       ...f,
       displayName,
       username: f.username === autoFrom(f.displayName) ? auto : f.username,
     }));
   }
-  function autoFrom(name: string) {
-    return name
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "")
-      .slice(0, 20);
-  }
+  const autoFrom = suggestUsername;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();

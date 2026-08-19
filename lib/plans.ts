@@ -99,8 +99,6 @@ export function annualSavingEur(monthlyEur: number): number {
   return monthlyEur * (12 - annualMonths());
 }
 
-export type BillingInterval = "month" | "year";
-
 /**
  * The AI add-ons, bought per SEAT and priced to cover the extra they buy.
  *

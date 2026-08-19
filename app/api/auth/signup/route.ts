@@ -9,6 +9,7 @@ import { accounts, getDb, memberships, people, subscriptions, users } from "@/li
 import { hashPassword, passwordProblem } from "@/lib/password";
 import { guaranteeDays, planById } from "@/lib/plans";
 import { verifyTurnstile } from "@/lib/turnstile";
+import { usernameProblem } from "@/lib/username";
 import { logActivity } from "@/lib/data";
 import { sendWelcome } from "@/lib/email";
 
@@ -39,13 +40,6 @@ function rateLimited(ip: string): boolean {
   }
   return recent.length > MAX_PER_IP;
 }
-
-const RESERVED = new Set([
-  "admin", "api", "login", "logout", "registar", "signup", "practice",
-  "unidades", "homework", "quizzes", "reference", "familia", "placement",
-  "stories", "escutar", "jogos", "missoes", "tutor", "notes", "workbook",
-  "verbos", "ouvir", "gastos", "me", "new", "bem-vindo", "null", "undefined",
-]);
 
 /** "Família Silva" -> "familia-silva", uniquified if taken. */
 function slugify(name: string): string {
@@ -101,10 +95,8 @@ export async function POST(request: NextRequest) {
 
   if (!familyName) return bad("Falta o nome da família.");
   if (!displayName) return bad("Falta o teu nome.");
-  if (!/^[a-z0-9][a-z0-9._-]{1,31}$/.test(username)) {
-    return bad("Nome de utilizador: 2-32 caracteres, letras minúsculas e números.");
-  }
-  if (RESERVED.has(username)) return bad("Esse nome de utilizador está reservado.");
+  const nameProblem = usernameProblem(username);
+  if (nameProblem) return bad(nameProblem);
   if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return bad("Email inválido.");
   }

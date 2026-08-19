@@ -18,6 +18,7 @@ import {
 } from "@/lib/tenant";
 import { hashPassword, passwordProblem, verifyPassword } from "@/lib/password";
 import { insertMember } from "@/lib/create-member";
+import { usernameProblem } from "@/lib/username";
 import { logActivity } from "@/lib/data";
 
 /**
@@ -43,12 +44,6 @@ export type Account = {
 const ROLE_VALUES: readonly Role[] = ["admin", "teacher", "student"];
 const MODES = ["simple", "full"];
 /** Route segments and reserved words a username must never shadow. */
-const RESERVED = new Set([
-  "admin", "api", "login", "logout", "practice", "unidades", "homework",
-  "quizzes", "livro", "familia", "placement", "stories", "escutar", "jogos",
-  "missoes", "tutor", "notes", "workbook", "verbos", "ouvir", "gastos", "me",
-  "new", "null", "undefined",
-]);
 
 /**
  * Who may manage accounts, and whose.
@@ -111,16 +106,6 @@ function isSafeName(username: string): boolean {
   return /^[a-z0-9][a-z0-9._-]{1,31}$/.test(username);
 }
 
-/** Shared shape rules, so create and rename cannot disagree about what is legal. */
-function usernameProblem(username: string): string | null {
-  if (username.length < 2) return "O nome de utilizador é demasiado curto.";
-  if (username.length > 32) return "O nome de utilizador é demasiado longo.";
-  if (!/^[a-z0-9][a-z0-9._-]*$/.test(username)) {
-    return "Só letras minúsculas, números, ponto, hífen e underscore.";
-  }
-  if (RESERVED.has(username)) return "Esse nome está reservado.";
-  return null;
-}
 
 function cleanEmail(input: unknown): string | null {
   const s = String(input ?? "").trim().toLowerCase();

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { suggestUsername } from "@/lib/username";
 import { useRouter } from "next/navigation";
 import { createAccount } from "@/lib/actions/users";
 import { finishFamilyStep } from "@/lib/actions/profile";
@@ -21,15 +22,6 @@ import { finishFamilyStep } from "@/lib/actions/profile";
 
 type Added = { displayName: string; username: string };
 
-/** "Ana Sofia" → "anasofia": a legal username suggestion, still editable. */
-function suggestUsername(name: string): string {
-  return name
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "") // drop the accents, keep the letters
-    .replace(/[^a-z0-9]/g, "")
-    .slice(0, 32);
-}
 
 export function FamilyStep({
   seatLimit,

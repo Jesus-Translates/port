@@ -2,7 +2,7 @@
 
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import {
   createSessionToken,
   getSession,
@@ -54,7 +54,15 @@ export async function sendInvite(input: {
   const [me] = await db
     .select({ role: memberships.role })
     .from(memberships)
-    .where(eq(memberships.username, session.username))
+    // Scoped by accountId, not username alone: usernames are globally unique
+    // today, but the planned username-per-account model would let a member
+    // named "ana" in another household satisfy this owner/parent gate here.
+    .where(
+      and(
+        eq(memberships.username, session.username),
+        eq(memberships.accountId, accountId)
+      )
+    )
     .limit(1);
   if (me?.role !== "owner" && me?.role !== "parent") {
     return { ok: false, error: "Só um adulto da família pode convidar." };

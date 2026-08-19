@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { suggestUsername } from "@/lib/username";
 import { acceptInvite } from "@/lib/actions/invites";
 
 /**
@@ -20,15 +21,7 @@ export function InviteAcceptForm({
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  /** Suggest a username from the first name, until they type their own. */
-  function autoFrom(name: string) {
-    return name
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "")
-      .toLowerCase()
-      .replace(/[^a-z0-9]/g, "")
-      .slice(0, 20);
-  }
+  const autoFrom = suggestUsername;
   function setName(displayName: string) {
     setForm((f) => ({
       ...f,

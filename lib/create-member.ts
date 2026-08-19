@@ -1,4 +1,7 @@
 import { getDb, memberships, people, users } from "@/lib/db";
+import { usernameProblem } from "@/lib/username";
+
+export { usernameProblem };
 
 /**
  * The one place a household member's three rows are written.
@@ -67,24 +70,3 @@ export async function insertMember(input: {
   });
 }
 
-/**
- * Username rules for self-service signup surfaces (signup and invites) — the
- * same shape /api/auth/signup enforces, plus the newer public routes.
- */
-const RESERVED = new Set([
-  "admin", "api", "login", "logout", "registar", "signup", "practice",
-  "unidades", "homework", "quizzes", "reference", "familia", "placement",
-  "stories", "escutar", "jogos", "missoes", "tutor", "notes", "workbook",
-  "verbos", "ouvir", "gastos", "me", "new", "bem-vindo", "null", "undefined",
-  "convite", "conta", "perfil", "progresso", "palavras",
-]);
-
-export function usernameProblem(username: string): string | null {
-  if (!/^[a-z0-9][a-z0-9._-]{1,31}$/.test(username)) {
-    return "Nome de utilizador: 2-32 caracteres, letras minúsculas e números.";
-  }
-  if (RESERVED.has(username)) {
-    return "Esse nome de utilizador está reservado.";
-  }
-  return null;
-}
