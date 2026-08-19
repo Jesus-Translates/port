@@ -160,22 +160,31 @@ export async function sendReminder(input: {
   streak: number;
 }): Promise<SendResult> {
   const site = process.env.SITE_URL ?? "https://port.robertjeremiah.com";
-  const { due, streak } = input;
+  const { streak } = input;
 
-  const cartoes = due === 1 ? "1 cartão" : `${due} cartões`;
+  // Cap the number the learner is shown. A person back after two weeks has a
+  // real backlog of 200+ cards, and "Tens 240 cartões à espera" every single
+  // day is a guilt bomb that defeats the whole gentle-nudge intent — the SRS
+  // queue itself only serves ~20 at a time anyway. Above the cap we show the
+  // achievable first bite, not the intimidating total.
+  const SHOWN_CAP = 20;
+  const due = input.due;
+  const shown = Math.min(due, SHOWN_CAP);
+  const cartoes = shown === 1 ? "1 cartão" : `${shown} cartões`;
+  const espera = due > SHOWN_CAP ? "para começar" : "à espera";
   const sequencia = `a tua sequência de ${streak} ${streak === 1 ? "dia" : "dias"}`;
 
   // Cards first: they are the concrete, countable reason to open the app.
   // The streak rides along as a second sentence when it exists.
   const subject =
     due > 0
-      ? `Tens ${cartoes} à espera 🇵🇹`
+      ? `${shown} cartões ${espera} 🇵🇹`
       : `Cinco minutos hoje e ${sequencia} continua 🇵🇹`;
 
   const lines: string[] = [];
   if (due > 0) {
     lines.push(
-      `Tens ${cartoes} à espera de revisão — cinco minutos chegam para os despachar.`
+      `Tens ${cartoes} ${espera} — cinco minutos chegam para os despachar.`
     );
     if (streak >= 2) {
       lines.push(`E ${sequencia} continua contigo. Está a correr bem!`);

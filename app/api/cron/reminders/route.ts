@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { and, eq, gt, gte, inArray, isNotNull, lte, sql } from "drizzle-orm";
 import { activity, cards, emailLog, getDb, users } from "@/lib/db";
 import { emailConfigured, sendReminder } from "@/lib/email";
+import { streakFrom } from "@/lib/streak";
 
 /**
  * The daily reminder — the only thing that ever brings anyone BACK.
@@ -25,33 +26,12 @@ import { emailConfigured, sendReminder } from "@/lib/email";
 
 // Sequential sends to a whole household of mailboxes can outlast the default
 // function window; a minute is plenty and costs nothing when unused.
-export const maxDuration = 60;
-
-/** Same day bucketing as getStats — the email's number must match the app's. */
-function dayKey(d: Date): string {
-  return d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
-}
-
-/**
- * Streak from raw activity timestamps — getStats()'s exact algorithm, but
- * batched. getStats itself is one person, three queries and a session-scoped
- * family feed; calling it per user would make the cron cost scale with the
- * instance. Here the caller fetches everyone's activity in one query and this
- * just counts.
- */
-function streakFrom(days: Set<string>): { streak: number; activeToday: boolean } {
-  const cursor = new Date();
-  const activeToday = days.has(dayKey(cursor));
-  // Anchored on today when active, otherwise on yesterday — a streak is not
-  // dead until a whole local day has passed without practice.
-  if (!activeToday) cursor.setDate(cursor.getDate() - 1);
-  let streak = 0;
-  while (days.has(dayKey(cursor))) {
-    streak += 1;
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  return { streak, activeToday };
-}
+// A few hundred mailboxes sent with bounded concurrency fit comfortably; the
+// old strictly-sequential loop timed out past ~150 recipients, and because the
+// candidate order is stable and the dedup window is 20h, the same tail of the
+// list then never got mailed at all. 300s is the platform max.
+export const maxDuration = 300;
+const SEND_CONCURRENCY = 5;
 
 export async function GET(request: Request) {
   // A missing secret closes the endpoint rather than opening it.
@@ -98,15 +78,26 @@ export async function GET(request: Request) {
       .where(and(gt(cards.state, 0), lte(cards.due, now)))
       .groupBy(cards.username)
       .catch(() => []),
-    // 60 days of raw activity, same window getStats uses to count streaks.
+    // Distinct active DAYS per user over the streak window, grouped in SQL.
+    // Fetching raw rows shipped tens of rows per active user per day (megabytes
+    // at scale) only to reduce them to days in JS; this returns at most one row
+    // per user per day. The day string is the Lisbon calendar day, matching
+    // lib/streak's dayKey() format ("YYYY-MM-DD") exactly.
     db
-      .select({ username: activity.username, createdAt: activity.createdAt })
+      .select({
+        username: activity.username,
+        day: sql<string>`to_char((${activity.createdAt} AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/Lisbon')::date, 'YYYY-MM-DD')`,
+      })
       .from(activity)
       .where(
         and(
           inArray(activity.username, usernames),
           gte(activity.createdAt, new Date(now.getTime() - 60 * 86_400_000))
         )
+      )
+      .groupBy(
+        activity.username,
+        sql`(${activity.createdAt} AT TIME ZONE 'UTC' AT TIME ZONE 'Europe/Lisbon')::date`
       )
       .catch(() => []),
     // Who already got today's reminder — the double-send guard.
@@ -128,23 +119,25 @@ export async function GET(request: Request) {
   for (const row of actRows) {
     let set = daysBy.get(row.username);
     if (!set) daysBy.set(row.username, (set = new Set()));
-    set.add(dayKey(row.createdAt));
+    set.add(row.day);
   }
   // Seeded from the log, extended during the run: two accounts sharing a
   // parent's mailbox still mean one email in that mailbox.
   const alreadySent = new Set(sentRows.map((r) => r.recipient));
 
-  let sent = 0;
   let skipped = 0;
-  let failed = 0;
 
+  // Decide WHO gets an email first, deduping by mailbox as we go — then send
+  // concurrently. Deduping up front (rather than inside a sequential loop that
+  // mutated alreadySent) is what lets the sends run in parallel without two
+  // accounts on one parent's mailbox each firing.
+  const toSend: { to: string; displayName: string; due: number; streak: number }[] = [];
   for (const person of candidates) {
     const to = (person.email ?? "").trim().toLowerCase();
     if (!to || alreadySent.has(to)) {
       skipped += 1;
       continue;
     }
-
     const due = dueBy.get(person.username) ?? 0;
     const { streak, activeToday } = streakFrom(
       daysBy.get(person.username) ?? new Set()
@@ -157,23 +150,20 @@ export async function GET(request: Request) {
       skipped += 1;
       continue;
     }
+    alreadySent.add(to); // claim the mailbox so a sibling doesn't also queue
+    toSend.push({ to, displayName: person.displayName, due, streak });
+  }
 
-    try {
-      const result = await sendReminder({
-        to,
-        displayName: person.displayName,
-        due,
-        streak,
-      });
-      if (result.ok) {
-        alreadySent.add(to);
-        sent += 1;
-      } else {
-        failed += 1;
-      }
-    } catch {
-      // sendReminder should never throw, but one mailbox never stops the run.
-      failed += 1;
+  // Bounded concurrency: the strictly-sequential version timed out past ~150
+  // recipients, and one mailbox never stops the run (fail soft per send).
+  let sent = 0;
+  let failed = 0;
+  for (let i = 0; i < toSend.length; i += SEND_CONCURRENCY) {
+    const chunk = toSend.slice(i, i + SEND_CONCURRENCY);
+    const results = await Promise.allSettled(chunk.map((r) => sendReminder(r)));
+    for (const r of results) {
+      if (r.status === "fulfilled" && r.value.ok) sent += 1;
+      else failed += 1;
     }
   }
 

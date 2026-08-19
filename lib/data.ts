@@ -13,6 +13,7 @@ import {
   users,
 } from "@/lib/db";
 import { householdUsernames, visibleOwners } from "@/lib/tenant";
+import { dayKey, streakFrom } from "@/lib/streak";
 
 export const CEFR_LEVELS = ["A1", "A2", "B1", "B2"] as const;
 /**
@@ -267,22 +268,8 @@ export async function getStats(username: string): Promise<Stats> {
     .from(activity)
     .where(eq(activity.username, username));
 
-  // Bucket days in the family's timezone, not UTC — a 00:30 study session in
-  // Portugal should count as its own local day.
-  const dayKey = (d: Date) =>
-    d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
-
   const days = new Set(rows.map((r) => dayKey(r.createdAt)));
-  let streak = 0;
-  const cursor = new Date();
-  // Streak counts today (if active) or is anchored on yesterday.
-  if (!days.has(dayKey(cursor))) {
-    cursor.setDate(cursor.getDate() - 1);
-  }
-  while (days.has(dayKey(cursor))) {
-    streak += 1;
-    cursor.setDate(cursor.getDate() - 1);
-  }
+  const { streak } = streakFrom(days);
 
   const weekAgo = new Date();
   weekAgo.setDate(weekAgo.getDate() - 7);
@@ -391,21 +378,12 @@ export async function getFamilyBoard(usernames: string[]): Promise<FamilyMember[
       ),
   ]);
 
-  const dayKey = (d: Date) =>
-    d.toLocaleDateString("en-CA", { timeZone: "Europe/Lisbon" });
-
   return names
     .map((u) => {
       const days = new Set(
         actRows.filter((r) => r.username === u).map((r) => dayKey(r.createdAt))
       );
-      let streak = 0;
-      const cursor = new Date();
-      if (!days.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1);
-      while (days.has(dayKey(cursor))) {
-        streak += 1;
-        cursor.setDate(cursor.getDate() - 1);
-      }
+      const { streak } = streakFrom(days);
       const q = quizRows.find((r) => r.username === u);
       return {
         username: u,
