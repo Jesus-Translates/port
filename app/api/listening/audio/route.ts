@@ -1,7 +1,8 @@
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { getAudio } from "@/lib/blob";
 
 export const maxDuration = 60;
@@ -23,7 +24,14 @@ export async function GET(request: NextRequest) {
   const [clip] = await getDb()
     .select({ audioB64: listeningClips.audioB64, audioKey: listeningClips.audioKey })
     .from(listeningClips)
-    .where(eq(listeningClips.id, id))
+    // Scoping the PAGE is not enough while the bytes are fetchable by id:
+    // the audio is the thing worth taking, and this route served any of it.
+    .where(
+      and(
+        eq(listeningClips.id, id),
+        inArray(listeningClips.createdBy, await visibleOwners())
+      )
+    )
     .limit(1);
   if (clip?.audioKey) {
     const fromBlob = await getAudio(clip.audioKey);

@@ -1,7 +1,8 @@
-import { eq } from "drizzle-orm";
+import { and, eq, inArray } from "drizzle-orm";
 import { NextResponse, type NextRequest } from "next/server";
 import { roleOf, getSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { audioKey, putAudio } from "@/lib/blob";
 import {
   alignTranscript,
@@ -30,6 +31,14 @@ export async function POST(request: NextRequest) {
   // Replacing a clip's audio changes it for the WHOLE family, so it is a
   // staff action. The player only shows the control to staff, but a UI
   // affordance is not a boundary — enforce it here.
+  //
+  // ROLE IS THE WRONG BOUNDARY ON ITS OWN, and this route proved it: roleOf()
+  // returns "admin" for every family owner because /registar sets it, so this
+  // check passed for every paying customer on the instance while the UPDATE
+  // below matched on clip id alone. Any customer could record over any other
+  // household's clip — and the write reassigned createdBy to themselves, so
+  // the victim lost the row as well as the audio. Ownership is checked at the
+  // update itself further down; this stays only to keep children out.
   if (await roleOf(session.username) === "student") {
     return NextResponse.json(
       { error: "Só a professora pode substituir o áudio." },
@@ -117,7 +126,15 @@ export async function POST(request: NextRequest) {
       createdBy: session.username,
       transcript,
     })
-    .where(eq(listeningClips.id, id));
+    // The real boundary: this clip must belong to MY household. Without it
+    // the id alone was authority to overwrite anybody's audio.
+    .where(
+      and(
+        eq(listeningClips.id, id),
+        inArray(listeningClips.createdBy, await visibleOwners())
+      )
+    )
+    .returning({ id: listeningClips.id });
 
   return NextResponse.json({ ok: true, timed: Boolean(heard) });
 }

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { and, asc, eq, gt } from "drizzle-orm";
+import { and, inArray, asc, eq, gt } from "drizzle-orm";
 import { ListeningPlayer } from "@/components/listening-player";
 import type { NextLesson } from "@/components/lesson-complete";
 import { UnitReturn } from "@/components/unit-return";
 import { roleOf, requireSession } from "@/lib/auth";
 import { getDb, listeningClips } from "@/lib/db";
+import { visibleOwners } from "@/lib/tenant";
 import { parseTranscript } from "@/lib/listening";
 import { unitContextFrom } from "@/lib/unit-context";
 
@@ -19,6 +20,8 @@ async function findNextClip(
   cefr: string
 ): Promise<NextLesson> {
   const db = getDb();
+  // Household scope, resolved once and applied to both queries below.
+  const owners = await visibleOwners();
   const columns = {
     id: listeningClips.id,
     title: listeningClips.title,
@@ -27,7 +30,15 @@ async function findNextClip(
   const [sameLevel] = await db
     .select(columns)
     .from(listeningClips)
-    .where(and(gt(listeningClips.id, afterId), eq(listeningClips.cefr, cefr)))
+    .where(
+      and(
+        gt(listeningClips.id, afterId),
+        eq(listeningClips.cefr, cefr),
+        // "Next clip" walked the whole instance, so it handed a learner a
+        // stranger's dialogue as their next lesson.
+        inArray(listeningClips.createdBy, owners)
+      )
+    )
     .orderBy(asc(listeningClips.id))
     .limit(1);
   const row =
@@ -36,7 +47,12 @@ async function findNextClip(
       await db
         .select(columns)
         .from(listeningClips)
-        .where(gt(listeningClips.id, afterId))
+        .where(
+          and(
+            gt(listeningClips.id, afterId),
+            inArray(listeningClips.createdBy, owners)
+          )
+        )
         .orderBy(asc(listeningClips.id))
         .limit(1)
     )[0];
@@ -53,7 +69,16 @@ export default async function ClipPage(props: PageProps<"/escutar/[id]">) {
   const [clip] = await getDb()
     .select()
     .from(listeningClips)
-    .where(eq(listeningClips.id, clipId))
+    /*
+     * A clip you do not own is NOT FOUND, not forbidden — a 403 would confirm
+     * the id exists and leak the shape of other households' libraries.
+     */
+    .where(
+      and(
+        eq(listeningClips.id, clipId),
+        inArray(listeningClips.createdBy, await visibleOwners())
+      )
+    )
     .limit(1);
   if (!clip) notFound();
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
 import { ListeningElsewhere } from "@/components/listening-elsewhere";
 import { shortTopic } from "@/lib/topic-label";
-import { desc } from "drizzle-orm";
+import { desc, inArray } from "drizzle-orm";
 import { ListeningGenerate } from "@/components/listening-generate";
 import { UnitReturn } from "@/components/unit-return";
 import { UnitStart } from "@/components/unit-start";
@@ -12,6 +12,7 @@ import { getDb, listeningClips } from "@/lib/db";
 import { rankByTopic } from "@/lib/topic-match";
 import { azureConfigured } from "@/lib/tts";
 import { unitContextFrom } from "@/lib/unit-context";
+import { visibleOwners } from "@/lib/tenant";
 import { formatDate } from "@/lib/utils";
 
 export const metadata = { title: "Escutar" };
@@ -48,6 +49,16 @@ export default async function EscutarPage(props: PageProps<"/escutar">) {
       createdAt: listeningClips.createdAt,
     })
     .from(listeningClips)
+    /*
+     * SCOPED. This listed every clip on the instance.
+     *
+     * Escutar dialogues are generated from a free-text topic the learner
+     * types, so they are frequently about that family's own life — their
+     * street, their school run, their neighbours by name. Publishing that
+     * library to every other customer is the worst leak in the app, and it
+     * was not a subtle one: there was simply no owner filter here.
+     */
+    .where(inArray(listeningClips.createdBy, await visibleOwners()))
     .orderBy(desc(listeningClips.createdAt))
     .limit(120);
 

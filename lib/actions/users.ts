@@ -684,6 +684,25 @@ export async function adoptOrphans(): Promise<
   { ok: true; adopted: number } | { ok: false; error: string }
 > {
   const scope = await manageScope();
+  /*
+   * OPERATOR ONLY. This was reachable by any household admin, and orphans are
+   * instance-wide — so pressing it pulled EVERY membership-less account on the
+   * platform into the presser's household. That is not an over-reach in the
+   * abstract: once adopted, canTouch() above treats the victim as family, and
+   * setAccountPassword() then resets their password. Any customer could take
+   * over any orphaned account and read everything in it.
+   *
+   * Orphans are manufactured, not rare — signup, insertMember and moveMember
+   * are all multi-write sequences and neon-http has no transactions, so a
+   * partial failure leaves exactly the half-created account this button
+   * absorbs. Until those are single statements, this stays operator-only.
+   *
+   * The legitimate use is unchanged: the operator repairing accounts stranded
+   * by an old migration. Households cannot manufacture a victim to adopt.
+   */
+  if (!scope.superadmin) {
+    return { ok: false, error: "Só o operador pode fazer isto." };
+  }
   if (scope.accountId === null) {
     return { ok: false, error: "A tua conta não pertence a uma família." };
   }
