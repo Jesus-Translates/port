@@ -274,8 +274,19 @@ export default function WelcomePage() {
             A2 is the level Portugal asks for. CIPLE is the exam.
           </h2>
           <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-ink-soft">
-            Applying for permanent residency or citizenship means proving A2
-            Portuguese — for most people, that means passing CIPLE. The hub
+            {/*
+              NARROWED DELIBERATELY. This used to say "permanent residency or
+              citizenship". The citizenship half is well established; the
+              residency half was never sourced, and Portuguese immigration law
+              moved recently enough (AIMA replacing SEF, the 2025 nationality
+              changes) that an unsourced claim here is a liability rather than
+              a selling point. People read this while making immigration
+              decisions, and a prospective buyer in Portugal will know the
+              rules better than this page does. Do not widen it again without
+              a current AIMA/IRN source.
+            */}
+            Portuguese nationality requires proving A2 Portuguese — for most
+            people, that means passing CIPLE. The hub
             ships a {ciple.length}-unit preparation track built around the exam
             itself: its three components and their 45 / 30 / 25 weighting, the
             four reading task types, the two timed written texts, the paired
