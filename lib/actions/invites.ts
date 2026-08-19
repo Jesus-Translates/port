@@ -234,8 +234,11 @@ export async function acceptInvite(input: {
       householdRole,
     });
   } catch {
-    // Nothing was created (the first insert is the one that races on the
-    // username constraint) — hand the invite back rather than burning it.
+    // Safe to hand the invite back: insertMember writes the credential (users)
+    // row LAST, so a throw here means no account exists — any stray person or
+    // membership row is inert and non-credential. (Before the reorder, a
+    // failure at the people/memberships step could leave a live users row
+    // while this released the token, bricking the invite on retry.)
     await releaseAuthToken(claimed.id).catch(() => {});
     return {
       ok: false,

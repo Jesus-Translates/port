@@ -49,7 +49,7 @@ export async function checkCredentials(
 
   try {
     const { getDb, users } = await import("@/lib/db");
-    const { verifyPassword } = await import("@/lib/password");
+    const { verifyPassword, dummyVerify } = await import("@/lib/password");
     const [row] = await getDb()
       .select({
         username: users.username,
@@ -62,15 +62,20 @@ export async function checkCredentials(
       .where(or(eq(users.username, id), sql`lower(${users.email}) = ${id}`))
       .limit(1);
 
+    // Every branch below spends exactly one scrypt so response time never
+    // reveals whether the account exists or has a personal password set.
+    if (row?.passwordHash) {
+      const ok = await verifyPassword(password, row.passwordHash);
+      return ok && row.active
+        ? { username: row.username, displayName: row.displayName }
+        : null;
+    }
+    // No hash to check (unknown account, or a real one still on the shared
+    // password): burn the equivalent scrypt cost, then do the cheap logic.
+    await dummyVerify(password);
     if (row) {
-      if (!row.active) return null;
-      if (row.passwordHash) {
-        return (await verifyPassword(password, row.passwordHash))
-          ? { username: row.username, displayName: row.displayName }
-          : null;
-      }
       // No personal password set yet — the shared one still works for them.
-      return sharedMatches(password)
+      return row.active && sharedMatches(password)
         ? { username: row.username, displayName: row.displayName }
         : null;
     }

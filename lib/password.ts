@@ -41,6 +41,26 @@ export async function verifyPassword(
 }
 
 /**
+ * Spend one scrypt's worth of time and throw the result away.
+ *
+ * Login must take the same time whether or not the account exists. Without
+ * this, only real accounts with a personal password pay the scrypt cost, so
+ * response latency tells an attacker which usernames and emails are real —
+ * the exact side channel the magic-link route's timing floor was built to
+ * deny, left open on the front door. Call this on every path that would
+ * otherwise skip verifyPassword.
+ */
+let dummyHash: string | null = null;
+export async function dummyVerify(password: string): Promise<void> {
+  try {
+    if (!dummyHash) dummyHash = await hashPassword("placeholder-never-matches");
+    await verifyPassword(password, dummyHash);
+  } catch {
+    // timing is the point; the boolean is discarded
+  }
+}
+
+/**
  * The rules the admin panel enforces. Deliberately about length rather than
  * character classes — length is what actually helps, and complexity rules push
  * people towards "Password1!" and a sticky note.

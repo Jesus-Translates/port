@@ -31,15 +31,21 @@ export async function insertMember(input: {
   householdRole: "owner" | "parent" | "child";
 }): Promise<void> {
   const db = getDb();
-  await db.insert(users).values({
-    username: input.username,
-    displayName: input.displayName,
-    email: input.email,
-    passwordHash: input.passwordHash,
-    role: input.appRole,
-    // New accounts start guided; they can switch once they find their feet.
-    mode: "simple",
-  });
+  /*
+   * Order matters because neon-http has NO transactions — each insert commits
+   * on its own, and a failure partway must not leave a login-capable account
+   * with no household (the "manufactured orphan" adoptOrphans warns about).
+   *
+   * So the credential row (users) goes LAST. If people or memberships fails,
+   * the leftover is a stray person/membership the creating household can see
+   * and remove — inert, no password, cannot sign in. And because nothing
+   * credential-bearing exists until the final insert returns, a caller that
+   * catches a throw here KNOWS no account was created, which is exactly what
+   * acceptInvite's token-release contract depends on.
+   *
+   * people.email carries its own unique index, so a duplicate email is caught
+   * cleanly by the first insert, before anything is written.
+   */
   const [person] = await db
     .insert(people)
     .values({ displayName: input.displayName, email: input.email })
@@ -49,6 +55,15 @@ export async function insertMember(input: {
     personId: person.id,
     username: input.username,
     role: input.householdRole,
+  });
+  await db.insert(users).values({
+    username: input.username,
+    displayName: input.displayName,
+    email: input.email,
+    passwordHash: input.passwordHash,
+    role: input.appRole,
+    // New accounts start guided; they can switch once they find their feet.
+    mode: "simple",
   });
 }
 

@@ -9,7 +9,7 @@ import {
   roleOf,
   type Role,
 } from "@/lib/auth";
-import { accounts, getDb, memberships, users } from "@/lib/db";
+import { accounts, getDb, memberships, people, users } from "@/lib/db";
 import {
   adoptIntoHousehold,
   currentAccountId,
@@ -235,6 +235,22 @@ export async function createAccount(input: {
     .limit(1);
   if (existing) return { ok: false, error: "Esse nome de utilizador já existe." };
 
+  // Pre-check the email too (when one was given — members may have none).
+  // users.email is uniquely indexed case-insensitively, so a duplicate would
+  // throw from insertMember and surface as the vague "(email repetido?)" guess
+  // below; catching it here gives a precise message and never half-writes.
+  // cleanEmail already lowercased it.
+  if (email) {
+    const [emailTaken] = await db
+      .select({ username: users.username })
+      .from(users)
+      .where(sql`lower(${users.email}) = ${email}`)
+      .limit(1);
+    if (emailTaken) {
+      return { ok: false, error: "Esse email já pertence a uma conta." };
+    }
+  }
+
   // A new person must JOIN a household, not float free. Without the
   // membership row they would be a household of one — invisible on the family
   // board, unassignable homework, and counted against nobody's seats.
@@ -265,7 +281,13 @@ export async function createAccount(input: {
       .from(memberships)
       .where(eq(memberships.accountId, accountId))
   ).length;
-  if (account && taken >= account.seatLimit) {
+  if (!account) {
+    // A missing account means insertMember's membership insert would fail on
+    // the accounts FK after already writing a person row. Refuse up front —
+    // acceptInvite already guards this same case.
+    return { ok: false, error: "Essa família não existe." };
+  }
+  if (taken >= account.seatLimit) {
     return {
       ok: false,
       error: `O plano ${account.name} tem ${account.seatLimit} lugares e já estão todos ocupados.`,
@@ -383,11 +405,25 @@ export async function setAccountEmail(
 
   const clean = cleanEmail(email);
   if (clean === "") return { ok: false, error: "Email inválido." };
+  const db = getDb();
   try {
-    await getDb()
-      .update(users)
+    await db.update(users).set({ email: clean }).where(eq(users.username, who));
+    // Keep people.email in step. It is a live gate now — the invite flow
+    // refuses an address that already sits in people — so leaving it stale
+    // would falsely reserve the OLD address and orphan the new one from the
+    // person record. Scoped to this member's own person rows via membership.
+    await db
+      .update(people)
       .set({ email: clean })
-      .where(eq(users.username, who));
+      .where(
+        inArray(
+          people.id,
+          db
+            .select({ id: memberships.personId })
+            .from(memberships)
+            .where(eq(memberships.username, who))
+        )
+      );
   } catch {
     return { ok: false, error: "Esse email já está noutra conta." };
   }
@@ -503,6 +539,11 @@ const USER_TABLES: { table: string; column: string }[] = [
   { table: "categories", column: "created_by" },
   { table: "stories", column: "created_by" },
   { table: "lessons", column: "created_by" },
+  // Escutar clips became household-scoped by created_by this cycle. Without
+  // this row, renaming a member stranded their clips (gone from the family's
+  // own library) and — once the freed username was reused by another
+  // household — leaked those private dialogues to strangers.
+  { table: "listening_clips", column: "created_by" },
 ];
 
 /**
