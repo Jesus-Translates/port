@@ -112,8 +112,16 @@ export type BillingInterval = "month" | "year";
  * Two tiers on purpose. Most people who hit the wall need a bit more, not five
  * times more: "boost" is the price of another seat and doubles the thing they
  * already like. "pro" is for the month somebody is cramming for CIPLE, where
- * 19 EUR against a ~19 EUR tutor HOUR is the comparison that matters — not
- * against the 5 EUR seat.
+ * the comparison that matters is a TUTOR HOUR, not the 5 EUR seat.
+ *
+ * That tutor hour is now a measured number rather than a guess. Preply's
+ * Portugal-based European Portuguese tutors were 22-39 EUR per 50-minute
+ * lesson, on a minimum of 4 lessons per 28-day cycle — roughly 88-156 EUR a
+ * month for ONE learner (preply.com/en/online/portuguese-tutors, retrieved
+ * 2026-08-19; their dedicated CIPLE page averaged $31/hour, $36 in Portugal).
+ * This comment used to say "~19 EUR", which understated it by half and made
+ * our own case weaker than the evidence supports. Neither Preply nor italki
+ * sells a family or multi-seat plan at all — that is checked, not assumed.
  *
  * Both are priced so the incremental AI spend still clears the margin floor;
  * see lib/budget.ts costShare(). Changing a price here without redoing that
