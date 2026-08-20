@@ -226,9 +226,12 @@ export function gradeItem(item: PlacementItem, given: string): Mark {
     case "choice":
     case "gap":
       return said === item.answer ? "certo" : "errado";
-    case "wordbank":
-      // Tiles are tapped, not typed, so the only slip possible is word order.
-      return fold(said) === fold(item.answer) ? "certo" : "errado";
+    case "wordbank": {
+      // Tiles are tapped, not typed, so the only slip possible is word order —
+      // and more than one order can be right.
+      const ok = [item.answer, ...(item.alsoOk ?? [])];
+      return ok.some((t) => fold(said) === fold(t)) ? "certo" : "errado";
+    }
     case "dictation":
       return scoreTyped(item.say, said);
     case "write": {

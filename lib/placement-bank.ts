@@ -73,6 +73,7 @@ export const BANK: PlacementItem[] = [
     alsoOk: [
       "Nós falamos português em casa",
       "Em casa falamos português",
+      "Em casa, nós falamos português",
       "A gente fala português em casa",
     ],
   },
@@ -81,7 +82,11 @@ export const BANK: PlacementItem[] = [
     level: "A1",
     kind: "wordbank",
     promptEn: "Build the sentence: I am from Portugal.",
-    answer: "Eu sou de Portugal",
+    // "Eu" is deliberately NOT a tile. Portuguese drops the subject pronoun,
+    // so both "Sou de Portugal" and "Eu sou de Portugal" are correct — and a
+    // word bank can only accept the arrangements its tiles allow. Offering
+    // "Eu" meant marking the more natural sentence wrong.
+    answer: "Sou de Portugal",
     extras: ["estou", "em", "do"],
   },
 
@@ -141,6 +146,13 @@ export const BANK: PlacementItem[] = [
     alsoOk: [
       "Amanhã vou apanhar o comboio",
       "Eu vou apanhar o comboio amanhã",
+      // "vou de comboio" and the present-for-scheduled-future are both
+      // ordinary EP for a planned trip; failing them costs a whole level.
+      "Vou de comboio amanhã",
+      "Amanhã vou de comboio",
+      "Eu vou de comboio amanhã",
+      "Apanho o comboio amanhã",
+      "Amanhã apanho o comboio",
       "Vou de comboio amanhã",
     ],
   },
@@ -162,18 +174,33 @@ export const BANK: PlacementItem[] = [
     options: [
       "Quando era pequeno, morava perto do mar.",
       "Quando fui pequeno, morei perto do mar.",
-      "Quando era pequeno, morei perto do mar.",
+      // Was "Quando era pequeno, morei perto do mar." — defensible Portuguese
+      // for a bounded stay, so a learner with GOOD Portuguese could pick it.
+      // A distractor has to be wrong, not merely less idiomatic.
+      "Quando fui pequeno, morava perto do mar.",
       "Quando sou pequeno, moro perto do mar.",
     ],
     answer: "Quando era pequeno, morava perto do mar.",
   },
   {
-    id: "b1-choice-chamo-me",
+    /*
+     * Was a "Chamo-me Rita." clitic item — a first-lesson formula sitting in
+     * the B1 block, so it measured nothing about a B1 learner. The EP/BR
+     * clitic discrimination it carried is still tested at this level by
+     * b1-gap-clitic-te, which now asks about placement in whole sentences.
+     *
+     * Replaced with the pretérito perfeito composto, which is one of the
+     * strongest B1 signals there is: its meaning in Portuguese ("have been
+     * doing, repeatedly, lately") does not match the English present perfect,
+     * so it is the tense learners get wrong long after they can conjugate it.
+     */
+    id: "b1-gap-tenho-trabalhado",
     level: "B1",
-    kind: "choice",
-    promptEn: "A neighbour asks your name. Which reply is correct?",
-    options: ["Chamo-me Rita.", "Me chamo Rita.", "Chamo-te Rita.", "Eu chamo Rita."],
-    answer: "Chamo-me Rita.",
+    kind: "gap",
+    promptEn: "Complete: Lately I have been working a lot in the garden.",
+    promptPt: "Ultimamente ___ muito no jardim.",
+    options: ["tenho trabalhado", "trabalhava", "tenho trabalhando", "trabalharei"],
+    answer: "tenho trabalhado",
   },
   {
     id: "b1-gap-possas",
@@ -187,11 +214,19 @@ export const BANK: PlacementItem[] = [
   {
     id: "b1-gap-clitic-te",
     level: "B1",
-    kind: "gap",
-    promptEn: "Where does the pronoun go? Complete the sentence.",
-    promptPt: "Não ___ esqueças de trazer o telemóvel.",
-    options: ["te", "-te", "tu", "ti"],
-    answer: "te",
+    kind: "choice",
+    // Was a gap with the blank fixed BEFORE the verb — which answered its own
+    // question ("where does the pronoun go?") and rendered one option as the
+    // nonsense "Não -te esqueças". Whole sentences make the placement the
+    // actual choice: proclisis after "não" is the rule pt-lint exists to catch.
+    promptEn: "Where does the pronoun go? Pick the correct sentence.",
+    options: [
+      "Não te esqueças de trazer o telemóvel.",
+      "Não esqueças-te de trazer o telemóvel.",
+      "Não tu esqueças de trazer o telemóvel.",
+      "Não esqueças de ti trazer o telemóvel.",
+    ],
+    answer: "Não te esqueças de trazer o telemóvel.",
   },
   {
     id: "b1-dict-1",
@@ -209,6 +244,10 @@ export const BANK: PlacementItem[] = [
     alsoOk: [
       "Dá-me as chaves por favor",
       "Dá-me as chaves, se faz favor",
+      // Bare "faz favor" is everyday spoken EP; "faz" vs "por" is three edits,
+      // so without this it failed outright.
+      "Dá-me as chaves, faz favor",
+      "Dá-me as chaves faz favor",
       "Dás-me as chaves, por favor?",
     ],
   },
@@ -231,22 +270,27 @@ export const BANK: PlacementItem[] = [
       "Quando chegares, liga-me.",
       "Quando chegas, liga-me.",
       "Quando chegarás, liga-me.",
-      "Quando chegar, liga-me.",
+      // Was "Quando chegar, liga-me." — grammatical as 1st/3rd person, so it
+      // was a second right answer for anyone reading it that way.
+      "Quando tu chegar, liga-me.",
     ],
     answer: "Quando chegares, liga-me.",
   },
   {
-    id: "b2-choice-boleia",
+    /*
+     * Was the boleia/carona vocabulary item — a good EP/BR discrimination, but
+     * single-word recognition with no grammar load, which is B1 work at most.
+     * Replaced with talvez, which takes the conjuntivo in Portuguese even
+     * though "maybe" takes nothing in English — a B2 reflex that recognition
+     * items cannot fake.
+     */
+    id: "b2-gap-talvez",
     level: "B2",
-    kind: "choice",
-    promptEn: "You want to ask a friend for a lift. What do you say in Portugal?",
-    options: [
-      "Dás-me boleia?",
-      "Me dá uma carona?",
-      "Fazes-me uma boleia?",
-      "Dás-me um passeio?",
-    ],
-    answer: "Dás-me boleia?",
+    kind: "gap",
+    promptEn: "Complete with the right form of 'vir'.",
+    promptPt: "Talvez ela ___ mais tarde.",
+    options: ["venha", "vem", "virá", "vinha"],
+    answer: "venha",
   },
   {
     id: "b2-gap-fosse",
@@ -282,6 +326,11 @@ export const BANK: PlacementItem[] = [
     alsoOk: [
       "Duvido que saibam o caminho",
       "Duvido que elas saibam o caminho",
+      // conhecer is as good as saber here, and each variant needs its own
+      // entry — the grader compares whole sentences, not word sets.
+      "Duvido que conheçam o caminho",
+      "Duvido que eles conheçam o caminho",
+      "Duvido que elas conheçam o caminho",
       "Duvido que eles conheçam o caminho",
     ],
   },
@@ -291,6 +340,9 @@ export const BANK: PlacementItem[] = [
     kind: "wordbank",
     promptEn: "Build the sentence: Although it was raining, we went to the beach.",
     answer: "Embora estivesse a chover fomos à praia",
+    // The concessive clause may lead or follow; both are correct, and the
+    // target here is embora + imperfeito do conjuntivo, not clause order.
+    alsoOk: ["Fomos à praia embora estivesse a chover"],
     extras: ["chovendo", "estava", "na"],
   },
 ];

@@ -81,6 +81,15 @@ export type PlacementItem =
       kind: "wordbank";
       promptEn: string;
       answer: string;
+      /**
+       * Other orderings that are equally correct.
+       *
+       * A word bank has exactly one set of tiles but often more than one right
+       * sentence — Portuguese drops subject pronouns freely, and a subordinate
+       * clause can lead or follow. Marking only one arrangement failed people
+       * for writing better Portuguese than the target.
+       */
+      alsoOk?: string[];
       /** Plausible decoy words mixed into the tiles. */
       extras?: string[];
     };
