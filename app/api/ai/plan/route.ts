@@ -61,11 +61,15 @@ export async function POST() {
     return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
   }
 
-  // The FIRST plan is essential (a new learner must get one even mid-budget);
-  // regenerating an existing plan is a normal budgeted call, so a blocked
-  // household cannot loop this smart-model endpoint for free.
+  // The FIRST plan a learner ever gets is essential — a new arrival must get
+  // one even if their household is mid-budget. Every later build is a normal
+  // budgeted call.
+  //
+  // Gated on planAt, NOT on plan: the plan is deliberately cleared when the
+  // questionnaire is answered, and gating on the plan itself would make each
+  // clear hand out another unmetered smart-model call.
   const existing = await getPlacementRecord();
-  const denied = await aiDenial(session.username, { essential: !existing.plan });
+  const denied = await aiDenial(session.username, { essential: !existing.planAt });
   if (denied) {
     return NextResponse.json({ error: denied.error }, { status: denied.status });
   }
@@ -123,7 +127,11 @@ ${answers}`,
     at: new Date().toISOString().slice(0, 10),
   };
   // Persist so the plan survives the page and can be shown again later.
-  await savePlacementRecord({ plan: plan as never });
+  await savePlacementRecord({
+    plan: plan as never,
+    // Stamped once and never cleared — see PlacementRecord.planAt.
+    planAt: existing.planAt ?? new Date().toISOString().slice(0, 10),
+  });
 
   return NextResponse.json(plan);
 }

@@ -42,6 +42,17 @@ export type LearningPlan = {
 export type PlacementRecord = {
   summary?: PlacementSummary;
   plan?: LearningPlan;
+  /**
+   * When a plan was FIRST built, as an ISO date. Never cleared, even when the
+   * plan itself is.
+   *
+   * It is the marker for "this learner has had their free onboarding plan".
+   * The plan is deliberately cleared when the questionnaire is answered so it
+   * rebuilds with real preferences — and without a separate marker, clearing
+   * it would also reopen the unmetered budget bypass that first-plan
+   * generation is allowed to use. See app/api/ai/plan/route.ts.
+   */
+  planAt?: string;
 };
 
 const KINDS: PlanStep["kind"][] = [

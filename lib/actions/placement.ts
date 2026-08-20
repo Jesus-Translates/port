@@ -147,6 +147,30 @@ export async function getPlacementRecord(): Promise<PlacementRecord> {
   }
 }
 
+/**
+ * Drop the stored plan so the next plan surface rebuilds it — keeping the
+ * summary and the planAt marker.
+ *
+ * Called when the questionnaire is answered. The plan shown right after the
+ * placement test is built from the gaps alone, because the questionnaire has
+ * not happened yet; once it has, the plan must be rebuilt or those answers
+ * would never reach it. LearningPlanCard never regenerates a plan it can see,
+ * which is correct — so the way to refresh one is to remove it.
+ */
+export async function clearLearningPlan(): Promise<void> {
+  const session = await requireSession();
+  try {
+    const current = await getPlacementRecord();
+    if (!current.plan) return;
+    await getDb()
+      .update(users)
+      .set({ placement: { summary: current.summary, planAt: current.planAt } })
+      .where(eq(users.username, session.username));
+  } catch {
+    // A plan that fails to clear is a stale plan, not a broken account.
+  }
+}
+
 /** Merge a patch into the stored record without losing the other half. */
 export async function savePlacementRecord(
   patch: PlacementRecord

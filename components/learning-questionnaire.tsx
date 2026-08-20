@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { Bi } from "@/components/bilingual";
 import { setMyPrefs } from "@/lib/actions/profile";
+import { clearLearningPlan } from "@/lib/actions/placement";
 import {
   DEFAULT_PREFS,
   PATHS,
@@ -51,6 +52,10 @@ export function LearningQuestionnaire({
     start(async () => {
       try {
         await setMyPrefs(next);
+        // These answers are half of what the plan is built from, and a plan
+        // made before them (on the placement result screen) knows only the
+        // gaps. Dropping it makes the next plan surface rebuild with both.
+        await clearLearningPlan().catch(() => {});
         setSaved(true);
         router.refresh();
         onDone?.();

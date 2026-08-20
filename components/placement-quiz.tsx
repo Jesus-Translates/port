@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { LearningPlanCard } from "@/components/learning-plan";
 import { Bi } from "@/components/bilingual";
 import { getStartUnit } from "@/lib/actions/course";
 import { gradeBlock, placementBlock } from "@/lib/actions/placement";
@@ -463,8 +464,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                 👩‍🏫 {summary.encouragementPt}
               </p>
               <p className="text-2xs text-ink-faint">
-                A seguir, umas perguntas rápidas sobre como gostas de estudar —
-                é com elas que a Sandra monta o teu plano.
+                O plano em baixo vem destes resultados. A seguir, umas
+                perguntas rápidas sobre como gostas de estudar — a Sandra
+                refaz o plano com essas respostas.
               </p>
             </div>
           ) : null}
@@ -510,6 +512,25 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           ) : null}
           {error ? <p className="mt-3 text-sm text-terra-dark">{error}</p> : null}
         </div>
+
+        {/*
+          The plan, on the same screen as the result.
+
+          Knowing you are A2 is a filing code; knowing what to open first is
+          the answer to the question the learner actually asked. It builds from
+          the gaps this run just found (the summary endpoint stores them), so
+          it can only appear once the level is saved — and the questionnaire
+          rebuilds it afterwards with how they like to study, which is the
+          other half of a plan.
+        */}
+        {saved ? (
+          <div className="text-left">
+            <p className="label mb-2">
+              <Bi pt="O teu plano" en="Your plan" inline />
+            </p>
+            <LearningPlanCard initial={null} />
+          </div>
+        ) : null}
       </div>
     );
   }
