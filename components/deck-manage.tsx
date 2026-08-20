@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { deleteCards, masterCard, unmasterCard } from "@/lib/actions/deck";
 import { cn } from "@/lib/utils";
 
@@ -15,13 +16,13 @@ export type DeckRow = {
   mastered: boolean;
 };
 
-const KINDS: { key: string; label: string }[] = [
-  { key: "all", label: "todos" },
-  { key: "entry", label: "livro" },
-  { key: "mistake", label: "erros" },
-  { key: "saved", label: "guardados" },
-  { key: "story", label: "histórias" },
-  { key: "verb", label: "verbos" },
+const KINDS: { key: string; label: string; labelEn: string }[] = [
+  { key: "all", label: "todos", labelEn: "all" },
+  { key: "entry", label: "livro", labelEn: "book" },
+  { key: "mistake", label: "erros", labelEn: "mistakes" },
+  { key: "saved", label: "guardados", labelEn: "saved" },
+  { key: "story", label: "histórias", labelEn: "stories" },
+  { key: "verb", label: "verbos", labelEn: "verbs" },
 ];
 
 /** Rendering thousands of rows makes the page crawl — page the list instead. */
@@ -142,7 +143,8 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
                     : "border-sand bg-white/70 text-ink-soft hover:border-sage hover:bg-sage-pale"
                 )}
               >
-                {k.label} <span className="text-ink-faint">{n}</span>
+                <Bi pt={k.label} en={k.labelEn} inline />{" "}
+                <span className="text-ink-faint">{n}</span>
               </button>
             );
           })}
@@ -159,7 +161,11 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
           }
           disabled={visible.length === 0}
         >
-          {allVisibleSelected ? "Desmarcar tudo" : "Marcar tudo"}
+          {allVisibleSelected ? (
+            <Bi pt="Desmarcar tudo" en="Deselect all" inline />
+          ) : (
+            <Bi pt="Marcar tudo" en="Select all" inline />
+          )}
         </button>
         <span className="text-xs text-ink-faint">
           {selected.size > 0
@@ -172,14 +178,14 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
             disabled={pending || selected.size === 0}
             onClick={() => master([...selected])}
           >
-            Já domino ✓
+            <Bi pt="Já domino ✓" en="I've mastered it" inline />
           </button>
           <button
             className="btn-ghost text-xs text-terra-dark"
             disabled={pending || selected.size === 0}
             onClick={() => remove([...selected])}
           >
-            Remover
+            <Bi pt="Remover" en="Remove" inline />
           </button>
         </div>
       </div>
@@ -224,15 +230,20 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <span className="chip bg-cream text-ink-soft">{r.kind}</span>
                     {mastered ? (
-                      <span className="chip">dominado ✓</span>
+                      <span className="chip">
+                        <Bi pt="dominado ✓" en="mastered" inline />
+                      </span>
                     ) : r.state === 0 ? (
-                      <span className="chip bg-azul-pale text-azul">novo</span>
+                      <span className="chip bg-azul-pale text-azul">
+                        <Bi pt="novo" en="new" inline />
+                      </span>
                     ) : null}
                   </div>
                 </div>
                 <div className="flex shrink-0 gap-1">
                   <button
                     title={mastered ? "Voltar a rever" : "Já domino"}
+                    aria-label={mastered ? "Voltar a rever" : "Já domino"}
                     className="rounded-lg border border-sand bg-white/70 px-2 py-1 text-xs hover:border-sage hover:bg-sage-pale"
                     disabled={pending}
                     onClick={() => (mastered ? unmaster(r.id) : master([r.id]))}
@@ -241,6 +252,7 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
                   </button>
                   <button
                     title="Remover do baralho"
+                    aria-label="Remover do baralho"
                     className="rounded-lg border border-sand bg-white/70 px-2 py-1 text-xs text-terra-dark hover:border-terra hover:bg-terra-pale"
                     disabled={pending}
                     onClick={() => remove([r.id])}

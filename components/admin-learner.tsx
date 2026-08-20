@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import type { ErrorPattern } from "@/lib/actions/admin";
 import { titleCase } from "@/lib/people";
 import { formatDate } from "@/lib/utils";
@@ -135,7 +136,7 @@ export function ErrorPatterns({
                 onClick={() => choose(p)}
                 aria-expanded={open}
               >
-                ✍️ Atribuir TPC sobre isto
+                <Bi pt="✍️ Atribuir TPC sobre isto" en="Assign homework about this" inline />
               </button>
 
               {open ? (
@@ -157,9 +158,15 @@ export function ErrorPatterns({
                       onClick={assign}
                       disabled={busy || !topic.trim()}
                     >
-                      {busy
-                        ? "A Sandra está a escrever…"
-                        : `Atribuir a ${titleCase(username)}`}
+                      {busy ? (
+                        <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+                      ) : (
+                        <Bi
+                          pt={`Atribuir a ${titleCase(username)}`}
+                          en={`Assign to ${titleCase(username)}`}
+                          inline
+                        />
+                      )}
                     </button>
                     <button
                       type="button"
@@ -167,7 +174,7 @@ export function ErrorPatterns({
                       onClick={() => setOpenId(null)}
                       disabled={busy}
                     >
-                      Cancelar
+                      <Bi pt="Cancelar" en="Cancel" inline />
                     </button>
                   </div>
                   {error ? (

@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { Recorder } from "@/components/recorder";
 import { gradeCard } from "@/lib/actions/review";
 import type { ReviewRating } from "@/lib/srs";
@@ -15,11 +16,46 @@ type QueueCard = {
   note: string | null;
 };
 
-const GRADES: { rating: ReviewRating; label: string; hint: string; cls: string }[] = [
-  { rating: 1, label: "Errei", hint: "outra vez já", cls: "bg-terra text-paper hover:bg-terra-dark" },
-  { rating: 2, label: "Difícil", hint: "repete a seguir", cls: "bg-sand text-ink hover:bg-sage-light" },
-  { rating: 3, label: "Bom", hint: "completo ✓", cls: "bg-olive text-paper hover:bg-ink" },
-  { rating: 4, label: "Fácil", hint: "completo ✓", cls: "bg-azul text-paper hover:bg-ink" },
+const GRADES: {
+  rating: ReviewRating;
+  label: string;
+  labelEn: string;
+  hint: string;
+  hintEn: string;
+  cls: string;
+}[] = [
+  {
+    rating: 1,
+    label: "Errei",
+    labelEn: "Wrong",
+    hint: "outra vez já",
+    hintEn: "again now",
+    cls: "bg-terra text-paper hover:bg-terra-dark",
+  },
+  {
+    rating: 2,
+    label: "Difícil",
+    labelEn: "Hard",
+    hint: "repete a seguir",
+    hintEn: "repeat soon",
+    cls: "bg-sand text-ink hover:bg-sage-light",
+  },
+  {
+    rating: 3,
+    label: "Bom",
+    labelEn: "Good",
+    hint: "completo ✓",
+    hintEn: "done",
+    cls: "bg-olive text-paper hover:bg-ink",
+  },
+  {
+    rating: 4,
+    label: "Fácil",
+    labelEn: "Easy",
+    hint: "completo ✓",
+    hintEn: "done",
+    cls: "bg-azul text-paper hover:bg-ink",
+  },
 ];
 
 export function ReviewPlayer({
@@ -60,7 +96,11 @@ export function ReviewPlayer({
               : "/practice/rever";
           }}
         >
-          {flash ? "Outra ronda ⚡" : "Ver se há mais"}
+          {flash ? (
+            <Bi pt="Outra ronda ⚡" en="Another round" inline />
+          ) : (
+            <Bi pt="Ver se há mais" en="See if there's more" inline />
+          )}
         </button>
       </div>
     );
@@ -136,7 +176,7 @@ export function ReviewPlayer({
           className="btn-primary w-full py-4 text-base"
           onClick={() => setRevealed(true)}
         >
-          Mostrar resposta
+          <Bi pt="Mostrar resposta" en="Show answer" inline />
         </button>
       ) : (
         <div className="grid grid-cols-4 gap-2">
@@ -149,8 +189,12 @@ export function ReviewPlayer({
                 g.cls
               )}
             >
-              <span className="text-sm font-bold">{g.label}</span>
-              <span className="text-2xs opacity-80">{g.hint}</span>
+              <span className="text-sm font-bold">
+                <Bi pt={g.label} en={g.labelEn} inline />
+              </span>
+              <span className="text-2xs opacity-80">
+                <Bi pt={g.hint} en={g.hintEn} inline />
+              </span>
             </button>
           ))}
         </div>
@@ -169,7 +213,11 @@ function SpeakCheck({ target }: { target: string }) {
         className="btn-ghost mt-1 text-xs"
         onClick={() => setOpen(true)}
       >
-        🎙️ Diz tu — a Sandra avalia a pronúncia
+        <Bi
+          pt="🎙️ Diz tu — a Sandra avalia a pronúncia"
+          en="Say it yourself — Sandra checks your pronunciation"
+          inline
+        />
       </button>
     );
   }

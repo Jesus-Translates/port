@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { setMyPrefs } from "@/lib/actions/profile";
 import { cn } from "@/lib/utils";
 
@@ -44,12 +45,32 @@ export function ImmersionToggle({
   return (
     <div className="flex min-h-14 items-center gap-3 px-4 py-3.5">
       <span className="min-w-0 flex-1">
-        <span className="block text-[14.5px] font-medium">Imersão total</span>
+        <span className="block text-[14.5px] font-medium">
+          <Bi pt="Imersão total" en="Full immersion" inline />
+        </span>
         <span className="block text-xs text-ink-faint">
-          {on
-            ? "A Sandra só fala português — nunca traduz."
-            : "A Sandra explica em inglês quando precisas."}
-          {!owned ? " · como a tua família escolheu" : ""}
+          {on ? (
+            <Bi
+              pt="A Sandra só fala português — nunca traduz."
+              en="Sandra only speaks Portuguese — never translates."
+              inline
+            />
+          ) : (
+            <Bi
+              pt="A Sandra explica em inglês quando precisas."
+              en="Sandra explains in English when you need it."
+              inline
+            />
+          )}
+          {!owned ? (
+            <Bi
+              pt=" · como a tua família escolheu"
+              en=" · following your family's choice"
+              inline
+            />
+          ) : (
+            ""
+          )}
         </span>
       </span>
       <button

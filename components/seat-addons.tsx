@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { clearSeatAddon, grantSeatAddon, type SeatAddon } from "@/lib/actions/billing";
 import type { ProTier } from "@/lib/plans";
 import { cn } from "@/lib/utils";
@@ -135,6 +136,7 @@ export function SeatAddons({
                       className="rounded-full border border-sand px-2.5 py-1 text-xs hover:border-sage"
                       disabled={pending || s.tierId === t.id}
                       onClick={() => grant(s.username, t)}
+                      aria-label={`Ativar ${t.namePt}`}
                     >
                       {t.multiplier}×
                     </button>
@@ -146,7 +148,7 @@ export function SeatAddons({
                   disabled={pending}
                   onClick={() => clear(s.username)}
                 >
-                  Desativar
+                  <Bi pt="Desativar" en="Deactivate" inline />
                 </button>
               ) : null}
             </span>

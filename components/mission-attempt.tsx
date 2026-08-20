@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { cn } from "@/lib/utils";
 
@@ -99,7 +100,7 @@ export function MissionAttempt({
               className="btn-terra animate-pulse"
               onClick={() => recRef.current?.stop()}
             >
-              ⏹ Parar
+              <Bi pt="⏹ Parar" en="Stop" inline />
             </button>
           ) : (
             <button
@@ -107,11 +108,13 @@ export function MissionAttempt({
               onClick={start}
               disabled={status === "processing"}
             >
-              {status === "processing"
-                ? "A Sandra está a ouvir…"
-                : result
-                  ? "🎙️ Gravar outra vez"
-                  : "🎙️ Gravar"}
+              {status === "processing" ? (
+                <Bi pt="A Sandra está a ouvir…" en="Sandra is listening…" inline />
+              ) : result ? (
+                <Bi pt="🎙️ Gravar outra vez" en="Record again" inline />
+              ) : (
+                <Bi pt="🎙️ Gravar" en="Record" inline />
+              )}
             </button>
           )}
           {status === "recording" ? (
@@ -211,7 +214,11 @@ export function MissionAttempt({
               })
             }
           >
-            {pending ? "A guardar…" : "✅ Fiz a missão!"}
+            {pending ? (
+              <Bi pt="A guardar…" en="Saving…" inline />
+            ) : (
+              <Bi pt="✅ Fiz a missão!" en="I did the mission!" inline />
+            )}
           </button>
           {reported ? (
             <span className="text-sm text-olive">Boa! +15 XP 🎉</span>

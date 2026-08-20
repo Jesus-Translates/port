@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { AudioButton } from "@/components/audio-button";
 import { AnswerDiff } from "@/components/answer-diff";
+import { Bi } from "@/components/bilingual";
 import { QuizPlayer } from "@/components/quiz-player";
 import { UnitContinue, UnitReturn } from "@/components/unit-return";
 import type { QuizQuestions } from "@/lib/ai";
@@ -38,7 +39,7 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
           <UnitReturn unit={unit} />
         ) : (
           <Link href="/practice" className="text-xs text-ink-faint hover:text-olive">
-            ← Praticar
+            <Bi pt="← Praticar" en="Practice" inline />
           </Link>
         )}
         <div className="mt-1 flex flex-wrap items-center gap-2">
@@ -54,7 +55,7 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
 
       {hasAudio ? (
         <div className="card flex items-center gap-3 border-azul/30 bg-azul-pale/50 p-4">
-          <AudioButton quizId={quiz.id} label="Ouvir o áudio" />
+          <AudioButton quizId={quiz.id} label="Ouvir o áudio" labelEn="Play the audio" />
           <p className="text-sm text-azul">
             Ouve primeiro — no exame real o áudio passa duas vezes. O texto
             nunca é mostrado.
@@ -77,7 +78,7 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
           <UnitContinue unit={unit} />
           <form action={cloneThis}>
             <button type="submit" className="btn-ghost">
-              🔁 Fazer este teste também
+              <Bi pt="🔁 Fazer este teste também" en="Take this test too" inline />
             </button>
           </form>
         </>
@@ -107,7 +108,7 @@ export default async function QuizPage(props: PageProps<"/practice/[id]">) {
           </p>
           <form action={cloneThis}>
             <button type="submit" className="btn-terra">
-              🔁 Fazer uma cópia para mim
+              <Bi pt="🔁 Fazer uma cópia para mim" en="Make a copy for myself" inline />
             </button>
           </form>
         </div>
@@ -234,11 +235,11 @@ function CompletedView({
        */}
       {score < total ? (
         <Link href="/practice/rever" className="btn-primary block w-full text-center">
-          Rever os erros agora →
+          <Bi pt="Rever os erros agora →" en="Review the mistakes now" inline />
         </Link>
       ) : (
         <Link href="/practice" className="btn-primary block w-full text-center">
-          Praticar outra coisa →
+          <Bi pt="Praticar outra coisa →" en="Practise something else" inline />
         </Link>
       )}
     </div>

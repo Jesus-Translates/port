@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 
 /** Ask Sandra for a whole unit: Learning Note + an ordered path of activities.
  *  It lands as a draft — the teacher publishes it from the unit page. */
@@ -70,7 +71,11 @@ export function UnitGenerate({ level = "A2" }: { level?: string }) {
           disabled={busy || !topic.trim()}
           onClick={create}
         >
-          {busy ? "A Sandra está a montar…" : "✨ Criar unidade"}
+          {busy ? (
+            <Bi pt="A Sandra está a montar…" en="Sandra is putting it together…" inline />
+          ) : (
+            <Bi pt="✨ Criar unidade" en="Create unit" inline />
+          )}
         </button>
       </div>
       <p className="text-xs text-ink-faint">

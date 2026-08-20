@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 import { setMyPrefs } from "@/lib/actions/profile";
 import {
   DEFAULT_PREFS,
@@ -111,7 +112,7 @@ export function LearningQuestionnaire({
           }}
           className="mt-4 text-xs text-ink-soft underline underline-offset-2"
         >
-          Responder outra vez
+          <Bi pt="Responder outra vez" en="Answer again" inline />
         </button>
       </section>
     );
@@ -163,7 +164,7 @@ export function LearningQuestionnaire({
           onClick={() => setAt(at - 1)}
           className="mt-4 text-xs text-ink-soft underline underline-offset-2"
         >
-          ← Voltar
+          <Bi pt="← Voltar" en="Back" inline />
         </button>
       )}
     </section>

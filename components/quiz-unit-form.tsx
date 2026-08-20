@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import type { UnitContext } from "@/lib/unit-context";
 
 const LEVELS = ["A1", "A2", "B1", "B2"];
@@ -89,7 +90,11 @@ export function QuizUnitForm({
           </select>
         </div>
         <button type="submit" disabled={busy} className="btn-terra flex-1">
-          {busy ? "A Sandra está a escrever o teste…" : "Criar teste ✨"}
+          {busy ? (
+            <Bi pt="A Sandra está a escrever o teste…" en="Sandra is writing the test…" inline />
+          ) : (
+            <Bi pt="Criar teste ✨" en="Create test" inline />
+          )}
         </button>
       </div>
       {busy ? (

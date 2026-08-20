@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AddToDeck } from "@/components/add-to-deck";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -15,15 +16,15 @@ import { CONVERSA_GOAL } from "@/lib/conversa";
 import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
-const TOPIC_CHIPS = [
-  "a praia",
-  "o mercado",
-  "o tempo",
-  "os vizinhos",
-  "a comida",
-  "o futebol",
-  "a família",
-  "as férias",
+const TOPIC_CHIPS: { pt: string; en: string }[] = [
+  { pt: "a praia", en: "the beach" },
+  { pt: "o mercado", en: "the market" },
+  { pt: "o tempo", en: "the weather" },
+  { pt: "os vizinhos", en: "the neighbours" },
+  { pt: "a comida", en: "the food" },
+  { pt: "o futebol", en: "football" },
+  { pt: "a família", en: "the family" },
+  { pt: "as férias", en: "the holidays" },
 ];
 
 type Msg = {
@@ -505,12 +506,12 @@ export function Conversa({
         <div className="flex flex-wrap gap-2">
           {TOPIC_CHIPS.map((t) => (
             <button
-              key={t}
-              onClick={() => start(t)}
+              key={t.pt}
+              onClick={() => start(t.pt)}
               disabled={pending}
               className="min-h-11 rounded-full border border-sand bg-white/70 px-4 py-1.5 text-sm transition-colors hover:border-sage"
             >
-              {t}
+              <Bi pt={t.pt} en={t.en} inline />
             </button>
           ))}
         </div>
@@ -520,7 +521,11 @@ export function Conversa({
             onClick={() => start()}
             disabled={pending}
           >
-            {pending ? "A Sandra está a pensar…" : "Começar a conversa 💬"}
+            {pending ? (
+              <Bi pt="A Sandra está a pensar…" en="Sandra is thinking…" inline />
+            ) : (
+              <Bi pt="Começar a conversa 💬" en="Start the conversation" inline />
+            )}
           </button>
           <button
             className="btn-ghost"
@@ -528,7 +533,7 @@ export function Conversa({
             disabled={pending}
             title="Tema à sorte"
           >
-            🎲 Surpreende-me
+            <Bi pt="🎲 Surpreende-me" en="Surprise me" inline />
           </button>
         </div>
       </div>
@@ -554,9 +559,15 @@ export function Conversa({
                 onClick={() => start(unitTopic)}
                 disabled={pending}
               >
-                {pending
-                  ? "A Sandra está a pensar…"
-                  : `Falar sobre «${unitTopic.length > 44 ? `${unitTopic.slice(0, 44).trimEnd()}…` : unitTopic}» 💬`}
+                {pending ? (
+                  <Bi pt="A Sandra está a pensar…" en="Sandra is thinking…" inline />
+                ) : (
+                  <Bi
+                    pt={`Falar sobre «${unitTopic.length > 44 ? `${unitTopic.slice(0, 44).trimEnd()}…` : unitTopic}» 💬`}
+                    en={`Talk about "${unitTopic.length > 44 ? `${unitTopic.slice(0, 44).trimEnd()}…` : unitTopic}"`}
+                    inline
+                  />
+                )}
               </button>
             </div>
             <details className="border-t border-sand/70 pt-3">
@@ -690,12 +701,12 @@ export function Conversa({
             ) : null}
             <UnitContinue unit={unit} />
             <button className="btn-ghost w-full" onClick={reset}>
-              Nova conversa 💬
+              <Bi pt="Nova conversa 💬" en="New conversation" inline />
             </button>
           </div>
         ) : (
           <button className="btn-primary w-full" onClick={reset}>
-            Nova conversa 💬
+            <Bi pt="Nova conversa 💬" en="New conversation" inline />
           </button>
         )}
       </div>
@@ -761,11 +772,17 @@ export function Conversa({
               : undefined
           }
         >
-          {pending
-            ? "A Sandra está a pensar…"
-            : xp >= CONVERSA_GOAL
-              ? "Terminar e ver as correções ✓"
-              : `Faltam ${CONVERSA_GOAL - xp} XP`}
+          {pending ? (
+            <Bi pt="A Sandra está a pensar…" en="Sandra is thinking…" inline />
+          ) : xp >= CONVERSA_GOAL ? (
+            <Bi pt="Terminar e ver as correções ✓" en="Finish and see corrections" inline />
+          ) : (
+            <Bi
+              pt={`Faltam ${CONVERSA_GOAL - xp} XP`}
+              en={`${CONVERSA_GOAL - xp} XP to go`}
+              inline
+            />
+          )}
         </button>
       </div>
 
@@ -797,7 +814,7 @@ export function Conversa({
                       onClick={() => play(m.audioB64)}
                       title="Ouvir outra vez"
                     >
-                      🔊 repetir
+                      <Bi pt="🔊 repetir" en="replay" inline />
                     </button>
                   ) : null}
                   {m.glossEn ? <GlossToggle en={m.glossEn} /> : null}
@@ -826,7 +843,11 @@ export function Conversa({
             className="btn-terra w-full animate-pulse"
             onClick={() => recRef.current?.stop()}
           >
-            ⏹ Parar e enviar ({recSeconds}s)
+            <Bi
+              pt={`⏹ Parar e enviar (${recSeconds}s)`}
+              en={`Stop and send (${recSeconds}s)`}
+              inline
+            />
           </button>
         ) : (
           <button
@@ -834,7 +855,11 @@ export function Conversa({
             onClick={startRecording}
             disabled={pending}
           >
-            {pending ? "A Sandra está a ouvir…" : "🎙️ Responder com a voz"}
+            {pending ? (
+              <Bi pt="A Sandra está a ouvir…" en="Sandra is listening…" inline />
+            ) : (
+              <Bi pt="🎙️ Responder com a voz" en="Answer by voice" inline />
+            )}
           </button>
         )}
         {/* The one lever a learner has over their own allowance, stated in
@@ -856,12 +881,26 @@ export function Conversa({
           </span>
           <span className="min-w-0 flex-1">
             <span className="block font-medium">
-              {withVoice ? "A Sandra fala" : "A Sandra escreve"}
+              {withVoice ? (
+                <Bi pt="A Sandra fala" en="Sandra speaks" inline />
+              ) : (
+                <Bi pt="A Sandra escreve" en="Sandra writes" inline />
+              )}
             </span>
             <span className="block text-2xs text-ink-soft">
-              {withVoice
-                ? "Toca para desligar a voz — gasta muito menos"
-                : "Falas na mesma; ela responde por escrito · ~7x mais conversa"}
+              {withVoice ? (
+                <Bi
+                  pt="Toca para desligar a voz — gasta muito menos"
+                  en="Tap to turn off voice — uses much less"
+                  inline
+                />
+              ) : (
+                <Bi
+                  pt="Falas na mesma; ela responde por escrito · ~7x mais conversa"
+                  en="You still speak; she replies in writing · ~7x more conversation"
+                  inline
+                />
+              )}
             </span>
           </span>
         </button>
@@ -883,7 +922,7 @@ export function Conversa({
             onClick={sendTyped}
             disabled={pending || recording || !typed.trim()}
           >
-            Enviar
+            <Bi pt="Enviar" en="Send" inline />
           </button>
         </div>
       </div>
@@ -900,7 +939,7 @@ function GlossToggle({ en }: { en: string }) {
       className="text-xs text-ink-faint hover:text-olive"
       onClick={() => setOpen(true)}
     >
-      🇬🇧 ajuda
+      <Bi pt="🇬🇧 ajuda" en="help" inline />
     </button>
   );
 }

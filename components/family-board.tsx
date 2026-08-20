@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { deleteKudo, giveStar, sendNote } from "@/lib/actions/kudos";
 import type { FamilyMember } from "@/lib/data";
 import { avatarFor, titleCase } from "@/lib/people";
@@ -112,13 +113,13 @@ export function FamilyBoard({
                     className="btn-ghost flex-1 px-2.5 py-1.5 text-xs sm:flex-none"
                     onClick={() => setTarget({ user: m.username, kind: "star" })}
                   >
-                    ⭐ Estrela
+                    <Bi pt="⭐ Estrela" en="Star" inline />
                   </button>
                   <button
                     className="btn-ghost flex-1 px-2.5 py-1.5 text-xs sm:flex-none"
                     onClick={() => setTarget({ user: m.username, kind: "note" })}
                   >
-                    💬 Recado
+                    <Bi pt="💬 Recado" en="Note" inline />
                   </button>
                 </div>
               ) : null}
@@ -194,16 +195,16 @@ function KudosForm({
   const [pending, startTransition] = useTransition();
   const isStar = target.kind === "star";
 
-  const SUGGESTIONS = isStar
+  const SUGGESTIONS: { pt: string; en: string }[] = isStar
     ? [
-        "Boa! Estás a arrasar nos testes 💪",
-        "Que sequência! Todos os dias a estudar 🔥",
-        "O teu português está muito melhor!",
+        { pt: "Boa! Estás a arrasar nos testes 💪", en: "Nice! You're crushing the tests" },
+        { pt: "Que sequência! Todos os dias a estudar 🔥", en: "What a streak! Studying every day" },
+        { pt: "O teu português está muito melhor!", en: "Your Portuguese is so much better!" },
       ]
     : [
-        "Vamos fazer um teste juntos hoje?",
-        "Vi o teu TPC — muito bom!",
-        "Precisas de ajuda com alguma coisa?",
+        { pt: "Vamos fazer um teste juntos hoje?", en: "Want to do a quiz together today?" },
+        { pt: "Vi o teu TPC — muito bom!", en: "I saw your homework — really good!" },
+        { pt: "Precisas de ajuda com alguma coisa?", en: "Need help with anything?" },
       ];
 
   return (
@@ -224,12 +225,12 @@ function KudosForm({
       <div className="flex flex-wrap gap-1.5">
         {SUGGESTIONS.map((s) => (
           <button
-            key={s}
+            key={s.pt}
             type="button"
-            onClick={() => setMessage(s)}
+            onClick={() => setMessage(s.pt)}
             className="rounded-full border border-sand bg-white/60 px-2.5 py-1 text-xs text-ink-soft hover:border-sage hover:bg-sage-pale"
           >
-            {s}
+            <Bi pt={s.pt} en={s.en} inline />
           </button>
         ))}
       </div>
@@ -245,10 +246,16 @@ function KudosForm({
             })
           }
         >
-          {pending ? "A enviar…" : isStar ? "Dar estrela ⭐" : "Enviar 💬"}
+          {pending ? (
+            <Bi pt="A enviar…" en="Sending…" inline />
+          ) : isStar ? (
+            <Bi pt="Dar estrela ⭐" en="Give a star" inline />
+          ) : (
+            <Bi pt="Enviar 💬" en="Send" inline />
+          )}
         </button>
         <button className="btn-ghost" onClick={onClose} disabled={pending}>
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </div>

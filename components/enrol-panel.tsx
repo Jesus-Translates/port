@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { enrolCategory } from "@/lib/actions/review";
 import { cn } from "@/lib/utils";
 
@@ -32,8 +33,16 @@ export function EnrolPanel({
         onClick={() => setOpen((o) => !o)}
       >
         <span className="font-semibold">
-          📖 O teu baralho — {deckTotal} cartões
-          {due > 0 ? ` · ${due} para rever` : ""}
+          <Bi
+            pt={`📖 O teu baralho — ${deckTotal} cartões`}
+            en={`Your deck — ${deckTotal} cards`}
+            inline
+          />
+          {due > 0 ? (
+            <Bi pt={` · ${due} para rever`} en={` · ${due} to review`} inline />
+          ) : (
+            ""
+          )}
         </span>
         <span className="text-ink-faint">{open ? "▴" : "▾"}</span>
       </button>
@@ -66,7 +75,11 @@ export function EnrolPanel({
                   <span aria-hidden>{c.emoji}</span>{" "}
                   <span className="font-medium">{c.namePt}</span>
                   <div className="mt-0.5 text-2xs text-ink-faint">
-                    {full ? "no baralho ✓" : `${c.enrolled}/${c.total}`}
+                    {full ? (
+                      <Bi pt="no baralho ✓" en="in the deck" inline />
+                    ) : (
+                      `${c.enrolled}/${c.total}`
+                    )}
                   </div>
                 </button>
               );
@@ -82,7 +95,11 @@ export function EnrolPanel({
                 })
               }
             >
-              {pending ? "A adicionar…" : "Adicionar o livro inteiro"}
+              {pending ? (
+                <Bi pt="A adicionar…" en="Adding…" inline />
+              ) : (
+                <Bi pt="Adicionar o livro inteiro" en="Add the whole book" inline />
+              )}
             </button>
           ) : null}
         </div>

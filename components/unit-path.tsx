@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { completeItem, uncompleteItem } from "@/lib/actions/course";
 import { KIND_META, type ItemKind } from "@/lib/course";
 import { cn } from "@/lib/utils";
@@ -175,7 +176,9 @@ export function UnitPath({
 
               <div className="flex flex-wrap items-center gap-2 border-t border-sand px-4 py-2">
                 {isResume ? (
-                  <span className="chip">Continua aqui</span>
+                  <span className="chip">
+                    <Bi pt="Continua aqui" en="Start here" inline />
+                  </span>
                 ) : null}
                 {/*
                  * Activities tick THEMSELVES off now — finishing one and
@@ -197,7 +200,11 @@ export function UnitPath({
                     disabled={pendingId !== null}
                     onClick={() => toggle(item, false)}
                   >
-                    {busy ? "A guardar…" : "desmarcar"}
+                    {busy ? (
+                      <Bi pt="A guardar…" en="Saving…" inline />
+                    ) : (
+                      <Bi pt="desmarcar" en="unmark" inline />
+                    )}
                   </button>
                 ) : NEEDS_MANUAL.includes(item.kind) ? (
                   <button
@@ -206,7 +213,11 @@ export function UnitPath({
                     disabled={pendingId !== null}
                     onClick={() => toggle(item, true)}
                   >
-                    {busy ? "A guardar…" : "marcar como feito ✓"}
+                    {busy ? (
+                      <Bi pt="A guardar…" en="Saving…" inline />
+                    ) : (
+                      <Bi pt="marcar como feito ✓" en="mark as done" inline />
+                    )}
                   </button>
                 ) : null}
                 {error ? (
@@ -229,11 +240,15 @@ export function UnitPath({
               href={`/unidades/${nextUnit.slug}`}
               className="btn-primary mt-3 block w-full text-center"
             >
-              Próxima unidade: {nextUnit.title} →
+              <Bi
+                pt={`Próxima unidade: ${nextUnit.title} →`}
+                en={`Next unit: ${nextUnit.title}`}
+                inline
+              />
             </Link>
           ) : (
             <Link href="/unidades" className="btn-ghost mt-3 inline-block">
-              ← Ver todas as unidades
+              <Bi pt="← Ver todas as unidades" en="See all units" inline />
             </Link>
           )}
         </div>
@@ -304,7 +319,7 @@ export function UnitPathBuild({ unitId }: { unitId: number }) {
                 setAttempt((n) => n + 1);
               }}
             >
-              Tentar outra vez
+              <Bi pt="Tentar outra vez" en="Try again" inline />
             </button>
           </div>
         ) : (

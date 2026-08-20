@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { deleteUnit, setUnitStatus, updateUnitNote } from "@/lib/actions/units";
 
 /** Teacher controls that live on the unit itself: publish, unpublish, correct
@@ -42,7 +43,7 @@ export function UnitReview({
               })
             }
           >
-            ↩︎ Voltar a rascunho
+            <Bi pt="↩︎ Voltar a rascunho" en="Back to draft" inline />
           </button>
         ) : (
           <button
@@ -55,7 +56,7 @@ export function UnitReview({
               })
             }
           >
-            ✅ Publicar à turma
+            <Bi pt="✅ Publicar à turma" en="Publish to the class" inline />
           </button>
         )}
 
@@ -67,7 +68,11 @@ export function UnitReview({
             setEditing((e) => !e);
           }}
         >
-          {editing ? "Cancelar" : "✏️ Editar nota"}
+          {editing ? (
+            <Bi pt="Cancelar" en="Cancel" inline />
+          ) : (
+            <Bi pt="✏️ Editar nota" en="Edit note" inline />
+          )}
         </button>
 
         <button
@@ -82,7 +87,7 @@ export function UnitReview({
             }
           }}
         >
-          🗑️ Apagar
+          <Bi pt="🗑️ Apagar" en="Delete" inline />
         </button>
       </div>
 
@@ -111,7 +116,11 @@ export function UnitReview({
                 })
               }
             >
-              {pending ? "A guardar…" : "Guardar nota"}
+              {pending ? (
+                <Bi pt="A guardar…" en="Saving…" inline />
+              ) : (
+                <Bi pt="Guardar nota" en="Save note" inline />
+              )}
             </button>
             <span className="text-xs text-ink-faint">
               {draftNote.length}/20000

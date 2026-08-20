@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import {
   CLASS_LABEL,
   findVerb,
@@ -21,6 +22,17 @@ import {
   VERBS,
 } from "@/lib/verbs";
 import { addVerb, removeVerb, type SavedVerb } from "@/lib/actions/verbs";
+
+/** English names for the tense filter chips — kept local so lib/verbs.ts,
+ *  which the grader shares, stays untouched. */
+const TENSE_LABEL_EN: Record<Tense, string> = {
+  presente: "Present",
+  perfeito: "Simple past",
+  imperfeito: "Imperfect",
+  futuro: "Future",
+  conjuntivo: "Subjunctive (present)",
+  imperativo: "Imperative",
+};
 
 /**
  * Consultar — the full paradigm of one verb, every form with its own play
@@ -149,7 +161,11 @@ export function VerbConjugator({
                     })
                   }
                 >
-                  {adding ? "A guardar…" : "Guardar na lista"}
+                  {adding ? (
+                    <Bi pt="A guardar…" en="Saving…" inline />
+                  ) : (
+                    <Bi pt="Guardar na lista" en="Save to the list" inline />
+                  )}
                 </button>
               </div>
               {addError ? (
@@ -199,7 +215,7 @@ export function VerbConjugator({
               href="/jogos/cartoes"
               className="text-xs text-olive underline underline-offset-2"
             >
-              Treinar com cartões →
+              <Bi pt="Treinar com cartões →" en="Practise with flashcards" inline />
             </Link>
           </div>
           <div className="flex flex-wrap gap-1.5">
@@ -310,7 +326,11 @@ export function VerbConjugator({
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
-                  {t === "todos" ? "Todos os tempos" : TENSE_LABEL[t]}
+                  {t === "todos" ? (
+                    <Bi pt="Todos os tempos" en="All tenses" inline />
+                  ) : (
+                    <Bi pt={TENSE_LABEL[t]} en={TENSE_LABEL_EN[t]} inline />
+                  )}
                 </button>
               ))}
             </div>
@@ -337,7 +357,7 @@ export function VerbConjugator({
                         {regular ? "segue o padrão" : "irregular — decora esta"}
                       </p>
                     </div>
-                    <AudioButton text={spoken} label="tudo" />
+                    <AudioButton text={spoken} label="tudo" labelEn="all" />
                   </header>
                   <ul className="divide-y divide-sand/60">
                     {forms.map((f, i) =>

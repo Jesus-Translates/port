@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import type { PronResult } from "@/lib/pronunciation";
 import { cn } from "@/lib/utils";
@@ -103,7 +104,7 @@ export function Recorder({
       <div className="flex items-center gap-2">
         {status === "recording" ? (
           <button className="btn-terra animate-pulse" onClick={stop}>
-            ⏹ Parar
+            <Bi pt="⏹ Parar" en="Stop" inline />
           </button>
         ) : (
           <button
@@ -111,11 +112,13 @@ export function Recorder({
             onClick={start}
             disabled={status === "processing"}
           >
-            {status === "processing"
-              ? "A ouvir-te…"
-              : result
-                ? "🎙️ Gravar outra vez"
-                : "🎙️ Gravar"}
+            {status === "processing" ? (
+              <Bi pt="A ouvir-te…" en="Listening…" inline />
+            ) : result ? (
+              <Bi pt="🎙️ Gravar outra vez" en="Record again" inline />
+            ) : (
+              <Bi pt="🎙️ Gravar" en="Record" inline />
+            )}
           </button>
         )}
         {status === "recording" ? (

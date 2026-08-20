@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { changeMyPassword } from "@/lib/actions/users";
 
 /**
@@ -25,7 +26,7 @@ export function ChangeMyPassword() {
         onClick={() => setOpen(true)}
         className="rounded-lg border border-sand px-3 py-2 text-sm hover:border-sage"
       >
-        🔑 Mudar a minha palavra-passe
+        <Bi pt="🔑 Mudar a minha palavra-passe" en="Change my password" inline />
       </button>
     );
   }
@@ -90,14 +91,18 @@ export function ChangeMyPassword() {
           disabled={pending}
           className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
         >
-          {pending ? "A guardar…" : "Guardar"}
+          {pending ? (
+            <Bi pt="A guardar…" en="Saving…" inline />
+          ) : (
+            <Bi pt="Guardar" en="Save" inline />
+          )}
         </button>
         <button
           type="button"
           onClick={() => setOpen(false)}
           className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </form>

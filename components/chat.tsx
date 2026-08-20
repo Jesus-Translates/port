@@ -5,6 +5,7 @@ import { DefaultChatTransport, type UIMessage } from "ai";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { HarvestFromMarkdown } from "@/components/add-to-deck";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { cn } from "@/lib/utils";
 
@@ -26,7 +27,7 @@ export function Chat({
 }: {
   context?: string;
   placeholder?: string;
-  starters?: string[];
+  starters?: { pt: string; en: string }[];
   compact?: boolean;
   initialInput?: string;
   /** Offer "turn this conversation into homework" once there's enough to go on. */
@@ -110,11 +111,11 @@ export function Chat({
                   // min-h-11, not tap-44: chips sit 8px apart, so expanded
                   // hit areas would overlap the neighbouring chip.
                   <button
-                    key={s}
-                    onClick={() => send(s)}
+                    key={s.pt}
+                    onClick={() => send(s.pt)}
                     className="inline-flex min-h-11 items-center rounded-full border border-sand bg-white/70 px-3.5 text-xs text-ink-soft transition-colors hover:border-sage hover:bg-sage-pale hover:text-ink"
                   >
-                    {s}
+                    <Bi pt={s.pt} en={s.en} inline />
                   </button>
                 ))}
               </div>
@@ -172,7 +173,7 @@ export function Chat({
               onClick={() => regenerate()}
               className="font-semibold underline underline-offset-2"
             >
-              Tentar outra vez
+              <Bi pt="Tentar outra vez" en="Try again" inline />
             </button>
           </div>
         ) : null}
@@ -187,9 +188,19 @@ export function Chat({
             disabled={!canMakeTpc || makingTpc}
             className="btn-ghost min-h-0 py-1.5 text-xs"
           >
-            {makingTpc
-              ? "A Sandra está a escrever o TPC…"
-              : "✍️ Gerar TPC desta conversa"}
+            {makingTpc ? (
+              <Bi
+                pt="A Sandra está a escrever o TPC…"
+                en="Sandra is writing the homework…"
+                inline
+              />
+            ) : (
+              <Bi
+                pt="✍️ Gerar TPC desta conversa"
+                en="Create homework from this chat"
+                inline
+              />
+            )}
           </button>
         </div>
       ) : null}
@@ -208,7 +219,7 @@ export function Chat({
           className="input flex-1"
         />
         <button type="submit" disabled={busy || !input.trim()} className="btn-terra">
-          Enviar
+          <Bi pt="Enviar" en="Send" inline />
         </button>
       </form>
     </div>

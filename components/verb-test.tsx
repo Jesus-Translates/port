@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { finishVerbRound } from "@/lib/actions/verbos";
 import { UnitContinue, UnitReturn } from "@/components/unit-return";
@@ -32,24 +33,80 @@ type Verdict = "certo" | "quase" | "errado";
 type Question = { slot: Slot; type: QType; options: string[] };
 type Outcome = { question: Question; verdict: Verdict };
 
-const TYPE_META: Record<QType, { emoji: string; title: string; sub: string }> = {
-  escrever: { emoji: "✏️", title: "Escrever", sub: "escreves a forma" },
-  escolher: { emoji: "🔤", title: "Escolher", sub: "quatro hipóteses" },
-  dizer: { emoji: "🎙️", title: "Dizer", sub: "dizes em voz alta" },
+const TYPE_META: Record<
+  QType,
+  { emoji: string; title: string; sub: string; titleEn: string; subEn: string }
+> = {
+  escrever: {
+    emoji: "✏️",
+    title: "Escrever",
+    sub: "escreves a forma",
+    titleEn: "Write",
+    subEn: "you type the form",
+  },
+  escolher: {
+    emoji: "🔤",
+    title: "Escolher",
+    sub: "quatro hipóteses",
+    titleEn: "Choose",
+    subEn: "four options",
+  },
+  dizer: {
+    emoji: "🎙️",
+    title: "Dizer",
+    sub: "dizes em voz alta",
+    titleEn: "Say",
+    subEn: "you say it aloud",
+  },
 };
 
-const CLASS_CHOICES: { key: VerbClass | "all"; label: string }[] = [
-  { key: "all", label: "Todos" },
-  { key: "ar", label: "-ar" },
-  { key: "er", label: "-er" },
-  { key: "ir", label: "-ir" },
+const CLASS_CHOICES: { key: VerbClass | "all"; label: string; labelEn: string }[] = [
+  { key: "all", label: "Todos", labelEn: "All" },
+  { key: "ar", label: "-ar", labelEn: "-ar" },
+  { key: "er", label: "-er", labelEn: "-er" },
+  { key: "ir", label: "-ir", labelEn: "-ir" },
 ];
 
-const REGULARITY_CHOICES: { key: Regularity; label: string; sub: string }[] = [
-  { key: "all", label: "Todos", sub: "regular + irregular" },
-  { key: "regular", label: "Regulares", sub: "seguem o padrão" },
-  { key: "irregular", label: "Irregulares", sub: "os que fogem" },
+const REGULARITY_CHOICES: {
+  key: Regularity;
+  label: string;
+  sub: string;
+  labelEn: string;
+  subEn: string;
+}[] = [
+  {
+    key: "all",
+    label: "Todos",
+    sub: "regular + irregular",
+    labelEn: "All",
+    subEn: "regular + irregular",
+  },
+  {
+    key: "regular",
+    label: "Regulares",
+    sub: "seguem o padrão",
+    labelEn: "Regular",
+    subEn: "follow the pattern",
+  },
+  {
+    key: "irregular",
+    label: "Irregulares",
+    sub: "os que fogem",
+    labelEn: "Irregular",
+    subEn: "the ones that don't",
+  },
 ];
+
+/** English names for the tense filter chips — kept local so lib/verbs.ts,
+ *  which the grader shares, stays untouched. */
+const TENSE_LABEL_EN: Record<Tense, string> = {
+  presente: "Present",
+  perfeito: "Simple past",
+  imperfeito: "Imperfect",
+  futuro: "Future",
+  conjuntivo: "Subjunctive (present)",
+  imperativo: "Imperative",
+};
 
 function shuffle<T>(items: T[]): T[] {
   const out = [...items];
@@ -376,14 +433,14 @@ export function VerbTest({
 
             <div className="space-y-2">
               <Link href="/practice" className="btn-primary block w-full">
-                Continuar →
+                <Bi pt="Continuar →" en="Continue" inline />
               </Link>
               <div className="flex flex-wrap justify-center gap-2">
                 <button className="btn-ghost" onClick={start} disabled={saving}>
-                  Outra ronda ↻
+                  <Bi pt="Outra ronda ↻" en="Another round" inline />
                 </button>
                 <Link href="/verbos" className="btn-ghost">
-                  📖 Consultar tabelas
+                  <Bi pt="📖 Consultar tabelas" en="Check the tables" inline />
                 </Link>
               </div>
             </div>
@@ -413,7 +470,7 @@ export function VerbTest({
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
-                  {c.label}
+                  <Bi pt={c.label} en={c.labelEn} inline />
                 </button>
               ))}
             </div>
@@ -435,7 +492,7 @@ export function VerbTest({
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
-                  {TENSE_LABEL[t]}
+                  <Bi pt={TENSE_LABEL[t]} en={TENSE_LABEL_EN[t]} inline />
                 </button>
               ))}
             </div>
@@ -457,14 +514,16 @@ export function VerbTest({
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
-                  <div className="text-sm font-semibold">{r.label}</div>
+                  <div className="text-sm font-semibold">
+                    <Bi pt={r.label} en={r.labelEn} inline />
+                  </div>
                   <div
                     className={cn(
                       "text-2xs",
                       regularity === r.key ? "text-paper/95" : "text-ink-faint"
                     )}
                   >
-                    {r.sub}
+                    <Bi pt={r.sub} en={r.subEn} inline />
                   </div>
                 </button>
               ))}
@@ -489,7 +548,7 @@ export function VerbTest({
                 >
                   <div className="text-sm font-semibold">
                     <span aria-hidden>{TYPE_META[t].emoji}</span>{" "}
-                    {TYPE_META[t].title}
+                    <Bi pt={TYPE_META[t].title} en={TYPE_META[t].titleEn} inline />
                   </div>
                   <div
                     className={cn(
@@ -497,7 +556,7 @@ export function VerbTest({
                       types.includes(t) ? "text-paper/95" : "text-ink-faint"
                     )}
                   >
-                    {TYPE_META[t].sub}
+                    <Bi pt={TYPE_META[t].sub} en={TYPE_META[t].subEn} inline />
                   </div>
                 </button>
               ))}
@@ -522,7 +581,11 @@ export function VerbTest({
               onClick={start}
               disabled={poolSize === 0 || tenses.length === 0}
             >
-              {done ? "Outra ronda →" : "Começar a treinar →"}
+              {done ? (
+                <Bi pt="Outra ronda →" en="Another round" inline />
+              ) : (
+                <Bi pt="Começar a treinar →" en="Start training" inline />
+              )}
             </button>
           </div>
         </div>
@@ -565,7 +628,8 @@ export function VerbTest({
             {index + 1} de {round.length} · {q.slot.en}
           </p>
           <span className="chip">
-            <span aria-hidden>{meta.emoji}</span> {meta.title}
+            <span aria-hidden>{meta.emoji}</span>{" "}
+            <Bi pt={meta.title} en={meta.titleEn} inline />
           </span>
         </div>
 
@@ -638,7 +702,7 @@ export function VerbTest({
 
             {mic === "recording" ? (
               <button className="btn-terra w-full animate-pulse" onClick={stopRecording}>
-                ⏹ Parar
+                <Bi pt="⏹ Parar" en="Stop" inline />
               </button>
             ) : verdict === null ? (
               <button
@@ -646,11 +710,13 @@ export function VerbTest({
                 onClick={startRecording}
                 disabled={mic === "sending"}
               >
-                {mic === "sending"
-                  ? "A Sandra está a ouvir-te…"
-                  : mic === "error"
-                    ? "🎙️ Gravar outra vez"
-                    : "🎙️ Gravar"}
+                {mic === "sending" ? (
+                  <Bi pt="A Sandra está a ouvir-te…" en="Sandra is listening…" inline />
+                ) : mic === "error" ? (
+                  <Bi pt="🎙️ Gravar outra vez" en="Record again" inline />
+                ) : (
+                  <Bi pt="🎙️ Gravar" en="Record" inline />
+                )}
               </button>
             ) : null}
 
@@ -661,7 +727,11 @@ export function VerbTest({
                 </p>
                 {verdict === null ? (
                   <button className="btn-ghost w-full" onClick={skipSpeaking}>
-                    Saltar esta (conta como falhada)
+                    <Bi
+                      pt="Saltar esta (conta como falhada)"
+                      en="Skip this one (counts as missed)"
+                      inline
+                    />
                   </button>
                 ) : null}
               </div>
@@ -769,12 +839,16 @@ export function VerbTest({
             onClick={checkTyped}
             disabled={!typed.trim()}
           >
-            Corrigir ✓
+            <Bi pt="Corrigir ✓" en="Check" inline />
           </button>
         ) : null
       ) : (
         <button className="btn-primary w-full" onClick={() => void next()}>
-          {index === round.length - 1 ? "Terminar" : "Próximo →"}
+          {index === round.length - 1 ? (
+            <Bi pt="Terminar" en="Finish" inline />
+          ) : (
+            <Bi pt="Próximo →" en="Next" inline />
+          )}
         </button>
       )}
     </div>

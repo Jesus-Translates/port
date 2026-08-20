@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Bi } from "@/components/bilingual";
 import {
   LessonComplete,
   scoreColor,
@@ -256,7 +257,11 @@ export function ListeningPlayer({
             onClick={toggle}
             aria-label={playing ? "Pausa" : "Tocar"}
           >
-            {playing ? "⏸ Pausa" : "▶ Ouvir"}
+            {playing ? (
+              <Bi pt="⏸ Pausa" en="Pause" inline />
+            ) : (
+              <Bi pt="▶ Ouvir" en="Play" inline />
+            )}
           </button>
           <div className="min-w-0 flex-1">
             <input
@@ -282,6 +287,7 @@ export function ListeningPlayer({
             <button
               key={s}
               onClick={() => setSpeed(s)}
+              aria-label={`Velocidade ${s === 1 ? "1×" : `${s}×`}`}
               className={cn(
                 "rounded-full border px-3 py-1 text-xs font-medium transition-colors",
                 rate === s
@@ -297,14 +303,22 @@ export function ListeningPlayer({
               className="btn-ghost min-h-11 px-3 py-1.5 text-xs"
               onClick={() => setAudioOnly((v) => !v)}
             >
-              {audioOnly ? "Mostrar transcrição" : "Modo só áudio"}
+              {audioOnly ? (
+                <Bi pt="Mostrar transcrição" en="Show transcript" inline />
+              ) : (
+                <Bi pt="Modo só áudio" en="Audio-only mode" inline />
+              )}
             </button>
             <button
               className="btn-ghost min-h-11 px-3 py-1.5 text-xs"
               onClick={() => setShowTranslation((v) => !v)}
               disabled={audioOnly}
             >
-              {showTranslation ? "Esconder tradução" : "Mostrar tradução"}
+              {showTranslation ? (
+                <Bi pt="Esconder tradução" en="Hide translation" inline />
+              ) : (
+                <Bi pt="Mostrar tradução" en="Show translation" inline />
+              )}
             </button>
           </span>
         </div>
@@ -350,7 +364,7 @@ export function ListeningPlayer({
         </p>
         <div className="flex flex-wrap gap-2">
           <button className="btn-ghost" onClick={again}>
-            🔁 Outra vez, sem ler
+            <Bi pt="🔁 Outra vez, sem ler" en="Again, without reading" inline />
           </button>
         </div>
       </section>
@@ -781,13 +795,23 @@ function ReplaceLibraryAudio({
         onClick={() => setOpen((v) => !v)}
       >
         <span className="font-semibold">
-          🔊 Substituir o áudio da biblioteca
+          <Bi
+            pt="🔊 Substituir o áudio da biblioteca"
+            en="Replace the library audio"
+            inline
+          />
         </span>
         {source === "human" ? (
-          <span className="chip bg-terra-pale text-terra-dark">voz real</span>
+          <span className="chip bg-terra-pale text-terra-dark">
+            <Bi pt="voz real" en="real voice" inline />
+          </span>
         ) : null}
         <span className="ml-auto text-xs text-ink-faint">
-          {open ? "fechar ▲" : "abrir ▼"}
+          {open ? (
+            <Bi pt="fechar ▲" en="close" inline />
+          ) : (
+            <Bi pt="abrir ▼" en="open" inline />
+          )}
         </span>
       </button>
       <p className="mt-1 text-xs text-ink-faint">
@@ -810,7 +834,7 @@ function ReplaceLibraryAudio({
           <div className="flex flex-wrap items-center gap-2">
             {status === "recording" ? (
               <button className="btn-terra animate-pulse" onClick={stop}>
-                ⏹ Parar
+                <Bi pt="⏹ Parar" en="Stop" inline />
               </button>
             ) : (
               <button
@@ -818,14 +842,16 @@ function ReplaceLibraryAudio({
                 onClick={() => void start()}
                 disabled={status === "uploading"}
               >
-                {status === "ready" || status === "done"
-                  ? "🎙️ Gravar outra vez"
-                  : "🎙️ Gravar"}
+                {status === "ready" || status === "done" ? (
+                  <Bi pt="🎙️ Gravar outra vez" en="Record again" inline />
+                ) : (
+                  <Bi pt="🎙️ Gravar" en="Record" inline />
+                )}
               </button>
             )}
             {recorded && (status === "ready" || status === "error") ? (
               <button className="btn-ghost" onClick={() => void replace()}>
-                Substituir áudio
+                <Bi pt="Substituir áudio" en="Replace audio" inline />
               </button>
             ) : null}
             {status === "uploading" ? (

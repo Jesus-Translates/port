@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 import { setMyPlace, setMyZone, type ZoneOption } from "@/lib/actions/profile";
 import type { Place } from "@/lib/place";
 
@@ -97,7 +98,7 @@ export function ZonePicker({
               : "border-sand hover:border-sage"
           }`}
         >
-          🇵🇹 Vivo em Portugal
+          <Bi pt="🇵🇹 Vivo em Portugal" en="I live in Portugal" inline />
         </button>
         <button
           type="button"
@@ -113,7 +114,7 @@ export function ZonePicker({
               : "border-sand hover:border-sage"
           }`}
         >
-          🌍 Vivo noutro país
+          <Bi pt="🌍 Vivo noutro país" en="I live in another country" inline />
         </button>
       </div>
 
@@ -152,7 +153,11 @@ export function ZonePicker({
                   disabled={pending}
                   className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
                 >
-                  {pending ? "A guardar…" : "Guardar"}
+                  {pending ? (
+                    <Bi pt="A guardar…" en="Saving…" inline />
+                  ) : (
+                    <Bi pt="Guardar" en="Save" inline />
+                  )}
                 </button>
               </form>
             ) : chosen ? null : (
@@ -193,7 +198,11 @@ export function ZonePicker({
                 disabled={pending}
                 className="mb-2 text-xs text-ink-soft underline underline-offset-2 hover:text-olive"
               >
-                ← mudar de zona ({chosen.namePt})
+                <Bi
+                  pt={`← mudar de zona (${chosen.namePt})`}
+                  en={`← change region (${chosen.namePt})`}
+                  inline
+                />
               </button>
               <p className="label">
                 Onde exatamente, no {chosen.namePt}?
@@ -221,7 +230,7 @@ export function ZonePicker({
                   disabled={pending}
                   className="rounded-full border border-sand px-3 py-1.5 text-sm text-ink-soft hover:border-sage disabled:opacity-60"
                 >
-                  Prefiro não dizer
+                  <Bi pt="Prefiro não dizer" en="Prefer not to say" inline />
                 </button>
               </div>
               <p className="mt-2 text-xs text-ink-faint">
@@ -256,7 +265,11 @@ export function ZonePicker({
             disabled={pending}
             className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
           >
-            {pending ? "A guardar…" : "Guardar"}
+            {pending ? (
+              <Bi pt="A guardar…" en="Saving…" inline />
+            ) : (
+              <Bi pt="Guardar" en="Save" inline />
+            )}
           </button>
         </form>
       )}

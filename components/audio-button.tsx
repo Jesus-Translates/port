@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { cn } from "@/lib/utils";
 
 export type AudioButtonProps = {
@@ -15,6 +16,9 @@ export type AudioButtonProps = {
   className?: string;
   /** Show this text beside the icon instead of an icon-only button. */
   label?: string;
+  /** English for `label`, shown in bilingual mode. Omit to leave `label`
+   *  exactly as before (used by callers this pass didn't touch). */
+  labelEn?: string;
   onEnded?: () => void;
   /** Focus the button on mount, for keyboard-first drills. */
   autoFocusPlay?: boolean;
@@ -28,6 +32,7 @@ export function AudioButton({
   placementId,
   className,
   label,
+  labelEn,
   onEnded,
   autoFocusPlay = false,
 }: AudioButtonProps) {
@@ -143,7 +148,11 @@ export function AudioButton({
       <span aria-hidden>
         {status === "loading" ? "…" : status === "playing" ? "⏸" : "🔊"}
       </span>
-      {label ? <span className="text-xs font-medium">{label}</span> : null}
+      {label ? (
+        <span className="text-xs font-medium">
+          {labelEn ? <Bi pt={label} en={labelEn} inline /> : label}
+        </span>
+      ) : null}
     </button>
   );
 }

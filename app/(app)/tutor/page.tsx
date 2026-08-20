@@ -56,10 +56,22 @@ export default async function TutorPage(props: PageProps<"/tutor">) {
           initialInput={initialInput}
           tpcButton
           starters={[
-            "Corrige: eu fazer o pequeno-almoço hoje",
-            "Qual é a diferença entre ser e estar?",
-            "Dá-me 5 frases úteis para o mercado",
-            "Como se diz “I'm looking forward to it”?",
+            {
+              pt: "Corrige: eu fazer o pequeno-almoço hoje",
+              en: "Correct: I make breakfast today",
+            },
+            {
+              pt: "Qual é a diferença entre ser e estar?",
+              en: "What's the difference between ser and estar?",
+            },
+            {
+              pt: "Dá-me 5 frases úteis para o mercado",
+              en: "Give me 5 useful phrases for the market",
+            },
+            {
+              pt: "Como se diz “I'm looking forward to it”?",
+              en: "How do you say “I'm looking forward to it”?",
+            },
           ]}
         />
       </div>

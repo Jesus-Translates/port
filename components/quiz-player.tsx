@@ -321,7 +321,7 @@ export function QuizPlayer({
             screen — check your connection and try again.
           </p>
           <button className="btn-terra" onClick={finish}>
-            Tentar entregar outra vez ✓
+            <Bi pt="Tentar entregar outra vez ✓" en="Try handing in again" inline />
           </button>
         </div>
       ) : null}

@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { finishVerbCards } from "@/lib/actions/verbs";
 import { personLabel, TENSE_LABEL, type Tense, type Verb } from "@/lib/verbs";
 import { cn } from "@/lib/utils";
@@ -17,6 +18,18 @@ const MODE_LABEL: Record<CardMode, string> = {
   futuro: TENSE_LABEL.futuro,
   conjuntivo: TENSE_LABEL.conjuntivo,
   imperativo: TENSE_LABEL.imperativo,
+};
+
+/** English names for the tense picker chips — kept local so lib/verbs.ts,
+ *  which the grader shares, stays untouched. */
+const MODE_LABEL_EN: Record<CardMode, string> = {
+  inf: "Infinitive",
+  presente: "Present",
+  perfeito: "Simple past",
+  imperfeito: "Imperfect",
+  futuro: "Future",
+  conjuntivo: "Subjunctive (present)",
+  imperativo: "Imperative",
 };
 
 const ROUND = 12;
@@ -170,10 +183,10 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
           ) : null}
 
           <button className="btn-primary mt-5 w-full" onClick={() => build(mode)}>
-            Outra ronda →
+            <Bi pt="Outra ronda →" en="Another round" inline />
           </button>
           <button className="btn-ghost mt-2 w-full" onClick={() => setDeck([])}>
-            Mudar de tempo
+            <Bi pt="Mudar de tempo" en="Change tense" inline />
           </button>
         </div>
       </div>
@@ -202,7 +215,7 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
                       : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
                   )}
                 >
-                  {MODE_LABEL[m]}
+                  <Bi pt={MODE_LABEL[m]} en={MODE_LABEL_EN[m]} inline />
                   <span className="ml-1 text-xs opacity-70">{n}</span>
                 </button>
               );
@@ -219,7 +232,11 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
           disabled={available === 0}
           onClick={() => build(mode)}
         >
-          {available === 0 ? "Sem verbos nesta forma" : "Começar 🎴"}
+          {available === 0 ? (
+            <Bi pt="Sem verbos nesta forma" en="No verbs in this form" inline />
+          ) : (
+            <Bi pt="Começar 🎴" en="Start" inline />
+          )}
         </button>
       </div>
     );
@@ -246,7 +263,7 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
         className="card block w-full p-8 text-center transition-colors hover:bg-sage-pale/30"
       >
         <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-          {MODE_LABEL[mode]}
+          <Bi pt={MODE_LABEL[mode]} en={MODE_LABEL_EN[mode]} inline />
           {mode !== "inf" ? ` · ${personLabel(mode, card.slot)}` : ""}
         </p>
         <p className="mt-3 font-display text-4xl leading-tight font-semibold">
@@ -264,7 +281,7 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
           </div>
         ) : (
           <p className="mt-5 text-sm text-ink-faint">
-            Toca para ver a resposta
+            <Bi pt="Toca para ver a resposta" en="Tap to see the answer" inline />
           </p>
         )}
       </button>
@@ -275,20 +292,21 @@ export function VerbCards({ verbs }: { verbs: Verb[] }) {
             <AudioButton
               text={back(card) || front(card)}
               label="Ouvir"
+              labelEn="Play"
             />
           </div>
           <div className="flex gap-2">
             <button className="btn-ghost flex-1" onClick={() => judge(false)}>
-              Não sabia
+              <Bi pt="Não sabia" en="Didn't know it" inline />
             </button>
             <button className="btn-primary flex-1" onClick={() => judge(true)}>
-              Sabia ✓
+              <Bi pt="Sabia ✓" en="Knew it" inline />
             </button>
           </div>
         </>
       ) : (
         <button className="btn-terra w-full" onClick={() => setFlipped(true)}>
-          Ver a resposta
+          <Bi pt="Ver a resposta" en="See the answer" inline />
         </button>
       )}
     </div>

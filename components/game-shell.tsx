@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import type { UnitContext } from "@/lib/unit-context";
 
@@ -70,10 +71,10 @@ export function GameResult({
           {/* The real button primitives — the ad-hoc bg-sage/text-white pair
               read at 2.72:1, and neither link met the 44px tap target. */}
           <Link href={replayHref} className="btn-primary">
-            Jogar outra vez
+            <Bi pt="Jogar outra vez" en="Play again" inline />
           </Link>
           <Link href="/jogos" className="btn-ghost">
-            Outros jogos
+            <Bi pt="Outros jogos" en="Other games" inline />
           </Link>
         </div>
       )}

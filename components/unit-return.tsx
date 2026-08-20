@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import {
   completeAndNext,
   peekNextStep,
@@ -25,7 +26,9 @@ export function UnitReturn({ unit }: { unit: UnitContext | null }) {
     >
       <span aria-hidden>←</span>
       <span>
-        <span className="text-ink-soft">voltar à unidade</span>{" "}
+        <span className="text-ink-soft">
+          <Bi pt="voltar à unidade" en="back to the unit" inline />
+        </span>{" "}
         <span className="font-medium">{unit.title}</span>
       </span>
     </Link>
@@ -91,7 +94,11 @@ export function UnitContinue({
         href={`/unidades/${unit.slug}#caminho`}
         className="btn-primary block w-full text-center"
       >
-        Voltar à unidade: {unit.title} →
+        <Bi
+          pt={`Voltar à unidade: ${unit.title} →`}
+          en={`Back to the unit: ${unit.title}`}
+          inline
+        />
       </Link>
     );
   }
@@ -155,7 +162,11 @@ export function UnitContinue({
             "text-[15px] font-semibold text-ink transition-opacity hover:opacity-90 disabled:opacity-60"
           )}
         >
-          {pending ? "A guardar…" : "Continuar →"}
+          {pending ? (
+            <Bi pt="A guardar…" en="Saving…" inline />
+          ) : (
+            <Bi pt="Continuar →" en="Continue" inline />
+          )}
         </button>
       </div>
 
@@ -171,7 +182,7 @@ export function UnitContinue({
         href={`/unidades/${slug}#caminho`}
         className="flex min-h-11 items-center justify-center text-center text-[13.5px] text-ink-faint hover:text-olive"
       >
-        Parar por hoje
+        <Bi pt="Parar por hoje" en="Stop for today" inline />
       </Link>
     </div>
   );

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRef, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { Chat } from "@/components/chat";
 import { deleteNote, updateNote } from "@/lib/actions/notes";
 
@@ -37,7 +38,7 @@ export function NoteEditor({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-2">
         <Link href="/notes" className="text-xs text-ink-faint hover:text-olive">
-          ← Notas
+          <Bi pt="← Notas" en="Notes" inline />
         </Link>
         <span className="chip capitalize">por {note.author}</span>
         <div className="flex-1" />
@@ -45,7 +46,7 @@ export function NoteEditor({
           {pending ? "A guardar…" : saved ? "Guardado ✓" : "Por guardar"}
         </span>
         <button className="btn-primary" onClick={save} disabled={pending || saved}>
-          Guardar
+          <Bi pt="Guardar" en="Save" inline />
         </button>
         <button
           className="btn-ghost"
@@ -55,7 +56,7 @@ export function NoteEditor({
             }
           }}
         >
-          Apagar
+          <Bi pt="Apagar" en="Delete" inline />
         </button>
       </div>
 
@@ -96,7 +97,13 @@ export function NoteEditor({
           className="flex w-full items-center justify-between"
           onClick={() => setSandraOpen((o) => !o)}
         >
-          <span className="font-semibold">👩‍🏫 Pergunta à Sandra sobre esta nota</span>
+          <span className="font-semibold">
+            <Bi
+              pt="👩‍🏫 Pergunta à Sandra sobre esta nota"
+              en="Ask Sandra about this note"
+              inline
+            />
+          </span>
           <span className="text-ink-faint">{sandraOpen ? "▴" : "▾"}</span>
         </button>
         {sandraOpen ? (
@@ -105,10 +112,10 @@ export function NoteEditor({
               compact
               context={`The learner's note titled "${title}":\n\n${body}`}
               starters={[
-                "Corrige o português desta nota",
-                "Explica melhor esta gramática",
-                "Dá-me mais exemplos como estes",
-                "Faz-me 3 perguntas sobre esta matéria",
+                { pt: "Corrige o português desta nota", en: "Correct the Portuguese in this note" },
+                { pt: "Explica melhor esta gramática", en: "Explain this grammar better" },
+                { pt: "Dá-me mais exemplos como estes", en: "Give me more examples like these" },
+                { pt: "Faz-me 3 perguntas sobre esta matéria", en: "Ask me 3 questions about this topic" },
               ]}
             />
           </div>

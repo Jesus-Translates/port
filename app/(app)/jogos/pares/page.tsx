@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bi } from "@/components/bilingual";
 import { shortTopic } from "@/lib/topic-label";
 import { GamePares } from "@/components/game-pares";
 import { getMyCefr } from "@/lib/actions/profile";
@@ -34,13 +35,14 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
     ? `/unidades/${encodeURIComponent(unidade)}`
     : `/jogos/frase?${qs}`;
   const nextLabel = unidade ? "Voltar à unidade" : "Constrói a frase";
+  const nextLabelEn = unidade ? "Back to the unit" : "Build the sentence";
   const meta = KIND_META["jogo-pares"];
 
   return (
     <div className="space-y-5">
       <header>
         <Link href="/jogos" className="text-xs text-ink-faint hover:text-olive">
-          ← Jogos
+          <Bi pt="← Jogos" en="Games" inline />
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">
           {meta.emoji} {meta.label}
@@ -59,7 +61,7 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
             href={`/jogos?topic=${encodeURIComponent(topic)}`}
             className="text-xs text-ink-faint underline underline-offset-2 hover:text-terra"
           >
-            trocar de tema
+            <Bi pt="trocar de tema" en="change topic" inline />
           </Link>
         </div>
       </header>
@@ -70,6 +72,7 @@ export default async function JogoParesPage(props: PageProps<"/jogos/pares">) {
         level={level}
         nextHref={nextHref}
         nextLabel={nextLabel}
+        nextLabelEn={nextLabelEn}
         unitItemId={itemId}
       />
     </div>

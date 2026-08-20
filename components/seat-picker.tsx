@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { setSeats } from "@/lib/actions/billing";
 import { cn } from "@/lib/utils";
 
@@ -124,7 +125,15 @@ export function SeatPicker({
       {canManage && dirty ? (
         <div className="flex gap-2">
           <button className="btn-primary flex-1" disabled={pending} onClick={commit}>
-            {pending ? "A guardar…" : `Confirmar ${money(price)}/mês`}
+            {pending ? (
+              <Bi pt="A guardar…" en="Saving…" inline />
+            ) : (
+              <Bi
+                pt={`Confirmar ${money(price)}/mês`}
+                en={`Confirm ${money(price)}/month`}
+                inline
+              />
+            )}
           </button>
           <button
             className="btn-ghost"
@@ -134,7 +143,7 @@ export function SeatPicker({
               setError(null);
             }}
           >
-            Cancelar
+            <Bi pt="Cancelar" en="Cancel" inline />
           </button>
         </div>
       ) : null}

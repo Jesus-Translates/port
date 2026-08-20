@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { suggestUsername } from "@/lib/username";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 import { createAccount } from "@/lib/actions/users";
 import { finishFamilyStep } from "@/lib/actions/profile";
 
@@ -196,10 +197,10 @@ export function FamilyStep({
           <div className="flex gap-2">
             {(
               [
-                [false, "🧒 Criança"],
-                [true, "🧑 Adulto"],
+                [false, "🧒 Criança", "Child"],
+                [true, "🧑 Adulto", "Adult"],
               ] as const
-            ).map(([adult, label]) => (
+            ).map(([adult, label, labelEn]) => (
               <button
                 key={label}
                 type="button"
@@ -210,7 +211,7 @@ export function FamilyStep({
                     : "border-sand bg-white hover:border-sage"
                 }`}
               >
-                {label}
+                <Bi pt={label} en={labelEn} inline />
               </button>
             ))}
           </div>
@@ -227,7 +228,11 @@ export function FamilyStep({
             disabled={pending}
             className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
           >
-            {pending && !finishing ? "A criar…" : "+ Adicionar"}
+            {pending && !finishing ? (
+              <Bi pt="A criar…" en="Creating…" inline />
+            ) : (
+              <Bi pt="+ Adicionar" en="Add" inline />
+            )}
           </button>
         </div>
       )}
@@ -241,7 +246,11 @@ export function FamilyStep({
           disabled={pending}
           className="btn-primary w-full"
         >
-          {finishing ? "A guardar…" : "Concluir →"}
+          {finishing ? (
+            <Bi pt="A guardar…" en="Saving…" inline />
+          ) : (
+            <Bi pt="Concluir →" en="Finish" inline />
+          )}
         </button>
       ) : (
         <button
@@ -250,7 +259,11 @@ export function FamilyStep({
           disabled={pending}
           className="block w-full text-center text-sm text-ink-soft underline underline-offset-2 hover:text-olive"
         >
-          {finishing ? "A guardar…" : "Por agora sou só eu — continuar"}
+          {finishing ? (
+            <Bi pt="A guardar…" en="Saving…" inline />
+          ) : (
+            <Bi pt="Por agora sou só eu — continuar" en="Just me for now — continue" inline />
+          )}
         </button>
       )}
     </section>

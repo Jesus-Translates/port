@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { GameProgress, GameResult } from "@/components/game-shell";
@@ -149,7 +150,11 @@ export function GameResponde({
 
       {picked !== null && (
         <button type="button" onClick={next} className="btn-primary w-full">
-          {at + 1 >= rounds.length ? "Ver resultado →" : "Seguinte →"}
+          {at + 1 >= rounds.length ? (
+            <Bi pt="Ver resultado →" en="See result" inline />
+          ) : (
+            <Bi pt="Seguinte →" en="Next" inline />
+          )}
         </button>
       )}
     </div>

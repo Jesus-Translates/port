@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { createHomework } from "@/lib/actions/homework";
 
 export function HomeworkComposer({
@@ -80,10 +81,10 @@ export function HomeworkComposer({
     return (
       <div className="flex flex-wrap gap-2">
         <button className="btn-terra" onClick={() => setMode("sandra")}>
-          ✨ Pedir TPC à Sandra
+          <Bi pt="✨ Pedir TPC à Sandra" en="Ask Sandra for homework" inline />
         </button>
         <button className="btn-ghost" onClick={() => setMode("class")}>
-          📎 Adicionar TPC da aula
+          <Bi pt="📎 Adicionar TPC da aula" en="Add homework from class" inline />
         </button>
       </div>
     );
@@ -107,10 +108,14 @@ export function HomeworkComposer({
             />
           </div>
           <button type="submit" disabled={busy} className="btn-terra">
-            {busy ? "A Sandra está a escrever…" : "Pedir ✨"}
+            {busy ? (
+              <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+            ) : (
+              <Bi pt="Pedir ✨" en="Ask" inline />
+            )}
           </button>
           <button type="button" className="btn-ghost" onClick={() => setMode(null)}>
-            Cancelar
+            <Bi pt="Cancelar" en="Cancel" inline />
           </button>
         </div>
         {canAssignToFamily ? (
@@ -158,10 +163,10 @@ export function HomeworkComposer({
       </div>
       <div className="flex gap-2">
         <button type="submit" className="btn-primary">
-          Guardar
+          <Bi pt="Guardar" en="Save" inline />
         </button>
         <button type="button" className="btn-ghost" onClick={() => setMode(null)}>
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
       <p className="text-xs text-ink-faint">

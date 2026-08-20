@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Bi } from "@/components/bilingual";
 import { VerbCards } from "@/components/verb-cards";
 import { requireSession } from "@/lib/auth";
 import { listMyVerbs } from "@/lib/actions/verbs";
@@ -16,7 +17,7 @@ export default async function VerbCardsPage() {
     <div className="space-y-6">
       <header>
         <Link href="/jogos" className="text-xs text-ink-faint hover:text-olive">
-          ← Jogos
+          <Bi pt="← Jogos" en="Games" inline />
         </Link>
         <h1 className="mt-1 text-2xl font-semibold tracking-tight">
           🎴 Cartões de verbos
@@ -30,7 +31,7 @@ export default async function VerbCardsPage() {
           {VERBS.length} verbos + {mine.length}{" "}
           {mine.length === 1 ? "guardado" : "guardados"} por vocês ·{" "}
           <Link href="/verbos" className="underline underline-offset-2 hover:text-olive">
-            adicionar mais
+            <Bi pt="adicionar mais" en="add more" inline />
           </Link>
         </p>
       </header>

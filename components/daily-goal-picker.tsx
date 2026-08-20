@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { setMyPrefs } from "@/lib/actions/profile";
 import type { Minutes } from "@/lib/learning-path";
 import { cn } from "@/lib/utils";
@@ -13,10 +14,10 @@ import { cn } from "@/lib/utils";
  * app, and the honest answer changes in September. The value drives the daily
  * goal ring on Hoje, so moving it visibly moves something.
  */
-const CHOICES: { value: Minutes; minutes: string; label: string }[] = [
-  { value: "5", minutes: "5", label: "Calma" },
-  { value: "15", minutes: "15", label: "A sério" },
-  { value: "30", minutes: "30", label: "Intenso" },
+const CHOICES: { value: Minutes; minutes: string; label: string; labelEn: string }[] = [
+  { value: "5", minutes: "5", label: "Calma", labelEn: "Calm" },
+  { value: "15", minutes: "15", label: "A sério", labelEn: "Serious" },
+  { value: "30", minutes: "30", label: "Intenso", labelEn: "Intense" },
 ];
 
 export function DailyGoalPicker({ initial }: { initial: Minutes }) {
@@ -63,7 +64,7 @@ export function DailyGoalPicker({ initial }: { initial: Minutes }) {
                 on ? "text-olive" : "text-ink-faint"
               )}
             >
-              {c.label}
+              <Bi pt={c.label} en={c.labelEn} inline />
             </span>
           </button>
         );

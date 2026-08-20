@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { cn } from "@/lib/utils";
@@ -58,6 +59,7 @@ export function GamePares({
   level,
   nextHref,
   nextLabel,
+  nextLabelEn,
   unitItemId,
 }: {
   topic: string;
@@ -65,6 +67,7 @@ export function GamePares({
   /** Where "Continuar" goes — the unit you came from, or the other game. */
   nextHref: string;
   nextLabel: string;
+  nextLabelEn?: string;
   /** When launched from a unit path, tick that item off automatically. */
   unitItemId?: number | null;
 }) {
@@ -271,10 +274,10 @@ export function GamePares({
         <p className="text-sm text-terra-dark">{error}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <button className="btn-terra" onClick={again}>
-            Tentar outra vez ↻
+            <Bi pt="Tentar outra vez ↻" en="Try again" inline />
           </button>
           <Link href="/jogos" className="btn-ghost">
-            ← Jogos
+            <Bi pt="← Jogos" en="Games" inline />
           </Link>
         </div>
       </div>
@@ -312,14 +315,18 @@ export function GamePares({
             thing, not just a way to repeat what you just did. */}
         <div className="mt-5 space-y-2">
           <Link href={nextHref} className="btn-primary block w-full">
-            {nextLabel} →
+            {nextLabelEn ? (
+              <Bi pt={`${nextLabel} →`} en={nextLabelEn} inline />
+            ) : (
+              `${nextLabel} →`
+            )}
           </Link>
           <div className="flex flex-wrap justify-center gap-2">
             <button className="btn-ghost" onClick={again} disabled={saving}>
-              Jogar outra vez ↻
+              <Bi pt="Jogar outra vez ↻" en="Play again" inline />
             </button>
             <Link href="/jogos" className="btn-ghost">
-              ← Jogos
+              <Bi pt="← Jogos" en="Games" inline />
             </Link>
           </div>
         </div>

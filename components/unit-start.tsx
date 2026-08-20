@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
 
@@ -18,19 +19,27 @@ type Kind = "escutar" | "story";
 
 const META: Record<
   Kind,
-  { endpoint: string; base: string; emoji: string; newLabel: string }
+  {
+    endpoint: string;
+    base: string;
+    emoji: string;
+    newLabel: string;
+    newLabelEn: string;
+  }
 > = {
   escutar: {
     endpoint: "/api/ai/listening",
     base: "/escutar",
     emoji: "🎧",
     newLabel: "Gravar diálogo sobre",
+    newLabelEn: "Record a dialogue about",
   },
   story: {
     endpoint: "/api/ai/story",
     base: "/stories",
     emoji: "📕",
     newLabel: "Começar história sobre",
+    newLabelEn: "Start a story about",
   },
 };
 
@@ -149,9 +158,15 @@ export function UnitStart({
           disabled={!enabled || working}
           onClick={() => void create("novo")}
         >
-          {busy === "novo"
-            ? "A Sandra está a criar…"
-            : `${meta.emoji} ${meta.newLabel} ${topic ? `«${short(topic)}»` : "esta unidade"} ✨`}
+          {busy === "novo" ? (
+            <Bi pt="A Sandra está a criar…" en="Sandra is creating it…" inline />
+          ) : (
+            <Bi
+              pt={`${meta.emoji} ${meta.newLabel} ${topic ? `«${short(topic)}»` : "esta unidade"} ✨`}
+              en={`${meta.newLabelEn} ${topic ? `"${short(topic)}"` : "this unit"}`}
+              inline
+            />
+          )}
         </button>
         {kind === "story" && seriesTitle ? (
           <button
@@ -159,9 +174,15 @@ export function UnitStart({
             disabled={working}
             onClick={() => void create("serie")}
           >
-            {busy === "serie"
-              ? "A Sandra está a escrever…"
-              : `Próximo capítulo de «${short(seriesTitle, 32)}»`}
+            {busy === "serie" ? (
+              <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+            ) : (
+              <Bi
+                pt={`Próximo capítulo de «${short(seriesTitle, 32)}»`}
+                en={`Next chapter of "${short(seriesTitle, 32)}"`}
+                inline
+              />
+            )}
           </button>
         ) : null}
       </div>

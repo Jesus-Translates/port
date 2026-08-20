@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { Recorder } from "@/components/recorder";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -110,8 +111,20 @@ export function FalarModes({
       <div className="grid grid-cols-2 gap-2 rounded-2xl border border-sand bg-white/60 p-1.5">
         {(
           [
-            { key: "responder", label: "💬 Responder", sub: "a Sandra pergunta, tu respondes" },
-            { key: "ler", label: "📄 Ler em voz alta", sub: "pronúncia com nota" },
+            {
+              key: "responder",
+              label: "💬 Responder",
+              sub: "a Sandra pergunta, tu respondes",
+              labelEn: "Answer",
+              subEn: "Sandra asks, you answer",
+            },
+            {
+              key: "ler",
+              label: "📄 Ler em voz alta",
+              sub: "pronúncia com nota",
+              labelEn: "Read aloud",
+              subEn: "pronunciation, scored",
+            },
           ] as const
         ).map((m) => (
           <button
@@ -124,14 +137,16 @@ export function FalarModes({
                 : "text-ink-soft hover:bg-sage-pale"
             )}
           >
-            <div className="text-sm font-semibold">{m.label}</div>
+            <div className="text-sm font-semibold">
+              <Bi pt={m.label} en={m.labelEn} inline />
+            </div>
             <div
               className={cn(
                 "text-2xs",
                 mode === m.key ? "text-paper/95" : "text-ink-faint"
               )}
             >
-              {m.sub}
+              <Bi pt={m.sub} en={m.subEn} inline />
             </div>
           </button>
         ))}
@@ -151,11 +166,21 @@ export function FalarModes({
           />
         </div>
         <button className="btn-terra" onClick={regenerate} disabled={fetching}>
-          {fetching
-            ? "A Sandra está a criar…"
-            : mode === "ler"
-              ? `✨ Novas frases${topic.trim() ? " sobre o tema" : ""}`
-              : `✨ Nova pergunta${topic.trim() ? " sobre o tema" : ""}`}
+          {fetching ? (
+            <Bi pt="A Sandra está a criar…" en="Sandra is creating it…" inline />
+          ) : mode === "ler" ? (
+            <Bi
+              pt={`✨ Novas frases${topic.trim() ? " sobre o tema" : ""}`}
+              en={`New sentences${topic.trim() ? " about the topic" : ""}`}
+              inline
+            />
+          ) : (
+            <Bi
+              pt={`✨ Nova pergunta${topic.trim() ? " sobre o tema" : ""}`}
+              en={`New question${topic.trim() ? " about the topic" : ""}`}
+              inline
+            />
+          )}
         </button>
         {initialTopic ? (
           <p className="w-full text-xs text-ink-faint">
@@ -244,7 +269,11 @@ export function FalarModes({
               onClick={() => void finishStep()}
               disabled={!attempted || ticking}
             >
-              {ticking ? "A marcar…" : "Já falei — terminar ✓"}
+              {ticking ? (
+                <Bi pt="A marcar…" en="Marking…" inline />
+              ) : (
+                <Bi pt="Já falei — terminar ✓" en="I spoke — finish" inline />
+              )}
             </button>
           )}
           {tickError ? (

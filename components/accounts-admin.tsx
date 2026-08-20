@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 import {
   adoptOrphans,
   clearAccountPassword,
@@ -103,7 +104,7 @@ export function AccountsAdmin({
             }
             className="mt-3 rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
           >
-            Adotar para a minha família
+            <Bi pt="Adotar para a minha família" en="Adopt into my family" inline />
           </button>
         </section>
       )}
@@ -127,21 +128,25 @@ export function AccountsAdmin({
                 {ROLE_LABEL[a.role] ?? a.role}
               </span>
               <span className="rounded-full bg-white/80 px-2 py-0.5 text-xs text-ink-soft">
-                {a.mode === "simple" ? "🌱 guiado" : "⚙️ completo"}
+                {a.mode === "simple" ? (
+                  <Bi pt="🌱 guiado" en="guided" inline />
+                ) : (
+                  <Bi pt="⚙️ completo" en="full" inline />
+                )}
               </span>
               {!a.hasOwnPassword && (
                 <span className="rounded-full bg-terra-pale px-2 py-0.5 text-xs text-terra-dark">
-                  palavra-passe partilhada
+                  <Bi pt="palavra-passe partilhada" en="shared password" inline />
                 </span>
               )}
               {!a.active && (
                 <span className="rounded-full bg-terra-pale px-2 py-0.5 text-xs text-terra-dark">
-                  desativado
+                  <Bi pt="desativado" en="deactivated" inline />
                 </span>
               )}
               {a.username === me && (
                 <span className="rounded-full bg-sage-pale px-2 py-0.5 text-xs text-olive">
-                  tu
+                  <Bi pt="tu" en="you" inline />
                 </span>
               )}
               <button
@@ -149,7 +154,11 @@ export function AccountsAdmin({
                 onClick={() => setOpen(open === a.username ? null : a.username)}
                 className="ml-auto rounded-lg border border-sand px-2.5 py-1 text-xs hover:border-sage"
               >
-                {open === a.username ? "Fechar" : "Gerir"}
+                {open === a.username ? (
+                  <Bi pt="Fechar" en="Close" inline />
+                ) : (
+                  <Bi pt="Gerir" en="Manage" inline />
+                )}
               </button>
             </header>
 
@@ -164,6 +173,7 @@ export function AccountsAdmin({
                   hint="Muda o nome em todas as tabelas de uma só vez."
                   initial={a.username}
                   action="Mudar"
+                  actionEn="Change"
                   pending={pending}
                   onSubmit={(v) =>
                     run(() => renameAccount(a.username, v), `Agora é @${v}.`)
@@ -174,6 +184,7 @@ export function AccountsAdmin({
                   initial={a.email ?? ""}
                   type="email"
                   action="Guardar"
+                  actionEn="Save"
                   pending={pending}
                   onSubmit={(v) =>
                     run(() => setAccountEmail(a.username, v), "Email guardado.")
@@ -185,6 +196,7 @@ export function AccountsAdmin({
                   initial=""
                   type="password"
                   action="Definir"
+                  actionEn="Set"
                   pending={pending}
                   onSubmit={(v) =>
                     run(
@@ -238,7 +250,11 @@ export function AccountsAdmin({
                       }
                       className="rounded-lg border border-sand px-2.5 py-1.5 text-sm hover:border-sage disabled:opacity-50"
                     >
-                      Repor palavra-passe partilhada
+                      <Bi
+                        pt="Repor palavra-passe partilhada"
+                        en="Reset to shared password"
+                        inline
+                      />
                     </button>
                   )}
 
@@ -256,7 +272,11 @@ export function AccountsAdmin({
                     }
                     className="rounded-lg border border-sand px-2.5 py-1.5 text-sm hover:border-sage disabled:opacity-40"
                   >
-                    {a.active ? "Desativar" : "Reativar"}
+                    {a.active ? (
+                      <Bi pt="Desativar" en="Deactivate" inline />
+                    ) : (
+                      <Bi pt="Reativar" en="Reactivate" inline />
+                    )}
                   </button>
                 </div>
 
@@ -284,6 +304,7 @@ function Field({
   hint,
   initial,
   action,
+  actionEn,
   type = "text",
   pending,
   onSubmit,
@@ -292,6 +313,7 @@ function Field({
   hint?: string;
   initial: string;
   action: string;
+  actionEn?: string;
   type?: string;
   pending: boolean;
   onSubmit: (value: string) => void;
@@ -321,7 +343,7 @@ function Field({
         disabled={pending}
         className="rounded-lg border border-sand px-3 py-2 text-sm hover:border-sage disabled:opacity-50"
       >
-        {action}
+        {actionEn ? <Bi pt={action} en={actionEn} inline /> : action}
       </button>
     </form>
   );
@@ -352,7 +374,7 @@ function DangerZone({
         onClick={() => setArmed(true)}
         className="text-xs text-terra-dark underline underline-offset-2 disabled:opacity-40"
       >
-        Apagar definitivamente…
+        <Bi pt="Apagar definitivamente…" en="Delete permanently…" inline />
       </button>
     );
   }
@@ -376,7 +398,7 @@ function DangerZone({
           onClick={() => onConfirm(typed.trim())}
           className="rounded-lg bg-terra px-3 py-2 text-sm font-medium text-white disabled:opacity-40"
         >
-          Apagar
+          <Bi pt="Apagar" en="Delete" inline />
         </button>
         <button
           type="button"
@@ -386,7 +408,7 @@ function DangerZone({
           }}
           className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </div>
@@ -428,7 +450,7 @@ function NewAccount({
         onClick={() => setShow(true)}
         className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink"
       >
-        + Adicionar pessoa
+        <Bi pt="+ Adicionar pessoa" en="Add person" inline />
       </button>
     );
   }
@@ -527,14 +549,14 @@ function NewAccount({
           disabled={pending}
           className="rounded-lg bg-olive px-3 py-2 text-sm font-medium text-paper hover:bg-ink disabled:opacity-50"
         >
-          Criar
+          <Bi pt="Criar" en="Create" inline />
         </button>
         <button
           type="button"
           onClick={() => setShow(false)}
           className="rounded-lg border border-sand px-3 py-2 text-sm"
         >
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </form>

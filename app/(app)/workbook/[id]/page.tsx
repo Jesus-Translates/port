@@ -57,7 +57,11 @@ export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
         >
           🎯 Fazer um teste
         </Link>
-        <HomeworkFromTopic topic={lesson.title} label="✍️ Pedir TPC sobre isto" />
+        <HomeworkFromTopic
+          topic={lesson.title}
+          label="✍️ Pedir TPC sobre isto"
+          labelEn="Ask for homework on this"
+        />
         <Link
           href={`/tutor?q=${encodeURIComponent(`Tenho dúvidas sobre a lição "${lesson.title}".`)}`}
           className="btn-ghost text-sm"

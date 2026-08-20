@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { GameProgress, GameResult } from "@/components/game-shell";
@@ -143,7 +144,7 @@ export function GameVerbo({
           onClick={() => answer(true)}
           className="rounded-2xl border border-sand bg-white py-7 text-lg font-semibold transition-colors hover:border-sage active:bg-sage-pale disabled:opacity-60"
         >
-          ✓ Certo
+          <Bi pt="✓ Certo" en="Correct" inline />
         </button>
         <button
           type="button"
@@ -151,7 +152,7 @@ export function GameVerbo({
           onClick={() => answer(false)}
           className="rounded-2xl border border-sand bg-white py-7 text-lg font-semibold transition-colors hover:border-terra active:bg-terra-pale disabled:opacity-60"
         >
-          ✗ Errado
+          <Bi pt="✗ Errado" en="Wrong" inline />
         </button>
       </div>
     </div>

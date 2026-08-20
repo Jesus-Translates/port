@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { assignHomework } from "@/lib/actions/admin";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
@@ -81,7 +82,7 @@ export function AssignHomework({ students }: { students: string[] }) {
             }}
             className="rounded-full border border-sand bg-white/70 px-3 py-1.5 text-xs text-ink-soft hover:border-sage"
           >
-            todos
+            <Bi pt="todos" en="all" inline />
           </button>
         </div>
       </div>
@@ -89,8 +90,8 @@ export function AssignHomework({ students }: { students: string[] }) {
       <div className="grid grid-cols-2 gap-2 rounded-xl border border-sand bg-white/60 p-1">
         {(
           [
-            { key: "sandra", label: "✨ A Sandra escreve" },
-            { key: "manual", label: "✍️ Escrevo eu" },
+            { key: "sandra", label: "✨ A Sandra escreve", labelEn: "Sandra writes it" },
+            { key: "manual", label: "✍️ Escrevo eu", labelEn: "I'll write it" },
           ] as const
         ).map((m) => (
           <button
@@ -104,7 +105,7 @@ export function AssignHomework({ students }: { students: string[] }) {
                 : "text-ink-soft hover:bg-sage-pale"
             )}
           >
-            {m.label}
+            <Bi pt={m.label} en={m.labelEn} inline />
           </button>
         ))}
       </div>
@@ -146,7 +147,15 @@ export function AssignHomework({ students }: { students: string[] }) {
             disabled={busy || selected.size === 0 || !topic.trim()}
             onClick={assignWithSandra}
           >
-            {busy ? "A Sandra está a escrever…" : `Atribuir a ${selected.size || "…"}`}
+            {busy ? (
+              <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+            ) : (
+              <Bi
+                pt={`Atribuir a ${selected.size || "…"}`}
+                en={`Assign to ${selected.size || "…"}`}
+                inline
+              />
+            )}
           </button>
         </div>
       ) : (
@@ -182,7 +191,11 @@ export function AssignHomework({ students }: { students: string[] }) {
             className="btn-primary"
             disabled={selected.size === 0}
           >
-            Atribuir a {selected.size || "…"}
+            <Bi
+              pt={`Atribuir a ${selected.size || "…"}`}
+              en={`Assign to ${selected.size || "…"}`}
+              inline
+            />
           </button>
         </form>
       )}

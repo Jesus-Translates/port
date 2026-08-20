@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 
 type IngestResult = {
   added: { pt: string; en: string; categorySlug: string; categoryPt: string }[];
@@ -61,7 +62,7 @@ export function IngestPanel() {
   if (!open) {
     return (
       <button className="btn-terra" onClick={() => setOpen(true)}>
-        📥 Ingerir conteúdo
+        <Bi pt="📥 Ingerir conteúdo" en="Add content" inline />
       </button>
     );
   }
@@ -74,7 +75,7 @@ export function IngestPanel() {
           className="text-xs text-ink-faint hover:text-terra"
           onClick={() => setOpen(false)}
         >
-          fechar ✕
+          <Bi pt="fechar ✕" en="close" inline />
         </button>
       </div>
       <p className="text-xs text-ink-soft">
@@ -92,7 +93,7 @@ export function IngestPanel() {
       />
       <div className="flex flex-wrap items-center gap-2">
         <label className="btn-ghost cursor-pointer">
-          📎 {fileName ?? "Anexar ficheiro"}
+          📎 {fileName ?? <Bi pt="Anexar ficheiro" en="Attach file" inline />}
           <input
             ref={fileRef}
             type="file"
@@ -103,7 +104,11 @@ export function IngestPanel() {
           />
         </label>
         <button className="btn-primary flex-1" onClick={submit} disabled={pending}>
-          {pending ? "A Sandra está a arrumar…" : "Processar e adicionar ✓"}
+          {pending ? (
+            <Bi pt="A Sandra está a arrumar…" en="Sandra is sorting it…" inline />
+          ) : (
+            <Bi pt="Processar e adicionar ✓" en="Process and add" inline />
+          )}
         </button>
       </div>
 

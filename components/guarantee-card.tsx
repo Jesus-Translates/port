@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { requestRefund } from "@/lib/actions/billing";
 
 /**
@@ -84,14 +85,18 @@ export function GuaranteeCard({
                   })
                 }
               >
-                {pending ? "A pedir…" : "Sim, quero a devolução"}
+                {pending ? (
+                  <Bi pt="A pedir…" en="Requesting…" inline />
+                ) : (
+                  <Bi pt="Sim, quero a devolução" en="Yes, I want the refund" inline />
+                )}
               </button>
               <button
                 className="btn-ghost"
                 disabled={pending}
                 onClick={() => setConfirming(false)}
               >
-                Ficar
+                <Bi pt="Ficar" en="Stay" inline />
               </button>
             </div>
           </div>
@@ -102,7 +107,7 @@ export function GuaranteeCard({
             className="text-xs text-ink-faint underline underline-offset-2 hover:text-terra-dark"
             onClick={() => setConfirming(true)}
           >
-            Pedir a devolução
+            <Bi pt="Pedir a devolução" en="Request the refund" inline />
           </button>
         )
       ) : null}

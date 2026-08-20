@@ -1,6 +1,7 @@
 "use client";
 
 import { useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import {
   adminDeleteContent,
   clearTtsCache,
@@ -33,6 +34,7 @@ export function ContentList({
             className="shrink-0 p-1 text-ink-faint hover:text-terra"
             disabled={pending}
             title="Apagar"
+            aria-label="Apagar"
             onClick={() => {
               if (confirm(`Apagar “${i.label}”?`)) {
                 startTransition(() => adminDeleteContent(kind, i.id));
@@ -79,7 +81,11 @@ export function DangerTools({
             }
           }}
         >
-          🔊 Limpar cache de áudio ({ttsClips})
+          <Bi
+            pt={`🔊 Limpar cache de áudio (${ttsClips})`}
+            en={`Clear the audio cache (${ttsClips})`}
+            inline
+          />
         </button>
       </div>
       ) : null}

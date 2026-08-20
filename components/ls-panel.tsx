@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 
 /** The generate button — one session per 10 minutes, enforced server-side. */
 export function LsPanel({ hasSessions }: { hasSessions: boolean }) {
@@ -41,7 +42,11 @@ export function LsPanel({ hasSessions }: { hasSessions: boolean }) {
           </p>
         </div>
         <button className="btn-terra" disabled={busy} onClick={generate}>
-          {busy ? "A gravar… (~30s)" : "✨ Gerar sessão de hoje"}
+          {busy ? (
+            <Bi pt="A gravar… (~30s)" en="Recording… (~30s)" inline />
+          ) : (
+            <Bi pt="✨ Gerar sessão de hoje" en="Generate today's session" inline />
+          )}
         </button>
       </div>
       {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
@@ -81,7 +86,11 @@ export function LsSubscribe({ feedUrl }: { feedUrl: string }) {
           aria-label="Endereço do teu podcast pessoal"
         />
         <button className="btn-ghost shrink-0" onClick={copy}>
-          {copied ? "Copiado ✓" : "Copiar"}
+          {copied ? (
+            <Bi pt="Copiado ✓" en="Copied" inline />
+          ) : (
+            <Bi pt="Copiar" en="Copy" inline />
+          )}
         </button>
       </div>
       <p className="text-xs text-ink-faint">

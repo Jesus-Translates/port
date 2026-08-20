@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 
 /** Sign out, from Perfil. The nav bar has its own copy for desktop. */
 export function SignOut() {
@@ -21,7 +22,11 @@ export function SignOut() {
       }
       className="btn-ghost w-full text-ink-faint"
     >
-      {busy ? "A sair…" : "Terminar sessão"}
+      {busy ? (
+        <Bi pt="A sair…" en="Logging out…" inline />
+      ) : (
+        <Bi pt="Terminar sessão" en="Log out" inline />
+      )}
     </button>
   );
 }

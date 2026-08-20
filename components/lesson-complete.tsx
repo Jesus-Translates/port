@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import type { UnitContext } from "@/lib/unit-context";
 import { cn } from "@/lib/utils";
@@ -70,6 +71,7 @@ export function LessonComplete({
   unitTicked = false,
   backHref = "/escutar",
   backLabel = "Voltar ao Escutar",
+  backLabelEn = "Back to Listening",
 }: {
   /** True once the lesson has been logged and the XP is real. */
   done: boolean;
@@ -89,6 +91,7 @@ export function LessonComplete({
   unitTicked?: boolean;
   backHref?: string;
   backLabel?: string;
+  backLabelEn?: string;
 }) {
   return (
     <section className="card space-y-4 p-5">
@@ -154,7 +157,11 @@ export function LessonComplete({
             onClick={onFinish}
             disabled={pending}
           >
-            {pending ? "A guardar…" : "Marquei como ouvido ✓"}
+            {pending ? (
+              <Bi pt="A guardar…" en="Saving…" inline />
+            ) : (
+              <Bi pt="Marquei como ouvido ✓" en="Marked as listened" inline />
+            )}
           </button>
         </>
       )}
@@ -184,7 +191,11 @@ export function LessonComplete({
                 className="btn-ghost mt-1 w-full justify-start text-left sm:w-auto"
               >
                 <span className="min-w-0 truncate">
-                  Mais um diálogo: {next.title} →
+                  <Bi
+                    pt={`Mais um diálogo: ${next.title} →`}
+                    en={`Another dialogue: ${next.title}`}
+                    inline
+                  />
                 </span>
               </Link>
             ) : null}
@@ -199,7 +210,7 @@ export function LessonComplete({
                   done ? "btn-primary" : "btn-ghost"
                 )}
               >
-                Continuar →
+                <Bi pt="Continuar →" en="Continue" inline />
               </Link>
               <span className="min-w-0 flex-1 text-sm text-ink-soft">
                 A seguir:{" "}
@@ -221,7 +232,7 @@ export function LessonComplete({
               href={backHref}
               className={cn("w-full sm:w-auto", done ? "btn-primary" : "btn-ghost")}
             >
-              {backLabel} →
+              <Bi pt={`${backLabel} →`} en={backLabelEn} inline />
             </Link>
           </>
         )}

@@ -3,6 +3,7 @@
 import { useMemo, useState, useTransition } from "react";
 import { AnswerDiff } from "@/components/answer-diff";
 import Link from "next/link";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { UnitContinue } from "@/components/unit-return";
 import type { UnitContext } from "@/lib/unit-context";
@@ -150,7 +151,7 @@ function ItemisedHomework({
             </div>
           ) : (
             <Link href="/homework" className="btn-ghost mt-4 inline-block">
-              ← Todos os TPC
+              <Bi pt="← Todos os TPC" en="All homework" inline />
             </Link>
           )}
         </div>
@@ -261,7 +262,11 @@ function ItemCard({
                 onClick={submit}
                 disabled={pending || !answer.trim()}
               >
-                {pending ? "A Sandra está a corrigir…" : "Responder ✓"}
+                {pending ? (
+                  <Bi pt="A Sandra está a corrigir…" en="Sandra is grading it…" inline />
+                ) : (
+                  <Bi pt="Responder ✓" en="Answer" inline />
+                )}
               </button>
             </div>
           ) : (
@@ -297,7 +302,11 @@ function ItemCard({
                       )
                     }
                   >
-                    {pending ? "A Sandra está a corrigir…" : "👩‍🏫 Pedir a correção"}
+                    {pending ? (
+                      <Bi pt="A Sandra está a corrigir…" en="Sandra is grading it…" inline />
+                    ) : (
+                      <Bi pt="👩‍🏫 Pedir a correção" en="Ask for grading" inline />
+                    )}
                   </button>
                 ) : null}
               </div>
@@ -351,7 +360,7 @@ function ItemCard({
                 }
                 disabled={pending}
               >
-                Tentar outra vez
+                <Bi pt="Tentar outra vez" en="Try again" inline />
               </button>
             ) : null}
           </div>
@@ -404,7 +413,11 @@ function LegacyHomework({
                 onClick={() => startTransition(() => splitIntoItems(homework.id))}
                 disabled={pending}
               >
-                ✂️ Responder pergunta a pergunta (com correção imediata)
+                <Bi
+                  pt="✂️ Responder pergunta a pergunta (com correção imediata)"
+                  en="Answer question by question (with instant grading)"
+                  inline
+                />
               </button>
             ) : null}
             <h2 className="font-semibold">✍️ A tua resposta</h2>
@@ -427,7 +440,7 @@ function LegacyHomework({
                 }}
                 disabled={pending || !response.trim()}
               >
-                Entregar à Sandra ✓
+                <Bi pt="Entregar à Sandra ✓" en="Hand in to Sandra" inline />
               </button>
               <button
                 className="btn-ghost"
@@ -440,9 +453,11 @@ function LegacyHomework({
                 }}
                 disabled={pending}
               >
-                {pending && working === "enhance"
-                  ? "A Sandra está a melhorar…"
-                  : "✨ Melhorar o TPC"}
+                {pending && working === "enhance" ? (
+                  <Bi pt="A Sandra está a melhorar…" en="Sandra is improving it…" inline />
+                ) : (
+                  <Bi pt="✨ Melhorar o TPC" en="Improve the homework" inline />
+                )}
               </button>
               <button
                 className="btn-ghost text-terra-dark"
@@ -453,7 +468,7 @@ function LegacyHomework({
                 }}
                 disabled={pending}
               >
-                Apagar
+                <Bi pt="Apagar" en="Delete" inline />
               </button>
             </div>
           </section>
@@ -491,7 +506,11 @@ function LegacyHomework({
                     startTransition(() => requestFeedback(homework.id))
                   }
                 >
-                  {pending ? "A Sandra está a corrigir…" : "👩‍🏫 Pedir a correção"}
+                  {pending ? (
+                    <Bi pt="A Sandra está a corrigir…" en="Sandra is grading it…" inline />
+                  ) : (
+                    <Bi pt="👩‍🏫 Pedir a correção" en="Ask for grading" inline />
+                  )}
                 </button>
               ) : null}
             </div>

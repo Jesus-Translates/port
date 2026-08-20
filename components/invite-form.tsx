@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { sendInvite } from "@/lib/actions/invites";
 
 /**
@@ -86,7 +87,11 @@ export function InviteForm() {
       )}
 
       <button type="submit" disabled={busy} className="btn-primary w-full">
-        {busy ? "A enviar…" : "Enviar convite ✉️"}
+        {busy ? (
+          <Bi pt="A enviar…" en="Sending…" inline />
+        ) : (
+          <Bi pt="Enviar convite ✉️" en="Send invite" inline />
+        )}
       </button>
 
       <p className="text-center text-xs text-ink-faint">

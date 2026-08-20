@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { addToDeck } from "@/lib/actions/deck";
 import { cn } from "@/lib/utils";
 
@@ -55,7 +56,13 @@ export function AddToDeck({
         <span className="max-w-[14rem] truncate font-medium text-ink">{pt}</span>
       ) : null}
       <span className="truncate">
-        {saved ? "no baralho ✓" : pending ? "a guardar…" : "+ baralho"}
+        {saved ? (
+          <Bi pt="no baralho ✓" en="in the deck" inline />
+        ) : pending ? (
+          <Bi pt="a guardar…" en="saving…" inline />
+        ) : (
+          <Bi pt="+ baralho" en="+ deck" inline />
+        )}
       </span>
     </button>
   );
@@ -79,7 +86,7 @@ export function HarvestFromMarkdown({ md }: { md: string }) {
         onClick={() => setOpen((o) => !o)}
         className="text-2xs text-ink-faint transition-colors hover:text-olive"
       >
-        Guardar palavras {open ? "▴" : "▾"}
+        <Bi pt="Guardar palavras" en="Save words" inline /> {open ? "▴" : "▾"}
       </button>
       {open ? (
         <div className="mt-1.5 flex flex-wrap gap-1.5">

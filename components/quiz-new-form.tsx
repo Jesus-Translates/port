@@ -2,14 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 
-const TOPIC_IDEAS = [
-  "a cozinha",
-  "no mercado",
-  "imprevistos",
-  "verbos no passado",
-  "o tempo e as estações",
-  "no café",
+const TOPIC_IDEAS: { pt: string; en: string }[] = [
+  { pt: "a cozinha", en: "the kitchen" },
+  { pt: "no mercado", en: "at the market" },
+  { pt: "imprevistos", en: "unexpected situations" },
+  { pt: "verbos no passado", en: "past tense verbs" },
+  { pt: "o tempo e as estações", en: "weather and seasons" },
+  { pt: "no café", en: "at the café" },
 ];
 
 export function QuizNewForm({
@@ -83,18 +84,22 @@ export function QuizNewForm({
           </select>
         </div>
         <button type="submit" disabled={busy} className="btn-terra">
-          {busy ? "A Sandra está a escrever o teste…" : "Criar teste ✨"}
+          {busy ? (
+            <Bi pt="A Sandra está a escrever o teste…" en="Sandra is writing the test…" inline />
+          ) : (
+            <Bi pt="Criar teste ✨" en="Create test" inline />
+          )}
         </button>
       </div>
       <div className="flex flex-wrap gap-1.5">
         {TOPIC_IDEAS.map((t) => (
           <button
-            key={t}
+            key={t.pt}
             type="button"
-            onClick={() => setTopic(t)}
+            onClick={() => setTopic(t.pt)}
             className="rounded-full border border-sand bg-white/60 px-2.5 py-1 text-xs text-ink-soft hover:border-sage hover:bg-sage-pale"
           >
-            {t}
+            <Bi pt={t.pt} en={t.en} inline />
           </button>
         ))}
       </div>

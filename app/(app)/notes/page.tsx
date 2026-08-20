@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
+import { Bi } from "@/components/bilingual";
 import { createNote } from "@/lib/actions/notes";
 import { requireSession } from "@/lib/auth";
 import { getNotesAll } from "@/lib/data";
@@ -32,7 +33,7 @@ export default async function NotesPage() {
           />
         </div>
         <button type="submit" className="btn-primary">
-          Criar
+          <Bi pt="Criar" en="Create" inline />
         </button>
       </form>
 

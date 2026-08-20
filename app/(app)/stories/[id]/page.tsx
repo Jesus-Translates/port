@@ -47,7 +47,11 @@ export default async function StoryPage(props: PageProps<"/stories/[id]">) {
         </div>
         <p className="mt-0.5 text-sm text-ink-faint">{story.seriesTitle}</p>
         <div className="mt-3">
-          <AudioButton text={story.textPt} label="Ouvir a história" />
+          <AudioButton
+            text={story.textPt}
+            label="Ouvir a história"
+            labelEn="Play the story"
+          />
         </div>
       </header>
 

@@ -9,7 +9,7 @@ import {
   IconHome,
   IconPeople,
 } from "@/components/icons";
-import { useBilingual } from "@/components/bilingual";
+import { Bi, useBilingual } from "@/components/bilingual";
 import { avatarFor } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
@@ -128,6 +128,7 @@ export function Nav({
           <Link
             href="/practice/rever?flash=1"
             title="Flash review — 5 cartões rápidos"
+            aria-label="Revisão rápida"
             className="shrink-0 rounded-full border border-sand bg-white/70 px-2 py-0.5 text-xs text-ink-soft transition-colors hover:border-terra hover:bg-terra-pale"
           >
             ⚡
@@ -136,6 +137,7 @@ export function Nav({
             <Link
               href="/admin"
               title="Painel"
+              aria-label="Painel"
               className="shrink-0 rounded-full border border-sand bg-white/70 px-2 py-0.5 text-xs text-ink-soft transition-colors hover:border-sage hover:bg-sage-pale"
             >
               ⚙️
@@ -155,7 +157,7 @@ export function Nav({
             onClick={logout}
             className="flex min-h-11 shrink-0 items-center px-2 text-xs text-ink-soft underline-offset-2 hover:text-terra hover:underline"
           >
-            Sair
+            <Bi pt="Sair" en="Log out" inline />
           </button>
         </div>
 

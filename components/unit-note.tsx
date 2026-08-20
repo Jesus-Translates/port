@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 
 /**
@@ -67,7 +68,7 @@ export function UnitNote({
               setNote("");
             }}
           >
-            Tentar outra vez
+            <Bi pt="Tentar outra vez" en="Try again" inline />
           </button>
         </div>
       ) : (

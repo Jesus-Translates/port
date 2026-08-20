@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
+import { Bi } from "@/components/bilingual";
 import { getMyCefr } from "@/lib/actions/profile";
 import { requireSession } from "@/lib/auth";
 import { KIND_META, type ItemKind } from "@/lib/course";
@@ -150,7 +151,7 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
                 <p className="mt-1 text-sm text-ink-soft">{g.pt}</p>
                 <p className="mt-1 text-xs text-ink-faint">{g.en}</p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-terra">
-                  Jogar →
+                  <Bi pt="Jogar →" en="Play" inline />
                 </span>
               </button>
             );
@@ -195,7 +196,7 @@ export default async function JogosPage(props: PageProps<"/jogos">) {
                 <p className="mt-1 text-sm text-ink-soft">{g.pt}</p>
                 <p className="mt-1 text-xs text-ink-faint">{g.en}</p>
                 <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-terra">
-                  Jogar →
+                  <Bi pt="Jogar →" en="Play" inline />
                 </span>
               </Link>
             );

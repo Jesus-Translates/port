@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 
 /** Ask Sandra for a new two-voice dialogue, then open it. */
 export function ListeningGenerate({
@@ -81,7 +82,11 @@ export function ListeningGenerate({
           disabled={!enabled || busy}
           onClick={create}
         >
-          {busy ? "A gravar o diálogo…" : "Novo diálogo 🎧"}
+          {busy ? (
+            <Bi pt="A gravar o diálogo…" en="Recording the dialogue…" inline />
+          ) : (
+            <Bi pt="Novo diálogo 🎧" en="New dialogue" inline />
+          )}
         </button>
       </div>
       <p className="text-xs text-ink-faint">

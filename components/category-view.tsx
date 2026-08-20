@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import {
   addEntries,
   addEntry,
@@ -107,18 +108,26 @@ export function CategoryView({
             className="btn-ghost text-xs"
             onClick={() => setShowEn((s) => !s)}
           >
-            {showEn ? "Esconder inglês" : "Mostrar inglês"}
+            {showEn ? (
+              <Bi pt="Esconder inglês" en="Hide English" inline />
+            ) : (
+              <Bi pt="Mostrar inglês" en="Show English" inline />
+            )}
           </button>
           <div className="hidden flex-1 sm:block" />
           <button className="btn-ghost" onClick={() => setAdding((a) => !a)}>
-            + Adicionar
+            <Bi pt="+ Adicionar" en="Add" inline />
           </button>
           <button
             className="btn-terra"
             onClick={fetchSuggestions}
             disabled={suggesting}
           >
-            {suggesting ? "A Sandra está a escrever…" : "✨ Sandra, dá-nos mais"}
+            {suggesting ? (
+              <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+            ) : (
+              <Bi pt="✨ Sandra, dá-nos mais" en="Sandra, give us more" inline />
+            )}
           </button>
         </div>
       </div>
@@ -146,15 +155,21 @@ export function CategoryView({
                 disabled={pending || selected.size === 0}
                 onClick={acceptSelected}
               >
-                {pending
-                  ? "A adicionar…"
-                  : `Adicionar ${selected.size} ao livro`}
+                {pending ? (
+                  <Bi pt="A adicionar…" en="Adding…" inline />
+                ) : (
+                  <Bi
+                    pt={`Adicionar ${selected.size} ao livro`}
+                    en={`Add ${selected.size} to the book`}
+                    inline
+                  />
+                )}
               </button>
               <button
                 className="btn-ghost text-xs"
                 onClick={() => setSuggestions(null)}
               >
-                Fechar
+                <Bi pt="Fechar" en="Close" inline />
               </button>
             </div>
           </div>
@@ -378,10 +393,14 @@ function EntryForm({
       </div>
       <div className="flex gap-2">
         <button type="submit" className="btn-primary" disabled={busy}>
-          {busy ? "A guardar…" : "Guardar no livro"}
+          {busy ? (
+            <Bi pt="A guardar…" en="Saving…" inline />
+          ) : (
+            <Bi pt="Guardar no livro" en="Save to the book" inline />
+          )}
         </button>
         <button type="button" className="btn-ghost" onClick={onCancel}>
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </form>

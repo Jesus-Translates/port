@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 import { addCategory } from "@/lib/actions/reference";
 
 export function CategoryForm() {
@@ -9,7 +10,7 @@ export function CategoryForm() {
   if (!open) {
     return (
       <button className="btn-ghost" onClick={() => setOpen(true)}>
-        + Nova categoria
+        <Bi pt="+ Nova categoria" en="New category" inline />
       </button>
     );
   }
@@ -33,10 +34,10 @@ export function CategoryForm() {
       </div>
       <div className="flex gap-2">
         <button type="submit" className="btn-primary">
-          Criar
+          <Bi pt="Criar" en="Create" inline />
         </button>
         <button type="button" className="btn-ghost" onClick={() => setOpen(false)}>
-          Cancelar
+          <Bi pt="Cancelar" en="Cancel" inline />
         </button>
       </div>
     </form>

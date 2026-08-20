@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
 import { nextRoundHref } from "@/lib/new-round";
@@ -142,7 +143,11 @@ export function DitadoPlayer({
             disabled={reloading}
             onClick={otherDictation}
           >
-            {reloading ? "A procurar…" : "Outro ditado →"}
+            {reloading ? (
+              <Bi pt="A procurar…" en="Looking…" inline />
+            ) : (
+              <Bi pt="Outro ditado →" en="Another dictation" inline />
+            )}
           </button>
         </div>
       </div>
@@ -168,7 +173,11 @@ export function DitadoPlayer({
           Frase {index + 1} de {sentences.length}
         </p>
         <div className="mt-3 flex items-center gap-3">
-          <AudioButton entryId={sentence.id} label="Ouvir a frase" />
+          <AudioButton
+            entryId={sentence.id}
+            label="Ouvir a frase"
+            labelEn="Play the sentence"
+          />
           <span className="text-xs text-ink-faint">
             (ouve as vezes que precisares)
           </span>
@@ -219,11 +228,19 @@ export function DitadoPlayer({
           onClick={check}
           disabled={busy || !typed.trim()}
         >
-          {busy ? "A corrigir…" : "Corrigir ✓"}
+          {busy ? (
+            <Bi pt="A corrigir…" en="Checking…" inline />
+          ) : (
+            <Bi pt="Corrigir ✓" en="Check" inline />
+          )}
         </button>
       ) : (
         <button className="btn-primary w-full" onClick={next}>
-          {last ? "Terminar" : "Próxima frase →"}
+          {last ? (
+            <Bi pt="Terminar" en="Finish" inline />
+          ) : (
+            <Bi pt="Próxima frase →" en="Next sentence" inline />
+          )}
         </button>
       )}
     </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
 import { finishStory, saveGlossaryWord } from "@/lib/actions/stories";
@@ -75,7 +76,11 @@ export function StoryReader({
           className="btn-ghost text-xs"
           onClick={() => setShowEn((s) => !s)}
         >
-          {showEn ? "Esconder inglês" : "Mostrar tradução"}
+          {showEn ? (
+            <Bi pt="Esconder inglês" en="Hide English" inline />
+          ) : (
+            <Bi pt="Mostrar tradução" en="Show translation" inline />
+          )}
         </button>
       </section>
 
@@ -152,7 +157,7 @@ export function StoryReader({
             disabled={Object.keys(answers).length < story.questions.length}
             onClick={submit}
           >
-            Corrigir ✓
+            <Bi pt="Corrigir ✓" en="Check answers" inline />
           </button>
         ) : (
           <p className="rounded-xl bg-sage-pale/70 px-3 py-2 text-center text-sm font-medium text-olive">

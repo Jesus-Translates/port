@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Bi } from "@/components/bilingual";
 
 export function StoryGenerate({
   seriesTitles,
@@ -80,7 +81,11 @@ export function StoryGenerate({
             disabled={busy || !series}
             onClick={() => create(true)}
           >
-            {busy ? "A Sandra está a escrever…" : "Próximo capítulo ✨"}
+            {busy ? (
+              <Bi pt="A Sandra está a escrever…" en="Sandra is writing it…" inline />
+            ) : (
+              <Bi pt="Próximo capítulo ✨" en="Next chapter" inline />
+            )}
           </button>
         ) : null}
       </div>
@@ -99,7 +104,7 @@ export function StoryGenerate({
           disabled={busy}
           onClick={() => create(false)}
         >
-          {busy ? "…" : "Começar série nova"}
+          {busy ? "…" : <Bi pt="Começar série nova" en="Start new series" inline />}
         </button>
       </div>
       {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
