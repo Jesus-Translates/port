@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 
 export const metadata = {
   title: "Criar conta",
-  description: "European Portuguese for your whole family, with Sandra.",
+  description: "European Portuguese for you or your whole family, with Sandra.",
 };
 
 export default async function SignupPage() {
@@ -18,12 +18,15 @@ export default async function SignupPage() {
           <div className="mb-3 text-5xl" aria-hidden>
             🇵🇹
           </div>
+          {/* Not "start your family" any more: the form now creates a solo
+              account too, and a headline that only addresses households tells
+              a single learner they are in the wrong place. */}
           <h1 className="font-display text-3xl font-semibold tracking-tight">
-            Começa a tua família
+            Começar
           </h1>
           <p className="mt-2 text-sm text-ink-soft">
-            European Portuguese for everyone at home — one course each, pitched
-            at what they can actually do.
+            European Portuguese for you, or for everyone at home — one course
+            each, pitched at what they can actually do.
           </p>
         </div>
         <SignupForm siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ""} />

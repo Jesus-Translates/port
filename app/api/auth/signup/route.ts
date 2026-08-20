@@ -68,6 +68,7 @@ export async function POST(request: NextRequest) {
 
   let body: {
     familyName?: string;
+    plan?: string;
     displayName?: string;
     username?: string;
     email?: string;
@@ -88,12 +89,25 @@ export async function POST(request: NextRequest) {
   }
 
   const familyName = String(body.familyName ?? "").trim().slice(0, 60);
+  /*
+   * Solo or household — chosen here, and it decides the seat count.
+   *
+   * Signup used to create a "família" unconditionally, so somebody learning on
+   * their own had to invent a family name to get an account and then paid for
+   * four seats to use one. Individual is a real plan in lib/plans.ts (1 seat);
+   * it just had no way in.
+   *
+   * The account row still exists either way — it is what a subscription and a
+   * seat limit hang off — it simply holds one person and is named after them.
+   */
+  const solo = String(body.plan ?? "") === "individual";
+  const planId = solo ? "individual" : "family";
   const displayName = String(body.displayName ?? "").trim().slice(0, 60);
   const username = String(body.username ?? "").trim().toLowerCase();
   const email = String(body.email ?? "").trim().toLowerCase();
   const password = String(body.password ?? "");
 
-  if (!familyName) return bad("Falta o nome da família.");
+  if (!solo && !familyName) return bad("Falta o nome da família.");
   if (!displayName) return bad("Falta o teu nome.");
   const nameProblem = usernameProblem(username);
   if (nameProblem) return bad(nameProblem);
@@ -121,7 +135,9 @@ export async function POST(request: NextRequest) {
   }
 
   // Unique household slug.
-  let slug = slugify(familyName);
+  // A solo account is named after its one person; there is no family to name.
+  const accountName = solo ? displayName : familyName;
+  let slug = slugify(accountName);
   for (let i = 2; i < 50; i++) {
     const [taken] = await db
       .select({ id: accounts.id })
@@ -129,7 +145,7 @@ export async function POST(request: NextRequest) {
       .where(eq(accounts.slug, slug))
       .limit(1);
     if (!taken) break;
-    slug = `${slugify(familyName)}-${i}`;
+    slug = `${slugify(accountName)}-${i}`;
   }
 
   /*
@@ -149,7 +165,12 @@ export async function POST(request: NextRequest) {
       .insert(accounts)
       // Seats come from the plan, so changing the plan cannot silently
       // leave new families on an old seat count.
-      .values({ slug, name: familyName, plan: "family", seatLimit: planById("family").seats })
+      .values({
+        slug,
+        name: accountName,
+        plan: planId,
+        seatLimit: planById(planId).seats,
+      })
       .returning({ id: accounts.id });
     newAccountId = account.id;
 
@@ -203,10 +224,15 @@ export async function POST(request: NextRequest) {
     // Welcome them. Fire-and-forget by construction (sendWelcome swallows its
     // own failures) — a signup must never fail because Resend was down.
     if (email) {
-      void sendWelcome({ to: email, username, displayName, familyName });
+      void sendWelcome({ to: email, username, displayName, familyName: accountName });
     }
 
-    await logActivity(username, "review", `Família criada: ${familyName}`, 0).catch(
+    await logActivity(
+      username,
+      "review",
+      solo ? `Conta criada: ${accountName}` : `Família criada: ${accountName}`,
+      0
+    ).catch(
       () => {}
     );
   } catch {

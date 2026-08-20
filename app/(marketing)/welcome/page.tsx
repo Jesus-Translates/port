@@ -102,7 +102,7 @@ export default function WelcomePage() {
                 href="/registar"
                 className="inline-flex min-h-12 items-center justify-center rounded-xl bg-paper px-6 text-[15px] font-semibold text-olive transition-opacity hover:opacity-90"
               >
-                Create your family →
+                Create your account →
               </Link>
               <Link
                 href="/login"
@@ -372,7 +372,7 @@ export default function WelcomePage() {
                     p.id === "family" ? "btn-primary" : "btn-ghost"
                   } mt-5 w-full`}
                 >
-                  Create your family →
+                  Create your account →
                 </Link>
               </div>
             ))}
@@ -417,7 +417,7 @@ export default function WelcomePage() {
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
             <Link href="/registar" className="btn-primary px-6">
-              Create your family →
+              Create your account →
             </Link>
             <Link href="/login" className="btn-ghost px-5">
               Sign in
@@ -436,7 +436,7 @@ export default function WelcomePage() {
           </p>
           <p className="flex gap-4">
             <Link href="/registar" className="hover:text-olive">
-              Create your family
+              Create your account
             </Link>
             <Link href="/login" className="hover:text-olive">
               Sign in
