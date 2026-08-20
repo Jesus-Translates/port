@@ -12,9 +12,10 @@ import {
   counts,
   gradeItem,
   LEVELS,
+  passMarkFor,
   publicItem,
   type Level,
-  type Mark,
+  type PlacementItem,
   type PublicItem,
 } from "@/lib/placement";
 
@@ -27,61 +28,106 @@ import {
  * right.
  */
 
-/** Look an item up by the id the client echoes back. */
-function byId(id: string) {
-  return BANK.find((i) => i.id === id) ?? null;
+/**
+ * Easiest kind first, hardest last — a block opens gently and climbs.
+ *
+ * The bank order used to be shuffled, so a true beginner's FIRST question
+ * could be a dictation: hear a Portuguese sentence and type it back. That is
+ * the hardest thing the test asks and a brutal opening move for someone who
+ * has just told us they are starting — they conclude the app is not for them
+ * before question two.
+ *
+ * The ranking is by how much PRODUCTION each kind demands. Recognising the
+ * right option is easiest; assembling given words needs word order but no
+ * spelling; writing from scratch needs both; dictation needs all of that plus
+ * decoding speech in a language you are still learning to hear.
+ */
+const KIND_ORDER: Record<PlacementItem["kind"], number> = {
+  choice: 0,
+  gap: 1,
+  wordbank: 2,
+  write: 3,
+  dictation: 4,
+};
+
+function levelAt(levelIdx: number): Level {
+  return LEVELS[Math.max(0, Math.min(LEVELS.length - 1, Math.round(levelIdx)))];
 }
 
 /**
- * The next unasked question AT THIS LEVEL — never from another one.
+ * A whole level's block at once, answers stripped.
  *
- * The test used to widen outwards when a level ran dry, which suited the old
- * adaptive format and is exactly wrong now. A block is a level's own set of
- * questions: borrowing a B1 item to pad out the A2 block would mean somebody
- * cleared A2 on a question A2 never asked.
+ * It used to hand out one question at a time, which made going back
+ * impossible: the previous question was gone from the client and the server
+ * kept no run state to rebuild it from. A block is a fixed set of a level's own
+ * questions, so sending all of them costs nothing extra and lets the learner
+ * move around inside the section — reread, change an answer, come back to the
+ * one they skipped — exactly like a real exam paper.
  *
- * Returns null when the block is finished, which is how the client knows to
- * total it up and decide whether the next level opens.
+ * publicItem() still strips every answer, and dictation still ships only the
+ * id whose audio it can request. Nothing gradeable crosses.
  */
-export async function nextPlacementItem(
-  askedIds: string[],
-  levelIdx: number
-): Promise<PublicItem | null> {
+export async function placementBlock(levelIdx: number): Promise<PublicItem[]> {
   await requireSession();
-  const asked = new Set(askedIds);
-  const level = LEVELS[Math.max(0, Math.min(LEVELS.length - 1, Math.round(levelIdx)))];
-
-  const pool = BANK.filter((i) => i.level === level && !asked.has(i.id));
-  if (pool.length === 0) return null;
-  // A route handler, not a render — plain randomness is fine here.
-  return publicItem(pool[Math.floor(Math.random() * pool.length)]);
+  const level = levelAt(levelIdx);
+  return BANK.filter((i) => i.level === level)
+    .slice()
+    .sort((a, b) => KIND_ORDER[a.kind] - KIND_ORDER[b.kind])
+    .map(publicItem);
 }
 
-/** How many questions each level's block holds, for the progress display. */
-export async function placementBlockSizes(): Promise<Record<string, number>> {
-  await requireSession();
-  const out: Record<string, number> = {};
-  for (const l of LEVELS) out[l] = BANK.filter((i) => i.level === l).length;
-  return out;
-}
-
-export type PlacementMark = {
-  /** certo | quase | errado — "quase" counts, but is shown as a near miss. */
-  mark: Mark;
-  correct: boolean;
-  level: Level;
+export type BlockResult = {
+  right: number;
+  of: number;
+  passed: boolean;
+  /** Answers that counted but had spelling slips — reported, never punished. */
+  nearMisses: number;
+  /** What they got wrong, for the end-of-run summary. Ids, not answers. */
+  misses: { id: string; given: string }[];
 };
 
-export async function gradePlacement(
-  id: string,
-  given: string
-): Promise<PlacementMark | null> {
+/**
+ * Mark a whole block, once, when the learner submits it.
+ *
+ * Per-question grading is gone. It leaked a result for every answer (the
+ * client could read whether each one landed as it was given), and it made the
+ * tally a running client-side total that back-navigation would have had to
+ * unpick. One call at the end of a section is simpler AND tells the browser
+ * less: a single count, decided here.
+ *
+ * Every item in the level is marked, so an unanswered question is a wrong one
+ * — leaving one blank cannot be cheaper than guessing.
+ */
+export async function gradeBlock(
+  levelIdx: number,
+  answers: Record<string, string>
+): Promise<BlockResult> {
   await requireSession();
-  const item = byId(id);
-  if (!item) return null;
+  const level = levelAt(levelIdx);
+  const items = BANK.filter((i) => i.level === level);
 
-  const mark = gradeItem(item, String(given ?? "").slice(0, 400));
-  return { mark, correct: counts(mark), level: item.level };
+  let right = 0;
+  let nearMisses = 0;
+  const misses: { id: string; given: string }[] = [];
+
+  for (const item of items) {
+    const given = String(answers?.[item.id] ?? "").slice(0, 400);
+    const mark = gradeItem(item, given);
+    if (counts(mark)) {
+      right += 1;
+      if (mark === "quase") nearMisses += 1;
+    } else {
+      misses.push({ id: item.id, given });
+    }
+  }
+
+  return {
+    right,
+    of: items.length,
+    passed: right >= passMarkFor(items.length),
+    nearMisses,
+    misses,
+  };
 }
 
 /* ── What we keep afterwards ─────────────────────────────────────────── */

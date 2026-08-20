@@ -3,12 +3,9 @@
 import Link from "next/link";
 import { useState, useTransition } from "react";
 import { AudioButton } from "@/components/audio-button";
+import { Bi } from "@/components/bilingual";
 import { getStartUnit } from "@/lib/actions/course";
-import {
-  gradePlacement,
-  nextPlacementItem,
-  placementBlockSizes,
-} from "@/lib/actions/placement";
+import { gradeBlock, placementBlock } from "@/lib/actions/placement";
 import { setCefrLevel } from "@/lib/actions/profile";
 import {
   BLOCK_SIZE,
@@ -53,7 +50,13 @@ const BLURB: Record<Level, { pt: string; en: string }> = {
   },
 };
 
-const emptyScores = (): Record<Level, number> => ({ A1: 0, A2: 0, B1: 0, B2: 0 });
+type Tally = { right: number; asked: number };
+const emptyScores = (): Record<Level, Tally> => ({
+  A1: { right: 0, asked: 0 },
+  A2: { right: 0, asked: 0 },
+  B1: { right: 0, asked: 0 },
+  B2: { right: 0, asked: 0 },
+});
 
 const KIND_LABEL: Record<PublicItem["kind"], string> = {
   choice: "Escolhe",
@@ -82,21 +85,27 @@ const KIND_LABEL: Record<PublicItem["kind"], string> = {
  * only what has been asked and how it went.
  */
 export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
-  const [asked, setAsked] = useState<PublicItem[]>([]);
+  /**
+   * The WHOLE current section, held client-side.
+   *
+   * One question at a time made going back impossible — the previous question
+   * was gone and nothing could rebuild it. A section is a fixed set, so it is
+   * fetched whole (answers stripped server-side) and the learner moves around
+   * inside it like a paper exam: reread, change an answer, come back to the
+   * one they skipped. Nothing is marked until they submit the section.
+   */
+  const [block, setBlock] = useState<PublicItem[]>([]);
+  const [idx, setIdx] = useState(0);
+  /** questionId → what they typed or tapped. The single source of an answer. */
+  const [answers, setAnswers] = useState<Record<string, string>>({});
   const [levelIdx, setLevelIdx] = useState(0); // A1, and only ever upwards
   const [scores, setScores] = useState(emptyScores);
   const [nearMisses, setNearMisses] = useState(0);
-  /** Right answers in the CURRENT block; reset when a new level opens. */
-  const [blockRight, setBlockRight] = useState(0);
-  const [blockAsked, setBlockAsked] = useState(0);
   const [blocksPassed, setBlocksPassed] = useState(0);
-  const [sizes, setSizes] = useState<Record<string, number>>({});
   /** Set when a block ends, so the learner is told before anything moves. */
   const [gate, setGate] = useState<
     { level: Level; right: number; of: number; passed: boolean } | null
   >(null);
-  const [typed, setTyped] = useState("");
-  const [picked, setPicked] = useState<string[]>([]); // wordbank tiles chosen
   /** What they got wrong, for the AI summary. Ids only — the server re-reads
       the questions itself and never trusts the client for a right answer. */
   const [misses, setMisses] = useState<{ id: string; given: string }[]>([]);
@@ -111,143 +120,90 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   } | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  /** "Recomeçar" asks twice — it discards a whole section's answers. */
+  const [confirmReset, setConfirmReset] = useState(false);
   const [pending, startTransition] = useTransition();
 
-  const current = asked[asked.length - 1];
+  const current = block[idx];
+  /** The answer held for the question on screen, in each kind's own shape. */
+  const given = current ? (answers[current.id] ?? "") : "";
+  const picked = given ? given.split(" ").filter(Boolean) : [];
+  const answeredCount = block.filter((q) => (answers[q.id] ?? "").trim()).length;
+
+  function setAnswer(value: string) {
+    if (!current) return;
+    setAnswers((a) => ({ ...a, [current.id]: value }));
+  }
 
   function reset() {
-    setAsked([]);
+    setBlock([]);
+    setIdx(0);
+    setAnswers({});
     setLevelIdx(0);
     setScores(emptyScores());
     setNearMisses(0);
-    setBlockRight(0);
-    setBlockAsked(0);
     setBlocksPassed(0);
     setMisses([]);
     setSummary(null);
     setSummaryState("idle");
     setGate(null);
-    setTyped("");
-    setPicked([]);
     setResult(null);
     setSaved(false);
     setStartUnit(null);
     setError(null);
+    setConfirmReset(false);
   }
 
   async function start() {
     setBusy(true);
-    const [first, blockSizes] = await Promise.all([
-      nextPlacementItem([], 0),
-      placementBlockSizes().catch(() => ({})),
-    ]);
+    const first = await placementBlock(0).catch(() => []);
     setBusy(false);
-    if (!first) {
+    if (first.length === 0) {
       setError("O teste não está disponível.");
       return;
     }
     reset();
-    setSizes(blockSizes);
-    setAsked([first]);
-    setBlockAsked(1);
+    setBlock(first);
+    setIdx(0);
+  }
+
+  /** Move inside the section. Both directions, freely, before submitting. */
+  function goTo(next: number) {
+    if (busy) return;
+    setIdx(Math.max(0, Math.min(block.length - 1, next)));
   }
 
   /**
-   * "I have never learned any Portuguese" — the honest answer for a lot of
-   * people, and until now the app made them prove it.
+   * Submit the whole section and mark it — once.
    *
-   * A true beginner facing a test they cannot answer is the worst possible
-   * first screen: seven questions of failure to arrive at the level they
-   * already told us they were. The placement exists to find people who are
-   * FURTHER ALONG than A1; somebody who says they are not needs no test.
+   * Nothing is graded until this runs, which is what makes going back
+   * possible: an answer can be changed as often as they like right up to here,
+   * with no running total to unpick. It is also what keeps the test honest —
+   * marking each answer as it was given told the browser how every question
+   * landed, one at a time, which is the answer key in instalments.
    *
-   * Same end state as a completed run — setCefrLevel writes the "Nível
-   * definido" activity row that hasBeenPlaced() reads, so onboarding advances
-   * exactly as it would have. No AI summary: there are no answers to read, and
-   * inventing an assessment of somebody who answered nothing would be a lie.
+   * Unanswered questions are marked wrong by the server, so skipping is never
+   * cheaper than guessing.
    */
-  function startAtA1() {
-    setError(null);
-    startTransition(async () => {
-      try {
-        await setCefrLevel("A1");
-        reset();
-        setResult("A1");
-        setSaved(true);
-        setStartUnit(await getStartUnit().catch(() => null));
-      } catch {
-        setError("Não deu para guardar. Tenta outra vez.");
-      }
-    });
-  }
-
-  /** The learner's answer for the current kind, as one string. */
-  function answerText(): string {
-    if (!current) return "";
-    return current.kind === "wordbank" ? picked.join(" ") : typed;
-  }
-
-  /**
-   * Answer, and move straight on — WITHOUT saying whether it was right.
-   *
-   * This used to grade in view: a tick, a cross, and the correct answer, one
-   * question at a time. On a practice screen that is the right call. On a
-   * PLACEMENT test it hands out the answer key one question at a time, and it
-   * tells you the moment you are off course — so the cheapest move is to
-   * restart and run the same block again knowing what is coming. A test you
-   * can re-roll until it flatters you does not measure anything, and the prize
-   * for winning it is being put in a level you cannot follow.
-   *
-   * So nothing is revealed until the whole run ends. Every correction still
-   * gets shown — at the end, with the level, where it teaches instead of
-   * steering. Grading stays on the server either way; this only changes what
-   * comes back down.
-   */
-  async function check(explicit?: string) {
-    if (!current || busy) return;
-    const given = explicit ?? answerText();
-    if (!given.trim()) return;
+  async function submitBlock() {
+    if (busy || block.length === 0) return;
     setBusy(true);
-    const m = await gradePlacement(current.id, given);
-    if (!m) {
+    const level = LEVELS[levelIdx];
+    let res;
+    try {
+      res = await gradeBlock(levelIdx, answers);
+    } catch {
       setBusy(false);
+      setError("Não deu para corrigir a secção. Tenta outra vez.");
       return;
     }
-
-    // Tallied into a local as well as into state: the block decision below
-    // runs in this same tick, and setBlockRight has not landed yet. Reading
-    // the state variable here would decide the block on a stale count and
-    // fail somebody who had just passed.
-    const right = blockRight + (m.correct ? 1 : 0);
-    if (m.correct) {
-      setScores((s) => ({ ...s, [m.level]: s[m.level] + 1 }));
-      setBlockRight(right);
-      if (m.mark === "quase") setNearMisses((n) => n + 1);
-    } else {
-      setMisses((list) => [...list, { id: current.id, given }]);
-    }
-
-    setTyped("");
-    setPicked([]);
-
-    const next = await nextPlacementItem(
-      asked.map((a) => a.id),
-      levelIdx
-    );
     setBusy(false);
 
-    if (next) {
-      setAsked([...asked, next]);
-      setBlockAsked((n) => n + 1);
-      return;
-    }
-
-    // Block finished. The block is the unit of decision, not the question.
-    const level = LEVELS[levelIdx];
-    const of = sizes[level] ?? blockAsked;
-    const passed = right >= passMarkFor(of);
-    setGate({ level, right, of, passed });
-    if (passed) setBlocksPassed(levelIdx + 1);
+    setScores((sc) => ({ ...sc, [level]: { right: res.right, asked: res.of } }));
+    setNearMisses((n) => n + res.nearMisses);
+    setMisses((list) => [...list, ...res.misses]);
+    if (res.passed) setBlocksPassed(levelIdx + 1);
+    setGate({ level, right: res.right, of: res.of, passed: res.passed });
   }
 
   /** Continue past a cleared block, or end the test at a failed one. */
@@ -255,6 +211,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     if (!gate) return;
     const passedSoFar = gate.passed ? levelIdx + 1 : levelIdx;
 
+    // A failed section ends the test THERE. Nothing above it can be cleared
+    // once a level has been missed, so asking more questions would only be
+    // asking somebody to guess at grammar they have not met.
     if (!gate.passed || levelIdx + 1 >= LEVELS.length) {
       setGate(null);
       const placed = placeAt(passedSoFar);
@@ -265,12 +224,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
     const nextIdx = levelIdx + 1;
     setBusy(true);
-    const next = await nextPlacementItem(
-      asked.map((a) => a.id),
-      nextIdx
-    );
+    const next = await placementBlock(nextIdx).catch(() => []);
     setBusy(false);
-    if (!next) {
+    if (next.length === 0) {
       setGate(null);
       const placed = placeAt(passedSoFar);
       setResult(placed);
@@ -279,9 +235,8 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     }
     setGate(null);
     setLevelIdx(nextIdx);
-    setBlockRight(0);
-    setBlockAsked(1);
-    setAsked([...asked, next]);
+    setBlock(next);
+    setIdx(0);
   }
 
   /**
@@ -296,10 +251,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setSummaryState("loading");
     try {
       const perLevel = LEVELS.reduce(
-        (acc, l) => ({
-          ...acc,
-          [l]: { right: scores[l], asked: asked.filter((a) => a.level === l).length },
-        }),
+        (acc, l) => ({ ...acc, [l]: scores[l] }),
         {} as Record<string, { right: number; asked: number }>
       );
       const res = await fetch("/api/ai/placement-summary", {
@@ -375,11 +327,17 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           disabled={busy}
           onClick={() => void continuePastGate()}
         >
-          {busy
-            ? "Um momento…"
-            : gate.passed && nextLevel
-              ? `Continuar para ${nextLevel} →`
-              : "Ver o meu nível"}
+          {busy ? (
+            <Bi pt="Um momento…" en="One moment…" inline />
+          ) : gate.passed && nextLevel ? (
+            <Bi
+              pt={`Continuar para ${nextLevel} →`}
+              en={`Continue to ${nextLevel}`}
+              inline
+            />
+          ) : (
+            <Bi pt="Ver o meu nível" en="See my level" inline />
+          )}
         </button>
       </div>
     );
@@ -387,13 +345,14 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
   // ── Result ──────────────────────────────────────────────────────────
   if (result) {
-    const total = LEVELS.reduce((sum, l) => sum + scores[l], 0);
+    const total = LEVELS.reduce((sum, l) => sum + scores[l].right, 0);
+    const totalAsked = LEVELS.reduce((sum, l) => sum + scores[l].asked, 0);
     return (
       <div className="space-y-4">
         <div className="card p-6 text-center">
-          {asked.length > 0 ? (
+          {totalAsked > 0 ? (
             <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-              Acertaste {total} de {asked.length}
+              Acertaste {total} de {totalAsked}
               {nearMisses > 0
                 ? ` · ${nearMisses} com pequenos erros de escrita`
                 : ""}
@@ -411,10 +370,10 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
           <div className="mt-4 flex flex-wrap justify-center gap-1.5">
             {LEVELS.map((l) => {
-              const n = asked.filter((a) => a.level === l).length;
+              const n = scores[l].asked;
               return n > 0 ? (
                 <span key={l} className="chip">
-                  {l} · {scores[l]}/{n}
+                  {l} · {scores[l].right}/{n}
                 </span>
               ) : null;
             })}
@@ -512,10 +471,16 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
           <div className="mt-5 flex flex-wrap justify-center gap-2">
             <button className="btn-terra" onClick={save} disabled={pending || saved}>
-              {saved ? "Guardado ✓" : pending ? "A guardar…" : "Guardar o meu nível"}
+              {saved ? (
+                <Bi pt="Guardado ✓" en="Saved" inline />
+              ) : pending ? (
+                <Bi pt="A guardar…" en="Saving…" inline />
+              ) : (
+                <Bi pt="Guardar o meu nível" en="Save my level" inline />
+              )}
             </button>
             <button className="btn-ghost" onClick={start}>
-              Repetir
+              <Bi pt="Repetir" en="Take it again" inline />
             </button>
           </div>
 
@@ -554,48 +519,51 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     return (
       <div className="card space-y-3 p-6">
         <p className="text-ink-soft">
-          Começas em A1 com {sizes.A1 ?? BLOCK_SIZE} perguntas. Se passares,
-          abre a secção A2, depois B1, depois B2 — e o teste pára assim que uma
-          secção te escapar. Escolher, completar, ouvir e escrever, construir
-          frases.
+          Começas em A1 com {BLOCK_SIZE} perguntas, das mais fáceis para as mais
+          difíceis. Precisas de {passMarkFor(BLOCK_SIZE)} certas para abrir a
+          secção A2, depois B1, depois B2 — e o teste para assim que uma secção
+          te escapar. Podes voltar atrás e mudar respostas antes de entregar.
         </p>
         <p className="text-sm text-ink-faint">
-          A ladder, not a quiz: {BLOCK_SIZE} questions per level, and it stops
-          at the first section you don&apos;t clear — so you are never asked to
-          guess at grammar you haven&apos;t met. Small typos and missing accents
-          still count as correct.
+          A ladder, not a quiz: {BLOCK_SIZE} questions per level, easiest first,
+          and it stops at the first section you don&apos;t clear — so you are
+          never asked to guess at grammar you haven&apos;t met. You can move
+          back and forth and change any answer before you hand a section in.
+          Small typos and missing accents still count as correct.
         </p>
         {savedLevel ? (
           <p className="text-sm text-ink-soft">
-            Nível guardado neste momento: <span className="chip">{savedLevel}</span>
+            <Bi pt="Nível guardado neste momento" en="Your saved level" inline />:{" "}
+            <span className="chip">{savedLevel}</span>
           </p>
         ) : null}
         {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
-        <button className="btn-terra" onClick={start} disabled={busy || pending}>
-          {busy ? "A preparar…" : "Começar 🧭"}
-        </button>
+        {/*
+          ONE button. There used to be a second, low-emphasis one underneath
+          that placed you at A1 on the spot — and in Portuguese only, so it read
+          as "some other way to begin" to anyone who could not read it. People
+          were ending the test by pressing it.
 
-        {/* The way out for somebody who does not need testing. Low emphasis,
-            but plainly there — a beginner should not have to fail seven
-            questions to be told what they already said. */}
-        <button
-          className="btn-ghost w-full"
-          onClick={startAtA1}
-          disabled={busy || pending}
-        >
-          {pending ? "A preparar…" : "Sou mesmo principiante — começar do início"}
+          It is not needed any more either: a true beginner who simply answers
+          the A1 section is placed at A1 anyway (a missed first section places
+          you at the floor), and nothing is marked in front of them while they
+          do it, so it is no longer seven questions of visible failure.
+        */}
+        <button className="btn-terra" onClick={start} disabled={busy || pending}>
+          {busy ? (
+            <Bi pt="A preparar…" en="Getting ready…" inline />
+          ) : (
+            <Bi pt="Começar 🧭" en="Start" inline />
+          )}
         </button>
-        <p className="text-2xs text-ink-faint">
-          Nunca aprendeste português? Salta o teste. Ficas em A1 e podes fazer o
-          teste mais tarde, a partir do teu perfil.
-        </p>
       </div>
     );
   }
 
   // ── Question ────────────────────────────────────────────────────────
   const typedKind = current.kind === "dictation" || current.kind === "write";
-  const blockLength = sizes[LEVELS[levelIdx]] ?? BLOCK_SIZE;
+  const blockLength = block.length;
+  const onLast = idx === blockLength - 1;
 
   return (
     <div className="space-y-4">
@@ -612,26 +580,45 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
             : "a começar"}
         </span>
       </div>
+      {/*
+        Tappable, not decorative. Once the learner can move around the section,
+        the progress bar is the map — filled means answered, and any square is
+        one tap away. Real tap targets (h-1.5 alone is unhittable on a phone),
+        so each bar sits inside a 44px-tall button.
+      */}
       <div className="flex items-center gap-1.5">
-        {Array.from({ length: blockLength }, (_, i) => (
-          <span
-            key={i}
-            className={cn(
-              "h-1.5 flex-1 rounded-full transition-colors",
-              i < blockAsked - 1
-                ? "bg-olive"
-                : i === blockAsked - 1
-                  ? "bg-terra"
-                  : "bg-sand"
-            )}
-          />
-        ))}
+        {block.map((q, i) => {
+          const done = (answers[q.id] ?? "").trim().length > 0;
+          return (
+            <button
+              key={q.id}
+              type="button"
+              onClick={() => goTo(i)}
+              disabled={busy}
+              aria-label={`Pergunta ${i + 1}${done ? " (respondida)" : ""}`}
+              aria-current={i === idx ? "step" : undefined}
+              className="tap-44 flex flex-1 items-center py-2"
+            >
+              <span
+                className={cn(
+                  "h-1.5 w-full rounded-full transition-colors",
+                  i === idx
+                    ? "bg-terra"
+                    : done
+                      ? "bg-olive"
+                      : "bg-sand"
+                )}
+              />
+            </button>
+          );
+        })}
       </div>
 
       <div className="card p-5">
         <div className="flex flex-wrap items-center gap-2">
           <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-            {LEVELS[levelIdx]} · pergunta {blockAsked} de {blockLength}
+            {LEVELS[levelIdx]} · <Bi pt="pergunta" en="question" inline />{" "}
+            {idx + 1} / {blockLength}
           </p>
           <span className="chip bg-cream text-ink-soft">
             {KIND_LABEL[current.kind]}
@@ -660,16 +647,17 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         {current.options ? (
           <div className="mt-4 grid gap-2">
             {current.options.map((opt) => {
-              // Selected is shown; RIGHT is not. The tap registers and the
-              // next question arrives — no colour telling them how it went.
-              const chosen = typed === opt;
+              // Selected is shown; RIGHT is not. Tapping records the choice
+              // and moves on, but the choice stays changeable — come back and
+              // tap another and it simply replaces this one.
+              const chosen = given === opt;
               return (
                 <button
                   key={opt}
                   disabled={busy}
                   onClick={() => {
-                    setTyped(opt);
-                    void check(opt);
+                    setAnswer(opt);
+                    if (!onLast) goTo(idx + 1);
                   }}
                   className={cn(
                     "rounded-xl border px-4 py-3 text-left transition-all",
@@ -700,7 +688,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                       key={`${w}-${i}`}
                       disabled={busy}
                       onClick={() =>
-                        setPicked((p) => p.filter((_, j) => j !== i))
+                        setAnswer(picked.filter((_, j) => j !== i).join(" "))
                       }
                       className="rounded-lg bg-olive px-2.5 py-1.5 text-sm text-paper"
                     >
@@ -721,7 +709,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                   <button
                     key={`${w}-${i}`}
                     disabled={used || busy}
-                    onClick={() => setPicked((p) => [...p, w])}
+                    onClick={() => setAnswer([...picked, w].join(" "))}
                     className={cn(
                       "rounded-lg border px-2.5 py-1.5 text-sm transition-all",
                       used
@@ -740,10 +728,13 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         {/* Dictation and free writing */}
         {typedKind ? (
           <textarea
-            value={typed}
-            onChange={(e) => setTyped(e.target.value)}
+            value={given}
+            onChange={(e) => setAnswer(e.target.value)}
             onKeyDown={(e) => {
-              if ((e.metaKey || e.ctrlKey) && e.key === "Enter") void check();
+              if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
+                if (onLast) void submitBlock();
+                else goTo(idx + 1);
+              }
             }}
             rows={2}
             disabled={busy}
@@ -762,26 +753,104 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       </div>
 
       {/*
-        One button, one meaning: record it and move on. The old pair —
-        "Verificar" then "Continuar" — existed to show a result in between,
-        and there is no result to show any more. Choice and gap submit on tap.
+        Move, don't commit. Nothing is marked until the section is handed in,
+        so every one of these is reversible — which is the whole point of being
+        able to go back. Bilingual because a learner who cannot read the button
+        cannot know which of these ends anything.
       */}
-      {typedKind || current.kind === "wordbank" ? (
+      <div className="flex items-center gap-2">
         <button
-          className="btn-terra w-full"
-          onClick={() => void check()}
-          disabled={busy || !answerText().trim()}
+          className="btn-ghost"
+          onClick={() => goTo(idx - 1)}
+          disabled={busy || idx === 0}
         >
-          {busy
-            ? "A guardar…"
-            : blockAsked >= blockLength
-              ? `Terminar secção ${LEVELS[levelIdx]} →`
-              : "Responder →"}
+          <Bi pt="← Anterior" en="Back" inline />
+        </button>
+
+        {onLast ? (
+          <button
+            className="btn-terra flex-1"
+            onClick={() => void submitBlock()}
+            disabled={busy}
+          >
+            {busy ? (
+              <Bi pt="A corrigir…" en="Marking…" inline />
+            ) : (
+              <Bi
+                pt={`Entregar secção ${LEVELS[levelIdx]}`}
+                en="Hand in this section"
+                inline
+              />
+            )}
+          </button>
+        ) : (
+          <button
+            className="btn-primary flex-1"
+            onClick={() => goTo(idx + 1)}
+            disabled={busy}
+          >
+            <Bi pt="Seguinte →" en="Next" inline />
+          </button>
+        )}
+      </div>
+
+      {/* Answered count, and the early way out once everything is filled in —
+          nobody should have to walk back to the last question to hand in. */}
+      <p className="text-center text-xs text-ink-faint">
+        <Bi
+          pt={`${answeredCount} de ${blockLength} respondidas`}
+          en={`${answeredCount} of ${blockLength} answered`}
+          inline
+        />
+        {answeredCount < blockLength ? (
+          <>
+            {" · "}
+            <Bi
+              pt="as que ficarem em branco contam como erradas"
+              en="blanks count as wrong"
+              inline
+            />
+          </>
+        ) : null}
+      </p>
+      {!onLast && answeredCount === blockLength ? (
+        <button
+          className="btn-ghost w-full"
+          onClick={() => void submitBlock()}
+          disabled={busy}
+        >
+          <Bi
+            pt={`Entregar secção ${LEVELS[levelIdx]}`}
+            en="Hand in this section"
+            inline
+          />
         </button>
       ) : null}
 
-      <button className="btn-ghost" onClick={reset} disabled={busy}>
-        Recomeçar
+      {error ? (
+        <p className="rounded-xl bg-terra-pale px-3 py-2 text-sm text-terra-dark">
+          {error}
+        </p>
+      ) : null}
+
+      {/* Two taps, because it throws away every answer in the section. */}
+      <button
+        className="btn-ghost"
+        onClick={() => {
+          if (confirmReset) reset();
+          else setConfirmReset(true);
+        }}
+        disabled={busy}
+      >
+        {confirmReset ? (
+          <Bi
+            pt="Tens a certeza? Perdes as respostas"
+            en="Sure? This clears your answers"
+            inline
+          />
+        ) : (
+          <Bi pt="Recomeçar" en="Start over" inline />
+        )}
       </button>
     </div>
   );
