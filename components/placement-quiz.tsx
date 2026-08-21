@@ -32,6 +32,28 @@ type PlacementSummaryView = Omit<PlacementSummary, "level" | "gaps" | "at"> & {
   }[];
 };
 
+/**
+ * Portuguese with the English under it — ALWAYS, not via <Bi>.
+ *
+ * <Bi> follows the household's bilingual setting, which defaults to OFF and
+ * belongs to a household that has not been created yet when somebody sits this
+ * test. The placement result is the first thing a learner reads about their own
+ * Portuguese, and it is read by people who may not have any: telling them in
+ * Portuguese alone that the test has ended and where they have been placed is
+ * the one place in the app that cannot afford to be misunderstood.
+ *
+ * The intro screen already prints both. This is the rest of the screen catching
+ * up with it.
+ */
+function Both({ pt, en }: { pt: React.ReactNode; en: React.ReactNode }) {
+  return (
+    <div className="space-y-1">
+      <p className="text-sm text-ink-soft">{pt}</p>
+      <p className="text-sm text-ink-faint">{en}</p>
+    </div>
+  );
+}
+
 const BLURB: Record<Level, { pt: string; en: string }> = {
   A1: {
     pt: "Iniciante — cumprimentos, presente e frases curtas do dia a dia.",
@@ -301,27 +323,58 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
             ? `Secção ${gate.level} terminada`
             : `Secção ${gate.level}: ${gate.right}/${gate.of}`}
         </h2>
+        <p className="-mt-2 text-xs text-ink-faint">
+          {gate.passed
+            ? `Section ${gate.level} finished`
+            : `Section ${gate.level}: ${gate.right} of ${gate.of}`}
+        </p>
         {gate.passed ? (
-          <p className="text-sm text-ink-soft">
-            {nextLevel ? (
-              <>
-                Passaste. A seguir vêm as perguntas de{" "}
-                <strong>{nextLevel}</strong> — se ficarem difíceis, para aí
-                mesmo. É suposto.
-              </>
-            ) : (
-              <>Passaste tudo. Não há nível acima deste no teste.</>
-            )}
-          </p>
+          nextLevel ? (
+            <Both
+              pt={
+                <>
+                  Passaste. A seguir vêm as perguntas de{" "}
+                  <strong>{nextLevel}</strong> — se ficarem difíceis, para aí
+                  mesmo. É suposto.
+                </>
+              }
+              en={
+                <>
+                  You passed. Next come the <strong>{nextLevel}</strong>{" "}
+                  questions — if they get hard, stop there. That is how this
+                  works.
+                </>
+              }
+            />
+          ) : (
+            <Both
+              pt="Passaste tudo. Não há nível acima deste no teste."
+              en="You cleared everything. There is no level above this one in the test."
+            />
+          )
         ) : (
           /* Failing is the mechanism, not a verdict on the person. Say what
-             happens next in the same breath as what went wrong. */
-          <p className="text-sm text-ink-soft">
-            Precisavas de {passMarkFor(gate.of)} para avançar, por isso o teste
-            fica por aqui — é assim que funciona. Começas em{" "}
-            <strong>{placeAt(levelIdx)}</strong>, que é exatamente onde o curso
-            te vai ser útil.
-          </p>
+             happens next in the same breath as what went wrong — and say it in
+             both languages, because this is the sentence that tells somebody
+             the test is over. */
+          <Both
+            pt={
+              <>
+                Precisavas de {passMarkFor(gate.of)} para avançar, por isso o
+                teste fica por aqui — é assim que funciona. Começas em{" "}
+                <strong>{placeAt(levelIdx)}</strong>, que é exatamente onde o
+                curso te vai ser útil.
+              </>
+            }
+            en={
+              <>
+                You needed {passMarkFor(gate.of)} to move up, so the test stops
+                here — that is how it is meant to work. You start at{" "}
+                <strong>{placeAt(levelIdx)}</strong>, which is exactly where the
+                course will be useful to you.
+              </>
+            }
+          />
         )}
         <button
           className="btn-primary w-full"
@@ -352,20 +405,29 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
       <div className="space-y-4">
         <div className="card p-6 text-center">
           {totalAsked > 0 ? (
-            <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-              Acertaste {total} de {totalAsked}
-              {nearMisses > 0
-                ? ` · ${nearMisses} com pequenos erros de escrita`
-                : ""}
-            </p>
+            <div>
+              <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
+                Acertaste {total} de {totalAsked}
+                {nearMisses > 0
+                  ? ` · ${nearMisses} com pequenos erros de escrita`
+                  : ""}
+              </p>
+              <p className="text-xs text-ink-faint">
+                You got {total} of {totalAsked} right
+                {nearMisses > 0
+                  ? ` · ${nearMisses} counted despite small spelling slips`
+                  : ""}
+              </p>
+            </div>
           ) : (
             <p className="text-xs font-semibold tracking-wide text-ink-faint uppercase">
-              Começar do início
+              Começar do início · Starting from the beginning
             </p>
           )}
           <h2 className="mt-2 font-display text-3xl font-semibold">
             O teu nível: {result}
           </h2>
+          <p className="text-xs text-ink-faint">Your level: {result}</p>
           <p className="mt-2 text-ink-soft">{BLURB[result].pt}</p>
           <p className="mt-1 text-sm text-ink-faint">{BLURB[result].en}</p>
 
@@ -392,7 +454,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
               {summary.canDoEn?.length > 0 ? (
                 <div>
-                  <p className="label">Já consegues</p>
+                  <p className="label">Já consegues · What you can do</p>
                   <ul className="mt-1 space-y-1">
                     {summary.canDoEn.map((c, i) => (
                       <li key={i} className="text-sm text-ink-soft">
@@ -405,7 +467,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
               {summary.gapsEn?.length > 0 ? (
                 <div>
-                  <p className="label">A trabalhar</p>
+                  <p className="label">A trabalhar · To work on</p>
                   <div className="mt-1 space-y-1.5">
                     {summary.gapsEn.map((g, i) => (
                       <div
@@ -430,7 +492,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               */}
               {summary.review && summary.review.length > 0 ? (
                 <div>
-                  <p className="label">O que escapou</p>
+                  <p className="label">O que escapou · What slipped</p>
                   <div className="mt-1 space-y-1.5">
                     {summary.review.map((r, i) => (
                       <div
@@ -455,7 +517,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
 
               <div className="rounded-xl bg-azul-pale/60 px-3 py-2">
                 <p className="text-xs font-semibold tracking-wide text-azul uppercase">
-                  Primeiro passo
+                  Primeiro passo · First step
                 </p>
                 <p className="mt-0.5 text-sm text-azul">{summary.focusEn}</p>
               </div>
@@ -465,8 +527,13 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               </p>
               <p className="text-2xs text-ink-faint">
                 O plano em baixo vem destes resultados. A seguir, umas
-                perguntas rápidas sobre como gostas de estudar — a Sandra
-                refaz o plano com essas respostas.
+                perguntas rápidas sobre como gostas de estudar — a Sandra refaz
+                o plano com essas respostas.
+                <span className="mt-1 block text-ink-faint">
+                  The plan below comes from these results. Next come a few quick
+                  questions about how you like to study — Sandra rebuilds the
+                  plan with those answers.
+                </span>
               </p>
             </div>
           ) : null}
@@ -492,7 +559,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
               className="group mt-5 block rounded-2xl border border-olive/30 bg-sage-pale/70 p-4 text-left transition-all hover:border-olive hover:shadow-md"
             >
               <div className="text-2xs font-semibold tracking-widest text-olive/70 uppercase">
-                Começa aqui
+                Começa aqui · Start here
               </div>
               <div className="font-display text-lg font-semibold text-olive group-hover:underline">
                 {startUnit.title}
@@ -508,6 +575,9 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
           ) : saved ? (
             <p className="mt-3 text-sm text-olive">
               Nível guardado. Os testes, lições e histórias já vêm em {result}.
+              <span className="mt-0.5 block text-ink-faint">
+                Level saved. Quizzes, lessons and stories now arrive at {result}.
+              </span>
             </p>
           ) : null}
           {error ? <p className="mt-3 text-sm text-terra-dark">{error}</p> : null}
@@ -526,7 +596,7 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         {saved ? (
           <div className="text-left">
             <p className="label mb-2">
-              <Bi pt="O teu plano" en="Your plan" inline />
+              O teu plano · Your plan
             </p>
             <LearningPlanCard initial={null} />
           </div>
