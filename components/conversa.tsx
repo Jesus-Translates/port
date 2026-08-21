@@ -724,66 +724,69 @@ export function Conversa({
       </div>
 
       {/*
-        The score, accumulating.
+        The score, accumulating — and PINNED.
+
         This screen used to have no end at all: nothing was counted, so nothing
         could be finished, and a course step that opened Sandra could never be
         completed. The bar is the missing feedback — every answer moves it, and
         it is what unlocks the finish.
+
+        It sticks because a conversation grows downwards. Sitting above the
+        transcript, it scrolled out of reach after a few exchanges, so the one
+        number that says whether you are nearly done was the one thing you had
+        to leave the conversation to check. Now it follows you.
+
+        top-0 on phones (no header there) and below the sticky header from sm:
+        up, matching what homework-work.tsx already does. Compact on purpose —
+        anything pinned to a chat is space taken from the chat, so the finish
+        button only appears once it can actually be pressed, and until then the
+        same information rides along as "faltam N".
       */}
-      <div className="card space-y-2 p-4">
-        <div className="flex items-baseline justify-between gap-2">
-          <span className="text-2xs font-semibold tracking-[.09em] text-ink-soft uppercase">
-            Pontos da conversa
+      <div className="sticky top-0 z-20 -mx-4 border-b border-sand/70 bg-paper/95 px-4 py-2 backdrop-blur sm:top-[4.25rem]">
+        <div className="flex items-center gap-3">
+          <span className="hidden text-2xs font-semibold tracking-[.09em] text-ink-soft uppercase sm:inline">
+            <Bi pt="Pontos" en="Points" inline />
           </span>
-          <span className="font-display text-lg font-semibold text-terra tabular-nums">
+          <div className="h-2 min-w-16 flex-1 overflow-hidden rounded-full bg-cream">
+            <div
+              className="h-2 rounded-full bg-terra transition-[width] duration-500 ease-out"
+              style={{ width: `${Math.min(100, (xp / CONVERSA_GOAL) * 100)}%` }}
+            />
+          </div>
+          <span className="font-display text-base font-semibold text-terra tabular-nums">
             {xp}
-            <span className="text-xs font-normal text-ink-faint">
-              /{CONVERSA_GOAL} XP
+            <span className="text-2xs font-normal text-ink-faint">
+              /{CONVERSA_GOAL}
             </span>
           </span>
+          {xp >= CONVERSA_GOAL ? (
+            <button
+              className="btn-primary shrink-0 px-3 py-1.5 text-sm"
+              onClick={end}
+              disabled={pending}
+            >
+              {pending ? (
+                <Bi pt="…" en="…" inline />
+              ) : (
+                <Bi pt="Terminar ✓" en="Finish" inline />
+              )}
+            </button>
+          ) : (
+            <span className="shrink-0 text-2xs text-ink-faint tabular-nums">
+              <Bi
+                pt={`faltam ${CONVERSA_GOAL - xp}`}
+                en={`${CONVERSA_GOAL - xp} to go`}
+                inline
+              />
+            </span>
+          )}
         </div>
-        <div className="h-2 overflow-hidden rounded-full bg-cream">
-          <div
-            className="h-2 rounded-full bg-terra transition-[width] duration-500 ease-out"
-            style={{ width: `${Math.min(100, (xp / CONVERSA_GOAL) * 100)}%` }}
-          />
-        </div>
+        {/* The reason the number moved, right where the number is. */}
         {gain ? (
-          <p className="text-xs text-olive">
+          <p className="mt-1 text-xs text-olive">
             +{gain.xp} XP{gain.why ? ` — ${gain.why}` : ""}
           </p>
-        ) : (
-          <p className="text-xs text-ink-faint">
-            {xp >= CONVERSA_GOAL
-              ? "Já chega para terminar — fala mais se quiseres."
-              : "Frases inteiras valem mais do que “sim”."}
-          </p>
-        )}
-        <button
-          className={cn(
-            "w-full",
-            xp >= CONVERSA_GOAL ? "btn-primary" : "btn-ghost"
-          )}
-          onClick={end}
-          disabled={pending || xp < CONVERSA_GOAL}
-          title={
-            xp < CONVERSA_GOAL
-              ? `Faltam ${CONVERSA_GOAL - xp} XP para terminar`
-              : undefined
-          }
-        >
-          {pending ? (
-            <Bi pt="A Sandra está a pensar…" en="Sandra is thinking…" inline />
-          ) : xp >= CONVERSA_GOAL ? (
-            <Bi pt="Terminar e ver as correções ✓" en="Finish and see corrections" inline />
-          ) : (
-            <Bi
-              pt={`Faltam ${CONVERSA_GOAL - xp} XP`}
-              en={`${CONVERSA_GOAL - xp} XP to go`}
-              inline
-            />
-          )}
-        </button>
+        ) : null}
       </div>
 
       <div className="space-y-3">
