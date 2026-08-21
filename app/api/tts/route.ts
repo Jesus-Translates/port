@@ -17,6 +17,9 @@ export const maxDuration = 60;
  *   ?placement=ID a placement dictation item — the whole question is that you
  *                cannot read it, so the sentence never leaves the server
  */
+/** One sentence to read aloud, generously. Azure bills per character. */
+const MAX_SPOKEN_CHARS = 400;
+
 export async function GET(request: NextRequest) {
   const session = await getSession();
   if (!session) {
@@ -65,7 +68,16 @@ export async function GET(request: NextRequest) {
     const item = BANK.find((i) => i.id === p.get("placement"));
     text = item?.kind === "dictation" ? item.say : null;
   } else {
-    text = p.get("text");
+    /*
+     * CAPPED. The free-text path speaks whatever it is handed, and Azure bills
+     * per character — so an uncapped one is a way to spend a household's whole
+     * allowance in a handful of requests, and now that a speak button sits on
+     * most of the app it is also the path most likely to be handed something
+     * enormous by accident. A sentence to read aloud is never this long; the
+     * id-based paths above are bounded by their own rows.
+     */
+    const raw = p.get("text");
+    text = raw ? raw.slice(0, MAX_SPOKEN_CHARS) : null;
   }
 
   if (!text?.trim()) {

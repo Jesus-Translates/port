@@ -506,9 +506,14 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
                         <p className="mt-1 text-sm text-terra-dark line-through decoration-terra/50">
                           {r.given || "(em branco)"}
                         </p>
-                        <p className="font-display text-base font-semibold text-olive">
-                          {r.correct}
-                        </p>
+                        {/* Here the answer is already shown, so hearing it is
+                            the point — this is the correction, not the test. */}
+                        <div className="flex items-center gap-2">
+                          <p className="font-display text-base font-semibold text-olive">
+                            {r.correct}
+                          </p>
+                          <AudioButton text={r.correct} className="shrink-0" />
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -717,10 +722,26 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
         </div>
 
         <h2 className="mt-2 text-lg font-semibold">{current.promptEn}</h2>
+        {/*
+          Hear the sentence — but ONLY the prompt, never an answer.
+
+          A gap or a choice shows its Portuguese on screen already, so reading
+          it aloud adds listening practice and gives nothing away. A `write` or
+          `wordbank` item is the opposite: its answer is the thing being asked
+          for and never leaves the server, so there is deliberately no speak
+          button on those. Dictation has its own, below — there, the audio IS
+          the question.
+        */}
         {current.promptPt ? (
-          <p className="mt-1 font-display text-xl text-ink-soft">
-            {current.promptPt}
-          </p>
+          <div className="mt-1 flex items-start gap-2">
+            <p className="font-display text-xl text-ink-soft">
+              {current.promptPt}
+            </p>
+            <AudioButton
+              text={current.promptPt}
+              className="mt-1 shrink-0"
+            />
+          </div>
         ) : null}
 
         {/* Dictation: the sentence never comes to the browser, so the audio is
