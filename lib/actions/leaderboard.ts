@@ -3,6 +3,7 @@
 import { and, desc, eq, gte, sql } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { activity, getDb } from "@/lib/db";
+import { lisbonWeekStart } from "@/lib/period";
 
 /**
  * Today's XP across every household — the one place families are compared.
@@ -53,32 +54,6 @@ function startOfDayLisbon(): Date {
   return new Date(`${day}T00:00:00Z`);
 }
 
-export async function getGlobalLeaderboard(limit = 20): Promise<LeaderRow[]> {
-  const session = await requireSession();
-  const db = getDb();
-
-  // Grouped query, never a correlated sub-select — that pattern binds to the
-  // wrong table here and silently returns zeros.
-  const rows = await db
-    .select({
-      username: activity.username,
-      xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
-    })
-    .from(activity)
-    .where(gte(activity.createdAt, startOfDayLisbon()))
-    .groupBy(activity.username)
-    .orderBy(desc(sql`coalesce(sum(${activity.xp}), 0)`))
-    .limit(Math.min(50, Math.max(1, limit)));
-
-  return rows
-    .filter((r) => r.xp > 0)
-    .map((r) => ({
-      masked: mask(r.username),
-      xp: r.xp,
-      isMe: r.username === session.username,
-    }));
-}
-
 /**
  * What the signed-in learner has done today: XP earned, and things finished.
  *
@@ -103,4 +78,42 @@ export async function getMyToday(): Promise<{ xp: number; done: number }> {
       )
     );
   return { xp: row?.xp ?? 0, done: row?.done ?? 0 };
+}
+
+/**
+ * The public weekly high score — everyone on the platform, this week.
+ *
+ * Weekly rather than daily because a day is mostly a measure of who happened
+ * to practise after dinner, and because a board that RESETS is the only kind a
+ * newcomer can ever win. Monday, Lisbon (lib/period) — the same week the rest
+ * of the app counts.
+ *
+ * NAMES STAY MASKED, and that is not negotiable by making the board public.
+ * Children are real users here. A public scoreboard is a scoreboard, not a
+ * directory: what another family learns is that somebody whose name starts Ro
+ * and ends t had a good week, which is all a leaderboard needs and all this
+ * one may reveal. Nothing else crosses — no household, no level, no link, no
+ * way to reach the person.
+ */
+export async function getGlobalWeekly(limit = 20): Promise<LeaderRow[]> {
+  const session = await requireSession();
+
+  const rows = await getDb()
+    .select({
+      username: activity.username,
+      xp: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
+    })
+    .from(activity)
+    .where(gte(activity.createdAt, lisbonWeekStart()))
+    .groupBy(activity.username)
+    .orderBy(desc(sql`coalesce(sum(${activity.xp}), 0)`))
+    .limit(Math.min(50, Math.max(1, limit)));
+
+  return rows
+    .filter((r) => r.xp > 0)
+    .map((r) => ({
+      masked: mask(r.username),
+      xp: r.xp,
+      isMe: r.username === session.username,
+    }));
 }

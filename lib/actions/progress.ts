@@ -1,9 +1,10 @@
 "use server";
 
-import { and, desc, gte, inArray, sql } from "drizzle-orm";
+import { and, gte, inArray, sql } from "drizzle-orm";
 import { requireSession } from "@/lib/auth";
 import { activity, getDb } from "@/lib/db";
 import { householdUsernames } from "@/lib/tenant";
+import { lisbonMonthStart, lisbonWeekStart } from "@/lib/period";
 
 /**
  * Everything the Progresso screen draws, derived from the activity table.
@@ -114,43 +115,60 @@ export async function getHeatmap(): Promise<HeatCell[]> {
 
 export type LeagueRow = {
   username: string;
-  xp: number;
+  /** XP this week (from Monday), this month (from the 1st), and ever. */
+  week: number;
+  month: number;
+  all: number;
   isMe: boolean;
 };
 
 /**
- * The household league for the last seven days.
+ * The household league, over three windows at once.
  *
  * HOUSEHOLD, not global. Every other surface in this app is walled off by
  * family on purpose, and a league that reached across them would undo that —
- * the cross-family scoreboard exists separately on the same screen, with
- * every name masked.
+ * the cross-family scoreboard exists separately, with every name masked.
+ *
+ * Three windows because they say different things and a family needs all of
+ * them. The week is who is going well RIGHT NOW, and it resets, so nobody is
+ * permanently behind. The month is whether that was a good week or a habit.
+ * All-time is the one a child who joined last year keeps winning, which is
+ * exactly why it must not be the only one on the screen.
+ *
+ * One query, not three: conditional sums over the same scan. The windows all
+ * start at a Lisbon boundary (lib/period), the same Monday the AI allowance
+ * resets on — two definitions of "this week" would eventually disagree.
  */
 export async function getHouseholdLeague(): Promise<LeagueRow[]> {
   const session = await requireSession();
   const mine = await householdUsernames();
   if (mine.length === 0) return [];
 
+  const weekStart = lisbonWeekStart();
+  const monthStart = lisbonMonthStart();
+
   const rows = await getDb()
     .select({
       username: activity.username,
-      xp: sql<number>`coalesce(sum(${activity.xp}),0)::int`,
+      week: sql<number>`coalesce(sum(${activity.xp}) filter (where ${activity.createdAt} >= ${weekStart}), 0)::int`,
+      month: sql<number>`coalesce(sum(${activity.xp}) filter (where ${activity.createdAt} >= ${monthStart}), 0)::int`,
+      all: sql<number>`coalesce(sum(${activity.xp}), 0)::int`,
     })
     .from(activity)
-    .where(
-      and(inArray(activity.username, mine), gte(activity.createdAt, since(6)))
-    )
-    .groupBy(activity.username)
-    .orderBy(desc(sql`coalesce(sum(${activity.xp}),0)`));
+    .where(inArray(activity.username, mine))
+    .groupBy(activity.username);
 
   // Everyone in the house appears, including whoever did nothing this week —
   // a league that hides the people at the bottom is not a family board.
-  const seen = new Map(rows.map((r) => [r.username, r.xp]));
-  return mine
-    .map((username) => ({
+  const seen = new Map(rows.map((r) => [r.username, r]));
+  return mine.map((username) => {
+    const r = seen.get(username);
+    return {
       username,
-      xp: seen.get(username) ?? 0,
+      week: Number(r?.week ?? 0),
+      month: Number(r?.month ?? 0),
+      all: Number(r?.all ?? 0),
       isMe: username === session.username,
-    }))
-    .sort((a, b) => b.xp - a.xp);
+    };
+  });
 }

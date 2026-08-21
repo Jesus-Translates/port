@@ -1,4 +1,4 @@
-import { getGlobalLeaderboard } from "@/lib/actions/leaderboard";
+import { getGlobalWeekly } from "@/lib/actions/leaderboard";
 import { cn } from "@/lib/utils";
 
 /**
@@ -8,12 +8,12 @@ import { cn } from "@/lib/utils";
  * the database, so no browser ever receives another learner's real name.
  */
 export async function GlobalLeaderboard({ limit = 12 }: { limit?: number }) {
-  const rows = await getGlobalLeaderboard(limit).catch(() => []);
+  const rows = await getGlobalWeekly(limit).catch(() => []);
 
   if (rows.length === 0) {
     return (
       <p className="card p-6 text-center text-sm text-ink-soft">
-        Ainda ninguém marcou pontos hoje. Sê o primeiro.
+        Ainda ninguém marcou pontos esta semana. Sê o primeiro.
       </p>
     );
   }
@@ -45,7 +45,7 @@ export async function GlobalLeaderboard({ limit = 12 }: { limit?: number }) {
           <span className="font-display text-[15px] font-semibold text-terra tabular-nums">
             {r.xp} XP
           </span>
-          <span className="text-2xs text-ink-faint">hoje</span>
+          <span className="text-2xs text-ink-faint">esta semana</span>
         </div>
       ))}
     </div>

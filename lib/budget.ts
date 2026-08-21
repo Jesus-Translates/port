@@ -1,6 +1,9 @@
 import { cache } from "react";
 import { and, gte, inArray, sql } from "drizzle-orm";
 import { accounts, aiUsage, getDb, memberships } from "@/lib/db";
+// The same Monday the leaderboards count from — one definition, so a learner's
+// weekly allowance and their weekly score can never disagree about the week.
+import { lisbonWeekStart } from "@/lib/period";
 import { eq } from "drizzle-orm";
 import { grossMonthlyEur, multiplierFor } from "@/lib/plans";
 import { getSession } from "@/lib/auth";
@@ -142,16 +145,6 @@ export function warnAt(): number {
  * "Renews Monday" is a promise somebody can plan around; "renews 168 hours
  * after whenever you started" is not.
  */
-function lisbonWeekStart(): Date {
-  const now = new Date(
-    new Date().toLocaleString("en-US", { timeZone: "Europe/Lisbon" })
-  );
-  const dow = (now.getDay() + 6) % 7; // Monday = 0
-  now.setDate(now.getDate() - dow);
-  const day = now.toLocaleDateString("en-CA");
-  return new Date(`${day}T00:00:00Z`);
-}
-
 /** Days until the weekly allowance resets, for the meter's copy. */
 function daysToWeekReset(): number {
   const now = new Date(

@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { AzulejoHeader } from "@/components/azulejo-header";
 import { GlobalLeaderboard } from "@/components/global-leaderboard";
+import { HouseholdLeague } from "@/components/household-league";
 import { IconFlame } from "@/components/icons";
 import { requireSession } from "@/lib/auth";
 import { getCefrFor, getStats } from "@/lib/data";
@@ -10,7 +11,6 @@ import {
   getHouseholdLeague,
   getWeeklyXp,
 } from "@/lib/actions/progress";
-import { titleCase } from "@/lib/people";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Progresso" };
@@ -112,47 +112,16 @@ export default async function ProgressoPage() {
         </section>
       ) : null}
 
-      {league.length > 1 ? (
-        <section>
-          <div className="mb-2 flex items-baseline justify-between gap-2">
-            <p className="label mb-0">A tua casa</p>
-            <span className="text-2xs text-ink-faint">últimos 7 dias</span>
-          </div>
-          <div className="card divide-y divide-cream overflow-hidden">
-            {league.map((r, i) => (
-              <div
-                key={r.username}
-                className={cn(
-                  "flex items-center gap-3 px-4 py-3",
-                  r.isMe && "bg-sage-pale"
-                )}
-              >
-                <span
-                  className={cn(
-                    "grid size-[26px] shrink-0 place-items-center rounded-[9px] font-display text-[13px] font-semibold",
-                    i < 3 ? "bg-terra text-paper" : "bg-cream text-ink-faint"
-                  )}
-                >
-                  {i + 1}
-                </span>
-                <span className="min-w-0 flex-1 truncate text-[14.5px]">
-                  {titleCase(r.username)}
-                </span>
-                <span className="font-display text-[15px] font-semibold text-ink-soft tabular-nums">
-                  {r.xp} XP
-                </span>
-              </div>
-            ))}
-          </div>
-        </section>
-      ) : null}
+      {league.length > 1 ? <HouseholdLeague rows={league} /> : null}
 
       {/* The only cross-family surface in the app. Names are masked in the
           query, so this stays a scoreboard rather than a directory. */}
       <section>
         <div className="mb-2 flex items-baseline justify-between gap-2">
-          <p className="label mb-0">Tabela de hoje</p>
-          <span className="text-2xs text-ink-faint">todas as famílias</span>
+          <p className="label mb-0">Tabela da semana</p>
+          <span className="text-2xs text-ink-faint">
+            todas as famílias · desde segunda
+          </span>
         </div>
         <Suspense
           fallback={
