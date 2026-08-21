@@ -481,17 +481,32 @@ export async function getTtsAudio(
   // than a row with inline bytes, so the key is only stored once the PUT won.
   const key = await putAudio(audioKey("tts", hash), buf);
 
+  const row = {
+    text: clean,
+    voice: voiceUsed,
+    // R2 when configured, inline base64 when not — one row either way.
+    audioB64: key ? null : buf.toString("base64"),
+    audioKey: key,
+    bytes: buf.length,
+  };
   await db
     .insert(ttsAudio)
-    .values({
-      hash,
-      text: clean,
-      voice: voiceUsed,
-      // R2 when configured, inline base64 when not — one row either way.
-      audioB64: key ? null : buf.toString("base64"),
-      audioKey: key,
-      bytes: buf.length,
-    })
-    .onConflictDoNothing({ target: ttsAudio.hash });
+    .values({ hash, ...row })
+    /*
+     * REPAIR the row on conflict; do not leave it.
+     *
+     * We only reach this line having just PAID to synthesize, and there are
+     * two ways to get here with the row already present: two people asked for
+     * the same new phrase at once, or — the expensive one — the row pointed at
+     * a stored object that has gone missing, so the read above fell through to
+     * re-synthesize rather than serve silence.
+     *
+     * Doing nothing on conflict left that broken row exactly as it was: the
+     * stale key still there, the fresh audio thrown away. So the NEXT play
+     * missed again, synthesized again, and threw it away again — the same
+     * phrase billing forever, which is the one thing a cache exists to stop.
+     * Writing what we just paid for means we pay for it once.
+     */
+    .onConflictDoUpdate({ target: ttsAudio.hash, set: row });
   return buf;
 }
