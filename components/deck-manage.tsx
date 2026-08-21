@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { deleteCards, masterCard, unmasterCard } from "@/lib/actions/deck";
 import { cn } from "@/lib/utils";
@@ -220,13 +221,17 @@ export function DeckManage({ rows }: { rows: DeckRow[] }) {
                   className="mt-1 h-4 w-4 shrink-0 accent-olive"
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-[15px]">
-                    <span className="text-ink-soft">{r.front}</span>
-                    <span className="mx-1.5 text-ink-faint" aria-hidden>
-                      →
-                    </span>
-                    <span className="font-display font-medium">{r.back}</span>
-                  </p>
+                  <div className="flex items-center gap-1.5">
+                    <p className="min-w-0 truncate text-[15px]">
+                      <span className="text-ink-soft">{r.front}</span>
+                      <span className="mx-1.5 text-ink-faint" aria-hidden>
+                        →
+                      </span>
+                      <span className="font-display font-medium">{r.back}</span>
+                    </p>
+                    {/* `back` is always the pt-PT side of the card. */}
+                    <AudioButton text={r.back} className="min-h-7 min-w-7 shrink-0 px-1.5" />
+                  </div>
                   <div className="mt-1 flex flex-wrap items-center gap-1.5">
                     <span className="chip bg-cream text-ink-soft">{r.kind}</span>
                     {mastered ? (

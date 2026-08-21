@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
@@ -107,9 +108,12 @@ export function GameResponde({
         <p className="text-xs tracking-widest text-ink-faint uppercase">
           Alguém te diz
         </p>
-        <p className="mt-2 font-display text-2xl font-semibold tracking-tight">
-          {round.prompt}
-        </p>
+        <div className="mt-2 flex items-center justify-center gap-2">
+          <p className="font-display text-2xl font-semibold tracking-tight">
+            {round.prompt}
+          </p>
+          <AudioButton text={round.prompt} className="shrink-0" />
+        </div>
         {picked !== null && (
           <p className="mt-1 text-sm text-ink-soft">{round.promptEn}</p>
         )}

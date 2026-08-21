@@ -178,7 +178,10 @@ function CompletedView({
                     {i + 1}. {q.promptEn}
                   </p>
                   {q.promptPt ? (
-                    <p className="text-sm text-ink-soft">{q.promptPt}</p>
+                    <div className="flex items-start gap-2">
+                      <p className="text-sm text-ink-soft">{q.promptPt}</p>
+                      <AudioButton text={q.promptPt} className="shrink-0" />
+                    </div>
                   ) : null}
                   {diff ? (
                     <AnswerDiff check={diff} nearMiss={near} className="mt-1.5" />
@@ -202,9 +205,15 @@ function CompletedView({
                           <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
                             Assim fica certo
                           </div>
-                          <p className="font-display text-[16px]">
-                            {r.correctedPt}
-                          </p>
+                          <div className="flex items-start gap-2">
+                            <p className="flex-1 font-display text-[16px]">
+                              {r.correctedPt}
+                            </p>
+                            <AudioButton
+                              text={r.correctedPt}
+                              className="mt-0.5 shrink-0"
+                            />
+                          </div>
                         </div>
                       ) : null}
                     </>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AudioButton } from "@/components/audio-button";
 import { CategoryView } from "@/components/category-view";
 import { requireSession } from "@/lib/auth";
 import { getCategoryBySlug } from "@/lib/data";
@@ -28,9 +29,12 @@ export default async function CategoryPage(
             {category.emoji}
           </span>
           <div>
-            <h1 className="text-2xl leading-tight font-semibold tracking-tight">
-              {category.namePt}
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-2xl leading-tight font-semibold tracking-tight">
+                {category.namePt}
+              </h1>
+              <AudioButton text={category.namePt} className="shrink-0" />
+            </div>
             <p className="text-sm text-ink-soft">
               {category.nameEn}
               {category.blurbEn ? ` — ${category.blurbEn}` : ""}

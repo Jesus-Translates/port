@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { cn } from "@/lib/utils";
@@ -164,11 +165,14 @@ export function MissionAttempt({
             ) : null}
 
             {result.correctedPt ? (
-              <div className="rounded-xl bg-azul-pale px-3 py-2 text-sm text-azul">
-                <span className="font-semibold">Diz assim: </span>
-                <span className="font-display text-[16px]">
-                  {result.correctedPt}
-                </span>
+              <div className="flex items-start gap-2 rounded-xl bg-azul-pale px-3 py-2 text-sm text-azul">
+                <p className="flex-1">
+                  <span className="font-semibold">Diz assim: </span>
+                  <span className="font-display text-[16px]">
+                    {result.correctedPt}
+                  </span>
+                </p>
+                <AudioButton text={result.correctedPt} className="shrink-0" />
               </div>
             ) : null}
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
@@ -124,13 +125,27 @@ export function GameVerbo({
         <span className="rounded-full bg-sand/60 px-2 py-0.5 text-xs text-ink-soft">
           {round.infinitive} · {round.tenseLabel}
         </span>
-        <p className="mt-3 font-display text-3xl font-semibold tracking-tight">
-          {round.person} {round.shown}
-        </p>
-        {verdict && !round.isCorrect && (
-          <p className="mt-2 text-sm text-terra">
-            certo: <strong>{round.person} {round.correct}</strong>
+        <div className="mt-3 flex items-center gap-2">
+          <p className="font-display text-3xl font-semibold tracking-tight">
+            {round.person} {round.shown}
           </p>
+          {/* Already fully visible — right or wrong is what's being judged,
+              not the text itself, so hearing it gives nothing away. */}
+          <AudioButton
+            text={`${round.person} ${round.shown}`}
+            className="shrink-0"
+          />
+        </div>
+        {verdict && !round.isCorrect && (
+          <div className="mt-2 flex items-center gap-2">
+            <p className="text-sm text-terra">
+              certo: <strong>{round.person} {round.correct}</strong>
+            </p>
+            <AudioButton
+              text={`${round.person} ${round.correct}`}
+              className="shrink-0"
+            />
+          </div>
         )}
         {verdict && round.isCorrect && (
           <p className="mt-2 text-sm text-sage">estava certo</p>

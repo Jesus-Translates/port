@@ -213,7 +213,14 @@ export function QuizPlayer({
           <div>
             <p className="font-display text-xl leading-snug">{q.promptEn}</p>
             {q.promptPt ? (
-              <p className="mt-1 text-sm text-ink-soft">{q.promptPt}</p>
+              <div className="mt-1 flex items-start gap-2">
+                <p className="text-sm text-ink-soft">{q.promptPt}</p>
+                {/* Speak has its own card with its own button for this exact
+                    string just below — a second one here would be a duplicate. */}
+                {!isSpeak ? (
+                  <AudioButton text={q.promptPt} className="shrink-0" />
+                ) : null}
+              </div>
             ) : null}
           </div>
         )}
@@ -329,21 +336,28 @@ export function QuizPlayer({
       {/* Footer: the feedback banner, then one button. */}
       <div className="sticky bottom-0 -mx-4 space-y-3 border-t border-cream bg-paper px-4 pt-3.5 pb-[calc(env(safe-area-inset-bottom)+1rem)]">
         {verdict ? (
-          <p
-            role="status"
-            className={cn(
-              "animate-ph-rise rounded-[13px] px-4 py-3 text-[13.5px] leading-snug font-medium",
-              verdict.correct
-                ? "bg-sage-pale text-olive"
-                : "bg-terra-pale text-terra-dark"
-            )}
-          >
-            {verdict.correct
-              ? verdict.verdict === "quase"
-                ? `Quase! ${verdict.explanation || "Só a escrita escorregou."}`
-                : verdict.explanation || "Certo!"
-              : `${verdict.answer ? `${verdict.answer}. ` : ""}${verdict.explanation}`}
-          </p>
+          <div className="flex items-start gap-2">
+            <p
+              role="status"
+              className={cn(
+                "animate-ph-rise flex-1 rounded-[13px] px-4 py-3 text-[13.5px] leading-snug font-medium",
+                verdict.correct
+                  ? "bg-sage-pale text-olive"
+                  : "bg-terra-pale text-terra-dark"
+              )}
+            >
+              {verdict.correct
+                ? verdict.verdict === "quase"
+                  ? `Quase! ${verdict.explanation || "Só a escrita escorregou."}`
+                  : verdict.explanation || "Certo!"
+                : `${verdict.answer ? `${verdict.answer}. ` : ""}${verdict.explanation}`}
+            </p>
+            {/* Wrong answer: the banner just revealed the correct pt-PT
+                answer — that's the correction, so hearing it is the point. */}
+            {!verdict.correct && verdict.answer ? (
+              <AudioButton text={verdict.answer} className="mt-1 shrink-0" />
+            ) : null}
+          </div>
         ) : null}
 
         <button

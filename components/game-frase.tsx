@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { WordBuilder } from "@/components/word-builder";
 import { completeItem } from "@/lib/actions/course";
@@ -414,12 +415,18 @@ export function GameFrase({
 
         {checked ? (
           checked.ok ? (
-            <div className="rounded-xl bg-sage-pale px-3 py-2 text-sm text-olive">
-              Certo! ✓{" "}
-              <span className="font-display">
-                {checked.correct.join(" ")}
-                {endMark(item.pt)}
+            <div className="flex items-center gap-2 rounded-xl bg-sage-pale px-3 py-2 text-sm text-olive">
+              <span className="flex-1">
+                Certo! ✓{" "}
+                <span className="font-display">
+                  {checked.correct.join(" ")}
+                  {endMark(item.pt)}
+                </span>
               </span>
+              <AudioButton
+                text={`${checked.correct.join(" ")}${endMark(item.pt)}`}
+                className="shrink-0"
+              />
             </div>
           ) : (
             <div className="space-y-3 rounded-xl bg-terra-pale/50 px-3 py-3">
@@ -429,12 +436,21 @@ export function GameFrase({
                 at={at}
                 tone="terra"
               />
-              <WordRow
-                title="A frase certa"
-                words={checked.correct}
-                at={at}
-                tone="olive"
-              />
+              <div className="flex items-start gap-2">
+                <div className="flex-1">
+                  <WordRow
+                    title="A frase certa"
+                    words={checked.correct}
+                    at={at}
+                    tone="olive"
+                  />
+                </div>
+                {/* The correct sentence, revealed — hearing it is the point. */}
+                <AudioButton
+                  text={`${checked.correct.join(" ")}${endMark(item.pt)}`}
+                  className="mt-5 shrink-0"
+                />
+              </div>
               <p className="text-xs text-terra-dark">
                 A primeira palavra diferente está marcada.{" "}
                 <span className="text-ink-soft">

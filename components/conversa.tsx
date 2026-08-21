@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AddToDeck } from "@/components/add-to-deck";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { UnitContinue } from "@/components/unit-return";
@@ -599,9 +600,10 @@ export function Conversa({
         <div className="card space-y-3 p-5">
           <h2 className="text-lg font-semibold">📋 Como correu</h2>
           <Markdown className="text-sm">{summary.resumoMd}</Markdown>
-          <p className="rounded-xl bg-sage-pale/60 px-3 py-2 text-sm text-olive">
-            👩‍🏫 {summary.encouragementPt}
-          </p>
+          <div className="flex items-start gap-2 rounded-xl bg-sage-pale/60 px-3 py-2 text-sm text-olive">
+            <p className="flex-1">👩‍🏫 {summary.encouragementPt}</p>
+            <AudioButton text={summary.encouragementPt} className="shrink-0" />
+          </div>
         </div>
 
         {/* What went RIGHT, first and quoted. A learner who has just spoken a
@@ -613,7 +615,12 @@ export function Conversa({
             <h3 className="font-semibold">✅ O que correu bem</h3>
             {summary.strengths.map((s2, i) => (
               <div key={i} className="rounded-xl border border-sage/40 bg-sage-pale/40 px-3 py-2 text-sm">
-                <p className="font-display text-base text-olive">“{s2.quotePt}”</p>
+                <div className="flex items-start gap-2">
+                  <p className="flex-1 font-display text-base text-olive">
+                    “{s2.quotePt}”
+                  </p>
+                  <AudioButton text={s2.quotePt} className="shrink-0" />
+                </div>
                 <p className="mt-0.5 text-xs text-ink-soft">{s2.whyEn}</p>
               </div>
             ))}
@@ -647,8 +654,13 @@ export function Conversa({
             </p>
             {summary.wordChoice.map((w, i) => (
               <div key={i} className="rounded-xl border border-sand bg-white/70 px-3 py-2 text-sm">
-                <span className="text-ink-soft">{w.saidPt}</span>{" "}
-                → <strong className="text-olive">{w.naturalPt}</strong>
+                <div className="flex items-start gap-2">
+                  <p className="flex-1">
+                    <span className="text-ink-soft">{w.saidPt}</span>{" "}
+                    → <strong className="text-olive">{w.naturalPt}</strong>
+                  </p>
+                  <AudioButton text={w.naturalPt} className="shrink-0" />
+                </div>
                 <p className="mt-0.5 text-xs text-ink-soft">{w.whyEn}</p>
               </div>
             ))}
@@ -663,10 +675,15 @@ export function Conversa({
             </p>
             {summary.corrections.map((c, i) => (
               <div key={i} className="rounded-xl border border-sand bg-white/70 px-3 py-2 text-sm">
-                <span className="text-terra-dark line-through decoration-terra/50">
-                  {c.saidPt}
-                </span>{" "}
-                → <strong className="text-olive">{c.betterPt}</strong>
+                <div className="flex items-start gap-2">
+                  <p className="flex-1">
+                    <span className="text-terra-dark line-through decoration-terra/50">
+                      {c.saidPt}
+                    </span>{" "}
+                    → <strong className="text-olive">{c.betterPt}</strong>
+                  </p>
+                  <AudioButton text={c.betterPt} className="shrink-0" />
+                </div>
                 <p className="mt-0.5 text-xs text-ink-soft">{c.tipEn}</p>
               </div>
             ))}
@@ -683,6 +700,7 @@ export function Conversa({
                     <strong>{w.pt}</strong>
                     <span className="text-ink-soft"> — {w.en}</span>
                   </span>
+                  <AudioButton text={w.pt} className="shrink-0" />
                   <AddToDeck pt={w.pt} en={w.en} compact />
                 </div>
               ))}
@@ -819,7 +837,12 @@ export function Conversa({
                     >
                       <Bi pt="🔊 repetir" en="replay" inline />
                     </button>
-                  ) : null}
+                  ) : (
+                    // No pre-fetched clip (voice was off, or this line was
+                    // restored from a saved conversation) — fall back to the
+                    // on-demand player so the line is never silent.
+                    <AudioButton text={m.text} className="min-h-7 min-w-7 px-1.5" />
+                  )}
                   {m.glossEn ? <GlossToggle en={m.glossEn} /> : null}
                 </span>
               ) : null}

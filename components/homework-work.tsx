@@ -2,6 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { AnswerDiff } from "@/components/answer-diff";
+import { AudioButton } from "@/components/audio-button";
 import Link from "next/link";
 import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
@@ -328,9 +329,12 @@ function ItemCard({
                     <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
                       Assim fica certo
                     </div>
-                    <p className="font-display text-[16px]">
-                      {item.correctedPt}
-                    </p>
+                    <div className="flex items-start gap-2">
+                      <p className="flex-1 font-display text-[16px]">
+                        {item.correctedPt}
+                      </p>
+                      <AudioButton text={item.correctedPt} className="mt-0.5 shrink-0" />
+                    </div>
                   </div>
                 ) : null}
               </>

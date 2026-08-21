@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import { completeItem } from "@/lib/actions/course";
@@ -66,7 +67,18 @@ export function StoryReader({
       <section className="card space-y-4 p-6">
         {ptParas.map((p, i) => (
           <div key={i}>
-            <p className="font-display text-[17px] leading-relaxed">{p}</p>
+            <div className="flex items-start gap-2">
+              <p className="flex-1 font-display text-[17px] leading-relaxed">
+                {p}
+              </p>
+              {/* Per paragraph, not the whole chapter — the header already has
+                  a "play the whole story" button. The /api/tts endpoint
+                  truncates past ~400 chars, so a paragraph that long is
+                  skipped rather than silently cut off. */}
+              {p.length <= 400 ? (
+                <AudioButton text={p} className="mt-0.5 shrink-0" />
+              ) : null}
+            </div>
             {showEn && enParas[i] ? (
               <p className="mt-1 text-sm text-ink-faint italic">{enParas[i]}</p>
             ) : null}
@@ -93,24 +105,28 @@ export function StoryReader({
           {story.glossary.map((g) => {
             const isSaved = saved.has(g.pt);
             return (
-              <button
-                key={g.pt}
-                disabled={isSaved}
-                onClick={() => {
-                  setSaved((s) => new Set(s).add(g.pt));
-                  startTransition(() => saveGlossaryWord(g.pt, g.en));
-                }}
-                className={cn(
-                  "rounded-full border px-3 py-1.5 text-sm transition-colors",
-                  isSaved
-                    ? "border-sage bg-sage-pale text-olive"
-                    : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
-                )}
-              >
-                <span className="font-medium">{g.pt}</span>
-                <span className="text-ink-faint"> · {g.en}</span>
-                {isSaved ? " ✓" : " +"}
-              </button>
+              // The word itself lives inside the save button (tapping it adds
+              // the card), so the player sits beside it, not inside it.
+              <span key={g.pt} className="inline-flex items-center gap-1">
+                <AudioButton text={g.pt} className="min-h-8 min-w-8 px-1.5" />
+                <button
+                  disabled={isSaved}
+                  onClick={() => {
+                    setSaved((s) => new Set(s).add(g.pt));
+                    startTransition(() => saveGlossaryWord(g.pt, g.en));
+                  }}
+                  className={cn(
+                    "rounded-full border px-3 py-1.5 text-sm transition-colors",
+                    isSaved
+                      ? "border-sage bg-sage-pale text-olive"
+                      : "border-sand bg-white/70 hover:border-sage hover:bg-sage-pale"
+                  )}
+                >
+                  <span className="font-medium">{g.pt}</span>
+                  <span className="text-ink-faint"> · {g.en}</span>
+                  {isSaved ? " ✓" : " +"}
+                </button>
+              </span>
             );
           })}
         </div>
@@ -120,9 +136,12 @@ export function StoryReader({
         <h2 className="font-semibold">🤔 Percebeste?</h2>
         {story.questions.map((q, i) => (
           <div key={i}>
-            <p className="font-medium">
-              {i + 1}. {q.promptPt}
-            </p>
+            <div className="flex items-start gap-2">
+              <p className="flex-1 font-medium">
+                {i + 1}. {q.promptPt}
+              </p>
+              <AudioButton text={q.promptPt} className="mt-0.5 shrink-0" />
+            </div>
             <div className="mt-2 grid gap-1.5">
               {q.options.map((opt) => {
                 const chosen = answers[i] === opt;

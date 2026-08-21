@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { completeItem } from "@/lib/actions/course";
 import { finishGame } from "@/lib/actions/games";
 import { GameProgress, GameResult } from "@/components/game-shell";
@@ -135,14 +136,25 @@ export function GameGenero({
               : ""
         }`}
       >
-        <p className="font-display text-3xl font-semibold tracking-tight">
-          {round.word}
-        </p>
+        <div className="flex items-center gap-2">
+          <p className="font-display text-3xl font-semibold tracking-tight">
+            {round.word}
+          </p>
+          {/* The noun itself, always visible — the article is what's being
+              tested, not the word. */}
+          <AudioButton text={round.word} className="shrink-0" />
+        </div>
         <p className="mt-1 text-sm text-ink-soft">{round.en}</p>
         {verdict === "wrong" && (
-          <p className="mt-2 text-sm font-medium text-terra">
-            {round.article} {round.word}
-          </p>
+          <div className="mt-2 flex items-center gap-2">
+            <p className="text-sm font-medium text-terra">
+              {round.article} {round.word}
+            </p>
+            <AudioButton
+              text={`${round.article} ${round.word}`}
+              className="shrink-0"
+            />
+          </div>
         )}
       </section>
 

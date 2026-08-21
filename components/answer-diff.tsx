@@ -1,3 +1,4 @@
+import { AudioButton } from "@/components/audio-button";
 import { type AnswerCheck, type DiffTok, spellingSlips } from "@/lib/diff";
 import { cn } from "@/lib/utils";
 
@@ -76,12 +77,19 @@ export function AnswerDiff({
           <div className="text-2xs font-semibold tracking-wide text-olive uppercase">
             Assim fica certo
           </div>
-          <Line
-            toks={check.target}
-            slips={slips.target}
-            side="target"
-            className="font-display text-[16px] text-ink"
-          />
+          <div className="flex items-start gap-2">
+            <Line
+              toks={check.target}
+              slips={slips.target}
+              side="target"
+              className="font-display text-[16px] text-ink"
+            />
+            {/* The corrected sentence, revealed — hearing it is the point. */}
+            <AudioButton
+              text={check.target.map((t) => t.text).join(" ")}
+              className="mt-0.5 shrink-0"
+            />
+          </div>
         </Row>
       </div>
     </div>

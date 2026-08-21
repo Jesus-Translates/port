@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { UnitContinue } from "@/components/unit-return";
 import type { UnitContext } from "@/lib/unit-context";
@@ -55,9 +56,12 @@ export function GameResult({
           </h2>
           <ul className="mt-2 divide-y divide-sand/70">
             {misses.slice(0, 10).map((m, i) => (
-              <li key={i} className="flex justify-between gap-3 py-1.5 text-sm">
-                <span className="font-medium">{m.pt}</span>
-                <span className="text-ink-soft">{m.en}</span>
+              <li key={i} className="flex items-center justify-between gap-3 py-1.5 text-sm">
+                <span className="flex min-w-0 items-center gap-1.5">
+                  <AudioButton text={m.pt} className="min-h-7 min-w-7 shrink-0 px-1.5" />
+                  <span className="truncate font-medium">{m.pt}</span>
+                </span>
+                <span className="shrink-0 text-ink-soft">{m.en}</span>
               </li>
             ))}
           </ul>

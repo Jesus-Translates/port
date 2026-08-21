@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useTransition } from "react";
+import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { addToDeck } from "@/lib/actions/deck";
 import { cn } from "@/lib/utils";
@@ -91,7 +92,12 @@ export function HarvestFromMarkdown({ md }: { md: string }) {
       {open ? (
         <div className="mt-1.5 flex flex-wrap gap-1.5">
           {words.map((w) => (
-            <AddToDeck key={w.pt} pt={w.pt} en={w.en} compact />
+            // AddToDeck renders its own <button> (with `pt` inside it in
+            // compact mode), so the player sits beside it, not inside it.
+            <span key={w.pt} className="inline-flex items-center gap-1">
+              <AudioButton text={w.pt} className="min-h-6 min-w-6 px-1" />
+              <AddToDeck pt={w.pt} en={w.en} compact />
+            </span>
           ))}
         </div>
       ) : null}
