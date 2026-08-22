@@ -80,12 +80,30 @@ export default async function PracticePage(props: PageProps<"/practice">) {
     },
   ];
 
+  /*
+   * Carry the unit context onto whatever they pick.
+   *
+   * This page is reached as a course step, and it read the context already —
+   * to show the way back — but every tile on it linked away without it. So
+   * picking the quiz worked and picking Conversa, Escutar, Ditado or Missões
+   * silently left the course: the activity ran fine and then had no "move on",
+   * because nothing downstream knew which step it was fulfilling.
+   */
+  const withUnit = (href: string) => {
+    if (!unit) return href;
+    const [path, query = ""] = href.split("?");
+    const p = new URLSearchParams(query);
+    p.set("unidade", unit.slug);
+    if (unit.itemId) p.set("item", String(unit.itemId));
+    return `${path}?${p.toString()}`;
+  };
+
   const grid = (
     <div className="space-y-6">
       {/* Rever leads on its own: it is the only tool whose value decays if you
           skip it, so it must not sit as one tile among twelve. */}
       <Link
-        href={REVER.href}
+        href={withUnit(REVER.href)}
         className={`card group flex items-center gap-4 p-4 transition-all hover:border-sage hover:shadow-md ${
           REVER.hot ? "border-terra/40 bg-terra-pale/30" : ""
         }`}
@@ -114,7 +132,7 @@ export default async function PracticePage(props: PageProps<"/practice">) {
             {g.items.map((m) => (
         <Link
           key={m.href}
-          href={m.href}
+          href={withUnit(m.href)}
           className="card group p-4 transition-all hover:border-sage hover:shadow-md"
         >
           <div className="text-2xl" aria-hidden>

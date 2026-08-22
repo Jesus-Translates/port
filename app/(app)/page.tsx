@@ -245,34 +245,33 @@ export default async function Dashboard() {
                 style={{ width: `${course.pct}%` }}
               />
             </div>
+            {/*
+              PROGRESS, not a second front door.
+              This card used to carry its own "Começar →" pointing at the same
+              unit as the "A seguir" card above it. Two buttons, same
+              destination, different words — and no way to tell which one was
+              the real start. The card above is the one place to begin; this is
+              how far the course has got.
+            */}
             <div className="mt-3 flex flex-wrap items-center gap-3">
               {course.next ? (
-                <Link
-                  href={`/unidades/${course.next.slug}`}
-                  className="btn-primary"
-                >
-                  {course.unitsDone === 0 && course.unitsStarted === 0
-                    ? "Começar →"
-                    : "Continuar →"}
-                </Link>
-              ) : (
-                <span className="chip bg-sage-pale text-olive">
-                  🏆 Nível {course.level} completo
-                </span>
-              )}
-              {course.next ? (
                 <span className="min-w-0 flex-1 truncate text-sm text-ink-soft">
+                  <span className="text-ink-faint">A seguir: </span>
                   {course.next.title}
                   {course.next.titlePt ? (
                     <span className="text-ink-faint"> · {course.next.titlePt}</span>
                   ) : null}
                 </span>
-              ) : null}
+              ) : (
+                <span className="chip bg-sage-pale text-olive">
+                  🏆 Nível {course.level} completo
+                </span>
+              )}
               <Link
                 href="/unidades"
                 className="text-xs text-ink-faint hover:text-olive"
               >
-                ver todas
+                ver todas · see all
               </Link>
             </div>
           </div>

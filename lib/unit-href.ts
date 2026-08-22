@@ -50,9 +50,18 @@ export function resolve(
     // lands on an empty form and everything knows the way back.
     case "vocab":
       if (!item.catSlug) return null; // a phrasebook link with no category is a dead end
+      /*
+       * The unit context belongs here too, and its absence was a real dead end.
+       *
+       * Every other kind below appends ?unidade=&item= — the comment above says
+       * "every destination", and this was the one that did not. A vocab step is
+       * usually step ONE of unit one, so the very first thing a new learner
+       * pressed took them to the phrasebook with no way back and no way to tick
+       * the step off. The course could not start.
+       */
       return {
         kind,
-        href: `/reference/${item.catSlug}`,
+        href: `/reference/${item.catSlug}?unidade=${encodeURIComponent(unitSlug)}&item=${item.id}`,
         hint: item.catName ?? "livro de referência",
       };
     case "quiz":
