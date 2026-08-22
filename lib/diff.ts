@@ -71,7 +71,50 @@ function lcsPairs(t: string[], a: string[]): [number, number][] {
   return pairs;
 }
 
+/**
+ * A model's sentence, with markup it should never have emitted removed.
+ *
+ * The grading prompt once TOLD the model that corrections are "shown struck
+ * through in red" — so it began helpfully producing that itself, and learners
+ * saw `<span style="color:red"><s>O</s></span> **No** domingo passado` sitting
+ * in the middle of their corrected sentence. The prompt no longer describes
+ * the rendering, but stored feedback still carries the markup, and a model can
+ * always misbehave again.
+ *
+ * So this strips it at the point of use, which fixes what is already written
+ * as well as anything new. It matters beyond looks: the raw tags were tokenised
+ * as words by the diff, and handed to the speech button to read aloud.
+ */
+export function plainPt(text: string): string {
+  return (
+    text
+      /*
+       * Struck-through text is a DELETION, so drop the words with the tag.
+       *
+       * The model emitted both halves of its own diff — "<s>O</s> **No**" —
+       * meaning "replace O with No". Stripping tags but keeping their content
+       * leaves "O No domingo … Torres vedras Vedras": every wrong word still
+       * sitting beside its correction. Removing the struck words rebuilds the
+       * sentence the learner was actually meant to read.
+       */
+      .replace(/<s\b[^>]*>[\s\S]*?<\/s>/gi, "")
+      .replace(/<del\b[^>]*>[\s\S]*?<\/del>/gi, "")
+      .replace(/~~[\s\S]*?~~/g, "")
+      // Everything else: keep the words, lose the markup.
+      .replace(/<[^>]*>/g, "")
+      .replace(/\*\*(.*?)\*\*/g, "$1")
+      .replace(/__(.*?)__/g, "$1")
+      .replace(/[*_`]/g, "")
+      // Tidy the gaps the removals left, including before punctuation.
+      .replace(/\s+/g, " ")
+      .replace(/\s+([,.;:!?])/g, "$1")
+      .trim()
+  );
+}
+
 export function checkAnswer(target: string, attempt: string): AnswerCheck {
+  target = plainPt(target);
+  attempt = plainPt(attempt);
   const tRaw = tokenize(target);
   const aRaw = tokenize(attempt);
   const t = tRaw.map(normalizeWord);

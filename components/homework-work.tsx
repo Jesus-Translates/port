@@ -18,7 +18,7 @@ import {
   submitHomeworkItem,
   submitHomework,
 } from "@/lib/actions/homework";
-import { checkAnswer } from "@/lib/diff";
+import { checkAnswer, plainPt } from "@/lib/diff";
 import { type HomeworkItem, itemProgress } from "@/lib/homework-items";
 import { cn } from "@/lib/utils";
 
@@ -331,9 +331,9 @@ function ItemCard({
                     </div>
                     <div className="flex items-start gap-2">
                       <p className="flex-1 font-display text-[16px]">
-                        {item.correctedPt}
+                        {plainPt(item.correctedPt)}
                       </p>
-                      <AudioButton text={item.correctedPt} className="mt-0.5 shrink-0" />
+                      <AudioButton text={plainPt(item.correctedPt)} className="mt-0.5 shrink-0" />
                     </div>
                   </div>
                 ) : null}

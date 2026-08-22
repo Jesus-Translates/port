@@ -6,6 +6,7 @@ import { AudioButton } from "@/components/audio-button";
 import { Bi } from "@/components/bilingual";
 import { Markdown } from "@/components/markdown";
 import { cn } from "@/lib/utils";
+import { plainPt } from "@/lib/diff";
 
 type AttemptResult = {
   score: number;
@@ -169,10 +170,10 @@ export function MissionAttempt({
                 <p className="flex-1">
                   <span className="font-semibold">Diz assim: </span>
                   <span className="font-display text-[16px]">
-                    {result.correctedPt}
+                    {plainPt(result.correctedPt)}
                   </span>
                 </p>
-                <AudioButton text={result.correctedPt} className="shrink-0" />
+                <AudioButton text={plainPt(result.correctedPt)} className="shrink-0" />
               </div>
             ) : null}
           </div>

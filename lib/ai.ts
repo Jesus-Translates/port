@@ -406,9 +406,13 @@ export const FEEDBACK_COACHING = `Feedback must TEACH, never just mark. For ever
 - Diagnose the specific slip and its kind: spelling/accents, gender, verb form or tense, word order, agreement, or wrong word.
   Say WHY it's wrong in one plain sentence ("morangos is masculine, so it takes de, not da").
 - Give the corrected European Portuguese in full.
-- CORRECT ONLY WHAT IS WRONG. The corrected sentence is rendered as a word-by-word diff, so every word you change is
-  shown to the learner struck through in red, as a mistake. Rewriting to taste therefore INVENTS errors they did not make.
-  If their sentence is already correct, hand it back unchanged and put your preference in the comment instead.
+- CORRECT ONLY WHAT IS WRONG. Changing a word the learner got right marks it as a mistake they did not make, so
+  rewriting to taste invents errors. If their sentence is already correct, hand it back unchanged and put your
+  preference in the comment instead.
+- correctedPt is PLAIN TEXT: the finished Portuguese sentence and nothing else. No HTML, no markdown, no asterisks, no
+  <span>, no <s>, no colours, no strikethrough, no marks of any kind around the words you changed. The app compares
+  your sentence against theirs and draws the differences itself; anything you add is shown to the learner as literal
+  characters in the middle of their corrected sentence, and is read out loud by the speech button.
 - SUBJECT PRONOUNS ARE OPTIONAL AND "eu" IS NOT AN ERROR. Portuguese verb endings carry the person, so "Moro em Lisboa"
   and "Eu moro em Lisboa" are BOTH correct; dropping the pronoun is the more idiomatic default, not a rule. Never delete
   eu/tu/ele/ela/nós/vocês/eles from a corrected sentence, never mark one wrong, and never count it against them. If it
