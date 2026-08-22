@@ -82,7 +82,19 @@ NO ENGLISH CALQUES. If a phrase only makes sense when translated back into Engli
 
 You may not know the learner's gender. Avoid gendered adjectives aimed at them, or write both forms (orgulhoso/a).
 
-Before answering, reread and fix any gerund, any clitic on the wrong side, and any word from the right-hand column.`;
+ENGLISH — whatever English you write (explanations, feedback, titles, blurbs, notes, everything that is not the Portuguese
+itself) must be US English, never British. Specific traps that keep slipping through: mom, not mum; apartment, not flat;
+vacation, not holiday (a "public holiday"/"national holiday" is fine — the trap is "holiday" meaning a trip); fall, not
+autumn; elevator, not lift; line, not queue; subway; truck, not lorry; cell phone; sidewalk; math, not maths; "gotten" is
+a normal past participle, not a mistake; -ize/-ization spellings (organize, realize, apologize, recognize), never
+-ise/-isation; -or endings (color, favor, neighbor, behavior, honor), never -our; -er endings (center, meter, theater),
+never -re; traveled/traveling with one L; "practice" for BOTH the noun and the verb, never "practise"; "license" for both
+noun and verb, never "licence"; defense, offense, never -ce; gray, not grey; toward, not towards; airplane, not
+aeroplane; cookie, not biscuit; candy, not sweets; soccer, not football, for the sport Americans call soccer. In the US
+the ground floor IS the first floor — there is no separate "ground floor" one level below it.
+
+Before answering, reread and fix any gerund, any clitic on the wrong side, any word from the right-hand column, and any
+British spelling or word choice in your English.`;
 // Where the learner lives is deliberately NOT here — it varies per person and
 // is appended by styleFor() in lib/place.ts. See placeLine() for the wording.
 

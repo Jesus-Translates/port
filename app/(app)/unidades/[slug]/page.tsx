@@ -106,7 +106,11 @@ export default async function UnidadePage(props: PageProps<"/unidades/[slug]">) 
         <UnitReview id={unit.id} status={unit.status} noteMd={unit.noteMd} />
       ) : null}
 
-      <UnitNote unitId={unit.id} noteMd={unit.noteMd} />
+      <UnitNote
+        unitId={unit.id}
+        noteMd={unit.noteMd}
+        hasProgress={doneIds.size > 0}
+      />
 
       {path.length > 0 ? (
         <UnitPath items={path} nextUnit={nextUnit} />
