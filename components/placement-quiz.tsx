@@ -190,6 +190,38 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
     setIdx(0);
   }
 
+  /**
+   * "I am starting from scratch" — answered, not tested.
+   *
+   * This capability existed before as a low-emphasis button sitting UNDER
+   * "Começar", in Portuguese only, and people ended the test by pressing it
+   * without knowing what it said. It was removed for that reason.
+   *
+   * It comes back as one of two equally-weighted answers to a question asked
+   * BEFORE anything starts, in both languages. The problem was never that a
+   * beginner should sit seven questions to prove they are a beginner — it was
+   * that the way out was unlabelled and easy to hit by accident.
+   *
+   * Same end state as a finished run: setCefrLevel writes the "Nível definido"
+   * activity row that hasBeenPlaced() reads, so onboarding advances exactly as
+   * it would have. No AI summary — there are no answers to read, and inventing
+   * an assessment of somebody who answered nothing would be a lie.
+   */
+  function startAtA1() {
+    setError(null);
+    startTransition(async () => {
+      try {
+        await setCefrLevel("A1");
+        reset();
+        setResult("A1");
+        setSaved(true);
+        setStartUnit(await getStartUnit().catch(() => null));
+      } catch {
+        setError("Não deu para guardar. Tenta outra vez.");
+      }
+    });
+  }
+
   /** Move inside the section. Both directions, freely, before submitting. */
   function goTo(next: number) {
     if (busy) return;
@@ -613,45 +645,91 @@ export function PlacementQuiz({ savedLevel }: { savedLevel?: string }) {
   // ── Intro ───────────────────────────────────────────────────────────
   if (!current) {
     return (
-      <div className="card space-y-3 p-6">
-        <p className="text-ink-soft">
-          Começas em A1 com {BLOCK_SIZE} perguntas, das mais fáceis para as mais
-          difíceis. Precisas de {passMarkFor(BLOCK_SIZE)} certas para abrir a
-          secção A2, depois B1, depois B2 — e o teste para assim que uma secção
-          te escapar. Podes voltar atrás e mudar respostas antes de entregar.
-        </p>
-        <p className="text-sm text-ink-faint">
-          A ladder, not a quiz: {BLOCK_SIZE} questions per level, easiest first,
-          and it stops at the first section you don&apos;t clear — so you are
-          never asked to guess at grammar you haven&apos;t met. You can move
-          back and forth and change any answer before you hand a section in.
-          Small typos and missing accents still count as correct.
-        </p>
+      <div className="card space-y-4 p-6">
+        {/*
+          A QUESTION, with two answers of equal weight.
+
+          Both paths existed before, but not as a choice: "Começar" was the
+          button, and starting at A1 was a quieter one underneath it, in
+          Portuguese only — so people took it by accident and ended the test
+          without knowing what they had pressed. Asking outright, in both
+          languages, before anything begins, is the same two options presented
+          honestly. Nobody has to guess which one they meant.
+        */}
+        <div>
+          <h2 className="font-display text-xl font-semibold">
+            Por onde queres começar?
+          </h2>
+          <p className="text-sm text-ink-faint">Where would you like to start?</p>
+        </div>
+
         {savedLevel ? (
           <p className="text-sm text-ink-soft">
             <Bi pt="Nível guardado neste momento" en="Your saved level" inline />:{" "}
             <span className="chip">{savedLevel}</span>
           </p>
         ) : null}
-        {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
-        {/*
-          ONE button. There used to be a second, low-emphasis one underneath
-          that placed you at A1 on the spot — and in Portuguese only, so it read
-          as "some other way to begin" to anyone who could not read it. People
-          were ending the test by pressing it.
 
-          It is not needed any more either: a true beginner who simply answers
-          the A1 section is placed at A1 anyway (a missed first section places
-          you at the floor), and nothing is marked in front of them while they
-          do it, so it is no longer seven questions of visible failure.
-        */}
-        <button className="btn-terra" onClick={start} disabled={busy || pending}>
-          {busy ? (
-            <Bi pt="A preparar…" en="Getting ready…" inline />
-          ) : (
-            <Bi pt="Começar 🧭" en="Start" inline />
-          )}
+        <button
+          onClick={startAtA1}
+          disabled={busy || pending}
+          className="w-full rounded-2xl border border-sand bg-white/70 p-4 text-left transition-all hover:border-sage hover:bg-sage-pale disabled:opacity-60"
+        >
+          <span className="block font-display text-lg font-semibold">
+            {pending ? "A preparar…" : "Começar do início (A1)"}
+          </span>
+          <span className="block text-sm text-ink-faint">
+            Start at the beginning — no test
+          </span>
+          <span className="mt-1.5 block text-sm text-ink-soft">
+            Nunca aprendeste português, ou queres rever tudo desde o princípio.
+            <span className="mt-0.5 block text-ink-faint">
+              You have never learned Portuguese, or you want to go through it
+              all from the start.
+            </span>
+          </span>
         </button>
+
+        <button
+          onClick={start}
+          disabled={busy || pending}
+          className="w-full rounded-2xl border-[1.5px] border-olive bg-sage-pale/60 p-4 text-left transition-all hover:bg-sage-pale disabled:opacity-60"
+        >
+          <span className="block font-display text-lg font-semibold text-olive">
+            {busy ? "A preparar…" : "Fazer o teste 🧭"}
+          </span>
+          <span className="block text-sm text-ink-faint">
+            Take the test — to be placed higher
+          </span>
+          <span className="mt-1.5 block text-sm text-ink-soft">
+            Já sabes alguma coisa e queres começar no nível certo.
+            <span className="mt-0.5 block text-ink-faint">
+              You already know some Portuguese and want to start at the right
+              level.
+            </span>
+          </span>
+        </button>
+
+        <div className="border-t border-sand pt-3">
+          <p className="text-sm text-ink-soft">
+            O teste começa em A1 com {BLOCK_SIZE} perguntas, das mais fáceis
+            para as mais difíceis. Precisas de {passMarkFor(BLOCK_SIZE)} certas
+            para abrir a secção A2, depois B1, depois B2 — e para assim que uma
+            secção te escapar. Podes voltar atrás e mudar respostas antes de
+            entregar.
+          </p>
+          <p className="mt-1 text-sm text-ink-faint">
+            The test is a ladder: {BLOCK_SIZE} questions per level, easiest
+            first, stopping at the first section you don&apos;t clear — so you
+            are never asked to guess at grammar you haven&apos;t met. You can
+            move back and forth and change any answer before handing a section
+            in. Small typos and missing accents still count as correct. If the
+            test doesn&apos;t go well you simply start at A1, which is where the
+            other button puts you anyway.
+          </p>
+        </div>
+
+        {error ? <p className="text-sm text-terra-dark">{error}</p> : null}
       </div>
     );
   }
