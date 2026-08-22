@@ -74,3 +74,51 @@ export function nonLatinError(text: string): string | null {
     `Encontrei: ${nonLatinSample(text)}`
   );
 }
+
+/*
+ * Does this look like Portuguese rather than English?
+ *
+ * Needed because the app's prose is deliberately MIXED: a unit note explains
+ * in English and quotes in Portuguese, often in the same sentence. A speak
+ * button has to go on the Portuguese and nowhere near the English, since the
+ * voice is European Portuguese and handing it "Good morning." produces
+ * confident nonsense.
+ *
+ * Two signals, cheap and in this order:
+ *  - a diacritic Portuguese uses and English does not (ã, ç, é, ô …), which
+ *    settles most of it outright;
+ *  - failing that, a common Portuguese word. "Bom dia" carries no diacritic at
+ *    all, so the word list is what catches the greetings a beginner meets
+ *    first — exactly the phrases most worth hearing.
+ *
+ * Deliberately conservative: it answers "probably Portuguese", and anything it
+ * is unsure about gets NO button rather than a wrong reading.
+ */
+const PT_DIACRITIC = /[ãõáàâéêíóôúç]/i;
+
+const PT_WORDS = new Set([
+  "o", "a", "os", "as", "um", "uma", "uns", "umas", "de", "do", "da", "dos",
+  "das", "em", "no", "na", "nos", "nas", "ao", "aos", "à", "às", "que", "e",
+  "é", "são", "com", "para", "por", "se", "não", "sim", "eu", "tu", "ele",
+  "ela", "nós", "vocês", "eles", "elas", "meu", "minha", "teu", "tua", "seu",
+  "sua", "bom", "boa", "bons", "boas", "dia", "tarde", "noite", "olá", "adeus",
+  "obrigado", "obrigada", "favor", "faz", "como", "estás", "está", "estou",
+  "sou", "és", "tenho", "tens", "tem", "muito", "muita", "bem", "mal", "aqui",
+  "ali", "hoje", "amanhã", "ontem", "agora", "chamo", "prazer", "conhecer",
+  "falar", "fala", "quero", "queria", "pode", "podes", "vamos", "vai", "onde",
+  "quando", "porque", "também", "já", "ainda", "sempre", "nunca", "casa",
+  "água", "café", "pão", "mais", "menos", "grande", "pequeno", "este", "esta",
+]);
+
+export function looksPortuguese(text: string): boolean {
+  const s = text.trim();
+  if (s.length < 2) return false;
+  if (PT_DIACRITIC.test(s)) return true;
+  const words = s
+    .toLowerCase()
+    .replace(/[^a-zà-ÿ\s]/gi, " ")
+    .split(/\s+/)
+    .filter(Boolean);
+  if (words.length === 0) return false;
+  return words.some((w) => PT_WORDS.has(w));
+}
