@@ -84,15 +84,21 @@ export function nonLatinError(text: string): string | null {
  * voice is European Portuguese and handing it "Good morning." produces
  * confident nonsense.
  *
- * Two signals, cheap and in this order:
- *  - a diacritic Portuguese uses and English does not (ã, ç, é, ô …), which
- *    settles most of it outright;
- *  - failing that, a common Portuguese word. "Bom dia" carries no diacritic at
- *    all, so the word list is what catches the greetings a beginner meets
- *    first — exactly the phrases most worth hearing.
+ * THE HARD CASE, and the one that shipped broken: an English sentence that
+ * QUOTES Portuguese. `Using "você" for everyone` is a mistake-list heading —
+ * English, with one Portuguese word in quotes — and a diacritic-first test
+ * called the whole thing Portuguese and read it aloud in a Portuguese voice.
+ * Portuguese signal alone is not enough, because the Portuguese is exactly
+ * what an English sentence about Portuguese contains.
  *
- * Deliberately conservative: it answers "probably Portuguese", and anything it
- * is unsure about gets NO button rather than a wrong reading.
+ * So the test is now: Portuguese signal present AND no English signal at all.
+ * Any unambiguously English word disqualifies the string, however much
+ * Portuguese sits beside it. That refuses some genuinely Portuguese phrases
+ * (a false negative costs a missing button); the alternative reads English
+ * aloud in the wrong language and bills for it.
+ *
+ * The English list holds only words Portuguese never uses. "a", "as", "no",
+ * "me", "do", "e" are all real Portuguese words and must never appear in it.
  */
 const PT_DIACRITIC = /[ãõáàâéêíóôúç]/i;
 
@@ -110,15 +116,75 @@ const PT_WORDS = new Set([
   "água", "café", "pão", "mais", "menos", "grande", "pequeno", "este", "esta",
 ]);
 
-export function looksPortuguese(text: string): boolean {
-  const s = text.trim();
-  if (s.length < 2) return false;
-  if (PT_DIACRITIC.test(s)) return true;
-  const words = s
+/**
+ * Words that are English and are NOT Portuguese. One of these settles it.
+ *
+ * Deliberately excludes every English/Portuguese homograph — a, as, no, me,
+ * do, e, se, ou, la, ma — because those appear constantly in real Portuguese
+ * and would veto it.
+ */
+const EN_WORDS = new Set([
+  "the", "and", "for", "with", "without", "using", "use", "used", "uses",
+  "when", "while", "this", "that", "these", "those", "there", "here", "is",
+  "are", "was", "were", "be", "been", "being", "am", "you", "your", "yours",
+  "they", "them", "their", "we", "our", "he", "she", "his", "her", "it", "its",
+  "from", "but", "not", "what", "which", "who", "whom", "whose", "how", "why",
+  "instead", "always", "never", "often", "sometimes", "usually", "means",
+  "meaning", "say", "says", "said", "saying", "common", "mistake", "mistakes",
+  "wrong", "right", "correct", "people", "someone", "something", "anything",
+  "everyone", "everything", "morning", "afternoon", "evening", "night",
+  "hello", "goodbye", "please", "thank", "thanks", "name", "nice", "meet",
+  "good", "bad", "very", "much", "many", "more", "less", "than", "then",
+  "because", "about", "after", "before", "into", "onto", "over", "under",
+  "would", "could", "should", "will", "can", "may", "might", "must", "have",
+  "has", "had", "does", "did", "doing", "get", "got", "make", "made", "take",
+  "took", "give", "gave", "know", "knew", "think", "thought", "want", "need",
+  "like", "just", "only", "also", "even", "still", "yet", "both", "each",
+  "every", "some", "any", "all", "most", "other", "another", "same",
+  "different", "new", "old", "first", "last", "next", "one", "two", "three",
+  "word", "words", "phrase", "phrases", "sentence", "sentences", "form",
+  "forms", "verb", "verbs", "noun", "nouns", "formal", "informal", "polite",
+  "speak", "speaking", "spoken", "talking", "talk", "hear", "listen",
+  "everyone's", "don", "doesn", "isn", "aren", "won", "can",
+]);
+
+/**
+ * Split into words, keeping accented letters INSIDE the word.
+ *
+ * This matters more than it looks: a naive ASCII word boundary splits
+ * "notícia" into "not" + "ícia" and then finds the English word "not" inside a
+ * Portuguese one. Accented letters are letters here, so they never break a
+ * word apart.
+ */
+function words(text: string): string[] {
+  return text
     .toLowerCase()
     .replace(/[^a-zà-ÿ\s]/gi, " ")
     .split(/\s+/)
     .filter(Boolean);
-  if (words.length === 0) return false;
-  return words.some((w) => PT_WORDS.has(w));
+}
+
+/**
+ * Does this contain a word that is English and cannot be Portuguese?
+ *
+ * Exported because the table rule needs it too. A cell in the Portuguese
+ * column can still carry its own translation — "Faz calor. It is hot." — and
+ * the column alone cannot see that.
+ */
+export function hasEnglishWord(text: string): boolean {
+  return words(text).some((w) => EN_WORDS.has(w));
+}
+
+export function looksPortuguese(text: string): boolean {
+  const s = text.trim();
+  if (s.length < 2) return false;
+  const w = words(s);
+  if (w.length === 0) return false;
+
+  // One unmistakably English word and we do not touch it, no matter how much
+  // Portuguese it quotes. This is the `Using "você" for everyone` case.
+  if (hasEnglishWord(s)) return false;
+
+  if (PT_DIACRITIC.test(s)) return true;
+  return w.some((x) => PT_WORDS.has(x));
 }

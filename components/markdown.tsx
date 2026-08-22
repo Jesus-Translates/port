@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { AudioButton } from "@/components/audio-button";
-import { looksPortuguese } from "@/lib/lang-guard";
+import { hasEnglishWord, looksPortuguese } from "@/lib/lang-guard";
 import { cn } from "@/lib/utils";
 
 export type MarkdownProps = {
@@ -74,7 +74,20 @@ function TableCell({
   // Speak the Portuguese COLUMN — decided by the table's own header, not by
   // guessing at the words. "Bom dia." carries no diacritic and would be
   // indistinguishable from English by content alone.
-  const speak = col !== undefined && col === ptCol && text.length > 0;
+  /*
+   * Right column AND no English in the cell.
+   *
+   * The column is the primary signal — "Bom dia." has no diacritic and cannot
+   * be identified by content. But some cells carry their own translation
+   * ("Faz calor. It is hot."), and reading that aloud in a Portuguese voice is
+   * exactly what this is all meant to avoid. When a cell is mixed we stay
+   * quiet rather than speak half of it wrong.
+   */
+  const speak =
+    col !== undefined &&
+    col === ptCol &&
+    text.length > 0 &&
+    !hasEnglishWord(text);
   if (!speak) return <td>{children}</td>;
   return (
     <td>
@@ -88,7 +101,13 @@ function TableCell({
   );
 }
 
-const PT_HEADER = /^\s*(portugu[êe]s|portuguese|pt|frase|expressão)\s*$/i;
+/*
+ * A header naming the Portuguese column. Matched loosely on purpose: real
+ * notes head these columns "Portuguese", "European Portuguese", "Português",
+ * "Frase" and more, and an exact match found only the first of those — so
+ * whole tables of vocabulary sat silent.
+ */
+const PT_HEADER = /portugu|^\s*pt\s*$|frase|express/i;
 
 /** Find the Portuguese column from a table's header row. */
 function portugueseColumn(node: unknown): number {
