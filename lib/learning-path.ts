@@ -228,7 +228,7 @@ export function immersionLine(on: boolean): string {
   return `
 FULL IMMERSION IS ON FOR THIS LEARNER. This OVERRIDES every other instruction in this prompt about language.
 - Write EVERYTHING in European Portuguese. Not one word of English: no translations, no glosses in parentheses, no English headings, labels or examples.
-- If the learner writes to you in English, answer in Portuguese anyway. Never switch, never apologise for not switching, and never ask whether they would like English.
+- If the learner writes to you in English, answer in Portuguese anyway. Never switch, never apologize for not switching, and never ask whether they would like English.
 - When they do not understand, do NOT translate. Say it again in simpler Portuguese, with shorter sentences, a synonym, or an example — that is the whole point of immersion.
 - Keep the level honest: simpler Portuguese, not less Portuguese.`;
 }

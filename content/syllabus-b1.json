@@ -76,7 +76,7 @@
     "titleEn": "Relative Pronouns",
     "titlePt": "Os Pronomes Relativos",
     "category": "grammar",
-    "blurbEn": "You'll be able to join two ideas into one sentence — the man who came, the paper that I need, the neighbour whose roof leaks — instead of speaking in short bursts.",
+    "blurbEn": "You'll be able to join two ideas into one sentence — the man who came, the paper that I need, the neighbor whose roof leaks — instead of speaking in short bursts.",
     "grammarFocus": "os pronomes relativos",
     "notePrompt": "Teach 'que' as the workhorse for people and things; 'quem' only after a preposition ('o senhor com quem falei'); 'o qual / a qual' when 'que' would be ambiguous or after a longer preposition ('a rua ao longo da qual'); 'cujo' agreeing with the thing possessed, never the possessor ('o vizinho cuja casa'); and 'onde' for places. The English-speaker error is dropping the relative altogether — 'the paper I need' has no 'that', but 'o papel de que preciso' cannot lose its relative — and using 'quem' as a bare subject where Portuguese requires 'que'."
   },
@@ -114,7 +114,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to say whose action you mean in sentences where English simply leaves it vague.",
     "grammarFocus": "o infinitivo pessoal",
-    "notePrompt": "Teach the personal infinitive as the answer to one question: whose action is it? Contrast 'É difícil sair' (in general) with 'É difícil sairmos' (difficult for us to leave), and 'É melhor esperar' with 'É melhor esperarem'. Show the endings as the plain infinitive plus -, -es, -, -mos, -em, and note that this structure has no English equivalent at all, which is exactly why English speakers avoid it — either flattening everything to the impersonal infinitive or reaching for a 'que' clause with the subjunctive they have not learnt yet. Sell it as the thing that lets them say complex sentences a whole level early."
+    "notePrompt": "Teach the personal infinitive as the answer to one question: whose action is it? Contrast 'É difícil sair' (in general) with 'É difícil sairmos' (difficult for us to leave), and 'É melhor esperar' with 'É melhor esperarem'. Show the endings as the plain infinitive plus -, -es, -, -mos, -em, and note that this structure has no English equivalent at all, which is exactly why English speakers avoid it — either flattening everything to the impersonal infinitive or reaching for a 'que' clause with the subjunctive they have not learned yet. Sell it as the thing that lets them say complex sentences a whole level early."
   },
   {
     "slug": "infinitivo-pessoal-com-preposicoes",
@@ -132,7 +132,7 @@
     "category": "communication",
     "blurbEn": "You'll be able to book an appointment, describe a symptom accurately, and follow what the doctor tells you to do next.",
     "grammarFocus": null,
-    "notePrompt": "Teach the whole path: 'marcar uma consulta', 'o médico de família', 'o número de utente', 'a urgência', 'a triagem de Manchester' and its colours, 'a receita sem papel', 'as análises', 'a baixa'. Drill symptoms with 'doer' as an indirect construction — 'dói-me a cabeça', 'doem-me as costas' — because the thing that hurts is the subject and the person is the clitic; English speakers say 'eu tenho dor de' or try to conjugate 'doer' for themselves. Also contrast 'estou constipado' (a head cold) with 'estou entupido', and note that 'sinto-me maldisposto' means queasy, not badly dressed."
+    "notePrompt": "Teach the whole path: 'marcar uma consulta', 'o médico de família', 'o número de utente', 'a urgência', 'a triagem de Manchester' and its colors, 'a receita sem papel', 'as análises', 'a baixa'. Drill symptoms with 'doer' as an indirect construction — 'dói-me a cabeça', 'doem-me as costas' — because the thing that hurts is the subject and the person is the clitic; English speakers say 'eu tenho dor de' or try to conjugate 'doer' for themselves. Also contrast 'estou constipado' (a head cold) with 'estou entupido', and note that 'sinto-me maldisposto' means queasy, not badly dressed."
   },
   {
     "slug": "comprar-casa",
@@ -150,7 +150,7 @@
     "category": "vocabulary",
     "blurbEn": "You'll be able to describe things with the two-part adjectives Portuguese uses constantly — recém-chegado, mal-humorado, luso-britânico, verde-escuro.",
     "grammarFocus": "os adjetivos compostos",
-    "notePrompt": "Teach the agreement rule that surprises everyone: in a compound adjective only the final element agrees ('uma família luso-britânica', 'olhos verde-escuros'), and a colour compound containing a noun is invariable ('camisas verde-garrafa', 'olhos cor de mel'). Cover the productive prefixes recém-, mal-, bem-, meio-, semi- and the hyphen after the 1990 spelling agreement. The English-speaker error is making both halves agree, as in 'camisas escuras verdes' or 'uma família lusa-britânica' — show the wrong and right forms side by side."
+    "notePrompt": "Teach the agreement rule that surprises everyone: in a compound adjective only the final element agrees ('uma família luso-britânica', 'olhos verde-escuros'), and a color compound containing a noun is invariable ('camisas verde-garrafa', 'olhos cor de mel'). Cover the productive prefixes recém-, mal-, bem-, meio-, semi- and the hyphen after the 1990 spelling agreement. The English-speaker error is making both halves agree, as in 'camisas escuras verdes' or 'uma família lusa-britânica' — show the wrong and right forms side by side."
   },
   {
     "slug": "cliticos-terceira-pessoa",
@@ -172,10 +172,10 @@
   },
   {
     "slug": "conduzir-imt-e-carta",
-    "titleEn": "Driving: The IMT and Your Licence",
+    "titleEn": "Driving: The IMT and Your License",
     "titlePt": "Conduzir: O IMT e a Carta de Condução",
     "category": "communication",
-    "blurbEn": "You'll be able to exchange a foreign licence at the IMT, register a car, and understand exactly which document you're being asked for.",
+    "blurbEn": "You'll be able to exchange a foreign license at the IMT, register a car, and understand exactly which document you're being asked for.",
     "grammarFocus": null,
     "notePrompt": "Cover the counter and the paperwork: 'trocar a carta de condução', 'o atestado médico', 'o registo automóvel', 'o DUA (documento único automóvel)', 'o livrete' as the old word people still use, 'a matrícula', 'o seguro contra terceiros', 'o IUC'. Flag the acronym collision head-on: the IMT you visit is the Instituto da Mobilidade e dos Transportes, while the IMT you pay when buying a house is the Imposto Municipal sobre as Transmissões. Also note 'a matrícula' means both number plate and school enrolment. The English-speaker error is 'a licença de condução', a calque nobody uses — in Portugal it is simply 'a carta'."
   },
@@ -222,7 +222,7 @@
     "category": "vocabulary",
     "blurbEn": "You'll be able to talk about where you've been and what each part of the country is known for, and hold your own when the conversation turns to fado, azulejos or a saint's day.",
     "grammarFocus": null,
-    "notePrompt": "Move north to south — Minho, Douro, Beiras, Estremadura e Oeste, Ribatejo, Alentejo, Algarve, Açores e Madeira — with one dish, one landscape and one cultural anchor each; then the shared culture: o fado, os azulejos, a calçada portuguesa, Camões e Pessoa, os Santos Populares, as festas e os feriados. Contrast the tourist Portugal an expat arrives with (Lisboa e o Algarve) against the country their neighbours actually talk about. Drill the place prepositions English speakers get wrong: 'em Lisboa' but 'no Porto', 'no Alentejo' but 'na Madeira', and 'ir a' (go and come back) against 'ir para' (go and stay)."
+    "notePrompt": "Move north to south — Minho, Douro, Beiras, Estremadura e Oeste, Ribatejo, Alentejo, Algarve, Açores e Madeira — with one dish, one landscape and one cultural anchor each; then the shared culture: o fado, os azulejos, a calçada portuguesa, Camões e Pessoa, os Santos Populares, as festas e os feriados. Contrast the tourist Portugal an expat arrives with (Lisboa e o Algarve) against the country their neighbors actually talk about. Drill the place prepositions English speakers get wrong: 'em Lisboa' but 'no Porto', 'no Alentejo' but 'na Madeira', and 'ir a' (go and come back) against 'ir para' (go and stay)."
   },
   {
     "slug": "o-oeste-feira-vinho-carnaval",
@@ -247,7 +247,7 @@
     "titleEn": "Listening to the Oeste Accent",
     "titlePt": "Ouvir o Sotaque do Oeste",
     "category": "communication",
-    "blurbEn": "You'll be able to understand your actual neighbours — the Estremadura and Oeste speech that no course records and that defeats you at the talho counter.",
+    "blurbEn": "You'll be able to understand your actual neighbors — the Estremadura and Oeste speech that no course records and that defeats you at the talho counter.",
     "grammarFocus": null,
     "notePrompt": "Train comprehension on real regional features rather than studio Portuguese: vowel reduction pushed to disappearance ('está bem' to 'tá bem' to something near 'tâim'), swallowed final syllables, 'p'ra' for 'para', 'tou' for 'estou', 'num' for 'não', 'ó' for 'olha', 'pá' as a filler, and the very closed 'e' of rural Estremadura. Contrast the Lisbon-standard audio the learner has trained on with an older speaker from Torres Vedras or Santa Cruz saying the identical sentence. Address the false conclusion English speakers draw — that they need more vocabulary — when the real gap is that the words they know are stored unreduced; teach 'Desculpe, importa-se de repetir mais devagar?' and train prediction from context."
   },
@@ -258,7 +258,7 @@
     "category": "culture",
     "grammarFocus": null,
     "blurbEn": "You will be able to take part in the Portuguese festive season instead of watching it.",
-    "notePrompt": "The biggest family season of the year, and the moment neighbours and school expect participation. Teach the Portuguese shape of it, which differs from the English-speaking one: the main meal is the CONSOA on the night of 24 December, and it is bacalhau cozido com couves and batatas, not a roast; presents are opened at midnight, not on the morning of the 25th; the 25th is the lunch, often carne. Cover the sweets by name — rabanadas, filhoses, sonhos, aletria, bolo-rei with its fava and the tradition attached to it. Then Ano Novo: the twelve raisins at midnight, one wish each, and 'Feliz Ano Novo'. Then Dia de Reis on 6 January, when the tree comes down and the bolo-rei is finished. Include the greetings people actually exchange ('Boas Festas', 'Feliz Natal', 'um santo Natal') and what to say to a neighbour on the stairs. Do not name specific shops or brands."
+    "notePrompt": "The biggest family season of the year, and the moment neighbors and school expect participation. Teach the Portuguese shape of it, which differs from the English-speaking one: the main meal is the CONSOA on the night of 24 December, and it is bacalhau cozido com couves and batatas, not a roast; presents are opened at midnight, not on the morning of the 25th; the 25th is the lunch, often carne. Cover the sweets by name — rabanadas, filhoses, sonhos, aletria, bolo-rei with its fava and the tradition attached to it. Then Ano Novo: the twelve raisins at midnight, one wish each, and 'Feliz Ano Novo'. Then Dia de Reis on 6 January, when the tree comes down and the bolo-rei is finished. Include the greetings people actually exchange ('Boas Festas', 'Feliz Natal', 'um santo Natal') and what to say to a neighbor on the stairs. Do not name specific shops or brands."
   },
   {
     "slug": "conversa-a-serio",

@@ -62,7 +62,7 @@ const replySchema = z.object({
     .number()
     .int()
     .describe(
-      "XP for the LEARNER'S last line, 0-25. 0 if nothing was recognised or they wrote English. " +
+      "XP for the LEARNER'S last line, 0-25. 0 if nothing was recognized or they wrote English. " +
         "5 for a bare one-word answer. 10-14 for a short but real sentence. " +
         "15-20 for a full, on-topic sentence in correct European Portuguese. " +
         "21-25 only when they also volunteered something extra or asked a question back. " +
@@ -271,7 +271,7 @@ async function generateReply(
 CONVERSATION SO FAR:
 ${transcriptOf(history)}
 
-THE LEARNER JUST SAID (speech transcript): ${learnerLine || "(nothing recognised)"}
+THE LEARNER JUST SAID (speech transcript): ${learnerLine || "(nothing recognized)"}
 
 Continue the conversation.`,
   };

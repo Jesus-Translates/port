@@ -88,7 +88,7 @@ export default function WelcomePage() {
               European Portuguese · for families living in Portugal
             </p>
             <h1 className="mt-2 font-display text-4xl leading-tight font-semibold tracking-[-.015em] sm:text-5xl">
-              Learn the Portuguese your neighbours actually speak.
+              Learn the Portuguese your neighbors actually speak.
             </h1>
             <p className="mt-4 text-[15px] leading-relaxed text-paper/85 sm:text-base">
               Most language apps teach Brazilian Portuguese and hope you will
@@ -232,7 +232,7 @@ export default function WelcomePage() {
               {
                 emoji: "📕",
                 title: "Stories set where you live",
-                body: "Serialized chapters at your level — the beach, the mercado, the neighbours — with audio and questions.",
+                body: "Serialized chapters at your level — the beach, the mercado, the neighbors — with audio and questions.",
               },
               {
                 emoji: "🎲",

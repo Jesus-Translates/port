@@ -62,7 +62,7 @@ export function LessonFinish({
             href={`/practice?topic=${encodeURIComponent(topic)}`}
             className="btn-primary text-sm"
           >
-            <Bi pt="Praticar isto 🎯" en="Practise this" inline />
+            <Bi pt="Praticar isto 🎯" en="Practice this" inline />
           </Link>
           <Link href="/workbook" className="btn-ghost text-sm">
             <Bi pt="Outras lições" en="More lessons" inline />

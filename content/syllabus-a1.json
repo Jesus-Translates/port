@@ -4,7 +4,7 @@
     "titleEn": "Greetings and Goodbyes",
     "titlePt": "Cumprimentos e Despedidas",
     "category": "communication",
-    "blurbEn": "You'll be able to greet a neighbour correctly at any hour of the day, ask how they are, and close the conversation without freezing.",
+    "blurbEn": "You'll be able to greet a neighbor correctly at any hour of the day, ask how they are, and close the conversation without freezing.",
     "grammarFocus": null,
     "notePrompt": "Teach the day-part greetings (bom dia / boa tarde / boa noite) and the pt-PT cut-off points — boa tarde starts after lunch, not at 12:00, and boa noite serves as both a greeting and a goodbye. Contrast the all-purpose informal 'olá' with the time-bound ones. Two English-speaker errors: answering 'Como estás?' with a full report when Portuguese expects a short 'Tudo bem, e tu?'; and defaulting to 'tchau' picked up from Brazilian media, when in Portugal the everyday goodbyes are 'adeus', 'até logo' (later today) and 'até já' (within minutes)."
   },
@@ -15,7 +15,7 @@
     "category": "communication",
     "blurbEn": "You'll know instantly whether to say tu, você or o senhor to the person in front of you, and why getting it wrong sounds rude.",
     "grammarFocus": "formas de tratamento (tu / você / o senhor, a senhora)",
-    "notePrompt": "Explain the pt-PT address system and why it is neither the Spanish nor the Brazilian one: 'tu' with 2nd-person-singular verbs for family, friends, children and neighbours you know; 'o senhor / a senhora' or title + first name for respect; and 'você', which in Portugal is NOT the polite default and can sound cold or condescending between strangers. Teach the Portuguese dodge of using the 3rd-person verb with no pronoun at all ('Quer um café?', 'Mora aqui perto?'). The two killer errors: learners of Brazilian Portuguese use 'você' with everyone, and learners of Spanish assume 'você' equals 'usted'."
+    "notePrompt": "Explain the pt-PT address system and why it is neither the Spanish nor the Brazilian one: 'tu' with 2nd-person-singular verbs for family, friends, children and neighbors you know; 'o senhor / a senhora' or title + first name for respect; and 'você', which in Portugal is NOT the polite default and can sound cold or condescending between strangers. Teach the Portuguese dodge of using the 3rd-person verb with no pronoun at all ('Quer um café?', 'Mora aqui perto?'). The two killer errors: learners of Brazilian Portuguese use 'você' with everyone, and learners of Spanish assume 'você' equals 'usted'."
   },
   {
     "slug": "introducing-yourself-and-family",
@@ -42,7 +42,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to turn any singular noun and its adjective into a correct plural, including the -ão and -l words that break the simple rule.",
     "grammarFocus": "formação do plural dos nomes e dos adjetivos",
-    "notePrompt": "Serialise the plural rules in order of usefulness: vowel + s; words in -r, -z, -s add -es (mulher/mulheres, rapaz/rapazes); -m becomes -ns (homem/homens, jovem/jovens); -l becomes -is (hotel/hotéis, papel/papéis, animal/animais); and -ão splits three ways (mão/mãos, pão/pães, coração/corações) with no rule — it must be learned per word. Then show that the article and any adjective agree too: 'as casas brancas'. The English-speaker error: pluralising only the noun and leaving the article and adjective singular, because English adjectives never inflect."
+    "notePrompt": "Serialize the plural rules in order of usefulness: vowel + s; words in -r, -z, -s add -es (mulher/mulheres, rapaz/rapazes); -m becomes -ns (homem/homens, jovem/jovens); -l becomes -is (hotel/hotéis, papel/papéis, animal/animais); and -ão splits three ways (mão/mãos, pão/pães, coração/corações) with no rule — it must be learned per word. Then show that the article and any adjective agree too: 'as casas brancas'. The English-speaker error: pluralizing only the noun and leaving the article and adjective singular, because English adjectives never inflect."
   },
   {
     "slug": "numbers-zero-to-twenty",
@@ -60,7 +60,7 @@
     "category": "communication",
     "blurbEn": "You'll be able to keep a conversation alive when you get lost — asking someone to repeat, to slow down, or to tell you the word you need.",
     "grammarFocus": null,
-    "notePrompt": "Give the repair kit: 'Como se diz ... em português?', 'O que quer dizer ...?', 'Não percebi', 'Podes repetir, se faz favor?', 'Mais devagar, por favor', 'Como se escreve?', 'Não sei', 'Não faço ideia'. Insist on the pt-PT verb 'perceber' for 'to understand' — 'não percebi' is what people in Portugal actually say, while the learner reaches for 'não entendi'. Teach 'se faz favor' alongside 'por favor' as the more Portuguese-sounding option. The error to fix: treating 'desculpe' and 'com licença' as interchangeable — 'com licença' is to get past someone or leave the table, 'desculpe' is to apologise or to open a question to a stranger."
+    "notePrompt": "Give the repair kit: 'Como se diz ... em português?', 'O que quer dizer ...?', 'Não percebi', 'Podes repetir, se faz favor?', 'Mais devagar, por favor', 'Como se escreve?', 'Não sei', 'Não faço ideia'. Insist on the pt-PT verb 'perceber' for 'to understand' — 'não percebi' is what people in Portugal actually say, while the learner reaches for 'não entendi'. Teach 'se faz favor' alongside 'por favor' as the more Portuguese-sounding option. The error to fix: treating 'desculpe' and 'com licença' as interchangeable — 'com licença' is to get past someone or leave the table, 'desculpe' is to apologize or to open a question to a stranger."
   },
   {
     "slug": "present-tense-ar-verbs",
@@ -87,7 +87,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to use ser, estar, ter and ir in all their present-tense forms — the four verbs that carry half of everything you'll say this year.",
     "grammarFocus": "presente do indicativo — verbos irregulares (ser, estar, ter, ir)",
-    "notePrompt": "Give the four highest-frequency irregulars in full: ser (sou, és, é, somos, são), estar (estou, estás, está, estamos, estão), ter (tenho, tens, tem, temos, têm), ir (vou, vais, vai, vamos, vão). Point out that tem (he/she has) and têm (they have) are barely distinguished in speech but must be spelled differently — the circumflex is the only marker. Warn that these will not yield to the patterns just learned and must be memorised as sound, not derived. The English-speaker error to flag now and unpick in the next units: reaching for 'sou' every time the English is 'I am', and saying 'sou 45 anos' instead of 'tenho 45 anos'."
+    "notePrompt": "Give the four highest-frequency irregulars in full: ser (sou, és, é, somos, são), estar (estou, estás, está, estamos, estão), ter (tenho, tens, tem, temos, têm), ir (vou, vais, vai, vamos, vão). Point out that tem (he/she has) and têm (they have) are barely distinguished in speech but must be spelled differently — the circumflex is the only marker. Warn that these will not yield to the patterns just learned and must be memorized as sound, not derived. The English-speaker error to flag now and unpick in the next units: reaching for 'sou' every time the English is 'I am', and saying 'sou 45 anos' instead of 'tenho 45 anos'."
   },
   {
     "slug": "food-and-drink",
@@ -127,12 +127,12 @@
   },
   {
     "slug": "colours",
-    "titleEn": "Colours",
+    "titleEn": "Colors",
     "titlePt": "As Cores",
     "category": "vocabulary",
-    "blurbEn": "You'll be able to describe the colour of anything you can point at, with the adjective agreeing and in the right place.",
+    "blurbEn": "You'll be able to describe the color of anything you can point at, with the adjective agreeing and in the right place.",
     "grammarFocus": "concordância do adjetivo em género e número",
-    "notePrompt": "Teach the colours as adjectives that must agree: the two-form group (branco/branca, preto/preta, amarelo/amarela, vermelho/vermelha, castanho/castanha, cinzento/cinzenta, roxo/roxa) versus the ones with a single form for both genders (verde, azul) and the fully invariable ones (laranja, cor-de-rosa, beje). Note the pt-PT preference for 'castanho' where Brazilian material says 'marrom'. Two English-speaker errors: putting the colour before the noun — it is 'um carro vermelho', never 'um vermelho carro' — and forgetting the plural agreement in 'os sapatos pretos' and 'as calças azuis'."
+    "notePrompt": "Teach the colors as adjectives that must agree: the two-form group (branco/branca, preto/preta, amarelo/amarela, vermelho/vermelha, castanho/castanha, cinzento/cinzenta, roxo/roxa) versus the ones with a single form for both genders (verde, azul) and the fully invariable ones (laranja, cor-de-rosa, beje). Note the pt-PT preference for 'castanho' where Brazilian material says 'marrom'. Two English-speaker errors: putting the color before the noun — it is 'um carro vermelho', never 'um vermelho carro' — and forgetting the plural agreement in 'os sapatos pretos' and 'as calças azuis'."
   },
   {
     "slug": "clothes",
@@ -141,7 +141,7 @@
     "category": "vocabulary",
     "blurbEn": "You'll be able to name everything in your wardrobe, ask for a size in a shop and try something on.",
     "grammarFocus": null,
-    "notePrompt": "Load the wardrobe: camisola, camisa, t-shirt, calças, calções, saia, vestido, casaco, blusão, fato de banho, meias, sapatos, sapatilhas, chinelos, chapéu, boné, óculos de sol, cinto. Flag the pt-PT items an English speaker will misread — 'camisola' is a jumper or sweater (not a nightdress), 'sapatilhas' are trainers, 'fato de banho' is a swimsuit — and the plural-only nouns: calças, calções and óculos always take plural agreement, so it is 'as calças estão sujas' and 'onde estão os meus óculos?'. Add the shop phrases: 'Que tamanho?', 'Posso experimentar?', 'Tem um número mais pequeno?'."
+    "notePrompt": "Load the wardrobe: camisola, camisa, t-shirt, calças, calções, saia, vestido, casaco, blusão, fato de banho, meias, sapatos, sapatilhas, chinelos, chapéu, boné, óculos de sol, cinto. Flag the pt-PT items an English speaker will misread — 'camisola' is a sweater (not a nightdress), 'sapatilhas' are sneakers, 'fato de banho' is a swimsuit — and the plural-only nouns: calças, calções and óculos always take plural agreement, so it is 'as calças estão sujas' and 'onde estão os meus óculos?'. Add the shop phrases: 'Que tamanho?', 'Posso experimentar?', 'Tem um número mais pequeno?'."
   },
   {
     "slug": "getting-dressed",
@@ -150,7 +150,7 @@
     "category": "communication",
     "blurbEn": "You'll be able to narrate getting yourself and the kids dressed, using the right verb for shoes, coats and clothes.",
     "grammarFocus": null,
-    "notePrompt": "Build the morning routine around the dressing verbs and the fact that Portuguese splits them where English uses one: vestir for garments on the body, calçar for shoes and socks, pôr for hats, coats, glasses and sunscreen, and tirar or despir for taking things off. Introduce 'vestir-se' and 'levantar-se' as whole memorised chunks only — do NOT teach reflexives or clitic placement as a system at this level. The classic English-speaker error is one-verb-fits-all: 'vestir os sapatos' instead of 'calçar os sapatos', and translating 'get dressed' word by word instead of reaching for 'vestir-se' or 'vestir a roupa'."
+    "notePrompt": "Build the morning routine around the dressing verbs and the fact that Portuguese splits them where English uses one: vestir for garments on the body, calçar for shoes and socks, pôr for hats, coats, glasses and sunscreen, and tirar or despir for taking things off. Introduce 'vestir-se' and 'levantar-se' as whole memorized chunks only — do NOT teach reflexives or clitic placement as a system at this level. The classic English-speaker error is one-verb-fits-all: 'vestir os sapatos' instead of 'calçar os sapatos', and translating 'get dressed' word by word instead of reaching for 'vestir-se' or 'vestir a roupa'."
   },
   {
     "slug": "the-verb-por",
@@ -159,7 +159,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to use pôr confidently in the present — setting the table, putting on a coat, adding sugar — instead of avoiding it.",
     "grammarFocus": "presente do indicativo do verbo pôr",
-    "notePrompt": "Give pôr its own unit because it belongs to no conjugation class: ponho, pões, põe, pomos, põem — none of the -ar/-er/-ir patterns fits it, and its infinitive is the only one in the language ending in -ôr. Drill the collocations Portuguese actually uses it for: pôr a mesa, pôr o casaco, pôr açúcar no café, pôr a roupa a secar, pôr a música mais baixo. Contrast it with colocar (more formal, more written) and meter (very informal, 'meter na mala'). Two errors: writing 'por' without the circumflex, which is a completely different word (the preposition), and dodging pôr in favour of colocar because the conjugation looks frightening."
+    "notePrompt": "Give pôr its own unit because it belongs to no conjugation class: ponho, pões, põe, pomos, põem — none of the -ar/-er/-ir patterns fits it, and its infinitive is the only one in the language ending in -ôr. Drill the collocations Portuguese actually uses it for: pôr a mesa, pôr o casaco, pôr açúcar no café, pôr a roupa a secar, pôr a música mais baixo. Contrast it with colocar (more formal, more written) and meter (very informal, 'meter na mala'). Two errors: writing 'por' without the circumflex, which is a completely different word (the preposition), and dodging pôr in favor of colocar because the conjugation looks frightening."
   },
   {
     "slug": "bigger-numbers-and-prices",
@@ -177,7 +177,7 @@
     "category": "communication",
     "blurbEn": "You'll be able to say what you love, like, don't much like and can't stand — and ask the same of someone else.",
     "grammarFocus": "verbo gostar + preposição de",
-    "notePrompt": "Centre everything on gostar, which is inseparable from 'de': 'Gosto de peixe', 'Gostas de nadar?', 'Não gosto nada de acordar cedo'. Give the full intensity scale so answers stop being binary: adoro / gosto muito de / gosto de / gosto mais ou menos de / não gosto muito de / não gosto nada de / detesto. The first English-speaker error is dropping the 'de' ('gosto peixe') because English 'like' takes a direct object with no preposition. The second is looking for an -ing form after it — Portuguese takes the plain infinitive, 'gosto de correr', never a gerund. Add preferir and 'o meu preferido' for comparisons."
+    "notePrompt": "Center everything on gostar, which is inseparable from 'de': 'Gosto de peixe', 'Gostas de nadar?', 'Não gosto nada de acordar cedo'. Give the full intensity scale so answers stop being binary: adoro / gosto muito de / gosto de / gosto mais ou menos de / não gosto muito de / não gosto nada de / detesto. The first English-speaker error is dropping the 'de' ('gosto peixe') because English 'like' takes a direct object with no preposition. The second is looking for an -ing form after it — Portuguese takes the plain infinitive, 'gosto de correr', never a gerund. Add preferir and 'o meu preferido' for comparisons."
   },
   {
     "slug": "asking-questions",
@@ -195,7 +195,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to say whose something is without dropping the article or picking the wrong gender.",
     "grammarFocus": "determinantes possessivos",
-    "notePrompt": "The central rule: the possessive agrees with the thing owned, not with the owner — a man says 'a minha mala' and a woman says 'o meu carro'. English speakers get this backwards because English possessives track the owner (his/her). The second, most audible slip: pt-PT normally keeps the definite article in front, so it is 'o teu telemóvel' and 'a nossa casa', not bare 'teu telemóvel'. Cover meu/minha, teu/tua, nosso/nossa and the o seu / a sua ambiguity that pushes Portuguese towards 'dele' and 'dela' ('o carro dele'). Tie it straight back to the tu/você unit: 'o teu' with family and friends, 'o seu' when you are addressing someone as o senhor."
+    "notePrompt": "The central rule: the possessive agrees with the thing owned, not with the owner — a man says 'a minha mala' and a woman says 'o meu carro'. English speakers get this backwards because English possessives track the owner (his/her). The second, most audible slip: pt-PT normally keeps the definite article in front, so it is 'o teu telemóvel' and 'a nossa casa', not bare 'teu telemóvel'. Cover meu/minha, teu/tua, nosso/nossa and the o seu / a sua ambiguity that pushes Portuguese toward 'dele' and 'dela' ('o carro dele'). Tie it straight back to the tu/você unit: 'o teu' with family and friends, 'o seu' when you are addressing someone as o senhor."
   },
   {
     "slug": "days-months-and-dates",

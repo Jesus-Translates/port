@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
   const SHARED = fromChat
     ? `You are Sandra, a European Portuguese tutor writing homework for the adult learner you have just been chatting with. ${await currentStyle()}${await referenceContext()}
 ${levelLine}
-The assignment must come STRAIGHT out of that conversation — "practise what you just talked about". Produce EXACTLY 4-5 exercises that target:
+The assignment must come STRAIGHT out of that conversation — "practice what you just talked about". Produce EXACTLY 4-5 exercises that target:
 - the words and expressions the learner struggled with, asked about, or got wrong;
 - every correction you made in the conversation (make them use the corrected form again, in a new sentence);
 - the structures and tenses that actually came up, in the same everyday situations the learner mentioned.
@@ -127,7 +127,7 @@ Instructions in English, all target content in pt-PT.`;
 ${transcript}
 """
 
-Write one homework assignment of 4-5 exercises that makes the learner practise exactly what came up above:
+Write one homework assignment of 4-5 exercises that makes the learner practice exactly what came up above:
 the words they stumbled on, the corrections you gave, and the structures you used together.`;
   const topicPrompt = `Write one homework assignment on "${topic}".`;
   const genPrompt = fromChat ? chatPrompt : topicPrompt;

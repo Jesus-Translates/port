@@ -39,3 +39,4 @@ ds-bundle
 
 # Generated declaration tree for the design-system sync (see .design-sync/)
 /types
+british-backup-*.json

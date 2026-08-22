@@ -71,7 +71,7 @@ export const MISSIONS_SEED: MissionSeed[] = [
     promptPt:
       "Cumprimenta um vizinho, apresenta-te e diz onde moras e há quanto tempo cá vives. Depois convida-o para tomar um café qualquer dia destes.",
     promptEn:
-      "Say hello to a neighbour, introduce yourself, say where you live and how long you've been here. Then invite them for a coffee one of these days.",
+      "Say hello to a neighbor, introduce yourself, say where you live and how long you've been here. Then invite them for a coffee one of these days.",
     location: "À porta de casa — Silveira",
     cefr: "A2",
     sortOrder: 6,

@@ -215,7 +215,7 @@ export function VerbConjugator({
               href="/jogos/cartoes"
               className="text-xs text-olive underline underline-offset-2"
             >
-              <Bi pt="Treinar com cartões →" en="Practise with flashcards" inline />
+              <Bi pt="Treinar com cartões →" en="Practice with flashcards" inline />
             </Link>
           </div>
           <div className="flex flex-wrap gap-1.5">

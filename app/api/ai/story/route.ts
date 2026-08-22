@@ -81,9 +81,9 @@ export async function POST(request: NextRequest) {
     model: getModel(),
     output: Output.object({ schema: storyGenSchema }),
     instructions: `You write serialized graded-reader chapters for a family learning EUROPEAN Portuguese (${familyList(await householdNames())}). ${await currentStyle()}${await referenceContext()}
-Set the stories in the learner's own real world — the beach or street they know, the mercado, the escola, neighbours,
+Set the stories in the learner's own real world — the beach or street they know, the mercado, the escola, neighbors,
 the surrounding countryside: warm, lightly funny slice-of-life with recurring fictional characters (do not put the real family members in awkward
-situations; a fictional neighbour family works well). Strictly control grammar/vocabulary to the target CEFR level.
+situations; a fictional neighbor family works well). Strictly control grammar/vocabulary to the target CEFR level.
 Comprehension questions must be answerable ONLY from the text, options plausible, correct one verbatim in "answer".`,
     prompt: priorContext
       ? `Continue the series "${seriesTitle}" at level ${level}. This is chapter ${chapter}. The story so far:\n${priorContext}\n\nWrite the next chapter — continue threads, don't reset.`

@@ -82,7 +82,7 @@ export function placeLine(place: Place): string {
   const where = place.locality?.trim();
 
   if (place.livesInPortugal && where) {
-    return `The learner LIVES in ${where}, Portugal. Set examples in their own town and region: the places, beaches, transport, shops, weather and habits a resident of ${where} would actually recognise, and the errands they really run (o mercado, o multibanco, a farmácia de serviço, a junta de freguesia). Never default to Lisbon or Porto unless that is where they live. Do not explain Portugal to them as a visitor — they live there.`;
+    return `The learner LIVES in ${where}, Portugal. Set examples in their own town and region: the places, beaches, transport, shops, weather and habits a resident of ${where} would actually recognize, and the errands they really run (o mercado, o multibanco, a farmácia de serviço, a junta de freguesia). Never default to Lisbon or Porto unless that is where they live. Do not explain Portugal to them as a visitor — they live there.`;
   }
   if (place.livesInPortugal) {
     return `The learner lives in Portugal. Use everyday resident contexts — the market, the café, the bus, the pharmacy, dealing with paperwork — not tourist situations.`;
@@ -127,8 +127,8 @@ ${zone.context}
 How to use this region:
 - Reach for these REAL names and details when you invent an example, a dialogue, a story or a homework situation. A named street, market, bus or dish beats a generic one every time — the learner will use these words this week.
 - Never contradict it. Do not move them to Lisbon or Porto, and do not describe their region as a visitor would.
-- Local institutions come with rituals — the queue, the ordering custom, the argument about who does it best. Those rituals are where your humour belongs: affectionate, dry, aimed at the ritual and never at a real business or the people who run it. Never repeat a complaint about a named establishment.
-- Use local words and accent notes as flavour the learner can actually adopt, always in European Portuguese.`;
+- Local institutions come with rituals — the line, the ordering custom, the argument about who does it best. Those rituals are where your humor belongs: affectionate, dry, aimed at the ritual and never at a real business or the people who run it. Never repeat a complaint about a named establishment.
+- Use local words and accent notes as flavor the learner can actually adopt, always in European Portuguese.`;
 
     if (place.placeSlug) {
       const [town] = await db

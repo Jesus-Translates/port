@@ -136,7 +136,7 @@ BRIEF (en): ${mission.promptEn}
 WHERE: ${mission.location}
 LEVEL: ${mission.cefr}
 
-TRANSCRIPT OF WHAT THEY SAID: ${transcript || "(nothing recognised)"}`,
+TRANSCRIPT OF WHAT THEY SAID: ${transcript || "(nothing recognized)"}`,
   });
   await recordUsage(session.username, "grade", modelId(), usage);
 

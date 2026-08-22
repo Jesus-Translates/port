@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
   const grounding = theme
     ? `Create it around the requested topic: "${theme}".`
     : context
-      ? `Ground it in what the learner is currently studying — ${context} Practise that same material.`
+      ? `Ground it in what the learner is currently studying — ${context} Practice that same material.`
       : "Everyday life where the learner lives.";
 
   if (kind === "frases") {

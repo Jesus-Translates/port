@@ -21,11 +21,11 @@ const TOPIC_CHIPS: { pt: string; en: string }[] = [
   { pt: "a praia", en: "the beach" },
   { pt: "o mercado", en: "the market" },
   { pt: "o tempo", en: "the weather" },
-  { pt: "os vizinhos", en: "the neighbours" },
+  { pt: "os vizinhos", en: "the neighbors" },
   { pt: "a comida", en: "the food" },
-  { pt: "o futebol", en: "football" },
+  { pt: "o futebol", en: "soccer" },
   { pt: "a família", en: "the family" },
-  { pt: "as férias", en: "the holidays" },
+  { pt: "as férias", en: "the vacation" },
 ];
 
 type Msg = {

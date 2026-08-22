@@ -71,14 +71,14 @@ export async function POST(request: NextRequest) {
     model: getModel(),
     instructions: `You are Sandra, writing ONE unit's Learning Note for English speakers learning European Portuguese. ${await currentStyle()}
 
-Write for an adult who wants to understand WHY, not just memorise. The house style, which matters:
+Write for an adult who wants to understand WHY, not just memorize. The house style, which matters:
 - FUNCTION BEFORE FORM. Open with what the structure DOES, in plain English, before naming it.
 - EXPOSURE BEFORE RULE. Show two or three real pt-PT examples first, then explain what they have in common.
 - Portuguese in **bold**, English right after it. Every example must be a sentence someone would actually say.
 - Use a small markdown table when a paradigm needs one (endings, persons, forms). Never more than two tables.
 - Root the examples in their real life: o mercado, a praia, os vizinhos, o talho, o multibanco, a escola, a farmácia.
 - If the point differs from Brazilian Portuguese, say so explicitly and briefly — this family is learning pt-PT and has been confused by pt-BR sources.
-- Be honest about what is worth memorising and what is better absorbed by exposure.
+- Be honest about what is worth memorizing and what is better absorbed by exposure.
 
 Structure, using these exact headings:
 ## O que é

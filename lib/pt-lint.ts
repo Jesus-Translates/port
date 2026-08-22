@@ -36,7 +36,7 @@ const LEXICAL: [string, string, string][] = [
   ["ônibus", "o autocarro", "Brazilian bus"],
   ["banheiro", "a casa de banho", "Brazilian bathroom"],
   ["geladeira", "o frigorífico", "Brazilian fridge"],
-  ["celular", "o telemóvel", "Brazilian mobile phone"],
+  ["celular", "o telemóvel", "Brazilian cell phone"],
   ["trem", "o comboio", "Brazilian train"],
   ["sorvete", "o gelado", "Brazilian ice cream"],
   ["xícara", "a chávena", "Brazilian cup"],
@@ -47,8 +47,8 @@ const LEXICAL: [string, string, string][] = [
   ["planejamento", "o planeamento", "Brazilian spelling"],
   ["registro", "o registo", "Brazilian spelling"],
   ["bonde", "o elétrico", "Brazilian tram"],
-  ["carona", "a boleia", "Brazilian lift/ride"],
-  ["bala", "o rebuçado", "Brazilian sweet"],
+  ["carona", "a boleia", "Brazilian ride"],
+  ["bala", "o rebuçado", "Brazilian candy"],
   ["grampeador", "o agrafador", "Brazilian stapler"],
   ["aeromoça", "a hospedeira", "Brazilian flight attendant"],
   ["açougue", "o talho", "Brazilian butcher"],
@@ -68,7 +68,7 @@ const LEXICAL: [string, string, string][] = [
   ["garçom", "o empregado de mesa", "Brazilian waiter"],
   ["fila do caixa", "a fila da caixa", "Brazilian gender"],
   // Confirmed by native review of this app's own content, 2026-08-10.
-  ["para viagem", "para levar", "Brazilian takeaway phrase — Portugal says 'para levar'"],
+  ["para viagem", "para levar", "Brazilian takeout phrase — Portugal says 'para levar'"],
 ];
 
 /**

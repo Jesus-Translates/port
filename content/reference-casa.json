@@ -7,7 +7,7 @@
       "emoji": "🍳",
       "blurbEn": "Kitchen furniture, tools, and the everyday back-and-forth of cooking together.",
       "entries": [
-        {"kind": "term", "section": "Mobília e eletrodomésticos", "pt": "o armário", "en": "the cupboard"},
+        {"kind": "term", "section": "Mobília e eletrodomésticos", "pt": "o armário", "en": "the cabinet"},
         {"kind": "term", "section": "Mobília e eletrodomésticos", "pt": "o fogão", "en": "the stove"},
         {"kind": "term", "section": "Mobília e eletrodomésticos", "pt": "o forno", "en": "the oven"},
         {"kind": "term", "section": "Mobília e eletrodomésticos", "pt": "o frigorífico", "en": "the fridge", "note": "In Brazil: geladeira — you'll hear frigorífico in Portugal."},
@@ -30,7 +30,7 @@
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Queres provar isto?", "en": "Do you want to taste this?", "replyPt": "Sim, quero muito provar.", "replyEn": "Yes, I really want to taste it."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Onde está o abre-latas?", "en": "Where's the can opener?", "replyPt": "Está na gaveta ao lado do lavatório.", "replyEn": "It's in the drawer next to the sink."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "O jantar já está pronto?", "en": "Is dinner ready yet?", "replyPt": "Quase, faltam dez minutos.", "replyEn": "Almost, ten minutes left."},
-        {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Posso usar a tua panela grande?", "en": "Can I use your big pot?", "replyPt": "Podes, está no armário de baixo.", "replyEn": "You can, it's in the bottom cupboard."},
+        {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Posso usar a tua panela grande?", "en": "Can I use your big pot?", "replyPt": "Podes, está no armário de baixo.", "replyEn": "You can, it's in the bottom cabinet."},
         {"kind": "task", "section": "Tarefas", "pt": "lavar a loiça", "en": "to wash the dishes"},
         {"kind": "task", "section": "Tarefas", "pt": "pôr a loiça na máquina", "en": "to put the dishes in the machine"},
         {"kind": "task", "section": "Tarefas", "pt": "arrumar a loiça limpa", "en": "to put away the clean dishes"},
@@ -174,7 +174,7 @@
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Precisas de ajuda para montar a estante?", "en": "Do you need help assembling the shelf?", "replyPt": "Preciso sim, é pesada.", "replyEn": "Yes I do, it's heavy."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Onde guardaste a escada?", "en": "Where did you put the ladder?", "replyPt": "Está encostada à parede da garagem.", "replyEn": "It's leaning against the garage wall."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "A luz da garagem está a piscar.", "en": "The garage light is flickering.", "replyPt": "Deve ser a lâmpada, vou trocar.", "replyEn": "It's probably the bulb, I'll change it."},
-        {"kind": "task", "section": "Tarefas", "pt": "consertar a torneira", "en": "to fix the tap"},
+        {"kind": "task", "section": "Tarefas", "pt": "consertar a torneira", "en": "to fix the faucet"},
         {"kind": "task", "section": "Tarefas", "pt": "montar a estante", "en": "to assemble the shelf"},
         {"kind": "task", "section": "Tarefas", "pt": "organizar a garagem", "en": "to organize the garage"},
         {"kind": "task", "section": "Tarefas", "pt": "limpar as ferramentas", "en": "to clean the tools"}
@@ -256,9 +256,9 @@
     {
       "slug": "reciclagem-e-lixo",
       "namePt": "Reciclagem e lixo",
-      "nameEn": "Recycling & rubbish",
+      "nameEn": "Recycling & trash",
       "emoji": "♻️",
-      "blurbEn": "Sorting the rubbish and recycling, Portuguese-council style.",
+      "blurbEn": "Sorting the trash and recycling, Portuguese-council style.",
       "entries": [
         {"kind": "term", "section": "Ecopontos e contentores", "pt": "o ecoponto", "en": "the recycling point"},
         {"kind": "term", "section": "Ecopontos e contentores", "pt": "o vidrão", "en": "the glass bin"},
@@ -266,7 +266,7 @@
         {"kind": "term", "section": "Ecopontos e contentores", "pt": "os monos", "en": "the bulky waste", "note": "Also called monstros in some regions — bulky items like old furniture or appliances."},
         {"kind": "term", "section": "Ecopontos e contentores", "pt": "o contentor amarelo", "en": "the yellow bin (plastic/metal)"},
         {"kind": "term", "section": "Ecopontos e contentores", "pt": "o contentor azul", "en": "the blue bin (paper/cardboard)"},
-        {"kind": "term", "section": "No dia a dia", "pt": "o lixo", "en": "the rubbish/trash"},
+        {"kind": "term", "section": "No dia a dia", "pt": "o lixo", "en": "the trash"},
         {"kind": "term", "section": "No dia a dia", "pt": "o saco do lixo", "en": "the trash bag"},
         {"kind": "term", "section": "No dia a dia", "pt": "a reciclagem", "en": "the recycling"},
         {"kind": "term", "section": "No dia a dia", "pt": "o composto", "en": "the compost"},
@@ -284,7 +284,7 @@
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Onde ponho as cascas de fruta?", "en": "Where do I put the fruit peels?", "replyPt": "Podes pôr no composto.", "replyEn": "You can put them in the compost."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Quando passa o camião do lixo?", "en": "When does the garbage truck come by?", "replyPt": "Passa às terças e sextas.", "replyEn": "It comes on Tuesdays and Fridays."},
         {"kind": "phrase", "section": "Perguntas e respostas", "pt": "Já está cheio o saco do lixo?", "en": "Is the trash bag full already?", "replyPt": "Está quase, vou trocar.", "replyEn": "Almost, I'll change it."},
-        {"kind": "task", "section": "Tarefas", "pt": "separar o lixo", "en": "to sort the rubbish"},
+        {"kind": "task", "section": "Tarefas", "pt": "separar o lixo", "en": "to sort the trash"},
         {"kind": "task", "section": "Tarefas", "pt": "deitar fora o lixo", "en": "to take out the trash"},
         {"kind": "task", "section": "Tarefas", "pt": "levar o vidro ao ecoponto", "en": "to take the glass to the recycling point"},
         {"kind": "task", "section": "Tarefas", "pt": "esvaziar o balde do composto", "en": "to empty the compost bin"}

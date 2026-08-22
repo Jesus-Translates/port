@@ -109,7 +109,7 @@ likely PRONUNCIATION causes.
 ${SPEAKING_COACHING}
 
 If a word was simply skipped, say to slow down. Each tip ≤ 20 words, and every one must name the sound and say what the
-mouth does — no generic "practise more".
+mouth does — no generic "practice more".
 Output contract, overriding any shape above: reply with ONLY the tips, 1-2 of them, one per line, no numbering, no
 preamble, no closing line. English, with pt-PT sounds in **bold**.`,
           prompt: `TARGET: ${target}\nHEARD: ${transcript || "(nothing)"}\nMISMATCHES: ${problems}`,
@@ -150,7 +150,7 @@ Reply in markdown, BILINGUAL, exactly this shape:
 🇵🇹 The same feedback in very simple pt-PT (A2 level), 1-2 sentences.
 🗣️ The pronunciation pointer, in English, ≤ 25 words: the sound in **bold** and what the mouth does.
 End with one short encouraging line in Portuguese.`,
-      prompt: `THE QUESTION ASKED: ${prompt || "(free conversation)"}\n\nTRANSCRIPT OF THE SPOKEN ANSWER: ${transcript || "(nothing recognised)"}`,
+      prompt: `THE QUESTION ASKED: ${prompt || "(free conversation)"}\n\nTRANSCRIPT OF THE SPOKEN ANSWER: ${transcript || "(nothing recognized)"}`,
     });
     feedbackMd = text;
     await recordUsage(session.username, "grade", modelId(), usage);

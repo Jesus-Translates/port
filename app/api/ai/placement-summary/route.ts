@@ -138,7 +138,7 @@ This is the first thing they read about their own Portuguese, so it sets whether
 - gapsEn comes only from questions they actually MISSED. If they missed nothing, return an empty array rather than manufacturing a fault.
 - canDoEn comes only from sections they CLEARED. If they cleared none, return an empty array and let the headline carry it.
 - Near misses were spelling slips that were marked correct. Mention them only if there were several, and only as a spelling note — never as a knowledge gap.
-- Be specific and adult. "Your past tense is inconsistent — you wrote 'comprava' where 'comprei' was needed" beats "keep practising verbs".
+- Be specific and adult. "Your past tense is inconsistent — you wrote 'comprava' where 'comprei' was needed" beats "keep practicing verbs".
 - English for everything except encouragementPt, which is European Portuguese: tu register, simple words, warm and short.`,
     prompt: `PLACED AT: ${level}
 SECTIONS ATTEMPTED: ${perLevel.map((r) => `${r.level} ${r.right}/${r.asked}`).join(", ") || "none"}

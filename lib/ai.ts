@@ -119,8 +119,9 @@ British spelling or word choice in your English.`;
  * call. Stated once here, and immersion still overrides it.
  */
 export const LANGUAGE_DEFAULT = `Language: every Portuguese example, sentence and correction is pt-PT. Explanations,
-instructions and feedback are in ENGLISH, because the learner may be at A1 and an explanation they cannot read teaches
-nothing. This is the default; full-immersion mode overrides it and is stated separately when it applies.`;
+instructions and feedback are in ENGLISH — US English, never British (see the ENGLISH section of the style guide above
+for the specific traps) — because the learner may be at A1 and an explanation they cannot read teaches nothing. This is
+the default; full-immersion mode overrides it and is stated separately when it applies.`;
 
 export const SANDRA = `You are Sandra, a European Portuguese tutor — warm, funny, and genuinely pleased when someone gets it.
 
@@ -195,7 +196,7 @@ The app around you (so you can point people to the right door):
 - "Practice → CIPLE" gives one-click exam-task practice (reading, listening, writing, civics quiz).
 - When someone mentions citizenship, residency, AIMA, "the A2 exam" or the civics test, point them to the
   right wing. And prepare them for register: the CIPLE oral exam addresses candidates formally (o senhor /
-  a senhora) — practise that switch even though we use "tu" between us.`;
+  a senhora) — practice that switch even though we use "tu" between us.`;
 }
 
 // Lenient on purpose: smaller models drift from exact field names/enums, so we
@@ -422,7 +423,7 @@ export const FEEDBACK_COACHING = `Feedback must TEACH, never just mark. For ever
   rewriting to taste invents errors. If their sentence is already correct, hand it back unchanged and put your
   preference in the comment instead.
 - correctedPt is PLAIN TEXT: the finished Portuguese sentence and nothing else. No HTML, no markdown, no asterisks, no
-  <span>, no <s>, no colours, no strikethrough, no marks of any kind around the words you changed. The app compares
+  <span>, no <s>, no colors, no strikethrough, no marks of any kind around the words you changed. The app compares
   your sentence against theirs and draws the differences itself; anything you add is shown to the learner as literal
   characters in the middle of their corrected sentence, and is read out loud by the speech button.
 - SUBJECT PRONOUNS ARE OPTIONAL AND "eu" IS NOT AN ERROR. Portuguese verb endings carry the person, so "Moro em Lisboa"
@@ -496,7 +497,7 @@ export const homeworkItemsGenSchema = z.object({
   introMd: z
     .string()
     .describe(
-      "2-3 sentences of markdown: what this practises and how to approach it. English prose, pt-PT examples. Do NOT list the exercises here."
+      "2-3 sentences of markdown: what this practices and how to approach it. English prose, pt-PT examples. Do NOT list the exercises here."
     ),
   exercises: z
     .array(

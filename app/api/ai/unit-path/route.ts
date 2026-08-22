@@ -162,7 +162,7 @@ Syllabus category: ${unit.category}
 What the learner should be able to do: ${unit.blurbEn || "(not stated)"}
 Author's intent: ${unit.notePrompt || "(none)"}
 
-The Learning Note this path must practise:
+The Learning Note this path must practice:
 ${(unit.noteMd || "(the note is not written yet — work from the title and the blurb)").slice(0, 4000)}
 
 Build this unit's path.`,

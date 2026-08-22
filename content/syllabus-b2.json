@@ -4,7 +4,7 @@
     "titleEn": "Society and Living Together",
     "titlePt": "Sociedade e Convivência",
     "category": "communication",
-    "blurbEn": "You'll be able to handle a condomínio meeting, a noise complaint and a favour from a neighbour without either escalating or caving in.",
+    "blurbEn": "You'll be able to handle a condomínio meeting, a noise complaint and a favor from a neighbor without either escalating or caving in.",
     "grammarFocus": null,
     "notePrompt": "Teach the lexicon and etiquette of shared life in a Portuguese town — condomínio, quota, administrador (never the pt-BR 'síndico'), assembleia de condóminos, junta de freguesia, vizinho do lado, dar-se bem com, fazer um favor, ficar mal visto — plus the pt-PT preference for impersonal, question-shaped complaints; the anchor contrast is the direct English 'You're being too loud' against 'Se calhar não dava para baixar um bocadinho?', and the classic English-speaker error is the bare tu imperative ('Baixa o som') where Portuguese hedges, plus reading 'convivência' as cold 'coexistence' when it carries the warmer sense of getting on with people."
   },
@@ -40,7 +40,7 @@
     "titleEn": "Idioms II: Work, Luck, the Sea and Proverbs",
     "titlePt": "Expressões Idiomáticas II: Trabalho, Sorte, Mar e Provérbios",
     "category": "vocabulary",
-    "blurbEn": "You'll be able to close an argument with the same proverb your neighbour would reach for, and know when a proverb is the graceful way out.",
+    "blurbEn": "You'll be able to close an argument with the same proverb your neighbor would reach for, and know when a proverb is the graceful way out.",
     "grammarFocus": null,
     "notePrompt": "Cover idioms of effort and fortune (dar o litro, andar numa roda-viva, ficar a ver navios, deitar água na fervura, estar com água pela barba, à espera que caia o maná) plus the provérbio as a conversational move — devagar se vai ao longe; quem não tem cão caça com gato; águas passadas não movem moinhos; grão a grão enche a galinha o papo; the contrast to draw is the English habit of quoting proverbs ironically or apologetically against the Portuguese habit of using one sincerely to end a disagreement without anyone losing face, and the error to correct is translating 'left high and dry' or 'up to my neck' literally when 'ficar a ver navios' and 'estar com água pela barba' already exist."
   },
@@ -49,9 +49,9 @@
     "titleEn": "Slang and Street Portuguese",
     "titlePt": "Gíria e Calão",
     "category": "vocabulary",
-    "blurbEn": "You'll be able to follow the teenagers and the café counter, and know which words you can say back and which you should only recognise.",
+    "blurbEn": "You'll be able to follow the teenagers and the café counter, and know which words you can say back and which you should only recognize.",
     "grammarFocus": null,
-    "notePrompt": "Separate gíria (fixe, bué, ganda, cota, gajo/gaja, curtir, bazar, chunga, ter piada, estar-se nas tintas) from calão proper, and label every item produce-or-recognise-only, including which ones a parent can say in front of teenagers; the essential contrast is pt-PT fixe / bué / puto against pt-BR legal / muito / moleque, and the English-speaker error is importing Brazilian slang absorbed from music and streaming, which in the Oeste reads as either foreign or comic — also warn that 'gajo' is fine among friends and rude about a stranger, and that 'giro' means nice-looking, not funny."
+    "notePrompt": "Separate gíria (fixe, bué, ganda, cota, gajo/gaja, curtir, bazar, chunga, ter piada, estar-se nas tintas) from calão proper, and label every item produce-or-recognize-only, including which ones a parent can say in front of teenagers; the essential contrast is pt-PT fixe / bué / puto against pt-BR legal / muito / moleque, and the English-speaker error is importing Brazilian slang absorbed from music and streaming, which in the Oeste reads as either foreign or comic — also warn that 'gajo' is fine among friends and rude about a stranger, and that 'giro' means nice-looking, not funny."
   },
   {
     "slug": "presente-do-conjuntivo",
@@ -69,7 +69,7 @@
     "category": "grammar",
     "blurbEn": "You'll be able to say what you would do if things were different, and make requests so soft that refusing them politely is easy.",
     "grammarFocus": "pretérito imperfeito do conjuntivo",
-    "notePrompt": "Derive the imperfeito do conjuntivo from the third person plural of the pretérito perfeito (fizeram→fizesse, foram→fosse, tiveram→tivesse, puderam→pudesse) so every irregular is inherited rather than memorised, then drill the fixed frame se + imperfeito do conjuntivo + condicional ('Se eu tivesse tempo, ia contigo'), the politeness uses ('Queria...', 'Se calhar era melhor que...') and 'como se' + conjuntivo; the classic English-speaker error is mapping 'If I had time' onto *'Se eu tinha tempo' because English uses a plain past — stress that hypothetical se never takes the imperfeito do indicativo — and point out that colloquial pt-PT normally prefers 'ia' to 'iria' in the main clause."
+    "notePrompt": "Derive the imperfeito do conjuntivo from the third person plural of the pretérito perfeito (fizeram→fizesse, foram→fosse, tiveram→tivesse, puderam→pudesse) so every irregular is inherited rather than memorized, then drill the fixed frame se + imperfeito do conjuntivo + condicional ('Se eu tivesse tempo, ia contigo'), the politeness uses ('Queria...', 'Se calhar era melhor que...') and 'como se' + conjuntivo; the classic English-speaker error is mapping 'If I had time' onto *'Se eu tinha tempo' because English uses a plain past — stress that hypothetical se never takes the imperfeito do indicativo — and point out that colloquial pt-PT normally prefers 'ia' to 'iria' in the main clause."
   },
   {
     "slug": "futuro-do-conjuntivo",
@@ -85,7 +85,7 @@
     "titleEn": "Humour, Irony and Softening",
     "titlePt": "Humor, Ironia e Delicadeza",
     "category": "communication",
-    "blurbEn": "You'll be able to disagree with a neighbour, query a bill and turn down an invitation without ever sounding blunt.",
+    "blurbEn": "You'll be able to disagree with a neighbor, query a bill and turn down an invitation without ever sounding blunt.",
     "grammarFocus": null,
     "notePrompt": "Teach the pt-PT softening toolkit — 'não é bem assim', 'se calhar', 'sabes como é', 'olha, não me leves a mal, mas...', 'estou a brincar', 'ora essa', 'até certo ponto' — together with understatement and the social ritual of queixar-se (complaining as bonding, not as a demand for action); the contrast to draw is the English 'I'm afraid I have to disagree' against the Portuguese move of opening in agreement and then reversing ('Pois, pois... agora lá que seja assim tão fácil, não é'), and the errors to correct are using 'desculpa' where 'com licença' is needed, delivering deadpan English sarcasm that reads as sincere rudeness, and mistaking Portuguese directness about bodies, age and money for aggression."
   },
@@ -130,9 +130,9 @@
     "titleEn": "Government and Politics",
     "titlePt": "Governo e Política",
     "category": "vocabulary",
-    "blurbEn": "You'll be able to work out who actually decides what — from the junta de freguesia up to São Bento — and hold a political conversation without giving offence.",
+    "blurbEn": "You'll be able to work out who actually decides what — from the junta de freguesia up to São Bento — and hold a political conversation without giving offense.",
     "grammarFocus": null,
-    "notePrompt": "Map the real structures a resident deals with: freguesia and junta de freguesia → câmara municipal (presidente, vereadores) → distrito, then Assembleia da República and the Primeiro-Ministro at São Bento versus the Presidente da República at Belém, plus legislativas, autárquicas, círculo eleitoral, coligação, moção de censura and the party acronyms; the contrast to draw is Portugal's semi-presidential split against the English-speaker assumption of one head of government — the recurring error is calling the Primeiro-Ministro 'o Presidente' — and cover enough 25 de Abril and Estado Novo background to understand how older neighbours in the Oeste frame politics, plus the exits 'não estou muito por dentro' and 'lá isso não sei'."
+    "notePrompt": "Map the real structures a resident deals with: freguesia and junta de freguesia → câmara municipal (presidente, vereadores) → distrito, then Assembleia da República and the Primeiro-Ministro at São Bento versus the Presidente da República at Belém, plus legislativas, autárquicas, círculo eleitoral, coligação, moção de censura and the party acronyms; the contrast to draw is Portugal's semi-presidential split against the English-speaker assumption of one head of government — the recurring error is calling the Primeiro-Ministro 'o Presidente' — and cover enough 25 de Abril and Estado Novo background to understand how older neighbors in the Oeste frame politics, plus the exits 'não estou muito por dentro' and 'lá isso não sei'."
   },
   {
     "slug": "discurso-indireto-concordancia",
@@ -157,9 +157,9 @@
     "titleEn": "Regional Accents and Dialects",
     "titlePt": "Sotaques e Falares Regionais",
     "category": "communication",
-    "blurbEn": "You'll be able to understand the plumber from the Alentejo, the cousins from São Miguel and the neighbour who has never left the Oeste.",
+    "blurbEn": "You'll be able to understand the plumber from the Alentejo, the cousins from São Miguel and the neighbor who has never left the Oeste.",
     "grammarFocus": null,
-    "notePrompt": "Work through the varieties this family will actually meet, with the specific sound substitutions rather than vague description: the local Estremadura/Oeste falar, close to the Lisbon standard but with heavier unstressed-vowel crushing and swallowed final syllables; Alentejano with its drawn-out vowels, 'ê' for 'ei' (fêjão, primêro) and a markedly commoner gerund ('estou fazendo') that contradicts the standard estar a + infinitivo; Algarvio, clipped and end-swallowing with an Andalusian-tinged rhythm; and Micaelense from São Miguel, where /u/ fronts towards a French-style ü (Lisboa → Lüsboa) and diphthongs shift, making it the hardest variety in the country for learners; the contrast to draw is Lisbon's crushed unstressed vowels against the fuller vowels of the north and the islands, and the error to correct is the learner who concludes their listening is bad — give them the substitution rules so they decode instead of guessing."
+    "notePrompt": "Work through the varieties this family will actually meet, with the specific sound substitutions rather than vague description: the local Estremadura/Oeste falar, close to the Lisbon standard but with heavier unstressed-vowel crushing and swallowed final syllables; Alentejano with its drawn-out vowels, 'ê' for 'ei' (fêjão, primêro) and a markedly commoner gerund ('estou fazendo') that contradicts the standard estar a + infinitivo; Algarvio, clipped and end-swallowing with an Andalusian-tinged rhythm; and Micaelense from São Miguel, where /u/ fronts toward a French-style ü (Lisboa → Lüsboa) and diphthongs shift, making it the hardest variety in the country for learners; the contrast to draw is Lisbon's crushed unstressed vowels against the fuller vowels of the north and the islands, and the error to correct is the learner who concludes their listening is bad — give them the substitution rules so they decode instead of guessing."
   },
   {
     "slug": "carnaval-de-torres",

@@ -291,7 +291,7 @@
           "items": [
             {"pt": "a primavera", "en": "spring"},
             {"pt": "o verão", "en": "summer"},
-            {"pt": "o outono", "en": "autumn / fall"},
+            {"pt": "o outono", "en": "fall"},
             {"pt": "o inverno", "en": "winter"}
           ]
         },

@@ -67,7 +67,7 @@ export default async function StoriesPage(props: PageProps<"/stories">) {
     <div className="space-y-6">
       <AzulejoHeader
         title="Histórias"
-        subtitle="Serialized stories set right here — the beach, the mercado, the neighbours — written at your level, with audio and questions."
+        subtitle="Serialized stories set right here — the beach, the mercado, the neighbors — written at your level, with audio and questions."
       />
 
       {/* Styled for the paper surface, so it sits under the band, not on it. */}

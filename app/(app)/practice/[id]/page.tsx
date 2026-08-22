@@ -248,7 +248,7 @@ function CompletedView({
         </Link>
       ) : (
         <Link href="/practice" className="btn-primary block w-full text-center">
-          <Bi pt="Praticar outra coisa →" en="Practise something else" inline />
+          <Bi pt="Praticar outra coisa →" en="Practice something else" inline />
         </Link>
       )}
     </div>

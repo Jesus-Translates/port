@@ -154,11 +154,11 @@ export async function POST(request: NextRequest) {
 
 A UNIT is one teaching point plus a short, ordered path through activities the app already has.
 
-The Learning Note is the heart of it: written for an adult English speaker who wants to understand WHY, not just memorise.
+The Learning Note is the heart of it: written for an adult English speaker who wants to understand WHY, not just memorize.
 Explain in plain English, show pt-PT in **bold**, keep the examples rooted in their real life (o mercado, a praia, o multibanco,
 os vizinhos). Never Brazilian forms. Aim for 300-500 words.
 
-The items are the practice path, 4-6 of them, ordered easiest → hardest, each a DIFFERENT flavour where possible:
+The items are the practice path, 4-6 of them, ordered easiest → hardest, each a DIFFERENT flavor where possible:
 - "category" — read the phrasebook first. Set categorySlug to EXACTLY one of these existing slugs: ${catMenu}. Never invent a slug.
 - "quiz" — a quick test. Set topic to the precise thing to be tested.
 - "ditado" — dictation practice. topic null.

@@ -103,7 +103,7 @@ export function CipleActions() {
               {busy === t.key ? (
                 <Bi pt="A Sandra está a preparar…" en="Sandra is preparing it…" inline />
               ) : (
-                <Bi pt="Praticar ✨" en="Practise" inline />
+                <Bi pt="Praticar ✨" en="Practice" inline />
               )}
             </button>
           </div>
@@ -117,7 +117,7 @@ export function CipleActions() {
           </div>
           <h3 className="mt-2 font-semibold">Produção e Interação Oral</h3>
           <p className="mt-1 flex-1 text-sm text-ink-soft">
-            Self-introduction and conversation — practise speaking with Sandra
+            Self-introduction and conversation — practice speaking with Sandra
             listening.
           </p>
           <Link href="/practice/falar" className="btn-primary mt-3">
