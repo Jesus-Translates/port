@@ -483,3 +483,31 @@ export async function peekNextStep(
   }
   return { kind: "done", href: "/" };
 }
+
+/**
+ * Mark a generated lesson finished.
+ *
+ * Lessons had no end. You read to the bottom and the page simply stopped —
+ * nothing to press, nothing recorded, no XP, and no way to tell tomorrow
+ * whether you had read it. Every other activity in the app finishes with
+ * something; this one just trailed off, which is exactly as confusing as it
+ * sounds.
+ *
+ * There is no completion column on `lessons`, and adding one would need a
+ * per-user join table because a lesson is shared content. An activity row is
+ * how the rest of the app records "somebody did a thing today" — it feeds the
+ * streak, the daily goal and the family feed — so that is what this writes.
+ * A lesson opened FROM a course step ticks that step instead, through
+ * UnitContinue, which is the stronger record.
+ */
+export async function finishLesson(title: string): Promise<void> {
+  const session = await requireSession();
+  await logActivity(
+    session.username,
+    "lesson",
+    `Leu a lição “${String(title).slice(0, 80)}”`,
+    5
+  ).catch(() => {});
+  revalidatePath("/workbook");
+  revalidatePath("/");
+}

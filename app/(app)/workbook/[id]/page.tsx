@@ -1,9 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HomeworkFromTopic } from "@/components/homework-from-topic";
+import { LessonFinish } from "@/components/lesson-finish";
 import { Markdown } from "@/components/markdown";
+import { UnitReturn } from "@/components/unit-return";
 import { requireSession } from "@/lib/auth";
 import { getLesson } from "@/lib/data";
+import { unitContextFrom } from "@/lib/unit-context";
 
 type Item = { user?: string; pt: string; en?: string };
 type Block = {
@@ -25,15 +28,24 @@ export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
   if (!Number.isInteger(lessonId)) notFound();
   const lesson = await getLesson(lessonId);
   if (!lesson) notFound();
+  // "lesson" is not one of ITEM_KINDS today, so in practice this is null and
+  // the standalone ending below is what runs. It is read anyway because every
+  // other activity honours ?unidade= — and the day a lesson becomes a course
+  // step, it will tick that step off instead of silently completing nothing.
+  const unit = await unitContextFrom(await props.searchParams);
 
   const blocks = lesson.blocks as Block[];
 
   return (
     <article className="space-y-5">
       <header>
-        <Link href="/workbook" className="text-xs text-ink-faint hover:text-olive">
-          ← Lições
-        </Link>
+        {unit ? (
+          <UnitReturn unit={unit} />
+        ) : (
+          <Link href="/workbook" className="text-xs text-ink-faint hover:text-olive">
+            ← Lições
+          </Link>
+        )}
         <div className="mt-1 flex flex-wrap items-center gap-2">
           <h1 className="font-display text-3xl font-semibold tracking-tight">
             {lesson.title}
@@ -48,6 +60,10 @@ export default async function LessonPage(props: PageProps<"/workbook/[id]">) {
       {blocks.map((b, i) => (
         <LessonBlock key={i} block={b} displayName={session.displayName} />
       ))}
+
+      {/* The ending the page never had. Above the "keep studying" options,
+          because finishing is the primary action and those are the extras. */}
+      <LessonFinish unit={unit} title={lesson.title} topic={lesson.title} />
 
       <footer className="card flex flex-wrap items-center gap-3 p-4">
         <span className="text-sm font-medium">Continuar a estudar isto:</span>
